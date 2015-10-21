@@ -36,14 +36,14 @@ public class ChallengeRegistrantDto {
 
   private ChallengePhaseEnum activePhase;
 
-  private Set<ChallengeRegistrantCriteria> challengeCriterias;
+  private Set<ChallengeRegistrantCriteria> criteria;
 
-  public Set<ChallengeRegistrantCriteria> getChallengeCriterias() {
-    return challengeCriterias;
+  public Set<ChallengeRegistrantCriteria> getCriteria() {
+    return criteria;
   }
 
-  public void setChallengeCriterias(Set<ChallengeRegistrantCriteria> challengeCriterias) {
-    this.challengeCriterias = challengeCriterias;
+  public void setCriteria(Set<ChallengeRegistrantCriteria> criteria) {
+    this.criteria = criteria;
   }
 
   public ChallengePhaseEnum getActivePhase() {

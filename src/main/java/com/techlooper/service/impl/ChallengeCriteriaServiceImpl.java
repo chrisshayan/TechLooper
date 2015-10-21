@@ -6,6 +6,7 @@ import com.techlooper.entity.ChallengeRegistrantCriteria;
 import com.techlooper.entity.ChallengeRegistrantEntity;
 import com.techlooper.model.ChallengeCriteriaDto;
 import com.techlooper.model.ChallengeRegistrantCriteriaDto;
+import com.techlooper.model.ChallengeRegistrantCriteriaDto.ChallengeRegistrantCriteriaDtoBuilder;
 import com.techlooper.repository.elasticsearch.ChallengeRegistrantRepository;
 import com.techlooper.repository.elasticsearch.ChallengeRepository;
 import com.techlooper.service.ChallengeCriteriaService;
@@ -41,7 +42,7 @@ public class ChallengeCriteriaServiceImpl implements ChallengeCriteriaService {
   public ChallengeCriteriaDto saveChallengeCriteria(ChallengeCriteriaDto challengeCriteriaDto, String ownerEmail) {
     ChallengeEntity challenge = challengeService.findChallengeIdAndOwnerEmail(challengeCriteriaDto.getChallengeId(), ownerEmail);
     if (challenge == null) {
-      return challengeCriteriaDto;
+      return null;
     }
 
     Set<ChallengeCriteria> criteria = new HashSet<>();
@@ -58,9 +59,6 @@ public class ChallengeCriteriaServiceImpl implements ChallengeCriteriaService {
       final ChallengeRegistrantEntity registrantEntity = challengeIterator.next();
       final Set<ChallengeRegistrantCriteria> registrantCriteria = new HashSet<>();
 
-      if (registrantEntity.getRegistrantId() == 27L) {
-        System.out.println(27);
-      }
       criteria.forEach(challengeCri -> {
         ChallengeRegistrantCriteria registrantCri = registrantEntity.getCriteria().stream()
           .filter(cri -> challengeCri.getCriteriaId().equals(cri.getCriteriaId()))
@@ -71,12 +69,42 @@ public class ChallengeCriteriaServiceImpl implements ChallengeCriteriaService {
       });
       registrantEntity.setCriteria(registrantCriteria);
       challengeRegistrantEntities.add(registrantEntity);
-      challengeCriteriaDto.getRegistrantCriteria().add(dozerMapper.map(registrantEntity, ChallengeRegistrantCriteriaDto.class));
     }
 
     challenge.setCriteria(criteria);
-    challengeRegistrantRepository.save(challengeRegistrantEntities);
-    challengeRepository.save(challenge);
+    if (challengeRegistrantEntities.size() > 0) {
+      Set<ChallengeRegistrantCriteriaDto> registrantCriteria = new HashSet<>();
+      challengeRegistrantRepository.save(challengeRegistrantEntities)
+        .forEach(registrant -> registrantCriteria.add(toChallengeRegistrantCriteriaDto(registrant)));
+    }
+
+    challenge = challengeRepository.save(challenge);
+    challengeCriteriaDto.setChallengeId(challenge.getChallengeId());
+    challengeCriteriaDto.setChallengeCriteria(challenge.getCriteria());
     return challengeCriteriaDto;
+  }
+
+  public ChallengeRegistrantCriteriaDto saveScoreChallengeRegistrantCriteria(ChallengeRegistrantCriteriaDto registrantCriteriaDto, String ownerEmail) {
+    ChallengeRegistrantEntity registrant = challengeRegistrantRepository.findOne(registrantCriteriaDto.getRegistrantId());
+    ChallengeEntity challenge = challengeService.findChallengeIdAndOwnerEmail(registrant.getChallengeId(), ownerEmail);
+    if (challenge == null) {
+      return null;
+    }
+
+    registrant.getCriteria().forEach(cri -> {
+      ChallengeRegistrantCriteria criteriaDto = registrantCriteriaDto.getCriteria().stream()
+        .filter(criDto -> criDto.getCriteriaId().equals(cri.getCriteriaId())).findFirst().get();
+      cri.setScore(criteriaDto.getScore());
+      registrantCriteriaDto.getCriteria().remove(criteriaDto);
+    });
+
+    registrant = challengeRegistrantRepository.save(registrant);
+    return toChallengeRegistrantCriteriaDto(registrant);
+  }
+
+  private ChallengeRegistrantCriteriaDto toChallengeRegistrantCriteriaDto(ChallengeRegistrantEntity registrantEntity) {
+    return ChallengeRegistrantCriteriaDtoBuilder.challengeRegistrantCriteriaDto()
+      .withRegistrantId(registrantEntity.getRegistrantId())
+      .withCriteria(registrantEntity.getCriteria()).build();
   }
 }

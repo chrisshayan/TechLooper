@@ -12,7 +12,7 @@
         <li class="active"><a data-toggle="tab" href=".detail" translate="detail"></a></li>
         <li ng-show="contestDetail.isAuthor"><a data-toggle="tab" href=".registrants">{{'registrants' | translate}}
           ({{contestDetail.numberOfRegistrants}})</a></li>
-        <li>
+        <li ng-show="contestDetail.isAuthor">
           <a  data-toggle="tab" href=".evaluation-criteria" translate="evaluationCriteria"></a>
         </li>
       </ul>
@@ -384,7 +384,7 @@
             </dir-pagination-controls>
           </div>
         </div>
-        <div class="evaluation-criteria tab-pane fade">
+        <div class="evaluation-criteria tab-pane fade" ng-show="contestDetail.isAuthor">
           <evaluation-criteria></evaluation-criteria>
         </div>
       </div>
