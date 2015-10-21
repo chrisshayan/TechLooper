@@ -11,13 +11,14 @@
   <div class="evaluation-criteria-body">
 
     <div ng-repeat="cri in contestDetail.criteria" class="evaluation-criteria-item">
-      <div class="evaluation-criteria-name">
-        <input type="text" class="input-style" ng-model="cri.name"/>
-      </div>
-      <div class="evaluation-criteria-weight">
-        <input type="text" class="input-style" ng-model="cri.weight" input-number=""/>
-        <button class="btn btn-primary btn-flat gray" ng-click="contestDetail.removeCriteria(cri)"><i class="fa fa-minus"></i></button>
-      </div>
+      <!--<div class="evaluation-criteria-name">-->
+        <!--<input type="text" class="input-style" ng-model="cri.name"/>-->
+      <!--</div>-->
+      <!--<div class="evaluation-criteria-weight">-->
+        <!--<input type="text" class="input-style" ng-model="cri.weight" input-number=""/>-->
+        <!--<button class="btn btn-primary btn-flat gray" ng-click="contestDetail.removeCriteria(cri)"><i class="fa fa-minus"></i></button>-->
+      <!--</div>-->
+      <challenge-criteria-input cri="cri"></challenge-criteria-input>
     </div>
 
     <div class="add-criteria-and-save">
@@ -29,9 +30,10 @@
           <span class="successful"><i class="fa fa-check"></i></span>
           <span>{{contestDetail.totalWeight()}}</span>
           <p class="note" translate="makeSure100Percent"></p>
+          <span ng-show="!contestDetail.$validTotalWeight">invalid</span>
         </div>
         <div class="save-evaluation">
-          <a class="btn btn-primary btn-flat" translate="save" ng-click="contestDetail.saveCriteria()"></a><a class="btn btn-primary btn-flat gray" translate="cancel"></a>
+          <a class="btn btn-primary btn-flat" translate="save" ng-click="saveChallengeCriteria()"></a><a class="btn btn-primary btn-flat gray" translate="cancel"></a>
         </div>
       </div>
     </div>

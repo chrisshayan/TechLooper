@@ -232,5 +232,13 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
     autoclose:  true,
     format: 'dd/mm/yyyy'
   });
+
+  //TODO check valid before save
+  $scope.saveChallengeCriteria = function() {
+    console.log(123);
+
+    //$scope.contestDetail.totalWeight();
+    //$scope.contestDetail.saveCriteria();
+  }
 });
 

@@ -5,6 +5,7 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, utils) {
     var challengeDetail = input;
 
     challengeDetail.saveCriteria = function () {
+      //if (challengeDetail.$invalidCriteria) return;
       var criteria = {
         challengeId: challengeDetail.challengeId,
         challengeCriteria: challengeDetail.criteria
@@ -32,8 +33,10 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, utils) {
 
     //TODO this function invoked 15 times in first load, then many times when change criteria
     challengeDetail.totalWeight = function() {
+      //console.log(arguments);
       var total = _.reduceRight(challengeDetail.criteria, function(sum, cri) { return sum + cri.weight; }, 0);
-      console.log(total);
+      //console.log(total);
+      //challengeDetail.$invalid = (total == 100);
       return total;
     }
 
