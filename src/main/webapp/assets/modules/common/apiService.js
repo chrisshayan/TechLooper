@@ -270,6 +270,10 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
 
     getAvailableEmailTemplates : function () {
       return $http.get("emailTemplates");
+    },
+
+    getTemplateById : function (templateId) {
+      return $http.get("emailTemplates/" + templateId);
     }
 
   };

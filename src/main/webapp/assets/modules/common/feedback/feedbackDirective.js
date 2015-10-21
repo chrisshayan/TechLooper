@@ -13,6 +13,7 @@ techlooper.directive("feedbackForm", function (apiService, $timeout) {
       else {
         scope.composeEmail.names = scope.composeEmail.registrantFirstName;
       }
+
       scope.send = function () {
         if (scope.feedbackContent == undefined || scope.feedbackContent == '') {
           return;
@@ -32,6 +33,7 @@ techlooper.directive("feedbackForm", function (apiService, $timeout) {
             scope.composeEmail.error = false;
           });
       }
+
       scope.cancel = function () {
         if (!scope.composeEmail.visible) return;
         scope.composeEmail.subject = '';
@@ -39,6 +41,14 @@ techlooper.directive("feedbackForm", function (apiService, $timeout) {
         scope.composeEmail.error = true;
         delete scope.composeEmail.visible;
         $('.feedback-loading').css('visibility', 'hidden');
+      }
+
+      scope.loadEmailTemplate = function (templateId) {
+        apiService.getTemplateById(templateId)
+          .success(function (template) {
+            scope.composeEmail.subject = template.subject;
+            scope.feedbackContent = template.body;
+          })
       }
     }
   }

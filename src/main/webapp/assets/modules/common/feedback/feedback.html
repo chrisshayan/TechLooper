@@ -12,7 +12,7 @@
           <label class="col-sm-2 control-label" translate="template"></label>
           <div class="col-sm-10">
             <selectize name="emailTemplate" ng-model="composeEmail.emailTemplate"
-                       config="$root.resourcesService.emailTemplateConfig"
+                       config="$root.resourcesService.emailTemplateConfig" ng-change="loadEmailTemplate(composeEmail.emailTemplate)"
                        options="$root.resourcesService.emailTemplateConfig.options"></selectize>
           </div>
         </div>

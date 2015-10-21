@@ -13,4 +13,6 @@ public interface EmailService {
     boolean sendEmail(EmailContent emailContent);
 
     List<EmailTemplateDto> getAvailableEmailTemplates();
+
+    EmailTemplateDto getTemplateById(Long templateId);
 }

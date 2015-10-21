@@ -419,4 +419,9 @@ public class UserController {
     public List<EmailTemplateDto> getAvailableEmailTemplates() {
         return emailService.getAvailableEmailTemplates();
     }
+
+    @RequestMapping(value = "/emailTemplates/{templateId}", method = RequestMethod.GET)
+    public EmailTemplateDto getTemplateById(@PathVariable Long templateId) {
+        return emailService.getTemplateById(templateId);
+    }
 }

@@ -6,6 +6,10 @@ public class EmailTemplateDto {
 
     private String templateName;
 
+    private String subject;
+
+    private String body;
+
     public Long getTemplateId() {
         return templateId;
     }
@@ -20,5 +24,21 @@ public class EmailTemplateDto {
 
     public void setTemplateName(String templateName) {
         this.templateName = templateName;
+    }
+
+    public String getSubject() {
+        return subject;
+    }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
+
+    public String getBody() {
+        return body;
+    }
+
+    public void setBody(String body) {
+        this.body = body;
     }
 }

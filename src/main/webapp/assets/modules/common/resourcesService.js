@@ -24,20 +24,22 @@ techlooper.factory("resourcesService", function ($translate, $q, apiService) {
     {translate: "theSolutionIsInnovative", id: "theSolutionIsInnovative"}
   ];
 
-  var emailTemplateOptions = [];
+  var emailTemplateOptions = [
+    {translate: "welcomeContestant", id: 1}
+  ];
 
-  apiService.getAvailableEmailTemplates()
-    .success(function (data) {
-      $.each(data, function (i, template) {
-        var templateOption = {
-          translate: template.templateId,
-          id: template.templateName
-        };
-        emailTemplateOptions.push(templateOption);
-      });
-    })
-
-  console.log(emailTemplateOptions);
+  //apiService.getAvailableEmailTemplates()
+  //  .success(function (data) {
+  //    $.each(data, function (i, template) {
+  //      var templateOption = {
+  //        translate: template.templateId,
+  //        id: template.templateName
+  //      };
+  //      emailTemplateOptions.push(templateOption);
+  //    });
+  //  })
+  //
+  //console.log(emailTemplateOptions);
 
   var paymentOptions = [
     {translate: "hourlyByByHour", reviewTranslate: "hourlyJob", id: "hourly"},

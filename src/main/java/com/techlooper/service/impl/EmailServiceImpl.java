@@ -94,4 +94,13 @@ public class EmailServiceImpl implements EmailService {
         }
         return emailTemplateDtoList;
     }
+
+    @Override
+    public EmailTemplateDto getTemplateById(Long templateId) {
+        EmailTemplateEntity emailTemplateEntity = emailTemplateRepository.findOne(templateId);
+        if (emailTemplateEntity != null && emailTemplateEntity.getIsEnable()) {
+            return dozerMapper.map(emailTemplateEntity, EmailTemplateDto.class);
+        }
+        return null;
+    }
 }
