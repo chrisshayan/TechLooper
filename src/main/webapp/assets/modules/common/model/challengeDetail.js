@@ -40,6 +40,16 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, utils) {
       return total;
     }
 
+    challengeDetail.criteriaLoop = function () {
+      var criteria = challengeDetail.criteria;
+      if (!criteria) return [];
+      challengeDetail.totalWeight = 0;
+      return criteria.map(function (cri) {
+        challengeDetail.totalWeight += parseInt(cri.weight);
+        return cri;
+      });
+    };
+
     challengeDetail.$isRich = true;
     return challengeDetail;
   }

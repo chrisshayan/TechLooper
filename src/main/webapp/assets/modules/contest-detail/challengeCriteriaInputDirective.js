@@ -4,7 +4,8 @@ techlooper.directive('challengeCriteriaInput', function () {
     replace: true,
     templateUrl: "modules/contest-detail/challengeCriteriaInput.html",
     scope: {
-      cri: "="
+      cri: "=",
+      contestDetail: "="
     },
     link: function (scope, element, attr, ctrl) {
 
