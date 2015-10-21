@@ -1016,7 +1016,45 @@ techlooper.factory("jsonValue", function () {
       {id: "careerbuilder-jobs-api", name: "CAREERBUILDER"},
       {id: "itviec-jobs-api", name: "ITVIEC"},
       {id: "itviec-jobs-api-v2", name: "ITVIEC"}
-    ]
+    ],
+
+    //@see com.techlooper.model.ChallengePhaseEnum
+    challengePhase: {
+      values: [
+        {enum: "REGISTRATION", title: "Registration"},
+        {enum: "IDEA", title: "Idea"},
+        {enum: "UIUX", title: "UI/UX"},
+        {enum: "PROTOTYPE", title: "Prototype"},
+        {enum: "FINAL", title: "Final App"}
+      ],
+
+      getRegistration: function () {return instance.challengePhase.values[0]},
+
+      getEnum: function (name) {
+        var found = undefined;
+        $.each(instance.challengePhase.values, function (i, value) {
+          found = (value.enum == name) ? value : undefined;
+          return !found;
+        });
+        return found;
+      }
+    },
+
+    summerNoteConfig: {
+      height: 150,
+      toolbar: [
+        ['headline', ['style']],
+        ['fontface', ['fontname']],
+        ['textsize', ['fontsize']],
+        ['style', ['bold', 'italic', 'underline', 'superscript', 'subscript', 'strikethrough', 'clear']],
+        ['fontclr', ['color']],
+        ['alignment', ['ul', 'ol', 'paragraph', 'lineheight']],
+        ['height', ['height']],
+        ['table', ['table']],
+        ['insert', ['link', 'hr']],
+        ['view', ['fullscreen', 'codeview']]
+      ]
+    }
   }
 
   instance.companySizesArray = $.map(instance.companySizes, function (value, key) {

@@ -10,6 +10,11 @@
     border-radius: 0
     box-shadow: inherit
     background-color: transparent
+    .note-editable
+      padding: 20px
+      height: 150px !important
+      ul
+        list-style: inherit !important
     .modal-body
       padding: 0
     .mail-box
@@ -19,16 +24,31 @@
       background-color: #f3fafe
       h2
         text-align: left
-    .mail-text .note-toolbar
-      padding: 10px
+    .mail-text
+      a
+        color: #337ab7 !important
+        width: auto !important
+      .modal-dialog
+        top: 20px
+      .form-group
+        margin: 0
+        padding: 0 20px
+      .note-toolbar
+        padding: 10px
     .note-editor
       min-height: inherit
+      margin-bottom: 5px
     .mail-subject
       padding: 10px
     .note-editable
       text-align: left
     .email-footer
       padding: 10px
+      border: 0
+    .mail-body
+      border: 0
+    .mail-text
+      border: 0
     .form-control:focus,
     .single-line:focus
       border-color: #337ab7 !important

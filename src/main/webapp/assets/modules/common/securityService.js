@@ -1,4 +1,4 @@
-techlooper.factory("securityService", function (apiService, $rootScope, $q, utils, jsonValue, $location, localStorageService) {
+techlooper.factory("securityService", function (apiService, $route, $rootScope, $q, utils, jsonValue, $location, localStorageService) {
 
   //localStorage.setItem('CAPTURE-PATHS', '/');
 
@@ -6,16 +6,25 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
     logout: function () {
       apiService.logout()
         .success(function (data, status, headers, config) {
-          $.removeCookie("JSESSIONID");
+          localStorageService.set("logout", true);
           $rootScope.userInfo = undefined;
           var roles = $rootScope.currentUiView.roles || [];
           if (roles.length > 0) {
             $location.url("/");
           }
+          else {
+            $location.search({});
+            //$route.reload();
+          }
         });
     },
 
     getCurrentUser: function (type) {
+      $rootScope.campaign = $location.search().campaign;
+      if ($location.search().campaign == 'vietnamworks') {
+        return;
+      }
+
       if ($rootScope.userInfo) {
         var deferred = $q.defer();
         deferred.resolve($rootScope.userInfo);
@@ -23,24 +32,16 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
       }
 
       $rootScope.userInfo = undefined;
-      //utils.sendNotification(jsonValue.notifications.loading, $(window).height());
       return apiService.getCurrentUser(type)
         .success(function (data) {
-          //utils.sendNotification(jsonValue.notifications.loaded, $(window).height());
-
           $rootScope.userInfo = data;
-
-          //var lastFoot = localStorageService.get("lastFoot");
-          //if (lastFoot && ["/login", "/user-type"].indexOf(lastFoot) == -1) {
-          //  localStorageService.remove("lastFoot");
-          //  return $location.path(lastFoot);
-          //}
-          //localStorageService.remove("lastFoot");
-
-          //instance.routeByRole();
+        })
+        .error(function () {
+          if (localStorageService.get("employerLogin")) {
+            localStorageService.remove("employerLogin");
+            $location.path("/login");
+          }
         });
-      //.error(function () {
-      //  utils.sendNotification(jsonValue.notifications.loaded, $(window).height());});
     },
 
     login: function (username, password, type) {
@@ -48,6 +49,7 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
         us: $.base64.encode(username),
         pwd: $.base64.encode(password)
       };
+      localStorageService.remove("logout");
       return apiService.login(auth)
         .success(function (data, status, headers, config) {
           instance.getCurrentUser().then(function () {
@@ -130,13 +132,21 @@ techlooper.factory("securityService", function (apiService, $rootScope, $q, util
         //$rootScope.currentUiView = utils.getUiView();
         if (roles.length > 0) {//is protected pages
           instance.getCurrentUser().error(function (userInfo) {
-            return $location.path(uiView.loginUrl);
+            $location.path(uiView.loginUrl);
+            utils.sendNotification(jsonValue.notifications.loaded, $(window).height());
           });
         }
 
       });
 
       if (!$rootScope.userInfo) instance.getCurrentUser();
+
+      $rootScope.$watch(function () {return localStorageService.get("logout"); }, function () {
+        if (localStorageService.get("logout")) {
+          $rootScope.userInfo = undefined;
+          instance.getCurrentUser();
+        }
+      });
     }
   };
 

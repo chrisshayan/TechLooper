@@ -2,7 +2,9 @@ package com.techlooper.cron;
 
 import com.techlooper.entity.ChallengeEntity;
 import com.techlooper.model.ChallengePhaseEnum;
+import com.techlooper.model.EmailSentResultEnum;
 import com.techlooper.service.ChallengeService;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -11,7 +13,10 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
+
+import static com.techlooper.util.DateTimeUtils.*;
 
 @Service
 public class DailyChallengeSummaryEmailSender {
@@ -25,7 +30,7 @@ public class DailyChallengeSummaryEmailSender {
     private Boolean enableJobAlert;
 
     @Scheduled(cron = "${scheduled.cron.dailyChallengeSummary}")
-    public void sendDailyEmailAboutChallengeSummary() throws Exception {
+    public synchronized void sendDailyEmailAboutChallengeSummary() throws Exception {
         if (enableJobAlert) {
             List<ChallengePhaseEnum> challengePhases = Arrays.asList(ChallengePhaseEnum.REGISTRATION, ChallengePhaseEnum.IN_PROGRESS);
 
@@ -35,9 +40,19 @@ public class DailyChallengeSummaryEmailSender {
 
                 for (ChallengeEntity challengeEntity : challengeEntities) {
                     try {
-                        challengeService.sendDailySummaryEmailToChallengeOwner(challengeEntity);
-                        count++;
+                        if (StringUtils.isEmpty(challengeEntity.getLastEmailSentDateTime())) {
+                            challengeEntity.setLastEmailSentDateTime(yesterdayDate(BASIC_DATE_TIME_PATTERN));
+                        }
+
+                        Date lastSentDate = string2Date(challengeEntity.getLastEmailSentDateTime(), BASIC_DATE_TIME_PATTERN);
+                        Date currentDate = new Date();
+                        if (daysBetween(lastSentDate, currentDate) > 0) {
+                            challengeService.sendDailySummaryEmailToChallengeOwner(challengeEntity);
+                            challengeService.updateSendEmailToChallengeOwnerResultCode(challengeEntity, EmailSentResultEnum.OK);
+                            count++;
+                        }
                     } catch (Exception ex) {
+                        challengeService.updateSendEmailToChallengeOwnerResultCode(challengeEntity, EmailSentResultEnum.ERROR);
                         LOGGER.error(ex.getMessage(), ex);
                     }
                 }

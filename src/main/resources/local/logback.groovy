@@ -11,29 +11,14 @@ import static ch.qos.logback.classic.Level.OFF
 
 scan()
 
-def LOG_FOLDER = "./log/"
-
-new File(LOG_FOLDER).mkdirs()
-
-appender("ROOT_FILE", RollingFileAppender) {
-  file = "${LOG_FOLDER}techlooper-all.log"
-  rollingPolicy(TimeBasedRollingPolicy) {
-    fileNamePattern = "${LOG_FOLDER}%d{yyyyMMdd}-techlooper.log"
-    maxHistory = 30
-  }
-  encoder(PatternLayoutEncoder) {
-    pattern = "%d{HH:mm:ss.SSS} %p [%t] %c{1}: %m%n"
-  }
-}
-
 appender("CONSOLE", ConsoleAppender) {
   encoder(PatternLayoutEncoder) {
     pattern = "%d{dd-MM-yyyy HH:mm:ss.SSS} %p [%t] %c{1}: %m%n"
   }
 }
 
-logger("org.elasticsearch", ERROR)
-logger("org.hibernate", ERROR)
-logger("org.dozer", ERROR)
+//logger("org.elasticsearch", ERROR)
+//logger("org.hibernate", ERROR)
+//logger("org.dozer", ERROR)
 
 root(DEBUG, ["CONSOLE"])

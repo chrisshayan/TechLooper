@@ -1,4 +1,4 @@
-techlooper.controller("talentProfileController", function ($timeout, jsonValue, talentProfileService, $scope, $routeParams, $http, shortcutFactory) {
+techlooper.controller("talentProfileController", function ($timeout, jsonValue, talentProfileService, $scope, $routeParams, $http) {
   //$timeout(function(){
   //  //talentProfileService.init();
   //  talentProfileService.showRating(parseFloat($scope.userProfile.rate));

@@ -1,6 +1,10 @@
 package com.techlooper.entity;
 
+import com.techlooper.model.ChallengePhaseEnum;
+import com.techlooper.model.ChallengeSubmissionDto;
 import com.techlooper.model.Language;
+
+import java.util.List;
 
 /**
  * Created by NguyenDangKhoa on 7/6/15.
@@ -24,6 +28,20 @@ public class ChallengeRegistrantDto {
   private Boolean disqualified;
 
   private String disqualifiedReason;
+
+  private String lastEmailSentDateTime;
+
+  private List<ChallengeSubmissionDto> submissions;
+
+  private ChallengePhaseEnum activePhase;
+
+  public ChallengePhaseEnum getActivePhase() {
+    return activePhase;
+  }
+
+  public void setActivePhase(ChallengePhaseEnum activePhase) {
+    this.activePhase = activePhase;
+  }
 
   public String getDisqualifiedReason() {
     return disqualifiedReason;
@@ -95,5 +113,21 @@ public class ChallengeRegistrantDto {
 
   public void setLang(Language lang) {
     this.lang = lang;
+  }
+
+  public List<ChallengeSubmissionDto> getSubmissions() {
+    return submissions;
+  }
+
+  public void setSubmissions(List<ChallengeSubmissionDto> submissions) {
+    this.submissions = submissions;
+  }
+
+  public String getLastEmailSentDateTime() {
+    return lastEmailSentDateTime;
+  }
+
+  public void setLastEmailSentDateTime(String lastEmailSentDateTime) {
+    this.lastEmailSentDateTime = lastEmailSentDateTime;
   }
 }

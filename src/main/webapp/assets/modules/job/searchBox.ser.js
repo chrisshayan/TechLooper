@@ -1,4 +1,4 @@
-angular.module("Jobs").factory("searchBoxService", function ($location, jsonValue, utils, $translate, shortcutFactory, navigationService) {
+angular.module("Jobs").factory("searchBoxService", function ($location, jsonValue, utils, $translate) {
   var scope, searchText, textArray;
 
   var $$ = {
@@ -97,9 +97,9 @@ angular.module("Jobs").factory("searchBoxService", function ($location, jsonValu
       }
 
       $('.btn-search').click($$.doSearch);
-      $('.btn-logo').click(function () {
-        shortcutFactory.trigger('esc');
-      });
+      //$('.btn-logo').click(function () {
+      //  shortcutFactory.trigger('esc');
+      //});
 
       $('.btn-search').css({
         'height': $('.selectize-control').height() - 9,

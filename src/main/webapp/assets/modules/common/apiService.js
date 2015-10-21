@@ -1,4 +1,5 @@
-techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $http, localStorageService, utils, $translate) {
+techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $http, localStorageService,
+                                           utils, $translate, $filter) {
   var instance = {
 
     login: function (techlooperKey) {
@@ -50,6 +51,11 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
 
     searchContests: function () {
       return $http.get("challenge/list");
+        //.success(function (contests) {
+        //  $.each(contests, function (i, contest) {
+        //    $filter("progress")(contest, "challenge");
+        //  });
+        //});
     },
 
     getSuggestSkills: function (text) {
@@ -73,6 +79,8 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
       $('body').addClass('noscroll');
       utils.sendNotification(jsonValue.notifications.loading);
       instance.getSocialLoginUrl("FACEBOOK_REGISTER").success(function (url) {
+        localStorageService.set("priorFoot", $location.url());
+        localStorageService.set("lastFoot", $location.url());
         localStorageService.set("joinNow", true);
         window.location = url;
       });
@@ -190,8 +198,8 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
     /**
      * @see com.techlooper.controller.ChallengeController.getRegistrantsById
      * */
-    getChallengeRegistrants: function (challengeId) {
-      return $http.get("challenges/" + challengeId + "/registrants");
+    getChallengeRegistrants: function (registrantFilterCondition) {
+      return $http.post("challenges/" + registrantFilterCondition.challengeId + "/registrants", registrantFilterCondition);
     },
 
     /**
@@ -226,9 +234,30 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
     /**
      * @see com.techlooper.controller.UserController.sendFeedbackToRegistrant
      * */
-    sendFeedbackToRegistrant: function(challengeId, registrantId, emailContent) {
+    sendFeedbackToRegistrant: function (challengeId, registrantId, emailContent) {
       emailContent.language = $translate.use();
       return $http.post("user/challenge/feedback/" + challengeId + "/" + registrantId, emailContent);
+    },
+
+    /**
+     * @see com.techlooper.controller.UserController.acceptChallengeRegistrant
+     * */
+    acceptChallengeRegistrant: function (registrantId) {
+      return $http.get("user/challenge/accept/" + registrantId);
+    },
+
+    /**
+     * @see com.techlooper.controller.ChallengeSubmissionController.submitMyResult
+     * */
+    submitMyResult: function (submission) {
+      return $http.post("user/challengeSubmission", submission);
+    },
+
+    /**
+     * @see com.techlooper.controller.SharingController.getUrlResponseCode
+     * */
+    getUrlResponseCode: function (url) {
+      return $http.post("resource/getUrlResponseCode", {url: url}, {transformResponse: function (d, h) {return d;}});
     }
   };
 

@@ -15,8 +15,6 @@ angular.module("Jobs", ['infinite-scroll']);
 angular.module("Pie", []);
 angular.module("SearchForm", []);
 angular.module("Skill", []);
-angular.module("SignIn", []);
-angular.module("Register", []);
 angular.module("UserProfile", []);
 
 var baseUrl = (function () {
@@ -27,8 +25,8 @@ var baseUrl = (function () {
 
 var techlooper = angular.module("Techlooper", [
   "ngSanitize", "pascalprecht.translate", "ngResource", "ngRoute", "satellizer", 'ngCookies', "LocalStorageModule",
-  "Bubble", "Pie", "Home", "Navigation", "Footer", "Common", "Chart", "Jobs", "Skill", "SignIn", "Register",
-  "UserProfile", "selectize", "autocomplete", "focusOn", "mgcrea.ngStrap", "angularUtils.directives.dirPagination"
+  "Bubble", "Pie", "Home", "Navigation", "Footer", "Common", "Chart", "Jobs", "Skill",
+  "UserProfile", "selectize", "autocomplete", "focusOn", "mgcrea.ngStrap", "angularUtils.directives.dirPagination", "summernote"
 ]);
 
 techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "localStorageServiceProvider", "$httpProvider",
@@ -41,10 +39,12 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
 
         responseError: function (rejection) {
           switch (rejection.status) {
-            //case 403:
+            case 403:
             //  $rootScope.lastPath = $location.path();
             //  $location.path("/login");
-            //  break;
+            //  $rootScope.userInfo = undefined;
+            //  $.removeCookie('JSESSIONID');
+              break;
 
             case 500:
             case 404:
@@ -106,10 +106,6 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
         templateUrl: "modules/it-professional/main.tem.html",
         controller: "chartController"
       })
-      .when("/register", {
-        templateUrl: "modules/it-professional/main.tem.html",
-        controller: "registerController"
-      })
       .when("/user", {
         templateUrl: "modules/it-professional/main.tem.html",
         controller: "userProfileController"
@@ -139,11 +135,11 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
         controller: "loginController"
       })
       .when("/contest-detail/:id", {
-        templateUrl: "modules/contest-detail/contest-detail.tem.html",
+        templateUrl: "modules/contest-detail/contestDetail.html",
         controller: "contestDetailController"
       })
       .when("/challenge-detail/:id", {
-        templateUrl: "modules/contest-detail/contest-detail.tem.html",
+        templateUrl: "modules/contest-detail/contestDetail.html",
         controller: "contestDetailController"
       })
       .when("/challenges", {

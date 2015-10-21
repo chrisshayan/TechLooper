@@ -28,8 +28,8 @@ appender("ROOT_FILE", RollingFileAppender) {
   }
 }
 
-logger("org.elasticsearch", ERROR)
-logger("org.hibernate", ERROR)
-logger("org.dozer", ERROR)
+//logger("org.elasticsearch", ERROR)
+//logger("org.hibernate", ERROR)
+//logger("org.dozer", ERROR)
 
-root(ALL, ["ROOT_FILE"])
+root(ERROR, ["ROOT_FILE"])

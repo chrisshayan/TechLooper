@@ -19,10 +19,13 @@
               </div>
             </form>
           </div>
-          <div class="mail-text h-200">
-            <div class="summernote"></div>
-            <div class="clearfix"></div>
+          <div class="mail-text h-200" ng-controller="feedbackCtrl">
+            <summernote ng-model="feedbackContent" focus config="$root.jsonValue.summerNoteConfig"></summernote>
+            <div class="send-mail-error" ng-show="!composeEmail.error" data-ng-init="composeEmail.error = true">
+              <p translate="cannotSendMail"></p>
+            </div>
           </div>
+
           <div class="mail-body text-right tooltip-demo email-footer">
             <a class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="top" title="{{'mailSend' | translate}}" ng-click="composeEmail.send()" ><i class="fa fa-reply"></i> <span translate="mailSend"></span></a>
             <a class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="{{'cancel' | translate}}"  data-dismiss="modal" ng-click="composeEmail.cancel()"><i class="fa fa-times"></i> <span translate="cancel"></span></a>

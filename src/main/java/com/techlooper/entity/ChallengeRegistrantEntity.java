@@ -1,13 +1,13 @@
 package com.techlooper.entity;
 
+import com.techlooper.model.ChallengePhaseEnum;
 import com.techlooper.model.Language;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.elasticsearch.annotations.Document;
-import org.springframework.data.elasticsearch.annotations.Field;
-import org.springframework.data.elasticsearch.annotations.FieldIndex;
+import org.springframework.data.elasticsearch.annotations.*;
 
 import static org.springframework.data.elasticsearch.annotations.FieldType.Boolean;
 import static org.springframework.data.elasticsearch.annotations.FieldType.Double;
+import static org.springframework.data.elasticsearch.annotations.FieldType.Integer;
 import static org.springframework.data.elasticsearch.annotations.FieldType.Long;
 import static org.springframework.data.elasticsearch.annotations.FieldType.String;
 
@@ -46,6 +46,15 @@ public class ChallengeRegistrantEntity {
 
   @Field(type = String, index = FieldIndex.not_analyzed)
   private String disqualifiedReason;
+
+  @Field(type = FieldType.Date, format = DateFormat.custom, pattern = "dd/MM/yyyy HH:mm")
+  private String lastEmailSentDateTime;
+
+  @Field(type = Integer)
+  private int lastEmailSentResultCode;
+
+  @Field(type = String, index = FieldIndex.not_analyzed)
+  private ChallengePhaseEnum activePhase;
 
   public ChallengeRegistrantEntity() {
   }
@@ -135,5 +144,29 @@ public class ChallengeRegistrantEntity {
 
   public void setLang(Language lang) {
     this.lang = lang;
+  }
+
+  public String getLastEmailSentDateTime() {
+    return lastEmailSentDateTime;
+  }
+
+  public void setLastEmailSentDateTime(String lastEmailSentDateTime) {
+    this.lastEmailSentDateTime = lastEmailSentDateTime;
+  }
+
+  public int getLastEmailSentResultCode() {
+    return lastEmailSentResultCode;
+  }
+
+  public void setLastEmailSentResultCode(int lastEmailSentResultCode) {
+    this.lastEmailSentResultCode = lastEmailSentResultCode;
+  }
+
+  public ChallengePhaseEnum getActivePhase() {
+    return activePhase;
+  }
+
+  public void setActivePhase(ChallengePhaseEnum activePhase) {
+    this.activePhase = activePhase;
   }
 }

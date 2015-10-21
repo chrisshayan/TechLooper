@@ -87,6 +87,15 @@
             });
             window.location.href = "#/freelancer/post-project";
         }
+        gotoEvents  = function(){
+            ga("send", {
+                hitType: "event",
+                eventCategory: "techlooperjobhub",
+                eventAction: "click",
+                eventLabel: "latesttopics"
+            });
+            window.location.href = "#/topics";
+        }
     </script>
 
     <!-- build:css generate-resources/techlooper.min.css -->
@@ -103,8 +112,8 @@
     <link href="bower_components/allmighty-autocomplete/style/autocomplete.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="bower_components/datetimepicker/jquery.datetimepicker.css"/>
 
-    <link rel="stylesheet" href="custom-css/swrap-bootstrap/summernote/summernote.css"/>
-    <link rel="stylesheet" href="custom-css/swrap-bootstrap/summernote/summernote-bs3.css"/>
+    <link rel="stylesheet" href="custom-css/swrap-bootstrap/summernote.css"/>
+    <link rel="stylesheet" href="custom-css/swrap-bootstrap/summernote-bs3.css"/>
     <link rel="stylesheet" href="custom-css/swrap-bootstrap/style.css"/>
 
     <!-- include: "type": "css", "files": "css/**/*.css" -->
@@ -112,7 +121,7 @@
 
 </head>
 
-<body ng-app="Techlooper">
+<body ng-app="Techlooper" ng-class="{vnw: $root.campaign == 'vietnamworks'}">
 
 <!--[if lt IE 8]>
 <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade

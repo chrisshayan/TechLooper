@@ -19,8 +19,11 @@ package com.techlooper.config.web;
 import com.techlooper.config.CoreConfiguration;
 import com.techlooper.config.VnwDbConfiguration;
 import com.techlooper.config.web.sec.SecurityConfiguration;
+import com.techlooper.config.web.sec.SessionListener;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration.Dynamic;
 
 public class DispatcherServletInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
@@ -30,6 +33,12 @@ public class DispatcherServletInitializer extends AbstractAnnotationConfigDispat
 //
 //  @Value("${spring.profiles.active}")
 //  private String profile;
+
+  public void onStartup(ServletContext servletContext) throws ServletException {
+    super.onStartup(servletContext);
+    servletContext.getSessionCookieConfig().setMaxAge(15770000);
+    servletContext.addListener(new SessionListener());
+  }
 
   protected Class<?>[] getRootConfigClasses() {
     return null;

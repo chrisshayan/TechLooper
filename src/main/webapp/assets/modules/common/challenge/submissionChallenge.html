@@ -1,0 +1,43 @@
+<div class="submit-phase-contest show" ng-show="challenge.visibleSubmitForm">
+  <ng-form name="submissionForm" autocomplete="off">
+    <div class="registrant-name">
+      <span translate="fullName"></span>
+      <span>{{submission.name}}</span>
+    </div>
+    <div class="registrant-email">
+      <span translate="emailAddressField"></span>
+      <span>{{submission.registrantEmail}}</span>
+    </div>
+    <div class="phase-description">
+      <label translate="description"></label>
+        <textarea name="submissionDescription" class="textarea-style" placeholder="{{'descriptionSubmissionTips' | translate}}"
+                  ng-model="submission.submissionDescription" maxlength="3000" ng-required="true"></textarea>
+      <div class="error-messages"
+           ng-show="submissionForm.submissionDescription.$error.required &&  (submissionForm.submissionDescription.$dirty || submissionForm.$submitted)"
+           translate="requiredThisField" />
+    </div>
+    <div class="phase-description">
+      <label translate="submissionURL"></label>
+      <input type="text"  class="input-style"
+             name="submissionURL" placeholder="{{'submissionURLTips' | translate}}"
+             ng-pattern="/((http|https)\:\/\/)?[a-zA-Z0-9\.\/\?\:@\-_=#]+\.([a-zA-Z0-9\.\/\?\:@\-_=#])*/"
+             ng-model="submission.submissionURL" ng-required="true" reset-validator-on-blur="invalidUrl"/>
+      <div class="error-messages"
+           ng-show="submissionForm.submissionURL.$error.required && (submissionForm.submissionURL.$dirty || submissionForm.$submitted)"
+           translate="requiredThisField" />
+      <div class="error-messages"
+           ng-show="submissionForm.submissionURL.$error.pattern && (submissionForm.submissionURL.$dirty || submissionForm.$submitted)"
+           translate="requiredURL" />
+      <div class="error-messages"
+           ng-show="submissionForm.submissionURL.$error.invalidUrl && (submissionForm.submissionURL.$dirty || submissionForm.$submitted)">
+          {{'404Error' | translate}}
+      </div>
+
+    </div>
+    <div class="phase-submission">
+      <button translate="submit" class="btn btn-primary btn-flat" ng-click="pushChallengePhase()"></button>
+      <button translate="cancel" class="btn btn-primary btn-flat" ng-click="hideSubmitForm(challenge.challengeId)"></button>
+    </div>
+  </ng-form>
+  <div class="feedback-loading"></div>
+</div>

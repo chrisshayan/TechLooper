@@ -1,24 +1,28 @@
 package com.techlooper.controller;
 
-import com.techlooper.repository.JsonConfigRepository;
+import com.techlooper.dto.ResourceDto;
 import com.techlooper.repository.elasticsearch.ProjectRepository;
 import com.techlooper.repository.elasticsearch.SalaryReviewRepository;
 import com.techlooper.service.ChallengeService;
-import com.techlooper.service.ProjectService;
 import com.techlooper.service.WebinarService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 /**
  * Created by phuonghqh on 5/11/15.
  */
 @Controller
 public class SharingController {
+
+  private final Logger LOGGER = LoggerFactory.getLogger(SharingController.class);
 
   @Resource
   private SalaryReviewRepository salaryReviewRepository;
@@ -43,7 +47,7 @@ public class SharingController {
 
   @RequestMapping(value = "shareChallenge/{language}/{id}")
   public String renderChallenge(@PathVariable String language, @PathVariable Long id, ModelMap model) {
-    model.put("challenge", challengeService.getChallengeDetail(id));
+    model.put("challenge", challengeService.getChallengeDetail(id, ""));
     model.put("lang", language);
     model.put("baseUrl", baseUrl);
     return "/jsp/challenge-sharing.jsp";
@@ -64,4 +68,37 @@ public class SharingController {
     model.put("baseUrl", baseUrl);
     return "/jsp/freelancer-sharing.jsp";
   }
+
+  @ResponseBody
+  @RequestMapping(value = "resource/getUrlResponseCode", method = RequestMethod.POST)
+  public Long getUrlResponseCode(@RequestBody ResourceDto resourceDto) {
+    try {
+      HttpURLConnection.setFollowRedirects(false);
+      String url = resourceDto.getUrl().trim();
+      url = (url.startsWith("https://") || url.startsWith("http://")) ? url : "http://" + url;
+      HttpURLConnection con = (HttpURLConnection) new URL(url).openConnection();
+      con.setRequestMethod("HEAD");
+      int responseCode = con.getResponseCode();
+      return Long.valueOf(responseCode);
+    }
+    catch (Exception e) {
+      LOGGER.debug("Url not exist", e);
+    }
+    return 404L;
+  }
+//
+//  public static void main(String[] args) {
+//    try {
+//      HttpURLConnection.setFollowRedirects(false);
+//      String url = "https://facebook.com";
+//      url = (url.startsWith("https://") || url.startsWith("http://")) ? url : "http://" + url;
+//      HttpURLConnection con = (HttpURLConnection) new URL(url).openConnection();
+//      con.setRequestMethod("HEAD");
+//      int responseCode = con.getResponseCode();
+//      System.out.println(responseCode);
+//    }
+//    catch (Exception e) {
+//      e.printStackTrace();
+//    }
+//  }
 }

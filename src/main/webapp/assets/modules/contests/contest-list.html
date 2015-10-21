@@ -1,0 +1,43 @@
+<div class="contest-item-row" ng-repeat="contest in contestsList" id="id-{{contest.challengeId}}">
+  <div class="contest-item-content">
+    <div class="challenge-name-col">
+      <div translate="challengeName" class="label-col"></div>
+      <a href="#/challenge-detail/{{contest.challengeName | nonAscii}}-{{contest.challengeId}}-id" title="{{'viewDetails' | translate}}" target="_blank">{{contest.challengeName}}</a>
+      <span class="tag" ng-repeat="skill in contest.technologies">{{skill}}</span>
+    </div>
+    <div class="challenge-timeline-col">
+      <div translate="timeline.schedule" class="label-col"></div>
+      <p><span translate="startDate"></span> {{contest.startDateTime}}</p>
+      <p><span translate="registerBy"></span> {{contest.registrationDateTime}}</p>
+      <p><span translate="submitBy"></span> {{contest.submissionDateTime}}</p>
+    </div>
+    <div class="challenge-prize-col">
+      <div translate="prize" class="label-col"></div>
+      <p>${{contest.firstPlaceReward | number:0}}</p>
+      <p ng-show="contest.secondPlaceReward !=null">${{contest.secondPlaceReward | number:0}}</p>
+      <p ng-show="contest.thirdPlaceReward !=null">${{contest.thirdPlaceReward | number:0}}</p>
+    </div>
+    <div class="challenge-current-phase-col">
+      <div translate="currentPhase" class="label-col"></div>
+      <span ng-class="{'not-started': (contest | progress:'challenge') =='notStart', 'registration': (contest | progress:'challenge') == 'registration', 'closed': (contest | progress:'challenge') == 'closed', 'in-progress': (contest | progress:'challenge') == 'inProgress'}" translate="{{contest | progress:'challenge'}}"></span>
+      <span translate="{{contest.progress.timeLeftTranslate}}" translate-value-day-left="{{contestTimeLeft(contest)}}" class="note" />
+    </div>
+    <div class="challenge-registrants-col">
+      <div translate="registrants" class="label-col"></div>
+      {{contest.numberOfRegistrants}}
+    </div>
+    <div class="challenge-actions-col">
+      <div translate="action" class="label-col"></div>
+      <a href="#/challenge-detail/{{contest.challengeName | nonAscii}}-{{contest.challengeId}}-id" title="{{'viewDetails' | translate}}" target="_blank">
+        <i class="fa fa-eye"></i>  |  <span translate="detail"></span>
+      </a>
+      <a title="{{'submitPhase' | translate}}" ng-click="contest.showSubmitForm()" ng-show="contest.currentUserJoined == true">
+        <i class="fa fa-paper-plane-o"></i>  |  <span translate="submitPhase"></span>
+      </a>
+      <a title="{{'join' | translate}}" ng-show="contest.currentUserJoined == false" ng-click="joinNowByFB(contest)">
+        <i class="fa fa-facebook"></i>  |  <span translate="join"></span>
+      </a>
+    </div>
+  </div>
+  <submission-challenge challenge="contest"></submission-challenge>
+</div>

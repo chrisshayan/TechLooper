@@ -1,4 +1,9 @@
 techlooper.factory("resourcesService", function ($translate, $q) {
+  var registrantsFilterOptions = [
+    {translate: "allContestants", id: "registrantId"},
+    {translate: "allSubmission", id: "challengeSubmission"}
+  ];
+
   var reviewStyleOptions = [
     {translate: "contestOwnerSignOff", id: "contestOwnerSignOff"}
   ];
@@ -68,6 +73,7 @@ techlooper.factory("resourcesService", function ($translate, $q) {
   }
 
   var instance = {
+    registrantsFilterConfig: $.extend(true, {}, {options: registrantsFilterOptions}, idSelectize("registrantsFilterConfig")),
     reviewStyleConfig: $.extend(true, {}, {options: reviewStyleOptions}, titleSelectize("reviewStyleConfig")),
     qualityIdeaConfig: $.extend(true, {}, {options: qualityIdeaOptions}, titleSelectize("qualityIdeaConfig")),
     paymentConfig: $.extend(true, {}, {options: paymentOptions}, idSelectize("paymentConfig")),
@@ -98,6 +104,7 @@ techlooper.factory("resourcesService", function ($translate, $q) {
   }
 
   var translations = [
+    {ins: instance.registrantsFilterConfig, placeholder: "exRegistrantsFilterConfig"},
     {ins: instance.reviewStyleConfig, placeholder: "exContestOwnerSignOff"},
     {ins: instance.qualityIdeaConfig, placeholder: "exQualityIdeaConfig"},
     {ins: instance.paymentConfig, placeholder: "exPaymentConfig"},
