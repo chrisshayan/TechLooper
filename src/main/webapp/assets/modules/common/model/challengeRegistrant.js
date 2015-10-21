@@ -16,6 +16,7 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, $filt
     };
 
     registrant.validate = function () {
+      delete registrant.$invalid;
       $.each(registrant.criteria, function(i, cri) {
         if (parseInt(cri.score) > 100) {
           registrant.$invalid = true;
