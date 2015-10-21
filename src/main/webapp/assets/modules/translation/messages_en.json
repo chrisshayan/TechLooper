@@ -778,6 +778,7 @@
   "404Error": "This URL leads to 404 page. Please check again.",
   "cannotSendMail": "You don’t have right to perform this action.",
   "template": "Template:",
+  "chooseATemplate": "Choose a template",
   "welcomeContestant": "Welcome new contestant",
   "askContestantSubmission": "Ask for submission",
   "disqualifyContestant": "Disqualify a contestant",
@@ -793,9 +794,14 @@
   "criteriaTotalWeight": "Total weight %",
   "maximumScore": "Maximum Score",
   "emailSetting": "Email Setting",
-  "replyTo": "Reply-To Email Address:",
+  "replyTo": "Reply-To Email Address: <strong>*</strong>",
   "emailSignature": "Email Signature:",
   "evaluationCriteriaDes": "Input scoring criteria and their weight that will be used for final score calculation",
   "addCriteria": "Add Criteria",
-  "makeSure100Percent": "Make sure total weight is 100%"
+  "makeSure100Percent": "Make sure total weight is 100%",
+  "givenPoints": "Given Points",
+  "totalPoints": "Total Points",
+  "automaticallySumCriteria": "Automatically sum from points above for each criteria",
+  "emailSettingSuccessfully": "Your email settings are updated successfully.",
+  "errorSystem": "Error system. Please try again later."
 }

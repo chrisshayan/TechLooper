@@ -4,10 +4,17 @@
   </div>
   <div class="content-page-detail">
     <div class="email-setting-form">
+      <div class="alert alert-success" ng-show="status('already-save')">
+        <p translate="emailSettingSuccessfully"></p>
+      </div>
+      <div class="alert alert-danger" ng-show="status('already-fail')">
+        <p translate="errorSystem"></p>
+      </div>
       <form name="emailSetting">
       <div class="form-group">
           <label class="col-sm-2 control-label" translate="replyTo"></label>
-          <input ng-model="replyEmail" type="text" class="input-style">
+          <input ng-model="replyEmail" type="email" class="input-style" validate required touchable>
+        <div class="error-messages">{{error.replyEmail}}</div>
         </div>
         <div class="mail-text h-200">
           <label translate="emailSignature"></label>

@@ -1,9 +1,6 @@
 package com.techlooper.controller;
 
-import com.techlooper.dto.DashBoardInfo;
-import com.techlooper.dto.EmailSettingDto;
-import com.techlooper.dto.JoinBySocialDto;
-import com.techlooper.dto.WebinarInfoDto;
+import com.techlooper.dto.*;
 import com.techlooper.entity.*;
 import com.techlooper.entity.userimport.UserImportEntity;
 import com.techlooper.entity.vnw.dto.VnwUserDto;
@@ -95,6 +92,9 @@ public class UserController {
 
     @Resource
     private JobAggregatorService jobAggregatorService;
+
+    @Resource
+    private EmailService emailService;
 
     private final static Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
@@ -413,5 +413,10 @@ public class UserController {
     @RequestMapping(value = "/user/employer/emailSetting", method = RequestMethod.GET)
     public EmailSettingDto findEmployerEmailSetting(HttpServletRequest request) {
         return employerService.findEmployerEmailSetting(request.getRemoteUser());
+    }
+
+    @RequestMapping(value = "/emailTemplates", method = RequestMethod.GET)
+    public List<EmailTemplateDto> getAvailableEmailTemplates() {
+        return emailService.getAvailableEmailTemplates();
     }
 }

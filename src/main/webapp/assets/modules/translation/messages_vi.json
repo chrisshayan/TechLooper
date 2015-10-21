@@ -781,6 +781,7 @@
   "404Error": "URL này dẫn đến trang không tồn tại (lỗi 404). Xin vui lòng kiểm tra lại.",
   "cannotSendMail": "Bạn không có quyền thực hiện hành động này.",
   "template": "Mẫu Email:",
+  "chooseATemplate": "Chọn một mẫu email",
   "welcomeContestant": "Chào mừng thí sinh mới",
   "askContestantSubmission": "Yêu cầu về bài gửi",
   "disqualifyContestant": "Loại bỏ thí sinh",
