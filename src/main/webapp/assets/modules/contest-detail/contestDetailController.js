@@ -234,6 +234,7 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
   });
 
   $scope.saveChallengeCriteria = function() {
+    $scope.contestDetail.validate();
     if($scope.contestDetail.totalWeight > 100 || $scope.contestDetail.$invalid){
       return false;
     }

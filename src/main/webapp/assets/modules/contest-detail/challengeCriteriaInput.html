@@ -2,7 +2,7 @@
   <div class="evaluation-criteria-name">
     <input name="name" type="text" class="input-style" ng-model="cri.name" ng-required="true"/>
     <div class="error-messages"
-         ng-show="criteriaForm.name.$error.required && (criteriaForm.name.$dirty || criteriaForm.$submitted)"
+         ng-show="criteriaForm.name.$error.required && criteriaForm.name.$dirty"
          translate="requiredThisField" />
   </div>
   <div class="evaluation-criteria-weight">
