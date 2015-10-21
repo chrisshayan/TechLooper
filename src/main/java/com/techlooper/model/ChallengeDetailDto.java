@@ -60,14 +60,14 @@ public class ChallengeDetailDto {
 
   private Boolean isAuthor;
 
-  private Set<ChallengeCriteria> challengeCriterias;
+  private Set<ChallengeCriteria> criteria;
 
-  public Set<ChallengeCriteria> getChallengeCriterias() {
-    return challengeCriterias;
+  public Set<ChallengeCriteria> getCriteria() {
+    return criteria;
   }
 
-  public void setChallengeCriterias(Set<ChallengeCriteria> challengeCriterias) {
-    this.challengeCriterias = challengeCriterias;
+  public void setCriteria(Set<ChallengeCriteria> criteria) {
+    this.criteria = criteria;
   }
 
   public Boolean getAuthor() {

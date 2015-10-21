@@ -23,6 +23,16 @@ public class ChallengeRegistrantCriteria implements Serializable {
 
   private Long score;
 
+  private String comment;
+
+  public java.lang.String getComment() {
+    return comment;
+  }
+
+  public void setComment(java.lang.String comment) {
+    this.comment = comment;
+  }
+
   public java.lang.String getCriteriaId() {
     return criteriaId;
   }

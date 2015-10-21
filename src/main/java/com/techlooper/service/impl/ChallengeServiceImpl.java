@@ -781,10 +781,10 @@ public class ChallengeServiceImpl implements ChallengeService {
 
   public ChallengeEntity findChallengeIdAndOwnerEmail(Long challengeId, String ownerEmail) {
     ChallengeEntity challenge = challengeRepository.findOne(challengeId);
-    if (challenge.getAuthorEmail().equalsIgnoreCase(ownerEmail)) {
-      return challenge;
+    if (challenge == null || !challenge.getAuthorEmail().equalsIgnoreCase(ownerEmail)) {
+      return null;
     }
-    return null;
+    return challenge;
   }
 
   public boolean sendEmailToDailyChallengeRegistrants(String challengeOwner, Long challengeId, Long now, EmailContent emailContent) {
@@ -886,7 +886,11 @@ public class ChallengeServiceImpl implements ChallengeService {
 //      challengeDetailDto.setCurrentPhase(getChallengeCurrentPhase(challengeEntity));
 //            challengeDetailDto.setNextPhase(getChallengeNextPhase(challengeEntity));
       calculateChallengePhases(challengeDetailDto);
-      challengeDetailDto.setIsAuthor(challengeEntity.getAuthorEmail().equals(loginEmail));
+      boolean isAuthor = challengeEntity.getAuthorEmail().equals(loginEmail);
+      challengeDetailDto.setIsAuthor(isAuthor);
+      if (!isAuthor) {
+        challengeDetailDto.setCriteria(null);
+      }
       return challengeDetailDto;
     }
     return null;

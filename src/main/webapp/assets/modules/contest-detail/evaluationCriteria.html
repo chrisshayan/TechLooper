@@ -9,51 +9,17 @@
     </div>
   </div>
   <div class="evaluation-criteria-body">
-    <div class="evaluation-criteria-item">
+
+    <div ng-repeat="cri in contestDetail.criteria" class="evaluation-criteria-item">
       <div class="evaluation-criteria-name">
-        <input type="text" class="input-style"/>
+        <input type="text" class="input-style" ng-model="cri.name"/>
       </div>
       <div class="evaluation-criteria-weight">
-        <input type="text" class="input-style"/>
+        <input type="text" class="input-style" ng-model="cri.weight"/>
         <button class="btn btn-primary btn-flat gray"><i class="fa fa-minus"></i></button>
       </div>
     </div>
-    <div class="evaluation-criteria-item">
-      <div class="evaluation-criteria-name">
-        <input type="text" class="input-style"/>
-      </div>
-      <div class="evaluation-criteria-weight">
-        <input type="text" class="input-style"/>
-        <button class="btn btn-primary btn-flat gray"><i class="fa fa-minus"></i></button>
-      </div>
-    </div>
-    <div class="evaluation-criteria-item">
-      <div class="evaluation-criteria-name">
-        <input type="text" class="input-style"/>
-      </div>
-      <div class="evaluation-criteria-weight">
-        <input type="text" class="input-style"/>
-        <button class="btn btn-primary btn-flat gray"><i class="fa fa-minus"></i></button>
-      </div>
-    </div>
-    <div class="evaluation-criteria-item">
-      <div class="evaluation-criteria-name">
-        <input type="text" class="input-style"/>
-      </div>
-      <div class="evaluation-criteria-weight">
-        <input type="text" class="input-style"/>
-        <button class="btn btn-primary btn-flat gray"><i class="fa fa-minus"></i></button>
-      </div>
-    </div>
-    <div class="evaluation-criteria-item">
-      <div class="evaluation-criteria-name">
-        <input type="text" class="input-style"/>
-      </div>
-      <div class="evaluation-criteria-weight">
-        <input type="text" class="input-style"/>
-        <button class="btn btn-primary btn-flat gray"><i class="fa fa-minus"></i></button>
-      </div>
-    </div>
+
     <div class="add-criteria-and-save">
       <div class="add-criteria">
         <a class="" translate="addCriteria"></a>
@@ -65,7 +31,7 @@
           <p class="note" translate="makeSure100Percent"></p>
         </div>
         <div class="save-evaluation">
-          <a class="btn btn-primary btn-flat" translate="save"></a><a class="btn btn-primary btn-flat gray" translate="cancel"></a>
+          <a class="btn btn-primary btn-flat" translate="save" ng-click="contestDetail.saveCriteria()"></a><a class="btn btn-primary btn-flat gray" translate="cancel"></a>
         </div>
       </div>
     </div>

@@ -14,7 +14,7 @@ techlooper.factory("securityService", function (apiService, $route, $rootScope, 
           }
           else {
             $location.search({});
-            //$route.reload();
+            $route.reload();
           }
         });
     },
