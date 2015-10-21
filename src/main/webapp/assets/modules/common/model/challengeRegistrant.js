@@ -11,7 +11,6 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, $filt
       return criteria.map(function (cri) {
         cri.point = $filter('number')((cri.weight / 100) * cri.score, 1);
         registrant.totalPoint += parseFloat(cri.point);
-        registrant.totalPoint = $filter('number')(registrant.totalPoint, 1);
         return cri;
       });
     };
