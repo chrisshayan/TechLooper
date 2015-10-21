@@ -31,8 +31,8 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, utils) {
       challengeDetail.criteria = _.reject(challengeDetail.criteria, function (criteria) {return criteria.criteriaId == cri.criteriaId;})
     }
 
-    challengeDetail.caculateTotalWeight = function() {
-      var total = _.reduceRight(challengeDetail.criteria, function(sum, cri) { return sum + cri.weight; }, 0);
+    challengeDetail.caculateTotalWeight = function () {
+      var total = _.reduceRight(challengeDetail.criteria, function (sum, cri) { return sum + cri.weight; }, 0);
       return total;
     }
 
@@ -47,7 +47,14 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, utils) {
       });
     };
 
-    challengeDetail.totalWeight = _.reduceRight(challengeDetail.criteria, function(sum, cri) { return sum + cri.weight; }, 0);
+    challengeDetail.totalWeight = _.reduceRight(challengeDetail.criteria, function (sum, cri) { return sum + cri.weight; }, 0);
+
+    //challengeDetail.validate = function () {
+    //  $.each(challengeDetail.criteria, function (i, cri) {
+    //    challengeDetail.$invalid = (cri.name == "");
+    //    return !challengeDetail.$invalid;
+    //  });
+    //}
 
     challengeDetail.$isRich = true;
     return challengeDetail;

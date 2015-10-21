@@ -234,13 +234,10 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
   });
 
   $scope.saveChallengeCriteria = function() {
-    if($scope.contestDetail.totalWeight > 100){
+    if($scope.contestDetail.totalWeight > 100 || $scope.contestDetail.$invalid){
       return false;
     }
 
-    //if($scope.criteriaInvalid == false){
-    //  return false;
-    //}
     $scope.contestDetail.saveCriteria();
   }
 });
