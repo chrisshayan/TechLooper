@@ -778,6 +778,7 @@
   "404Error": "This URL leads to 404 page. Please check again.",
   "cannotSendMail": "You don’t have right to perform this action.",
   "template": "Template:",
+  "chooseATemplate": "Choose a template",
   "welcomeContestant": "Welcome new contestant",
   "askContestantSubmission": "Ask for submission",
   "disqualifyContestant": "Disqualify a contestant",

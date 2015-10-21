@@ -266,6 +266,10 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
 
     loadEmailSetting: function () {
       return $http.get("user/employer/emailSetting");
+    },
+
+    getAvailableEmailTemplates : function () {
+      return $http.get("emailTemplates");
     }
 
   };
