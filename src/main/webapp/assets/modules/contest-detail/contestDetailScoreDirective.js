@@ -4,10 +4,10 @@ techlooper.directive('contestDetailScore', function () {
     replace: true,
     templateUrl: "modules/contest-detail/contestDetailScore.html",
     link: function (scope, element, attr, ctrl) {
-      //scope.saveScore = function() {
+      scope.saveScore = function() {
       //
       //  scope.registrant.saveCriteria();
-      //}
+      }
     }
   };
 });
