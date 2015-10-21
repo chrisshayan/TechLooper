@@ -10,6 +10,14 @@ import java.util.List;
  */
 public interface EmailService {
 
+    final String VAR_CONTEST_NAME = "{contest_name}";
+
+    final String VAR_CONTEST_FIRST_PRIZE = "{contest_1st_prize}";
+
+    final String VAR_CONTESTANT_FIRST_NAME = "{contestant_first_name}";
+
+    final String VAR_MAIL_SIGNATURE = "{mail_signature}";
+
     boolean sendEmail(EmailContent emailContent);
 
     List<EmailTemplateDto> getAvailableEmailTemplates();

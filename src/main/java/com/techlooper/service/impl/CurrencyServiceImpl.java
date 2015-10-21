@@ -1,13 +1,13 @@
 package com.techlooper.service.impl;
 
 import com.techlooper.service.CurrencyService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
-import javax.annotation.Resource;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.Currency;
+import java.util.Locale;
 
 /**
  * Created by phuonghqh on 5/28/15.
@@ -15,31 +15,18 @@ import javax.annotation.Resource;
 @Service
 public class CurrencyServiceImpl implements CurrencyService {
 
-  private final static Logger LOGGER = LoggerFactory.getLogger(CurrencyServiceImpl.class);
+    @Value("${usd2vnd}")
+    private Long usd2vnd;
 
-  @Resource
-  private RestTemplate restTemplate;
+    public Long usdToVndRate() {
+        return usd2vnd;
+    }
 
-  @Value("${api.exchangeRateUrl}")
-  private String apiExchangeRateUrl;
-
-  @Value("${usd2vnd}")
-  private Long usd2vnd;
-
-  public Long usdToVndRate() {
-//    String url = String.format(apiExchangeRateUrl, "USD", "VND");
-    Long result = usd2vnd;
-//    try {
-//      String rate = restTemplate.getForEntity(url, String.class).getBody();
-//      Scanner scanner = new Scanner(rate);
-//      while (!scanner.hasNextDouble()) {
-//        scanner.next();
-//      }
-//      result = Double.valueOf(scanner.nextDouble()).longValue();
-//    }
-//    catch (Exception e) {
-//      LOGGER.error("Failed load currency from api {}", url);
-//    }
-    return result;
-  }
+    public String formatCurrency(Double value, Locale currentLocale) {
+        NumberFormat numberFormatter = NumberFormat.getNumberInstance(currentLocale);
+        DecimalFormat decimalFormatter = (DecimalFormat) numberFormatter;
+        String fullPattern = Currency.getInstance(currentLocale).getSymbol() + "###,###";
+        decimalFormatter.applyPattern(fullPattern);
+        return decimalFormatter.format(value);
+    }
 }

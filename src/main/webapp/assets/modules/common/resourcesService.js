@@ -25,7 +25,10 @@ techlooper.factory("resourcesService", function ($translate, $q, apiService) {
   ];
 
   var emailTemplateOptions = [
-    {translate: "welcomeContestant", id: 1}
+    {translate: "chooseATemplate", id: 0},
+    {translate: "welcomeContestant", id: 1},
+    {translate: "askContestantSubmission", id: 2},
+    {translate: "disqualifyContestant", id: 3}
   ];
 
   //apiService.getAvailableEmailTemplates()
