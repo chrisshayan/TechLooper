@@ -21,6 +21,11 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope) {
         });
     }
 
+    challengeDetail.addCriteria = function() {
+      challengeDetail.criteria = challengeDetail.criteria || [];
+      challengeDetail.criteria.push({});
+    }
+
     challengeDetail.$isRich = true;
     return challengeDetail;
   }
