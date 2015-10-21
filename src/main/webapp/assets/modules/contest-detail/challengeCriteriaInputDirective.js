@@ -4,10 +4,14 @@ techlooper.directive('challengeCriteriaInput', function () {
     replace: true,
     templateUrl: "modules/contest-detail/challengeCriteriaInput.html",
     scope: {
-      cri: "="
+      cri: "=",
+      criteriaInvalid: "="
     },
     link: function (scope, element, attr, ctrl) {
-
+      scope.criteriaForm.$setSubmitted();
+      if(scope.criteriaForm.$invalid) {
+        scope.criteriaInvalid = false
+      }
     }
   };
 });

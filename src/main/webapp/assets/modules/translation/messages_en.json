@@ -803,5 +803,6 @@
   "totalPoints": "Total Points",
   "automaticallySumCriteria": "Automatically sum from points above for each criteria",
   "emailSettingSuccessfully": "Your email settings are updated successfully.",
-  "errorSystem": "Error system. Please try again later."
+  "errorSystem": "Error system. Please try again later.",
+  "errorTotalWeight": "Total weight must be 100%."
 }
