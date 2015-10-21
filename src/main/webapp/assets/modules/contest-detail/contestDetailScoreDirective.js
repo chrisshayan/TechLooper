@@ -5,8 +5,12 @@ techlooper.directive('contestDetailScore', function () {
     templateUrl: "modules/contest-detail/contestDetailScore.html",
     link: function (scope, element, attr, ctrl) {
       scope.saveScore = function() {
-      //
-      //  scope.registrant.saveCriteria();
+        scope.registrant.validate();
+        if (scope.registrant.$invalid) {
+          return;
+        }
+
+        scope.registrant.saveCriteria();
       }
     }
   };

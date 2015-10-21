@@ -16,6 +16,15 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, $filt
       });
     };
 
+    registrant.validate = function () {
+      $.each(registrant.criteria, function(i, cri) {
+        if (parseInt(cri.score) > 100) {
+          registrant.$invalid = true;
+        }
+        return !registrant.$invalid;
+      });
+    }
+
     registrant.saveCriteria = function () {
       var criteria = {
         registrantId: registrant.registrantId,
