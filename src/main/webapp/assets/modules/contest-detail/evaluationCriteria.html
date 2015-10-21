@@ -15,8 +15,8 @@
         <input type="text" class="input-style" ng-model="cri.name"/>
       </div>
       <div class="evaluation-criteria-weight">
-        <input type="text" class="input-style" ng-model="cri.weight"/>
-        <button class="btn btn-primary btn-flat gray"><i class="fa fa-minus"></i></button>
+        <input type="text" class="input-style" ng-model="cri.weight" input-number=""/>
+        <button class="btn btn-primary btn-flat gray" ng-click="contestDetail.removeCriteria(cri)"><i class="fa fa-minus"></i></button>
       </div>
     </div>
 
@@ -27,7 +27,7 @@
       <div class="save-evaluation-criteria">
         <div class="total-weight">
           <span class="successful"><i class="fa fa-check"></i></span>
-          <input type="text" class="input-style"/>
+          <span>{{contestDetail.totalWeight()}}</span>
           <p class="note" translate="makeSure100Percent"></p>
         </div>
         <div class="save-evaluation">
