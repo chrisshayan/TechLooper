@@ -35,7 +35,7 @@ techlooper.directive("submissionChallenge", function (localStorageService, apiSe
           //  .success(function() {
           scope.challenge.visibleSubmitForm = true;
           //});
-          scope.challenge.mixed = true;
+          //scope.challenge.mixed = true;
         }
       }
 
