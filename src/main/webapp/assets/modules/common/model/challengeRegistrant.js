@@ -1,4 +1,4 @@
-techlooper.filter("challengeRegistrant", function (apiService) {
+techlooper.filter("challengeRegistrant", function (apiService, $rootScope) {
   return function (input, type) {
     if (!input || input.$isRich) return input;
 
@@ -9,6 +9,7 @@ techlooper.filter("challengeRegistrant", function (apiService) {
         registrantId: registrant.registrantId,
         criteria: registrant.criteria
       }
+      delete registrant.$savedCriteria;
       apiService.saveChallengeRegistrantCriteria(criteria)
         .success(function(data) {
           $.each(data.criteria, function(i, cri) {
@@ -21,8 +22,17 @@ techlooper.filter("challengeRegistrant", function (apiService) {
               registrant.criteria.push(cri);
             }
           });
+          registrant.$savedCriteria = true;
+        })
+        .error(function() {
+          registrant.$savedCriteria = false;
         });
     }
+
+    $rootScope.$on("saveChallengeCriteriaSuccessful", function(scope, challengeCriteriaDto) {
+      var criteriaDto = _.findWhere(challengeCriteriaDto.registrantCriteria, {registrantId: registrant.registrantId});
+      registrant.criteria = criteriaDto.criteria;
+    });
 
     registrant.$isRich = true;
     return registrant;

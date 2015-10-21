@@ -1,4 +1,4 @@
-techlooper.filter("challengeDetail", function (apiService) {
+techlooper.filter("challengeDetail", function (apiService, $rootScope) {
   return function (input, type) {
     if (!input || input.$isRich) return input;
 
@@ -9,10 +9,15 @@ techlooper.filter("challengeDetail", function (apiService) {
         challengeId: challengeDetail.challengeId,
         challengeCriteria: challengeDetail.criteria
       }
+      delete challengeDetail.$savedCriteria;
 
       apiService.saveChallengeCriteria(criteria)
         .success(function(data) {
-          console.log(data);
+          $rootScope.$broadcast("saveChallengeCriteriaSuccessful", data);
+          challengeDetail.$savedCriteria = true;
+        })
+        .error(function() {
+          challengeDetail.$savedCriteria = false;
         });
     }
 
