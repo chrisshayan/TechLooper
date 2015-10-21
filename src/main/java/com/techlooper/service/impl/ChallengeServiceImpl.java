@@ -841,7 +841,9 @@ public class ChallengeServiceImpl implements ChallengeService {
         if (isOwnerOfChallenge(challengeOwner, challengeId)) {
             ChallengeRegistrantEntity registrant = challengeRegistrantRepository.findOne(registrantId);
             String csvEmails = registrant.getRegistrantEmail();
+            ChallengeDto challengeDto = findChallengeById(challengeId);
             try {
+                bindEmailTemplateVariables(emailContent, challengeDto, registrant);
                 emailContent.setRecipients(InternetAddress.parse(csvEmails));
             } catch (AddressException e) {
                 LOGGER.debug("Can not parse email address", e);
