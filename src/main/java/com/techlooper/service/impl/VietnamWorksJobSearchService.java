@@ -28,9 +28,7 @@ import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Function;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static com.techlooper.model.VNWConfigurationResponseData.ConfigurationDegree;
 import static com.techlooper.model.VNWConfigurationResponseData.ConfigurationLocation;
@@ -116,22 +114,6 @@ public class VietnamWorksJobSearchService implements JobSearchService {
             }
         }
         return VNWJobSearchResponse.getDefaultObject();
-    }
-
-    /**
-     * Merge the search result with configuration in order to get its meaningful name
-     *
-     * @param configuration The job configuration
-     * @param itemId        List of item IDs should be merged
-     * @param idType        The kind of id such as location, level or category
-     * @return The item name value after merging, separated by comma
-     */
-    private String mergeConfigurationItem(VNWConfigurationResponse configuration, String itemId, String idType) {
-        final String COMMA = ",";
-        Function<String, String> translateConfigurationFunc = (id) -> translateConfigurationId(id, idType, configuration);
-
-        return Stream.of(itemId.split(COMMA)).distinct()
-                .map(translateConfigurationFunc).collect(Collectors.joining(COMMA));
     }
 
     /**
