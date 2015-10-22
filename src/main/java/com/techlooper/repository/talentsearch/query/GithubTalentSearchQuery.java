@@ -3,7 +3,6 @@ package com.techlooper.repository.talentsearch.query;
 import com.techlooper.model.TalentSearchRequest;
 import org.apache.commons.lang3.StringUtils;
 import org.elasticsearch.index.query.BoolQueryBuilder;
-import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
 import org.elasticsearch.search.sort.SortBuilders;
 import org.elasticsearch.search.sort.SortOrder;
@@ -13,8 +12,6 @@ import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import org.springframework.stereotype.Service;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
-import static org.elasticsearch.index.query.QueryBuilders.matchAllQuery;
-import static org.elasticsearch.index.query.QueryBuilders.nestedQuery;
 
 /**
  * Created by NguyenDangKhoa on 3/16/15.
@@ -33,7 +30,7 @@ public class GithubTalentSearchQuery implements TalentSearchQuery {
         BoolQueryBuilder boolQueryBuilder = boolQuery();
 
         if (searchRequest.getSkills().isEmpty() && searchRequest.getCompanies().isEmpty() &&
-                searchRequest.getLocations().isEmpty()){
+                searchRequest.getLocations().isEmpty()) {
             boolQueryBuilder.should(matchAllQuery());
         }
 
