@@ -9,9 +9,6 @@ public class KimonoJobList {
 
     private List<KimonoJob> jobs;
 
-    public KimonoJobList() {
-    }
-
     public List<KimonoJob> getJobs() {
         return jobs;
     }
