@@ -13,7 +13,10 @@
             <p translate="givenPoints"></p>
           </div>
           <div class="all-points">
-            <p translate="totalPoints"></p>
+            <p translate="weightedScoring"></p>
+          </div>
+          <div class="points-comment">
+            <p translate="comment"></p>
           </div>
         </li>
         <li ng-show="registrant.criteria.length == 0">
@@ -48,9 +51,8 @@
           <div class="points-input"></div>
           <div class="points-comment">
             <div class="score">
-              <span class="points">{{registrant.totalPoint}}</span>
+              {{'totalScoreIs' | translate}} <span class="points">{{registrant.totalPoint}}</span>
             </div>
-            <p translate="automaticallySumCriteria"></p>
             <div class="submission-criteria">
               <a translate="yes" class="btn btn-primary btn-flat" ng-click="saveScore()"></a>
               <a ng-click="registrant.hide()" translate="no" class="btn btn-primary btn-flat gray"></a>
