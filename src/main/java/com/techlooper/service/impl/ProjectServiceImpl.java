@@ -348,7 +348,7 @@ public class ProjectServiceImpl implements ProjectService {
 
     public Collection<ProjectDto> findByOwner(String owner) {
         NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder().withIndices(techlooperIndex).withTypes("project");
-        QueryStringQueryBuilder query = QueryBuilders.queryStringQuery(owner).defaultField("authorEmail");
+        QueryStringQueryBuilder query = queryStringQuery(owner).defaultField("authorEmail");
         queryBuilder.withFilter(FilterBuilders.queryFilter(query));
 
         int pageIndex = 0;
