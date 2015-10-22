@@ -13,4 +13,8 @@ public enum SocialProvider {
     private SocialProvider(String provider) {
         this.provider = provider;
     }
+
+    public String getProvider() {
+        return provider;
+    }
 }
