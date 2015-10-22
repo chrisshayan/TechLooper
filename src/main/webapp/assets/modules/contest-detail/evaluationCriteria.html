@@ -7,9 +7,6 @@
   <!--<div class="alert alert-danger" ng-show="!contestDetail.$savedCriteria">-->
   <!--<p translate="errorSystem"></p>-->
   <!--</div>-->
-  <div ng-show="contestDetail.criteria.length == 0"  class="alert alert-danger">
-    <p translate="noEvaluationCriteria"></p>
-  </div>
   <div class="evaluation-criteria-head">
     <div class="evaluation-criteria-name">
       <p translate="criteriaName"></p>
@@ -22,7 +19,9 @@
     <div ng-repeat="cri in contestDetail.criteriaLoop()" class="evaluation-criteria-item">
       <challenge-criteria-input cri="cri" contest-detail="contestDetail"></challenge-criteria-input>
     </div>
-
+    <div ng-show="contestDetail.criteria.length == 0">
+      <p translate="noData"></p>
+    </div>
     <div class="add-criteria-and-save">
       <div class="add-criteria">
         <a class="" translate="addCriteria" ng-click="contestDetail.addCriteria()"></a>

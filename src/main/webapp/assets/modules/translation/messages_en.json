@@ -808,5 +808,6 @@
   "errorTotalWeight": "Total weight must be 100%.",
   "replyEmailTooltip": "This email address will be displayed as 'Reply-To' of emails which are sent to contestants by Feedback feature of your challenges.",
   "emailSignatureTooltip": "You can define your own signature of emails sent to contestants by Feedback feature of your challenges. The signature is displayed at where variable [[mail_signature]] appears in email body.",
-  "noEvaluationCriteria": "No criteria found. Please go to “Evaluation Criteria” tab to define your scoring criteria. "
+  "noEvaluationCriteria": "No criteria found. Please go to <a data-toggle='tab' href='.evaluation-criteria'>“<strong>Evaluation Criteria</strong>”</a> tab to define your scoring criteria. ",
+  "": ""
 }

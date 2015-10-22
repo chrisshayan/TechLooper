@@ -16,6 +16,9 @@
             <p translate="totalPoints"></p>
           </div>
         </li>
+        <li ng-show="registrant.criteria.length == 0">
+          <p translate="noEvaluationCriteria" class="text-center"></p>
+        </li>
         <li ng-repeat="cri in registrant.criteriaLoop()">
           <div class="points-name">
             <label class="label-col" translate="criteriaName"></label>
