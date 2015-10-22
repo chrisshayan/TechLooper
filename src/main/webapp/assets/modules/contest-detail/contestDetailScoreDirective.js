@@ -11,6 +11,7 @@ techlooper.directive('contestDetailScore', function () {
         }
 
         scope.registrant.saveCriteria();
+        scope.registrant.hide()
       }
     }
   };
