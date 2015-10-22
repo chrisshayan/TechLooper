@@ -109,7 +109,7 @@ public class JobAggregatorServiceImpl implements JobAggregatorService {
         int bucketNumber = getJobAlertBucketNumber(period);
 
         NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withTypes("jobAlertRegistration");
-        searchQueryBuilder.withQuery(QueryBuilders.termQuery("bucket", bucketNumber));
+        searchQueryBuilder.withQuery(termQuery("bucket", bucketNumber));
 
         int totalPages = jobAlertRegistrationRepository.search(searchQueryBuilder.build()).getTotalPages();
         int pageIndex = 0;
@@ -147,7 +147,7 @@ public class JobAggregatorServiceImpl implements JobAggregatorService {
         TopicList latestTopicList = forumService.getLatestTopics();
         List<Topic> topics = null;
         if (latestTopicList.getTopics() != null) {
-            topics = latestTopicList.getTopics().stream().limit(3).collect(Collectors.toList());
+            topics = latestTopicList.getTopics().stream().limit(3).collect(toList());
         }
         templateModel.put("topics", topics);
 
@@ -214,7 +214,7 @@ public class JobAggregatorServiceImpl implements JobAggregatorService {
         NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withTypes("jobAlertRegistration");
 
         if (StringUtils.isNotEmpty(email)) {
-            searchQueryBuilder.withQuery(QueryBuilders.matchPhraseQuery("email", email));
+            searchQueryBuilder.withQuery(matchPhraseQuery("email", email));
         }
 
         long numberOfRegistrations = jobAlertRegistrationRepository.search(searchQueryBuilder.build()).getTotalElements();
@@ -332,7 +332,7 @@ public class JobAggregatorServiceImpl implements JobAggregatorService {
 
     private int getJobAlertBucketNumber(JobAlertPeriodEnum period) throws Exception {
         Date launchDate = string2Date(CONFIGURED_JOB_ALERT_LAUNCH_DATE, BASIC_DATE_PATTERN);
-        int numberOfDays = DateTimeUtils.daysBetween(launchDate, new Date());
+        int numberOfDays = daysBetween(launchDate, new Date());
         return numberOfDays % period.getValue();
     }
 
