@@ -13,8 +13,14 @@
             <p translate="givenPoints"></p>
           </div>
           <div class="all-points">
-            <p translate="totalPoints"></p>
+            <p translate="weightedScoring"></p>
           </div>
+          <div class="points-comment">
+            <p translate="comment"></p>
+          </div>
+        </li>
+        <li ng-show="registrant.criteria.length == 0">
+          <p translate="noEvaluationCriteria" class="text-center"></p>
         </li>
         <li ng-repeat="cri in registrant.criteriaLoop()">
           <div class="points-name">
@@ -45,13 +51,11 @@
           <div class="points-input"></div>
           <div class="points-comment">
             <div class="score">
-              <span class="math">||</span>
-              <span class="points">{{registrant.totalPoint}}</span>
+              <span class="label">{{'totalScoreIs' | translate}}</span> <span class="points">{{registrant.totalPoint}}</span>
             </div>
-            <p translate="automaticallySumCriteria"></p>
             <div class="submission-criteria">
               <a translate="yes" class="btn btn-primary btn-flat" ng-click="saveScore()"></a>
-              <a ng-click="registrant.hide()" translate="no" class="btn btn-primary btn-flat gray"></a>
+              <a ng-click="hideCriteriaForm()" translate="no" class="btn btn-primary btn-flat gray"></a>
             </div>
           </div>
         </li>

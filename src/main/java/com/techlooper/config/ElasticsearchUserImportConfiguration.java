@@ -1,8 +1,6 @@
 package com.techlooper.config;
 
 import org.elasticsearch.client.transport.TransportClient;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,8 +25,6 @@ public class ElasticsearchUserImportConfiguration {
 
     @Resource
     private TransportClient transportClientUserImport;
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(ElasticsearchUserImportConfiguration.class);
 
     @Bean
     public FactoryBean<TransportClient> transportClientUserImport() throws Exception {

@@ -7,7 +7,6 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
 import org.springframework.http.*;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.web.client.RestTemplate;
@@ -25,7 +24,7 @@ public class VietnamWorksJobSearchServiceTest {
     private String apiKeyValue = "apiKeyValue";
 
     private JobSearchService jobSearchService = new VietnamWorksJobSearchService();
-    private RestTemplate restTemplate = Mockito.mock(RestTemplate.class);
+    private RestTemplate restTemplate = mock(RestTemplate.class);
     private JobSearchAPIConfigurationRepository apiConfigurationRepository = mock(JobSearchAPIConfigurationRepository.class);
     private HttpEntity<String> requestEntity;
 

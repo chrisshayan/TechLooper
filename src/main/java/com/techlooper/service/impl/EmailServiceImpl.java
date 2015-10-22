@@ -73,6 +73,7 @@ public class EmailServiceImpl implements EmailService {
 
             fromTechlooperMailMessage.setText(stringWriter.toString(), "UTF-8", "html");
             fromTechlooperMailMessage.setRecipients(Message.RecipientType.TO, emailContent.getRecipients());
+            fromTechlooperMailMessage.setReplyTo(emailContent.getReplyTo());
             fromTechlooperMailMessage.saveChanges();
             mailSender.send(fromTechlooperMailMessage);
         } catch (Exception e) {

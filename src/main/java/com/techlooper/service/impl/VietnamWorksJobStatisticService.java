@@ -25,7 +25,6 @@ import org.elasticsearch.search.aggregations.bucket.terms.LongTerms;
 import org.elasticsearch.search.aggregations.bucket.terms.StringTerms;
 import org.elasticsearch.search.aggregations.bucket.terms.Terms;
 import org.elasticsearch.search.aggregations.metrics.avg.InternalAvg;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.data.elasticsearch.core.query.SearchQuery;
@@ -33,7 +32,6 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.*;
 import static org.elasticsearch.index.query.FilterBuilders.boolFilter;
@@ -79,15 +77,6 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
 
     @Resource
     private CompanyService companyService;
-
-    @Value("${elasticsearch.index.name}")
-    private String elasticSearchIndexName;
-
-    @Value("${vnw.api.key.name}")
-    private String vnwApiKeyName;
-
-    @Value("${vnw.api.key.value}")
-    private String vnwApiKeyValue;
 
     public Long count(final TechnicalTerm term) {
         final SearchQuery searchQuery = jobQueryBuilder.getVietnamworksJobCountQuery()
@@ -465,7 +454,7 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
                 return -1;
             }
             return 0;
-        }).collect(Collectors.toList());
+        }).collect(toList());
         return technicalTerms.isEmpty() ? null : technicalTerms.get(0);
     }
 

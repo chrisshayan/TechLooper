@@ -296,6 +296,13 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
      * */
     saveChallengeRegistrantCriteria: function(criteria) {
       return $http.post("challengeRegistrant/criteria", criteria);
+    },
+
+    /**
+     * @see com.techlooper.controller.ChallengeCriteriaController.findByChallengeRegistrantId
+     * */
+    findRegistrantCriteriaByRegistrantId: function(registrantId) {
+      return $http.get("challengeRegistrant/" + registrantId + "/criteria");
     }
   };
 

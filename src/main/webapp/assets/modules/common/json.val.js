@@ -248,6 +248,12 @@ techlooper.factory("jsonValue", function () {
         ignoreIfLastFoot: true
       },
       {
+        name: "emailSetting",
+        url: "/email-setting",
+        roles: ["EMPLOYER"],
+        loginUrl: "/login"
+      },
+      {
         name: "postEvent",
         url: "/post-event",
         roles: ["EMPLOYER", "JOB_SEEKER"],

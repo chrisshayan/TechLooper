@@ -11,7 +11,6 @@ import com.techlooper.service.CurrencyService;
 import com.techlooper.service.EmailService;
 import com.techlooper.service.EmployerService;
 import com.techlooper.util.DataUtils;
-import com.techlooper.util.DateTimeUtils;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.apache.commons.lang3.StringUtils;
@@ -589,8 +588,12 @@ public class ChallengeServiceImpl implements ChallengeService {
         return false;
     }
 
-    public ChallengeDto findChallengeById(Long id) {
-        return dozerMapper.map(challengeRepository.findOne(id), ChallengeDto.class);
+    public ChallengeDto findChallengeById(Long id, String ownerEmail) {
+        ChallengeEntity challenge = challengeRepository.findOne(id);
+        if (!challenge.getAuthorEmail().equalsIgnoreCase(ownerEmail)) {
+            challenge.setCriteria(null);
+        }
+        return dozerMapper.map(challenge, ChallengeDto.class);
     }
 
     public Set<ChallengeRegistrantDto> findRegistrantsByOwner(RegistrantFilterCondition condition) throws ParseException {
@@ -652,7 +655,8 @@ public class ChallengeServiceImpl implements ChallengeService {
                 }
             }
 
-            if (StringUtils.isNotEmpty(condition.getPhase())) {
+            if (StringUtils.isNotEmpty(condition.getPhase()) &&
+                    !ChallengePhaseEnum.ALL_PHASES.getValue().equals(condition.getPhase())) {
                 result = result.stream().filter(registrantEntity ->
                         condition.getPhase().equals(registrantEntity.getActivePhase().getValue())).collect(toList());
             }
@@ -665,7 +669,9 @@ public class ChallengeServiceImpl implements ChallengeService {
                 boolQueryBuilder.must(termQuery("challengeId", condition.getChallengeId()));
             }
 
-            if (StringUtils.isNotEmpty(condition.getPhase()) && !registrationPhase.equals(condition.getPhase())) {
+            if (StringUtils.isNotEmpty(condition.getPhase())
+                    && !registrationPhase.equals(condition.getPhase())
+                    && !ChallengePhaseEnum.ALL_PHASES.getValue().equals(condition.getPhase())) {
                 boolQueryBuilder.must(matchPhraseQuery("activePhase", condition.getPhase()));
             }
 
@@ -749,7 +755,7 @@ public class ChallengeServiceImpl implements ChallengeService {
         templateModel.put("challengeId", challengeEntity.getChallengeId().toString());
         templateModel.put("challengeNameAlias", challengeEntity.getChallengeName().replaceAll("\\W", "-"));
         templateModel.put("currentDateTime", String.valueOf(new Date().getTime()));
-        templateModel.put("yesterdayDateTime", DateTimeUtils.yesterdayDate());
+        templateModel.put("yesterdayDateTime", yesterdayDate());
 
         Long currentDateTime = new Date().getTime();
         List<ChallengeRegistrantEntity> latestRegistrants = findChallengeRegistrantWithinPeriod(
@@ -789,7 +795,7 @@ public class ChallengeServiceImpl implements ChallengeService {
         if (isOwnerOfChallenge(challengeOwner, challengeId)) {
             List<ChallengeRegistrantEntity> registrants = findChallengeRegistrantWithinPeriod(challengeId, now, TimePeriodEnum.TWENTY_FOUR_HOURS);
             String csvEmails = registrants.stream().map(ChallengeRegistrantEntity::getRegistrantEmail).distinct().collect(joining(","));
-            ChallengeDto challengeDto = findChallengeById(challengeId);
+            ChallengeDto challengeDto = findChallengeById(challengeId, null);
             try {
                 // In case sending email to only one registrant of this challenge (feedback action form)
                 if (registrants.size() == 1) {
@@ -807,16 +813,23 @@ public class ChallengeServiceImpl implements ChallengeService {
     private void bindEmailTemplateVariables(EmailContent emailContent, ChallengeDto challengeDto, ChallengeRegistrantEntity registrant) {
         String subject = emailContent.getSubject();
         String body = emailContent.getContent();
+        EmailSettingDto emailSettingDto = employerService.findEmployerEmailSetting(challengeDto.getAuthorEmail());
         // Process email subject
-        subject = processEmailVariables(challengeDto, registrant, subject);
+        subject = processEmailVariables(challengeDto, registrant, emailSettingDto, subject);
         // Process email body
-        body = processEmailVariables(challengeDto, registrant, body);
+        body = processEmailVariables(challengeDto, registrant, emailSettingDto, body);
 
         emailContent.setSubject(subject);
         emailContent.setContent(body);
+        try {
+            emailContent.setReplyTo(InternetAddress.parse(emailSettingDto.getReplyEmail()));
+        } catch (AddressException ex) {
+            LOGGER.error(ex.getMessage(), ex);
+        }
     }
 
-    private String processEmailVariables(ChallengeDto challengeDto, ChallengeRegistrantEntity registrant, String replacementCandidate) {
+    private String processEmailVariables(ChallengeDto challengeDto, ChallengeRegistrantEntity registrant,
+                                         EmailSettingDto emailSettingDto, String replacementCandidate) {
         String result = replacementCandidate;
         if (StringUtils.isNotEmpty(result)) {
             if (result.contains(EmailService.VAR_CONTEST_NAME)) {
@@ -830,7 +843,6 @@ public class ChallengeServiceImpl implements ChallengeService {
                 result = result.replace(EmailService.VAR_CONTESTANT_FIRST_NAME, registrant.getRegistrantFirstName());
             }
             if (result.contains(EmailService.VAR_MAIL_SIGNATURE)) {
-                EmailSettingDto emailSettingDto = employerService.findEmployerEmailSetting(challengeDto.getAuthorEmail());
                 result = result.replace(EmailService.VAR_MAIL_SIGNATURE, emailSettingDto.getEmailSignature());
             }
         }
@@ -841,7 +853,7 @@ public class ChallengeServiceImpl implements ChallengeService {
         if (isOwnerOfChallenge(challengeOwner, challengeId)) {
             ChallengeRegistrantEntity registrant = challengeRegistrantRepository.findOne(registrantId);
             String csvEmails = registrant.getRegistrantEmail();
-            ChallengeDto challengeDto = findChallengeById(challengeId);
+            ChallengeDto challengeDto = findChallengeById(challengeId, null);
             try {
                 bindEmailTemplateVariables(emailContent, challengeDto, registrant);
                 emailContent.setRecipients(InternetAddress.parse(csvEmails));
@@ -919,8 +931,6 @@ public class ChallengeServiceImpl implements ChallengeService {
             ChallengeDetailDto challengeDetailDto = dozerMapper.map(challengeEntity, ChallengeDetailDto.class);
             challengeDetailDto.setNumberOfRegistrants(getNumberOfRegistrants(challengeId));
             calculateChallengePhases(challengeDetailDto);
-//      challengeDetailDto.setCurrentPhase(getChallengeCurrentPhase(challengeEntity));
-//            challengeDetailDto.setNextPhase(getChallengeNextPhase(challengeEntity));
             calculateChallengePhases(challengeDetailDto);
             boolean isAuthor = challengeEntity.getAuthorEmail().equals(loginEmail);
             challengeDetailDto.setIsAuthor(isAuthor);
@@ -933,7 +943,7 @@ public class ChallengeServiceImpl implements ChallengeService {
     }
 
     public void calculateChallengePhases(ChallengeDetailDto challengeDetailDto) {
-        String now = DateTimeUtils.currentDate();
+        String now = currentDate();
 
         String timeline[] = {
                 challengeDetailDto.getSubmissionDateTime(),
@@ -948,7 +958,7 @@ public class ChallengeServiceImpl implements ChallengeService {
         for (int i = 0; i < timeline.length; ++i) {
             try {
                 String milestone = timeline[i];
-                if (DateTimeUtils.daysBetween(now, milestone) >= 0) {
+                if (daysBetween(now, milestone) >= 0) {
                     nextIndex = currentIndex;
                     currentIndex = i;
                 }
@@ -965,46 +975,6 @@ public class ChallengeServiceImpl implements ChallengeService {
             challengeDetailDto.setNextPhase(CHALLENGE_TIMELINE[nextIndex > -1 ? nextIndex : currentIndex]);
         }
     }
-
-//  public static void main(String[] args) {
-//    ChallengeDetailDto challengeDetailDto = new ChallengeDetailDto();
-//
-////    challengeDetailDto.setStartDateTime("12/10/2015");//final, final
-////    challengeDetailDto.setRegistrationDateTime("14/10/2015");
-////    challengeDetailDto.setSubmissionDateTime("15/10/2015");
-//
-////    calculateChallengePhases(challengeDetailDto);
-////    System.out.println();
-////    System.out.println(challengeDetailDto.getCurrentPhase());
-////    System.out.println(challengeDetailDto.getNextPhase());
-//
-//
-//
-//    challengeDetailDto.setStartDateTime("11/10/2015");//curr: idea, next: uiux
-//    challengeDetailDto.setRegistrationDateTime("14/10/2015");
-////    challengeDetailDto.setIdeaSubmissionDateTime("15/10/2015");
-//    challengeDetailDto.setUxSubmissionDateTime("17/10/2015");
-//    challengeDetailDto.setPrototypeSubmissionDateTime("19/10/2015");
-//    challengeDetailDto.setSubmissionDateTime("20/10/2015");
-//
-//    calculateChallengePhases(challengeDetailDto);
-//    System.out.println();
-//    System.out.println(challengeDetailDto.getCurrentPhase());
-//    System.out.println(challengeDetailDto.getNextPhase());
-//
-//
-//
-////    challengeDetailDto.setStartDateTime("12/10/2015");//current = UIUX, next=final
-////    challengeDetailDto.setRegistrationDateTime("13/10/2015");
-////    challengeDetailDto.setIdeaSubmissionDateTime("14/10/2015");
-////    challengeDetailDto.setUxSubmissionDateTime("18/10/2015");
-////    challengeDetailDto.setSubmissionDateTime("19/10/2015");
-////
-////    calculateChallengePhases(challengeDetailDto);
-////    System.out.println();
-////    System.out.println(challengeDetailDto.getCurrentPhase());
-////    System.out.println(challengeDetailDto.getNextPhase());
-//  }
 
     public ChallengeRegistrantDto acceptRegistrant(String ownerEmail, Long registrantId) {
         ChallengeRegistrantEntity registrant = challengeRegistrantRepository.findOne(registrantId);
@@ -1028,51 +998,4 @@ public class ChallengeServiceImpl implements ChallengeService {
         return dozerMapper.map(registrant, ChallengeRegistrantDto.class);
     }
 
-//  private ChallengePhaseEnum getChallengeNextPhase(ChallengeEntity challengeEntity) {
-//    int nextMilestoneIndex = getChallengeCurrentPhaseIndex(challengeEntity);
-//    if (nextMilestoneIndex == -1) {
-//      return ChallengePhaseEnum.FINAL;
-//    }
-//
-//    return CHALLENGE_TIMELINE[Math.max(0, nextMilestoneIndex - 1)];
-//  }
-
-//  private ChallengePhaseEnum getChallengeCurrentPhase(ChallengeEntity challengeEntity) {
-//    int nextMilestoneIndex = getChallengeCurrentPhaseIndex(challengeEntity);
-//    if (nextMilestoneIndex == -1) {
-//      return ChallengePhaseEnum.FINAL;
-//    }
-//    return CHALLENGE_TIMELINE[nextMilestoneIndex];
-//  }
-//
-//  private int getNextChallengeCurrentPhaseIndex(ChallengeEntity challengeEntity) {
-//
-//  }
-
-//  private int getChallengeCurrentPhaseIndex(ChallengeEntity challengeEntity) {
-//    String now = from == null ? DateTimeUtils.currentDate() : from;
-//
-//    String timeline[] = {
-//      challengeEntity.getSubmissionDateTime(),
-//      challengeEntity.getPrototypeSubmissionDateTime(),
-//      challengeEntity.getUxSubmissionDateTime(),
-//      challengeEntity.getIdeaSubmissionDateTime(),
-//      challengeEntity.getRegistrationDateTime()
-//    };
-//
-//    int currentMilestoneIndex = -1;
-//    for (int i = 0; i < timeline.length; ++i) {
-//      try {
-//        String milestone = timeline[i];
-//        if (DateTimeUtils.daysBetween(now, milestone) < 0) {
-//          break;
-//        }
-//        currentMilestoneIndex = i;
-//      }
-//      catch (ParseException | NullPointerException e) {
-//        continue;
-//      }
-//    }
-//    return currentMilestoneIndex;
-//  }
 }

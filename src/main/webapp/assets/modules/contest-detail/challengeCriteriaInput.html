@@ -2,12 +2,19 @@
   <div class="evaluation-criteria-name">
     <input name="name" type="text" class="input-style" ng-model="cri.name" ng-required="true"/>
     <div class="error-messages"
-         ng-show="criteriaForm.name.$error.required && criteriaForm.name.$dirty"
+         ng-show="criteriaForm.name.$error.required && (criteriaForm.name.$dirty || contestDetail.$invalid)"
          translate="requiredThisField" />
   </div>
   <div class="evaluation-criteria-weight">
     <input name="weight" type="text" class="input-style" ng-model="cri.weight" ng-required="true" input-number=""/>
-    <button class="btn btn-primary btn-flat gray" ng-click="contestDetail.removeCriteria(cri)"><i
-      class="fa fa-minus"></i></button>
+    <button data-auto-close="true" ng-show="cri.weight >= 0"
+            data-placement="top" class="btn btn-primary btn-flat gray"
+            data-template-url="modules/contest-detail/remove-criteria-item.html" bs-popover>
+      <i class="fa fa-minus"></i>
+    </button>
+    <button class="btn btn-primary btn-flat gray" ng-show="cri.weight == undefined"
+            ng-click="contestDetail.removeCriteria(cri)">
+      <i class="fa fa-minus"></i>
+    </button>
   </div>
 </ng-form>

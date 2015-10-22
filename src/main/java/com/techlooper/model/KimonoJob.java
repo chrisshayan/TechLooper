@@ -15,9 +15,6 @@ public class KimonoJob {
 
     private HtmlLink companyLogoUrl;
 
-    public KimonoJob() {
-    }
-
     public HtmlLink getJobTitle() {
         return jobTitle;
     }

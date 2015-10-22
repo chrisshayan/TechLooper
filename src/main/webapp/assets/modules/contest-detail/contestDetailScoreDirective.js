@@ -11,6 +11,12 @@ techlooper.directive('contestDetailScore', function () {
         }
 
         scope.registrant.saveCriteria();
+        scope.registrant.hide()
+      }
+
+      scope.hideCriteriaForm = function() {
+        scope.registrant.hide();
+        scope.registrant.refreshCriteria();
       }
     }
   };

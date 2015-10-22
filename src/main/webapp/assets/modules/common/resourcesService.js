@@ -5,9 +5,8 @@ techlooper.factory("resourcesService", function ($translate, $q, apiService) {
   ];
 
   var registrantsPhaseOptions = [
-    {translate: "allPhase", id: ""},
+    {translate: "allPhase", id: "ALL_PHASE"},
     {translate: "registration", id: "REGISTRATION"},
-    {translate: "inProgress", id: "IN_PROGRESS"},
     {translate: "idea", id: "IDEA"},
     {translate: "uiux", id: "UIUX"},
     {translate: "prototype", id: "PROTOTYPE"},

@@ -25,6 +25,7 @@ public class SuggestionServiceImplTest {
         String query = "Java";
         List<String> skills = suggestionService.suggestSkills(query);
         skills.forEach(skill -> assertTrue(skill.toLowerCase().contains(query.toLowerCase())));
+        assertTrue(skills.size() > 0);
     }
 
     @Test

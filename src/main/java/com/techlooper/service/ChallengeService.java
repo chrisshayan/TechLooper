@@ -69,7 +69,7 @@ public interface ChallengeService {
 
   boolean delete(Long id, String ownerEmail);
 
-  ChallengeDto findChallengeById(Long id);
+  ChallengeDto findChallengeById(Long id, String ownerEmail);
 
   Set<ChallengeRegistrantDto> findRegistrantsByOwner(RegistrantFilterCondition condition) throws ParseException;
 

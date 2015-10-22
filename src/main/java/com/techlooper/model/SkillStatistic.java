@@ -10,19 +10,24 @@ import java.util.List;
 public class SkillStatistic {
 
     private String skillName;
+
     private String logoUrl;
+
     private String webSite;
+
     private List<SkillLink> usefulLinks;
+
     private Long totalJob;
 
-    public SkillStatistic(){}
+    private List<Histogram> histograms = new ArrayList<>();
+
+    public SkillStatistic() {
+    }
 
     public SkillStatistic(String skillName, Long totalJob) {
         this.totalJob = totalJob;
         this.skillName = skillName;
     }
-
-    private List<Histogram> histograms = new ArrayList<>();
 
     public List<Histogram> getHistograms() {
         return histograms;

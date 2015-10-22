@@ -3,10 +3,7 @@ package com.techlooper.service.impl;
 import com.techlooper.entity.userimport.UserImportEntity;
 import com.techlooper.entity.vnw.dto.VnwUserDto;
 import com.techlooper.model.*;
-import com.techlooper.repository.elasticsearch.ChallengeRegistrantRepository;
-import com.techlooper.repository.elasticsearch.ProjectRegistrantRepository;
 import com.techlooper.repository.elasticsearch.SalaryReviewRepository;
-import com.techlooper.repository.elasticsearch.WebinarRepository;
 import com.techlooper.repository.talentsearch.query.TalentSearchQuery;
 import com.techlooper.repository.userimport.UserImportRepository;
 import com.techlooper.repository.vnw.VnwUserRepo;
@@ -52,23 +49,14 @@ public class UserServiceImpl implements UserService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
 
-//  @Resource
-//  private UserRepository userRepository;
-
     @Resource
     private UserImportRepository userImportRepository;
 
     @Resource
     private Mapper dozerMapper;
 
-//  @Resource
-//  private TextEncryptor textEncryptor;
-
     @Resource
     private VietnamWorksUserService vietnamworksUserService;
-
-//  @Resource
-//  private UserEvaluationService userEvaluationService;
 
     @Resource
     private ApplicationContext applicationContext;
@@ -92,15 +80,6 @@ public class UserServiceImpl implements UserService {
     private MimeMessage fromTechlooperMailMessage;
 
     @Resource
-    private ChallengeRegistrantRepository challengeRegistrantRepository;
-
-    @Resource
-    private ProjectRegistrantRepository projectRegistrantRepository;
-
-    @Resource
-    private WebinarRepository webinarRepository;
-
-    @Resource
     private JobAggregatorService jobAggregatorService;
 
     @Value("${mail.onBoarding.subject.vi}")
@@ -111,47 +90,6 @@ public class UserServiceImpl implements UserService {
 
     @Value("${web.baseUrl}")
     private String baseUrl;
-
-
-//  public void save(UserEntity userEntity) {
-//    userRepository.save(userEntity);
-//  }
-//
-//  public void save(UserInfo userInfo) {
-//    UserEntity userEntity = userRepository.findOne(userInfo.getId());
-//    dozerMapper.map(userInfo, userEntity);
-//    userRepository.save(userEntity);
-//  }
-
-//  public UserEntity findById(String id) {
-//    return userRepository.findOne(id);
-//  }
-//
-//  public UserInfo findUserInfoByKey(String key) {
-//    return dozerMapper.map(findUserEntityByKey(key), UserInfo.class);
-//  }
-//
-//  public UserEntity findUserEntityByKey(String key) {
-//    String emailAddress = textEncryptor.decrypt(key);
-//    return userRepository.findOne(emailAddress);
-//  }
-
-//  public boolean verifyVietnamworksAccount(UserEntity userEntity) {
-//    boolean result = vietnamworksUserService.existUser(userEntity.getEmailAddress());
-//    if (result) {
-//      userEntity.getProfiles().put(SocialProvider.VIETNAMWORKS, null);
-//    }
-//    return result;
-//  }
-
-//  public boolean registerVietnamworksAccount(UserInfo userInfo) {
-//    boolean registerSuccess = false;
-//    if (userInfo.acceptRegisterVietnamworksAccount() &&
-//      !(registerSuccess = vietnamworksUserService.register(dozerMapper.map(userInfo, VnwUserProfile.class)))) {
-//      userInfo.removeProfile(SocialProvider.VIETNAMWORKS);
-//    }
-//    return registerSuccess;
-//  }
 
     public boolean addCrawledUser(UserImportEntity userImportData, SocialProvider socialProvider) {
         UserImportEntity userImportEntity = findUserImportByEmail(userImportData.getEmail());
@@ -264,19 +202,6 @@ public class UserServiceImpl implements UserService {
 
         return builder.build();
     }
-
-//  public void registerUser(UserInfo userInfo) {
-//    UserRegistration user = dozerMapper.map(userInfo, UserRegistration.class);
-//    user.setId(userInfo.getEmailAddress());
-//    SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS");
-//    user.setCreatedDateTime(sdf.format(new Date()));
-//    userRegistrationRepository.save(user);
-//  }
-//
-//  public long countRegisteredUser() {
-//    return userRegistrationRepository.count();
-//  }
-
 
     public SalaryReviewDto findSalaryReviewById(String base64Id) {
         Long id = Long.parseLong(new String(Base64.getDecoder().decode(base64Id)));

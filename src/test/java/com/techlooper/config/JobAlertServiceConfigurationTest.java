@@ -1,7 +1,5 @@
 package com.techlooper.config;
 
-import com.techlooper.service.JobAggregatorService;
-import com.techlooper.service.impl.JobAggregatorServiceImpl;
 import freemarker.template.Template;
 import freemarker.template.TemplateExceptionHandler;
 import org.apache.commons.csv.CSVFormat;
@@ -46,7 +44,7 @@ public class JobAlertServiceConfigurationTest {
     private Resource jobAlertEmailTemplate;
 
     @Value("classpath:topPriorityJobId.csv")
-    private org.springframework.core.io.Resource topPriorityJobIdResource;
+    private Resource topPriorityJobIdResource;
 
     @Bean
     public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
