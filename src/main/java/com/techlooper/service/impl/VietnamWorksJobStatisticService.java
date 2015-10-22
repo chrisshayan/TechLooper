@@ -465,7 +465,7 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
                 return -1;
             }
             return 0;
-        }).collect(Collectors.toList());
+        }).collect(toList());
         return technicalTerms.isEmpty() ? null : technicalTerms.get(0);
     }
 
