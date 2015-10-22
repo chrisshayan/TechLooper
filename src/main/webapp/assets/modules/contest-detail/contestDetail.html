@@ -321,7 +321,8 @@
                     </div>
                     <div class="registration-score">
                       <div class="label-col" translate="score"></div>
-                      <a ng-click="user.showScore()">{{user.savedTotalPoint}}</a>
+                      <a ng-click="user.showScore()" ng-show="!user.disqualified">{{user.savedTotalPoint}}</a>
+                      <a ng-show="user.disqualified == true">{{user.savedTotalPoint}}</a>
                     </div>
                     <div class="registration-action">
                       <div class="label-col" translate="action"></div>
@@ -336,7 +337,7 @@
                             <a ng-click="user.showQualification()" ng-class="{active: user.visible.qualification}">
                               {{'qualify' | translate}} <i class="fa fa-check-circle"></i></a>
                           </li>
-                          <li><a ng-click="user.showScore()" ng-class="{active: user.visible.score}">
+                          <li ng-show="!user.disqualified"><a ng-click="user.showScore()" ng-class="{active: user.visible.score}">
                             {{'score' | translate}} <i class="fa fa-star-o"></i></a></li>
                           <li><a ng-click="user.showReviewSubmission()" ng-class="{active: user.visible.reviewSubmission}">
                             {{'review' | translate}} <i class="fa fa-eye"></i></a></li>
@@ -360,7 +361,7 @@
                           <li ng-show="user.disqualified == true">
                             <a ng-click="user.showQualification()">{{'qualify' | translate}} <i class="fa fa-check-circle"></i></a>
                           </li>
-                          <li><a ng-click="user.showScore()" ng-class="{active: user.visible.score}">
+                          <li ng-show="!user.disqualified"><a ng-click="user.showScore()" ng-class="{active: user.visible.score}">
                             {{'score' | translate}} <i class="fa fa-star-o"></i></a></li>
                           <li><a ng-click="user.showReviewSubmission()">{{'review' | translate}} <i class="fa fa-eye"></i></a></li>
                           <li><a ng-click="user.showFeedback()">{{'feedback' | translate}} <i class="fa fa-comments"></i></a></li>
