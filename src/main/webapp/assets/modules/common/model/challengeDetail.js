@@ -50,7 +50,7 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, utils) {
     challengeDetail.totalWeight = _.reduceRight(challengeDetail.criteria, function (sum, cri) { return sum + cri.weight; }, 0);
 
     challengeDetail.validate = function () {
-      delete challengeDetail.$invalid;
+      challengeDetail.$invalid = (challengeDetail.totalWeight != 100);
       $.each(challengeDetail.criteria, function (i, cri) {
         challengeDetail.$invalid = (!cri.name);
         return !challengeDetail.$invalid;
