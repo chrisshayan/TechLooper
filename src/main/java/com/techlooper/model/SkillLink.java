@@ -6,7 +6,7 @@ package com.techlooper.model;
 public class SkillLink {
 
     private String name;
-    
+
     private String url;
 
     public String getName() {
