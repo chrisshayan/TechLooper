@@ -31,6 +31,9 @@ techlooper.directive("feedbackForm", function (apiService, $timeout) {
           })
           .error(function () {
             scope.composeEmail.error = false;
+            $timeout(function () {
+              $('.feedback-loading').css('visibility', 'hidden');
+            }, 1200);
           });
       }
 
