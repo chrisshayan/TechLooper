@@ -1,7 +1,5 @@
 package com.techlooper.config;
 
-import com.techlooper.service.JobAggregatorService;
-import com.techlooper.service.impl.JobAggregatorServiceImpl;
 import freemarker.template.Template;
 import freemarker.template.TemplateExceptionHandler;
 import org.apache.commons.csv.CSVFormat;
