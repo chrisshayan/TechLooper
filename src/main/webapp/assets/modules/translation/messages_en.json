@@ -792,6 +792,7 @@
   "evaluationCriteria": "Evaluation Criteria",
   "criteriaName": "Criteria Name",
   "criteriaWeight": "Weight %",
+  "criteriaWeight1": "Weight <br/>0% - 100%",
   "criteriaTotalWeight": "Total weight %",
   "maximumScore": "Maximum Score",
   "emailSetting": "Email Setting",

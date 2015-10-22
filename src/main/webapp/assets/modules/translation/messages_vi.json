@@ -795,6 +795,7 @@
   "evaluationCriteria": "Tiêu Chí Đánh Giá",
   "criteriaName": "Tiêu Chí",
   "criteriaWeight": "Trọng Số %",
+  "criteriaWeight1": "Trọng Số <br/>0% - 100%",
   "criteriaTotalWeight": "Tổng Trọng Số %",
   "maximumScore": "Điểm Tối Đa",
   "emailSetting": "Cài đặt cho Email",
