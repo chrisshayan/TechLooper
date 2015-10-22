@@ -67,7 +67,7 @@ public class CompanyServiceImpl implements CompanyService {
     public CompanyEntity findByName(String companyName) {
         NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder().withIndices(indexName)
                 .withTypes("company");
-        queryBuilder.withFilter(FilterBuilders.queryFilter(QueryBuilders.matchPhraseQuery("companyName", companyName)));
+        queryBuilder.withFilter(FilterBuilders.queryFilter(matchPhraseQuery("companyName", companyName)));
 
         CompanyEntity company = null;
         List<CompanyEntity> companies = elasticsearchTemplateUserImport.queryForList(queryBuilder.build(), CompanyEntity.class);
