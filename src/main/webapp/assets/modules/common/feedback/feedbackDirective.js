@@ -4,7 +4,7 @@ techlooper.directive("feedbackForm", function (apiService, $timeout) {
     replace: true,
     templateUrl: "modules/common/feedback/feedback.html",
     scope: {
-      composeEmail: "="
+      composeEmail: "=",
     },
     link: function (scope, element, attr, ctrl, composeEmail) {
       if (scope.composeEmail.registrantLastName) {
@@ -39,6 +39,7 @@ techlooper.directive("feedbackForm", function (apiService, $timeout) {
         scope.composeEmail.subject = '';
         scope.feedbackContent = '';
         scope.composeEmail.error = true;
+        scope.composeEmail.emailTemplate = 0;
         delete scope.composeEmail.visible;
         $('.feedback-loading').css('visibility', 'hidden');
       }
