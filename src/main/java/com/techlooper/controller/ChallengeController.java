@@ -87,7 +87,11 @@ public class ChallengeController {
   }
 
   @RequestMapping(value = "/challenge/join", method = RequestMethod.POST)
-  public long joinChallenge(@RequestBody ChallengeRegistrantDto joinChallenge) throws Exception {
+  public long joinChallenge(@RequestBody ChallengeRegistrantDto joinChallenge, HttpServletResponse response) throws Exception {
+    if (joinChallenge.getRegistrantEmail() == null) {
+      response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+      return 0L;
+    }
     return challengeService.joinChallenge(joinChallenge);
   }
 
