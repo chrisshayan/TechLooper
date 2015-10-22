@@ -1,13 +1,11 @@
 package com.techlooper.controller;
 
+import com.techlooper.entity.ChallengeRegistrantCriteria;
 import com.techlooper.model.ChallengeCriteriaDto;
 import com.techlooper.model.ChallengeRegistrantCriteriaDto;
 import com.techlooper.service.ChallengeCriteriaService;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -44,5 +42,14 @@ public class ChallengeCriteriaController {
     return result;
   }
 
-
+  @PreAuthorize("hasAuthority('EMPLOYER')")
+  @RequestMapping(value = "challengeRegistrant/{registrantId}/criteria", method = RequestMethod.GET)
+  public ChallengeRegistrantCriteriaDto findByChallengeRegistrantId(@PathVariable Long registrantId, HttpServletRequest request, HttpServletResponse response) {
+    String ownerEmail = request.getRemoteUser();
+    ChallengeRegistrantCriteriaDto result = challengeCriteriaService.findByChallengeRegistrantId(registrantId, ownerEmail);
+    if (result == null) {
+      response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+    }
+    return result;
+  }
 }
