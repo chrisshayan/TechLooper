@@ -12,6 +12,7 @@ import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilde
 import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import org.springframework.stereotype.Service;
 
+import static org.elasticsearch.index.query.QueryBuilders.*;
 import static org.elasticsearch.index.query.QueryBuilders.matchAllQuery;
 import static org.elasticsearch.index.query.QueryBuilders.nestedQuery;
 
@@ -29,25 +30,25 @@ public class GithubTalentSearchQuery implements TalentSearchQuery {
 
     @Override
     public SearchQuery getSearchQuery(TalentSearchRequest searchRequest) {
-        BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
+        BoolQueryBuilder boolQueryBuilder = boolQuery();
 
         if (searchRequest.getSkills().isEmpty() && searchRequest.getCompanies().isEmpty() &&
                 searchRequest.getLocations().isEmpty()){
-            boolQueryBuilder.should(QueryBuilders.matchAllQuery());
+            boolQueryBuilder.should(matchAllQuery());
         }
 
         if (!searchRequest.getSkills().isEmpty()) {
-            boolQueryBuilder.must(QueryBuilders.matchPhraseQuery(SKILL_SEARCH_FIELDS, searchRequest.getSkills()));
+            boolQueryBuilder.must(matchPhraseQuery(SKILL_SEARCH_FIELDS, searchRequest.getSkills()));
         }
 
         if (!searchRequest.getCompanies().isEmpty()) {
-            boolQueryBuilder.must(QueryBuilders.matchPhraseQuery(COMPANY_SEARCH_FIELDS, searchRequest.getCompanies()));
+            boolQueryBuilder.must(matchPhraseQuery(COMPANY_SEARCH_FIELDS, searchRequest.getCompanies()));
         }
 
         if (!searchRequest.getLocations().isEmpty()) {
-            BoolQueryBuilder locationBoolQueryBuilder = QueryBuilders.boolQuery();
+            BoolQueryBuilder locationBoolQueryBuilder = boolQuery();
             for (String location : searchRequest.getLocations()) {
-                locationBoolQueryBuilder.should(QueryBuilders.matchPhraseQuery(LOCATION_SEARCH_FIELDS, location));
+                locationBoolQueryBuilder.should(matchPhraseQuery(LOCATION_SEARCH_FIELDS, location));
             }
             boolQueryBuilder.must(locationBoolQueryBuilder);
         }
@@ -60,9 +61,9 @@ public class GithubTalentSearchQuery implements TalentSearchQuery {
     }
 
     public SearchQuery getSearchBySkillQuery(String skill, String sortField) {
-        BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
+        BoolQueryBuilder boolQueryBuilder = boolQuery();
         if (StringUtils.isNotEmpty(skill)) {
-            boolQueryBuilder.must(QueryBuilders.matchQuery("profiles.GITHUB.skills", skill));
+            boolQueryBuilder.must(matchQuery("profiles.GITHUB.skills", skill));
         }
 
         return new NativeSearchQueryBuilder()
