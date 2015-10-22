@@ -109,7 +109,7 @@ public class JobAggregatorServiceImpl implements JobAggregatorService {
         int bucketNumber = getJobAlertBucketNumber(period);
 
         NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withTypes("jobAlertRegistration");
-        searchQueryBuilder.withQuery(QueryBuilders.termQuery("bucket", bucketNumber));
+        searchQueryBuilder.withQuery(termQuery("bucket", bucketNumber));
 
         int totalPages = jobAlertRegistrationRepository.search(searchQueryBuilder.build()).getTotalPages();
         int pageIndex = 0;
@@ -214,7 +214,7 @@ public class JobAggregatorServiceImpl implements JobAggregatorService {
         NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withTypes("jobAlertRegistration");
 
         if (StringUtils.isNotEmpty(email)) {
-            searchQueryBuilder.withQuery(QueryBuilders.matchPhraseQuery("email", email));
+            searchQueryBuilder.withQuery(matchPhraseQuery("email", email));
         }
 
         long numberOfRegistrations = jobAlertRegistrationRepository.search(searchQueryBuilder.build()).getTotalElements();

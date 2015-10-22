@@ -589,7 +589,6 @@ public class ChallengeServiceImpl implements ChallengeService {
     return false;
   }
 
-
   public ChallengeDto findChallengeById(Long id, String ownerEmail) {
     ChallengeEntity challenge = challengeRepository.findOne(id);
     if (!challenge.getAuthorEmail().equalsIgnoreCase(ownerEmail)) {
@@ -933,8 +932,6 @@ public class ChallengeServiceImpl implements ChallengeService {
       ChallengeDetailDto challengeDetailDto = dozerMapper.map(challengeEntity, ChallengeDetailDto.class);
       challengeDetailDto.setNumberOfRegistrants(getNumberOfRegistrants(challengeId));
       calculateChallengePhases(challengeDetailDto);
-//      challengeDetailDto.setCurrentPhase(getChallengeCurrentPhase(challengeEntity));
-//            challengeDetailDto.setNextPhase(getChallengeNextPhase(challengeEntity));
       calculateChallengePhases(challengeDetailDto);
       boolean isAuthor = challengeEntity.getAuthorEmail().equals(loginEmail);
       challengeDetailDto.setIsAuthor(isAuthor);
@@ -962,7 +959,7 @@ public class ChallengeServiceImpl implements ChallengeService {
     for (int i = 0; i < timeline.length; ++i) {
       try {
         String milestone = timeline[i];
-        if (DateTimeUtils.daysBetween(now, milestone) >= 0) {
+        if (daysBetween(now, milestone) >= 0) {
           nextIndex = currentIndex;
           currentIndex = i;
         }
@@ -979,46 +976,6 @@ public class ChallengeServiceImpl implements ChallengeService {
       challengeDetailDto.setNextPhase(CHALLENGE_TIMELINE[nextIndex > -1 ? nextIndex : currentIndex]);
     }
   }
-
-//  public static void main(String[] args) {
-//    ChallengeDetailDto challengeDetailDto = new ChallengeDetailDto();
-//
-////    challengeDetailDto.setStartDateTime("12/10/2015");//final, final
-////    challengeDetailDto.setRegistrationDateTime("14/10/2015");
-////    challengeDetailDto.setSubmissionDateTime("15/10/2015");
-//
-////    calculateChallengePhases(challengeDetailDto);
-////    System.out.println();
-////    System.out.println(challengeDetailDto.getCurrentPhase());
-////    System.out.println(challengeDetailDto.getNextPhase());
-//
-//
-//
-//    challengeDetailDto.setStartDateTime("11/10/2015");//curr: idea, next: uiux
-//    challengeDetailDto.setRegistrationDateTime("14/10/2015");
-////    challengeDetailDto.setIdeaSubmissionDateTime("15/10/2015");
-//    challengeDetailDto.setUxSubmissionDateTime("17/10/2015");
-//    challengeDetailDto.setPrototypeSubmissionDateTime("19/10/2015");
-//    challengeDetailDto.setSubmissionDateTime("20/10/2015");
-//
-//    calculateChallengePhases(challengeDetailDto);
-//    System.out.println();
-//    System.out.println(challengeDetailDto.getCurrentPhase());
-//    System.out.println(challengeDetailDto.getNextPhase());
-//
-//
-//
-////    challengeDetailDto.setStartDateTime("12/10/2015");//current = UIUX, next=final
-////    challengeDetailDto.setRegistrationDateTime("13/10/2015");
-////    challengeDetailDto.setIdeaSubmissionDateTime("14/10/2015");
-////    challengeDetailDto.setUxSubmissionDateTime("18/10/2015");
-////    challengeDetailDto.setSubmissionDateTime("19/10/2015");
-////
-////    calculateChallengePhases(challengeDetailDto);
-////    System.out.println();
-////    System.out.println(challengeDetailDto.getCurrentPhase());
-////    System.out.println(challengeDetailDto.getNextPhase());
-//  }
 
   public ChallengeRegistrantDto acceptRegistrant(String ownerEmail, Long registrantId) {
     ChallengeRegistrantEntity registrant = challengeRegistrantRepository.findOne(registrantId);
@@ -1042,51 +999,4 @@ public class ChallengeServiceImpl implements ChallengeService {
     return dozerMapper.map(registrant, ChallengeRegistrantDto.class);
   }
 
-//  private ChallengePhaseEnum getChallengeNextPhase(ChallengeEntity challengeEntity) {
-//    int nextMilestoneIndex = getChallengeCurrentPhaseIndex(challengeEntity);
-//    if (nextMilestoneIndex == -1) {
-//      return ChallengePhaseEnum.FINAL;
-//    }
-//
-//    return CHALLENGE_TIMELINE[Math.max(0, nextMilestoneIndex - 1)];
-//  }
-
-//  private ChallengePhaseEnum getChallengeCurrentPhase(ChallengeEntity challengeEntity) {
-//    int nextMilestoneIndex = getChallengeCurrentPhaseIndex(challengeEntity);
-//    if (nextMilestoneIndex == -1) {
-//      return ChallengePhaseEnum.FINAL;
-//    }
-//    return CHALLENGE_TIMELINE[nextMilestoneIndex];
-//  }
-//
-//  private int getNextChallengeCurrentPhaseIndex(ChallengeEntity challengeEntity) {
-//
-//  }
-
-//  private int getChallengeCurrentPhaseIndex(ChallengeEntity challengeEntity) {
-//    String now = from == null ? DateTimeUtils.currentDate() : from;
-//
-//    String timeline[] = {
-//      challengeEntity.getSubmissionDateTime(),
-//      challengeEntity.getPrototypeSubmissionDateTime(),
-//      challengeEntity.getUxSubmissionDateTime(),
-//      challengeEntity.getIdeaSubmissionDateTime(),
-//      challengeEntity.getRegistrationDateTime()
-//    };
-//
-//    int currentMilestoneIndex = -1;
-//    for (int i = 0; i < timeline.length; ++i) {
-//      try {
-//        String milestone = timeline[i];
-//        if (DateTimeUtils.daysBetween(now, milestone) < 0) {
-//          break;
-//        }
-//        currentMilestoneIndex = i;
-//      }
-//      catch (ParseException | NullPointerException e) {
-//        continue;
-//      }
-//    }
-//    return currentMilestoneIndex;
-//  }
 }
