@@ -812,5 +812,7 @@
   "replyEmailTooltip": "Địa chỉ email này sẽ được hiển thị như địa chỉ email 'Trả lời' của tất cả email gửi đến các thi sinh bằng chức năng Phản Hồi từ các thử thách của bạn.",
   "emailSignatureTooltip": "Bạn có thể định nghĩa chữ ký của riêng mình trong tất cả email gửi đến các thí sinh bằng chức năng Phản Hồi từ các thử thách của bạn. Chữ ký sẽ được hiển thị trong nội dung email tại vị trí được quy định bởi biến [[mail_signature]].",
   "noEvaluationCriteria": "Vui lòng định nghĩa tiêu chí chấm điểm của bạn trong màn hình “<strong>Tiêu Chí Đánh Giá</strong>” trước khi chấm điểm thí sinh. ",
-  "removeConfirmation": "Loại bỏ tiêu chí này sẽ ảnh hưởng đến điểm số bạn đã chấm cho các thí sinh trước đó. <br/><strong>Bạn chắc chắn muốn loại bỏ tiêu chí này?</strong>"
+  "removeConfirmation": "Loại bỏ tiêu chí này sẽ ảnh hưởng đến điểm số bạn đã chấm cho các thí sinh trước đó. <br/><strong>Bạn chắc chắn muốn loại bỏ tiêu chí này?</strong>",
+  "totalScoreIs": "Total score is",
+  "emailSettingDescription": "Thiết lập các thông số để cá nhân hoá email gửi đến các nhân tài công nghệ"
 }
