@@ -28,7 +28,7 @@
     <div class="main-menu-job-seeker-content">
       <ul>
         <li class="first active" ng-class="{ here: isActive('/hiring') }" ng-click="hideMenu()">
-          <a class="no-icon" href="#/hiring" ng-show="$root.userInfo">{{($root.userInfo.name | textTruncate: 'display-text') || ($root.userInfo.username | textTruncate: 'email')}}</a>
+          <a class="no-icon" href="#/hiring" ng-show="$root.userInfo"><i class="fa fa-caret-down"></i> {{($root.userInfo.name | textTruncate: 'display-text') || ($root.userInfo.username | textTruncate: 'email')}}</a>
           <a ng-show="!$root.userInfo" href="#/login" translate="signIn" class="jobSeekerSignIn"></a>
           <div class="sub-menu" ng-show="$root.userInfo">
             <a href="#/email-setting" translate="emailSetting" class="email-setting"></a>
