@@ -7,6 +7,9 @@
   <!--<div class="alert alert-danger" ng-show="!contestDetail.$savedCriteria">-->
   <!--<p translate="errorSystem"></p>-->
   <!--</div>-->
+  <div ng-show="contestDetail.criteria.length == 0"  class="alert alert-danger">
+    <p translate="noEvaluationCriteria"></p>
+  </div>
   <div class="evaluation-criteria-head">
     <div class="evaluation-criteria-name">
       <p translate="criteriaName"></p>
