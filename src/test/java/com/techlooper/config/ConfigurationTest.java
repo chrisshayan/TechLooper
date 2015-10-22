@@ -1,7 +1,6 @@
 package com.techlooper.config;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.techlooper.converter.LocaleConverter;
 import com.techlooper.repository.JobSearchAPIConfigurationRepository;
 import com.techlooper.repository.JsonConfigRepository;
@@ -11,7 +10,6 @@ import com.techlooper.repository.talentsearch.query.VietnamworksTalentSearchQuer
 import com.techlooper.service.*;
 import com.techlooper.service.impl.*;
 import freemarker.template.Template;
-import freemarker.template.TemplateExceptionHandler;
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
 import org.dozer.loader.api.BeanMappingBuilder;
@@ -21,7 +19,10 @@ import org.jasypt.util.text.TextEncryptor;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.context.annotation.*;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.PropertySources;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.env.Environment;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -31,12 +32,9 @@ import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
 import javax.mail.MessagingException;
-import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.nio.file.Paths;
-import java.util.Properties;
 
 
 /**
