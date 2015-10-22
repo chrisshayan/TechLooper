@@ -214,7 +214,7 @@ public class JobAggregatorServiceImpl implements JobAggregatorService {
         NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withTypes("jobAlertRegistration");
 
         if (StringUtils.isNotEmpty(email)) {
-            searchQueryBuilder.withQuery(QueryBuilders.matchPhraseQuery("email", email));
+            searchQueryBuilder.withQuery(matchPhraseQuery("email", email));
         }
 
         long numberOfRegistrations = jobAlertRegistrationRepository.search(searchQueryBuilder.build()).getTotalElements();
