@@ -80,15 +80,6 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
     @Resource
     private CompanyService companyService;
 
-    @Value("${elasticsearch.index.name}")
-    private String elasticSearchIndexName;
-
-    @Value("${vnw.api.key.name}")
-    private String vnwApiKeyName;
-
-    @Value("${vnw.api.key.value}")
-    private String vnwApiKeyValue;
-
     public Long count(final TechnicalTerm term) {
         final SearchQuery searchQuery = jobQueryBuilder.getVietnamworksJobCountQuery()
                 .withFilter(jobQueryBuilder.getTechnicalTermQueryNotExpired(term))

@@ -14,18 +14,18 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
  */
 @Configuration
 @PropertySources({
-  @PropertySource("classpath:techlooper.properties"),
-  @PropertySource("classpath:secret.properties")})
+        @PropertySource("classpath:techlooper.properties"),
+        @PropertySource("classpath:secret.properties")})
 public class BaseConfigurationTest implements ApplicationContextAware {
 
-  private ApplicationContext applicationContext;
+    private ApplicationContext applicationContext;
 
-  @Bean
-  public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
-    return new PropertySourcesPlaceholderConfigurer();
-  }
+    @Bean
+    public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
+        return new PropertySourcesPlaceholderConfigurer();
+    }
 
-  public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-    this.applicationContext = applicationContext;
-  }
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        this.applicationContext = applicationContext;
+    }
 }

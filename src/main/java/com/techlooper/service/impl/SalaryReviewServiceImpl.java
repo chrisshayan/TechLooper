@@ -65,9 +65,6 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
     @Resource
     private JobQueryBuilder jobQueryBuilder;
 
-    @Value("${elasticsearch.index.name}")
-    private String elasticSearchIndexName;
-
     @Resource
     private MimeMessage salaryReviewMailMessage;
 

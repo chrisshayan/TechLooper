@@ -28,8 +28,6 @@ public class ElasticsearchUserImportConfiguration {
     @Resource
     private TransportClient transportClientUserImport;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ElasticsearchUserImportConfiguration.class);
-
     @Bean
     public FactoryBean<TransportClient> transportClientUserImport() throws Exception {
         TransportClientFactoryBean factory = new TransportClientFactoryBean();
