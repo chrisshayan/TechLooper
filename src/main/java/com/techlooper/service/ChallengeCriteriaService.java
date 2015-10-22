@@ -11,4 +11,6 @@ public interface ChallengeCriteriaService {
   ChallengeCriteriaDto saveChallengeCriteria(ChallengeCriteriaDto challengeCriteriaDto, String owner);
 
   ChallengeRegistrantCriteriaDto saveScoreChallengeRegistrantCriteria(ChallengeRegistrantCriteriaDto registrantCriteriaDto, String ownerEmail);
+
+  ChallengeRegistrantCriteriaDto findByChallengeRegistrantId(Long registrantId, String ownerEmail);
 }

@@ -8,6 +8,15 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, $filt
       return (cri.weight / 100) * cri.score;// $filter('number')((cri.weight / 100) * cri.score, 1);
     }
 
+    registrant.refreshCriteria = function() {
+      apiService.findRegistrantCriteriaByRegistrantId(registrant.registrantId)
+        .success(function(data) {
+          if (data.registrantId == registrant.registrantId) {
+            registrant.criteria = data.criteria;
+          }
+        });
+    }
+
     registrant.criteriaLoop = function () {
       var criteria = registrant.criteria;
       if (!criteria) return [];
