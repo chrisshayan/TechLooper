@@ -114,8 +114,8 @@ public class ChallengeController {
   }
 
   @RequestMapping(value = "/challenges/{challengeId}", method = RequestMethod.GET)
-  public ChallengeDto findChallengeById(@PathVariable Long challengeId) throws Exception {
-    return challengeService.findChallengeById(challengeId);
+  public ChallengeDto findChallengeById(@PathVariable Long challengeId, HttpServletRequest request) throws Exception {
+    return challengeService.findChallengeById(challengeId, request.getRemoteUser());
   }
 
   @PreAuthorize("hasAuthority('EMPLOYER')")
@@ -123,7 +123,7 @@ public class ChallengeController {
   public Set<ChallengeRegistrantDto> getRegistrantsById(@PathVariable Long challengeId, @RequestBody RegistrantFilterCondition condition,
                                                         HttpServletRequest request, HttpServletResponse response) throws ParseException {
     String owner = request.getRemoteUser();
-    if (challengeService.isOwnerOfChallenge(owner, challengeId)) {
+    if (!challengeService.isOwnerOfChallenge(owner, challengeId)) {
       response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
       return null;
     }
