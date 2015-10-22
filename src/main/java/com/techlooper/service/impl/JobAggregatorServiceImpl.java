@@ -147,7 +147,7 @@ public class JobAggregatorServiceImpl implements JobAggregatorService {
         TopicList latestTopicList = forumService.getLatestTopics();
         List<Topic> topics = null;
         if (latestTopicList.getTopics() != null) {
-            topics = latestTopicList.getTopics().stream().limit(3).collect(Collectors.toList());
+            topics = latestTopicList.getTopics().stream().limit(3).collect(toList());
         }
         templateModel.put("topics", topics);
 
@@ -332,7 +332,7 @@ public class JobAggregatorServiceImpl implements JobAggregatorService {
 
     private int getJobAlertBucketNumber(JobAlertPeriodEnum period) throws Exception {
         Date launchDate = string2Date(CONFIGURED_JOB_ALERT_LAUNCH_DATE, BASIC_DATE_PATTERN);
-        int numberOfDays = DateTimeUtils.daysBetween(launchDate, new Date());
+        int numberOfDays = daysBetween(launchDate, new Date());
         return numberOfDays % period.getValue();
     }
 

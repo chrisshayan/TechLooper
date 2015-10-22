@@ -372,7 +372,7 @@ public class UserController {
             List<ChallengeRegistrantEntity> registrants = challengeService.findChallengeRegistrantWithinPeriod(challengeId, now, TimePeriodEnum.TWENTY_FOUR_HOURS);
             return registrants.stream()
                     .map(registrant -> registrant.getRegistrantFirstName() + " " + registrant.getRegistrantLastName())
-                    .collect(Collectors.toList());
+                    .collect(toList());
         }
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         return null;

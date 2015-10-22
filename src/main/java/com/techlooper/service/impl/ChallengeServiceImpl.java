@@ -243,8 +243,7 @@ public class ChallengeServiceImpl implements ChallengeService {
     int numberOfDays = 0;
     if (challengePhase == ChallengePhaseEnum.REGISTRATION) {
       numberOfDays = daysBetween(currentDate(), challengeEntity.getRegistrationDateTime()) + 1;
-    }
-    else if (challengePhase == ChallengePhaseEnum.IN_PROGRESS) {
+    } else if (challengePhase == ChallengePhaseEnum.IN_PROGRESS) {
       numberOfDays = daysBetween(currentDate(), challengeEntity.getSubmissionDateTime()) + 1;
     }
 
@@ -269,16 +268,13 @@ public class ChallengeServiceImpl implements ChallengeService {
     if (challengeRegistrantEntity.getLang() == Language.vi) {
       if (challengePhase == ChallengePhaseEnum.REGISTRATION) {
         return notifyChallengeTimelineRegistrationMailSubjectVn;
-      }
-      else {
+      } else {
         return notifyChallengeTimelineInProgressMailSubjectVn;
       }
-    }
-    else {
+    } else {
       if (challengePhase == ChallengePhaseEnum.REGISTRATION) {
         return notifyChallengeTimelineRegistrationMailSubjectEn;
-      }
-      else {
+      } else {
         return notifyChallengeTimelineInProgressMailSubjectEn;
       }
     }
@@ -337,8 +333,7 @@ public class ChallengeServiceImpl implements ChallengeService {
         sendApplicationEmailToContestant(challengeEntity, challengeRegistrantEntity);
         challengeRegistrantEntity.setMailSent(Boolean.TRUE);
         return challengeRegistrantRepository.save(challengeRegistrantEntity);
-      }
-      catch (Exception e) {
+      } catch (Exception e) {
         LOGGER.debug("Can not send email", e);
       }
     }
@@ -365,8 +360,7 @@ public class ChallengeServiceImpl implements ChallengeService {
 
     if (hasReplyTo) {
       postChallengeMailMessage.setReplyTo(InternetAddress.parse(challengeRegistrantEntity.getRegistrantEmail()));
-    }
-    else {
+    } else {
       postChallengeMailMessage.setReplyTo(InternetAddress.parse(mailTechlooperReplyTo));
     }
 
@@ -457,23 +451,19 @@ public class ChallengeServiceImpl implements ChallengeService {
       try {
         if (challenge2.getStartDateTime() == null) {
           return -1;
-        }
-        else if (challenge1.getStartDateTime() == null) {
+        } else if (challenge1.getStartDateTime() == null) {
           return 1;
         }
         long challenge2StartDate = sdf.parse(challenge2.getStartDateTime()).getTime();
         long challenge1StartDate = sdf.parse(challenge1.getStartDateTime()).getTime();
         if (challenge2StartDate - challenge1StartDate > 0) {
           return 1;
-        }
-        else if (challenge2StartDate - challenge1StartDate < 0) {
+        } else if (challenge2StartDate - challenge1StartDate < 0) {
           return -1;
-        }
-        else {
+        } else {
           return 0;
         }
-      }
-      catch (ParseException e) {
+      } catch (ParseException e) {
         return 0;
       }
     }).collect(toList());
@@ -599,6 +589,7 @@ public class ChallengeServiceImpl implements ChallengeService {
     return false;
   }
 
+
   public ChallengeDto findChallengeById(Long id, String ownerEmail) {
     ChallengeEntity challenge = challengeRepository.findOne(id);
     if (!challenge.getAuthorEmail().equalsIgnoreCase(ownerEmail)) {
@@ -671,8 +662,7 @@ public class ChallengeServiceImpl implements ChallengeService {
         result = result.stream().filter(registrantEntity ->
           condition.getPhase().equals(registrantEntity.getActivePhase().getValue())).collect(toList());
       }
-    }
-    else {
+    } else {
       NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withTypes("challengeRegistrant");
       BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
       final String registrationPhase = ChallengePhaseEnum.REGISTRATION.getValue();
@@ -814,8 +804,7 @@ public class ChallengeServiceImpl implements ChallengeService {
           bindEmailTemplateVariables(emailContent, challengeDto, registrants.get(0));
         }
         emailContent.setRecipients(InternetAddress.parse(csvEmails));
-      }
-      catch (AddressException e) {
+      } catch (AddressException e) {
         LOGGER.debug("Can not parse email address", e);
         return false;
       }
@@ -836,8 +825,7 @@ public class ChallengeServiceImpl implements ChallengeService {
     emailContent.setContent(body);
     try {
       emailContent.setReplyTo(InternetAddress.parse(emailSettingDto.getReplyEmail()));
-    }
-    catch (AddressException ex) {
+    } catch (AddressException ex) {
       LOGGER.error(ex.getMessage(), ex);
     }
   }
@@ -871,8 +859,7 @@ public class ChallengeServiceImpl implements ChallengeService {
       try {
         bindEmailTemplateVariables(emailContent, challengeDto, registrant);
         emailContent.setRecipients(InternetAddress.parse(csvEmails));
-      }
-      catch (AddressException e) {
+      } catch (AddressException e) {
         LOGGER.debug("Can not parse email address", e);
         return false;
       }
@@ -979,8 +966,7 @@ public class ChallengeServiceImpl implements ChallengeService {
           nextIndex = currentIndex;
           currentIndex = i;
         }
-      }
-      catch (Exception e) {
+      } catch (Exception e) {
         continue;
       }
     }
@@ -988,8 +974,7 @@ public class ChallengeServiceImpl implements ChallengeService {
     if (currentIndex == -1) {//FINAL
       challengeDetailDto.setCurrentPhase(ChallengePhaseEnum.FINAL);
       challengeDetailDto.setNextPhase(ChallengePhaseEnum.FINAL);
-    }
-    else {
+    } else {
       challengeDetailDto.setCurrentPhase(CHALLENGE_TIMELINE[currentIndex]);
       challengeDetailDto.setNextPhase(CHALLENGE_TIMELINE[nextIndex > -1 ? nextIndex : currentIndex]);
     }
