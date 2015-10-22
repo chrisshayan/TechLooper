@@ -652,7 +652,8 @@ public class ChallengeServiceImpl implements ChallengeService {
                 }
             }
 
-            if (StringUtils.isNotEmpty(condition.getPhase())) {
+            if (StringUtils.isNotEmpty(condition.getPhase()) &&
+                    !ChallengePhaseEnum.ALL_PHASES.getValue().equals(condition.getPhase())) {
                 result = result.stream().filter(registrantEntity ->
                         condition.getPhase().equals(registrantEntity.getActivePhase().getValue())).collect(toList());
             }
@@ -665,7 +666,9 @@ public class ChallengeServiceImpl implements ChallengeService {
                 boolQueryBuilder.must(termQuery("challengeId", condition.getChallengeId()));
             }
 
-            if (StringUtils.isNotEmpty(condition.getPhase()) && !registrationPhase.equals(condition.getPhase())) {
+            if (StringUtils.isNotEmpty(condition.getPhase())
+                    && !registrationPhase.equals(condition.getPhase())
+                    && !ChallengePhaseEnum.ALL_PHASES.getValue().equals(condition.getPhase())) {
                 boolQueryBuilder.must(matchPhraseQuery("activePhase", condition.getPhase()));
             }
 
