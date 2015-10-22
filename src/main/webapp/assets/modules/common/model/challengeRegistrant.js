@@ -4,12 +4,16 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, $filt
 
     var registrant = input;
 
+    var calculatePoint = function(cri) {
+      return parseFloat($filter('number')((cri.weight / 100) * cri.score, 1));
+    }
+
     registrant.criteriaLoop = function () {
       var criteria = registrant.criteria;
       if (!criteria) return [];
       registrant.totalPoint = 0;
       return criteria.map(function (cri) {
-        cri.point = $filter('number')((cri.weight / 100) * cri.score, 1);
+        cri.point = calculatePoint(cri);
         registrant.totalPoint += parseFloat(cri.point);
         return cri;
       });
@@ -17,7 +21,7 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, $filt
 
     registrant.validate = function () {
       delete registrant.$invalid;
-      $.each(registrant.criteria, function(i, cri) {
+      $.each(registrant.criteria, function (i, cri) {
         if (parseInt(cri.score) > 100) {
           registrant.$invalid = true;
         }
@@ -43,12 +47,20 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, $filt
               registrant.criteria.push(cri);
             }
           });
+          registrant.savedTotalPoint = _.reduceRight(registrant.criteria, function (sum, cri) {
+            return sum + calculatePoint(cri);
+          }, 0);
           registrant.$savedCriteria = true;
+          $rootScope.$broadcast("saveRegistrantCriteriaSuccessful", data);
         })
         .error(function () {
           registrant.$savedCriteria = false;
         });
     }
+
+    registrant.savedTotalPoint = _.reduceRight(registrant.criteria, function (sum, cri) {
+      return sum + calculatePoint(cri);
+    }, 0);
 
     $rootScope.$on("saveChallengeCriteriaSuccessful", function (scope, challengeCriteriaDto) {
       var criteriaDto = _.findWhere(challengeCriteriaDto.registrantCriteria, {registrantId: registrant.registrantId});

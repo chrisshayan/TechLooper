@@ -14,8 +14,8 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, utils) {
 
       apiService.saveChallengeCriteria(criteria)
         .success(function (data) {
-          $rootScope.$broadcast("saveChallengeCriteriaSuccessful", data);
           challengeDetail.$savedCriteria = true;
+          $rootScope.$broadcast("saveChallengeCriteriaSuccessful", data);
         })
         .error(function () {
           challengeDetail.$savedCriteria = false;
@@ -31,10 +31,10 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, utils) {
       challengeDetail.criteria = _.reject(challengeDetail.criteria, function (criteria) {return criteria.criteriaId == cri.criteriaId;})
     }
 
-    challengeDetail.caculateTotalWeight = function () {
-      var total = _.reduceRight(challengeDetail.criteria, function (sum, cri) { return sum + cri.weight; }, 0);
-      return total;
-    }
+    //challengeDetail.caculateTotalWeight = function () {
+    //  var total = _.reduceRight(challengeDetail.criteria, function (sum, cri) { return sum + cri.weight; }, 0);
+    //  return total;
+    //}
 
     challengeDetail.criteriaLoop = function () {
       var criteria = challengeDetail.criteria;
