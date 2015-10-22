@@ -14,6 +14,7 @@ import com.techlooper.service.ChallengeService;
 import com.techlooper.service.CompanyService;
 import com.techlooper.service.EmployerService;
 import com.techlooper.service.ProjectService;
+import org.apache.commons.lang3.StringUtils;
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -92,7 +93,12 @@ public class EmployerServiceImpl implements EmployerService {
             EmployerDto employerDto = companyService.findByUserName(employerEmail);
             if (employerDto != null) {
                 StringBuilder emailSignatureBuilder = new StringBuilder("");
-                emailSignatureBuilder.append(employerDto.getCompanyName()).append("<br/>").append(employerDto.getAddress());
+                if (StringUtils.isNotEmpty(employerDto.getCompanyName())) {
+                    emailSignatureBuilder.append(employerDto.getCompanyName());
+                }
+                if (StringUtils.isNotEmpty(employerDto.getAddress())) {
+                    emailSignatureBuilder.append("<br/>").append(employerDto.getAddress());
+                }
                 emailSettingDto.setEmailSignature(emailSignatureBuilder.toString());
             }
         }
