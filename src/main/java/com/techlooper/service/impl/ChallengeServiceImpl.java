@@ -11,7 +11,6 @@ import com.techlooper.service.CurrencyService;
 import com.techlooper.service.EmailService;
 import com.techlooper.service.EmployerService;
 import com.techlooper.util.DataUtils;
-import com.techlooper.util.DateTimeUtils;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.apache.commons.lang3.StringUtils;
@@ -756,7 +755,7 @@ public class ChallengeServiceImpl implements ChallengeService {
         templateModel.put("challengeId", challengeEntity.getChallengeId().toString());
         templateModel.put("challengeNameAlias", challengeEntity.getChallengeName().replaceAll("\\W", "-"));
         templateModel.put("currentDateTime", String.valueOf(new Date().getTime()));
-        templateModel.put("yesterdayDateTime", DateTimeUtils.yesterdayDate());
+        templateModel.put("yesterdayDateTime", yesterdayDate());
 
         Long currentDateTime = new Date().getTime();
         List<ChallengeRegistrantEntity> latestRegistrants = findChallengeRegistrantWithinPeriod(
@@ -944,7 +943,7 @@ public class ChallengeServiceImpl implements ChallengeService {
     }
 
     public void calculateChallengePhases(ChallengeDetailDto challengeDetailDto) {
-        String now = DateTimeUtils.currentDate();
+        String now = currentDate();
 
         String timeline[] = {
                 challengeDetailDto.getSubmissionDateTime(),
