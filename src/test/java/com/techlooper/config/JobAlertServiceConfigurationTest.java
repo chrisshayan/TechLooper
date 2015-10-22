@@ -44,7 +44,7 @@ public class JobAlertServiceConfigurationTest {
     private Resource jobAlertEmailTemplate;
 
     @Value("classpath:topPriorityJobId.csv")
-    private org.springframework.core.io.Resource topPriorityJobIdResource;
+    private Resource topPriorityJobIdResource;
 
     @Bean
     public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
