@@ -32,102 +32,100 @@ import java.util.Set;
 @ContextConfiguration(classes = {BaseConfigurationTest.class, DozerBeanConfigurationTest.class, ElasticsearchConfiguration.class})
 public class ChallengeCriteriaServiceImplTest {
 
-  private ChallengeCriteriaService challengeCriteriaService;
+    private ChallengeCriteriaService challengeCriteriaService;
 
-  private ChallengeService challengeService;
+    private ChallengeService challengeService;
 
-  @Resource
-  private ChallengeRepository challengeRepository;
+    @Resource
+    private ChallengeRepository challengeRepository;
 
-  @Resource
-  private ChallengeRegistrantRepository challengeRegistrantRepository;
+    @Resource
+    private ChallengeRegistrantRepository challengeRegistrantRepository;
 
-  @Resource
-  private Mapper dozerMapper;
+    @Resource
+    private Mapper dozerMapper;
 
-  @Before
-  public void before() {
-    challengeService = new ChallengeServiceImpl();
-    ReflectionTestUtils.setField(challengeService, "challengeRepository", challengeRepository);
+    @Before
+    public void before() {
+        challengeService = new ChallengeServiceImpl();
+        ReflectionTestUtils.setField(challengeService, "challengeRepository", challengeRepository);
 
-    challengeCriteriaService = new ChallengeCriteriaServiceImpl();
-    ReflectionTestUtils.setField(challengeCriteriaService, "challengeService", challengeService);
-    ReflectionTestUtils.setField(challengeCriteriaService, "challengeRegistrantRepository", challengeRegistrantRepository);
-    ReflectionTestUtils.setField(challengeCriteriaService, "challengeRepository", challengeRepository);
-    ReflectionTestUtils.setField(challengeCriteriaService, "dozerMapper", dozerMapper);
-  }
-
-  @Test
-  public void testEmpty() {
-  }
-
-  public void testSaveChallengeCriteria() {
-    Long id = 1436339203843L;
-    String owner = "thu.hoang@navigosgroup.com";
-
-    Set<ChallengeCriteria> defaultCriterias = new HashSet<>();
-    defaultCriterias.add(ChallengeCriteria.ChallengeCriteriaBuilder.challengeCriteria()
-      .withName("UI/UX implemented solution").withWeight(25L).withCriteriaId("1").build());
-    defaultCriterias.add(ChallengeCriteria.ChallengeCriteriaBuilder.challengeCriteria()
-      .withName("Creativity on the proposed solution").withWeight(25L).withCriteriaId("2").build());
-    defaultCriterias.add(ChallengeCriteria.ChallengeCriteriaBuilder.challengeCriteria()
-      .withName("Source code quality").withWeight(25L).withCriteriaId("3").build());
-    defaultCriterias.add(ChallengeCriteria.ChallengeCriteriaBuilder.challengeCriteria()
-      .withName("Usage of top edge technology").withWeight(25L).withCriteriaId("4").build());
-    defaultCriterias.add(ChallengeCriteria.ChallengeCriteriaBuilder.challengeCriteria()
-      .withName("Application functionality").withWeight(25L).withCriteriaId("5").build());
-
-    Long registrantId = 27L;
-    ChallengeRegistrantEntity registrant = challengeRegistrantRepository.findOne(registrantId);
-    long notNullScoreCount = registrant.getCriteria().stream().filter(cri -> cri.getScore() != null).count();
-
-    ChallengeCriteriaDto challengeCriteriaDto = ChallengeCriteriaDto.ChallengeCriteriaDtoBuilder.challengeCriteriaDto()
-      .withChallengeId(id).withChallengeCriteria(defaultCriterias).build();
-
-    challengeCriteriaDto = challengeCriteriaService.saveChallengeCriteria(challengeCriteriaDto, owner);
-    ChallengeEntity challenge = challengeRepository.findOne(id);
-    Assert.assertEquals(challenge.getCriteria().size(), defaultCriterias.size());
-
-    challengeCriteriaDto.getRegistrantCriteria().forEach(registrantCriteria -> {
-      Assert.assertEquals(registrantCriteria.getCriteria().size(), defaultCriterias.size());
-    });
-
-    registrant = challengeRegistrantRepository.findOne(registrantId);
-    if (registrant != null) {
-      Assert.assertEquals(registrant.getCriteria().size(), registrant.getCriteria().size());
-      long newNotNullScoreCount = registrant.getCriteria().stream().filter(cri -> cri.getScore() != null).count();
-      Assert.assertEquals(newNotNullScoreCount, notNullScoreCount);
+        challengeCriteriaService = new ChallengeCriteriaServiceImpl();
+        ReflectionTestUtils.setField(challengeCriteriaService, "challengeService", challengeService);
+        ReflectionTestUtils.setField(challengeCriteriaService, "challengeRegistrantRepository", challengeRegistrantRepository);
+        ReflectionTestUtils.setField(challengeCriteriaService, "challengeRepository", challengeRepository);
+        ReflectionTestUtils.setField(challengeCriteriaService, "dozerMapper", dozerMapper);
     }
-  }
 
-  public void testEditChallengeCriteria() {
-    Long id = 1436339203843L;
-    String owner = "thu.hoang@navigosgroup.com";
-    ChallengeEntity challenge = challengeRepository.findOne(id);
-    Set<ChallengeCriteria> challengeCriteria = challenge.getCriteria();
+    @Test
+    public void testSaveChallengeCriteria() {
+        Long id = 1436339203843L;
+        String owner = "thu.hoang@navigosgroup.com";
 
-    ChallengeCriteria sampleCriteria = ChallengeCriteria.ChallengeCriteriaBuilder.challengeCriteria()
-      .withCriteriaId("sample").withName("sample name").withWeight(100L).build();
-    challengeCriteria.add(sampleCriteria);
-    challenge = challengeRepository.save(challenge);
+        Set<ChallengeCriteria> defaultCriterias = new HashSet<>();
+        defaultCriterias.add(ChallengeCriteria.ChallengeCriteriaBuilder.challengeCriteria()
+                .withName("UI/UX implemented solution").withWeight(25L).withCriteriaId("1").build());
+        defaultCriterias.add(ChallengeCriteria.ChallengeCriteriaBuilder.challengeCriteria()
+                .withName("Creativity on the proposed solution").withWeight(25L).withCriteriaId("2").build());
+        defaultCriterias.add(ChallengeCriteria.ChallengeCriteriaBuilder.challengeCriteria()
+                .withName("Source code quality").withWeight(25L).withCriteriaId("3").build());
+        defaultCriterias.add(ChallengeCriteria.ChallengeCriteriaBuilder.challengeCriteria()
+                .withName("Usage of top edge technology").withWeight(25L).withCriteriaId("4").build());
+        defaultCriterias.add(ChallengeCriteria.ChallengeCriteriaBuilder.challengeCriteria()
+                .withName("Application functionality").withWeight(25L).withCriteriaId("5").build());
 
-    ChallengeCriteriaDto challengeCriteriaDto = ChallengeCriteriaDto.ChallengeCriteriaDtoBuilder.challengeCriteriaDto()
-      .withChallengeId(id).withChallengeCriteria(challengeCriteria).build();
-    challengeCriteriaService.saveChallengeCriteria(challengeCriteriaDto, owner);
+        Long registrantId = 27L;
+        ChallengeRegistrantEntity registrant = challengeRegistrantRepository.findOne(registrantId);
+        long notNullScoreCount = registrant.getCriteria().stream().filter(cri -> cri.getScore() != null).count();
 
-    Long registrantId = 27L;
-    ChallengeRegistrantEntity registrant = challengeRegistrantRepository.findOne(registrantId);
-    if (registrant != null) {
-      registrant.getCriteria().stream().filter(cri -> cri.getCriteriaId().equals(sampleCriteria.getCriteriaId())).findFirst().get().setScore(100L);
-      registrant = challengeRegistrantRepository.save(registrant);
+        ChallengeCriteriaDto challengeCriteriaDto = ChallengeCriteriaDto.ChallengeCriteriaDtoBuilder.challengeCriteriaDto()
+                .withChallengeId(id).withChallengeCriteria(defaultCriterias).build();
 
-      sampleCriteria.setName("sample name changed");
-      challengeCriteriaService.saveChallengeCriteria(challengeCriteriaDto, owner);
+        challengeCriteriaDto = challengeCriteriaService.saveChallengeCriteria(challengeCriteriaDto, owner);
+        ChallengeEntity challenge = challengeRepository.findOne(id);
+        Assert.assertEquals(challenge.getCriteria().size(), defaultCriterias.size());
 
-      registrant = challengeRegistrantRepository.findOne(registrantId);
-      ChallengeRegistrantCriteria registrantCriteria = registrant.getCriteria().stream()
-        .filter(cri -> cri.getName().equals(sampleCriteria.getName())).findFirst().get();
-      Assert.assertNotNull(registrantCriteria);
+        challengeCriteriaDto.getRegistrantCriteria().forEach(registrantCriteria -> {
+            Assert.assertEquals(registrantCriteria.getCriteria().size(), defaultCriterias.size());
+        });
+
+        registrant = challengeRegistrantRepository.findOne(registrantId);
+        if (registrant != null) {
+            Assert.assertEquals(registrant.getCriteria().size(), registrant.getCriteria().size());
+            long newNotNullScoreCount = registrant.getCriteria().stream().filter(cri -> cri.getScore() != null).count();
+            Assert.assertEquals(newNotNullScoreCount, notNullScoreCount);
+        }
     }
-  }
+
+    @Test
+    public void testEditChallengeCriteria() {
+        Long id = 1436339203843L;
+        String owner = "thu.hoang@navigosgroup.com";
+        ChallengeEntity challenge = challengeRepository.findOne(id);
+        Set<ChallengeCriteria> challengeCriteria = challenge.getCriteria();
+
+        ChallengeCriteria sampleCriteria = ChallengeCriteria.ChallengeCriteriaBuilder.challengeCriteria()
+                .withCriteriaId("sample").withName("sample name").withWeight(100L).build();
+        challengeCriteria.add(sampleCriteria);
+        challenge = challengeRepository.save(challenge);
+
+        ChallengeCriteriaDto challengeCriteriaDto = ChallengeCriteriaDto.ChallengeCriteriaDtoBuilder.challengeCriteriaDto()
+                .withChallengeId(id).withChallengeCriteria(challengeCriteria).build();
+        challengeCriteriaService.saveChallengeCriteria(challengeCriteriaDto, owner);
+
+        Long registrantId = 27L;
+        ChallengeRegistrantEntity registrant = challengeRegistrantRepository.findOne(registrantId);
+        if (registrant != null) {
+            registrant.getCriteria().stream().filter(cri -> cri.getCriteriaId().equals(sampleCriteria.getCriteriaId())).findFirst().get().setScore(100L);
+            registrant = challengeRegistrantRepository.save(registrant);
+
+            sampleCriteria.setName("sample name changed");
+            challengeCriteriaService.saveChallengeCriteria(challengeCriteriaDto, owner);
+
+            registrant = challengeRegistrantRepository.findOne(registrantId);
+            ChallengeRegistrantCriteria registrantCriteria = registrant.getCriteria().stream()
+                    .filter(cri -> cri.getName().equals(sampleCriteria.getName())).findFirst().get();
+            Assert.assertNotNull(registrantCriteria);
+        }
+    }
 }
