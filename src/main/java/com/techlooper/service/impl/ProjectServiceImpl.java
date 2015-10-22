@@ -371,7 +371,7 @@ public class ProjectServiceImpl implements ProjectService {
 
     public Collection<ProjectRegistrantDto> findRegistrantsByProjectId(Long projectId) {
         NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder().withIndices(techlooperIndex).withTypes("projectRegistrant");
-        queryBuilder.withFilter(queryFilter(QueryBuilders.termQuery("projectId", projectId)));
+        queryBuilder.withFilter(queryFilter(termQuery("projectId", projectId)));
 
         int pageIndex = 0;
         Set<ProjectRegistrantDto> registrants = new HashSet<>();
