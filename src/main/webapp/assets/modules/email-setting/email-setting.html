@@ -15,6 +15,8 @@
           <label class="col-sm-2 control-label" translate="replyTo"></label>
           <input ng-model="replyEmail" type="text" name="email" placeholder="no-reply@techlooper.com"
                  ng-pattern="/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/"
+                 data-toggle="tooltip"
+                 data-original-title="{{'replyEmailTooltip' | translate}}"
                  class="input-style" validate ng-required="true">
         <div class="error-messages"
              ng-show="emailSetting.email.$error.required && (emailSetting.email.$dirty || emailSetting.$submitted)"
@@ -23,7 +25,7 @@
              ng-show="emailSetting.email.$error.pattern && (emailSetting.email.$dirty || emailSetting.$submitted)"
              translate="emailInvalid" />
         </div>
-        <div class="mail-text h-200">
+        <div class="mail-text h-200" data-toggle="tooltip" data-original-title="{{'emailSignatureTooltip' | translate}}">
           <label translate="emailSignature"></label>
           <summernote ng-model="emailSignature" focus config="$root.jsonValue.summerNoteConfig"></summernote>
           <div class="send-mail-error" ng-show="!composeEmail.error" data-ng-init="composeEmail.error = true">

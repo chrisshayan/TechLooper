@@ -8,6 +8,12 @@ techlooper.controller("emailSetting", function ($scope, utils, jsonValue, apiSer
         return $scope.fail;
     }
   };
+  $('.email-setting-form').find('[data-toggle="tooltip"]').tooltip({
+    html: true,
+    placement: 'right',
+    'trigger': "focus",
+    animation: true
+  });
   apiService.loadEmailSetting()
     .success(function (data) {
       $scope.replyEmail = data.replyEmail;
