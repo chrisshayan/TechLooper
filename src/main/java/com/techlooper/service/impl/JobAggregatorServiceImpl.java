@@ -9,7 +9,6 @@ import com.techlooper.repository.userimport.ScrapeJobRepository;
 import com.techlooper.service.ForumService;
 import com.techlooper.service.JobAggregatorService;
 import com.techlooper.service.JobSearchService;
-import com.techlooper.util.DateTimeUtils;
 import freemarker.template.Template;
 import org.apache.commons.lang3.StringUtils;
 import org.dozer.Mapper;
@@ -20,11 +19,8 @@ import org.elasticsearch.common.joda.time.format.ISODateTimeFormat;
 import org.elasticsearch.index.query.BoolFilterBuilder;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
-import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.sort.SortBuilders;
 import org.elasticsearch.search.sort.SortOrder;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.elasticsearch.core.FacetedPage;
@@ -40,7 +36,6 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeUtility;
 import java.io.StringWriter;
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static com.techlooper.util.DateTimeUtils.*;
 import static java.util.stream.Collectors.toList;
@@ -51,8 +46,6 @@ import static org.elasticsearch.index.query.QueryBuilders.*;
 
 @Service
 public class JobAggregatorServiceImpl implements JobAggregatorService {
-
-    private final static Logger LOGGER = LoggerFactory.getLogger(JobAggregatorServiceImpl.class);
 
     @Value("${jobAlert.launchDate}")
     private String CONFIGURED_JOB_ALERT_LAUNCH_DATE;
@@ -265,25 +258,6 @@ public class JobAggregatorServiceImpl implements JobAggregatorService {
             criteria.setLocationId(registrationEntity.getLocationId());
         }
         return criteria;
-    }
-
-    private String buildSearchPath(JobAlertRegistrationEntity jobAlertRegistrationEntity) {
-        StringBuilder pathBuilder = new StringBuilder("");
-        if (StringUtils.isNotEmpty(jobAlertRegistrationEntity.getKeyword())) {
-            pathBuilder.append(jobAlertRegistrationEntity.getKeyword().replaceAll("\\W", "-"));
-        }
-
-        if (jobAlertRegistrationEntity.getLocationId() != null) {
-            pathBuilder.append("+");
-            pathBuilder.append(jobAlertRegistrationEntity.getLocationId());
-        }
-
-        if (StringUtils.isNotEmpty(jobAlertRegistrationEntity.getLocation())) {
-            pathBuilder.append("+");
-            pathBuilder.append(jobAlertRegistrationEntity.getLocation().replaceAll("\\W", "-"));
-        }
-
-        return pathBuilder.toString();
     }
 
     private ScrapeJobEntity convertToJobEntity(VNWJobSearchResponseDataItem job, Boolean isTopPriority) {

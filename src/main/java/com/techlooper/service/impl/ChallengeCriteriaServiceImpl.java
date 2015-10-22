@@ -106,6 +106,16 @@ public class ChallengeCriteriaServiceImpl implements ChallengeCriteriaService {
     return toChallengeRegistrantCriteriaDto(registrant);
   }
 
+  public ChallengeRegistrantCriteriaDto findByChallengeRegistrantId(Long registrantId, String ownerEmail) {
+    ChallengeRegistrantEntity registrant = challengeRegistrantRepository.findOne(registrantId);
+    if (!challengeService.isOwnerOfChallenge(ownerEmail, registrant.getChallengeId())) {
+      return null;
+    }
+
+    return ChallengeRegistrantCriteriaDtoBuilder.challengeRegistrantCriteriaDto()
+      .withRegistrantId(registrantId).withCriteria(registrant.getCriteria()).build();
+  }
+
   private ChallengeRegistrantCriteriaDto toChallengeRegistrantCriteriaDto(ChallengeRegistrantEntity registrantEntity) {
     return ChallengeRegistrantCriteriaDtoBuilder.challengeRegistrantCriteriaDto()
       .withRegistrantId(registrantEntity.getRegistrantId())

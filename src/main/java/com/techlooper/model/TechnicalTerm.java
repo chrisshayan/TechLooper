@@ -8,16 +8,18 @@ import java.util.List;
 public class TechnicalTerm {
 
     private String key;
+
     private List<String> searchTexts;
+
     private String label;
+
     private String logoUrl;
+
     private String webSite;
+
     private List<SkillLink> usefulLinks;
+
     private List<Skill> skills;
-
-    public TechnicalTerm() {
-
-    }
 
     public String getKey() {
         return key;

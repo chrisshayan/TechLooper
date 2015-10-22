@@ -9,9 +9,6 @@ public class HtmlLink {
 
     private String text;
 
-    public HtmlLink() {
-    }
-
     public String getHref() {
         return href;
     }

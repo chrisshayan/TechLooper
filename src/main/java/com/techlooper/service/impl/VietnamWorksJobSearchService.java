@@ -5,7 +5,6 @@ import com.techlooper.entity.SalaryReviewEntity;
 import com.techlooper.model.VNWConfigurationResponse;
 import com.techlooper.model.VNWJobSearchRequest;
 import com.techlooper.model.VNWJobSearchResponse;
-import com.techlooper.model.VNWJobSearchResponseDataItem;
 import com.techlooper.repository.JobSearchAPIConfigurationRepository;
 import com.techlooper.repository.elasticsearch.VietnamworksJobRepository;
 import com.techlooper.service.JobQueryBuilder;
@@ -29,7 +28,6 @@ import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -70,8 +68,6 @@ public class VietnamWorksJobSearchService implements JobSearchService {
     private static final long VIETNAM_CURRENCY_SALARY_DETECTOR = 1000000L;
 
     private static final long VND_USD_RATE = 21000L;
-
-    private static final int SORT_ORDER_ASC = 1;
 
     private static final int SORT_ORDER_DESC = -1;
 
@@ -116,30 +112,10 @@ public class VietnamWorksJobSearchService implements JobSearchService {
                     .orElse(VNWJobSearchResponse.getDefaultObject());
 
             if (actualResult.hasData()) {
-                //mergeSearchResultWithConfiguration(actualResult, getConfiguration());
                 return actualResult;
             }
         }
         return VNWJobSearchResponse.getDefaultObject();
-    }
-
-    /**
-     * Merge the search result with configuration in order to get its meaningful name
-     *
-     * @param jobSearchResponse The job search response
-     * @param configuration     The job configuration
-     */
-    private void mergeSearchResultWithConfiguration(VNWJobSearchResponse jobSearchResponse,
-                                                    VNWConfigurationResponse configuration) {
-        BiFunction<String, String, String> idTranslator = (itemId, idType) ->
-                mergeConfigurationItem(configuration, itemId, idType);
-
-        Stream<VNWJobSearchResponseDataItem> responseDataItemStream = jobSearchResponse.getData().getJobs().stream();
-        responseDataItemStream.forEach(responseDataItem -> {
-            responseDataItem.setLocation(idTranslator.apply(responseDataItem.getLocation(), JOB_LOCATION));
-            responseDataItem.setLevel(idTranslator.apply(responseDataItem.getLevel(), JOB_LEVEL));
-
-        });
     }
 
     /**

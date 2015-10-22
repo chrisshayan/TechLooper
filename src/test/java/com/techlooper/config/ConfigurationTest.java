@@ -45,7 +45,6 @@ import java.net.URISyntaxException;
 @PropertySources({
         @PropertySource("classpath:techlooper.properties"),
         @PropertySource("classpath:secret.properties")})
-//@Import(CouchbaseConfiguration.class)
 public class ConfigurationTest implements ApplicationContextAware {
 
     private ApplicationContext applicationContext;

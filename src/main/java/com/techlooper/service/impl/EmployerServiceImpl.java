@@ -6,7 +6,6 @@ import com.techlooper.entity.EmailSettingEntity;
 import com.techlooper.entity.vnw.VnwCompany;
 import com.techlooper.entity.vnw.VnwUser;
 import com.techlooper.model.EmployerDto;
-import com.techlooper.repository.elasticsearch.ChallengeRegistrantRepository;
 import com.techlooper.repository.elasticsearch.EmailSettingRepository;
 import com.techlooper.repository.vnw.VnwCompanyRepo;
 import com.techlooper.repository.vnw.VnwUserRepo;
@@ -38,9 +37,6 @@ public class EmployerServiceImpl implements EmployerService {
 
     @Resource
     private VnwCompanyRepo vnwCompanyRepo;
-
-    @Resource
-    private ChallengeRegistrantRepository challengeRegistrantRepository;
 
     @Resource
     private EmailSettingRepository emailSettingRepository;
