@@ -3,7 +3,7 @@
     <div class="header-page">
       <h2 class="text-left">{{contestDetail.challengeName}}
         <span ng-class="{'registration': contestDetail.currentPhase == 'REGISTRATION','idea': contestDetail.currentPhase == 'IDEA','uiux': contestDetail.currentPhase == 'UIUX','prototype': contestDetail.currentPhase == 'PROTOTYPE','final': contestDetail.currentPhase == 'FINAL'}">
-          {{contestDetail.currentPhase | progress: 'challengePhaseTitle'}}</span>
+          {{contestDetail.currentPhase | textTruncate: 'lowercase' | translate}}</span>
       </h2>
     </div>
     <div class="row contest-content-detail">
@@ -311,7 +311,7 @@
                       <div class="label-col" translate="fullNameField"></div>
                       <i class="fa fa-ban" ng-show="user.disqualifiedReason.length; user.disqualified ==true"></i>{{user.registrantFirstName}} {{user.registrantLastName}}
                       <i class="{{user | progress: 'registrantActivePhase' | textTruncate: 'lowercase'}}">
-                        {{user | progress: "registrantActivePhaseTitle"}}
+                        {{user | progress: 'registrantActivePhase' | textTruncate: 'lowercase' | translate}}
                       </i>
                       <p class="note" ng-show="user.disqualifiedReason.length">{{'disqualifyingReason' | translate}}: {{user.disqualifiedReason}}</p>
                     </div>

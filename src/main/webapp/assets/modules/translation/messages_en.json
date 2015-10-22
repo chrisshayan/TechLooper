@@ -740,6 +740,7 @@
   "uIDeadline": "Contestants Have To Submit UI/UX By: <strong>*</strong>",
   "prototypeDeadline": "Contestants Have To Submit Prototype By: <strong>*</strong>",
   "finalApp": "Final App",
+  "final": "Final App",
   "ideaDateGtRegisterDate": "Idea day should be ahead of Register day at least 1 day.",
   "uxDateGtIdeaDate": "UI/UX day should be ahead of Idea day at least 1 day.",
   "uxDateGtRegisterDate": "UI/UX day should be ahead of Register day at least 1 day.",
