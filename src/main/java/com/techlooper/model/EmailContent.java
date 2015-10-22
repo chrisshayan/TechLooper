@@ -8,43 +8,53 @@ import java.io.Serializable;
  */
 public class EmailContent implements Serializable {
 
-  private String subject;
+    private String subject;
 
-  private String content;
+    private String content;
 
-  private Address[] recipients;
+    private Address[] recipients;
 
-  private Language language;
+    private Language language;
 
-  public Language getLanguage() {
-    return language;
-  }
+    private Address[] replyTo;
 
-  public void setLanguage(Language language) {
-    this.language = language;
-  }
+    public Language getLanguage() {
+        return language;
+    }
 
-  public Address[] getRecipients() {
-    return recipients;
-  }
+    public void setLanguage(Language language) {
+        this.language = language;
+    }
 
-  public void setRecipients(Address[] recipients) {
-    this.recipients = recipients;
-  }
+    public Address[] getRecipients() {
+        return recipients;
+    }
 
-  public String getSubject() {
-    return subject;
-  }
+    public void setRecipients(Address[] recipients) {
+        this.recipients = recipients;
+    }
 
-  public void setSubject(String subject) {
-    this.subject = subject;
-  }
+    public String getSubject() {
+        return subject;
+    }
 
-  public String getContent() {
-    return content;
-  }
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
 
-  public void setContent(String content) {
-    this.content = content;
-  }
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public Address[] getReplyTo() {
+        return replyTo;
+    }
+
+    public void setReplyTo(Address[] replyTo) {
+        this.replyTo = replyTo;
+    }
 }

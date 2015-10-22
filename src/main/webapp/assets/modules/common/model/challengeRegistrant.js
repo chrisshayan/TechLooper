@@ -5,18 +5,20 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, $filt
     var registrant = input;
 
     var calculatePoint = function(cri) {
-      return parseFloat($filter('number')((cri.weight / 100) * cri.score, 1));
+      return (cri.weight / 100) * cri.score;// $filter('number')((cri.weight / 100) * cri.score, 1);
     }
 
     registrant.criteriaLoop = function () {
       var criteria = registrant.criteria;
       if (!criteria) return [];
       registrant.totalPoint = 0;
-      return criteria.map(function (cri) {
-        cri.point = calculatePoint(cri);
+      criteria = criteria.map(function (cri) {
+        cri.point = numeral(calculatePoint(cri)).format("0.0");
         registrant.totalPoint += parseFloat(cri.point);
         return cri;
       });
+      registrant.totalPoint = numeral(registrant.totalPoint).format("0.0")
+      return criteria;
     };
 
     registrant.validate = function () {
@@ -47,9 +49,9 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, $filt
               registrant.criteria.push(cri);
             }
           });
-          registrant.savedTotalPoint = _.reduceRight(registrant.criteria, function (sum, cri) {
-            return sum + calculatePoint(cri);
-          }, 0);
+          registrant.savedTotalPoint = numeral(_.reduceRight(registrant.criteria, function (sum, cri) {
+            return parseFloat(sum) + parseFloat(calculatePoint(cri));
+          }, 0)).format("0.0");
           registrant.$savedCriteria = true;
           $rootScope.$broadcast("saveRegistrantCriteriaSuccessful", data);
         })
@@ -58,9 +60,9 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, $filt
         });
     }
 
-    registrant.savedTotalPoint = _.reduceRight(registrant.criteria, function (sum, cri) {
-      return sum + calculatePoint(cri);
-    }, 0);
+    registrant.savedTotalPoint = numeral(_.reduceRight(registrant.criteria, function (sum, cri) {
+      return parseFloat(sum) + parseFloat(calculatePoint(cri));
+    }, 0)).format("0.0");
 
     $rootScope.$on("saveChallengeCriteriaSuccessful", function (scope, challengeCriteriaDto) {
       var criteriaDto = _.findWhere(challengeCriteriaDto.registrantCriteria, {registrantId: registrant.registrantId});

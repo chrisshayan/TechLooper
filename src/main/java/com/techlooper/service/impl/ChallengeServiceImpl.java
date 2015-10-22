@@ -807,16 +807,23 @@ public class ChallengeServiceImpl implements ChallengeService {
     private void bindEmailTemplateVariables(EmailContent emailContent, ChallengeDto challengeDto, ChallengeRegistrantEntity registrant) {
         String subject = emailContent.getSubject();
         String body = emailContent.getContent();
+        EmailSettingDto emailSettingDto = employerService.findEmployerEmailSetting(challengeDto.getAuthorEmail());
         // Process email subject
-        subject = processEmailVariables(challengeDto, registrant, subject);
+        subject = processEmailVariables(challengeDto, registrant, emailSettingDto, subject);
         // Process email body
-        body = processEmailVariables(challengeDto, registrant, body);
+        body = processEmailVariables(challengeDto, registrant, emailSettingDto, body);
 
         emailContent.setSubject(subject);
         emailContent.setContent(body);
+        try {
+            emailContent.setReplyTo(InternetAddress.parse(emailSettingDto.getReplyEmail()));
+        } catch (AddressException ex) {
+            LOGGER.error(ex.getMessage(), ex);
+        }
     }
 
-    private String processEmailVariables(ChallengeDto challengeDto, ChallengeRegistrantEntity registrant, String replacementCandidate) {
+    private String processEmailVariables(ChallengeDto challengeDto, ChallengeRegistrantEntity registrant,
+                                         EmailSettingDto emailSettingDto, String replacementCandidate) {
         String result = replacementCandidate;
         if (StringUtils.isNotEmpty(result)) {
             if (result.contains(EmailService.VAR_CONTEST_NAME)) {
@@ -830,7 +837,6 @@ public class ChallengeServiceImpl implements ChallengeService {
                 result = result.replace(EmailService.VAR_CONTESTANT_FIRST_NAME, registrant.getRegistrantFirstName());
             }
             if (result.contains(EmailService.VAR_MAIL_SIGNATURE)) {
-                EmailSettingDto emailSettingDto = employerService.findEmployerEmailSetting(challengeDto.getAuthorEmail());
                 result = result.replace(EmailService.VAR_MAIL_SIGNATURE, emailSettingDto.getEmailSignature());
             }
         }
