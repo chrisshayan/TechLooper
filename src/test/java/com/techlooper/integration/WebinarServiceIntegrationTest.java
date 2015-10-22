@@ -7,13 +7,13 @@ import com.techlooper.repository.elasticsearch.WebinarRepository;
 import com.techlooper.service.WebinarService;
 import com.techlooper.service.impl.WebinarServiceImpl;
 import org.dozer.DozerBeanMapper;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.util.ReflectionTestUtils;
-import org.springframework.util.Assert;
 
 import javax.annotation.Resource;
 import java.util.Collection;
@@ -25,21 +25,21 @@ import java.util.Collection;
 @ContextConfiguration(classes = {BaseConfigurationTest.class, ElasticsearchConfiguration.class})
 public class WebinarServiceIntegrationTest {
 
-  private WebinarService webinarService;
+    private WebinarService webinarService;
 
-  @Resource
-  private WebinarRepository webinarRepository;
+    @Resource
+    private WebinarRepository webinarRepository;
 
-  @Before
-  public void before() {
-    webinarService = new WebinarServiceImpl();
-    ReflectionTestUtils.setField(webinarService, "webinarRepository", webinarRepository);
-    ReflectionTestUtils.setField(webinarService, "dozerMapper", new DozerBeanMapper());
-  }
+    @Before
+    public void before() {
+        webinarService = new WebinarServiceImpl();
+        ReflectionTestUtils.setField(webinarService, "webinarRepository", webinarRepository);
+        ReflectionTestUtils.setField(webinarService, "dozerMapper", new DozerBeanMapper());
+    }
 
-  @Test
-  public void testFindAvailableWebinars() {
-    Collection<WebinarInfoDto> list = webinarService.findAllWebinars();
-    Assert.notNull(list);
-  }
+    @Test
+    public void testFindAvailableWebinars() {
+        Collection<WebinarInfoDto> list = webinarService.findAllWebinars();
+        Assert.assertNotNull(list);
+    }
 }
