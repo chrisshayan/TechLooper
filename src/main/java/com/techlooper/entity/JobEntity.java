@@ -35,7 +35,7 @@ public class JobEntity {
     @Field(type = String, store = true, indexAnalyzer = "index_analyzer", searchAnalyzer = "search_analyzer")
     private String companyDesc;
 
-    @Field(type = FieldType.Nested)
+    @Field(type = Nested)
     private List<JobSkill> skills;
 
     @Field(type = Integer)
