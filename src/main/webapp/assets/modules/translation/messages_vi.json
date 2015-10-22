@@ -815,5 +815,6 @@
   "removeConfirmation": "Loại bỏ tiêu chí này sẽ ảnh hưởng đến điểm số bạn đã chấm cho các thí sinh trước đó. <br/><strong>Bạn chắc chắn muốn loại bỏ tiêu chí này?</strong>",
   "totalScoreIs": "Tổng điểm",
   "emailSettingDescription": "Thiết lập các thông số để cá nhân hoá email gửi đến các nhân tài công nghệ",
-  "weightedScoring": "Điểm Đạt Được"
+  "weightedScoring": "Điểm Đạt Được",
+  "updateEvaluationCriteria": "Tiêu chí chấm điểm đã được cập nhật."
 }

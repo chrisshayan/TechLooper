@@ -812,5 +812,6 @@
   "noEvaluationCriteria": "No criteria found. Please go to “<strong>Evaluation Criteria</strong>” tab to define your scoring criteria. ",
   "removeConfirmation": "Removing this criteria will impact all contestants' scores you gave already. <br/><strong>Are you sure you want to remove it?</strong>",
   "totalScoreIs": "Total score is",
-  "emailSettingDescription": "Configure settings to personalize emails to tech talents"
+  "emailSettingDescription": "Configure settings to personalize emails to tech talents",
+  "updateEvaluationCriteria": "Scoring criteria are updated."
 }
