@@ -39,6 +39,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static org.elasticsearch.index.query.FilterBuilders.queryFilter;
 import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
@@ -348,8 +349,8 @@ public class ProjectServiceImpl implements ProjectService {
 
     public Collection<ProjectDto> findByOwner(String owner) {
         NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder().withIndices(techlooperIndex).withTypes("project");
-        QueryStringQueryBuilder query = QueryBuilders.queryStringQuery(owner).defaultField("authorEmail");
-        queryBuilder.withFilter(FilterBuilders.queryFilter(query));
+        QueryStringQueryBuilder query = queryStringQuery(owner).defaultField("authorEmail");
+        queryBuilder.withFilter(queryFilter(query));
 
         int pageIndex = 0;
         Set<ProjectDto> projects = new HashSet<>();
@@ -370,7 +371,7 @@ public class ProjectServiceImpl implements ProjectService {
 
     public Collection<ProjectRegistrantDto> findRegistrantsByProjectId(Long projectId) {
         NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder().withIndices(techlooperIndex).withTypes("projectRegistrant");
-        queryBuilder.withFilter(FilterBuilders.queryFilter(QueryBuilders.termQuery("projectId", projectId)));
+        queryBuilder.withFilter(queryFilter(QueryBuilders.termQuery("projectId", projectId)));
 
         int pageIndex = 0;
         Set<ProjectRegistrantDto> registrants = new HashSet<>();
@@ -387,7 +388,7 @@ public class ProjectServiceImpl implements ProjectService {
 
     public Long countRegistrantsByProjectId(Long projectId) {
         NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder().withIndices(techlooperIndex).withTypes("projectRegistrant");
-        queryBuilder.withFilter(FilterBuilders.queryFilter(QueryBuilders.termQuery("projectId", projectId))).withSearchType(SearchType.COUNT);
+        queryBuilder.withFilter(queryFilter(termQuery("projectId", projectId))).withSearchType(SearchType.COUNT);
         return projectRegistrantRepository.search(queryBuilder.build()).getTotalElements();
     }
 }

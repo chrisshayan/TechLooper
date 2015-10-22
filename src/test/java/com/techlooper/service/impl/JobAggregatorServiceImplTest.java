@@ -14,6 +14,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.annotation.Resource;
+import java.util.List;
 import java.util.Set;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -31,12 +32,9 @@ public class JobAggregatorServiceImplTest {
 
     @Test
     public void testSearchJob() throws Exception {
-        JobAlertRegistrationEntity jobAlertRegistration = new JobAlertRegistrationEntity();
-        jobAlertRegistration.setEmail("ndkhoa.is@gmail.com");
-        jobAlertRegistration.setKeyword("Java");
-        jobAlertRegistration.setLocation("Ho Chi Minh");
-        //List<ScrapeJobEntity> jobs = jobAggregatorService.searchJob(jobAlertRegistration);
-        //Assert.assertTrue(jobs.size() > 0);
+        JobSearchCriteria criteria = new JobSearchCriteria();
+        List<JobResponse> jobs = jobAggregatorService.findJob(criteria).getJobs();
+        Assert.assertTrue(jobs.size() > 0);
     }
 
     @Test
@@ -73,7 +71,7 @@ public class JobAggregatorServiceImplTest {
 
     @Test
     public void updateTopPriorityJobManually() throws Exception {
-        for(String jobId : topPriorityJobIds) {
+        for (String jobId : topPriorityJobIds) {
             ScrapeJobEntity jobEntity = scrapeJobRepository.findOne(jobId);
             if (jobEntity != null) {
                 jobEntity.setTopPriority(null);
