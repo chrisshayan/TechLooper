@@ -796,14 +796,14 @@
   "criteriaName": "Tiêu Chí",
   "criteriaWeight": "Trọng Số %",
   "criteriaTotalWeight": "Tổng Trọng Số %",
-  "maximumScore": "Điểm Tối Đa"
+  "maximumScore": "Điểm Tối Đa",
   "emailSetting": "Cài đặt cho Email",
   "replyTo": "Địa chỉ email Trả lời: <strong>*</strong>",
   "emailSignature": "Chữ ký Email:",
   "evaluationCriteriaDes": "Định nghĩa tiêu chí chấm điểm cùng với trọng số của từng tiêu chí để đánh giá tổng điểm cuối cùng cho thí sinh.",
   "addCriteria": "Thêm Tiêu Chí",
   "makeSure100Percent": "Vui lòng đảm bảo tổng trọng số luôn bằng 100%",
-  "givenPoints": "Điểm Đạt Được",
+  "givenPoints": "Điểm <br/> 0 - 100",
   "totalPoints": "Tổng Điểm",
   "automaticallySumCriteria": "Tự động tính tổng từ điểm số chấm cho từng tiêu chí ở trên",
   "emailSettingSuccessfully": "Các thiết lập email mới đã được cập nhật.",
@@ -813,6 +813,7 @@
   "emailSignatureTooltip": "Bạn có thể định nghĩa chữ ký của riêng mình trong tất cả email gửi đến các thí sinh bằng chức năng Phản Hồi từ các thử thách của bạn. Chữ ký sẽ được hiển thị trong nội dung email tại vị trí được quy định bởi biến [[mail_signature]].",
   "noEvaluationCriteria": "Vui lòng định nghĩa tiêu chí chấm điểm của bạn trong màn hình “<strong>Tiêu Chí Đánh Giá</strong>” trước khi chấm điểm thí sinh. ",
   "removeConfirmation": "Loại bỏ tiêu chí này sẽ ảnh hưởng đến điểm số bạn đã chấm cho các thí sinh trước đó. <br/><strong>Bạn chắc chắn muốn loại bỏ tiêu chí này?</strong>",
-  "totalScoreIs": "Total score is",
-  "emailSettingDescription": "Thiết lập các thông số để cá nhân hoá email gửi đến các nhân tài công nghệ"
+  "totalScoreIs": "Tổng điểm",
+  "emailSettingDescription": "Thiết lập các thông số để cá nhân hoá email gửi đến các nhân tài công nghệ",
+  "weightedScoring": "Điểm Đạt Được"
 }

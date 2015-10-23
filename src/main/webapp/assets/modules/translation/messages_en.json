@@ -800,7 +800,7 @@
   "evaluationCriteriaDes": "Input scoring criteria and their weight that will be used for final score calculation",
   "addCriteria": "Add Criteria",
   "makeSure100Percent": "Make sure total weight is 100%",
-  "givenPoints": "Score From <br/>1 -100",
+  "givenPoints": "Score From <br/>0 - 100",
   "totalPoints": "Total Points",
   "weightedScoring": "Weighted Scoring",
   "automaticallySumCriteria": "Automatically sum from points above for each criteria",
