@@ -792,6 +792,7 @@
   "evaluationCriteria": "Evaluation Criteria",
   "criteriaName": "Criteria Name",
   "criteriaWeight": "Weight %",
+  "criteriaWeight1": "Weight <br/>0% - 100%",
   "criteriaTotalWeight": "Total weight %",
   "maximumScore": "Maximum Score",
   "emailSetting": "Email Setting",
@@ -808,9 +809,10 @@
   "errorSystem": "Error system. Please try again later.",
   "errorTotalWeight": "Total weight must be 100%.",
   "replyEmailTooltip": "This email address will be displayed as 'Reply-To' of emails which are sent to contestants by Feedback feature of your challenges.",
-  "emailSignatureTooltip": "You can define your own signature of emails sent to contestants by Feedback feature of your challenges. The signature is displayed at where variable [[mail_signature]] appears in email body.",
+  "emailSignatureTooltip": "You can define your own signature of emails sent to contestants by Feedback feature of your challenges. The signature is displayed at where variable {mail_signature} appears in email body.",
   "noEvaluationCriteria": "No criteria found. Please go to “<strong>Evaluation Criteria</strong>” tab to define your scoring criteria. ",
   "removeConfirmation": "Removing this criteria will impact all contestants' scores you gave already. <br/><strong>Are you sure you want to remove it?</strong>",
   "totalScoreIs": "Total score is",
-  "emailSettingDescription": "Configure settings to personalize emails to tech talents"
+  "emailSettingDescription": "Configure settings to personalize emails to tech talents",
+  "updateEvaluationCriteria": "Scoring criteria are updated."
 }
