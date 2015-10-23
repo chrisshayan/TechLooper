@@ -1,5 +1,7 @@
 package com.techlooper.util;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -20,6 +22,9 @@ public class EmailValidator {
     private static Matcher matcher;
 
     public static boolean validate(final String email) {
+        if (StringUtils.isEmpty(email)) {
+            return false;
+        }
         matcher = pattern.matcher(email);
         return matcher.matches();
     }
