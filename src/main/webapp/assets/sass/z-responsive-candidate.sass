@@ -1,4 +1,13 @@
 @media (min-width: 320px) and (max-width: 780px)
+  .nav-tabs > li
+    width: 100%
+    border: 0
+    a
+      border: 0 !important
+  .nav-tabs > li.active
+    background-color: #337ab7
+    a
+      color: #fff
   .body-content
     padding-bottom: 0
   .navbar
@@ -1328,7 +1337,9 @@
             text-transform: capitalize
           li
             .label-col
-              min-height: 45px !important
+              min-height: 45px
+            .label-col.name
+              min-height: inherit
           table.contests-table
             .registrants-challenge-list
               .registration-date,
@@ -1345,6 +1356,8 @@
                   clear: none
                   padding-right: 10px
                   display: inline-block
+                a
+                  text-align: left
               .registration-action
                 padding-bottom: 10px
                 .label-col
@@ -1893,11 +1906,14 @@
               padding-left: 45px
             a.post-evaluation
               padding-left: 45px
+            a.email-setting
+              background-position: 3px -626px
           li.mobile
             display: block
           li.first:hover
             .sub-menu
               display: none
+
   .header-site
     height: auto
     .personal-header-block
