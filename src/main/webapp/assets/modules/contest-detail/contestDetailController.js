@@ -1,6 +1,53 @@
 techlooper.controller('contestDetailController', function ($scope, apiService, localStorageService, $location, $routeParams,
                                                            jsonValue, $translate, utils, $filter, $timeout, resourcesService) {
 
+  $scope.phaseList =[
+    {
+      "name": "registration",
+      "registration": 200,
+      "participant": null,
+      "submission": null
+    },
+    {
+      "name": "idea",
+      "registration": null,
+      "participant": 185,
+      "submission": 160,
+      "selected": null
+    },
+    {
+      "name": "uiux",
+      "registration": null,
+      "participant": 130,
+      "submission": 100,
+      "selected": null
+    },
+    {
+      "name": "prototype",
+      "registration": null,
+      "participant": 50,
+      "submission": 30,
+      "selected": null
+    },
+    {
+      "name": "finalApp",
+      "registration": null,
+      "participant": 0,
+      "submission": 0,
+      "selected": null
+    },
+    {
+      "name": "winner",
+      "registration": null,
+      "participant": null,
+      "submission": null,
+      "selected": 0
+    }
+  ];
+  $scope.selectedPhase = 0;
+  $scope.reviewPhase= function(index) {
+    $scope.selectedPhase = index;
+  };
   utils.sendNotification(jsonValue.notifications.loading);
   var parts = $routeParams.id.split("-");
   var lastPart = parts.pop();

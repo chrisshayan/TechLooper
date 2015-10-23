@@ -52,7 +52,6 @@
               <div class="ic-time-down"></div>
               <div class="time-block">
                 <h3 translate="currentPhase"/>
-
                 <p>
                   {{contestDetail.progress.translate | translate}}
                   <span ng-show="contestDetail.progress.translate != 'closed' &&  contestDetail.progress.translate != 'notStart' &&  contestDetail.progress.translate != 'registration'">
@@ -246,64 +245,77 @@
         </div>
         <div class="registrants tab-pane fade" ng-show="contestDetail.isAuthor">
           <div class="funnel-challenge-phase-block">
-            <div class="challenge-phase-item">
-              <div class="current-phase"></div>
-              <div class="phase-name registration">
-                <i class="fa fa-key"></i> {{'registration' | translate}}
+            <div class="challenge-phase-item" ng-repeat="phase in phaseList" ng-click="reviewPhase($index)"
+                 ng-class="{col4: phaseList.length == 4, col5: phaseList.length == 5, col6: phaseList.length == 6}">
+              <div class="current-phase" ng-class="{active: $index == selectedPhase}"><i class="fa fa-map-marker"></i></div>
+              <div class="phase-name {{phase.name}}">
+                <i class="fa fa-key"></i> <span translate="{{phase.name}}"></span>
               </div>
               <div class="registrants-phase">
-                <p translate="registrantsNumber" translate-value-number="240"></p>
+                <p translate="registrantsNumber" translate-value-number="{{phase.registration}}" ng-show="phase.registration != null"></p>
+                <p translate="participantsNumber" translate-value-number="{{phase.participant}}"  ng-show="phase.participant != null"></p>
+                <p translate="submissionsNumber" translate-value-number="{{phase.submission}}"  ng-show="phase.submission != null"></p>
+                <p translate="selectedNumber" translate-value-number="{{phase.selected}}"  ng-show="phase.selected != null"></p>
               </div>
             </div>
-            <div class="challenge-phase-item">
-              <div class="current-phase"></div>
-              <div class="phase-name idea">
-                <i class="fa fa-lightbulb-o"></i> {{'idea' | translate}}
-              </div>
-              <div class="registrants-phase">
-                <p translate="participantsNumber" translate-value-number="200"></p>
-                <p translate="submissionsNumber" translate-value-number="160"></p>
-              </div>
-            </div>
-            <div class="challenge-phase-item">
-              <div class="current-phase active"><i class="fa fa-map-marker"></i></div>
-              <div class="phase-name uiux">
-                <i class="fa fa-paint-brush"></i> {{'uiux' | translate}}
-              </div>
-              <div class="registrants-phase">
-                <p translate="participantsNumber" translate-value-number="130"></p>
-                <p translate="submissionsNumber" translate-value-number="100"></p>
-              </div>
-            </div>
-            <div class="challenge-phase-item">
-              <div class="current-phase"><i class="fa fa-map-marker"></i></div>
-              <div class="phase-name prototype">
-                <i class="fa fa-file-image-o"></i> {{'prototype' | translate}}
-              </div>
-              <div class="registrants-phase">
-                <p translate="participantsNumber" translate-value-number="130"></p>
-                <p translate="submissionsNumber" translate-value-number="100"></p>
-              </div>
-            </div>
-            <div class="challenge-phase-item">
-              <div class="current-phase"><i class="fa fa-map-marker"></i></div>
-              <div class="phase-name final-app">
-                <i class="fa fa-check-circle-o"></i> {{'finalApp' | translate}}
-              </div>
-              <div class="registrants-phase">
-                <p translate="participantsNumber" translate-value-number="30"></p>
-                <p translate="submissionsNumber" translate-value-number="10"></p>
-              </div>
-            </div>
-            <div class="challenge-phase-item">
-              <div class="current-phase"><i class="fa fa-map-marker"></i></div>
-              <div class="phase-name winner">
-                <i class="fa fa-trophy"></i> {{'winner' | translate}}
-              </div>
-              <div class="registrants-phase">
-                <p translate="selectedNumber" translate-value-number="30"></p>
-              </div>
-            </div>
+            <!--<div class="challenge-phase-item">-->
+              <!--<div class="current-phase"></div>-->
+              <!--<div class="phase-name registration">-->
+                <!--<i class="fa fa-key"></i> {{'registration' | translate}}-->
+              <!--</div>-->
+              <!--<div class="registrants-phase">-->
+                <!--<p translate="registrantsNumber" translate-value-number="240"></p>-->
+              <!--</div>-->
+            <!--</div>-->
+            <!--<div class="challenge-phase-item">-->
+              <!--<div class="current-phase"></div>-->
+              <!--<div class="phase-name idea">-->
+                <!--<i class="fa fa-lightbulb-o"></i> {{'idea' | translate}}-->
+              <!--</div>-->
+              <!--<div class="registrants-phase">-->
+                <!--<p translate="participantsNumber" translate-value-number="200"></p>-->
+                <!--<p translate="submissionsNumber" translate-value-number="160"></p>-->
+              <!--</div>-->
+            <!--</div>-->
+            <!--<div class="challenge-phase-item">-->
+              <!--<div class="current-phase active"><i class="fa fa-map-marker"></i></div>-->
+              <!--<div class="phase-name uiux">-->
+                <!--<i class="fa fa-paint-brush"></i> {{'uiux' | translate}}-->
+              <!--</div>-->
+              <!--<div class="registrants-phase">-->
+                <!--<p translate="participantsNumber" translate-value-number="130"></p>-->
+                <!--<p translate="submissionsNumber" translate-value-number="100"></p>-->
+              <!--</div>-->
+            <!--</div>-->
+            <!--<div class="challenge-phase-item">-->
+              <!--<div class="current-phase"><i class="fa fa-map-marker"></i></div>-->
+              <!--<div class="phase-name prototype">-->
+                <!--<i class="fa fa-file-image-o"></i> {{'prototype' | translate}}-->
+              <!--</div>-->
+              <!--<div class="registrants-phase">-->
+                <!--<p translate="participantsNumber" translate-value-number="130"></p>-->
+                <!--<p translate="submissionsNumber" translate-value-number="100"></p>-->
+              <!--</div>-->
+            <!--</div>-->
+            <!--<div class="challenge-phase-item">-->
+              <!--<div class="current-phase"><i class="fa fa-map-marker"></i></div>-->
+              <!--<div class="phase-name final-app">-->
+                <!--<i class="fa fa-check-circle-o"></i> {{'finalApp' | translate}}-->
+              <!--</div>-->
+              <!--<div class="registrants-phase">-->
+                <!--<p translate="participantsNumber" translate-value-number="30"></p>-->
+                <!--<p translate="submissionsNumber" translate-value-number="10"></p>-->
+              <!--</div>-->
+            <!--</div>-->
+            <!--<div class="challenge-phase-item">-->
+              <!--<div class="current-phase"><i class="fa fa-map-marker"></i></div>-->
+              <!--<div class="phase-name winner">-->
+                <!--<i class="fa fa-trophy"></i> {{'winner' | translate}}-->
+              <!--</div>-->
+              <!--<div class="registrants-phase">-->
+                <!--<p translate="selectedNumber" translate-value-number="30"></p>-->
+              <!--</div>-->
+            <!--</div>-->
           </div>
           <div class="registrants-filter-block">
             <!--<form name="registrants-filter">-->
