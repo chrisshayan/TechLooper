@@ -76,7 +76,6 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
     getProjects: function () {
       return $http.get("project/list");
     },
-
     joinNowByFB: function () {
       $('.loading-data').css("height", $(window).height());
       $('body').addClass('noscroll');
@@ -86,7 +85,7 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
         localStorageService.set("lastFoot", $location.url());
         localStorageService.set("joinNow", true);
         window.location = url;
-      });
+      })
     },
 
     joinProject: function (projectId, firstName, lastName, email, phoneNumber, resumeLink, lang) {

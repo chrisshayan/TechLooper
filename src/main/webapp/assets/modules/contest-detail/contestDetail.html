@@ -83,6 +83,9 @@
           <div class="alert alert-success" ng-show="!status('already-join')">
             <p translate="congratulationsForJoinContest"></p>
           </div>
+          <div class="alert alert-danger" ng-show="failJoin == true">
+            <p translate="errorSystem"></p>
+          </div>
           <div class="row registration-count">
             <div class="col-md-12">
               <p translate="registerNumber"

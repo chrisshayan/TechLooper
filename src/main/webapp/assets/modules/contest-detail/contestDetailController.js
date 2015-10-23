@@ -14,7 +14,7 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
     title = utils.toAscii(title);
     return $location.url(sprintf("/challenge-detail/%s-%s-id", title, contestId));
   }
-
+  $scope.failJoin = false;
   $scope.action = '';
   $scope.actionContent = '';
   $scope.status = function (type, id) {
@@ -33,6 +33,7 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
         var joinContests = localStorageService.get("joinContests") || "";
         var email = localStorageService.get("email") || "";
         var hasJoined = (joinContests.indexOf(contestId) >= 0) && (email.length > 0);
+        failJoin = false;
         return !hasJoined;
 
       case "contest-in-progress":
@@ -100,6 +101,9 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
         localStorageService.set("joinContests", joinContests.join(","));
         $filter("progress")($scope.contestDetail, "challenge");
         $scope.filterContestant();
+      })
+      .error(function(){
+          $scope.failJoin = true;
       });
   }
 
