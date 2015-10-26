@@ -1,7 +1,13 @@
 <div class="contestant-page contest-detail-page">
   <div class="content-page-block contest-detail-content">
     <div class="header-page">
-      <h2 class="text-left">{{contestDetail.challengeName}}</h2>
+      <h2 class="text-left">{{contestDetail.challengeName}}
+      <span ng-show="contestDetail.progress.translate != 'closed' &&  contestDetail.progress.translate != 'notStart'"
+            ng-class="{'registration': contestDetail.currentPhase == 'REGISTRATION','idea': contestDetail.currentPhase == 'IDEA','uiux': contestDetail.currentPhase == 'UIUX','prototype': contestDetail.currentPhase == 'PROTOTYPE','final': contestDetail.currentPhase == 'FINAL'}">
+          {{contestDetail.currentPhase | textTruncate: 'lowercase' | translate}}</span>
+        <span ng-show="contestDetail.progress.translate == 'closed' || contestDetail.progress.translate == 'notStart'" class="closed">
+          {{contestDetail.progress.translate | translate}}
+        </span></h2>
     </div>
     <div class="row contest-content-detail">
       <ul class="nav nav-tabs contest-content-tab">
@@ -239,32 +245,33 @@
         <div class="registrants tab-pane fade" ng-show="contestDetail.isAuthor">
           <div class="funnel-challenge-phase-block">
             <div class="challenge-phase-item"
-                 ng-repeat="phase in phaseList" ng-click="reviewPhase($index)"
-                 ng-class="{col4: phaseList.length == 4, col5: phaseList.length == 5, col6: phaseList.length == 6, active: $index == selectedPhase}">
+                 ng-repeat="phase in registrantFunnel" ng-click="reviewPhase($index)"
+                 ng-class="{col4: registrantFunnel.length == 4, col5: registrantFunnel.length == 5, col6: registrantFunnel.length == 6, active: $index == selectedPhase}">
               <div class="current-phase"
-                  ng-class="{active: (phase.name | uppercase) == contestDetail.currentPhase}">
+                  ng-class="{active: (phase.phase | uppercase) == contestDetail.currentPhase}">
                 <span translate="currentPhase"></span>
                 <i class="fa fa-caret-down"></i>
               </div>
-              <div class="phase-name {{phase.name}}">
-                <i class="fa fa-key" ng-show="phase.name == 'registration'"></i>
-                <i class="fa fa-lightbulb-o" ng-show="phase.name == 'idea'"></i>
-                <i class="fa fa-paint-brush" ng-show="phase.name == 'uiux'"></i>
-                <i class="fa fa-cubes" ng-show="phase.name == 'prototype'"></i>
-                <i class="fa fa-check-circle-o" ng-show="phase.name == 'finalApp'"></i>
-                <i class="fa fa-trophy" ng-show="phase.name == 'winner'"></i>
-                <span translate="{{phase.name}}"></span>
+              <div class="phase-name {{phase.phase | progress: 'challengePhaseTitle' | lowercase}}"
+                  ng-class="{uiux: (phase.phase | progress: 'challengePhaseTitle' | lowercase) == 'ui/ux'}">
+                <i class="fa fa-key" ng-show="(phase.phase | progress: 'challengePhaseTitle' | lowercase) == 'registration'"></i>
+                <i class="fa fa-lightbulb-o" ng-show="(phase.phase | progress: 'challengePhaseTitle' | lowercase) == 'idea'"></i>
+                <i class="fa fa-paint-brush" ng-show="(phase.phase | progress: 'challengePhaseTitle' | lowercase) == 'ui/ux'"></i>
+                <i class="fa fa-cubes" ng-show="(phase.phase | progress: 'challengePhaseTitle' | lowercase) == 'prototype'"></i>
+                <i class="fa fa-check-circle-o" ng-show="(phase.phase | progress: 'challengePhaseTitle' | lowercase) == 'final app'"></i>
+                <i class="fa fa-trophy" ng-show="phase.phase == 'winner'"></i>
+                <span translate="{{phase.phase | progress: 'challengePhaseTitle'}}"></span>
               </div>
               <div class="registrants-phase">
-                <p translate="registrantsNumber" translate-value-number="{{phase.registration}}" ng-show="phase.registration != null"></p>
-                <p translate="participantsNumber" translate-value-number="{{phase.participant}}"  ng-show="phase.participant != null"></p>
-                <p translate="submissionsNumber" translate-value-number="{{phase.submission}}"  ng-show="phase.submission != null"></p>
-                <p translate="selectedNumber" translate-value-number="{{phase.selected}}"  ng-show="phase.selected != null"></p>
+                <p translate="registrantsNumber" translate-value-number="{{phase.participant}}" ng-show="(phase.phase | progress: 'challengePhaseTitle' | lowercase) == 'registration'"></p>
+                <p translate="participantsNumber" translate-value-number="{{phase.participant}}" ng-show="((phase.phase | progress: 'challengePhaseTitle' | lowercase) != 'registration') && phase.participant > 0"></p>
+                <p translate="submissionsNumber" translate-value-number="{{phase.submission}}" ng-show="phase.submission > 0"></p>
+                <!--<p translate="selectedNumber" translate-value-number="{{phase.selected}}"  ng-show="phase.selected > 0"></p>-->
               </div>
             </div>
             <div class="phase-content-block">
-              <div class="phase-content-details" ng-repeat="phase in phaseList" ng-show="$index == selectedPhase">
-                dfbdfb {{phase.name}}
+              <div class="phase-content-details" ng-repeat="phase in registrantFunnel" ng-show="$index == selectedPhase">
+                dfbdfb {{phase.phase}}
               </div>
             </div>
           </div>
@@ -338,10 +345,10 @@
                       <a ng-click="user.showReviewSubmission()">{{$index + 1}}</a>
                     </div>
                     <div class="registration-review">
+                      <a ng-show="!user.disqualified && !user.qualified"><i class="fa fa-thumbs-up" ng-click="user.showQualification()"></i></a>
                       <a><i class="fa fa-thumbs-down" ng-click="user.showDisqualification()"></i></a>
-                      <a><i class="fa fa-thumbs-up" ng-click="user.showQualification()"></i></a>
-                      <a translate="qualify" ng-show="user.disqualified == true"></a>
-                      <a translate="disqualify" ng-show="!user.disqualified"></a>
+                      <a class="dis" translate="qualify" ng-show="!user.qualified"></a>
+                      <a class="dis" translate="disqualify" ng-show="!user.disqualified"></a>
                     </div>
                     <div class="registration-action">
                       <div class="label-col" translate="action"></div>

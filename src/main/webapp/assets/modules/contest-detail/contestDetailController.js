@@ -153,7 +153,13 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
           $scope.failJoin = true;
       });
   }
-
+  apiService.getRegistrantFunnel(contestId)
+      .success(function (data) {
+        $scope.registrantFunnel = data;
+        console.log($scope.registrantFunnel);
+      }).error(function () {
+        console.log('error');
+  });
   apiService.getContestDetail(contestId)
     .success(function (data) {
       $scope.contestDetail = data;
@@ -175,7 +181,6 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
       else {
         $scope.contestDetail.timeline = 5;
       }
-        console.log($scope.contestDetail);
     })
     .error(function () {$location.url("404");});
 
