@@ -20,6 +20,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -145,5 +146,18 @@ public class ChallengeController {
     public String getChallengeRegistrant(@PathVariable Long registrantId) {
         ChallengeRegistrantEntity registrantEntity = challengeRegistrantRepository.findOne(registrantId);
         return registrantEntity.getRegistrantFirstName() + " " + registrantEntity.getRegistrantLastName();
+    }
+
+    @PreAuthorize("hasAuthority('EMPLOYER')")
+    @RequestMapping(value = "/challenges/{challengeId}/registrantFunnel", method = RequestMethod.GET)
+    public List<ChallengeRegistrantFunnelItem> getChallengeRegistrantFunnel(@PathVariable Long challengeId,
+                                    HttpServletRequest request, HttpServletResponse response) {
+        List<ChallengeRegistrantFunnelItem> funnel = new ArrayList<>();
+        if (challengeService.isOwnerOfChallenge(request.getRemoteUser(), challengeId)) {
+            funnel = challengeService.getChallengeRegistrantFunnel(challengeId);
+        } else {
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+        }
+        return funnel;
     }
 }
