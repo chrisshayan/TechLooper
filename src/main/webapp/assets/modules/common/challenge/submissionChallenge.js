@@ -8,6 +8,8 @@ techlooper.directive("submissionChallenge", function (localStorageService, apiSe
     templateUrl: "modules/common/challenge/submissionChallenge.html",
     link: function (scope, el, attrs) {
 
+      var activePhase;
+
       var mixChallenge = function () {
         scope.challenge.hideSubmitForm = function () {
           scope.submissionForm.$setPristine();
@@ -30,6 +32,11 @@ techlooper.directive("submissionChallenge", function (localStorageService, apiSe
           var firstName = localStorageService.get("firstName");
           var lastName = localStorageService.get("lastName");
           var email = localStorageService.get("email");
+
+          apiService.findRegistrantActivePhase(challengeId, email)
+            .success(function (phase) {
+              scope.submission.submissionPhase = phase;
+            })
 
           //apiService.joinContest(challengeId, firstName, lastName, email, $translate.use())
           //  .success(function() {

@@ -468,14 +468,22 @@ public class ChallengeServiceImpl implements ChallengeService {
         }).collect(toList());
     }
 
-    public boolean checkIfChallengeRegistrantExist(Long challengeId, String email) {
-        NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder();
+    @Override
+    public ChallengeRegistrantEntity findRegistrantByChallengeIdAndEmail(Long challengeId, String email) {
+        NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withTypes("challengeRegistrant");
         searchQueryBuilder.withQuery(boolQuery()
-                .must(matchPhraseQuery("registrantEmail", email))
+                .must(termQuery("registrantEmail", email))
                 .must(termQuery("challengeId", challengeId)));
 
-        long total = challengeRegistrantRepository.search(searchQueryBuilder.build()).getTotalElements();
-        return (total > 0);
+        List<ChallengeRegistrantEntity> registrantEntities = DataUtils.getAllEntities(challengeRegistrantRepository, searchQueryBuilder);
+        if (!registrantEntities.isEmpty()) {
+            return registrantEntities.get(0);
+        }
+        return null;
+    }
+
+    public boolean checkIfChallengeRegistrantExist(Long challengeId, String email) {
+        return findRegistrantByChallengeIdAndEmail(challengeId, email) != null;
     }
 
     @Override
