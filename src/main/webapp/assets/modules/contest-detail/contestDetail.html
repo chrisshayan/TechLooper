@@ -1,14 +1,7 @@
 <div class="contestant-page contest-detail-page">
   <div class="content-page-block contest-detail-content">
     <div class="header-page">
-      <h2 class="text-left">{{contestDetail.challengeName}}
-        <!--<span ng-show="contestDetail.progress.translate != 'closed' &&  contestDetail.progress.translate != 'notStart'"-->
-            <!--ng-class="{'registration': contestDetail.currentPhase == 'REGISTRATION','idea': contestDetail.currentPhase == 'IDEA','uiux': contestDetail.currentPhase == 'UIUX','prototype': contestDetail.currentPhase == 'PROTOTYPE','final': contestDetail.currentPhase == 'FINAL'}">-->
-          <!--{{contestDetail.currentPhase | textTruncate: 'lowercase' | translate}}</span>-->
-        <!--<span ng-show="contestDetail.progress.translate == 'closed' || contestDetail.progress.translate == 'notStart'" class="closed">-->
-          <!--{{contestDetail.progress.translate | translate}}-->
-        <!--</span>-->
-      </h2>
+      <h2 class="text-left">{{contestDetail.challengeName}}</h2>
     </div>
     <div class="row contest-content-detail">
       <ul class="nav nav-tabs contest-content-tab">
@@ -245,11 +238,22 @@
         </div>
         <div class="registrants tab-pane fade" ng-show="contestDetail.isAuthor">
           <div class="funnel-challenge-phase-block">
-            <div class="challenge-phase-item" ng-repeat="phase in phaseList" ng-click="reviewPhase($index)"
-                 ng-class="{col4: phaseList.length == 4, col5: phaseList.length == 5, col6: phaseList.length == 6}">
-              <div class="current-phase" ng-class="{active: $index == selectedPhase}"><i class="fa fa-map-marker"></i></div>
+            <div class="challenge-phase-item"
+                 ng-repeat="phase in phaseList" ng-click="reviewPhase($index)"
+                 ng-class="{col4: phaseList.length == 4, col5: phaseList.length == 5, col6: phaseList.length == 6, active: $index == selectedPhase}">
+              <div class="current-phase"
+                  ng-class="{active: (phase.name | uppercase) == contestDetail.currentPhase}">
+                <span translate="currentPhase"></span>
+                <i class="fa fa-caret-down"></i>
+              </div>
               <div class="phase-name {{phase.name}}">
-                <i class="fa fa-key"></i> <span translate="{{phase.name}}"></span>
+                <i class="fa fa-key" ng-show="phase.name == 'registration'"></i>
+                <i class="fa fa-lightbulb-o" ng-show="phase.name == 'idea'"></i>
+                <i class="fa fa-paint-brush" ng-show="phase.name == 'uiux'"></i>
+                <i class="fa fa-file-image-o" ng-show="phase.name == 'prototype'"></i>
+                <i class="fa fa-check-circle-o" ng-show="phase.name == 'finalApp'"></i>
+                <i class="fa fa-trophy" ng-show="phase.name == 'winner'"></i>
+                <span translate="{{phase.name}}"></span>
               </div>
               <div class="registrants-phase">
                 <p translate="registrantsNumber" translate-value-number="{{phase.registration}}" ng-show="phase.registration != null"></p>
@@ -258,102 +262,22 @@
                 <p translate="selectedNumber" translate-value-number="{{phase.selected}}"  ng-show="phase.selected != null"></p>
               </div>
             </div>
-            <!--<div class="challenge-phase-item">-->
-              <!--<div class="current-phase"></div>-->
-              <!--<div class="phase-name registration">-->
-                <!--<i class="fa fa-key"></i> {{'registration' | translate}}-->
-              <!--</div>-->
-              <!--<div class="registrants-phase">-->
-                <!--<p translate="registrantsNumber" translate-value-number="240"></p>-->
-              <!--</div>-->
-            <!--</div>-->
-            <!--<div class="challenge-phase-item">-->
-              <!--<div class="current-phase"></div>-->
-              <!--<div class="phase-name idea">-->
-                <!--<i class="fa fa-lightbulb-o"></i> {{'idea' | translate}}-->
-              <!--</div>-->
-              <!--<div class="registrants-phase">-->
-                <!--<p translate="participantsNumber" translate-value-number="200"></p>-->
-                <!--<p translate="submissionsNumber" translate-value-number="160"></p>-->
-              <!--</div>-->
-            <!--</div>-->
-            <!--<div class="challenge-phase-item">-->
-              <!--<div class="current-phase active"><i class="fa fa-map-marker"></i></div>-->
-              <!--<div class="phase-name uiux">-->
-                <!--<i class="fa fa-paint-brush"></i> {{'uiux' | translate}}-->
-              <!--</div>-->
-              <!--<div class="registrants-phase">-->
-                <!--<p translate="participantsNumber" translate-value-number="130"></p>-->
-                <!--<p translate="submissionsNumber" translate-value-number="100"></p>-->
-              <!--</div>-->
-            <!--</div>-->
-            <!--<div class="challenge-phase-item">-->
-              <!--<div class="current-phase"><i class="fa fa-map-marker"></i></div>-->
-              <!--<div class="phase-name prototype">-->
-                <!--<i class="fa fa-file-image-o"></i> {{'prototype' | translate}}-->
-              <!--</div>-->
-              <!--<div class="registrants-phase">-->
-                <!--<p translate="participantsNumber" translate-value-number="130"></p>-->
-                <!--<p translate="submissionsNumber" translate-value-number="100"></p>-->
-              <!--</div>-->
-            <!--</div>-->
-            <!--<div class="challenge-phase-item">-->
-              <!--<div class="current-phase"><i class="fa fa-map-marker"></i></div>-->
-              <!--<div class="phase-name final-app">-->
-                <!--<i class="fa fa-check-circle-o"></i> {{'finalApp' | translate}}-->
-              <!--</div>-->
-              <!--<div class="registrants-phase">-->
-                <!--<p translate="participantsNumber" translate-value-number="30"></p>-->
-                <!--<p translate="submissionsNumber" translate-value-number="10"></p>-->
-              <!--</div>-->
-            <!--</div>-->
-            <!--<div class="challenge-phase-item">-->
-              <!--<div class="current-phase"><i class="fa fa-map-marker"></i></div>-->
-              <!--<div class="phase-name winner">-->
-                <!--<i class="fa fa-trophy"></i> {{'winner' | translate}}-->
-              <!--</div>-->
-              <!--<div class="registrants-phase">-->
-                <!--<p translate="selectedNumber" translate-value-number="30"></p>-->
-              <!--</div>-->
-            <!--</div>-->
+            <div class="phase-content-block">
+              <div class="phase-content-details" ng-repeat="phase in phaseList" ng-show="$index == selectedPhase">
+                dfbdfb {{phase.name}}
+              </div>
+            </div>
           </div>
-          <div class="registrants-filter-block">
-            <!--<form name="registrants-filter">-->
-              <!--<div class="registrants-query">-->
-                <!--<selectize name="registrantsFilter" ng-model="filterType"-->
-                           <!--config="config.registrantsFilter"-->
-                           <!--options="config.registrantsFilter.options"></selectize>-->
-                <!--<selectize name="registrantsPhase" ng-model="phase"-->
-                           <!--config="config.registrantsPhase"-->
-                           <!--options="config.registrantsPhase.options"></selectize>-->
-              <!--</div>-->
-              <!--<div class="registrants-date">-->
-                  <!--<div class="input-group date">-->
-                      <!--<span class="input-group-addon left" translate="from"></span>-->
-                      <!--<input type="text" class="form-control" placeholder={{dateFrom}}  ng-model="fromDate">-->
-                      <!--<span class="input-group-addon none">-->
-                        <!--<i class="fa fa-calendar"></i>-->
-                      <!--</span>-->
-                  <!--</div>-->
-                  <!--<div class="input-group date">-->
-                    <!--<span class="input-group-addon none none-left" translate="to"></span>-->
-                    <!--<input type="text" class="form-control" placeholder={{dateTo}} ng-model="toDate">-->
-                    <!--<span class="input-group-addon">-->
-                      <!--<i class="fa fa-calendar"></i>-->
-                    <!--</span>-->
-                  <!--</div>-->
-              <!--</div>-->
-              <!--<div class="submit-filter">-->
-                <!--<button translate="ok" class="btn btn-primary btn-flat" ng-click="filterContestant()"></button>-->
-              <!--</div>-->
-            <!--</form>-->
-          </div>
+
           <form>
             <table class="contests-table">
               <thead>
               <tr>
                 <th>
                   <div class="registrants-challenge-list">
+                    <div class="registrant-order">
+                      #
+                    </div>
                     <div class="registrant-name">
                       {{'fullNameField' | translate}}
                     </div>
@@ -384,12 +308,15 @@
                   id="id-{{$index}}">
                 <td>
                   <div class="registrants-challenge-list">
+                    <div class="registrant-order">
+                      {{$index + 1}}
+                    </div>
                     <div class="registrant-name">
                       <div class="label-col" translate="fullNameField"></div>
                       <i class="fa fa-ban" ng-show="user.disqualifiedReason.length; user.disqualified ==true"></i>{{user.registrantFirstName}} {{user.registrantLastName}}
-                      <i class="{{user | progress: 'registrantActivePhase' | textTruncate: 'lowercase'}}">
-                        {{user | progress: 'registrantActivePhase' | textTruncate: 'lowercase' | translate}}
-                      </i>
+                      <!--<i class="{{user | progress: 'registrantActivePhase' | textTruncate: 'lowercase'}}">-->
+                        <!--{{user | progress: 'registrantActivePhase' | textTruncate: 'lowercase' | translate}}-->
+                      <!--</i>-->
                       <p class="note" ng-show="user.disqualifiedReason.length">{{'disqualifyingReason' | translate}}: {{user.disqualifiedReason}}</p>
                     </div>
                     <div class="registration-date">
