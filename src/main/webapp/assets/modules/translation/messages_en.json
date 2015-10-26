@@ -819,5 +819,7 @@
   "participantsNumber": "<strong>{{number}}</strong> participant(s)",
   "submissionsNumber": "<strong>{{number}}</strong> submission(s)",
   "selectedNumber": "<strong>{{number}}</strong> selected",
-  "winner": "Winner"
+  "winner": "Winner",
+  "submissions": "Submissions",
+  "reviewStatus": "Review Status"
 }
