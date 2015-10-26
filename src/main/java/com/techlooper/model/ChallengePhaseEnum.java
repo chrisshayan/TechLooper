@@ -5,13 +5,13 @@ package com.techlooper.model;
  */
 public enum ChallengePhaseEnum {
 
-    ALL_PHASES("startDateTime", "registrationDateTime", "ALL_PHASE"),
-    REGISTRATION("startDateTime", "registrationDateTime", "REGISTRATION"),
-    IN_PROGRESS("registrationDateTime", "submissionDateTime", "IN_PROGRESS"),
-    IDEA("registrationDateTime", "ideaSubmissionDateTime", "IDEA"),
-    UIUX("ideaSubmissionDateTime", "uxSubmissionDateTime", "UIUX"),
-    PROTOTYPE("uxSubmissionDateTime", "prototypeSubmissionDateTime", "PROTOTYPE"),
-    FINAL("prototypeSubmissionDateTime", "submissionDateTime", "FINAL");
+    ALL_PHASES("startDateTime", "registrationDateTime", "ALL_PHASE", 0),
+    REGISTRATION("startDateTime", "registrationDateTime", "REGISTRATION", 1),
+    IN_PROGRESS("registrationDateTime", "submissionDateTime", "IN_PROGRESS", 2),
+    IDEA("registrationDateTime", "ideaSubmissionDateTime", "IDEA", 3),
+    UIUX("ideaSubmissionDateTime", "uxSubmissionDateTime", "UIUX", 4),
+    PROTOTYPE("uxSubmissionDateTime", "prototypeSubmissionDateTime", "PROTOTYPE", 5),
+    FINAL("prototypeSubmissionDateTime", "submissionDateTime", "FINAL", 6);
 
     private String fromDateTimeField;
 
@@ -19,10 +19,13 @@ public enum ChallengePhaseEnum {
 
     private String value;
 
-    ChallengePhaseEnum(String fromDateTimeField, String toDateTimeField, String value) {
+    private Integer order;
+
+    ChallengePhaseEnum(String fromDateTimeField, String toDateTimeField, String value, Integer order) {
         this.fromDateTimeField = fromDateTimeField;
         this.toDateTimeField = toDateTimeField;
         this.value = value;
+        this.order = order;
     }
 
     public String getFromDateTimeField() {
@@ -47,5 +50,13 @@ public enum ChallengePhaseEnum {
 
     public void setValue(String value) {
         this.value = value;
+    }
+
+    public Integer getOrder() {
+        return order;
+    }
+
+    public void setOrder(Integer order) {
+        this.order = order;
     }
 }

@@ -106,4 +106,6 @@ public interface ChallengeService {
     void calculateChallengePhases(ChallengeDetailDto challengeDetailDto);
 
     ChallengeRegistrantEntity findRegistrantByChallengeIdAndEmail(Long challengeId, String email);
+
+    List<ChallengeRegistrantFunnelItem> getChallengeRegistrantFunnel(Long challengeId);
 }
