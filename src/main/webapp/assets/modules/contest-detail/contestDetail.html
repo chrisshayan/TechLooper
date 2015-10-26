@@ -338,10 +338,10 @@
                       <a ng-click="user.showReviewSubmission()">{{$index + 1}}</a>
                     </div>
                     <div class="registration-review">
-                      <a><i class="fa fa-thumbs-up"></i></a>
-                      <a><i class="fa fa-thumbs-down"></i></a>
-                      <a href="" translate="qualify"></a>
-                      <a href="" translate="disqualify"></a>
+                      <a><i class="fa fa-thumbs-down" ng-click="user.showDisqualification()"></i></a>
+                      <a><i class="fa fa-thumbs-up" ng-click="user.showQualification()"></i></a>
+                      <a translate="qualify" ng-show="user.disqualified == true"></a>
+                      <a translate="disqualify" ng-show="!user.disqualified"></a>
                     </div>
                     <div class="registration-action">
                       <div class="label-col" translate="action"></div>
