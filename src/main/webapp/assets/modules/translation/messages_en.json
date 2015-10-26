@@ -814,5 +814,10 @@
   "removeConfirmation": "Removing this criteria will impact all contestants' scores you gave already. <br/><strong>Are you sure you want to remove it?</strong>",
   "totalScoreIs": "Total score is",
   "emailSettingDescription": "Configure settings to personalize emails to tech talents",
-  "updateEvaluationCriteria": "Scoring criteria are updated."
+  "updateEvaluationCriteria": "Scoring criteria are updated.",
+  "registrantsNumber": "<strong>{{number}}</strong> registrant(s)",
+  "participantsNumber": "<strong>{{number}}</strong> participant(s)",
+  "submissionsNumber": "<strong>{{number}}</strong> submission(s)",
+  "selectedNumber": "<strong>{{number}}</strong> selected",
+  "winner": "Winner"
 }
