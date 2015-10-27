@@ -1027,6 +1027,10 @@ public class ChallengeServiceImpl implements ChallengeService {
             funnel.add(new ChallengeRegistrantFunnelItem(phase, participant, submission));
         }
 
+//        Long numberOfWinners = challengeRegistrantService.countNumberOfWinners(challengeId);
+        Long numberOfWinners = 1L;
+        funnel.add(new ChallengeRegistrantFunnelItem(ChallengePhaseEnum.WINNER, numberOfWinners, numberOfWinners));
+
         Comparator<ChallengeRegistrantFunnelItem> sortByPhaseComparator = (item1, item2) ->
                 item1.getPhase().getOrder() - item2.getPhase().getOrder();
         return funnel.stream().sorted(sortByPhaseComparator).collect(toList());
