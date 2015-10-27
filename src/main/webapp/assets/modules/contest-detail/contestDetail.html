@@ -253,7 +253,7 @@
                 <i class="fa fa-caret-down"></i>
               </div>
               <div class="phase-name {{phase.phase | progress: 'challengePhaseTitle' | lowercase}}"
-                  ng-class="{uiux: (phase.phase | progress: 'challengePhaseTitle' | lowercase) == 'ui/ux'}">
+                  ng-class="{pass: $index <= registrantFunnel.currentPosition, uiux: (phase.phase | progress: 'challengePhaseTitle' | lowercase) == 'ui/ux'}">
                 <i class="fa fa-key" ng-show="(phase.phase | progress: 'challengePhaseTitle' | lowercase) == 'registration'"></i>
                 <i class="fa fa-lightbulb-o" ng-show="(phase.phase | progress: 'challengePhaseTitle' | lowercase) == 'idea'"></i>
                 <i class="fa fa-paint-brush" ng-show="(phase.phase | progress: 'challengePhaseTitle' | lowercase) == 'ui/ux'"></i>
