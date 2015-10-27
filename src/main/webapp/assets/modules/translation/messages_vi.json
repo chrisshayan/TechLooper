@@ -817,5 +817,14 @@
   "totalScoreIs": "Tổng điểm",
   "emailSettingDescription": "Thiết lập các thông số để cá nhân hoá email gửi đến các nhân tài công nghệ",
   "weightedScoring": "Điểm Đạt Được",
-  "updateEvaluationCriteria": "Tiêu chí chấm điểm đã được cập nhật."
+  "updateEvaluationCriteria": "Tiêu chí chấm điểm đã được cập nhật.",
+  "registrantsNumberPhase": "<strong>{{number}}</strong> thí sinh",
+  "participantsNumber": "<strong>{{number}}</strong> người tham dự",
+  "submissionsNumber": "<strong>{{number}}</strong> bài gửi",
+  "selectedNumber": "<strong>{{number}}</strong> selected",
+  "winner": "Trao giải",
+  "submissions": "bài gửi",
+  "reviewStatus": "Review Status",
+  "winnerDes": "Lựa chọn người chiến thắng cho mỗi giải thưởng:",
+  "PhaseDes": "Lựa chọn các thí sinh cho vòng tiếp theo:"
 }
