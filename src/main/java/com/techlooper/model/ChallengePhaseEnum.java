@@ -11,7 +11,8 @@ public enum ChallengePhaseEnum {
     IDEA("registrationDateTime", "ideaSubmissionDateTime", "IDEA", 3),
     UIUX("ideaSubmissionDateTime", "uxSubmissionDateTime", "UIUX", 4),
     PROTOTYPE("uxSubmissionDateTime", "prototypeSubmissionDateTime", "PROTOTYPE", 5),
-    FINAL("prototypeSubmissionDateTime", "submissionDateTime", "FINAL", 6);
+    FINAL("prototypeSubmissionDateTime", "submissionDateTime", "FINAL", 6),
+    WINNER("prototypeSubmissionDateTime", "submissionDateTime", "WINNER", 7);
 
     private String fromDateTimeField;
 

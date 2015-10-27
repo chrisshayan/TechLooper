@@ -5,7 +5,7 @@ import com.techlooper.model.ChallengeRegistrantPhaseItem;
 import com.techlooper.service.ChallengeRegistrantService;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.search.SearchType;
-import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.index.query.BoolFilterBuilder;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
 import org.elasticsearch.search.aggregations.Aggregations;
 import org.elasticsearch.search.aggregations.bucket.terms.Terms;
@@ -20,6 +20,8 @@ import java.util.List;
 import java.util.Map;
 
 import static com.techlooper.model.ChallengePhaseEnum.*;
+import static org.elasticsearch.index.query.FilterBuilders.*;
+import static org.elasticsearch.index.query.QueryBuilders.*;
 
 @Service
 public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantService {
@@ -35,7 +37,7 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
 
         NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withIndices("techlooper")
                 .withTypes("challengeRegistrant").withSearchType(SearchType.COUNT);
-        searchQueryBuilder.withQuery(QueryBuilders.termQuery("challengeId", challengeId));
+        searchQueryBuilder.withQuery(termQuery("challengeId", challengeId));
 
         Long numberOfRegistrants = elasticsearchTemplate.count(searchQueryBuilder.build());
         numberOfRegistrantsByPhase.put(REGISTRATION, new ChallengeRegistrantPhaseItem(REGISTRATION, numberOfRegistrants));
@@ -57,5 +59,19 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
             }
         }
         return numberOfRegistrantsByPhase;
+    }
+
+    @Override
+    public Long countNumberOfWinners(Long challengeId) {
+        NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withIndices("techlooper")
+                .withTypes("challengeRegistrant").withSearchType(SearchType.COUNT);
+
+        BoolFilterBuilder boolFilterBuilder = boolFilter();
+        boolFilterBuilder.must(termFilter("challengeId", challengeId));
+        boolFilterBuilder.must(termFilter("activePhase", ChallengePhaseEnum.FINAL.getValue()));
+        boolFilterBuilder.mustNot(missingFilter("criteria"));
+
+        searchQueryBuilder.withQuery(filteredQuery(matchAllQuery(), boolFilterBuilder));
+        return elasticsearchTemplate.count(searchQueryBuilder.build());
     }
 }
