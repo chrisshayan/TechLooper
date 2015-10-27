@@ -354,21 +354,28 @@
               text-align: center
               padding: 10px 0
             .registration-submission
-              width: 7%
+              width: 10%
               float: left
               text-align: center
               padding: 10px 0
               a
                 color: #2e6da4
             .registration-review
-              width: 7%
+              width: 14%
               float: left
               text-align: center
               padding: 10px 0
               a
                 color: #2e6da4
+                width: 50%
+                text-align: center
+                display: inline
+              a.dis
+                width: 100%
+                clear: both
+                display: inline-block
             .registrant-name
-              width: 36%
+              width: 35%
               float: left
               text-align: left
               padding: 10px
@@ -401,12 +408,12 @@
               i.closed
                 background-color: #e6e6e6
             .registration-date
-              width: 20%
+              width: 18%
               float: left
               text-align: center
               padding: 10px
             .registration-score
-              width: 15%
+              width: 8%
               float: left
               text-align: center
               padding: 10px
@@ -1020,7 +1027,6 @@
         width: 100%
         clear: both
         .challenge-phase-item
-          width: 16.66667%
           float: left
           padding: 0 5px 0 0
           .registrants-phase
@@ -1044,12 +1050,15 @@
             font-weight: 400
             padding: 4px 0
             text-align: center
-            background-color: #dfdede
             cursor: pointer
+            border: 1px solid #dfdede
             i
               cursor: pointer
             span
               cursor: pointer
+          .phase-name.pass
+            background-color: #dfdede
+            border: 1px solid #dfdede
           .current-phase
             text-align: center
             width: 100%
@@ -1086,16 +1095,22 @@
             color: #333
           .phase-name.registration
             background-color: #1ea185
+            border: 1px solid #1ea185
           .phase-name.idea
             background-color: #9bba5c
+            border: 1px solid #9bba5c
           .phase-name.uiux
             background-color: #9F472B
+            border: 1px solid #9F472B
           .phase-name.prototype
             background-color: #bd392f
-          .phase-name.finalApp
+            border: 1px solid #bd392f
+          .phase-name.app
             background-color: #257abb
+            border: 1px solid #257abb
           .phase-name.winner
             background-color: #FFAA00
+            border: 1px solid #FFAA00
           .current-phase.registration
             color: #1ea185
           .current-phase.idea
@@ -1104,10 +1119,16 @@
             color: #9F472B
           .current-phase.prototype
             color: #bd392f
-          .current-phase.finalApp
+          .current-phase.app
             color: #257abb
           .current-phase.winner
             color: #FFAA00
+        .challenge-phase-item.col4
+          width: 25%
+        .challenge-phase-item.col5
+          width: 20%
+        .challenge-phase-item.col6
+          width: 16.66667%
       .phase-content-block
         width: 100%
         clear: both
