@@ -1267,6 +1267,8 @@
 
             tr
               background-color: #fff
+          .registrants-paging
+            padding-left: 0
         .contest-content-item
           .timeLine-milestone
             text-align: center
@@ -1353,24 +1355,11 @@
                 clear: both
                 text-align: left
                 padding: 10px 0 0
-              .registrant-order
-                .label-col
-                  width: auto
-                  clear: none
-                  padding-right: 10px
-                  display: inline-block
-              .registration-score
-                .label-col
-                  width: auto
-                  clear: none
-                  padding-right: 10px
-                  display: inline-block
-                a
-                  text-align: left
-                  width: auto
-                  display: inline-block
-                  clear: none
-              .registration-submission
+              .registrant-order,
+              .registration-score,
+              .registration-review,
+              .registration-submission,
+              .registration-action
                 .label-col
                   width: auto
                   clear: none
@@ -1381,45 +1370,10 @@
                   width: auto
                   display: inline-block
                   clear: none
-              .registration-review
-                .label-col
-                  width: auto
-                  clear: none
-                  padding-right: 10px
-                  display: inline-block
-                a
-                  text-align: left
-                  width: auto
-                  display: inline-block
-                  clear: none
+                  float: none
                 a.dis
                   clear: none
                   width: auto
-              .registration-action
-                padding-bottom: 10px
-                .label-col
-                  width: 25%
-                  clear: none
-                  padding: 3px 0 0
-                  display: inline-block
-                  float: left
-                .action-link
-                  display: inline-block
-                  float: left
-                  width: 75%
-                  ul
-                    margin: 0
-                    padding: 0
-                    width: 100%
-                    li
-                      width: auto
-                      float: left
-                      a
-                        padding: 3px
-                      a.active
-                        color: #337ab7
-                .dropdown
-                  display: none
             .disqualify-block
               padding: 0
               a.btn
