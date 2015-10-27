@@ -322,6 +322,7 @@
                 <td>
                   <div class="registrants-challenge-list">
                     <div class="registrant-order">
+                      <div class="label-col">#</div>
                       {{$index + 1}}
                     </div>
                     <div class="registrant-name">
@@ -342,9 +343,11 @@
                       <a ng-show="user.disqualified == true">{{user.savedTotalPoint}}</a>
                     </div>
                     <div class="registration-submission">
+                      <div class="label-col" translate="submissions"></div>
                       <a ng-click="user.showReviewSubmission()">{{$index + 1}}</a>
                     </div>
                     <div class="registration-review">
+                      <div class="label-col" translate="reviewStatus"></div>
                       <a ng-show="!user.disqualified && !user.qualified"><i class="fa fa-thumbs-up" ng-click="user.showQualification()"></i></a>
                       <a><i class="fa fa-thumbs-down" ng-click="user.showDisqualification()"></i></a>
                       <a class="dis" translate="qualify" ng-show="!user.qualified"></a>

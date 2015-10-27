@@ -1342,14 +1342,23 @@
               min-height: inherit
           table.contests-table
             .registrants-challenge-list
+              .registrant-order,
               .registration-date,
               .registration-score,
               .registration-action,
-              .registrant-name
+              .registrant-name,
+              .registration-submission,
+              .registration-review
                 width: 100%
                 clear: both
                 text-align: left
                 padding: 10px 0 0
+              .registrant-order
+                .label-col
+                  width: auto
+                  clear: none
+                  padding-right: 10px
+                  display: inline-block
               .registration-score
                 .label-col
                   width: auto
@@ -1358,6 +1367,34 @@
                   display: inline-block
                 a
                   text-align: left
+                  width: auto
+                  display: inline-block
+                  clear: none
+              .registration-submission
+                .label-col
+                  width: auto
+                  clear: none
+                  padding-right: 10px
+                  display: inline-block
+                a
+                  text-align: left
+                  width: auto
+                  display: inline-block
+                  clear: none
+              .registration-review
+                .label-col
+                  width: auto
+                  clear: none
+                  padding-right: 10px
+                  display: inline-block
+                a
+                  text-align: left
+                  width: auto
+                  display: inline-block
+                  clear: none
+                a.dis
+                  clear: none
+                  width: auto
               .registration-action
                 padding-bottom: 10px
                 .label-col
