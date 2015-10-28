@@ -144,7 +144,7 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
       else {
         $scope.contestDetail.timeline = 5;
       }
-        $scope.getRegistrants(contestId);
+      $scope.getRegistrants(contestId);
     })
     .error(function () {$location.url("404");});
 

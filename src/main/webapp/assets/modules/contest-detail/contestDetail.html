@@ -297,7 +297,8 @@
                           <!--<i class="fa fa-chevron-circle-down"-->
                              <!--ng-class="{'fa-chevron-circle-down':sortStartDate == 'desc','fa-chevron-circle-up': sortStartDate == 'asc'}"></i>-->
                         </div>
-                        <div class="registration-score">
+                        <div class="registration-score"
+                             ng-show="(phase.phase | progress: 'challengePhaseTitle' | lowercase) == 'winner' || (phase.phase | progress: 'challengePhaseTitle' | lowercase) == 'final app'">
                           {{'score' | translate}}
                           <!--<i class="fa fa-chevron-circle-down" ng-show="sortScore"-->
                              <!--ng-class="{'fa-chevron-circle-down': sortScore == 'desc','fa-chevron-circle-up': sortScore == 'asc'}"></i>-->
@@ -305,7 +306,7 @@
                         <div class="registration-submission">
                           {{'submissions' | translate}}
                         </div>
-                        <div class="registration-review">
+                        <div class="registration-review" ng-show="(phase.phase | progress: 'challengePhaseTitle' | lowercase) != 'final app'">
                           {{'reviewStatus' | translate}}
                         </div>
                         <div class="registration-action">
@@ -321,7 +322,7 @@
                       <p translate="noData"></p>
                     </td>
                   </tr>
-                  <tr dir-paginate="user in registrantPhase | itemsPerPage:10" id="id-{{$index}}">
+                  <tr dir-paginate="user in registrantPhase | itemsPerPage:10" id="id-{{$index}}" ng-show="(phase.phase | progress: 'challengePhaseTitle' | lowercase) != 'winner'">
                     <td>
                       <div class="registrants-challenge-list">
                         <div class="registrant-order">
@@ -337,7 +338,8 @@
                           <div class="label-col" translate="registrationDate"></div>
                           {{user.registrantId | timestamp: 'number'}}
                         </div>
-                        <div class="registration-score">
+                        <div class="registration-score"
+                             ng-show="(phase.phase | progress: 'challengePhaseTitle' | lowercase) == 'winner' && (phase.phase | progress: 'challengePhaseTitle' | lowercase) == 'final app'">
                           <div class="label-col" translate="score"></div>
                           <a ng-click="user.showScore()" ng-show="!user.disqualified">{{user.savedTotalPoint}}</a>
                           <a ng-show="user.disqualified == true">{{user.savedTotalPoint}}</a>
@@ -346,12 +348,12 @@
                           <div class="label-col" translate="submissions"></div>
                           <a ng-click="user.showReviewSubmission()">{{user.submissions || 0}}</a>
                         </div>
-                        <div class="registration-review">
+                        <div class="registration-review" ng-show="(phase.phase | progress: 'challengePhaseTitle' | lowercase) != 'final app'">
                           <div class="label-col" translate="reviewStatus"></div>
-                          <a ng-show="!user.disqualified && !user.qualified"><i class="fa fa-thumbs-up" ng-click="user.showQualification()"></i></a>
-                          <a><i class="fa fa-thumbs-down" ng-click="user.showDisqualification()"></i></a>
-                          <a class="dis" translate="qualify" ng-show="!user.qualified"></a>
-                          <a class="dis" translate="disqualify" ng-show="!user.disqualified"></a>
+                          <a ng-show="user.disqualified == null"><i class="fa fa-thumbs-up" ng-click="user.showQualification()"></i></a>
+                          <a ng-show="user.disqualified == null"><i class="fa fa-thumbs-down" ng-click="user.showDisqualification()"></i></a>
+                          <span translate="qualified" ng-show="user.disqualified == true"></span>
+                          <span translate="disqualified" ng-show="user.disqualified == false"></span>
                         </div>
                         <div class="registration-action">
                           <div class="label-col" translate="action"></div>
@@ -363,7 +365,7 @@
                   </tr>
                   </tbody>
                 </table>
-                <div class="registrants-paging">
+                <div class="registrants-paging" ng-show="(phase.phase | progress: 'challengePhaseTitle' | lowercase) != 'winner'">
                   <span translate="contestantsReturned" translate-value-number="{{registrantPhase.length}}"></span>
                   <dir-pagination-controls
                       max-size="10"
