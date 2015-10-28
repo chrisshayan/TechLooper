@@ -824,5 +824,6 @@
   "submissions": "Submissions",
   "reviewStatus": "Review Status",
   "winnerDes": "Select winner for each prize of the challenge:",
-  "PhaseDes": "Select which contestants are qualified for the next round:"
+  "PhaseDes": "Select which contestants are qualified for the next round:",
+  "lastSubmissionDate": "Last Submission Date"
 }

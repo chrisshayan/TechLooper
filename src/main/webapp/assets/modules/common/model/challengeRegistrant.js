@@ -1,4 +1,4 @@
-techlooper.filter("challengeRegistrant", function (apiService, $rootScope, $filter) {
+techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonValue) {
   return function (input, challengePhase) {
     if (!input || input.$isRich) return input;
 
@@ -23,7 +23,7 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, $filt
     //else {
     //  registrant.qualifiedCurrentPhase = true;
     //}
-
+    registrant.activePhase = registrant.activePhase ? registrant.activePhase : jsonValue.challengePhase.getRegistration().enum;
     if (challengePhase != registrant.activePhase) {
       registrant.qualified = true;
     }

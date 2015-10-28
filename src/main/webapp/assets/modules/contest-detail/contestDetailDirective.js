@@ -102,7 +102,7 @@ techlooper
           console.log(scope.registrant.submissions);
         });
 
-        //utils.sortByNumber(scope.registrant.submissions, "challengeSubmissionId");
+        utils.sortByNumber(scope.registrant.submissions, "challengeSubmissionId");
       }
     };
   })

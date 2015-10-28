@@ -1,6 +1,7 @@
 package com.techlooper.service;
 
 import com.techlooper.entity.ChallengeRegistrantDto;
+import com.techlooper.entity.ChallengeRegistrantEntity;
 import com.techlooper.model.ChallengePhaseEnum;
 import com.techlooper.model.ChallengeRegistrantPhaseItem;
 

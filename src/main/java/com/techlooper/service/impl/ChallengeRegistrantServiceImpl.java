@@ -107,7 +107,9 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
 
     Set<ChallengeRegistrantDto> registrantDtos = new HashSet<>();
     challengeRegistrantRepository.search(challengeQuery).forEach(entity -> {
-      registrantDtos.add(dozerMapper.map(entity, ChallengeRegistrantDto.class));
+      ChallengeRegistrantDto dto = dozerMapper.map(entity, ChallengeRegistrantDto.class);
+      dto.setSubmissions(challengeService.findChallengeSubmissionByRegistrant(challengeId, entity.getRegistrantId()));
+      registrantDtos.add(dto);
     });
 
     return registrantDtos;
