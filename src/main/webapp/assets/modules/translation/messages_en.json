@@ -828,5 +828,7 @@
   "lastSubmissionDate": "Last Submission Date",
   "qualifiedNextPhase": "Qualified to next round?",
   "disqualified": "Disqualified",
-  "qualified": "Qualified"
+  "qualified": "Qualified",
+  "submissionToPhase": "Submission to phase:",
+  "submissionsReviewTip": "Review"
 }

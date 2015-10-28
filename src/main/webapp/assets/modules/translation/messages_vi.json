@@ -832,5 +832,7 @@
   "lastSubmissionDate": "Ngày gửi bài gần nhất",
   "qualifiedNextPhase": "Đạt điều kiện vào vòng sau?",
   "disqualified": "Không đạt",
-  "qualified": "Đạt"
+  "qualified": "Đạt",
+  "submissionToPhase": "Gửi vào giai đoạn:",
+  "submissionsReviewTip": "Xem bài"
 }
