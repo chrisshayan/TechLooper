@@ -298,10 +298,11 @@
                           <i class="fa fa-chevron-circle-down"
                              ng-class="{'fa-chevron-circle-down':sortByRegistrationDateType == 'desc','fa-chevron-circle-up': sortByRegistrationDateType == 'asc'}"></i>
                         </div>
-                        <div class="registration-date" ng-show="(phase.phase | progress: 'challengePhaseTitle' | lowercase) != 'registration'">
+                        <div class="registration-date" ng-show="(phase.phase | progress: 'challengePhaseTitle' | lowercase) != 'registration'"
+                          ng-click="sortByRegistrationDate()">
                           {{'lastSubmissionDate' | translate}}
-                          <!--<i class="fa fa-chevron-circle-down"-->
-                          <!--ng-class="{'fa-chevron-circle-down':sortStartDate == 'desc','fa-chevron-circle-up': sortStartDate == 'asc'}"></i>-->
+                          <i class="fa fa-chevron-circle-down"
+                          ng-class="{'fa-chevron-circle-down':sortByRegistrationDateType == 'desc','fa-chevron-circle-up': sortByRegistrationDateType == 'asc'}"></i>
                         </div>
                         <div class="registration-submission">
                           {{'submissions' | translate}}

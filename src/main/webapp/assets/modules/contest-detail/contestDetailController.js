@@ -27,7 +27,16 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
     var phaseName = phase ? phase.phase : jsonValue.challengePhase.getRegistration().enum;
     apiService.getChallengeRegistrantsByPhase(contestId, phaseName).success(function (data) {
       $scope.registrantPhase = data;
-      $scope.sortByRegistrationDate();
+
+      switch (phaseName) {
+        case "REGISTRATION":
+          $scope.sortByRegistrationDate();
+          break;
+
+        default:
+          $scope.sortBySubmissionDate();
+          break;
+      }
 
       var param = $location.search();
       if (param.a == "registrants") {
@@ -44,6 +53,11 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
   $scope.sortByRegistrationDate = function () {
     $scope.sortByRegistrationDateType = $scope.sortByRegistrationDateType == "asc" ? "desc" : "asc";
     utils.sortByNumber($scope.registrantPhase, "registrantId", $scope.sortByRegistrationDateType);
+  }
+
+  $scope.sortBySubmissionDate = function () {
+    $scope.sortByRegistrationDateType = $scope.sortByRegistrationDateType == "asc" ? "desc" : "asc";
+    utils.sortByNumber($scope.registrantPhase, "challengeSubmissionId", $scope.sortBySubmissionDateType);
   }
 
   $scope.reviewPhase();
