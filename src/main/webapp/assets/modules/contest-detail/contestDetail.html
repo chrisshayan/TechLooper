@@ -313,7 +313,7 @@
                         </div>
 
                         <div class="registration-review" ng-show="(phase.phase | progress: 'challengePhaseTitle' | lowercase) != 'final app'">
-                          {{'reviewStatus' | translate}}
+                          {{'qualifiedNextPhase' | translate}}
                         </div>
                         <div class="registration-action">
                           {{'action' | translate}}
@@ -360,7 +360,7 @@
                         </div>
 
                         <div class="registration-review" ng-show="(phase.phase | progress: 'challengePhaseTitle' | lowercase) != 'final app'">
-                          <div class="label-col" translate="reviewStatus"></div>
+                          <div class="label-col" translate="qualifiedNextPhase"></div>
                           <a ng-show="user.disqualified == null && user.qualified == null"><i class="fa fa-thumbs-up" ng-click="user.showQualification()"></i></a>
                           <a ng-show="user.disqualified == null && user.qualified == null"><i class="fa fa-thumbs-down" ng-click="user.showDisqualification()"></i></a>
                           <span translate="qualified" ng-show="user.qualified == true"></span>
