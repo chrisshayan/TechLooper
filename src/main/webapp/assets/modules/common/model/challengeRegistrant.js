@@ -27,9 +27,11 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, $filt
     if (challengePhase != registrant.activePhase) {
       registrant.qualified = true;
     }
-    //else {
-    //  registrant.qualified = registrant.disqualified;
-    //}
+    else {
+      if (registrant.disqualified == true) {
+        registrant.qualified = false;
+      }
+    }
 
     registrant.criteriaLoop = function () {
       var criteria = registrant.criteria;
