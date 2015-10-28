@@ -314,7 +314,6 @@
                           <i class="fa fa-chevron-circle-down"
                              ng-class="{'fa-chevron-circle-down': sortByScoreType == 'desc','fa-chevron-circle-up': sortByScoreType == 'asc'}"></i>
                         </div>
-
                         <div class="registration-review" ng-show="(phase.phase | progress: 'challengePhaseTitle' | lowercase) != 'final app'">
                           {{'qualifiedNextPhase' | translate}}
                         </div>
@@ -340,9 +339,9 @@
                         </div>
                         <div class="registrant-name">
                           <div class="label-col" translate="fullNameField"></div>
-                          <!--<i class="fa fa-ban" ng-show="user.disqualifiedReason.length; user.disqualified ==true"></i>-->
+                          <i class="fa fa-ban" ng-show="user.disqualifiedReason.length; user.qualified == false"></i>
                           {{user.names}}
-                          <!--<p class="note" ng-show="user.disqualifiedReason.length">{{'disqualifyingReason' | translate}}: {{user.disqualifiedReason}}</p>-->
+                          <p class="note" ng-show="user.disqualifiedReason.length">{{'disqualifyingReason' | translate}}: {{user.disqualifiedReason}}</p>
                         </div>
                         <div class="registration-date" ng-show="(phase.phase | progress: 'challengePhaseTitle' | lowercase) == 'registration'">
                           <div class="label-col" translate="registrationDate"></div>
