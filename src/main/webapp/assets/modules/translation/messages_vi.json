@@ -828,5 +828,6 @@
   "submissions": "bài gửi",
   "reviewStatus": "Review Status",
   "winnerDes": "Lựa chọn người chiến thắng cho mỗi giải thưởng:",
-  "PhaseDes": "Lựa chọn các thí sinh cho vòng tiếp theo:"
+  "PhaseDes": "Lựa chọn các thí sinh cho vòng tiếp theo:",
+  "lastSubmissionDate": "Last Submission Date"
 }
