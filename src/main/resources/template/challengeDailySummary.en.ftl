@@ -207,17 +207,17 @@
                               <table width="100%" border="0" cellspacing="5" cellpadding="0" align="center" style="margin: 0 auto">
                                 <#list latestRegistrants as registrant>
                                   <tr>
-                                  <td style="height:5px; line-height: 5px;">
-                                    <img height="5px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                                  </td>
-                                  <td style="height:5px; line-height: 5px;">
-                                    <img height="5px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                                  </td>
-                                </tr>
+                                    <td style="height:5px; line-height: 5px;">
+                                      <img height="5px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
+                                    </td>
+                                    <td style="height:5px; line-height: 5px;">
+                                      <img height="5px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
+                                    </td>
+                                  </tr>
                                   <tr>
-                                  <td style="font-size: 14px;" width="40px" align="center">${registrant_index + 1}</td>
-                                  <td style="font-size: 14px;">${registrant.registrantFirstName} ${registrant.registrantLastName}</td>
-                                </tr>
+                                    <td style="font-size: 14px;" width="40px" align="center">${registrant_index + 1}</td>
+                                    <td style="font-size: 14px;">${registrant.registrantFirstName} ${registrant.registrantLastName}</td>
+                                  </tr>
                                 </#list>
                                 <tr>
                                   <td style="height:5px; line-height: 5px;">
@@ -292,7 +292,7 @@
                         <img height="30px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
                       </td>
                     </tr>
-                    <#if latestSubmissions?has_content>
+                  <#if latestSubmissions?has_content>
                     <tr>
                       <td align="left">
                         <table width="100%" border="0" cellspacing="5" cellpadding="0" align="center" style="background-color: #f7f7f7; margin: 0 auto; float:left; height:150px" class="fullWidth">
@@ -315,35 +315,38 @@
                                   </td>
                                 </tr>
                                 <#list latestSubmissions as latestSubmission>
+                                  <tr>
+                                    <td style="height:15px; line-height: 15px;">
+                                      <img height="5px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td align="left" valign="top">
+                                      <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto; float: left" class="fullWidth">
+                                        <tr>
+                                          <td style="font-size: 14px;" width="40px" align="center">${latestSubmission_index + 1}</td>
+                                          <td style="font-size: 14px;">${latestSubmission.registrantName}</td>
+                                        </tr>
+                                      </table>
+                                    </td>
+                                  </tr>
+                                </#list>
                                 <tr>
                                   <td style="height:15px; line-height: 15px;">
                                     <img height="5px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
                                   </td>
                                 </tr>
                                 <tr>
-                                  <td align="left" valign="top">
-                                    <table width="55%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto; float: left" class="fullWidth">
+                                  <td style="text-align: center;">
+                                    <table width="200px" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;" class="fullWidth">
                                       <tr>
-                                        <td style="font-size: 14px;" width="40px" align="center">${latestSubmission_index + 1}</td>
-                                        <td style="font-size: 14px;">${latestSubmission.registrantName}</td>
-                                      </tr>
-                                    </table>
-                                    <table width="45%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto; float: left" class="fullWidth">
-                                      <tr>
-                                        <td style="font-size: 14px;">
-                                          <a href="${webBaseUrl}#/?action=redirectJA&utm_source=dailysummary&utm_medium=review&utm_campaign=onlinecontest&targetUrl=${latestSubmission.submissionURL}" target="_blank" style="font-family: Arial, sans-serif; font-size: 14px; color: #277cbd; text-decoration: none; display: block; width: 100%">Review</a></td>
-                                        <td style="font-size: 14px;">
-                                            <a href="${webBaseUrl}#/employer-dashboard?a=feedback-registrant&challengeId=${challengeId}&registrantId=${latestSubmission.registrantId?c}&utm_source=dailysummary&utm_medium=feedback&utm_campaign=onlinecontest" target="_blank" style="font-family: Arial, sans-serif; font-size: 14px; color: #277cbd; text-decoration: none; display: block; width: 100%">Feedback</a>
-                                        </td>
-                                        <td style="font-size: 14px;">
-                                          <a href="${webBaseUrl}#/challenge-detail/${challengeNameAlias}-${challengeId}-id?action=employerLogin&a=registrants&filterType=challengeSubmission&fromDate=${yesterdayDateTime}&utm_source=dailysummary&utm_medium=accept&utm_campaign=onlinecontest" target="_blank"
-                                             style="font-family: Arial, sans-serif; font-size: 14px; color: #277cbd; text-decoration: none; display: block; width: 100%">Accept</a>
+                                        <td bgcolor="#277cbd" width="100%" style="padding: 10px 5px; -webkit-border-radius:3px; border-radius:3px; text-align: center">
+                                          <a href="${webBaseUrl}#/?action=redirectJA&utm_source=dailysummary&utm_medium=review&utm_campaign=onlinecontest&targetUrl=${latestSubmission.submissionURL}" target="_blank" style="font-family: Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; display: block; width: 100%">Review All</a>
                                         </td>
                                       </tr>
                                     </table>
                                   </td>
                                 </tr>
-                                </#list>
                               </table>
                             </td>
                           </tr>
@@ -356,7 +359,7 @@
                         </table>
                       </td>
                     </tr>
-                    </#if>
+                  </#if>
                     <tr>
                       <td style="height:30px; line-height: 30px;" width="100%">
                         <img height="30px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />

@@ -11,7 +11,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.Date;
@@ -27,7 +26,6 @@ import static com.techlooper.util.DateTimeUtils.*;
  * @author Khoa Nguyen
  * @version v0.0-beta9.Release39, 09/09/2015
  */
-@Service
 public class JobAlertEmailSender {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(JobAlertEmailSender.class);

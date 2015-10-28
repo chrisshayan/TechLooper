@@ -43,7 +43,6 @@ techlooper
           showView("acceptance");
         }
 
-
         scope.$on("$destroy", function () {
           if ($rootScope.lastRegistrant) delete $rootScope.lastRegistrant;
         });
@@ -51,7 +50,12 @@ techlooper
         scope.registrant.qualify = function () {
           delete scope.registrant.disqualified;
           delete scope.registrant.disqualifiedReason;
-          apiService.saveChallengeRegistrant(scope.registrant);
+          scope.registrant.activePhase = scope.challenge.nextPhase;
+          apiService.saveChallengeRegistrant(scope.registrant)
+            .success(function() {
+              apiService.acceptChallengeRegistrant(scope.registrant.registrantId);
+            });
+          scope.registrant.qualified = true;
           delete scope.registrant.visible;
         };
 
@@ -61,6 +65,7 @@ techlooper
             .success(function (rt) {
               scope.registrant.disqualifiedReason = rt.disqualifiedReason;
             });
+          scope.registrant.qualified = false;
           delete scope.registrant.visible;
         };
 

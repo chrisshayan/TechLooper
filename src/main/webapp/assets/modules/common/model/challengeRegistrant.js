@@ -1,20 +1,36 @@
-techlooper.filter("challengeRegistrant", function (apiService, $rootScope, $filter) {
-  return function (input, type) {
+techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonValue) {
+  return function (input, challengePhase) {
     if (!input || input.$isRich) return input;
 
     var registrant = input;
 
-    var calculatePoint = function(cri) {
+    var calculatePoint = function (cri) {
       return (cri.weight / 100) * cri.score;// $filter('number')((cri.weight / 100) * cri.score, 1);
     }
 
-    registrant.refreshCriteria = function() {
+    registrant.refreshCriteria = function () {
       apiService.findRegistrantCriteriaByRegistrantId(registrant.registrantId)
-        .success(function(data) {
+        .success(function (data) {
           if (data.registrantId == registrant.registrantId) {
             registrant.criteria = data.criteria;
           }
         });
+    }
+
+    //if (challengePhase == registrant.activePhase) {
+    //  registrant.qualifiedCurrentPhase = !registrant.disqualified;
+    //}
+    //else {
+    //  registrant.qualifiedCurrentPhase = true;
+    //}
+    registrant.activePhase = registrant.activePhase ? registrant.activePhase : jsonValue.challengePhase.getRegistration().enum;
+    if (challengePhase != registrant.activePhase) {
+      registrant.qualified = true;
+    }
+    else {
+      if (registrant.disqualified == true) {
+        registrant.qualified = false;
+      }
     }
 
     registrant.criteriaLoop = function () {
@@ -72,6 +88,19 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, $filt
     registrant.savedTotalPoint = numeral(_.reduceRight(registrant.criteria, function (sum, cri) {
       return parseFloat(sum) + parseFloat(calculatePoint(cri));
     }, 0)).format("0.0");
+
+    registrant.getLastSubmission = function () {
+      if (registrant.submissions) {
+        return _.max(registrant.submissions, function (submission) {return submission.challengeSubmissionId;});
+      }
+    }
+
+    //registrant.qualifyMe = function(challengeDetail) {
+    //  delete registrant.disqualified;
+    //  delete registrant.disqualifiedReason;
+    //  registrant.activePhase = challengeDetail.nextPhase;
+    //  apiService.saveChallengeRegistrant(registrant);
+    //}
 
     $rootScope.$on("saveChallengeCriteriaSuccessful", function (scope, challengeCriteriaDto) {
       var criteriaDto = _.findWhere(challengeCriteriaDto.registrantCriteria, {registrantId: registrant.registrantId});

@@ -1267,6 +1267,8 @@
 
             tr
               background-color: #fff
+          .registrants-paging
+            padding-left: 0
         .contest-content-item
           .timeLine-milestone
             text-align: center
@@ -1342,15 +1344,22 @@
               min-height: inherit
           table.contests-table
             .registrants-challenge-list
+              .registrant-order,
               .registration-date,
               .registration-score,
               .registration-action,
-              .registrant-name
+              .registrant-name,
+              .registration-submission,
+              .registration-review
                 width: 100%
                 clear: both
                 text-align: left
                 padding: 10px 0 0
-              .registration-score
+              .registrant-order,
+              .registration-score,
+              .registration-review,
+              .registration-submission,
+              .registration-action
                 .label-col
                   width: auto
                   clear: none
@@ -1358,31 +1367,13 @@
                   display: inline-block
                 a
                   text-align: left
-              .registration-action
-                padding-bottom: 10px
-                .label-col
-                  width: 25%
+                  width: auto
+                  display: inline-block
                   clear: none
-                  padding: 3px 0 0
-                  display: inline-block
-                  float: left
-                .action-link
-                  display: inline-block
-                  float: left
-                  width: 75%
-                  ul
-                    margin: 0
-                    padding: 0
-                    width: 100%
-                    li
-                      width: auto
-                      float: left
-                      a
-                        padding: 3px
-                      a.active
-                        color: #337ab7
-                .dropdown
-                  display: none
+                  float: none
+                a.dis
+                  clear: none
+                  width: auto
             .disqualify-block
               padding: 0
               a.btn
@@ -1466,6 +1457,28 @@
           .contest-detail-action
             p
               text-align: left !important
+        .challenge-phase-item
+          width: 100%
+          .current-phase
+            height: auto !important
+            padding: 5px 0
+            span
+              width: auto
+              float: left
+              clear: none
+              display: inline-block
+            i
+              width: auto
+              float: left
+              clear: none
+              display: inline-block
+          .registrants-phase
+            padding: 5px 0
+        .challenge-phase-item.col4,
+        .challenge-phase-item.col5,
+        .challenge-phase-item.col6
+          width: 100% !important
+          clear: both
       .evaluation-criteria
         padding: 0 5px
         .evaluation-criteria-name

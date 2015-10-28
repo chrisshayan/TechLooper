@@ -6,10 +6,7 @@ import com.techlooper.model.*;
 import com.techlooper.repository.elasticsearch.ChallengeRegistrantRepository;
 import com.techlooper.repository.elasticsearch.ChallengeRepository;
 import com.techlooper.repository.elasticsearch.ChallengeSubmissionRepository;
-import com.techlooper.service.ChallengeService;
-import com.techlooper.service.CurrencyService;
-import com.techlooper.service.EmailService;
-import com.techlooper.service.EmployerService;
+import com.techlooper.service.*;
 import com.techlooper.util.DataUtils;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -189,6 +186,12 @@ public class ChallengeServiceImpl implements ChallengeService {
 
     @Resource
     private CurrencyService currencyService;
+
+    @Resource
+    private ChallengeRegistrantService challengeRegistrantService;
+
+    @Resource
+    private ChallengeSubmissionService challengeSubmissionService;
 
     public ChallengeEntity savePostChallenge(ChallengeDto challengeDto) throws Exception {
         ChallengeEntity challengeEntity = dozerMapper.map(challengeDto, ChallengeEntity.class);
@@ -468,14 +471,22 @@ public class ChallengeServiceImpl implements ChallengeService {
         }).collect(toList());
     }
 
-    public boolean checkIfChallengeRegistrantExist(Long challengeId, String email) {
-        NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder();
+    @Override
+    public ChallengeRegistrantEntity findRegistrantByChallengeIdAndEmail(Long challengeId, String email) {
+        NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withTypes("challengeRegistrant");
         searchQueryBuilder.withQuery(boolQuery()
-                .must(matchPhraseQuery("registrantEmail", email))
+                .must(termQuery("registrantEmail", email))
                 .must(termQuery("challengeId", challengeId)));
 
-        long total = challengeRegistrantRepository.search(searchQueryBuilder.build()).getTotalElements();
-        return (total > 0);
+        List<ChallengeRegistrantEntity> registrantEntities = DataUtils.getAllEntities(challengeRegistrantRepository, searchQueryBuilder);
+        if (!registrantEntities.isEmpty()) {
+            return registrantEntities.get(0);
+        }
+        return null;
+    }
+
+    public boolean checkIfChallengeRegistrantExist(Long challengeId, String email) {
+        return findRegistrantByChallengeIdAndEmail(challengeId, email) != null;
     }
 
     @Override
@@ -998,4 +1009,29 @@ public class ChallengeServiceImpl implements ChallengeService {
         return dozerMapper.map(registrant, ChallengeRegistrantDto.class);
     }
 
+    @Override
+    public List<ChallengeRegistrantFunnelItem> getChallengeRegistrantFunnel(Long challengeId) {
+        List<ChallengeRegistrantFunnelItem> funnel = new ArrayList<>();
+        Map<ChallengePhaseEnum, ChallengeRegistrantPhaseItem> numberOfRegistrantsByPhase =
+                challengeRegistrantService.countNumberOfRegistrantsByPhase(challengeId);
+        Map<ChallengePhaseEnum, ChallengeSubmissionPhaseItem> numberOfSubmissionsByPhase =
+                challengeSubmissionService.countNumberOfSubmissionsByPhase(challengeId);
+
+        for (Map.Entry<ChallengePhaseEnum, ChallengeRegistrantPhaseItem> entry : numberOfRegistrantsByPhase.entrySet()) {
+            ChallengePhaseEnum phase = entry.getKey();
+            Long participant = entry.getValue().getRegistration();
+            Long submission = 0L;
+            if (numberOfSubmissionsByPhase.get(phase) != null) {
+                submission = numberOfSubmissionsByPhase.get(phase).getSubmission();
+            }
+            funnel.add(new ChallengeRegistrantFunnelItem(phase, participant, submission));
+        }
+
+//        Long numberOfWinners = challengeRegistrantService.countNumberOfWinners(challengeId);
+//        funnel.add(new ChallengeRegistrantFunnelItem(ChallengePhaseEnum.WINNER, numberOfWinners, numberOfWinners));
+
+        Comparator<ChallengeRegistrantFunnelItem> sortByPhaseComparator = (item1, item2) ->
+                item1.getPhase().getOrder() - item2.getPhase().getOrder();
+        return funnel.stream().sorted(sortByPhaseComparator).collect(toList());
+    }
 }

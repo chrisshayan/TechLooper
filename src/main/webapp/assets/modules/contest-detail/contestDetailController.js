@@ -1,7 +1,8 @@
 techlooper.controller('contestDetailController', function ($scope, apiService, localStorageService, $location, $routeParams,
                                                            jsonValue, $translate, utils, $filter, $timeout, resourcesService) {
-
   utils.sendNotification(jsonValue.notifications.loading);
+  $scope.selectedPhase = 0;
+
   var parts = $routeParams.id.split("-");
   var lastPart = parts.pop();
   if (parts.length < 2 || (lastPart !== "id")) {
@@ -14,6 +15,63 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
     title = utils.toAscii(title);
     return $location.url(sprintf("/challenge-detail/%s-%s-id", title, contestId));
   }
+
+  $scope.reviewPhase = function (index, phase) {
+    utils.sendNotification(jsonValue.notifications.loading);
+    if (index) {
+      $scope.selectedPhase = index;
+    }
+    else {
+      $scope.selectedPhase = 0;
+    }
+    var phaseName = phase ? phase.phase : jsonValue.challengePhase.getRegistration().enum;
+    apiService.getChallengeRegistrantsByPhase(contestId, phaseName).success(function (data) {
+      $scope.registrantPhase = data;
+
+      switch (phaseName) {
+        case "REGISTRATION":
+          $scope.sortByRegistrationDate();
+          break;
+
+        default:
+          $scope.sortBySubmissionDate();
+          break;
+      }
+
+      var param = $location.search();
+      if (param.a == "registrants") {
+        var registrantTab = $('.nav-tabs a[href=".registrants"]');
+        if (registrantTab) {
+          registrantTab.tab('show');
+        }
+      }
+    }).finally(function () {
+      utils.sendNotification(jsonValue.notifications.loaded);
+    });
+  };
+
+  $scope.sortByRegistrationDate = function () {
+    $scope.sortByRegistrationDateType = $scope.sortByRegistrationDateType == "asc" ? "desc" : "asc";
+    utils.sortByNumber($scope.registrantPhase, "registrantId", $scope.sortByRegistrationDateType);
+  }
+
+  $scope.sortBySubmissionDate = function () {
+    $scope.sortByRegistrationDateType = $scope.sortByRegistrationDateType == "asc" ? "desc" : "asc";
+    utils.sortByNumber($scope.registrantPhase, "challengeSubmissionId", $scope.sortBySubmissionDateType);
+  }
+
+  $scope.sortByScore = function () {
+    $scope.sortByScoreType = $scope.sortByScoreType == "asc" ? "desc" : "asc";
+    utils.sortByNumber($scope.registrantPhase, "score", $scope.sortByScoreType);
+  };
+
+  //$scope.sortBySubmissionDate = function () {
+  //  $scope.sortByRegistrationDateType = $scope.sortByRegistrationDateType == "asc" ? "desc" : "asc";
+  //  utils.sortByNumber($scope.registrantPhase, "challengeSubmissionId", $scope.sortBySubmissionDateType);
+  //}
+
+  $scope.reviewPhase();
+
   $scope.failJoin = false;
   $scope.action = '';
   $scope.actionContent = '';
@@ -102,11 +160,10 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
         $filter("progress")($scope.contestDetail, "challenge");
         $scope.filterContestant();
       })
-      .error(function(){
-          $scope.failJoin = true;
+      .error(function () {
+        $scope.failJoin = true;
       });
   }
-
   apiService.getContestDetail(contestId)
     .success(function (data) {
       $scope.contestDetail = data;
@@ -128,9 +185,23 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
       else {
         $scope.contestDetail.timeline = 5;
       }
+      $scope.getRegistrants(contestId);
     })
     .error(function () {$location.url("404");});
 
+  $scope.getRegistrants = function (contestId) {
+    apiService.getRegistrantFunnel(contestId)
+      .success(function (data) {
+        $scope.registrantFunnel = data;
+        $.each($scope.registrantFunnel, function (i, item) {
+          if (item.phase == $scope.contestDetail.currentPhase) {
+            $scope.registrantFunnel.currentPosition = i;
+          }
+        });
+      }).error(function () {
+      console.log('error');
+    });
+  }
   $scope.fbShare = function () {
     ga("send", {
       hitType: "event",
@@ -145,86 +216,81 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
     $scope.sortKey = keyname;   //set the sortKey to the param passed
     $scope.reverse = !$scope.reverse; //if true make it false and vice versa
   };
-  $scope.filterContestant = function () {
-    utils.sendNotification(jsonValue.notifications.loading);
-    var param = $location.search();
-    var registrantFilterCondition = {};
-    registrantFilterCondition.challengeId = contestId;
+  //$scope.filterContestant = function () {
+  //  utils.sendNotification(jsonValue.notifications.loading);
+  //  var param = $location.search();
+  //  var registrantFilterCondition = {};
+  //  registrantFilterCondition.challengeId = contestId;
+  //
+  //  if ($scope.filterType) {
+  //    registrantFilterCondition.filterType = $scope.filterType;
+  //  } else if (param.filterType) {
+  //    registrantFilterCondition.filterType = param.filterType;
+  //    $scope.filterType = param.filterType;
+  //  } else {
+  //    registrantFilterCondition.filterType = "registrantId";
+  //  }
+  //
+  //  if ($scope.phase) {
+  //    registrantFilterCondition.phase = $scope.phase;
+  //  } else if (param.phase) {
+  //    registrantFilterCondition.phase = param.phase;
+  //    $scope.phase = param.phase;
+  //  } else {
+  //    registrantFilterCondition.phase = "";
+  //  }
+  //
+  //  if ($scope.fromDate) {
+  //    registrantFilterCondition.fromDate = $scope.fromDate;
+  //  } else {
+  //    registrantFilterCondition.fromDate = param.fromDate;
+  //    $scope.fromDate = param.fromDate;
+  //  }
+  //
+  //  if ($scope.toDate) {
+  //    registrantFilterCondition.toDate = $scope.toDate;
+  //  } else {
+  //    registrantFilterCondition.toDate = param.toDate;
+  //    $scope.toDate = param.toDate
+  //  }
+  //
+  //  apiService.getChallengeRegistrants(registrantFilterCondition)
+  //    .success(function (registrants) {
+  //      $scope.registrants = registrants;
+  //      //$scope.sortByStartDate();
+  //      if (param.a == "registrants") {
+  //        var registrantTab = $('.nav-tabs a[href=".registrants"]');
+  //        if (registrantTab) {
+  //          registrantTab.tab('show');
+  //        }
+  //      }
+  //    }).finally(function () {
+  //      utils.sendNotification(jsonValue.notifications.loaded);
+  //    });
+  //};
+  //
+  //$scope.filterContestant();
 
-    if ($scope.filterType) {
-      registrantFilterCondition.filterType = $scope.filterType;
-    } else if (param.filterType) {
-      registrantFilterCondition.filterType = param.filterType;
-      $scope.filterType = param.filterType;
-    } else {
-      registrantFilterCondition.filterType = "registrantId";
-    }
 
-    if ($scope.phase) {
-      registrantFilterCondition.phase = $scope.phase;
-    } else if (param.phase) {
-      registrantFilterCondition.phase = param.phase;
-      $scope.phase = param.phase;
-    } else {
-      registrantFilterCondition.phase = "";
-    }
+  //
+  //$scope.sortByStartDate = function () {
+  //  delete $scope.sortScore;
+  //  $scope.sortStartDate = $scope.sortStartDate || "asc";
+  //  $scope.sortStartDate = $(["asc", "desc"]).not([$scope.sortStartDate]).get()[0];
+  //  utils.sortByNumber($scope.registrants, "registrantId", $scope.sortStartDate);
+  //}
 
-    if ($scope.fromDate) {
-      registrantFilterCondition.fromDate = $scope.fromDate;
-    } else {
-      registrantFilterCondition.fromDate = param.fromDate;
-      $scope.fromDate = param.fromDate;
-    }
-
-    if ($scope.toDate) {
-      registrantFilterCondition.toDate = $scope.toDate;
-    } else {
-      registrantFilterCondition.toDate = param.toDate;
-      $scope.toDate = param.toDate
-    }
-
-    apiService.getChallengeRegistrants(registrantFilterCondition)
-      .success(function (registrants) {
-        $scope.registrants = registrants;
-        $scope.sortByStartDate();
-        if (param.a == "registrants") {
-          var registrantTab = $('.nav-tabs a[href=".registrants"]');
-          if (registrantTab) {
-            registrantTab.tab('show');
-          }
-        }
-      }).finally(function () {
-        utils.sendNotification(jsonValue.notifications.loaded);
-      });
-  };
-
-  $scope.filterContestant();
-
-  $scope.sortByScore = function () {
-    delete $scope.sortStartDate;
-    $scope.sortScore = $scope.sortScore || "asc";
-    $scope.sortScore = $(["asc", "desc"]).not([$scope.sortScore]).get()[0];
-    utils.sortByNumber($scope.registrants, "score", $scope.sortScore);
-  };
-
-  $scope.sortByStartDate = function () {
-    delete $scope.sortScore;
-    $scope.sortStartDate = $scope.sortStartDate || "asc";
-    $scope.sortStartDate = $(["asc", "desc"]).not([$scope.sortStartDate]).get()[0];
-    utils.sortByNumber($scope.registrants, "registrantId", $scope.sortStartDate);
-  }
-
-  $scope.updateScore = function (registrant, $event) {
-    $($event.currentTarget).addClass('green');
-    apiService.saveChallengeRegistrant(registrant)
-      .success(function (rt) {
-        registrant.score = rt.score;
-      }).finally(function () {
-      $timeout(function () {
-        $($event.currentTarget).removeClass('green');
-      }, 1000);
-    });
-  }
+  //$scope.updateScore = function (registrant, $event) {
+  //  $($event.currentTarget).addClass('green');
+  //  apiService.saveChallengeRegistrant(registrant)
+  //    .success(function (rt) {
+  //      registrant.score = rt.score;
+  //    }).finally(function () {
+  //    $timeout(function () {
+  //      $($event.currentTarget).removeClass('green');
+  //    }, 1000);
+  //  });
+  //}
 
   $scope.config = {
     registrantsFilter: resourcesService.registrantsFilterConfig,
@@ -233,13 +299,13 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
   $scope.dateFrom = moment().add(-1, 'day').format('DD/MM/YYYY');
   $scope.dateTo = moment().format('DD/MM/YYYY');
   $('.registrants-date').find('.date').datepicker({
-    autoclose:  true,
+    autoclose: true,
     format: 'dd/mm/yyyy'
   });
 
-  $scope.saveChallengeCriteria = function() {
+  $scope.saveChallengeCriteria = function () {
     $scope.contestDetail.validate();
-    if($scope.contestDetail.totalWeight > 100 || $scope.contestDetail.$invalid){
+    if ($scope.contestDetail.totalWeight > 100 || $scope.contestDetail.$invalid) {
       return false;
     }
 

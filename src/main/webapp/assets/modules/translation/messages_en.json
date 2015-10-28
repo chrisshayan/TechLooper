@@ -814,5 +814,21 @@
   "removeConfirmation": "Removing this criteria will impact all contestants' scores you gave already. <br/><strong>Are you sure you want to remove it?</strong>",
   "totalScoreIs": "Total score is",
   "emailSettingDescription": "Configure settings to personalize emails to tech talents",
-  "updateEvaluationCriteria": "Scoring criteria are updated."
+  "updateEvaluationCriteria": "Scoring criteria are updated.",
+  "registrantsNumberPhase": "<strong>{{number}}</strong> registrant(s)",
+  "participantsNumber": "<strong>{{number}}</strong> participant(s)",
+  "submissionsNumber": "<strong>{{number}}</strong> submission(s)",
+  "winnersNumber": "<strong>{{number}}</strong> winner(s)",
+  "winner": "Winner",
+  "finalistNumber": "<strong>{{number}}</strong> finalist",
+  "submissions": "Submissions",
+  "reviewStatus": "Review Status",
+  "winnerDes": "Select winner for each prize of the challenge:",
+  "PhaseDes": "Select which contestants are qualified for the next round:",
+  "lastSubmissionDate": "Last Submission Date",
+  "qualifiedNextPhase": "Qualified to next round?",
+  "disqualified": "Disqualified",
+  "qualified": "Qualified",
+  "submissionToPhase": "Submission to phase:",
+  "submissionsReviewTip": "Review"
 }

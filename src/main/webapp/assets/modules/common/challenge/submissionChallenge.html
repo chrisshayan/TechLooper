@@ -8,6 +8,10 @@
       <span translate="emailAddressField"></span>
       <span>{{submission.registrantEmail}}</span>
     </div>
+      <div class="registrant-email">
+          <span translate="submissionToPhase"></span>
+          <span>{{submission.submissionPhase | textTruncate: 'lowercase' | translate}}</span>
+      </div>
     <div class="phase-description">
       <label translate="description"></label>
         <textarea name="submissionDescription" class="textarea-style" placeholder="{{'descriptionSubmissionTips' | translate}}"

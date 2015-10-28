@@ -9,7 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.Arrays;
@@ -18,7 +17,6 @@ import java.util.List;
 
 import static com.techlooper.util.DateTimeUtils.*;
 
-@Service
 public class DailyChallengeSummaryEmailSender {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(DailyChallengeSummaryEmailSender.class);

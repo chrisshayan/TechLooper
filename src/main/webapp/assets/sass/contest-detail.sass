@@ -348,8 +348,34 @@
           .registrants-challenge-list
             width: 100%
             clear: both
+            .registrant-order
+              width: 5%
+              float: left
+              text-align: center
+              padding: 10px 0
+            .registration-submission
+              width: 14%
+              float: left
+              text-align: center
+              padding: 10px 0
+              a
+                color: #2e6da4
+            .registration-review
+              width: 18%
+              float: left
+              text-align: center
+              padding: 10px 0
+              a
+                color: #2e6da4
+                width: 50%
+                text-align: center
+                display: inline
+              a.dis
+                width: 100%
+                clear: both
+                display: inline-block
             .registrant-name
-              width: 55%
+              width: 35%
               float: left
               text-align: left
               padding: 10px
@@ -382,12 +408,12 @@
               i.closed
                 background-color: #e6e6e6
             .registration-date
-              width: 20%
+              width: 18%
               float: left
               text-align: center
               padding: 10px
             .registration-score
-              width: 15%
+              width: 14%
               float: left
               text-align: center
               padding: 10px
@@ -413,7 +439,7 @@
                 margin: auto
                 width: auto
                 float: right
-                color: #333
+                color: #2e6da4
                 text-transform: capitalize
                 i
                   font-size: 20px
@@ -458,8 +484,20 @@
               background-color: #f6f6f6
               display: inline-block
               border-radius: 3px
+              span.close-box
+                float: right
+                width: 20px
+                height: 20px
+                cursor: pointer
+                text-align: center
+                line-height: 20px
+                font-weight: 500
+                font-size: 20px
+                padding-top: 8px
               p.no-submission
                 padding: 10px 0
+                width: 80%
+                float: left
             .subject-col
               width: 40%
               float: left
@@ -997,6 +1035,116 @@
       .popover.top > .arrow::after,
       .popover.top > .arrow
         border-top-color: #fff
+      .funnel-challenge-phase-block
+        width: 100%
+        clear: both
+        .challenge-phase-item
+          float: left
+          padding: 0 5px 0 0
+          .registrants-phase
+            width: 100%
+            clear: both
+            padding-top: 5px
+            cursor: pointer
+            p
+              margin: 0
+              padding: 0
+              font-size: 12px
+              text-align: right
+              strong
+                font-weight: 500
+          .phase-name
+            width: 100%
+            clear: both
+            display: inline-block
+            border-radius: 4px
+            color: #333
+            font-weight: 400
+            padding: 4px 0
+            text-align: center
+            cursor: pointer
+            border: 1px solid #dfdede
+            i
+              cursor: pointer
+            span
+              cursor: pointer
+          .phase-name.pass
+            background-color: #dfdede
+            border: 1px solid #dfdede
+          .current-phase
+            text-align: center
+            width: 100%
+            clear: both
+            height: 45px
+            padding: 0 5px 0 0
+            display: block
+            i
+              font-size: 22px
+              margin: auto
+              font-weight: 300
+              cursor: pointer
+              width: 100%
+              clear: both
+              display: none
+            span
+              font-size: 14px
+              width: 100%
+              clear: both
+              text-align: center
+              float: left
+              display: none
+          .current-phase.active
+            span
+              display: inline-block
+            i
+              display: inline-block
+        .challenge-phase-item.active
+          .registrants-phase
+            color: #fff
+          .phase-name
+            color: #fff
+          .registrants-phase
+            color: #333
+          .phase-name.registration
+            background-color: #1ea185
+            border: 1px solid #1ea185
+          .phase-name.idea
+            background-color: #9bba5c
+            border: 1px solid #9bba5c
+          .phase-name.uiux
+            background-color: #9F472B
+            border: 1px solid #9F472B
+          .phase-name.prototype
+            background-color: #bd392f
+            border: 1px solid #bd392f
+          .phase-name.app
+            background-color: #257abb
+            border: 1px solid #257abb
+          .phase-name.winner
+            background-color: #FFAA00
+            border: 1px solid #FFAA00
+          .current-phase.registration
+            color: #1ea185
+          .current-phase.idea
+            color: #9bba5c
+          .current-phase.uiux
+            color: #9F472B
+          .current-phase.prototype
+            color: #bd392f
+          .current-phase.app
+            color: #257abb
+          .current-phase.winner
+            color: #FFAA00
+        .challenge-phase-item.col4
+          width: 25%
+        .challenge-phase-item.col5
+          width: 20%
+        .challenge-phase-item.col6
+          width: 16.66667%
+      .phase-content-block
+        width: 100%
+        clear: both
+        padding: 10px 0 0 0
     .alert
       margin-top: 20px
     .evaluation-criteria
