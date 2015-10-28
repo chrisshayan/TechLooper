@@ -17,11 +17,16 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
   }
 
   $scope.reviewPhase = function(index, phase) {
+    utils.sendNotification(jsonValue.notifications.loading);
     if (index) {
       $scope.selectedPhase = index;
     }
-
-    apiService.getChallengeRegistrantsByPhase(contestId, phase ? phase.phase : jsonValue.challengePhase.getRegistration().enum);
+    apiService.getChallengeRegistrantsByPhase(contestId, phase ? phase.phase : jsonValue.challengePhase.getRegistration().enum).success(function (data) {
+      $scope.registrantPhase = data;
+      console.log($scope.registrantPhase);
+    }).finally(function () {
+      utils.sendNotification(jsonValue.notifications.loaded);
+    });;
   };
 
   $scope.reviewPhase();
@@ -147,7 +152,6 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
     apiService.getRegistrantFunnel(contestId)
     .success(function (data) {
       $scope.registrantFunnel = data;
-          console.log($scope.registrantFunnel);
       $.each($scope.registrantFunnel, function(i, item){
         if(item.phase == $scope.contestDetail.currentPhase){
           $scope.registrantFunnel.currentPosition = i;
@@ -212,7 +216,7 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
     apiService.getChallengeRegistrants(registrantFilterCondition)
       .success(function (registrants) {
         $scope.registrants = registrants;
-        $scope.sortByStartDate();
+        //$scope.sortByStartDate();
         if (param.a == "registrants") {
           var registrantTab = $('.nav-tabs a[href=".registrants"]');
           if (registrantTab) {
@@ -226,31 +230,31 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
 
   $scope.filterContestant();
 
-  $scope.sortByScore = function () {
-    delete $scope.sortStartDate;
-    $scope.sortScore = $scope.sortScore || "asc";
-    $scope.sortScore = $(["asc", "desc"]).not([$scope.sortScore]).get()[0];
-    utils.sortByNumber($scope.registrants, "score", $scope.sortScore);
-  };
+  //$scope.sortByScore = function () {
+  //  delete $scope.sortStartDate;
+  //  $scope.sortScore = $scope.sortScore || "asc";
+  //  $scope.sortScore = $(["asc", "desc"]).not([$scope.sortScore]).get()[0];
+  //  utils.sortByNumber($scope.registrants, "score", $scope.sortScore);
+  //};
+  //
+  //$scope.sortByStartDate = function () {
+  //  delete $scope.sortScore;
+  //  $scope.sortStartDate = $scope.sortStartDate || "asc";
+  //  $scope.sortStartDate = $(["asc", "desc"]).not([$scope.sortStartDate]).get()[0];
+  //  utils.sortByNumber($scope.registrants, "registrantId", $scope.sortStartDate);
+  //}
 
-  $scope.sortByStartDate = function () {
-    delete $scope.sortScore;
-    $scope.sortStartDate = $scope.sortStartDate || "asc";
-    $scope.sortStartDate = $(["asc", "desc"]).not([$scope.sortStartDate]).get()[0];
-    utils.sortByNumber($scope.registrants, "registrantId", $scope.sortStartDate);
-  }
-
-  $scope.updateScore = function (registrant, $event) {
-    $($event.currentTarget).addClass('green');
-    apiService.saveChallengeRegistrant(registrant)
-      .success(function (rt) {
-        registrant.score = rt.score;
-      }).finally(function () {
-      $timeout(function () {
-        $($event.currentTarget).removeClass('green');
-      }, 1000);
-    });
-  }
+  //$scope.updateScore = function (registrant, $event) {
+  //  $($event.currentTarget).addClass('green');
+  //  apiService.saveChallengeRegistrant(registrant)
+  //    .success(function (rt) {
+  //      registrant.score = rt.score;
+  //    }).finally(function () {
+  //    $timeout(function () {
+  //      $($event.currentTarget).removeClass('green');
+  //    }, 1000);
+  //  });
+  //}
 
   $scope.config = {
     registrantsFilter: resourcesService.registrantsFilterConfig,
