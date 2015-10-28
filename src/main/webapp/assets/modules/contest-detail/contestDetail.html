@@ -308,10 +308,11 @@
                           {{'submissions' | translate}}
                         </div>
                         <div class="registration-score"
+                             ng-click="sortByScore()"
                              ng-show="(phase.phase | progress: 'challengePhaseTitle' | lowercase) == 'winner' || (phase.phase | progress: 'challengePhaseTitle' | lowercase) == 'final app'">
                           {{'score' | translate}}
-                          <!--<i class="fa fa-chevron-circle-down" ng-show="sortScore"-->
-                             <!--ng-class="{'fa-chevron-circle-down': sortScore == 'desc','fa-chevron-circle-up': sortScore == 'asc'}"></i>-->
+                          <i class="fa fa-chevron-circle-down"
+                             ng-class="{'fa-chevron-circle-down': sortByScoreType == 'desc','fa-chevron-circle-up': sortByScoreType == 'asc'}"></i>
                         </div>
 
                         <div class="registration-review" ng-show="(phase.phase | progress: 'challengePhaseTitle' | lowercase) != 'final app'">

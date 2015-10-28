@@ -60,6 +60,16 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
     utils.sortByNumber($scope.registrantPhase, "challengeSubmissionId", $scope.sortBySubmissionDateType);
   }
 
+  $scope.sortByScore = function () {
+    $scope.sortByScoreType = $scope.sortByScoreType == "asc" ? "desc" : "asc";
+    utils.sortByNumber($scope.registrantPhase, "score", $scope.sortByScoreType);
+  };
+
+  //$scope.sortBySubmissionDate = function () {
+  //  $scope.sortByRegistrationDateType = $scope.sortByRegistrationDateType == "asc" ? "desc" : "asc";
+  //  utils.sortByNumber($scope.registrantPhase, "challengeSubmissionId", $scope.sortBySubmissionDateType);
+  //}
+
   $scope.reviewPhase();
 
   $scope.failJoin = false;
@@ -261,12 +271,7 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
   //
   //$scope.filterContestant();
 
-  //$scope.sortByScore = function () {
-  //  delete $scope.sortStartDate;
-  //  $scope.sortScore = $scope.sortScore || "asc";
-  //  $scope.sortScore = $(["asc", "desc"]).not([$scope.sortScore]).get()[0];
-  //  utils.sortByNumber($scope.registrants, "score", $scope.sortScore);
-  //};
+
   //
   //$scope.sortByStartDate = function () {
   //  delete $scope.sortScore;
