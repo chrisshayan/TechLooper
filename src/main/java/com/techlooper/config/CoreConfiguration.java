@@ -195,8 +195,8 @@ public class CoreConfiguration implements ApplicationContextAware {
           .fields("uxSubmissionDateTime", "uxSubmissionDate")
           .fields("prototypeSubmissionDateTime", "prototypeSubmissionDate");
 
-        mapping(ChallengeRegistrantDto.class, ChallengeRegistrantEntity.class, TypeMappingOptions.oneWay())
-          .exclude("activePhase");
+//        mapping(ChallengeRegistrantDto.class, ChallengeRegistrantEntity.class, TypeMappingOptions.oneWay())
+//          .exclude("activePhase");
 
       }
     });

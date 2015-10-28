@@ -93,7 +93,10 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
       return null;
     }
 
-    BoolQueryBuilder toPhaseQuery = QueryBuilders.boolQuery().must(QueryBuilders.termQuery("challengeId", challengeId));
+    BoolQueryBuilder challengeQuery = QueryBuilders.boolQuery().must(QueryBuilders.termQuery("challengeId", challengeId));
+    BoolQueryBuilder toPhaseQuery = QueryBuilders.boolQuery();
+    challengeQuery.must(toPhaseQuery);
+
     if (phase == REGISTRATION) {
       toPhaseQuery.should(QueryBuilders.filteredQuery(QueryBuilders.matchAllQuery(), FilterBuilders.missingFilter("activePhase")));
     }
@@ -103,7 +106,7 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
     }
 
     Set<ChallengeRegistrantDto> registrantDtos = new HashSet<>();
-    challengeRegistrantRepository.search(toPhaseQuery).forEach(entity -> {
+    challengeRegistrantRepository.search(challengeQuery).forEach(entity -> {
       registrantDtos.add(dozerMapper.map(entity, ChallengeRegistrantDto.class));
     });
 

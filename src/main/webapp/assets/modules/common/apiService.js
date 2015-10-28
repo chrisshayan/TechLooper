@@ -339,7 +339,7 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
       return $http.get("challenge/" + challengeId + "/registrants/" + phase)
         .success(function(registrants) {
           $.each(registrants, function (i, registrant) {
-            $filter("challengeRegistrant")(registrant);
+            $filter("challengeRegistrant")(registrant, phase);
           });
         });
     }

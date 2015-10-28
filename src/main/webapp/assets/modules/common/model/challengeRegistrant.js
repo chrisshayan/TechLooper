@@ -1,5 +1,5 @@
 techlooper.filter("challengeRegistrant", function (apiService, $rootScope, $filter) {
-  return function (input, type) {
+  return function (input, challengePhase) {
     if (!input || input.$isRich) return input;
 
     var registrant = input;
@@ -16,6 +16,20 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, $filt
           }
         });
     }
+
+    //if (challengePhase == registrant.activePhase) {
+    //  registrant.qualifiedCurrentPhase = !registrant.disqualified;
+    //}
+    //else {
+    //  registrant.qualifiedCurrentPhase = true;
+    //}
+
+    //if (challengePhase != registrant.activePhase) {
+    //  registrant.qualified = true;
+    //}
+    //else {
+    //  registrant.qualified = registrant.disqualified;
+    //}
 
     registrant.criteriaLoop = function () {
       var criteria = registrant.criteria;
@@ -72,6 +86,13 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, $filt
     registrant.savedTotalPoint = numeral(_.reduceRight(registrant.criteria, function (sum, cri) {
       return parseFloat(sum) + parseFloat(calculatePoint(cri));
     }, 0)).format("0.0");
+
+    //registrant.qualifyMe = function(challengeDetail) {
+    //  delete registrant.disqualified;
+    //  delete registrant.disqualifiedReason;
+    //  registrant.activePhase = challengeDetail.nextPhase;
+    //  apiService.saveChallengeRegistrant(registrant);
+    //}
 
     $rootScope.$on("saveChallengeCriteriaSuccessful", function (scope, challengeCriteriaDto) {
       var criteriaDto = _.findWhere(challengeCriteriaDto.registrantCriteria, {registrantId: registrant.registrantId});

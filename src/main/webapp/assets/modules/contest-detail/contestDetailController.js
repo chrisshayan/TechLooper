@@ -23,10 +23,10 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
     }
     apiService.getChallengeRegistrantsByPhase(contestId, phase ? phase.phase : jsonValue.challengePhase.getRegistration().enum).success(function (data) {
       $scope.registrantPhase = data;
-      console.log($scope.registrantPhase);
+      //console.log($scope.registrantPhase);
     }).finally(function () {
       utils.sendNotification(jsonValue.notifications.loaded);
-    });;
+    });
   };
 
   $scope.reviewPhase();
