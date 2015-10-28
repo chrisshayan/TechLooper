@@ -93,7 +93,7 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
       return null;
     }
 
-    BoolQueryBuilder toPhaseQuery = QueryBuilders.boolQuery();
+    BoolQueryBuilder toPhaseQuery = QueryBuilders.boolQuery().must(QueryBuilders.termQuery("challengeId", challengeId));
     if (phase == REGISTRATION) {
       toPhaseQuery.should(QueryBuilders.filteredQuery(QueryBuilders.matchAllQuery(), FilterBuilders.missingFilter("activePhase")));
     }
