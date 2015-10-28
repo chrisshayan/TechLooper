@@ -327,8 +327,21 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
     findRegistrantActivePhase: function (challengeId, registrantEmail) {
       return $http.get("user/challengeSubmissionPhase/" + registrantEmail + "/" + challengeId);
     },
+
     getRegistrantFunnel: function (id) {
       return $http.get("challenges/"+ id + "/registrantFunnel");
+    },
+
+    /**
+     * @see com.techlooper.controller.ChallengeController.getChallengeRegistrantsByPhase
+     * */
+    getChallengeRegistrantsByPhase: function(challengeId, phase) {
+      return $http.get("challenge/" + challengeId + "/registrants/" + phase)
+        .success(function(registrants) {
+          $.each(registrants, function (i, registrant) {
+            $filter("challengeRegistrant")(registrant);
+          });
+        });
     }
   };
 

@@ -2,9 +2,7 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
                                                            jsonValue, $translate, utils, $filter, $timeout, resourcesService) {
   utils.sendNotification(jsonValue.notifications.loading);
   $scope.selectedPhase = 0;
-  $scope.reviewPhase= function(index) {
-    $scope.selectedPhase = index;
-  };
+
   var parts = $routeParams.id.split("-");
   var lastPart = parts.pop();
   if (parts.length < 2 || (lastPart !== "id")) {
@@ -17,6 +15,22 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
     title = utils.toAscii(title);
     return $location.url(sprintf("/challenge-detail/%s-%s-id", title, contestId));
   }
+
+  $scope.reviewPhase = function(index, phase) {
+    if (index) {
+      $scope.selectedPhase = index;
+    }
+
+    if (phase) {
+      apiService.getChallengeRegistrantsByPhase(contestId, phase.phase);
+    }
+    else {
+      apiService.getChallengeRegistrantsByPhase(contestId, jsonValue.challengePhase.getRegistration().enum);
+    }
+  };
+
+  $scope.reviewPhase();
+
   $scope.failJoin = false;
   $scope.action = '';
   $scope.actionContent = '';
