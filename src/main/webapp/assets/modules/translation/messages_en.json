@@ -815,11 +815,14 @@
   "totalScoreIs": "Total score is",
   "emailSettingDescription": "Configure settings to personalize emails to tech talents",
   "updateEvaluationCriteria": "Scoring criteria are updated.",
-  "registrantsNumber": "<strong>{{number}}</strong> registrant(s)",
+  "registrantsNumberPhase": "<strong>{{number}}</strong> registrant(s)",
   "participantsNumber": "<strong>{{number}}</strong> participant(s)",
   "submissionsNumber": "<strong>{{number}}</strong> submission(s)",
-  "selectedNumber": "<strong>{{number}}</strong> selected",
+  "winnersNumber": "<strong>{{number}}</strong> winner(s)",
   "winner": "Winner",
+  "finalistNumber": "<strong>{{number}}</strong> finalist",
   "submissions": "Submissions",
-  "reviewStatus": "Review Status"
+  "reviewStatus": "Review Status",
+  "winnerDes": "Select winner for each prize of the challenge:",
+  "PhaseDes": "Select which contestants are qualified for the next round:"
 }

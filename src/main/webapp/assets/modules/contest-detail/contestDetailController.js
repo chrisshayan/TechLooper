@@ -152,6 +152,7 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
     apiService.getRegistrantFunnel(contestId)
     .success(function (data) {
       $scope.registrantFunnel = data;
+          console.log($scope.registrantFunnel);
       $.each($scope.registrantFunnel, function(i, item){
         if(item.phase == $scope.contestDetail.currentPhase){
           $scope.registrantFunnel.currentPosition = i;

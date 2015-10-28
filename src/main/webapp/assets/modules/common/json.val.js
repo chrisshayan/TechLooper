@@ -1033,7 +1033,8 @@ techlooper.factory("jsonValue", function () {
         {enum: "IDEA", title: "Idea"},
         {enum: "UIUX", title: "UI/UX"},
         {enum: "PROTOTYPE", title: "Prototype"},
-        {enum: "FINAL", title: "Final App"}
+        {enum: "FINAL", title: "Final App"},
+        {enum: "WINNER", title: "Winner"}
       ],
 
       getRegistration: function () {return instance.challengePhase.values[0]},
