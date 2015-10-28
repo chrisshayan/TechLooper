@@ -51,7 +51,10 @@ techlooper
           delete scope.registrant.disqualified;
           delete scope.registrant.disqualifiedReason;
           scope.registrant.activePhase = scope.challenge.nextPhase;
-          apiService.saveChallengeRegistrant(scope.registrant);
+          apiService.saveChallengeRegistrant(scope.registrant)
+            .success(function() {
+              apiService.acceptChallengeRegistrant(scope.registrant.registrantId);
+            });
           //scope.registrant.qualified = true;
           delete scope.registrant.visible;
         };
