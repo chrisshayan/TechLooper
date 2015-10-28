@@ -1,7 +1,6 @@
 package com.techlooper.service.impl;
 
 import com.techlooper.entity.ChallengeRegistrantDto;
-import com.techlooper.entity.ChallengeRegistrantEntity;
 import com.techlooper.model.ChallengePhaseEnum;
 import com.techlooper.model.ChallengeRegistrantPhaseItem;
 import com.techlooper.repository.elasticsearch.ChallengeRegistrantRepository;
@@ -89,7 +88,7 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
     return elasticsearchTemplate.count(searchQueryBuilder.build());
   }
 
-  public Set<ChallengeRegistrantEntity> findRegistrantsByChallengeIdAndPhase(Long challengeId, ChallengePhaseEnum phase, String ownerEmail) {
+  public Set<ChallengeRegistrantDto> findRegistrantsByChallengeIdAndPhase(Long challengeId, ChallengePhaseEnum phase, String ownerEmail) {
     if (!challengeService.isOwnerOfChallenge(ownerEmail, challengeId)) {
       return null;
     }
@@ -106,9 +105,13 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
       if (phase == ALL_CHALLENGE_PHASES[i]) break;
     }
 
-    Set<ChallengeRegistrantEntity> registrants = new HashSet<>();
-    challengeRegistrantRepository.search(challengeQuery).forEach(entity -> registrants.add(entity));
+    Set<ChallengeRegistrantDto> registrantDtos = new HashSet<>();
+    challengeRegistrantRepository.search(challengeQuery).forEach(entity -> {
+      ChallengeRegistrantDto dto = dozerMapper.map(entity, ChallengeRegistrantDto.class);
+      dto.setSubmissions(challengeService.findChallengeSubmissionByRegistrant(challengeId, entity.getRegistrantId()));
+      registrantDtos.add(dto);
+    });
 
-    return registrants;
+    return registrantDtos;
   }
 }

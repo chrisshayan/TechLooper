@@ -170,9 +170,9 @@ public class ChallengeController {
 
   @PreAuthorize("hasAuthority('EMPLOYER')")
   @RequestMapping(value = "challenge/{challengeId}/registrants/{phase}", method = RequestMethod.GET)
-  public Set<ChallengeRegistrantEntity> getChallengeRegistrantsByPhase(@PathVariable Long challengeId, @PathVariable ChallengePhaseEnum phase,
+  public Set<ChallengeRegistrantDto> getChallengeRegistrantsByPhase(@PathVariable Long challengeId, @PathVariable ChallengePhaseEnum phase,
                                                                     HttpServletRequest request, HttpServletResponse response) {
-    Set<ChallengeRegistrantEntity> registrants = challengeRegistrantService.findRegistrantsByChallengeIdAndPhase(challengeId, phase, request.getRemoteUser());
+    Set<ChallengeRegistrantDto> registrants = challengeRegistrantService.findRegistrantsByChallengeIdAndPhase(challengeId, phase, request.getRemoteUser());
     if (registrants == null) {
       response.setStatus(HttpServletResponse.SC_FORBIDDEN);
     }
