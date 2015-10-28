@@ -7,7 +7,6 @@ import com.techlooper.service.JobAggregatorService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 
@@ -17,7 +16,6 @@ import javax.annotation.Resource;
  * @author Khoa Nguyen
  * @version v0.0-beta9.Release39, 09/09/2015
  */
-@Service
 public class VietnamworksJobImporter {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(VietnamworksJobImporter.class);
