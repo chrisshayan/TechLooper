@@ -21,12 +21,7 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
       $scope.selectedPhase = index;
     }
 
-    if (phase) {
-      apiService.getChallengeRegistrantsByPhase(contestId, phase.phase);
-    }
-    else {
-      apiService.getChallengeRegistrantsByPhase(contestId, jsonValue.challengePhase.getRegistration().enum);
-    }
+    apiService.getChallengeRegistrantsByPhase(contestId, phase ? phase.phase : jsonValue.challengePhase.getRegistration().enum);
   };
 
   $scope.reviewPhase();
