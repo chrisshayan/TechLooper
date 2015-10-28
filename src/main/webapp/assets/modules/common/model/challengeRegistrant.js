@@ -4,13 +4,13 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonV
 
     var registrant = input;
 
-    var calculatePoint = function(cri) {
+    var calculatePoint = function (cri) {
       return (cri.weight / 100) * cri.score;// $filter('number')((cri.weight / 100) * cri.score, 1);
     }
 
-    registrant.refreshCriteria = function() {
+    registrant.refreshCriteria = function () {
       apiService.findRegistrantCriteriaByRegistrantId(registrant.registrantId)
-        .success(function(data) {
+        .success(function (data) {
           if (data.registrantId == registrant.registrantId) {
             registrant.criteria = data.criteria;
           }
@@ -88,6 +88,12 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonV
     registrant.savedTotalPoint = numeral(_.reduceRight(registrant.criteria, function (sum, cri) {
       return parseFloat(sum) + parseFloat(calculatePoint(cri));
     }, 0)).format("0.0");
+
+    registrant.getLastSubmission = function () {
+      if (registrant.submissions) {
+        return _.max(registrant.submissions, function (submission) {return submission.challengeSubmissionId;});
+      }
+    }
 
     //registrant.qualifyMe = function(challengeDetail) {
     //  delete registrant.disqualified;
