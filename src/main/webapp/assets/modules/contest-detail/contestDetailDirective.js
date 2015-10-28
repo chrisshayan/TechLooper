@@ -55,7 +55,7 @@ techlooper
             .success(function() {
               apiService.acceptChallengeRegistrant(scope.registrant.registrantId);
             });
-          //scope.registrant.qualified = true;
+          scope.registrant.qualified = true;
           delete scope.registrant.visible;
         };
 
@@ -65,7 +65,7 @@ techlooper
             .success(function (rt) {
               scope.registrant.disqualifiedReason = rt.disqualifiedReason;
             });
-          //scope.registrant.qualified = false;
+          scope.registrant.qualified = false;
           delete scope.registrant.visible;
         };
 
