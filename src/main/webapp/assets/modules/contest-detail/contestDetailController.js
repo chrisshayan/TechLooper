@@ -62,7 +62,7 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
 
   $scope.sortByScore = function () {
     $scope.sortByScoreType = $scope.sortByScoreType == "asc" ? "desc" : "asc";
-    utils.sortByNumber($scope.registrantPhase, "score", $scope.sortByScoreType);
+    utils.sortByNumber($scope.registrantPhase, "savedTotalPoint", $scope.sortByScoreType);
   };
 
   //$scope.sortBySubmissionDate = function () {
