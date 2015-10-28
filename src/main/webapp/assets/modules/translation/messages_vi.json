@@ -770,7 +770,7 @@
   "feedback": "Phản hồi",
   "subject": "Tiêu đề",
   "submissionLink": "URL bài gửi",
-  "date": "Date",
+  "date": "Ngày",
   "descriptionCol": "Chú thích",
   "join": "Tham Gia",
   "submitPhase": "Gửi Bài",
@@ -830,5 +830,7 @@
   "winnerDes": "Lựa chọn người chiến thắng cho mỗi giải thưởng:",
   "PhaseDes": "Lựa chọn các thí sinh cho vòng tiếp theo:",
   "lastSubmissionDate": "Ngày gửi bài gần nhất",
-  "qualifiedNextPhase": "Đủ điều kiện vào vòng sau?"
+  "qualifiedNextPhase": "Đạt điều kiện vào vòng sau?",
+  "disqualified": "Không đạt",
+  "qualified": "Đạt"
 }

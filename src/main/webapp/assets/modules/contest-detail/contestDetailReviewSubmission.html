@@ -1,6 +1,7 @@
 <div class="review-block">
   <div class="submitted-histories" ng-show="!registrant.submissions.length">
     <p translate="noDataSubmission" class="no-submission"></p>
+    <span class="close-box" ng-click="registrant.hide()" title="{{'closed' | translate}}">x</span>
   </div>
   <div class="submitted-histories" ng-show="registrant.submissions.length" >
     <div class="header-row">
