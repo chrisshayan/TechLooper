@@ -59,6 +59,7 @@ techlooper
                 });
             });
           scope.registrant.qualified = true;
+          
           delete scope.registrant.visible;
         };
 
