@@ -366,7 +366,7 @@
                         <div class="registration-review" ng-show="(phase.phase | progress: 'challengePhaseTitle' | lowercase) != 'final app'">
                           <div class="label-col" translate="qualifiedNextPhase"></div>
 
-                          <a ng-show="(user.disqualified == null && user.qualified == null) && user.activePhase != contestDetail.nextPhase"
+                          <a ng-show="user.disqualified == null && user.qualified == null"
                              title="{{'qualifyNextPhase' | translate}}"><i class="fa fa-thumbs-up" ng-click="user.showQualification()"></i></a>
                           <a ng-show="user.disqualified == null && user.qualified == null"
                              title="{{'disqualifyNextPhase' | translate}}"><i class="fa fa-thumbs-down" ng-click="user.showDisqualification()"></i></a>
