@@ -195,19 +195,17 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
     apiService.getRegistrantFunnel(contestId)
       .success(function (data) {
         $scope.registrantFunnel = data;
-          console.log($scope.contestDetail);
         $.each($scope.registrantFunnel, function (i, item) {
           if (item.phase == $scope.contestDetail.currentPhase) {
             $scope.registrantFunnel.currentPosition = i;
           }
         });
-
         $scope.selectedPhase = $scope.registrantFunnel.currentPosition;
         activePhaseIndex = $scope.registrantFunnel.currentPosition;
         $scope.reviewPhase();
-
       }).error(function () {
       console.log('error');
+          utils.sendNotification(jsonValue.notifications.loaded);
     });
   }
 
