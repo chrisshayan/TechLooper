@@ -247,7 +247,10 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
   }
 
   $scope.$on("update-funnel", function (sc, registrant) {
-    //console.log(registrant);
+    $scope.getRegistrants(registrant.challengeId);
+  });
+
+  $scope.$on("success-submission-challenge", function (sc, registrant) {
     $scope.getRegistrants(registrant.challengeId);
   });
 });

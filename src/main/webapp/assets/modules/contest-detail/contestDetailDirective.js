@@ -48,6 +48,11 @@ techlooper
         });
 
         scope.registrant.qualify = function () {
+          if (scope.registrant.activePhase == scope.challenge.nextPhase) {
+            delete scope.registrant.visible;
+            return;
+          }
+
           delete scope.registrant.disqualified;
           delete scope.registrant.disqualifiedReason;
           scope.registrant.activePhase = scope.challenge.nextPhase;
