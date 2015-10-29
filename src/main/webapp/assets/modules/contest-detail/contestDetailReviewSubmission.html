@@ -8,6 +8,9 @@
       <div class="subject-col" translate="descriptionCol"></div>
       <div class="submission-link-col" translate="submissionLink"></div>
       <div class="date-col" translate="date"></div>
+      <div class="close-col" ng-click="registrant.hide()" title="{{'closed' | translate}}">
+        x
+      </div>
     </div>
     <div class="body-row">
       <div class="submitted-row" ng-repeat="submission in registrant.submissions | orderBy: '-challengeSubmissionId'">
@@ -25,6 +28,7 @@
           <label translate="date"></label>
           {{submission.submissionDateTime}}
         </div>
+        <div class="close-col"></div>
       </div>
     </div>
   </div>
