@@ -337,6 +337,7 @@ public class ChallengeServiceImpl implements ChallengeService {
                 return challengeRegistrantRepository.save(challengeRegistrantEntity);
             } catch (Exception e) {
                 LOGGER.debug("Can not send email", e);
+                return challengeRegistrantEntity;
             }
         }
 
