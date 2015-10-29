@@ -264,7 +264,7 @@
               </div>
               <div class="registrants-phase">
                 <p translate="registrantsNumberPhase"
-                   translate-value-number="{{phase.participant}}" ng-show="(phase.phase | progress: 'challengePhaseTitle' | lowercase) == 'registration'"></p>
+                   translate-value-number="{{phase.participant}}" ng-show="phase.participant > 0 &&  ((phase.phase | progress: 'challengePhaseTitle' | lowercase) == 'registration')"></p>
                 <p translate="participantsNumber"
                    translate-value-number="{{phase.participant}}" ng-show="((phase.phase | progress: 'challengePhaseTitle' | lowercase) != 'registration') && phase.participant > 0 && (phase.phase | progress: 'challengePhaseTitle' | lowercase) != 'winner'"></p>
                 <p translate="submissionsNumber"
@@ -364,7 +364,7 @@
                         <div class="registration-review" ng-show="(phase.phase | progress: 'challengePhaseTitle' | lowercase) != 'final app'">
                           <div class="label-col" translate="qualifiedNextPhase"></div>
 
-                          <a ng-show="user.disqualified == null && user.qualified == null"
+                          <a ng-show="(user.disqualified == null && user.qualified == null) || user."
                              title="{{'qualifyNextPhase' | translate}}"><i class="fa fa-thumbs-up" ng-click="user.showQualification()"></i></a>
                           <a ng-show="user.disqualified == null && user.qualified == null"
                              title="{{'disqualifyNextPhase' | translate}}"><i class="fa fa-thumbs-down" ng-click="user.showDisqualification()"></i></a>
