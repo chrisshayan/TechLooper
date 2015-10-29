@@ -18,15 +18,12 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
 
   $scope.reviewPhase = function (index, phase, nextPhase) {
     var phaseName = phase ? phase.phase : jsonValue.challengePhase.getRegistration().enum;
-    if (index){
-      if(index > activePhaseIndex+1){
+    if (index && index > activePhaseIndex+1){
         return;
-      }else{
-        $('.feedback-loading').css('visibility', 'inherit');
-        $scope.selectedPhase = index;
-      }
+    }else{
+      $('.feedback-loading').css('visibility', 'inherit');
+      $scope.selectedPhase = index;
     }
-
     apiService.getChallengeRegistrantsByPhase(contestId, phaseName).success(function (data) {
       $scope.registrantPhase = data;
 
@@ -199,13 +196,12 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
         });
         $scope.selectedPhase = $scope.registrantFunnel.currentPosition;
         activePhaseIndex = $scope.registrantFunnel.currentPosition;
-        $scope.reviewPhase();
       }).error(function () {
       console.log('error');
         utils.sendNotification(jsonValue.notifications.loaded);
     });
   }
-
+  $scope.reviewPhase();
   $scope.fbShare = function () {
     ga("send", {
       hitType: "event",
