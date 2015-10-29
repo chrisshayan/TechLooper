@@ -3,6 +3,7 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
   utils.sendNotification(jsonValue.notifications.loading);
   $scope.selectedPhase = 0;
   var activePhaseIndex = 0;
+  var flagUpdate = false;
   var parts = $routeParams.id.split("-");
   var lastPart = parts.pop();
   if (parts.length < 2 || (lastPart !== "id")) {
@@ -204,7 +205,8 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
         //$scope.selectedPhase = $scope.registrantFunnel.currentPosition;
         activePhaseIndex = $scope.registrantFunnel.currentPosition;
           if(flagUpdate){
-            $scope.reviewPhase($scope.registrantFunnel.currentPosition, {phase: $scope.selectedPhase});
+            $scope.reviewPhase($scope.registrantFunnel.currentPosition, phase.phase);
+            flagUpdate = undefined;
           }else{
             $scope.reviewPhase($scope.registrantFunnel.currentPosition, {phase: $scope.contestDetail.currentPhase});
           }
@@ -252,7 +254,7 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
   }
 
   $scope.$on("update-funnel", function (sc, registrant) {
-    var flagUpdate = true;
+    flagUpdate = true;
     $scope.getRegistrants(registrant.challengeId, flagUpdate);
   });
 
