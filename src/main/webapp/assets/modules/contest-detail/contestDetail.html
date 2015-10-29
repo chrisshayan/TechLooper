@@ -278,7 +278,9 @@
             <div class="phase-content-block">
               <div class="phase-content-details" ng-repeat="phase in registrantFunnel" ng-show="$index == selectedPhase">
                 <p translate="PhaseDes"
-                   ng-show="$index == selectedPhase && (phase.phase | progress: 'challengePhaseTitle' | lowercase) != 'winner'"></p>
+                   ng-show="$index == selectedPhase && (phase.phase | progress: 'challengePhaseTitle' | lowercase) != 'winner' && (phase.phase | progress: 'challengePhaseTitle' | lowercase) != 'final app'"></p>
+                <p translate="FinalDes"
+                   ng-show="$index == selectedPhase && (phase.phase | progress: 'challengePhaseTitle' | lowercase) == 'final app'"></p>
                 <p translate="winnerDes"
                    ng-show="$index == selectedPhase && (phase.phase | progress: 'challengePhaseTitle' | lowercase) == 'winner'"></p>
                 <table class="contests-table">
