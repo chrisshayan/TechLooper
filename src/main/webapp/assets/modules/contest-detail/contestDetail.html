@@ -12,7 +12,7 @@
     <div class="row contest-content-detail">
       <ul class="nav nav-tabs contest-content-tab">
         <li class="active"><a data-toggle="tab" href=".detail" translate="detail"></a></li>
-        <li ng-show="contestDetail.isAuthor"><a data-toggle="tab" href=".registrants">{{'registrants' | translate}}
+        <li ng-show="contestDetail.isAuthor"><a data-toggle="tab" href=".registrants" ng-click="resetActivePhase()">{{'registrants' | translate}}
           ({{contestDetail.numberOfRegistrants}})</a></li>
         <li ng-show="contestDetail.isAuthor">
           <a data-toggle="tab" href=".evaluation-criteria" translate="evaluationCriteria"></a>
@@ -246,7 +246,7 @@
           <div class="funnel-challenge-phase-block">
             <div class="challenge-phase-item"
                  ng-repeat="phase in registrantFunnel" ng-click="reviewPhase($index, phase, contestDetail.nextPhase)"
-                 ng-class="{col3: registrantFunnel.length == 3, col4: registrantFunnel.length == 4, col5: registrantFunnel.length == 5, col6: registrantFunnel.length == 6, active: $index == selectedPhase}">
+                 ng-class="{col2: registrantFunnel.length == 2, col3: registrantFunnel.length == 3, col4: registrantFunnel.length == 4, col5: registrantFunnel.length == 5, col6: registrantFunnel.length == 6, active: $index == selectedPhase}">
               <div class="current-phase"
                   ng-class="{active: (phase.phase | uppercase) == contestDetail.currentPhase}">
                 <span translate="currentPhase"></span>
