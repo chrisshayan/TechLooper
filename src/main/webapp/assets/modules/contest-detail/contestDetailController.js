@@ -26,9 +26,6 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
         $scope.selectedPhase = index;
       }
     }
-    else {
-      $scope.selectedPhase = 0;
-    }
 
     apiService.getChallengeRegistrantsByPhase(contestId, phaseName).success(function (data) {
       $scope.registrantPhase = data;
@@ -205,7 +202,7 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
         $scope.reviewPhase();
       }).error(function () {
       console.log('error');
-          utils.sendNotification(jsonValue.notifications.loaded);
+        utils.sendNotification(jsonValue.notifications.loaded);
     });
   }
 
