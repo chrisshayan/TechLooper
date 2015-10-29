@@ -341,7 +341,7 @@
                                     <table width="200px" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;" class="fullWidth">
                                       <tr>
                                         <td bgcolor="#277cbd" width="100%" style="padding: 10px 5px; -webkit-border-radius:3px; border-radius:3px; text-align: center">
-                                          <a href="${webBaseUrl}#/challenge-detail/${challengeNameAlias}-${challengeId}-id?action=employerLogin&a=registrants&utm_source=dailysummary&utm_medium=allsubmissionsbtn&utm_campaign=onlinecontest" target="_blank" style="font-family: Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; display: block; width: 100%">Xem Tất Cả Bài Gửi</a>
+                                          <a href="${webBaseUrl}#/challenge-detail/${challengeNameAlias}-${challengeId}-id?action=employerLogin&a=registrants&utm_source=dailysummary&utm_medium=allsubmissionsbtn&utm_campaign=onlinecontest" target="_blank" style="font-family: Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; display: block; width: 100%">Review All Submissions</a>
                                         </td>
                                       </tr>
                                     </table>
