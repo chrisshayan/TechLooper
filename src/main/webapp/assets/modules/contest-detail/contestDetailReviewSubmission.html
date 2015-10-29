@@ -1,9 +1,9 @@
 <div class="review-block">
-  <div class="submitted-histories" ng-show="!registrant.submissions.length">
+  <div class="submitted-histories" ng-show="!registrant.phaseSubmissions.length">
     <p translate="noDataSubmission" class="no-submission"></p>
     <span class="close-box" ng-click="registrant.hide()" title="{{'closed' | translate}}">x</span>
   </div>
-  <div class="submitted-histories" ng-show="registrant.submissions.length" >
+  <div class="submitted-histories" ng-show="registrant.phaseSubmissions.length" >
     <div class="header-row">
       <div class="subject-col" translate="descriptionCol"></div>
       <div class="submission-link-col" translate="submissionLink"></div>
@@ -13,7 +13,7 @@
       </div>
     </div>
     <div class="body-row">
-      <div class="submitted-row" ng-repeat="submission in registrant.submissions | orderBy: '-challengeSubmissionId'">
+      <div class="submitted-row" ng-repeat="submission in registrant.phaseSubmissions | orderBy: '-challengeSubmissionId'">
         <div class="subject-col">
           <label translate="descriptionCol"></label>
           {{submission.submissionDescription}}

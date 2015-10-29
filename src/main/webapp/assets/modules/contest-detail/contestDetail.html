@@ -341,7 +341,7 @@
                         </div>
                         <div class="registrant-name">
                           <div class="label-col" translate="fullNameField"></div>
-                          <i class="fa fa-ban" ng-show="user.disqualifiedReason.length; user.qualified == false"></i>
+                          <i class="fa fa-ban" ng-show="user.disqualifiedReason.length; user.qualified == true"></i>
                           {{user.names}}
                           <p class="note" ng-show="user.disqualifiedReason.length">{{'disqualifyingReason' | translate}}: {{user.disqualifiedReason}}</p>
                         </div>
@@ -351,11 +351,11 @@
                         </div>
                         <div class="registration-date" ng-show="(phase.phase | progress: 'challengePhaseTitle' | lowercase) != 'registration'">
                           <div class="label-col" translate="lastSubmissionDate"></div>
-                          {{user.getLastSubmission().submissionDateTime}}
+                          {{user.lastSubmission.submissionDateTime}}
                         </div>
                         <div class="registration-submission">
                           <div class="label-col" translate="submissions"></div>
-                          <a ng-click="user.showReviewSubmission()" title="{{'submissionsReviewTip' | translate}}">{{user.submissions.length || 0}}</a>
+                          <a ng-click="user.showReviewSubmission()" title="{{'submissionsReviewTip' | translate}}">{{user.phaseSubmissions.length || 0}}</a>
                         </div>
                         <div class="registration-score"
                              ng-show="(phase.phase | progress: 'challengePhaseTitle' | lowercase) == 'winner' || (phase.phase | progress: 'challengePhaseTitle' | lowercase) == 'final app'">
@@ -366,7 +366,7 @@
                         <div class="registration-review" ng-show="(phase.phase | progress: 'challengePhaseTitle' | lowercase) != 'final app'">
                           <div class="label-col" translate="qualifiedNextPhase"></div>
 
-                          <a ng-show="(user.disqualified == null && user.qualified == null) || user."
+                          <a ng-show="(user.disqualified == null && user.qualified == null) && user.activePhase != contestDetail.nextPhase"
                              title="{{'qualifyNextPhase' | translate}}"><i class="fa fa-thumbs-up" ng-click="user.showQualification()"></i></a>
                           <a ng-show="user.disqualified == null && user.qualified == null"
                              title="{{'disqualifyNextPhase' | translate}}"><i class="fa fa-thumbs-down" ng-click="user.showDisqualification()"></i></a>

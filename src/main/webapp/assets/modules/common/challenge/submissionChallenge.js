@@ -1,4 +1,4 @@
-techlooper.directive("submissionChallenge", function (localStorageService, apiService, $timeout, $rootScope, $translate) {
+techlooper.directive("submissionChallenge", function (localStorageService, apiService, $timeout, $rootScope, $location) {
   return {
     restrict: "E",
     replace: true,
@@ -70,6 +70,7 @@ techlooper.directive("submissionChallenge", function (localStorageService, apiSe
           return false;
         }
         $('.feedback-loading').css('visibility', 'inherit');
+        $location.search({});
         apiService.getUrlResponseCode(scope.submission.submissionURL)
           .success(function (code) {
             var inValid = (code == 404);
