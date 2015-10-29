@@ -254,6 +254,7 @@
         border: 1px solid #ddd
         border-top: 0
         padding: 20px 0
+        position: relative
         .label-col
           display: none
         .detail
@@ -361,7 +362,7 @@
               a
                 color: #2e6da4
             .registration-review
-              width: 18%
+              width: 15%
               float: left
               text-align: center
               padding: 10px 0
@@ -370,12 +371,14 @@
                 width: 50%
                 text-align: center
                 display: inline
+                font-size: 18px
+                padding: 0 5px
               a.dis
                 width: 100%
                 clear: both
                 display: inline-block
             .registrant-name
-              width: 35%
+              width: 41%
               float: left
               text-align: left
               padding: 10px
@@ -408,7 +411,7 @@
               i.closed
                 background-color: #e6e6e6
             .registration-date
-              width: 18%
+              width: 15%
               float: left
               text-align: center
               padding: 10px
@@ -499,11 +502,11 @@
                 width: 80%
                 float: left
             .subject-col
-              width: 40%
+              width: 35%
               float: left
               text-align: left
               word-break: break-all
-              padding-right: 5px
+              padding-right: 15px
             .submission-link-col
               width: 50%
               float: left
@@ -517,6 +520,17 @@
               width: 10%
               float: left
               text-align: right
+            .close-col
+              width: 5%
+              float: left
+              text-align: right
+              cursor: pointer
+              font-weight: 500
+              line-height: 0.8
+              font-size: 20px
+              padding-right: 5px
+              span.close-box
+                padding-top: 0px
             .header-row
               width: 100%
               font-weight: 400
@@ -819,7 +833,7 @@
                       a
                         margin: auto auto auto 5px
         .submit-phase-contest.show
-          height: 280px
+          height: 310px
           background-color: #f1f2f7
           transition: height 1s
           padding: 10px 20px
@@ -1135,6 +1149,8 @@
             color: #257abb
           .current-phase.winner
             color: #FFAA00
+        .challenge-phase-item.col3
+          width: 33.3339%
         .challenge-phase-item.col4
           width: 25%
         .challenge-phase-item.col5
@@ -1145,6 +1161,7 @@
         width: 100%
         clear: both
         padding: 10px 0 0 0
+        position: relative
     .alert
       margin-top: 20px
     .evaluation-criteria

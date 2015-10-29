@@ -327,7 +327,7 @@ public class JobAggregatorServiceImpl implements JobAggregatorService {
             if (StringUtils.isNotEmpty(job.getCrawlSource())) {
                 String crawlSource = job.getCrawlSource();
                 StringTokenizer tokenizer = new StringTokenizer(crawlSource, "-");
-                while (tokenizer.hasMoreTokens()) {
+                if (tokenizer.hasMoreTokens()) {
                     String sourceName = tokenizer.nextToken();
                     job.setCrawlSource(sourceName.toUpperCase());
                 }

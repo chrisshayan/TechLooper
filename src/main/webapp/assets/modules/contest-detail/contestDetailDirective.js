@@ -48,14 +48,23 @@ techlooper
         });
 
         scope.registrant.qualify = function () {
+          if (scope.registrant.activePhase == scope.challenge.nextPhase) {
+            delete scope.registrant.visible;
+            return;
+          }
+
           delete scope.registrant.disqualified;
           delete scope.registrant.disqualifiedReason;
           scope.registrant.activePhase = scope.challenge.nextPhase;
           apiService.saveChallengeRegistrant(scope.registrant)
-            .success(function() {
-              apiService.acceptChallengeRegistrant(scope.registrant.registrantId);
+            .success(function () {
+              apiService.acceptChallengeRegistrant(scope.registrant.registrantId)
+                .success(function (registrant) {
+                  $rootScope.$broadcast("update-funnel", registrant);
+                });
             });
           scope.registrant.qualified = true;
+          
           delete scope.registrant.visible;
         };
 
@@ -98,8 +107,7 @@ techlooper
 
         scope.$on("success-submission-challenge", function (sc, submission) {
           if (scope.registrant.registrantId != submission.registrantId) return;
-          scope.registrant.submissions.unshift(submission);
-          console.log(scope.registrant.submissions);
+          scope.registrant.acceptSubmission(submission);
         });
 
         utils.sortByNumber(scope.registrant.submissions, "challengeSubmissionId");

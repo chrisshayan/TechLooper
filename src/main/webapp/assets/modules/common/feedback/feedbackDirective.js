@@ -4,7 +4,7 @@ techlooper.directive("feedbackForm", function (apiService, $timeout) {
     replace: true,
     templateUrl: "modules/common/feedback/feedback.html",
     scope: {
-      composeEmail: "=",
+      composeEmail: "="
     },
     link: function (scope, element, attr, ctrl, composeEmail) {
       if (scope.composeEmail.registrantLastName) {
@@ -22,14 +22,15 @@ techlooper.directive("feedbackForm", function (apiService, $timeout) {
           scope.composeEmail.content = scope.feedbackContent;
         }
         $('.feedback-loading').css('visibility', 'inherit');
-        apiService.sendEmailToDailyChallengeRegistrants(scope.composeEmail.challengeId, scope.composeEmail.registrantId, scope.composeEmail)
-          .success(function () {
+
+        apiService.sendFeedbackToRegistrant(scope.composeEmail.challengeId, scope.composeEmail.registrantId, scope.composeEmail)
+          .success(function(){
             $timeout(function () {
               $('.feedback-loading').css('visibility', 'hidden');
               scope.cancel();
             }, 1200);
           })
-          .error(function () {
+          .error(function(){
             scope.composeEmail.error = false;
             $timeout(function () {
               $('.feedback-loading').css('visibility', 'hidden');

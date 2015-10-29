@@ -1,4 +1,4 @@
-techlooper.directive("submissionChallenge", function (localStorageService, apiService, $timeout, $rootScope, $translate) {
+techlooper.directive("submissionChallenge", function (localStorageService, apiService, $timeout, $rootScope, $location) {
   return {
     restrict: "E",
     replace: true,
@@ -12,8 +12,10 @@ techlooper.directive("submissionChallenge", function (localStorageService, apiSe
 
       var mixChallenge = function () {
         scope.challenge.hideSubmitForm = function () {
-          scope.submissionForm.$setPristine();
-          scope.submissionForm.$setUntouched();
+          if (scope.submissionForm) {
+            scope.submissionForm.$setPristine();
+            scope.submissionForm.$setUntouched();
+          }
           delete scope.challenge.visibleSubmitForm;
           delete scope.submission.submissionURL;
           delete scope.submission.submissionDescription;
@@ -70,6 +72,7 @@ techlooper.directive("submissionChallenge", function (localStorageService, apiSe
           return false;
         }
         $('.feedback-loading').css('visibility', 'inherit');
+        $location.search({});
         apiService.getUrlResponseCode(scope.submission.submissionURL)
           .success(function (code) {
             var inValid = (code == 404);
@@ -88,7 +91,7 @@ techlooper.directive("submissionChallenge", function (localStorageService, apiSe
                   }, 500);
                 });
             }
-            scope.submissionForm.submissionURL.$setValidity("invalidUrl", !inValid);
+            scope.submissionForm && scope.submissionForm.submissionURL.$setValidity("invalidUrl", !inValid);
           })
           .finally(function () {
             $timeout(function () {

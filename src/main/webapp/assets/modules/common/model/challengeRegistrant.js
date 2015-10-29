@@ -17,22 +17,6 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonV
         });
     }
 
-    //if (challengePhase == registrant.activePhase) {
-    //  registrant.qualifiedCurrentPhase = !registrant.disqualified;
-    //}
-    //else {
-    //  registrant.qualifiedCurrentPhase = true;
-    //}
-    registrant.activePhase = registrant.activePhase ? registrant.activePhase : jsonValue.challengePhase.getRegistration().enum;
-    if (challengePhase != registrant.activePhase) {
-      registrant.qualified = true;
-    }
-    else {
-      if (registrant.disqualified == true) {
-        registrant.qualified = false;
-      }
-    }
-
     registrant.criteriaLoop = function () {
       var criteria = registrant.criteria;
       if (!criteria) return [];
@@ -89,11 +73,34 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonV
       return parseFloat(sum) + parseFloat(calculatePoint(cri));
     }, 0)).format("0.0");
 
-    registrant.getLastSubmission = function () {
+    registrant.recalculate = function (challengePhase) {
       if (registrant.submissions) {
-        return _.max(registrant.submissions, function (submission) {return submission.challengeSubmissionId;});
+        registrant.lastSubmission = _.isEmpty(registrant.submissions) ? undefined : _.max(registrant.submissions, function (submission) {return submission.challengeSubmissionId;});
+        registrant.phaseSubmissions = _.filter(registrant.submissions, function (submission) {return submission.submissionPhase == challengePhase;});
+      }
+
+      registrant.activePhase = registrant.activePhase ? registrant.activePhase : jsonValue.challengePhase.getRegistration().enum;
+      if (challengePhase != registrant.activePhase) {
+        registrant.qualified = true;
+      }
+      else if (registrant.disqualified == true) {
+        registrant.qualified = false;
       }
     }
+
+    registrant.acceptSubmission = function (submission) {
+      if (!_.findWhere(registrant.submissions, submission)) {
+        registrant.submissions.unshift(submission);
+        registrant.recalculate(submission.submissionPhase);
+      }
+    }
+
+    registrant.recalculate(challengePhase);
+
+
+    //registrant. = function() {
+    //
+    //}
 
     //registrant.qualifyMe = function(challengeDetail) {
     //  delete registrant.disqualified;

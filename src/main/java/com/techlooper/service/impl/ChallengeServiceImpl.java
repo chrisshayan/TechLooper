@@ -337,6 +337,7 @@ public class ChallengeServiceImpl implements ChallengeService {
                 return challengeRegistrantRepository.save(challengeRegistrantEntity);
             } catch (Exception e) {
                 LOGGER.debug("Can not send email", e);
+                return challengeRegistrantEntity;
             }
         }
 
@@ -806,12 +807,7 @@ public class ChallengeServiceImpl implements ChallengeService {
         if (isOwnerOfChallenge(challengeOwner, challengeId)) {
             List<ChallengeRegistrantEntity> registrants = findChallengeRegistrantWithinPeriod(challengeId, now, TimePeriodEnum.TWENTY_FOUR_HOURS);
             String csvEmails = registrants.stream().map(ChallengeRegistrantEntity::getRegistrantEmail).distinct().collect(joining(","));
-            ChallengeDto challengeDto = findChallengeById(challengeId, null);
             try {
-                // In case sending email to only one registrant of this challenge (feedback action form)
-                if (registrants.size() == 1) {
-                    bindEmailTemplateVariables(emailContent, challengeDto, registrants.get(0));
-                }
                 emailContent.setRecipients(InternetAddress.parse(csvEmails));
             } catch (AddressException e) {
                 LOGGER.debug("Can not parse email address", e);
@@ -1010,8 +1006,9 @@ public class ChallengeServiceImpl implements ChallengeService {
     }
 
     @Override
-    public List<ChallengeRegistrantFunnelItem> getChallengeRegistrantFunnel(Long challengeId) {
+    public List<ChallengeRegistrantFunnelItem> getChallengeRegistrantFunnel(Long challengeId, String ownerEmail) {
         List<ChallengeRegistrantFunnelItem> funnel = new ArrayList<>();
+        ChallengeDto challengeDto = findChallengeById(challengeId, ownerEmail);
         Map<ChallengePhaseEnum, ChallengeRegistrantPhaseItem> numberOfRegistrantsByPhase =
                 challengeRegistrantService.countNumberOfRegistrantsByPhase(challengeId);
         Map<ChallengePhaseEnum, ChallengeSubmissionPhaseItem> numberOfSubmissionsByPhase =
@@ -1024,7 +1021,10 @@ public class ChallengeServiceImpl implements ChallengeService {
             if (numberOfSubmissionsByPhase.get(phase) != null) {
                 submission = numberOfSubmissionsByPhase.get(phase).getSubmission();
             }
-            funnel.add(new ChallengeRegistrantFunnelItem(phase, participant, submission));
+
+            if (isValidPhase(challengeDto, phase)) {
+                funnel.add(new ChallengeRegistrantFunnelItem(phase, participant, submission));
+            }
         }
 
 //        Long numberOfWinners = challengeRegistrantService.countNumberOfWinners(challengeId);
@@ -1033,5 +1033,22 @@ public class ChallengeServiceImpl implements ChallengeService {
         Comparator<ChallengeRegistrantFunnelItem> sortByPhaseComparator = (item1, item2) ->
                 item1.getPhase().getOrder() - item2.getPhase().getOrder();
         return funnel.stream().sorted(sortByPhaseComparator).collect(toList());
+    }
+
+    private boolean isValidPhase(ChallengeDto challengeDto, ChallengePhaseEnum phase) {
+        switch (phase) {
+            case REGISTRATION:
+                return StringUtils.isNotEmpty(challengeDto.getRegistrationDate());
+            case IDEA:
+                return StringUtils.isNotEmpty(challengeDto.getIdeaSubmissionDate());
+            case UIUX:
+                return StringUtils.isNotEmpty(challengeDto.getUxSubmissionDate());
+            case PROTOTYPE:
+                return StringUtils.isNotEmpty(challengeDto.getPrototypeSubmissionDate());
+            case FINAL:
+                return StringUtils.isNotEmpty(challengeDto.getSubmissionDate());
+            default:
+                return false;
+        }
     }
 }
