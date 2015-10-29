@@ -194,6 +194,7 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
             $scope.registrantFunnel.currentPosition = i;
           }
         });
+        $scope.selectedPhase = $scope.registrantFunnel.currentPosition;
       }).error(function () {
       console.log('error');
     });
