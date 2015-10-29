@@ -2,7 +2,7 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
                                                            jsonValue, $translate, utils, $filter, $timeout, resourcesService, $timeout) {
   utils.sendNotification(jsonValue.notifications.loading);
   $scope.selectedPhase = 0;
-
+  var activePhaseIndex = 0;
   var parts = $routeParams.id.split("-");
   var lastPart = parts.pop();
   if (parts.length < 2 || (lastPart !== "id")) {
@@ -16,16 +16,20 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
     return $location.url(sprintf("/challenge-detail/%s-%s-id", title, contestId));
   }
 
-  $scope.reviewPhase = function (index, phase) {
-    //utils.sendNotification(jsonValue.notifications.loading);
-    $('.feedback-loading').css('visibility', 'inherit');
-    if (index) {
-      $scope.selectedPhase = index;
+  $scope.reviewPhase = function (index, phase, nextPhase) {
+    var phaseName = phase ? phase.phase : jsonValue.challengePhase.getRegistration().enum;
+    if (index){
+      if(index > activePhaseIndex+1){
+        return;
+      }else{
+        $('.feedback-loading').css('visibility', 'inherit');
+        $scope.selectedPhase = index;
+      }
     }
     else {
       $scope.selectedPhase = 0;
     }
-    var phaseName = phase ? phase.phase : jsonValue.challengePhase.getRegistration().enum;
+
     apiService.getChallengeRegistrantsByPhase(contestId, phaseName).success(function (data) {
       $scope.registrantPhase = data;
 
@@ -50,7 +54,6 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
       utils.sendNotification(jsonValue.notifications.loaded);
       $timeout(function () {
         $('.feedback-loading').css('visibility', 'hidden');
-        scope.cancel();
       }, 1200);
     });
   };
@@ -69,8 +72,6 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
     $scope.sortByScoreType = $scope.sortByScoreType == "asc" ? "desc" : "asc";
     utils.sortByNumber($scope.registrantPhase, "savedTotalPoint", $scope.sortByScoreType);
   };
-
-  $scope.reviewPhase();
 
   $scope.failJoin = false;
   $scope.action = '';
@@ -194,16 +195,22 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
     apiService.getRegistrantFunnel(contestId)
       .success(function (data) {
         $scope.registrantFunnel = data;
+          console.log($scope.contestDetail);
         $.each($scope.registrantFunnel, function (i, item) {
           if (item.phase == $scope.contestDetail.currentPhase) {
             $scope.registrantFunnel.currentPosition = i;
           }
         });
+
         $scope.selectedPhase = $scope.registrantFunnel.currentPosition;
+        activePhaseIndex = $scope.registrantFunnel.currentPosition;
+        $scope.reviewPhase();
+
       }).error(function () {
       console.log('error');
     });
   }
+
   $scope.fbShare = function () {
     ga("send", {
       hitType: "event",
