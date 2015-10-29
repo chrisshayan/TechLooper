@@ -1,5 +1,5 @@
 techlooper.controller('contestDetailController', function ($scope, apiService, localStorageService, $location, $routeParams,
-                                                           jsonValue, $translate, utils, $filter, $timeout, resourcesService) {
+                                                           jsonValue, $translate, utils, $filter, $timeout, resourcesService, $timeout) {
   utils.sendNotification(jsonValue.notifications.loading);
   $scope.selectedPhase = 0;
 
@@ -18,6 +18,7 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
 
   $scope.reviewPhase = function (index, phase) {
     //utils.sendNotification(jsonValue.notifications.loading);
+    $('.feedback-loading').css('visibility', 'inherit');
     if (index) {
       $scope.selectedPhase = index;
     }
@@ -47,6 +48,10 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
       }
     }).finally(function () {
       utils.sendNotification(jsonValue.notifications.loaded);
+      $timeout(function () {
+        $('.feedback-loading').css('visibility', 'hidden');
+        scope.cancel();
+      }, 1200);
     });
   };
 
