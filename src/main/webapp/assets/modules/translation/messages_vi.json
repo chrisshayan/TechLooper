@@ -831,6 +831,8 @@
   "PhaseDes": "Lựa chọn các thí sinh cho vòng tiếp theo:",
   "lastSubmissionDate": "Ngày gửi bài gần nhất",
   "qualifiedNextPhase": "Đạt điều kiện vào vòng sau?",
+  "qualifyNextPhase": "Đạt điều kiện vào vòng sau?",
+  "disqualifyNextPhase": "Không đạt điều kiện vào vòng sau?",
   "disqualified": "Không đạt",
   "qualified": "Đạt",
   "submissionToPhase": "Gửi vào giai đoạn:",

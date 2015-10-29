@@ -363,8 +363,8 @@
 
                         <div class="registration-review" ng-show="(phase.phase | progress: 'challengePhaseTitle' | lowercase) != 'final app'">
                           <div class="label-col" translate="qualifiedNextPhase"></div>
-                          <a ng-show="user.disqualified == null && user.qualified == null"><i class="fa fa-thumbs-up" ng-click="user.showQualification()"></i></a>
-                          <a ng-show="user.disqualified == null && user.qualified == null"><i class="fa fa-thumbs-down" ng-click="user.showDisqualification()"></i></a>
+                          <a ng-show="user.disqualified == null && user.qualified == null" title="{{'qualifyNextPhase' | translate}}"><i class="fa fa-thumbs-up" ng-click="user.showQualification()"></i></a>
+                          <a ng-show="user.disqualified == null && user.qualified == null" title="{{'disqualifyNextPhase' | translate}}"><i class="fa fa-thumbs-down" ng-click="user.showDisqualification()"></i></a>
                           <span translate="qualified" ng-show="user.qualified == true"></span>
                           <span translate="disqualified" ng-show="user.qualified == false"></span>
                         </div>
@@ -387,6 +387,7 @@
                   </dir-pagination-controls>
                 </div>
               </div>
+              <div class="feedback-loading"></div>
             </div>
           </div>
 

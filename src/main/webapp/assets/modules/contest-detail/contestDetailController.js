@@ -17,7 +17,7 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
   }
 
   $scope.reviewPhase = function (index, phase) {
-    utils.sendNotification(jsonValue.notifications.loading);
+    //utils.sendNotification(jsonValue.notifications.loading);
     if (index) {
       $scope.selectedPhase = index;
     }
