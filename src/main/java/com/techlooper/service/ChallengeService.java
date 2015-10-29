@@ -107,5 +107,5 @@ public interface ChallengeService {
 
     ChallengeRegistrantEntity findRegistrantByChallengeIdAndEmail(Long challengeId, String email);
 
-    List<ChallengeRegistrantFunnelItem> getChallengeRegistrantFunnel(Long challengeId);
+    List<ChallengeRegistrantFunnelItem> getChallengeRegistrantFunnel(Long challengeId, String ownerEmail);
 }

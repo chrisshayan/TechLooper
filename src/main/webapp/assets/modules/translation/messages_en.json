@@ -827,6 +827,8 @@
   "PhaseDes": "Select which contestants are qualified for the next round:",
   "lastSubmissionDate": "Last Submission Date",
   "qualifiedNextPhase": "Qualified to next round?",
+  "qualifyNextPhase": "Qualify to next round?",
+  "disqualifyNextPhase": "Disqualify to next round?",
   "disqualified": "Disqualified",
   "qualified": "Qualified",
   "submissionToPhase": "Submission to phase:",

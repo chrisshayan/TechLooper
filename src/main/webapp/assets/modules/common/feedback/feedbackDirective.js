@@ -4,7 +4,7 @@ techlooper.directive("feedbackForm", function (apiService, $timeout) {
     replace: true,
     templateUrl: "modules/common/feedback/feedback.html",
     scope: {
-      composeEmail: "=",
+      composeEmail: "="
     },
     link: function (scope, element, attr, ctrl, composeEmail) {
       if (scope.composeEmail.registrantLastName) {
