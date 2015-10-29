@@ -35,7 +35,7 @@ public class DispatcherServletInitializer extends AbstractAnnotationConfigDispat
 //  private String profile;
 
     public void onStartup(ServletContext servletContext) throws ServletException {
-        super.onStartup(servletContext);
+        super.registerDispatcherServlet(servletContext);
         servletContext.getSessionCookieConfig().setMaxAge(15770000);
         servletContext.addListener(new SessionListener());
     }
@@ -59,10 +59,5 @@ public class DispatcherServletInitializer extends AbstractAnnotationConfigDispat
 
     protected void customizeRegistration(Dynamic registration) {
         registration.setInitParameter("dispatchOptionsRequest", "true");
-    }
-
-    @Override
-    protected void registerContextLoaderListener(ServletContext servletContext) {
-
     }
 }
