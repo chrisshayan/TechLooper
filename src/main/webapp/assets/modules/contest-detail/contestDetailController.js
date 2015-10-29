@@ -210,14 +210,15 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
           }else{
             $scope.reviewPhase($scope.registrantFunnel.currentPosition, {phase: $scope.contestDetail.currentPhase});
           }
-
         utils.sendNotification(jsonValue.notifications.loaded);
       }).error(function () {
       console.log('error');
       utils.sendNotification(jsonValue.notifications.loaded);
     });
-  }
-
+  };
+  $scope.resetActivePhase = function(){
+    $scope.reviewPhase($scope.registrantFunnel.currentPosition, {phase: $scope.contestDetail.currentPhase});
+  };
   $scope.fbShare = function () {
     ga("send", {
       hitType: "event",
