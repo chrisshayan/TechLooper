@@ -58,11 +58,8 @@ techlooper
                   $rootScope.$broadcast("update-funnel", registrant);
                 });
             });
-          console.log();
-          console.log();
-          if(scope.registrant.activePhase != scope.challenge.nextPhase){
-            scope.registrant.qualified = true;
-          }
+          scope.registrant.qualified = true;
+          
           delete scope.registrant.visible;
         };
 
