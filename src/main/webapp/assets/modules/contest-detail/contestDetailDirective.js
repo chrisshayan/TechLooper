@@ -53,7 +53,10 @@ techlooper
           scope.registrant.activePhase = scope.challenge.nextPhase;
           apiService.saveChallengeRegistrant(scope.registrant)
             .success(function() {
-              apiService.acceptChallengeRegistrant(scope.registrant.registrantId);
+              apiService.acceptChallengeRegistrant(scope.registrant.registrantId)
+                .success(function(registrant) {
+                  $rootScope.$broadcast("update-funnel", registrant);
+                });
             });
           scope.registrant.qualified = true;
           delete scope.registrant.visible;

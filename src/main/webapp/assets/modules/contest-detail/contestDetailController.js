@@ -65,11 +65,6 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
     utils.sortByNumber($scope.registrantPhase, "savedTotalPoint", $scope.sortByScoreType);
   };
 
-  //$scope.sortBySubmissionDate = function () {
-  //  $scope.sortByRegistrationDateType = $scope.sortByRegistrationDateType == "asc" ? "desc" : "asc";
-  //  utils.sortByNumber($scope.registrantPhase, "challengeSubmissionId", $scope.sortBySubmissionDateType);
-  //}
-
   $scope.reviewPhase();
 
   $scope.failJoin = false;
@@ -158,12 +153,13 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
 
         localStorageService.set("joinContests", joinContests.join(","));
         $filter("progress")($scope.contestDetail, "challenge");
-        $scope.filterContestant();
+        //$scope.filterContestant();
       })
       .error(function () {
         $scope.failJoin = true;
       });
   }
+
   apiService.getContestDetail(contestId)
     .success(function (data) {
       $scope.contestDetail = data;
@@ -216,81 +212,6 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
     $scope.sortKey = keyname;   //set the sortKey to the param passed
     $scope.reverse = !$scope.reverse; //if true make it false and vice versa
   };
-  //$scope.filterContestant = function () {
-  //  utils.sendNotification(jsonValue.notifications.loading);
-  //  var param = $location.search();
-  //  var registrantFilterCondition = {};
-  //  registrantFilterCondition.challengeId = contestId;
-  //
-  //  if ($scope.filterType) {
-  //    registrantFilterCondition.filterType = $scope.filterType;
-  //  } else if (param.filterType) {
-  //    registrantFilterCondition.filterType = param.filterType;
-  //    $scope.filterType = param.filterType;
-  //  } else {
-  //    registrantFilterCondition.filterType = "registrantId";
-  //  }
-  //
-  //  if ($scope.phase) {
-  //    registrantFilterCondition.phase = $scope.phase;
-  //  } else if (param.phase) {
-  //    registrantFilterCondition.phase = param.phase;
-  //    $scope.phase = param.phase;
-  //  } else {
-  //    registrantFilterCondition.phase = "";
-  //  }
-  //
-  //  if ($scope.fromDate) {
-  //    registrantFilterCondition.fromDate = $scope.fromDate;
-  //  } else {
-  //    registrantFilterCondition.fromDate = param.fromDate;
-  //    $scope.fromDate = param.fromDate;
-  //  }
-  //
-  //  if ($scope.toDate) {
-  //    registrantFilterCondition.toDate = $scope.toDate;
-  //  } else {
-  //    registrantFilterCondition.toDate = param.toDate;
-  //    $scope.toDate = param.toDate
-  //  }
-  //
-  //  apiService.getChallengeRegistrants(registrantFilterCondition)
-  //    .success(function (registrants) {
-  //      $scope.registrants = registrants;
-  //      //$scope.sortByStartDate();
-  //      if (param.a == "registrants") {
-  //        var registrantTab = $('.nav-tabs a[href=".registrants"]');
-  //        if (registrantTab) {
-  //          registrantTab.tab('show');
-  //        }
-  //      }
-  //    }).finally(function () {
-  //      utils.sendNotification(jsonValue.notifications.loaded);
-  //    });
-  //};
-  //
-  //$scope.filterContestant();
-
-
-  //
-  //$scope.sortByStartDate = function () {
-  //  delete $scope.sortScore;
-  //  $scope.sortStartDate = $scope.sortStartDate || "asc";
-  //  $scope.sortStartDate = $(["asc", "desc"]).not([$scope.sortStartDate]).get()[0];
-  //  utils.sortByNumber($scope.registrants, "registrantId", $scope.sortStartDate);
-  //}
-
-  //$scope.updateScore = function (registrant, $event) {
-  //  $($event.currentTarget).addClass('green');
-  //  apiService.saveChallengeRegistrant(registrant)
-  //    .success(function (rt) {
-  //      registrant.score = rt.score;
-  //    }).finally(function () {
-  //    $timeout(function () {
-  //      $($event.currentTarget).removeClass('green');
-  //    }, 1000);
-  //  });
-  //}
 
   $scope.config = {
     registrantsFilter: resourcesService.registrantsFilterConfig,
@@ -311,5 +232,10 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
 
     $scope.contestDetail.saveCriteria();
   }
+
+  $scope.$on("update-funnel", function(sc, registrant) {
+    //console.log(registrant);
+    $scope.getRegistrants(registrant.challengeId);
+  });
 });
 
