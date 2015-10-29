@@ -75,7 +75,7 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonV
 
     registrant.recalculate = function (challengePhase) {
       if (registrant.submissions) {
-        registrant.lastSubmission = _.max(registrant.submissions, function (submission) {return submission.challengeSubmissionId;});
+        registrant.lastSubmission = _.isEmpty(registrant.submissions) ? undefined : _.max(registrant.submissions, function (submission) {return submission.challengeSubmissionId;});
         registrant.phaseSubmissions = _.filter(registrant.submissions, function (submission) {return submission.submissionPhase == challengePhase;});
       }
 
@@ -86,10 +86,9 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonV
       else if (registrant.disqualified == true) {
         registrant.qualified = false;
       }
-
     }
 
-    registrant.acceptSubmission = function(submission) {
+    registrant.acceptSubmission = function (submission) {
       if (!_.findWhere(registrant.submissions, submission)) {
         registrant.submissions.unshift(submission);
         registrant.recalculate(submission.submissionPhase);
@@ -97,8 +96,6 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonV
     }
 
     registrant.recalculate(challengePhase);
-
-
 
 
     //registrant. = function() {

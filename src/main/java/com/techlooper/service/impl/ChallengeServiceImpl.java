@@ -806,12 +806,7 @@ public class ChallengeServiceImpl implements ChallengeService {
         if (isOwnerOfChallenge(challengeOwner, challengeId)) {
             List<ChallengeRegistrantEntity> registrants = findChallengeRegistrantWithinPeriod(challengeId, now, TimePeriodEnum.TWENTY_FOUR_HOURS);
             String csvEmails = registrants.stream().map(ChallengeRegistrantEntity::getRegistrantEmail).distinct().collect(joining(","));
-            ChallengeDto challengeDto = findChallengeById(challengeId, null);
             try {
-                // In case sending email to only one registrant of this challenge (feedback action form)
-                if (registrants.size() == 1) {
-                    bindEmailTemplateVariables(emailContent, challengeDto, registrants.get(0));
-                }
                 emailContent.setRecipients(InternetAddress.parse(csvEmails));
             } catch (AddressException e) {
                 LOGGER.debug("Can not parse email address", e);
