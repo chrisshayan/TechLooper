@@ -18,9 +18,10 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
 
   $scope.reviewPhase = function (index, phase, nextPhase) {
     var phaseName = phase ? phase.phase : jsonValue.challengePhase.getRegistration().enum;
-    if (index && index > activePhaseIndex+1){
-        return;
-    }else{
+    if (index && index > activePhaseIndex + 1) {
+      return;
+    }
+    else {
       $('.feedback-loading').css('visibility', 'inherit');
       $scope.selectedPhase = index;
     }
@@ -58,13 +59,19 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
   }
 
   $scope.sortBySubmissionDate = function () {
-    $scope.sortByRegistrationDateType = $scope.sortByRegistrationDateType == "asc" ? "desc" : "asc";
-    utils.sortByNumber($scope.registrantPhase, "challengeSubmissionId", $scope.sortBySubmissionDateType);
+    $scope.sortBySubmissionDateType = $scope.sortBySubmissionDateType == "asc" ? "desc" : "asc";
+    $scope.registrantPhase.sort(function (a, b) {
+      var interval = $scope.sortBySubmissionDateType == "asc" ? 1 : -1;
+      return interval * ((b.lastSubmission ? b.lastSubmission.challengeSubmissionId : 0) - (a.lastSubmission ? a.lastSubmission.challengeSubmissionId : 0));
+    });
   }
 
   $scope.sortByScore = function () {
     $scope.sortByScoreType = $scope.sortByScoreType == "asc" ? "desc" : "asc";
-    utils.sortByNumber($scope.registrantPhase, "savedTotalPoint", $scope.sortByScoreType);
+    $scope.registrantPhase.sort(function (a, b) {
+      var interval = $scope.sortByScoreType == "asc" ? 1 : -1;
+      return interval * ((b.totalPoint ? b.totalPoint : 0) - (a.totalPoint ? a.totalPoint : 0));
+    });
   };
 
   $scope.failJoin = false;
@@ -194,14 +201,16 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
             $scope.registrantFunnel.currentPosition = i;
           }
         });
-        $scope.selectedPhase = $scope.registrantFunnel.currentPosition;
+        //$scope.selectedPhase = $scope.registrantFunnel.currentPosition;
         activePhaseIndex = $scope.registrantFunnel.currentPosition;
+        $scope.reviewPhase($scope.registrantFunnel.currentPosition, {phase: $scope.contestDetail.currentPhase});
+        utils.sendNotification(jsonValue.notifications.loaded);
       }).error(function () {
       console.log('error');
-        utils.sendNotification(jsonValue.notifications.loaded);
+      utils.sendNotification(jsonValue.notifications.loaded);
     });
   }
-  $scope.reviewPhase();
+
   $scope.fbShare = function () {
     ga("send", {
       hitType: "event",
@@ -237,7 +246,7 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
     $scope.contestDetail.saveCriteria();
   }
 
-  $scope.$on("update-funnel", function(sc, registrant) {
+  $scope.$on("update-funnel", function (sc, registrant) {
     //console.log(registrant);
     $scope.getRegistrants(registrant.challengeId);
   });
