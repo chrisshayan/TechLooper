@@ -370,8 +370,8 @@
                              title="{{'qualifyNextPhase' | translate}}"><i class="fa fa-thumbs-up" ng-click="user.showQualification()"></i></a>
                           <a ng-show="user.disqualified == null && user.qualified == null"
                              title="{{'disqualifyNextPhase' | translate}}"><i class="fa fa-thumbs-down" ng-click="user.showDisqualification()"></i></a>
-                          <span translate="qualified" ng-show="user.qualified == true"></span>
-                          <span translate="disqualified" ng-show="user.qualified == false"></span>
+                          <span translate="qualified" ng-show="user.qualified == true && user.disqualified != true"></span>
+                          <span translate="disqualified" ng-show="user.disqualified == true"></span>
                         </div>
                         <div class="registration-action">
                           <div class="label-col" translate="action"></div>
