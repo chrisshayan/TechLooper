@@ -55,6 +55,7 @@ public class JobAlertEmailSender {
 
             if (!jobAlertRegistrationEntities.isEmpty()) {
                 int count = 0;
+                Thread.sleep(getRandomNumberInRange(600000, 900000) + 600000);
                 for (JobAlertRegistrationEntity jobAlertRegistrationEntity : jobAlertRegistrationEntities) {
                     if (StringUtils.isEmpty(jobAlertRegistrationEntity.getLastEmailSentDateTime())) {
                         jobAlertRegistrationEntity.setLastEmailSentDateTime(yesterdayDate(BASIC_DATE_TIME_PATTERN));
@@ -63,7 +64,6 @@ public class JobAlertEmailSender {
                     Date lastSentDate = string2Date(jobAlertRegistrationEntity.getLastEmailSentDateTime(), BASIC_DATE_TIME_PATTERN);
                     Date currentDate = new Date();
 
-                    Thread.sleep(getRandomNumberInRange(1000, 5000));
                     if (daysBetween(lastSentDate, currentDate) > 0) {
                         JobSearchCriteria criteria = dozerMapper.map(jobAlertRegistrationEntity, JobSearchCriteria.class);
                         JobSearchResponse jobSearchResponse = jobAggregatorService.findJob(criteria);
