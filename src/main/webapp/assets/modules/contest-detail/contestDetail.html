@@ -283,6 +283,9 @@
                    ng-show="$index == selectedPhase && (phase.phase | progress: 'challengePhaseTitle' | lowercase) == 'final app'"></p>
                 <p translate="winnerDes"
                    ng-show="$index == selectedPhase && (phase.phase | progress: 'challengePhaseTitle' | lowercase) == 'winner'"></p>
+                <div class="announcement-winner">
+                  <a translate="announceWinnerToAllContestants" class="btn btn-primary btn-flat"></a>
+                </div>
                 <table class="contests-table">
                   <thead>
                   <tr>
@@ -300,7 +303,7 @@
                           <i class="fa"
                              ng-class="{'fa-chevron-circle-down':sortByRegistrationDateType == 'desc','fa-chevron-circle-up': sortByRegistrationDateType == 'asc'}"></i>
                         </div>
-                        <div class="registration-date" ng-show="(phase.phase | progress: 'challengePhaseTitle' | lowercase) != 'registration'"
+                        <div class="registration-date" ng-show="(phase.phase | progress: 'challengePhaseTitle' | lowercase) != 'registration' && (phase.phase | progress: 'challengePhaseTitle' | lowercase) != 'winner'"
                           ng-click="sortBySubmissionDate()">
                           {{'lastSubmissionDate' | translate}}
                           <i class="fa"
@@ -316,7 +319,7 @@
                           <i class="fa"
                              ng-class="{'fa-chevron-circle-down': sortByScoreType == 'desc','fa-chevron-circle-up': sortByScoreType == 'asc'}"></i>
                         </div>
-                        <div class="registration-review" ng-show="(phase.phase | progress: 'challengePhaseTitle' | lowercase) != 'final app'">
+                        <div class="registration-review" ng-show="(phase.phase | progress: 'challengePhaseTitle' | lowercase) != 'final app' && (phase.phase | progress: 'challengePhaseTitle' | lowercase) != 'winner'">
                           {{'qualifiedNextPhase' | translate}}
                         </div>
                         <div class="registration-action">
@@ -349,7 +352,7 @@
                           <div class="label-col" translate="registrationDate"></div>
                           {{user.registrantId | timestamp: 'number'}}
                         </div>
-                        <div class="registration-date" ng-show="(phase.phase | progress: 'challengePhaseTitle' | lowercase) != 'registration'">
+                        <div class="registration-date" ng-show="(phase.phase | progress: 'challengePhaseTitle' | lowercase) != 'registration' && (phase.phase | progress: 'challengePhaseTitle' | lowercase) != 'winner'">
                           <div class="label-col" translate="lastSubmissionDate"></div>
                           {{user.lastSubmission.submissionDateTime}}
                         </div>
@@ -363,7 +366,7 @@
                           <a ng-click="user.showScore()">{{user.savedTotalPoint}}</a>
                         </div>
 
-                        <div class="registration-review" ng-show="(phase.phase | progress: 'challengePhaseTitle' | lowercase) != 'final app'">
+                        <div class="registration-review" ng-show="(phase.phase | progress: 'challengePhaseTitle' | lowercase) != 'final app' && (phase.phase | progress: 'challengePhaseTitle' | lowercase) != 'winner'">
                           <div class="label-col" translate="qualifiedNextPhase"></div>
 
                           <a ng-show="user.disqualified == null && user.qualified == null"
