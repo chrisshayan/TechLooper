@@ -26,6 +26,11 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
       $('.feedback-loading').css('visibility', 'inherit');
       $scope.selectedPhase = index;
     }
+
+    delete $scope.sortByRegistrationDateType;
+    delete $scope.sortBySubmissionDateType;
+    delete $scope.sortByScoreType;
+    
     apiService.getChallengeRegistrantsByPhase(contestId, phaseName).success(function (data) {
       $scope.registrantPhase = data;
 
