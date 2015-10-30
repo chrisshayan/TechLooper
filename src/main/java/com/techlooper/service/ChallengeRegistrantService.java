@@ -15,4 +15,6 @@ public interface ChallengeRegistrantService {
   Long countNumberOfWinners(Long challengeId);
 
   Set<ChallengeRegistrantDto> findRegistrantsByChallengeIdAndPhase(Long challengeId, ChallengePhaseEnum phase, String ownerEmail);
+
+  Set<ChallengeRegistrantDto> findWinnerRegistrantsByChallengeId(Long challengeId, String ownerEmail);
 }

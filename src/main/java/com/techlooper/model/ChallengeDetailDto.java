@@ -1,9 +1,12 @@
 package com.techlooper.model;
 
 import com.techlooper.entity.ChallengeCriteria;
+import org.springframework.data.elasticsearch.annotations.Field;
 
 import java.util.List;
 import java.util.Set;
+
+import static org.springframework.data.elasticsearch.annotations.FieldType.Long;
 
 /**
  * Created by NguyenDangKhoa on 7/3/15.
@@ -61,6 +64,36 @@ public class ChallengeDetailDto {
   private Boolean isAuthor;
 
   private Set<ChallengeCriteria> criteria;
+
+  private Long firstPlaceRewardWinner;
+
+  private Long secondPlaceRewardWinner;
+
+  private Long thirdPlaceRewardWinner;
+
+  public java.lang.Long getFirstPlaceRewardWinner() {
+    return firstPlaceRewardWinner;
+  }
+
+  public void setFirstPlaceRewardWinner(java.lang.Long firstPlaceRewardWinner) {
+    this.firstPlaceRewardWinner = firstPlaceRewardWinner;
+  }
+
+  public java.lang.Long getSecondPlaceRewardWinner() {
+    return secondPlaceRewardWinner;
+  }
+
+  public void setSecondPlaceRewardWinner(java.lang.Long secondPlaceRewardWinner) {
+    this.secondPlaceRewardWinner = secondPlaceRewardWinner;
+  }
+
+  public java.lang.Long getThirdPlaceRewardWinner() {
+    return thirdPlaceRewardWinner;
+  }
+
+  public void setThirdPlaceRewardWinner(java.lang.Long thirdPlaceRewardWinner) {
+    this.thirdPlaceRewardWinner = thirdPlaceRewardWinner;
+  }
 
   public Set<ChallengeCriteria> getCriteria() {
     return criteria;
