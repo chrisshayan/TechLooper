@@ -414,12 +414,12 @@ public class UserController {
         return employerService.findEmployerEmailSetting(request.getRemoteUser());
     }
 
-    @RequestMapping(value = "/emailTemplates", method = RequestMethod.GET)
-    public List<EmailTemplateDto> getAvailableEmailTemplates() {
-        return emailService.getAvailableEmailTemplates();
+    @RequestMapping(value = "/emailTemplates/{language}", method = RequestMethod.GET)
+    public List<EmailTemplateDto> getAvailableEmailTemplates(@PathVariable Language language) {
+        return emailService.getAvailableEmailTemplates(language);
     }
 
-    @RequestMapping(value = "/emailTemplates/{templateId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/emailTemplate/{templateId}", method = RequestMethod.GET)
     public EmailTemplateDto getTemplateById(@PathVariable Long templateId) {
         return emailService.getTemplateById(templateId);
     }
