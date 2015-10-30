@@ -268,7 +268,7 @@
                 <p translate="participantsNumber"
                    translate-value-number="{{phase.participant}}" ng-show="((phase.phase | progress: 'challengePhaseTitle' | lowercase) != 'registration') && phase.participant > 0 && (phase.phase | progress: 'challengePhaseTitle' | lowercase) != 'winner'"></p>
                 <p translate="submissionsNumber"
-                   translate-value-number="{{phase.submission}}" ng-show="((phase.phase | progress: 'challengePhaseTitle' | lowercase) != 'registration') && phase.submission > 0 && (phase.phase | progress: 'challengePhaseTitle' | lowercase) != 'winner'"></p>
+                   translate-value-number="{{phase.submission}}" ng-show="phase.submission > 0 && (phase.phase | progress: 'challengePhaseTitle' | lowercase) != 'winner'"></p>
                 <p translate="finalistNumber"
                    translate-value-number="{{phase.participant}}" ng-show="phase.participant > 0 && (phase.phase | progress: 'challengePhaseTitle' | lowercase) == 'winner'"></p>
                 <p translate="winnersNumber"
