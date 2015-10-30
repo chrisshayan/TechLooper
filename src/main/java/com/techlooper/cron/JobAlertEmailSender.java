@@ -15,6 +15,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import static com.techlooper.model.JobAlertEmailResultEnum.EMAIL_SENT;
 import static com.techlooper.model.JobAlertEmailResultEnum.JOB_NOT_FOUND;
@@ -61,6 +62,8 @@ public class JobAlertEmailSender {
 
                     Date lastSentDate = string2Date(jobAlertRegistrationEntity.getLastEmailSentDateTime(), BASIC_DATE_TIME_PATTERN);
                     Date currentDate = new Date();
+
+                    Thread.sleep(getRandomNumberInRange(1000, 5000));
                     if (daysBetween(lastSentDate, currentDate) > 0) {
                         JobSearchCriteria criteria = dozerMapper.map(jobAlertRegistrationEntity, JobSearchCriteria.class);
                         JobSearchResponse jobSearchResponse = jobAggregatorService.findJob(criteria);
@@ -76,5 +79,10 @@ public class JobAlertEmailSender {
                 LOGGER.info("There are " + count + " job alert emails has been sent");
             }
         }
+    }
+
+    private static int getRandomNumberInRange(int min, int max) {
+        Random r = new Random();
+        return r.ints(min, (max + 1)).limit(1).findFirst().getAsInt();
     }
 }
