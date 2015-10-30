@@ -25,4 +25,6 @@ public interface JobAggregatorService {
 
     int importVietnamworksJob(JobTypeEnum jobType);
 
+    JobAlertRegistrationEntity getJobAlertRegistrationById(Long id);
+
 }
