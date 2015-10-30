@@ -55,7 +55,7 @@ public class JobAlertEmailSender {
 
             if (!jobAlertRegistrationEntities.isEmpty()) {
                 int count = 0;
-                Thread.sleep(getRandomNumberInRange(600000, 900000));
+                Thread.sleep(getRandomNumberInRange(600000, 900000) + 600000);
                 for (JobAlertRegistrationEntity jobAlertRegistrationEntity : jobAlertRegistrationEntities) {
                     if (StringUtils.isEmpty(jobAlertRegistrationEntity.getLastEmailSentDateTime())) {
                         jobAlertRegistrationEntity.setLastEmailSentDateTime(yesterdayDate(BASIC_DATE_TIME_PATTERN));
