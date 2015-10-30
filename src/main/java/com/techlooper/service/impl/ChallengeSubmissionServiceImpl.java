@@ -4,13 +4,12 @@ import com.techlooper.entity.ChallengeRegistrantDto;
 import com.techlooper.entity.ChallengeRegistrantEntity;
 import com.techlooper.entity.ChallengeSubmissionEntity;
 import com.techlooper.entity.ChallengeSubmissionEntity.ChallengeSubmissionEntityBuilder;
-import com.techlooper.model.ChallengePhaseEnum;
-import com.techlooper.model.ChallengeSubmissionDto;
-import com.techlooper.model.ChallengeSubmissionPhaseItem;
+import com.techlooper.model.*;
 import com.techlooper.repository.elasticsearch.ChallengeSubmissionRepository;
 import com.techlooper.service.ChallengeService;
 import com.techlooper.service.ChallengeSubmissionService;
 import com.techlooper.util.DateTimeUtils;
+import freemarker.template.Template;
 import org.dozer.Mapper;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.search.SearchType;
@@ -19,11 +18,21 @@ import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
 import org.elasticsearch.search.aggregations.Aggregations;
 import org.elasticsearch.search.aggregations.bucket.terms.Terms;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import javax.mail.Address;
+import javax.mail.Message;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeUtility;
+import java.io.StringWriter;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -36,6 +45,8 @@ import static com.techlooper.model.ChallengePhaseEnum.*;
  */
 @Service
 public class ChallengeSubmissionServiceImpl implements ChallengeSubmissionService {
+
+    private final static Logger LOGGER = LoggerFactory.getLogger(ChallengeSubmissionServiceImpl.class);
 
     @Resource
     private ChallengeService challengeService;
@@ -51,7 +62,30 @@ public class ChallengeSubmissionServiceImpl implements ChallengeSubmissionServic
 
     private final List<ChallengePhaseEnum> CHALLENGE_PHASES = Arrays.asList(REGISTRATION, IDEA, UIUX, PROTOTYPE, FINAL);
 
+    @Value("${mail.confirmUserSubmission.subject.vi}")
+    private String confirmUserSubmissionMailSubjectVi;
+
+    @Value("${mail.confirmUserSubmission.subject.en}")
+    private String confirmUserSubmissionMailSubjectEn;
+
+    @Resource
+    private Template confirmUserSubmissionMailTemplateVi;
+
+    @Resource
+    private Template confirmUserSubmissionMailTemplateEn;
+
+    @Resource
+    private MimeMessage confirmUserSubmissionMailMessage;
+
+    @Value("${web.baseUrl}")
+    private String webBaseUrl;
+
+    @Resource
+    private JavaMailSender mailSender;
+
     public ChallengeSubmissionEntity submitMyResult(ChallengeSubmissionDto challengeSubmissionDto) {
+        ChallengeDto challengeDto = challengeService.findChallengeById(
+                challengeSubmissionDto.getChallengeId(), challengeSubmissionDto.getRegistrantEmail());
         ChallengeRegistrantEntity registrant = challengeService.findRegistrantByChallengeIdAndEmail(
                 challengeSubmissionDto.getChallengeId(), challengeSubmissionDto.getRegistrantEmail());
         if (registrant == null) {
@@ -66,8 +100,37 @@ public class ChallengeSubmissionServiceImpl implements ChallengeSubmissionServic
                 .withRegistrantName(String.format("%s %s", registrant.getRegistrantFirstName(), registrant.getRegistrantLastName()))
                 .withSubmissionDateTime(DateTimeUtils.currentDate())
                 .withSubmissionPhase(activePhase);
-
+        try {
+            sendConfirmationEmailToRegistrant(challengeDto, registrant, challengeSubmissionEntity);
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage(), e);
+        }
         return challengeSubmissionRepository.save(challengeSubmissionEntity);
+    }
+
+    private void sendConfirmationEmailToRegistrant(ChallengeDto challengeDto,
+                                                   ChallengeRegistrantEntity registrant, ChallengeSubmissionEntity challengeSubmissionEntity) throws Exception {
+        String mailSubject = registrant.getLang() == Language.vi ? confirmUserSubmissionMailSubjectVi :
+                confirmUserSubmissionMailSubjectEn;
+        Address[] recipientAddresses = InternetAddress.parse(registrant.getRegistrantEmail());
+        Template template = registrant.getLang() == Language.vi ? confirmUserSubmissionMailTemplateVi :
+                confirmUserSubmissionMailTemplateEn;
+        confirmUserSubmissionMailMessage.setRecipients(Message.RecipientType.TO, recipientAddresses);
+        StringWriter stringWriter = new StringWriter();
+
+        Map<String, Object> templateModel = new HashMap<>();
+        templateModel.put("webBaseUrl", webBaseUrl);
+        templateModel.put("submissionUrl", challengeSubmissionEntity.getSubmissionURL());
+        templateModel.put("currentPhase", challengeSubmissionEntity.getSubmissionPhase());
+        templateModel.put("challengeName", challengeDto.getChallengeName());
+
+        template.process(templateModel, stringWriter);
+        confirmUserSubmissionMailMessage.setSubject(MimeUtility.encodeText(mailSubject, "UTF-8", null));
+        confirmUserSubmissionMailMessage.setText(stringWriter.toString(), "UTF-8", "html");
+
+        stringWriter.flush();
+        confirmUserSubmissionMailMessage.saveChanges();
+        mailSender.send(confirmUserSubmissionMailMessage);
     }
 
     @Override
@@ -75,7 +138,7 @@ public class ChallengeSubmissionServiceImpl implements ChallengeSubmissionServic
         Map<ChallengePhaseEnum, ChallengeSubmissionPhaseItem> numberOfSubmissionsByPhase = new HashMap<>();
 
         NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withIndices("techlooper")
-            .withTypes("challengeSubmission").withSearchType(SearchType.COUNT);
+                .withTypes("challengeSubmission").withSearchType(SearchType.COUNT);
         searchQueryBuilder.withQuery(QueryBuilders.termQuery("challengeId", challengeId));
         searchQueryBuilder.addAggregation(AggregationBuilders.terms("sumOfSubmissions").field("submissionPhase"));
         Aggregations aggregations = elasticsearchTemplate.query(searchQueryBuilder.build(), SearchResponse::getAggregations);

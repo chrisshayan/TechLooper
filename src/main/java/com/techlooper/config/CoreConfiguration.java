@@ -556,4 +556,23 @@ public class CoreConfiguration implements ApplicationContextAware {
     public VietnamworksJobImporter vietnamworksJobImporter() {
         return new VietnamworksJobImporter();
     }
+
+    @Bean
+    public MimeMessage confirmUserSubmissionMailMessage(JavaMailSender mailSender) throws MessagingException, UnsupportedEncodingException {
+        MimeMessage mailMessage = mailSender.createMimeMessage();
+        mailMessage.setFrom(new InternetAddress(mailTechlooperForm, "TechLooper", "UTF-8"));
+        return mailMessage;
+    }
+
+    @Bean
+    public Template confirmUserSubmissionMailTemplateEn(freemarker.template.Configuration freemakerConfig) throws IOException {
+        Template template = freemakerConfig.getTemplate("confirmUserSubmission.en.ftl");
+        return template;
+    }
+
+    @Bean
+    public Template confirmUserSubmissionMailTemplateVi(freemarker.template.Configuration freemakerConfig) throws IOException {
+        Template template = freemakerConfig.getTemplate("confirmUserSubmission.vi.ftl");
+        return template;
+    }
 }
