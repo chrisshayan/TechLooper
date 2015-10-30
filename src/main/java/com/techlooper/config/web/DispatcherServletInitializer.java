@@ -60,9 +60,4 @@ public class DispatcherServletInitializer extends AbstractAnnotationConfigDispat
     protected void customizeRegistration(Dynamic registration) {
         registration.setInitParameter("dispatchOptionsRequest", "true");
     }
-
-    @Override
-    protected void registerContextLoaderListener(ServletContext servletContext) {
-
-    }
 }

@@ -337,6 +337,7 @@ public class ChallengeServiceImpl implements ChallengeService {
                 return challengeRegistrantRepository.save(challengeRegistrantEntity);
             } catch (Exception e) {
                 LOGGER.debug("Can not send email", e);
+                return challengeRegistrantEntity;
             }
         }
 
@@ -1026,8 +1027,8 @@ public class ChallengeServiceImpl implements ChallengeService {
             }
         }
 
-//        Long numberOfWinners = challengeRegistrantService.countNumberOfWinners(challengeId);
-//        funnel.add(new ChallengeRegistrantFunnelItem(ChallengePhaseEnum.WINNER, numberOfWinners, numberOfWinners));
+        Long numberOfWinners = challengeRegistrantService.countNumberOfWinners(challengeId);
+        funnel.add(new ChallengeRegistrantFunnelItem(ChallengePhaseEnum.WINNER, numberOfWinners, numberOfWinners));
 
         Comparator<ChallengeRegistrantFunnelItem> sortByPhaseComparator = (item1, item2) ->
                 item1.getPhase().getOrder() - item2.getPhase().getOrder();
