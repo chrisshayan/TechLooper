@@ -179,15 +179,4 @@ public class ChallengeController {
     }
     return registrants;
   }
-
-  @PreAuthorize("hasAuthority('EMPLOYER')")
-  @RequestMapping(value = "challenge/{challengeId}/winnerRegistrants", method = RequestMethod.GET)
-  public Set<ChallengeRegistrantDto> getWinnerRegistrantsByChallengeId(@PathVariable Long challengeId,
-                                                                    HttpServletRequest request, HttpServletResponse response) {
-    Set<ChallengeRegistrantDto> registrants = challengeRegistrantService.findWinnerRegistrantsByChallengeId(challengeId, request.getRemoteUser());
-    if (registrants == null) {
-      response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-    }
-    return registrants;
-  }
 }

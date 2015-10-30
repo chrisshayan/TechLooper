@@ -101,6 +101,10 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
       return null;
     }
 
+    if (phase == WINNER) {
+      return findWinnerRegistrantsByChallengeId(challengeId);
+    }
+
     BoolQueryBuilder challengeQuery = QueryBuilders.boolQuery().must(QueryBuilders.termQuery("challengeId", challengeId));
     BoolQueryBuilder toPhaseQuery = QueryBuilders.boolQuery();
     challengeQuery.must(toPhaseQuery);
@@ -117,10 +121,7 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
     return toChallengeRegistrantDtosWithSubmissions(registrantIterable);
   }
 
-  public Set<ChallengeRegistrantDto> findWinnerRegistrantsByChallengeId(Long challengeId, String ownerEmail) {
-    if (!challengeService.isOwnerOfChallenge(ownerEmail, challengeId)) {
-      return null;
-    }
+  public Set<ChallengeRegistrantDto> findWinnerRegistrantsByChallengeId(Long challengeId) {
 
     BoolQueryBuilder winnerQuery = QueryBuilders.boolQuery()
       .must(QueryBuilders.termQuery("challengeId", challengeId))

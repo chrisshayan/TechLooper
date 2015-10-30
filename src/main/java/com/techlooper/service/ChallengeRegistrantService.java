@@ -16,5 +16,5 @@ public interface ChallengeRegistrantService {
 
   Set<ChallengeRegistrantDto> findRegistrantsByChallengeIdAndPhase(Long challengeId, ChallengePhaseEnum phase, String ownerEmail);
 
-  Set<ChallengeRegistrantDto> findWinnerRegistrantsByChallengeId(Long challengeId, String ownerEmail);
+  Set<ChallengeRegistrantDto> findWinnerRegistrantsByChallengeId(Long challengeId);
 }
