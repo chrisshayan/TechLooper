@@ -833,5 +833,6 @@
   "disqualified": "Disqualified",
   "qualified": "Qualified",
   "submissionToPhase": "Submission to phase:",
-  "submissionsReviewTip": "Review"
+  "submissionsReviewTip": "Review",
+  "announceWinnerToAllContestants": "Announcement winner to all contestants"
 }
