@@ -1,8 +1,10 @@
 package com.techlooper.entity;
 
+import com.techlooper.model.Language;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.FieldIndex;
 
 import java.util.List;
 
@@ -32,6 +34,9 @@ public class EmailTemplateEntity {
 
     @Field(type = Boolean)
     private Boolean isEnable;
+
+    @Field(type = String, index = FieldIndex.not_analyzed)
+    private Language language;
 
     public Long getTemplateId() {
         return templateId;
@@ -87,5 +92,13 @@ public class EmailTemplateEntity {
 
     public void setIsEnable(Boolean isEnable) {
         this.isEnable = isEnable;
+    }
+
+    public Language getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(Language language) {
+        this.language = language;
     }
 }

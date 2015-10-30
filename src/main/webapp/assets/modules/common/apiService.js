@@ -296,11 +296,12 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
     },
 
     getAvailableEmailTemplates: function () {
-      return $http.get("emailTemplates");
+      var language = $translate.use();
+      return $http.get("emailTemplates/" + language);
     },
 
     getTemplateById: function (templateId) {
-      return $http.get("emailTemplates/" + templateId);
+      return $http.get("emailTemplate/" + templateId);
     },
 
     /**

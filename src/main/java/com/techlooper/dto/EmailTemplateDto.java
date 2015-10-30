@@ -1,5 +1,7 @@
 package com.techlooper.dto;
 
+import com.techlooper.model.Language;
+
 public class EmailTemplateDto {
 
     private Long templateId;
@@ -9,6 +11,8 @@ public class EmailTemplateDto {
     private String subject;
 
     private String body;
+
+    private Language language;
 
     public Long getTemplateId() {
         return templateId;
@@ -40,5 +44,13 @@ public class EmailTemplateDto {
 
     public void setBody(String body) {
         this.body = body;
+    }
+
+    public Language getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(Language language) {
+        this.language = language;
     }
 }

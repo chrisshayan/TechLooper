@@ -10,7 +10,6 @@ import com.techlooper.util.DataUtils;
 import freemarker.template.Template;
 import org.apache.commons.lang3.StringUtils;
 import org.dozer.Mapper;
-import org.elasticsearch.index.query.QueryBuilders;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,6 +26,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static org.elasticsearch.index.query.QueryBuilders.boolQuery;
+import static org.elasticsearch.index.query.QueryBuilders.termQuery;
 
 /**
  * Created by phuonghqh on 10/1/15.
@@ -84,10 +86,12 @@ public class EmailServiceImpl implements EmailService {
     }
 
     @Override
-    public List<EmailTemplateDto> getAvailableEmailTemplates() {
+    public List<EmailTemplateDto> getAvailableEmailTemplates(Language language) {
         List<EmailTemplateDto> emailTemplateDtoList = new ArrayList<>();
         NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withTypes("emailTemplate");
-        searchQueryBuilder.withQuery(QueryBuilders.termQuery("isEnable", Boolean.TRUE));
+        searchQueryBuilder.withQuery(boolQuery()
+                .must(termQuery("isEnable", Boolean.TRUE))
+                .must(termQuery("language", language)));
         List<EmailTemplateEntity> templateEntities = DataUtils.getAllEntities(emailTemplateRepository, searchQueryBuilder);
 
         for (EmailTemplateEntity emailTemplateEntity : templateEntities) {
