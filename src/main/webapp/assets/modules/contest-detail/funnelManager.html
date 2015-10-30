@@ -1,0 +1,31 @@
+<div class="challenge-phase-item"
+     ng-repeat="phase in registrantFunnel" ng-click="reviewPhase($index, phase, contestDetail.nextPhase)"
+     ng-class="{col2: registrantFunnel.length == 2, col3: registrantFunnel.length == 3, col4: registrantFunnel.length == 4, col5: registrantFunnel.length == 5, col6: registrantFunnel.length == 6, active: $index == selectedPhase}">
+  <div class="current-phase"
+       ng-class="{active: (phase.phase | uppercase) == contestDetail.currentPhase}">
+    <span translate="currentPhase"></span>
+    <i class="fa fa-caret-down"></i>
+  </div>
+  <div class="phase-name {{phase.phase | progress: 'challengePhaseTitle' | lowercase}}"
+       ng-class="{pass: $index <= registrantFunnel.currentPosition, uiux: (phase.phase | progress: 'challengePhaseTitle' | lowercase) == 'ui/ux'}">
+    <i class="fa fa-key" ng-show="(phase.phase | progress: 'challengePhaseTitle' | lowercase) == 'registration'"></i>
+    <i class="fa fa-lightbulb-o" ng-show="(phase.phase | progress: 'challengePhaseTitle' | lowercase) == 'idea'"></i>
+    <i class="fa fa-paint-brush" ng-show="(phase.phase | progress: 'challengePhaseTitle' | lowercase) == 'ui/ux'"></i>
+    <i class="fa fa-cubes" ng-show="(phase.phase | progress: 'challengePhaseTitle' | lowercase) == 'prototype'"></i>
+    <i class="fa fa-check-circle-o" ng-show="(phase.phase | progress: 'challengePhaseTitle' | lowercase) == 'final app'"></i>
+    <i class="fa fa-trophy" ng-show="(phase.phase | progress: 'challengePhaseTitle' | lowercase) == 'winner'"></i>
+    <span>{{phase.phase | lowercase | translate}}</span>
+  </div>
+  <div class="registrants-phase">
+    <p translate="registrantsNumberPhase"
+       translate-value-number="{{phase.participant}}" ng-show="phase.participant > 0 &&  ((phase.phase | progress: 'challengePhaseTitle' | lowercase) == 'registration')"></p>
+    <p translate="participantsNumber"
+       translate-value-number="{{phase.participant}}" ng-show="((phase.phase | progress: 'challengePhaseTitle' | lowercase) != 'registration') && phase.participant > 0 && (phase.phase | progress: 'challengePhaseTitle' | lowercase) != 'winner'"></p>
+    <p translate="submissionsNumber"
+       translate-value-number="{{phase.submission}}" ng-show="phase.submission > 0 && (phase.phase | progress: 'challengePhaseTitle' | lowercase) != 'winner'"></p>
+    <p translate="finalistNumber"
+       translate-value-number="{{phase.participant}}" ng-show="phase.participant > 0 && (phase.phase | progress: 'challengePhaseTitle' | lowercase) == 'winner'"></p>
+    <p translate="winnersNumber"
+       translate-value-number="{{phase.submission}}"  ng-show="phase.submission > 0 && (phase.phase | progress: 'challengePhaseTitle' | lowercase) == 'winner'"></p>
+  </div>
+</div>
