@@ -8,14 +8,14 @@ import java.util.List;
 public class Skill {
 
     private String name;
+
     private String logoUrl;
+
     private String webSite;
+
     private List<SkillLink> usefulLinks;
+
     private Long count;
-
-    public Skill() {
-
-    }
 
     public String getName() {
         return name;

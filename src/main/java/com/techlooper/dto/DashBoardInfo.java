@@ -11,49 +11,49 @@ import java.util.Collection;
  */
 public class DashBoardInfo implements Serializable {
 
-  Collection<ChallengeDetailDto> challenges;
+    private Collection<ChallengeDetailDto> challenges;
 
-  Collection<ProjectDto> projects;
+    private Collection<ProjectDto> projects;
 
-  public Collection<ChallengeDetailDto> getChallenges() {
-    return challenges;
-  }
-
-  public void setChallenges(Collection<ChallengeDetailDto> challenges) {
-    this.challenges = challenges;
-  }
-
-  public Collection<ProjectDto> getProjects() {
-    return projects;
-  }
-
-  public void setProjects(Collection<ProjectDto> projects) {
-    this.projects = projects;
-  }
-
-  public static class DashBoardInfoBuilder {
-    private DashBoardInfo dashBoardInfo;
-
-    private DashBoardInfoBuilder() {
-      dashBoardInfo = new DashBoardInfo();
+    public Collection<ChallengeDetailDto> getChallenges() {
+        return challenges;
     }
 
-    public DashBoardInfoBuilder withChallenges(Collection<ChallengeDetailDto> challenges) {
-      dashBoardInfo.challenges = challenges;
-      return this;
+    public void setChallenges(Collection<ChallengeDetailDto> challenges) {
+        this.challenges = challenges;
     }
 
-    public DashBoardInfoBuilder withProjects(Collection<ProjectDto> projects) {
-      dashBoardInfo.projects = projects;
-      return this;
+    public Collection<ProjectDto> getProjects() {
+        return projects;
     }
 
-    public static DashBoardInfoBuilder dashBoardInfo() {
-      return new DashBoardInfoBuilder();
+    public void setProjects(Collection<ProjectDto> projects) {
+        this.projects = projects;
     }
 
-    public DashBoardInfo build() {
-      return dashBoardInfo;
+    public static class DashBoardInfoBuilder {
+        private DashBoardInfo dashBoardInfo;
+
+        private DashBoardInfoBuilder() {
+            dashBoardInfo = new DashBoardInfo();
+        }
+
+        public DashBoardInfoBuilder withChallenges(Collection<ChallengeDetailDto> challenges) {
+            dashBoardInfo.challenges = challenges;
+            return this;
+        }
+
+        public DashBoardInfoBuilder withProjects(Collection<ProjectDto> projects) {
+            dashBoardInfo.projects = projects;
+            return this;
+        }
+
+        public static DashBoardInfoBuilder dashBoardInfo() {
+            return new DashBoardInfoBuilder();
+        }
+
+        public DashBoardInfo build() {
+            return dashBoardInfo;
+        }
     }
-  }
 }

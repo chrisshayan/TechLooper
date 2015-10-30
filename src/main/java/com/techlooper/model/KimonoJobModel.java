@@ -14,9 +14,6 @@ public class KimonoJobModel {
 
     private KimonoJobList results;
 
-    public KimonoJobModel() {
-    }
-
     public String getCrawlSource() {
         return crawlSource;
     }

@@ -401,9 +401,13 @@
                     a.post-evaluation
                         background-position: 0 -416px
                         padding-left: 30px
+                    a.email-setting
+                        background-position: 0 -635px
                     a.no-icon
                         background: transparent
                         padding-left: 0
+                        i
+                            padding-right: 10px
                 li:first-child
                     background: none
                     padding-left: 0
@@ -417,6 +421,32 @@
                 li.here
                     background-color: #f4f4f4
                     border-top: 1px solid #d1d1d1
+                li.mobile
+                    display: none
+                li.first
+                    position: relative
+                    .sub-menu
+                        display: none
+                        position: absolute
+                        left: 0
+                        right: 0
+                        top: 39px
+                        background-color: #fff
+                        border: 1px solid #d1d1d1
+                        z-index: 999
+                        width: 200px
+                        a
+                            color: #333
+                            text-align: left
+                            padding: 10px 10px 10px 35px
+                        a.email-setting
+                            background-position: 10px -621px
+                            border-bottom: 1px solid  #d1d1d1
+                        a.sign-out
+                            background-position: 10px -663px
+                li.first:hover
+                    .sub-menu
+                        display: block
     .ic-menu-mobile
         display: none
 .no-submenu

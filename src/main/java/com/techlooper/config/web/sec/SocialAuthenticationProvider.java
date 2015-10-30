@@ -7,7 +7,6 @@ import com.techlooper.entity.vnw.RoleName;
 import com.techlooper.model.Language;
 import com.techlooper.model.SocialProvider;
 import com.techlooper.model.UserProfileDto;
-import com.techlooper.repository.JsonConfigRepository;
 import com.techlooper.service.SocialService;
 import com.techlooper.service.UserService;
 import com.techlooper.service.VietnamWorksUserService;

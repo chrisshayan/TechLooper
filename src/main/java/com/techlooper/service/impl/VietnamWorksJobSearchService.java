@@ -5,7 +5,6 @@ import com.techlooper.entity.SalaryReviewEntity;
 import com.techlooper.model.VNWConfigurationResponse;
 import com.techlooper.model.VNWJobSearchRequest;
 import com.techlooper.model.VNWJobSearchResponse;
-import com.techlooper.model.VNWJobSearchResponseDataItem;
 import com.techlooper.repository.JobSearchAPIConfigurationRepository;
 import com.techlooper.repository.elasticsearch.VietnamworksJobRepository;
 import com.techlooper.service.JobQueryBuilder;
@@ -29,10 +28,7 @@ import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.BiFunction;
-import java.util.function.Function;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static com.techlooper.model.VNWConfigurationResponseData.ConfigurationDegree;
 import static com.techlooper.model.VNWConfigurationResponseData.ConfigurationLocation;
@@ -70,8 +66,6 @@ public class VietnamWorksJobSearchService implements JobSearchService {
     private static final long VIETNAM_CURRENCY_SALARY_DETECTOR = 1000000L;
 
     private static final long VND_USD_RATE = 21000L;
-
-    private static final int SORT_ORDER_ASC = 1;
 
     private static final int SORT_ORDER_DESC = -1;
 
@@ -116,46 +110,10 @@ public class VietnamWorksJobSearchService implements JobSearchService {
                     .orElse(VNWJobSearchResponse.getDefaultObject());
 
             if (actualResult.hasData()) {
-                //mergeSearchResultWithConfiguration(actualResult, getConfiguration());
                 return actualResult;
             }
         }
         return VNWJobSearchResponse.getDefaultObject();
-    }
-
-    /**
-     * Merge the search result with configuration in order to get its meaningful name
-     *
-     * @param jobSearchResponse The job search response
-     * @param configuration     The job configuration
-     */
-    private void mergeSearchResultWithConfiguration(VNWJobSearchResponse jobSearchResponse,
-                                                    VNWConfigurationResponse configuration) {
-        BiFunction<String, String, String> idTranslator = (itemId, idType) ->
-                mergeConfigurationItem(configuration, itemId, idType);
-
-        Stream<VNWJobSearchResponseDataItem> responseDataItemStream = jobSearchResponse.getData().getJobs().stream();
-        responseDataItemStream.forEach(responseDataItem -> {
-            responseDataItem.setLocation(idTranslator.apply(responseDataItem.getLocation(), JOB_LOCATION));
-            responseDataItem.setLevel(idTranslator.apply(responseDataItem.getLevel(), JOB_LEVEL));
-
-        });
-    }
-
-    /**
-     * Merge the search result with configuration in order to get its meaningful name
-     *
-     * @param configuration The job configuration
-     * @param itemId        List of item IDs should be merged
-     * @param idType        The kind of id such as location, level or category
-     * @return The item name value after merging, separated by comma
-     */
-    private String mergeConfigurationItem(VNWConfigurationResponse configuration, String itemId, String idType) {
-        final String COMMA = ",";
-        Function<String, String> translateConfigurationFunc = (id) -> translateConfigurationId(id, idType, configuration);
-
-        return Stream.of(itemId.split(COMMA)).distinct()
-                .map(translateConfigurationFunc).collect(Collectors.joining(COMMA));
     }
 
     /**
@@ -179,8 +137,9 @@ public class VietnamWorksJobSearchService implements JobSearchService {
                                 .filter(item -> item.getDegreeId().equals(id))
                                 .findFirst();
                 return degreeOptional.isPresent() ? degreeOptional.get().getEnglish() : EMPTY;
+            default:
+                return EMPTY;
         }
-        return EMPTY;
     }
 
     public List<JobEntity> getHigherSalaryJobs(SalaryReviewEntity salaryReviewEntity) {
@@ -214,14 +173,14 @@ public class VietnamWorksJobSearchService implements JobSearchService {
     }
 
     public Double getAverageSalary(Long salaryMin, Long salaryMax) {
-        salaryMin = convertVND2ToUSD(salaryMin);
-        salaryMax = convertVND2ToUSD(salaryMax);
-        if (salaryMin == 0) {
-            return salaryMax * 0.75D;
-        } else if (salaryMax == 0) {
-            return salaryMin * 1.25D;
+        Long salaryMinUsd = convertVND2ToUSD(salaryMin);
+        Long salaryMaxUsd = convertVND2ToUSD(salaryMax);
+        if (salaryMinUsd == 0) {
+            return salaryMaxUsd * 0.75D;
+        } else if (salaryMaxUsd == 0) {
+            return salaryMinUsd * 1.25D;
         }
-        return (salaryMin + salaryMax) / 2D;
+        return (salaryMinUsd + salaryMaxUsd) / 2D;
     }
 
     @Override

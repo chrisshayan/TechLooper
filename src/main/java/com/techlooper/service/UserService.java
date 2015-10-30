@@ -1,6 +1,5 @@
 package com.techlooper.service;
 
-import com.techlooper.entity.UserEntity;
 import com.techlooper.entity.userimport.UserImportEntity;
 import com.techlooper.entity.vnw.dto.VnwUserDto;
 import com.techlooper.model.*;

@@ -18,6 +18,7 @@ import javax.annotation.Resource;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -197,7 +198,7 @@ public class UserEvaluationServiceImplTest {
         priceJobSurvey.setIsUnderstandable(true);
         priceJobSurvey.setFeedback("Good Report");
         boolean isSaved = userEvaluationService.savePriceJobSurvey(priceJobSurvey);
-        assertTrue(isSaved == true);
+        assertTrue(isSaved);
     }
 
     @Test
@@ -208,6 +209,6 @@ public class UserEvaluationServiceImplTest {
         priceJobSurvey.setIsUnderstandable(true);
         priceJobSurvey.setFeedback("Bad Report");
         boolean isSaved = userEvaluationService.savePriceJobSurvey(priceJobSurvey);
-        assertTrue(isSaved == false);
+        assertFalse(isSaved);
     }
 }

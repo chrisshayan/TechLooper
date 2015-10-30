@@ -1,7 +1,6 @@
 package com.techlooper.service.impl;
 
 import com.techlooper.service.SuggestionService;
-import org.apache.commons.lang3.StringUtils;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.index.query.QueryBuilders;
@@ -15,7 +14,8 @@ import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import static org.apache.commons.lang3.StringUtils.*;
+import static org.apache.commons.lang3.StringUtils.strip;
+import static org.apache.commons.lang3.StringUtils.trim;
 
 /**
  * Created by NguyenDangKhoa on 5/29/15.

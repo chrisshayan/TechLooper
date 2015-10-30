@@ -1,13 +1,5 @@
 package com.techlooper.model;
 
-import org.springframework.data.elasticsearch.annotations.Field;
-import org.springframework.data.elasticsearch.annotations.FieldIndex;
-
-import java.util.Date;
-
-import static org.springframework.data.elasticsearch.annotations.FieldType.Integer;
-import static org.springframework.data.elasticsearch.annotations.FieldType.String;
-
 /**
  * Created by NguyenDangKhoa on 7/17/15.
  */

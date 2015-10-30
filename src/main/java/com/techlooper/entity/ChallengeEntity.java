@@ -5,11 +5,13 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.DateFormat;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
-import org.springframework.data.elasticsearch.annotations.FieldType;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static org.springframework.data.elasticsearch.annotations.FieldType.Boolean;
+import static org.springframework.data.elasticsearch.annotations.FieldType.*;
 import static org.springframework.data.elasticsearch.annotations.FieldType.Integer;
 import static org.springframework.data.elasticsearch.annotations.FieldType.String;
 
@@ -21,6 +23,9 @@ public class ChallengeEntity {
 
     @Id
     private Long challengeId;
+
+    @Field(type = Nested)
+    private Set<ChallengeCriteria> criteria;
 
     @Field(type = String)
     private String challengeName;
@@ -49,31 +54,31 @@ public class ChallengeEntity {
     @Field(type = String)
     private String reviewStyle;
 
-    @Field(type = FieldType.Date, format = DateFormat.custom, pattern = "dd/MM/yyyy")
+    @Field(type = Date, format = DateFormat.custom, pattern = "dd/MM/yyyy")
     private String startDateTime;
 
-    @Field(type = FieldType.Date, format = DateFormat.custom, pattern = "dd/MM/yyyy")
+    @Field(type = Date, format = DateFormat.custom, pattern = "dd/MM/yyyy")
     private String registrationDateTime;
 
-    @Field(type = FieldType.Date, format = DateFormat.custom, pattern = "dd/MM/yyyy")
+    @Field(type = Date, format = DateFormat.custom, pattern = "dd/MM/yyyy")
     private String ideaSubmissionDateTime;
 
-    @Field(type = FieldType.Date, format = DateFormat.custom, pattern = "dd/MM/yyyy")
+    @Field(type = Date, format = DateFormat.custom, pattern = "dd/MM/yyyy")
     private String uxSubmissionDateTime;
 
-    @Field(type = FieldType.Date, format = DateFormat.custom, pattern = "dd/MM/yyyy")
+    @Field(type = Date, format = DateFormat.custom, pattern = "dd/MM/yyyy")
     private String prototypeSubmissionDateTime;
 
-    @Field(type = FieldType.Date, format = DateFormat.custom, pattern = "dd/MM/yyyy")
+    @Field(type = Date, format = DateFormat.custom, pattern = "dd/MM/yyyy")
     private String submissionDateTime;
 
-    @Field(type = FieldType.Integer)
+    @Field(type = Integer)
     private Integer firstPlaceReward;
 
-    @Field(type = FieldType.Integer)
+    @Field(type = Integer)
     private Integer secondPlaceReward;
 
-    @Field(type = FieldType.Integer)
+    @Field(type = Integer)
     private Integer thirdPlaceReward;
 
     @Field(type = String)
@@ -88,11 +93,20 @@ public class ChallengeEntity {
     @Field(type = Boolean)
     private Boolean expired;
 
-    @Field(type = FieldType.Date, format = DateFormat.custom, pattern = "dd/MM/yyyy HH:mm")
+    @Field(type = Date, format = DateFormat.custom, pattern = "dd/MM/yyyy HH:mm")
     private String lastEmailSentDateTime;
 
     @Field(type = Integer)
     private int lastEmailSentResultCode;
+
+    public Set<ChallengeCriteria> getCriteria() {
+        if (criteria == null) criteria = new HashSet<>();
+        return criteria;
+    }
+
+    public void setCriteria(Set<ChallengeCriteria> criteria) {
+        this.criteria = criteria;
+    }
 
     public Boolean getExpired() {
         return expired;

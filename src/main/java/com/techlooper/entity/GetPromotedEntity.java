@@ -8,7 +8,10 @@ import org.springframework.data.elasticsearch.annotations.Field;
 
 import java.util.List;
 
+import static org.springframework.data.elasticsearch.annotations.FieldType.Boolean;
+import static org.springframework.data.elasticsearch.annotations.FieldType.Long;
 import static org.springframework.data.elasticsearch.annotations.FieldType.*;
+import static org.springframework.data.elasticsearch.annotations.FieldType.String;
 
 @Document(indexName = "techlooper", type = "getPromoted")
 public class GetPromotedEntity {

@@ -25,6 +25,16 @@ public class ChallengeSubmissionDto implements Serializable {
 
   private String submissionDateTime;
 
+  private ChallengePhaseEnum submissionPhase;
+
+  public ChallengePhaseEnum getSubmissionPhase() {
+    return submissionPhase;
+  }
+
+  public void setSubmissionPhase(ChallengePhaseEnum submissionPhase) {
+    this.submissionPhase = submissionPhase;
+  }
+
   public Long getChallengeSubmissionId() {
     return challengeSubmissionId;
   }

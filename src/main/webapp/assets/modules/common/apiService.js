@@ -30,11 +30,18 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
     //},
 
     getSocialLoginUrl: function (provider) {
-      return $http.get("social/" + provider + "/loginUrl", {transformResponse: function (d, h) {return d;}});
+      return $http.get("social/" + provider + "/loginUrl", {
+        transformResponse: function (d, h) {
+          return d;
+        }
+      });
     },
 
     getContestDetail: function (id) {
-      return $http.get("challenge/" + id);
+      return $http.get("challenge/" + id)
+        .success(function (data) {
+          $filter("challengeDetail")(data);
+        });
     },
 
     joinContest: function (contestId, firstName, lastName, registrantEmail, lang) {
@@ -46,16 +53,20 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
           registrantEmail: registrantEmail,
           lang: lang
         },
-        {transformResponse: function (d, h) {return d;}});
+        {
+          transformResponse: function (d, h) {
+            return d;
+          }
+        });
     },
 
     searchContests: function () {
       return $http.get("challenge/list");
-        //.success(function (contests) {
-        //  $.each(contests, function (i, contest) {
-        //    $filter("progress")(contest, "challenge");
-        //  });
-        //});
+      //.success(function (contests) {
+      //  $.each(contests, function (i, contest) {
+      //    $filter("progress")(contest, "challenge");
+      //  });
+      //});
     },
 
     getSuggestSkills: function (text) {
@@ -73,7 +84,6 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
     getProjects: function () {
       return $http.get("project/list");
     },
-
     joinNowByFB: function () {
       $('.loading-data').css("height", $(window).height());
       $('body').addClass('noscroll');
@@ -83,7 +93,7 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
         localStorageService.set("lastFoot", $location.url());
         localStorageService.set("joinNow", true);
         window.location = url;
-      });
+      })
     },
 
     joinProject: function (projectId, firstName, lastName, email, phoneNumber, resumeLink, lang) {
@@ -95,7 +105,11 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
           projectId: projectId, registrantFirstName: firstName, registrantLastName: lastName, registrantEmail: email,
           registrantPhoneNumber: phoneNumber, resumeLink: resumeLink, lang: lang
         },
-        {transformResponse: function (d, h) {return d;}});
+        {
+          transformResponse: function (d, h) {
+            return d;
+          }
+        });
     },
 
     /**
@@ -199,7 +213,12 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
      * @see com.techlooper.controller.ChallengeController.getRegistrantsById
      * */
     getChallengeRegistrants: function (registrantFilterCondition) {
-      return $http.post("challenges/" + registrantFilterCondition.challengeId + "/registrants", registrantFilterCondition);
+      return $http.post("challenges/" + registrantFilterCondition.challengeId + "/registrants", registrantFilterCondition)
+        .success(function (registrants) {
+          $.each(registrants, function (i, registrant) {
+            $filter("challengeRegistrant")(registrant);
+          });
+        });
     },
 
     /**
@@ -228,7 +247,11 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
      * @see com.techlooper.controller.ChallengeController.getChallengeRegistrant
      * */
     getChallengeRegistrantFullName: function (challengeRegistrantId) {
-      return $http.get("challengeRegistrant/fullName/" + challengeRegistrantId, {transformResponse: function (d, h) {return d;}});
+      return $http.get("challengeRegistrant/fullName/" + challengeRegistrantId, {
+        transformResponse: function (d, h) {
+          return d;
+        }
+      });
     },
 
     /**
@@ -257,7 +280,68 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
      * @see com.techlooper.controller.SharingController.getUrlResponseCode
      * */
     getUrlResponseCode: function (url) {
-      return $http.post("resource/getUrlResponseCode", {url: url}, {transformResponse: function (d, h) {return d;}});
+      return $http.post("resource/getUrlResponseCode", {url: url}, {
+        transformResponse: function (d, h) {
+          return d;
+        }
+      });
+    },
+
+    saveEmailSetting: function (emailSetting) {
+      return $http.post("user/employer/saveEmailSetting", emailSetting);
+    },
+
+    loadEmailSetting: function () {
+      return $http.get("user/employer/emailSetting");
+    },
+
+    getAvailableEmailTemplates: function () {
+      return $http.get("emailTemplates");
+    },
+
+    getTemplateById: function (templateId) {
+      return $http.get("emailTemplates/" + templateId);
+    },
+
+    /**
+     * @see com.techlooper.controller.ChallengeCriteriaController.saveChallengeCriteria
+     * */
+    saveChallengeCriteria: function (criteria) {
+      return $http.post("challenge/criteria", criteria);
+    },
+
+    /**
+     * @see com.techlooper.controller.ChallengeCriteriaController.saveChallengeRegistrantCriteria
+     * */
+    saveChallengeRegistrantCriteria: function (criteria) {
+      return $http.post("challengeRegistrant/criteria", criteria);
+    },
+
+    /**
+     * @see com.techlooper.controller.ChallengeCriteriaController.findByChallengeRegistrantId
+     * */
+    findRegistrantCriteriaByRegistrantId: function (registrantId) {
+      return $http.get("challengeRegistrant/" + registrantId + "/criteria");
+    },
+
+    findRegistrantActivePhase: function (challengeId, registrantEmail) {
+      return $http.get("user/challengeSubmissionPhase/" + registrantEmail + "/" + challengeId);
+    },
+
+    getRegistrantFunnel: function (id) {
+      return $http.get("challenges/"+ id + "/registrantFunnel");
+    },
+
+    /**
+     * @see com.techlooper.controller.ChallengeController.getChallengeRegistrantsByPhase
+     * */
+    getChallengeRegistrantsByPhase: function(challengeId, phase) {
+      return $http.get("challenge/" + challengeId + "/registrants/" + phase)
+        .success(function(registrants) {
+          $.each(registrants, function (i, registrant) {
+            $filter("challengeRegistrant")(registrant, phase);
+          });
+        });
     }
   };
 

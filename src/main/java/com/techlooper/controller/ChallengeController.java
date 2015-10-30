@@ -7,6 +7,7 @@ import com.techlooper.entity.vnw.VnwCompany;
 import com.techlooper.entity.vnw.VnwUser;
 import com.techlooper.model.*;
 import com.techlooper.repository.elasticsearch.ChallengeRegistrantRepository;
+import com.techlooper.service.ChallengeRegistrantService;
 import com.techlooper.service.ChallengeService;
 import com.techlooper.service.EmployerService;
 import com.techlooper.service.LeadAPIService;
@@ -20,6 +21,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -39,6 +41,9 @@ public class ChallengeController {
 
     @Resource
     private ChallengeRegistrantRepository challengeRegistrantRepository;
+
+    @Resource
+    private ChallengeRegistrantService challengeRegistrantService;
 
     @PreAuthorize("hasAuthority('EMPLOYER')")
     @RequestMapping(value = "/challenge/publish", method = RequestMethod.POST)
@@ -85,7 +90,11 @@ public class ChallengeController {
     }
 
     @RequestMapping(value = "/challenge/join", method = RequestMethod.POST)
-    public long joinChallenge(@RequestBody ChallengeRegistrantDto joinChallenge) throws Exception {
+    public long joinChallenge(@RequestBody ChallengeRegistrantDto joinChallenge, HttpServletResponse response) throws Exception {
+        if (!EmailValidator.validate(joinChallenge.getRegistrantEmail())) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return 0L;
+        }
         return challengeService.joinChallenge(joinChallenge);
     }
 
@@ -112,14 +121,20 @@ public class ChallengeController {
     }
 
     @RequestMapping(value = "/challenges/{challengeId}", method = RequestMethod.GET)
-    public ChallengeDto findChallengeById(@PathVariable Long challengeId) throws Exception {
-        return challengeService.findChallengeById(challengeId);
+    public ChallengeDto findChallengeById(@PathVariable Long challengeId, HttpServletRequest request) throws Exception {
+        return challengeService.findChallengeById(challengeId, request.getRemoteUser());
     }
 
     @PreAuthorize("hasAuthority('EMPLOYER')")
     @RequestMapping(value = "/challenges/{challengeId}/registrants", method = RequestMethod.POST)
-    public Set<ChallengeRegistrantDto> getRegistrantsById(@PathVariable Long challengeId, @RequestBody RegistrantFilterCondition condition, HttpServletRequest request) throws ParseException {
-        condition.setAuthorEmail(request.getRemoteUser());
+    public Set<ChallengeRegistrantDto> getRegistrantsById(@PathVariable Long challengeId, @RequestBody RegistrantFilterCondition condition,
+                                                          HttpServletRequest request, HttpServletResponse response) throws ParseException {
+        String owner = request.getRemoteUser();
+        if (!challengeService.isOwnerOfChallenge(owner, challengeId)) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return null;
+        }
+        condition.setAuthorEmail(owner);
         return challengeService.findRegistrantsByOwner(condition);
     }
 
@@ -135,5 +150,30 @@ public class ChallengeController {
     public String getChallengeRegistrant(@PathVariable Long registrantId) {
         ChallengeRegistrantEntity registrantEntity = challengeRegistrantRepository.findOne(registrantId);
         return registrantEntity.getRegistrantFirstName() + " " + registrantEntity.getRegistrantLastName();
+    }
+
+    @PreAuthorize("hasAuthority('EMPLOYER')")
+    @RequestMapping(value = "/challenges/{challengeId}/registrantFunnel", method = RequestMethod.GET)
+    public List<ChallengeRegistrantFunnelItem> getChallengeRegistrantFunnel(@PathVariable Long challengeId,
+                                                                            HttpServletRequest request, HttpServletResponse response) {
+        List<ChallengeRegistrantFunnelItem> funnel = new ArrayList<>();
+        String ownerEmail = request.getRemoteUser();
+        if (challengeService.isOwnerOfChallenge(ownerEmail, challengeId)) {
+            funnel = challengeService.getChallengeRegistrantFunnel(challengeId, ownerEmail);
+        } else {
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+        }
+        return funnel;
+    }
+
+    @PreAuthorize("hasAuthority('EMPLOYER')")
+    @RequestMapping(value = "challenge/{challengeId}/registrants/{phase}", method = RequestMethod.GET)
+    public Set<ChallengeRegistrantDto> getChallengeRegistrantsByPhase(@PathVariable Long challengeId, @PathVariable ChallengePhaseEnum phase,
+                                                                      HttpServletRequest request, HttpServletResponse response) {
+        Set<ChallengeRegistrantDto> registrants = challengeRegistrantService.findRegistrantsByChallengeIdAndPhase(challengeId, phase, request.getRemoteUser());
+        if (registrants == null) {
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+        }
+        return registrants;
     }
 }

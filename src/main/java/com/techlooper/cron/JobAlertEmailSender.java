@@ -11,11 +11,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import static com.techlooper.model.JobAlertEmailResultEnum.EMAIL_SENT;
 import static com.techlooper.model.JobAlertEmailResultEnum.JOB_NOT_FOUND;
@@ -27,7 +27,6 @@ import static com.techlooper.util.DateTimeUtils.*;
  * @author Khoa Nguyen
  * @version v0.0-beta9.Release39, 09/09/2015
  */
-@Service
 public class JobAlertEmailSender {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(JobAlertEmailSender.class);
@@ -56,6 +55,7 @@ public class JobAlertEmailSender {
 
             if (!jobAlertRegistrationEntities.isEmpty()) {
                 int count = 0;
+                Thread.sleep(getRandomNumberInRange(600000, 900000) + 600000);
                 for (JobAlertRegistrationEntity jobAlertRegistrationEntity : jobAlertRegistrationEntities) {
                     if (StringUtils.isEmpty(jobAlertRegistrationEntity.getLastEmailSentDateTime())) {
                         jobAlertRegistrationEntity.setLastEmailSentDateTime(yesterdayDate(BASIC_DATE_TIME_PATTERN));
@@ -63,6 +63,7 @@ public class JobAlertEmailSender {
 
                     Date lastSentDate = string2Date(jobAlertRegistrationEntity.getLastEmailSentDateTime(), BASIC_DATE_TIME_PATTERN);
                     Date currentDate = new Date();
+
                     if (daysBetween(lastSentDate, currentDate) > 0) {
                         JobSearchCriteria criteria = dozerMapper.map(jobAlertRegistrationEntity, JobSearchCriteria.class);
                         JobSearchResponse jobSearchResponse = jobAggregatorService.findJob(criteria);
@@ -78,5 +79,10 @@ public class JobAlertEmailSender {
                 LOGGER.info("There are " + count + " job alert emails has been sent");
             }
         }
+    }
+
+    private static int getRandomNumberInRange(int min, int max) {
+        Random r = new Random();
+        return r.ints(min, (max + 1)).limit(1).findFirst().getAsInt();
     }
 }

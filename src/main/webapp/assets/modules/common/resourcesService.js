@@ -1,9 +1,17 @@
-techlooper.factory("resourcesService", function ($translate, $q) {
+techlooper.factory("resourcesService", function ($translate, $q, apiService) {
   var registrantsFilterOptions = [
     {translate: "allContestants", id: "registrantId"},
     {translate: "allSubmission", id: "challengeSubmission"}
   ];
 
+  var registrantsPhaseOptions = [
+    {translate: "allPhase", id: "ALL_PHASE"},
+    {translate: "registration", id: "REGISTRATION"},
+    {translate: "idea", id: "IDEA"},
+    {translate: "uiux", id: "UIUX"},
+    {translate: "prototype", id: "PROTOTYPE"},
+    {translate: "finalApp", id: "FINAL"}
+  ];
   var reviewStyleOptions = [
     {translate: "contestOwnerSignOff", id: "contestOwnerSignOff"}
   ];
@@ -14,6 +22,26 @@ techlooper.factory("resourcesService", function ($translate, $q) {
     {translate: "theSolutionIsPracticalAndReliable", id: "theSolutionIsPracticalAndReliable"},
     {translate: "theSolutionIsInnovative", id: "theSolutionIsInnovative"}
   ];
+
+  var emailTemplateOptions = [
+    {translate: "chooseATemplate", id: 0},
+    {translate: "welcomeContestant", id: 1},
+    {translate: "askContestantSubmission", id: 2},
+    {translate: "disqualifyContestant", id: 3}
+  ];
+
+  //apiService.getAvailableEmailTemplates()
+  //  .success(function (data) {
+  //    $.each(data, function (i, template) {
+  //      var templateOption = {
+  //        translate: template.templateId,
+  //        id: template.templateName
+  //      };
+  //      emailTemplateOptions.push(templateOption);
+  //    });
+  //  })
+  //
+  //console.log(emailTemplateOptions);
 
   var paymentOptions = [
     {translate: "hourlyByByHour", reviewTranslate: "hourlyJob", id: "hourly"},
@@ -74,11 +102,13 @@ techlooper.factory("resourcesService", function ($translate, $q) {
 
   var instance = {
     registrantsFilterConfig: $.extend(true, {}, {options: registrantsFilterOptions}, idSelectize("registrantsFilterConfig")),
+    registrantsPhaseConfig: $.extend(true, {}, {options: registrantsPhaseOptions}, idSelectize("registrantsPhaseConfig")),
     reviewStyleConfig: $.extend(true, {}, {options: reviewStyleOptions}, titleSelectize("reviewStyleConfig")),
     qualityIdeaConfig: $.extend(true, {}, {options: qualityIdeaOptions}, titleSelectize("qualityIdeaConfig")),
     paymentConfig: $.extend(true, {}, {options: paymentOptions}, idSelectize("paymentConfig")),
     estimatedDurationConfig: $.extend(true, {}, {options: estimatedDurationOptions}, idSelectize("estimatedDurationConfig")),
     estimatedWorkloadConfig: $.extend(true, {}, {options: estimatedWorkloadOptions}, idSelectize("estimatedWorkloadConfig")),
+    emailTemplateConfig: $.extend(true, {}, {options: emailTemplateOptions}, idSelectize("emailTemplateConfig")),
     inOptions: function (title, config) {
       var index = -1;
       $.each(config.options, function (i, opt) {
@@ -105,11 +135,13 @@ techlooper.factory("resourcesService", function ($translate, $q) {
 
   var translations = [
     {ins: instance.registrantsFilterConfig, placeholder: "exRegistrantsFilterConfig"},
+    {ins: instance.registrantsPhaseConfig, placeholder: "exRegistrantsPhaseConfig"},
     {ins: instance.reviewStyleConfig, placeholder: "exContestOwnerSignOff"},
     {ins: instance.qualityIdeaConfig, placeholder: "exQualityIdeaConfig"},
     {ins: instance.paymentConfig, placeholder: "exPaymentConfig"},
     {ins: instance.estimatedDurationConfig, placeholder: "exEstimatedDurationConfig"},
-    {ins: instance.estimatedWorkloadConfig, placeholder: "exEstimatedWorkloadConfig"}
+    {ins: instance.estimatedWorkloadConfig, placeholder: "exEstimatedWorkloadConfig"},
+    {ins: instance.emailTemplateConfig, placeholder: "exChooseATemplate"}
   ];
 
   $.each(translations, function (i, item) {
