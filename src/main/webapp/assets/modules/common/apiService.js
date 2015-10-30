@@ -343,6 +343,13 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
             $filter("challengeRegistrant")(registrant, phase);
           });
         });
+    },
+
+    /**
+     * @see com.techlooper.controller.ChallengeController.getWinnerRegistrantsByChallengeId
+     * */
+    getWinnerRegistrantsByChallengeId: function(challengeId) {
+      return $http.get("challenge/" + challengeId + "/winnerRegistrants");
     }
   };
 
