@@ -55,7 +55,7 @@ public class JobAlertEmailSender {
 
             if (!jobAlertRegistrationEntities.isEmpty()) {
                 int count = 0;
-                Thread.sleep(getRandomNumberInRange(5000, 10000) + 5000);
+                Thread.sleep(getRandomNumberInRange(300000, 600000));
                 for (JobAlertRegistrationEntity jobAlertRegistrationEntity : jobAlertRegistrationEntities) {
                     jobAlertRegistrationEntity = jobAggregatorService.getJobAlertRegistrationById(
                             jobAlertRegistrationEntity.getJobAlertRegistrationId());
