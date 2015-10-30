@@ -284,7 +284,7 @@
                 <p translate="winnerDes"
                    ng-show="$index == selectedPhase && (phase.phase | progress: 'challengePhaseTitle' | lowercase) == 'winner'"></p>
                 <div class="announcement-winner">
-                  <a translate="announceWinnerToAllContestants" class="btn btn-primary btn-flat"></a>
+                  <a translate="announceWinnerToAllContestants" class="btn btn-primary btn-flat" data-toggle="modal" data-target="#emailCompose"></a>
                 </div>
                 <table class="contests-table">
                   <thead>
@@ -368,7 +368,6 @@
 
                         <div class="registration-review" ng-show="(phase.phase | progress: 'challengePhaseTitle' | lowercase) != 'final app' && (phase.phase | progress: 'challengePhaseTitle' | lowercase) != 'winner'">
                           <div class="label-col" translate="qualifiedNextPhase"></div>
-
                           <a ng-show="user.disqualified == null && user.qualified == null"
                              title="{{'qualifyNextPhase' | translate}}"><i class="fa fa-thumbs-up" ng-click="user.showQualification()"></i></a>
                           <a ng-show="user.disqualified == null && user.qualified == null"
@@ -405,4 +404,5 @@
       </div>
     </div>
   </div>
+  <popup-email compose-email="composeEmail"></popup-email>
 </div>
