@@ -115,8 +115,9 @@
 
             <div class="registration-review" ng-show="(phase.phase | progress: 'challengePhaseTitle' | lowercase) != 'final app' && (phase.phase | progress: 'challengePhaseTitle' | lowercase) != 'winner'">
               <div class="label-col" translate="qualifiedNextPhase"></div>
-              <a ng-show="user.disqualified == null && user.qualified == null"
-                 title="{{'qualifyNextPhase' | translate}}"><i class="fa fa-thumbs-up" ng-click="user.showQualification()"></i></a>
+              <a ng-show="user.disqualified == null && user.qualified == null" data-auto-close="true"
+                 data-placement="top" data-template-url="modules/contest-detail/confirmQualify.html" bs-popover
+                 title="{{'qualifyNextPhase' | translate}}"><i class="fa fa-thumbs-up"></i></a>
               <a ng-show="user.disqualified == null && user.qualified == null"
                  title="{{'disqualifyNextPhase' | translate}}"><i class="fa fa-thumbs-down" ng-click="user.showDisqualification()"></i></a>
               <span translate="qualified" ng-show="user.qualified == true && user.disqualified != true"></span>

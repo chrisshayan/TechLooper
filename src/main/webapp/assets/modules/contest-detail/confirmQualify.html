@@ -1,0 +1,22 @@
+<div class="popover">
+  <div class="arrow"></div>
+  <div class="popover-content">
+    <div class="text-center">
+      <div class="confirm-qualify-popover">
+        <div class="confirm-qualify-form">
+          <!--<p translate="confirmQualifyText"-->
+             <!--translate-vualue-registrant-current-phase="{{}}"-->
+             <!--translate-value-registrant-next-phase="{{}}"-->
+             <!--translate-value-challenge-next-phase="{{}}" />-->
+          <p translate="acceptDescription" translate-value-current="{{registrant | progress: 'registrantActivePhaseTitle'}}"
+             translate-value-next="{{challenge.nextPhase | progress: 'challengePhaseTitle'}}"/>
+          
+        </div>
+        <div class="confirm-qualify-submission">
+          <a ng-click="registrant.qualify(); $hide()" translate="yes" class="btn btn-primary btn-flat"></a>
+          <a ng-click="$hide()" translate="no"  class="btn btn-primary btn-flat gray"></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
