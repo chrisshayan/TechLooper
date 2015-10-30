@@ -2,6 +2,7 @@ package com.techlooper.service;
 
 import com.techlooper.dto.EmailTemplateDto;
 import com.techlooper.model.EmailContent;
+import com.techlooper.model.Language;
 
 import java.util.List;
 
@@ -20,7 +21,7 @@ public interface EmailService {
 
     boolean sendEmail(EmailContent emailContent);
 
-    List<EmailTemplateDto> getAvailableEmailTemplates();
+    List<EmailTemplateDto> getAvailableEmailTemplates(Language language);
 
     EmailTemplateDto getTemplateById(Long templateId);
 }
