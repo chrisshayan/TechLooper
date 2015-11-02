@@ -1062,7 +1062,30 @@ techlooper.factory("jsonValue", function () {
         ['insert', ['link', 'hr']],
         ['view', ['fullscreen']]
       ]
-    }
+    },
+
+    /**
+     * @see com.techlooper.model.RewardEnum
+     * */
+    rewards: {
+      values: [
+        {enum: "FIRST_PLACE"},
+        {enum: "SECOND_PLACE"},
+        {enum: "THIRD_PLACE"}
+      ],
+
+      firstPlaceEnum: function() {
+        return instance.rewards[0].enum;
+      },
+
+      secondPlaceEnum: function() {
+        return instance.rewards[1].enum;
+      },
+
+      thirdPlaceEnum: function() {
+        return instance.rewards[2].enum;
+      }
+    },
   }
 
   instance.companySizesArray = $.map(instance.companySizes, function (value, key) {
