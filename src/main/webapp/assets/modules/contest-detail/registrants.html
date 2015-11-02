@@ -70,12 +70,12 @@
           <p translate="noData"></p>
         </td>
       </tr>
-      <tr dir-paginate="user in registrantPhase | itemsPerPage:10" id="id-{{$index}}" ng-show="(phase.phase | progress: 'challengePhaseTitle' | lowercase) != 'winner'">
+      <tr dir-paginate="user in registrantPhase | itemsPerPage:10" id="id-{{$index}}" current-page="currentPage" pagination-id="phase.phase">
         <td>
           <div class="registrants-challenge-list">
             <div class="registrant-order">
               <div class="label-col">#</div>
-              {{$index + 1}}
+              {{ ($index + 1) + (currentPage - 1) * 10}}
             </div>
             <div class="registrant-name">
               <div class="label-col" translate="fullNameField"></div>
@@ -133,9 +133,9 @@
       </tr>
       </tbody>
     </table>
-    <div class="registrants-paging" ng-show="(phase.phase | progress: 'challengePhaseTitle' | lowercase) != 'winner'">
+    <div class="registrants-paging">
       <span translate="contestantsReturned" translate-value-number="{{registrantPhase.length}}"></span>
-      <dir-pagination-controls
+      <dir-pagination-controls pagination-id="phase.phase"
           max-size="10"
           direction-links="true"
           boundary-links="true">

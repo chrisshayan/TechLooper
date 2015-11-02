@@ -1,6 +1,7 @@
 techlooper.controller('contestDetailController', function ($scope, apiService, localStorageService, $location, $routeParams,
                                                            jsonValue, $translate, utils, $filter, $timeout, resourcesService, $timeout) {
   utils.sendNotification(jsonValue.notifications.loading);
+  $scope.currentPage = 1;
   $scope.selectedPhase = 0;
   var activePhaseIndex = 0;
   var flagUpdate = false;
@@ -30,10 +31,9 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
     delete $scope.sortByRegistrationDateType;
     delete $scope.sortBySubmissionDateType;
     delete $scope.sortByScoreType;
-    
+
     apiService.getChallengeRegistrantsByPhase(contestId, phaseName).success(function (data) {
       $scope.registrantPhase = data;
-
       switch (phaseName) {
         case "REGISTRATION":
           $scope.sortByRegistrationDate();
