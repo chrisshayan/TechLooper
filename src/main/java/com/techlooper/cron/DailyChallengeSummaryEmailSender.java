@@ -3,7 +3,9 @@ package com.techlooper.cron;
 import com.techlooper.entity.ChallengeEntity;
 import com.techlooper.model.ChallengePhaseEnum;
 import com.techlooper.model.EmailSentResultEnum;
+import com.techlooper.repository.elasticsearch.ChallengeRepository;
 import com.techlooper.service.ChallengeService;
+import com.techlooper.util.DataUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,6 +29,9 @@ public class DailyChallengeSummaryEmailSender {
     @Value("${jobAlert.enable}")
     private Boolean enableJobAlert;
 
+    @Resource
+    private ChallengeRepository challengeRepository;
+
     @Scheduled(cron = "${scheduled.cron.dailyChallengeSummary}")
     public synchronized void sendDailyEmailAboutChallengeSummary() throws Exception {
         if (enableJobAlert) {
@@ -36,7 +41,9 @@ public class DailyChallengeSummaryEmailSender {
             for (ChallengePhaseEnum challengePhase : challengePhases) {
                 List<ChallengeEntity> challengeEntities = challengeService.listChallengesByPhase(challengePhase);
 
+                Thread.sleep(DataUtils.getRandomNumberInRange(300000, 600000));
                 for (ChallengeEntity challengeEntity : challengeEntities) {
+                    challengeEntity = challengeRepository.findOne(challengeEntity.getChallengeId());
                     try {
                         if (StringUtils.isEmpty(challengeEntity.getLastEmailSentDateTime())) {
                             challengeEntity.setLastEmailSentDateTime(yesterdayDate(BASIC_DATE_TIME_PATTERN));

@@ -5,6 +5,7 @@ import com.techlooper.model.JobAlertPeriodEnum;
 import com.techlooper.model.JobSearchCriteria;
 import com.techlooper.model.JobSearchResponse;
 import com.techlooper.service.JobAggregatorService;
+import com.techlooper.util.DataUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.dozer.Mapper;
 import org.slf4j.Logger;
@@ -55,7 +56,7 @@ public class JobAlertEmailSender {
 
             if (!jobAlertRegistrationEntities.isEmpty()) {
                 int count = 0;
-                Thread.sleep(getRandomNumberInRange(300000, 600000));
+                Thread.sleep(DataUtils.getRandomNumberInRange(300000, 600000));
                 for (JobAlertRegistrationEntity jobAlertRegistrationEntity : jobAlertRegistrationEntities) {
                     jobAlertRegistrationEntity = jobAggregatorService.getJobAlertRegistrationById(
                             jobAlertRegistrationEntity.getJobAlertRegistrationId());
@@ -83,8 +84,4 @@ public class JobAlertEmailSender {
         }
     }
 
-    private static int getRandomNumberInRange(int min, int max) {
-        Random r = new Random();
-        return r.ints(min, (max + 1)).limit(1).findFirst().getAsInt();
-    }
 }
