@@ -330,19 +330,27 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
     },
 
     getRegistrantFunnel: function (id) {
-      return $http.get("challenges/"+ id + "/registrantFunnel");
+      return $http.get("challenges/" + id + "/registrantFunnel");
     },
 
     /**
      * @see com.techlooper.controller.ChallengeController.getChallengeRegistrantsByPhase
      * */
-    getChallengeRegistrantsByPhase: function(challengeId, phase) {
+    getChallengeRegistrantsByPhase: function (challengeId, phase) {
       return $http.get("challenge/" + challengeId + "/registrants/" + phase)
-        .success(function(registrants) {
+        .success(function (registrants) {
           $.each(registrants, function (i, registrant) {
             $filter("challengeRegistrant")(registrant, phase);
           });
         });
+    },
+
+    /**
+     * @see com.techlooper.controller.ChallengeController.saveWinner
+     * */
+    saveWinner: function (registrantId, reward) {
+      return $http.post("challenge/registrant/winner", {registrantId: registrantId, reward: reward},
+        {transformResponse: function (d, h) {return d == 'true' ? true : false;}});
     }
   };
 

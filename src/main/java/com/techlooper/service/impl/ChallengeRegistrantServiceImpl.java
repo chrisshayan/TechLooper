@@ -1,12 +1,16 @@
 package com.techlooper.service.impl;
 
+import com.techlooper.dto.WinnerDto;
+import com.techlooper.entity.ChallengeEntity;
 import com.techlooper.entity.ChallengeRegistrantDto;
 import com.techlooper.entity.ChallengeRegistrantEntity;
 import com.techlooper.entity.ChallengeSubmissionEntity;
 import com.techlooper.model.ChallengePhaseEnum;
 import com.techlooper.model.ChallengeRegistrantPhaseItem;
 import com.techlooper.model.ChallengeSubmissionDto;
+import com.techlooper.model.RewardEnum;
 import com.techlooper.repository.elasticsearch.ChallengeRegistrantRepository;
+import com.techlooper.repository.elasticsearch.ChallengeRepository;
 import com.techlooper.repository.elasticsearch.ChallengeSubmissionRepository;
 import com.techlooper.service.ChallengeRegistrantService;
 import com.techlooper.service.ChallengeService;
@@ -54,6 +58,9 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
 
   @Resource
   private ChallengeSubmissionRepository challengeSubmissionRepository;
+
+  @Resource
+  private ChallengeRepository challengeRepository;
 
   public Map<ChallengePhaseEnum, ChallengeRegistrantPhaseItem> countNumberOfRegistrantsByPhase(Long challengeId) {
     Map<ChallengePhaseEnum, ChallengeRegistrantPhaseItem> numberOfRegistrantsByPhase = new HashMap<>();
@@ -162,6 +169,33 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
         return dto;
       }).collect(Collectors.toSet());
     return registrants;
+  }
+
+  public boolean saveWinner(WinnerDto winnerDto, String loginUser) {
+    Long registrantId = winnerDto.getRegistrantId();
+    RewardEnum reward = winnerDto.getReward();
+    ChallengeRegistrantEntity registrant = challengeRegistrantRepository.findOne(registrantId);
+    if (!challengeService.isOwnerOfChallenge(loginUser, registrant.getChallengeId())) {
+      return false;
+    }
+
+    ChallengeEntity challenge = challengeRepository.findOne(registrant.getChallengeId());
+    switch (reward) {
+      case FIRST_PLACE:
+        challenge.setFirstPlaceRewardWinnerId(registrantId);
+        break;
+
+      case SECOND_PLACE:
+        challenge.setSecondPlaceRewardWinnerId(registrantId);
+        break;
+
+      case THIRD_PLACE:
+        challenge.setThirdPlaceRewardWinnerId(registrantId);
+        break;
+    }
+
+    challenge = challengeRepository.save(challenge);
+    return challenge != null;
   }
 
 }

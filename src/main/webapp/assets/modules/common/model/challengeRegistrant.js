@@ -97,18 +97,6 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonV
 
     registrant.recalculate(challengePhase);
 
-
-    //registrant. = function() {
-    //
-    //}
-
-    //registrant.qualifyMe = function(challengeDetail) {
-    //  delete registrant.disqualified;
-    //  delete registrant.disqualifiedReason;
-    //  registrant.activePhase = challengeDetail.nextPhase;
-    //  apiService.saveChallengeRegistrant(registrant);
-    //}
-
     $rootScope.$on("saveChallengeCriteriaSuccessful", function (scope, challengeCriteriaDto) {
       var criteriaDto = _.findWhere(challengeCriteriaDto.registrantCriteria, {registrantId: registrant.registrantId});
       registrant.criteria = criteriaDto.criteria;

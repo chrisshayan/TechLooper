@@ -1,5 +1,6 @@
 package com.techlooper.controller;
 
+import com.techlooper.dto.WinnerDto;
 import com.techlooper.entity.ChallengeEntity;
 import com.techlooper.entity.ChallengeRegistrantDto;
 import com.techlooper.entity.ChallengeRegistrantEntity;
@@ -149,7 +150,7 @@ public class ChallengeController {
 
   @PreAuthorize("hasAuthority('EMPLOYER')")
   @RequestMapping(value = "challengeRegistrant/fullName/{registrantId}", method = RequestMethod.GET)
-  public String getChallengeRegistrant(@PathVariable Long registrantId) {
+  public String getChallengeRegistrantFullName(@PathVariable Long registrantId) {
     ChallengeRegistrantEntity registrantEntity = challengeRegistrantRepository.findOne(registrantId);
     return registrantEntity.getRegistrantFirstName() + " " + registrantEntity.getRegistrantLastName();
   }
@@ -178,5 +179,15 @@ public class ChallengeController {
       response.setStatus(HttpServletResponse.SC_FORBIDDEN);
     }
     return registrants;
+  }
+
+  @PreAuthorize("hasAuthority('EMPLOYER')")
+  @RequestMapping(value = "challenge/registrant/winner", method = RequestMethod.POST)
+  public boolean saveWinner(@RequestBody WinnerDto winnerDto, HttpServletRequest request, HttpServletResponse response) {
+    boolean result = challengeRegistrantService.saveWinner(winnerDto, request.getRemoteUser());
+    if (!result) {
+      response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+    }
+    return result;
   }
 }
