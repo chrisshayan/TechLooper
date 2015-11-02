@@ -1,40 +1,4 @@
 techlooper
-    .directive('tabManagerContestDetail', function () {
-      return {
-        restrict: "E",
-        replace: true,
-        templateUrl: "modules/contest-detail/tabManager.html",
-        link: function (scope, element, attr, ctrl) {
-        }
-      };
-    })
-    .directive('funnelManager', function () {
-      return {
-        restrict: "E",
-        replace: true,
-        templateUrl: "modules/contest-detail/funnelManager.html",
-        link: function (scope, element, attr, ctrl) {
-        }
-      };
-    })
-    .directive('contestContentDetails', function () {
-      return {
-        restrict: "E",
-        replace: true,
-        templateUrl: "modules/contest-detail/contestContentDetails.html",
-        link: function (scope, element, attr, ctrl) {
-        }
-      };
-    })
-    .directive('registrantList', function () {
-      return {
-        restrict: "E",
-        replace: true,
-        templateUrl: "modules/contest-detail/registrants.html",
-        link: function (scope, element, attr, ctrl) {
-        }
-      };
-    })
   .directive("contestDetailAction", function ($rootScope, apiService, paginationService, utils) {
     return {
       restrict: "E",
@@ -100,7 +64,7 @@ techlooper
                 });
             });
           scope.registrant.qualified = true;
-          
+
           delete scope.registrant.visible;
         };
 
@@ -150,6 +114,42 @@ techlooper
       }
     };
   })
+    .directive('tabManagerContestDetail', function () {
+      return {
+        restrict: "E",
+        replace: true,
+        templateUrl: "modules/contest-detail/tabManager.html",
+        link: function (scope, element, attr, ctrl) {
+        }
+      };
+    })
+    .directive('funnelManager', function () {
+      return {
+        restrict: "E",
+        replace: true,
+        templateUrl: "modules/contest-detail/funnelManager.html",
+        link: function (scope, element, attr, ctrl) {
+        }
+      };
+    })
+    .directive('contestContentDetails', function () {
+      return {
+        restrict: "E",
+        replace: true,
+        templateUrl: "modules/contest-detail/contestContentDetails.html",
+        link: function (scope, element, attr, ctrl) {
+        }
+      };
+    })
+    .directive('registrantList', function () {
+      return {
+        restrict: "E",
+        replace: true,
+        templateUrl: "modules/contest-detail/registrants.html",
+        link: function (scope, element, attr, ctrl) {
+        }
+      };
+    })
   .directive('contestDetailReviewSubmission', function () {
     return {
       restrict: "E",
