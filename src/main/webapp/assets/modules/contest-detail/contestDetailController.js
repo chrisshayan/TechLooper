@@ -210,7 +210,7 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
         //$scope.selectedPhase = $scope.registrantFunnel.currentPosition;
         activePhaseIndex = $scope.registrantFunnel.currentPosition;
           if(flagUpdate){
-            $scope.reviewPhase($scope.registrantFunnel.currentPosition, phase.phase);
+            $scope.reviewPhase($scope.registrantFunnel.currentPosition, $scope.registrantFunnel.phase);
             flagUpdate = undefined;
           }else{
             $scope.reviewPhase($scope.registrantFunnel.currentPosition, {phase: $scope.contestDetail.currentPhase});
@@ -294,7 +294,6 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
       }
     },
     cancel: function () {
-      $location.search({});
       $('.modal-backdrop').remove();
     }
   };
