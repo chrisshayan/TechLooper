@@ -65,34 +65,34 @@ public class ChallengeDetailDto {
 
   private Set<ChallengeCriteria> criteria;
 
-  private Long firstPlaceRewardWinner;
+  private Long firstPlaceRewardWinnerId;
 
-  private Long secondPlaceRewardWinner;
+  private Long secondPlaceRewardWinnerId;
 
-  private Long thirdPlaceRewardWinner;
+  private Long thirdPlaceRewardWinnerId;
 
-  public java.lang.Long getFirstPlaceRewardWinner() {
-    return firstPlaceRewardWinner;
+  public java.lang.Long getFirstPlaceRewardWinnerId() {
+    return firstPlaceRewardWinnerId;
   }
 
-  public void setFirstPlaceRewardWinner(java.lang.Long firstPlaceRewardWinner) {
-    this.firstPlaceRewardWinner = firstPlaceRewardWinner;
+  public void setFirstPlaceRewardWinnerId(java.lang.Long firstPlaceRewardWinnerId) {
+    this.firstPlaceRewardWinnerId = firstPlaceRewardWinnerId;
   }
 
-  public java.lang.Long getSecondPlaceRewardWinner() {
-    return secondPlaceRewardWinner;
+  public java.lang.Long getSecondPlaceRewardWinnerId() {
+    return secondPlaceRewardWinnerId;
   }
 
-  public void setSecondPlaceRewardWinner(java.lang.Long secondPlaceRewardWinner) {
-    this.secondPlaceRewardWinner = secondPlaceRewardWinner;
+  public void setSecondPlaceRewardWinnerId(java.lang.Long secondPlaceRewardWinnerId) {
+    this.secondPlaceRewardWinnerId = secondPlaceRewardWinnerId;
   }
 
-  public java.lang.Long getThirdPlaceRewardWinner() {
-    return thirdPlaceRewardWinner;
+  public java.lang.Long getThirdPlaceRewardWinnerId() {
+    return thirdPlaceRewardWinnerId;
   }
 
-  public void setThirdPlaceRewardWinner(java.lang.Long thirdPlaceRewardWinner) {
-    this.thirdPlaceRewardWinner = thirdPlaceRewardWinner;
+  public void setThirdPlaceRewardWinnerId(java.lang.Long thirdPlaceRewardWinnerId) {
+    this.thirdPlaceRewardWinnerId = thirdPlaceRewardWinnerId;
   }
 
   public Set<ChallengeCriteria> getCriteria() {
