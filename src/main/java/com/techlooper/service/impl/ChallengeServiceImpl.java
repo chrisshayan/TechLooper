@@ -938,7 +938,6 @@ public class ChallengeServiceImpl implements ChallengeService {
             ChallengeDetailDto challengeDetailDto = dozerMapper.map(challengeEntity, ChallengeDetailDto.class);
             challengeDetailDto.setNumberOfRegistrants(getNumberOfRegistrants(challengeId));
             calculateChallengePhases(challengeDetailDto);
-            calculateChallengePhases(challengeDetailDto);
             boolean isAuthor = challengeEntity.getAuthorEmail().equals(loginEmail);
             challengeDetailDto.setIsAuthor(isAuthor);
             if (!isAuthor) {

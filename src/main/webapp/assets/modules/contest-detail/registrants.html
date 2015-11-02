@@ -105,7 +105,7 @@
             </div>
             <div class="registration-submission">
               <div class="label-col" translate="submissions"></div>
-              <a ng-click="user.showReviewSubmission()" title="{{'submissionsReviewTip' | translate}}">{{user.phaseSubmissions.length || 0}}</a>
+              <a ng-click="user.showReviewSubmission()" title="{{'submissionsReviewTip' | translate}}">{{user.submissions.length || 0}}</a>
             </div>
             <div class="registration-score"
                  ng-show="(phase.phase | progress: 'challengePhaseTitle' | lowercase) == 'winner' || (phase.phase | progress: 'challengePhaseTitle' | lowercase) == 'final app'">

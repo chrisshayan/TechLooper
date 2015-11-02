@@ -76,7 +76,7 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonV
     registrant.recalculate = function (challengePhase) {
       if (registrant.submissions) {
         registrant.lastSubmission = _.isEmpty(registrant.submissions) ? undefined : _.max(registrant.submissions, function (submission) {return submission.challengeSubmissionId;});
-        registrant.phaseSubmissions = _.filter(registrant.submissions, function (submission) {return submission.submissionPhase == challengePhase;});
+        //registrant.phaseSubmissions = _.filter(registrant.submissions, function (submission) {return submission.submissionPhase == challengePhase;});
       }
 
       registrant.activePhase = registrant.activePhase ? registrant.activePhase : jsonValue.challengePhase.getRegistration().enum;
