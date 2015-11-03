@@ -3,7 +3,10 @@ package com.techlooper.service.impl;
 import com.techlooper.entity.ChallengeEntity;
 import com.techlooper.entity.ChallengeRegistrantDto;
 import com.techlooper.entity.ChallengeRegistrantEntity;
-import com.techlooper.model.*;
+import com.techlooper.model.ChallengePhaseEnum;
+import com.techlooper.model.ChallengeRegistrantPhaseItem;
+import com.techlooper.model.ChallengeSubmissionDto;
+import com.techlooper.model.ChallengeWinner;
 import com.techlooper.repository.elasticsearch.ChallengeRegistrantRepository;
 import com.techlooper.repository.elasticsearch.ChallengeRepository;
 import com.techlooper.repository.elasticsearch.ChallengeSubmissionRepository;
@@ -12,10 +15,7 @@ import com.techlooper.service.ChallengeService;
 import org.dozer.Mapper;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.search.SearchType;
-import org.elasticsearch.index.query.BoolFilterBuilder;
-import org.elasticsearch.index.query.BoolQueryBuilder;
-import org.elasticsearch.index.query.FilterBuilders;
-import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.index.query.*;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
 import org.elasticsearch.search.aggregations.Aggregations;
 import org.elasticsearch.search.aggregations.bucket.terms.Terms;
@@ -146,10 +146,12 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
 
   public Set<ChallengeRegistrantDto> findWinnerRegistrantsByChallengeId(Long challengeId) {
     ChallengeEntity challenge = challengeRepository.findOne(challengeId);
-    BoolQueryBuilder winnerQuery = QueryBuilders.boolQuery()
-      .must(QueryBuilders.termQuery("challengeId", challengeId))
-      .must(QueryBuilders.termQuery("activePhase", ChallengePhaseEnum.FINAL))
-      .must(QueryBuilders.filteredQuery(QueryBuilders.matchAllQuery(), FilterBuilders.existsFilter("criteria.score")));
+    FilteredQueryBuilder winnerQuery = QueryBuilders.filteredQuery(QueryBuilders.matchAllQuery(),
+        FilterBuilders.boolFilter()
+          .must(FilterBuilders.existsFilter("criteria.score"))
+          .must(FilterBuilders.termFilter("challengeId", challengeId))
+          .must(FilterBuilders.termFilter("activePhase", ChallengePhaseEnum.FINAL))
+          .mustNot(FilterBuilders.termFilter("disqualified", Boolean.TRUE)));
 
     Set<ChallengeRegistrantDto> registrants = StreamUtils.createStreamFromIterator(challengeRegistrantRepository.search(winnerQuery).iterator())
       .map(registrant -> {
