@@ -838,5 +838,6 @@
   "qualified": "Đạt",
   "submissionToPhase": "Gửi vào giai đoạn:",
   "submissionsReviewTip": "Xem bài",
-  "announceWinnerToAllContestants": "Announcement winner to all contestants"
+  "announceWinnerToAllContestants": "Announcement winner to all contestants",
+  "daysLeft": "Còn lại {{days}} ngày"
 }
