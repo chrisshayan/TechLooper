@@ -86,7 +86,21 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonV
       else if (registrant.disqualified == true) {
         registrant.qualified = false;
       }
+
+      //registrant.recalculateReward();
     }
+
+    //registrant.recalculateReward = function () {
+    //  if (jsonValue.rewards.firstPlaceEnum() == registrant.reward) {
+    //    registrant.isFirstPlaceWinner = true;
+    //  }
+    //  else if (jsonValue.rewards.secondPlaceEnum() == registrant.reward) {
+    //    registrant.isSecondPlaceWinner = true;
+    //  }
+    //  else if (jsonValue.rewards.thirdPlaceEnum() == registrant.reward) {
+    //    registrant.isThirdPlaceWinner = true;
+    //  }
+    //}
 
     registrant.acceptSubmission = function (submission) {
       if (!_.findWhere(registrant.submissions, submission)) {
@@ -100,6 +114,12 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonV
     $rootScope.$on("saveChallengeCriteriaSuccessful", function (scope, challengeCriteriaDto) {
       var criteriaDto = _.findWhere(challengeCriteriaDto.registrantCriteria, {registrantId: registrant.registrantId});
       registrant.criteria = criteriaDto.criteria;
+    });
+
+    $rootScope.$on("changeWinnerSuccessful", function (s, rgt) {
+      if (registrant.registrantId != rgt.registrantId && registrant.reward == rgt.reward) {
+        delete registrant.reward;
+      }
     });
 
     registrant.$isRich = true;

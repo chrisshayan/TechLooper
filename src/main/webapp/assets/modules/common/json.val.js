@@ -1074,19 +1074,21 @@ techlooper.factory("jsonValue", function () {
         {enum: "THIRD_PLACE"}
       ],
 
-      firstPlaceEnum: function() {
-        return instance.rewards[0].enum;
+      firstPlaceEnum: function () {
+        return instance.rewards.values[0].enum;
       },
 
-      secondPlaceEnum: function() {
-        return instance.rewards[1].enum;
+      secondPlaceEnum: function () {
+        return instance.rewards.values[1].enum;
       },
 
-      thirdPlaceEnum: function() {
-        return instance.rewards[2].enum;
+      thirdPlaceEnum: function () {
+        return instance.rewards.values[2].enum;
       }
-    },
+    }
   }
+
+  //$.each(instance.rewards.values, function (i, r) {instance.rewards[r.enum] = r;});
 
   instance.companySizesArray = $.map(instance.companySizes, function (value, key) {
     return {id: parseInt(key), size: value.value}

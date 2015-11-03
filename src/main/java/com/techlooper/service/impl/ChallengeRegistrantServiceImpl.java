@@ -1,14 +1,9 @@
 package com.techlooper.service.impl;
 
-import com.techlooper.dto.WinnerDto;
 import com.techlooper.entity.ChallengeEntity;
 import com.techlooper.entity.ChallengeRegistrantDto;
 import com.techlooper.entity.ChallengeRegistrantEntity;
-import com.techlooper.entity.ChallengeSubmissionEntity;
-import com.techlooper.model.ChallengePhaseEnum;
-import com.techlooper.model.ChallengeRegistrantPhaseItem;
-import com.techlooper.model.ChallengeSubmissionDto;
-import com.techlooper.model.RewardEnum;
+import com.techlooper.model.*;
 import com.techlooper.repository.elasticsearch.ChallengeRegistrantRepository;
 import com.techlooper.repository.elasticsearch.ChallengeRepository;
 import com.techlooper.repository.elasticsearch.ChallengeSubmissionRepository;
@@ -17,7 +12,6 @@ import com.techlooper.service.ChallengeService;
 import org.dozer.Mapper;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.search.SearchType;
-import org.elasticsearch.common.io.Streams;
 import org.elasticsearch.index.query.BoolFilterBuilder;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.FilterBuilders;
@@ -32,7 +26,6 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.*;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import static com.techlooper.model.ChallengePhaseEnum.*;
@@ -152,7 +145,7 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
   }
 
   public Set<ChallengeRegistrantDto> findWinnerRegistrantsByChallengeId(Long challengeId) {
-
+    ChallengeEntity challenge = challengeRepository.findOne(challengeId);
     BoolQueryBuilder winnerQuery = QueryBuilders.boolQuery()
       .must(QueryBuilders.termQuery("challengeId", challengeId))
       .must(QueryBuilders.termQuery("activePhase", ChallengePhaseEnum.FINAL))
@@ -161,6 +154,11 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
     Set<ChallengeRegistrantDto> registrants = StreamUtils.createStreamFromIterator(challengeRegistrantRepository.search(winnerQuery).iterator())
       .map(registrant -> {
         ChallengeRegistrantDto dto = dozerMapper.map(registrant, ChallengeRegistrantDto.class);
+        Optional<ChallengeWinner> winner = challenge.getWinners().stream().filter(wnn -> dto.getRegistrantId().equals(wnn.getRegistrantId())).findFirst();
+        if (winner.isPresent()) {
+          dto.setReward(winner.get().getReward());
+        }
+
         BoolQueryBuilder submissionQuery = QueryBuilders.boolQuery().must(QueryBuilders.termQuery("registrantId", registrant.getRegistrantId()))
           .must(QueryBuilders.termQuery("submissionPhase", ChallengePhaseEnum.FINAL));
         List<ChallengeSubmissionDto> submissions = StreamUtils.createStreamFromIterator(challengeSubmissionRepository.search(submissionQuery).iterator())
@@ -171,28 +169,21 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
     return registrants;
   }
 
-  public boolean saveWinner(WinnerDto winnerDto, String loginUser) {
-    Long registrantId = winnerDto.getRegistrantId();
-    RewardEnum reward = winnerDto.getReward();
+  public boolean saveWinner(ChallengeWinner challengeWinner, String loginUser) {
+    Long registrantId = challengeWinner.getRegistrantId();
     ChallengeRegistrantEntity registrant = challengeRegistrantRepository.findOne(registrantId);
     if (!challengeService.isOwnerOfChallenge(loginUser, registrant.getChallengeId())) {
       return false;
     }
 
     ChallengeEntity challenge = challengeRepository.findOne(registrant.getChallengeId());
-    switch (reward) {
-      case FIRST_PLACE:
-        challenge.setFirstPlaceRewardWinnerId(registrantId);
-        break;
-
-      case SECOND_PLACE:
-        challenge.setSecondPlaceRewardWinnerId(registrantId);
-        break;
-
-      case THIRD_PLACE:
-        challenge.setThirdPlaceRewardWinnerId(registrantId);
-        break;
-    }
+    Set<ChallengeWinner> winners = challenge.getWinners();
+    winners.stream().sorted().peek(wnn -> {
+      if (challengeWinner.getReward() == wnn.getReward()) {
+        winners.remove(wnn);
+      }
+    });
+    winners.add(challengeWinner);
 
     challenge = challengeRepository.save(challenge);
     return challenge != null;

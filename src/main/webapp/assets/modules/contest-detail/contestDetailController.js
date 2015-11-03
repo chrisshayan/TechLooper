@@ -217,7 +217,6 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
           }
         utils.sendNotification(jsonValue.notifications.loaded);
       }).error(function () {
-      console.log('error');
       utils.sendNotification(jsonValue.notifications.loaded);
     });
   };

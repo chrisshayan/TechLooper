@@ -1,12 +1,9 @@
 package com.techlooper.model;
 
 import com.techlooper.entity.ChallengeCriteria;
-import org.springframework.data.elasticsearch.annotations.Field;
 
 import java.util.List;
 import java.util.Set;
-
-import static org.springframework.data.elasticsearch.annotations.FieldType.Long;
 
 /**
  * Created by NguyenDangKhoa on 7/3/15.
@@ -65,34 +62,14 @@ public class ChallengeDetailDto {
 
   private Set<ChallengeCriteria> criteria;
 
-  private Long firstPlaceRewardWinnerId;
+  private Set<ChallengeWinner> winners;
 
-  private Long secondPlaceRewardWinnerId;
-
-  private Long thirdPlaceRewardWinnerId;
-
-  public java.lang.Long getFirstPlaceRewardWinnerId() {
-    return firstPlaceRewardWinnerId;
+  public Set<ChallengeWinner> getWinners() {
+    return winners;
   }
 
-  public void setFirstPlaceRewardWinnerId(java.lang.Long firstPlaceRewardWinnerId) {
-    this.firstPlaceRewardWinnerId = firstPlaceRewardWinnerId;
-  }
-
-  public java.lang.Long getSecondPlaceRewardWinnerId() {
-    return secondPlaceRewardWinnerId;
-  }
-
-  public void setSecondPlaceRewardWinnerId(java.lang.Long secondPlaceRewardWinnerId) {
-    this.secondPlaceRewardWinnerId = secondPlaceRewardWinnerId;
-  }
-
-  public java.lang.Long getThirdPlaceRewardWinnerId() {
-    return thirdPlaceRewardWinnerId;
-  }
-
-  public void setThirdPlaceRewardWinnerId(java.lang.Long thirdPlaceRewardWinnerId) {
-    this.thirdPlaceRewardWinnerId = thirdPlaceRewardWinnerId;
+  public void setWinners(Set<ChallengeWinner> winners) {
+    this.winners = winners;
   }
 
   public Set<ChallengeCriteria> getCriteria() {

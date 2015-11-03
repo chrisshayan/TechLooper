@@ -1,13 +1,13 @@
-techlooper.filter("challengeDetail", function (apiService, $rootScope, utils) {
+techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue) {
   return function (input, type) {
     if (!input || input.$isRich) return input;
 
     var challengeDetail = input;
     var index = 0;
 
-    challengeDetail.refreshCriteria = function() {
+    challengeDetail.refreshCriteria = function () {
       apiService.getContestDetail(challengeDetail.challengeId)
-        .success(function(data) {
+        .success(function (data) {
           challengeDetail.criteria = data.criteria;
         });
     }
@@ -60,6 +60,37 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, utils) {
         challengeDetail.$invalid = challengeDetail.$invalid || (!cri.name);
         return !challengeDetail.$invalid;
       });
+    }
+
+    //@see jsonValue.rewards
+    challengeDetail.save1stWinner = function (registrant) {
+      apiService.saveWinner(registrant.registrantId, jsonValue.rewards.firstPlaceEnum())
+        .success(function (result) {
+          if (result == 'true') {
+            registrant.reward = jsonValue.rewards.firstPlaceEnum();
+            $rootScope.$broadcast("changeWinnerSuccessful", registrant);
+          }
+        });
+    }
+
+    challengeDetail.save2ndWinner = function (registrant) {
+      apiService.saveWinner(registrant.registrantId, jsonValue.rewards.secondPlaceEnum())
+        .success(function (result) {
+          if (result == 'true') {
+            registrant.reward = jsonValue.rewards.secondPlaceEnum();
+            $rootScope.$broadcast("changeWinnerSuccessful", registrant);
+          }
+        });
+    }
+
+    challengeDetail.save3rdWinner = function (registrant) {
+      apiService.saveWinner(registrant.registrantId, jsonValue.rewards.thirdPlaceEnum())
+        .success(function (result) {
+          if (result == 'true') {
+            registrant.reward = jsonValue.rewards.thirdPlaceEnum();
+            $rootScope.$broadcast("changeWinnerSuccessful", registrant);
+          }
+        });
     }
 
     challengeDetail.$isRich = true;
