@@ -62,6 +62,16 @@ public class ChallengeDetailDto {
 
   private Set<ChallengeCriteria> criteria;
 
+  private Set<ChallengeWinner> winners;
+
+  public Set<ChallengeWinner> getWinners() {
+    return winners;
+  }
+
+  public void setWinners(Set<ChallengeWinner> winners) {
+    this.winners = winners;
+  }
+
   public Set<ChallengeCriteria> getCriteria() {
     return criteria;
   }

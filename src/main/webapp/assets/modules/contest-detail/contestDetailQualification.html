@@ -1,7 +1,13 @@
 <div class="qualify-block">
   <div class="qualify-form">
-    <p translate="acceptDescription" translate-value-current="{{registrant | progress: 'registrantActivePhaseTitle'}}"
-       translate-value-next="{{challenge.nextPhase | progress: 'challengePhaseTitle'}}"></p>
+    <p translate="acceptDescription" translate-value-current="{{registrant.activePhase.toLowerCase() | translate}}"
+       translate-value-next="{{challenge.nextPhase.toLowerCase() | translate}}"></p>
+    <div>
+      <!--<ul>-->
+        <!--<li><input type="radio" name="nextPhase"/><label> {{registrant.activePhase | progress: 'registrantActivePhaseTitle'}}</label></li>-->
+        <!--<li><input type="radio" name="nextPhase"/><label> {{challenge.nextPhase | progress: 'challengePhaseTitle'}}</label></li>-->
+      <!--</ul>-->
+    </div>
     <a ng-click="registrant.qualify()" translate="yes" class="btn btn-primary btn-flat"></a>
     <a ng-click="registrant.hide()" translate="no" class="btn btn-primary btn-flat gray"></a>
   </div>

@@ -6,7 +6,9 @@ import com.techlooper.entity.ChallengeRegistrantEntity;
 import com.techlooper.model.ChallengePhaseEnum;
 import com.techlooper.model.EmailSentResultEnum;
 import com.techlooper.model.RegistrantFilterCondition;
+import com.techlooper.repository.elasticsearch.ChallengeRegistrantRepository;
 import com.techlooper.service.ChallengeService;
+import com.techlooper.util.DataUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.dozer.Mapper;
 import org.slf4j.Logger;
@@ -35,6 +37,9 @@ public class ChallengeTimelineNotifier {
     @Value("${jobAlert.enable}")
     private Boolean enableJobAlert;
 
+    @Resource
+    private ChallengeRegistrantRepository challengeRegistrantRepository;
+
     @Scheduled(cron = "${scheduled.cron.notifyChallengeTimeline}")
     public synchronized void notifyRegistrantAboutChallengeTimeline() throws Exception {
         if (enableJobAlert) {
@@ -50,15 +55,17 @@ public class ChallengeTimelineNotifier {
                     condition.setChallengeId(challengeEntity.getChallengeId());
                     Set<ChallengeRegistrantDto> challengeRegistrants = challengeService.findRegistrantsByOwner(condition);
 
+                    Thread.sleep(DataUtils.getRandomNumberInRange(300000, 600000));
                     for (ChallengeRegistrantDto challengeRegistrant : challengeRegistrants) {
-                        if (StringUtils.isEmpty(challengeRegistrant.getLastEmailSentDateTime())) {
-                            challengeRegistrant.setLastEmailSentDateTime(yesterdayDate(BASIC_DATE_TIME_PATTERN));
+                        ChallengeRegistrantEntity challengeRegistrantEntity = challengeRegistrantRepository.findOne(
+                                challengeRegistrant.getRegistrantId());
+                        if (StringUtils.isEmpty(challengeRegistrantEntity.getLastEmailSentDateTime())) {
+                            challengeRegistrantEntity.setLastEmailSentDateTime(yesterdayDate(BASIC_DATE_TIME_PATTERN));
                         }
 
-                        Date lastSentDate = string2Date(challengeRegistrant.getLastEmailSentDateTime(), BASIC_DATE_TIME_PATTERN);
+                        Date lastSentDate = string2Date(challengeRegistrantEntity.getLastEmailSentDateTime(), BASIC_DATE_TIME_PATTERN);
                         Date currentDate = new Date();
                         if (daysBetween(lastSentDate, currentDate) > 0) {
-                            ChallengeRegistrantEntity challengeRegistrantEntity = dozerMapper.map(challengeRegistrant, ChallengeRegistrantEntity.class);
                             try {
                                 if (StringUtils.isNotEmpty(challengeRegistrantEntity.getRegistrantEmail())) {
                                     challengeService.sendEmailNotifyRegistrantAboutChallengeTimeline(

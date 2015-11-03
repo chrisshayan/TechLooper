@@ -3,6 +3,7 @@ package com.techlooper.entity;
 import com.techlooper.model.ChallengePhaseEnum;
 import com.techlooper.model.ChallengeSubmissionDto;
 import com.techlooper.model.Language;
+import com.techlooper.model.RewardEnum;
 
 import java.util.List;
 import java.util.Set;
@@ -37,6 +38,16 @@ public class ChallengeRegistrantDto {
   private ChallengePhaseEnum activePhase;
 
   private Set<ChallengeRegistrantCriteria> criteria;
+
+  private RewardEnum reward;
+
+  public RewardEnum getReward() {
+    return reward;
+  }
+
+  public void setReward(RewardEnum reward) {
+    this.reward = reward;
+  }
 
   public Set<ChallengeRegistrantCriteria> getCriteria() {
     return criteria;

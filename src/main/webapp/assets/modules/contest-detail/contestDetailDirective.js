@@ -64,7 +64,7 @@ techlooper
                 });
             });
           scope.registrant.qualified = true;
-          
+
           delete scope.registrant.visible;
         };
 
@@ -99,11 +99,11 @@ techlooper
           delete scope.registrant.visible;
         };
 
-        scope.$watch(function () {
-          return paginationService.getCurrentPage("__default");
-        }, function (currentPage, previousPage) {
-          scope.registrant.hide();
-        });
+        //scope.$watch(function () {
+        //  return paginationService.getCurrentPage("__default");
+        //}, function (currentPage, previousPage) {
+        //  scope.registrant.hide();
+        //});
 
         scope.$on("success-submission-challenge", function (sc, submission) {
           if (scope.registrant.registrantId != submission.registrantId) return;
@@ -114,6 +114,42 @@ techlooper
       }
     };
   })
+    .directive('tabManagerContestDetail', function () {
+      return {
+        restrict: "E",
+        replace: true,
+        templateUrl: "modules/contest-detail/tabManager.html",
+        link: function (scope, element, attr, ctrl) {
+        }
+      };
+    })
+    .directive('funnelManager', function () {
+      return {
+        restrict: "E",
+        replace: true,
+        templateUrl: "modules/contest-detail/funnelManager.html",
+        link: function (scope, element, attr, ctrl) {
+        }
+      };
+    })
+    .directive('contestContentDetails', function () {
+      return {
+        restrict: "E",
+        replace: true,
+        templateUrl: "modules/contest-detail/contestContentDetails.html",
+        link: function (scope, element, attr, ctrl) {
+        }
+      };
+    })
+    .directive('registrantList', function () {
+      return {
+        restrict: "E",
+        replace: true,
+        templateUrl: "modules/contest-detail/registrants.html",
+        link: function (scope, element, attr, ctrl) {
+        }
+      };
+    })
   .directive('contestDetailReviewSubmission', function () {
     return {
       restrict: "E",

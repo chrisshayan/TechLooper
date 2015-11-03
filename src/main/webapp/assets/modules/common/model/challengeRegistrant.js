@@ -76,7 +76,7 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonV
     registrant.recalculate = function (challengePhase) {
       if (registrant.submissions) {
         registrant.lastSubmission = _.isEmpty(registrant.submissions) ? undefined : _.max(registrant.submissions, function (submission) {return submission.challengeSubmissionId;});
-        registrant.phaseSubmissions = _.filter(registrant.submissions, function (submission) {return submission.submissionPhase == challengePhase;});
+        //registrant.phaseSubmissions = _.filter(registrant.submissions, function (submission) {return submission.submissionPhase == challengePhase;});
       }
 
       registrant.activePhase = registrant.activePhase ? registrant.activePhase : jsonValue.challengePhase.getRegistration().enum;
@@ -86,6 +86,8 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonV
       else if (registrant.disqualified == true) {
         registrant.qualified = false;
       }
+
+      if (!registrant.activePhase) registrant.activePhase = jsonValue.challengePhase.getRegistration().enum;
     }
 
     registrant.acceptSubmission = function (submission) {
@@ -97,21 +99,15 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonV
 
     registrant.recalculate(challengePhase);
 
-
-    //registrant. = function() {
-    //
-    //}
-
-    //registrant.qualifyMe = function(challengeDetail) {
-    //  delete registrant.disqualified;
-    //  delete registrant.disqualifiedReason;
-    //  registrant.activePhase = challengeDetail.nextPhase;
-    //  apiService.saveChallengeRegistrant(registrant);
-    //}
-
     $rootScope.$on("saveChallengeCriteriaSuccessful", function (scope, challengeCriteriaDto) {
       var criteriaDto = _.findWhere(challengeCriteriaDto.registrantCriteria, {registrantId: registrant.registrantId});
       registrant.criteria = criteriaDto.criteria;
+    });
+
+    $rootScope.$on("changeWinnerSuccessful", function (s, rgt) {
+      if (registrant.registrantId != rgt.registrantId && registrant.reward == rgt.reward) {
+        delete registrant.reward;
+      }
     });
 
     registrant.$isRich = true;

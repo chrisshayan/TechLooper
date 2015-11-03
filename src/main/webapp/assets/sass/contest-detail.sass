@@ -4,6 +4,21 @@
   width: 100%
   text-align: center
   padding-bottom: 20px
+  .modal-dialog
+    top: 10%
+  .modal-content
+    padding-bottom: 0
+  .modal-body
+    padding: 0
+  .mail-box
+    margin-bottom: 0
+  .note-editor
+    min-height: inherit
+    margin-bottom: 0 !important
+  .note-editable
+    text-align: left
+    ul
+      list-style: inherit !important
   .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus
     border-color: #dddddd #dddddd #fff
   .nav-tabs > li > a
@@ -378,7 +393,7 @@
                 clear: both
                 display: inline-block
             .registrant-name
-              width: 41%
+              width: 39%
               float: left
               text-align: left
               padding: 10px
@@ -410,8 +425,37 @@
                 background-color: #257abb
               i.closed
                 background-color: #e6e6e6
+            .prize-col
+              width: 18%
+              float: left
+              text-align: center
+              padding: 10px
+              .prize
+                width: 33.33339%
+                float: left
+                font-weight: 400
+                text-align: center
+                span
+                  width: 100%
+                  text-align: center
+                  height: 20px
+                  line-height: 20px
+                  display: inline-block
+                  color: #fff
+                  padding: 0 2px
+                  margin: auto
+                span.gold
+                  background-color: #FFAA00
+                span.silver
+                  background-color: #C0C0C0
+                span.bronze
+                  background-color: #6E3A07
+              .prize.one
+                width: 100%
+              .prize.two
+                width: 50%
             .registration-date
-              width: 15%
+              width: 17%
               float: left
               text-align: center
               padding: 10px
@@ -1038,13 +1082,12 @@
         a.btn
           padding: 6px 20px !important
           height: auto !important
-          color: #fff
+          color: #fff !important
           display: inline-block
           text-shadow: none
+          font-size: 14px !important
         a.gray
-          color: #333
-        a.gray:hover
-          color: #fff
+          color: #333 !important
         p.note
           text-align: right !important
           font-size: 12px
@@ -1109,6 +1152,8 @@
               text-align: center
               float: left
               display: none
+            span.time-left
+              font-size: 12px
           .current-phase.active
             span
               display: inline-block
@@ -1133,7 +1178,7 @@
           .phase-name.prototype
             background-color: #bd392f
             border: 1px solid #bd392f
-          .phase-name.app
+          .phase-name.final
             background-color: #257abb
             border: 1px solid #257abb
           .phase-name.winner
@@ -1147,7 +1192,7 @@
             color: #9F472B
           .current-phase.prototype
             color: #bd392f
-          .current-phase.app
+          .current-phase.final
             color: #257abb
           .current-phase.winner
             color: #FFAA00
@@ -1166,6 +1211,23 @@
         clear: both
         padding: 10px 0 0 0
         position: relative
+        .phase-content-details
+          width: 100%
+          display: inline-block
+          clear: both
+          .phase-description
+            width: 100%
+            display: inline-block
+            clear: both
+            p
+              width: 60%
+              margin: 0
+              padding: 15px 0 0 0
+              float: left
+            .announcement-winner
+              width: 40%
+              float: right
+              text-align: right
     .alert
       margin-top: 20px
     .evaluation-criteria
