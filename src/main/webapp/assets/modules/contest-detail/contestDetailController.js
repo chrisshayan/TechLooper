@@ -1,6 +1,7 @@
 techlooper.controller('contestDetailController', function ($scope, apiService, localStorageService, $location, $routeParams,
                                                            jsonValue, $translate, utils, $filter, $timeout, resourcesService, $timeout) {
   utils.sendNotification(jsonValue.notifications.loading);
+  $scope.currentPage = 1;
   $scope.selectedPhase = 0;
   var activePhaseIndex = 0;
   var flagUpdate = false;
@@ -30,15 +31,16 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
     delete $scope.sortByRegistrationDateType;
     delete $scope.sortBySubmissionDateType;
     delete $scope.sortByScoreType;
-    
+
     apiService.getChallengeRegistrantsByPhase(contestId, phaseName).success(function (data) {
       $scope.registrantPhase = data;
-
       switch (phaseName) {
         case "REGISTRATION":
           $scope.sortByRegistrationDate();
           break;
-
+        //case "WINNER":
+        //  $scope.sortByScore();
+        //  break;
         default:
           $scope.sortBySubmissionDate();
           break;
@@ -210,20 +212,21 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
         //$scope.selectedPhase = $scope.registrantFunnel.currentPosition;
         activePhaseIndex = $scope.registrantFunnel.currentPosition;
           if(flagUpdate){
-            $scope.reviewPhase($scope.registrantFunnel.currentPosition, phase.phase);
+            $scope.reviewPhase($scope.registrantFunnel.currentPosition, $scope.registrantFunnel.phase);
             flagUpdate = undefined;
           }else{
             $scope.reviewPhase($scope.registrantFunnel.currentPosition, {phase: $scope.contestDetail.currentPhase});
           }
         utils.sendNotification(jsonValue.notifications.loaded);
       }).error(function () {
-      console.log('error');
       utils.sendNotification(jsonValue.notifications.loaded);
     });
   };
+
   $scope.resetActivePhase = function(){
     $scope.reviewPhase($scope.registrantFunnel.currentPosition, {phase: $scope.contestDetail.currentPhase});
   };
+
   $scope.fbShare = function () {
     ga("send", {
       hitType: "event",
@@ -294,7 +297,6 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
       }
     },
     cancel: function () {
-      $location.search({});
       $('.modal-backdrop').remove();
     }
   };

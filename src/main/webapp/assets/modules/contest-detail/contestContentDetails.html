@@ -9,7 +9,7 @@
   <div class="col-md-8">
     <div class="row">
       <div class="col-md-4"
-           ng-class="{'col6': contestDetail.thirdPlaceReward == null, 'col12': contestDetail.secondPlaceReward == null, }">
+           ng-class="{'col6': contestDetail.thirdPlaceReward == null, 'col12': contestDetail.secondPlaceReward == null}">
         <p translate="stPrize" ng-show="contestDetail.secondPlaceReward != null"></p>
 
         <p translate="prize" ng-show="contestDetail.secondPlaceReward == null"></p>
@@ -32,9 +32,9 @@
       <h3 translate="currentPhase"/>
       <p>
         {{contestDetail.progress.translate | translate}}
-                  <span ng-show="contestDetail.progress.translate != 'closed' &&  contestDetail.progress.translate != 'notStart' &&  contestDetail.progress.translate != 'registration'">
-                    ({{contestDetail.currentPhase | progress: 'challengePhaseTitle'}})
-                  </span>
+        <span ng-show="contestDetail.progress.translate != 'closed' &&  contestDetail.progress.translate != 'notStart' &&  contestDetail.progress.translate != 'registration'"
+          translate="{{contestDetail.currentPhase.toLowerCase()}}">
+        </span>
       </p>
 
       <p class="count-down-day" translate="{{contestDetail.progress.timeLeftTranslate}}"

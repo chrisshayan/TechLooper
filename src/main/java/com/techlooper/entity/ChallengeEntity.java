@@ -1,5 +1,6 @@
 package com.techlooper.entity;
 
+import com.techlooper.model.ChallengeWinner;
 import com.techlooper.model.Language;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.DateFormat;
@@ -99,37 +100,16 @@ public class ChallengeEntity {
   @Field(type = Integer)
   private int lastEmailSentResultCode;
 
-  @Field(type = Long)
-  private Long firstPlaceRewardWinner;
+  @Field(type = Nested)
+  private Set<ChallengeWinner> winners;
 
-  @Field(type = Long)
-  private Long secondPlaceRewardWinner;
-
-  @Field(type = Long)
-  private Long thirdPlaceRewardWinner;
-
-  public java.lang.Long getFirstPlaceRewardWinner() {
-    return firstPlaceRewardWinner;
+  public Set<ChallengeWinner> getWinners() {
+    if (winners == null) winners = new HashSet<>();
+    return winners;
   }
 
-  public void setFirstPlaceRewardWinner(java.lang.Long firstPlaceRewardWinner) {
-    this.firstPlaceRewardWinner = firstPlaceRewardWinner;
-  }
-
-  public java.lang.Long getSecondPlaceRewardWinner() {
-    return secondPlaceRewardWinner;
-  }
-
-  public void setSecondPlaceRewardWinner(java.lang.Long secondPlaceRewardWinner) {
-    this.secondPlaceRewardWinner = secondPlaceRewardWinner;
-  }
-
-  public java.lang.Long getThirdPlaceRewardWinner() {
-    return thirdPlaceRewardWinner;
-  }
-
-  public void setThirdPlaceRewardWinner(java.lang.Long thirdPlaceRewardWinner) {
-    this.thirdPlaceRewardWinner = thirdPlaceRewardWinner;
+  public void setWinners(Set<ChallengeWinner> winners) {
+    this.winners = winners;
   }
 
   public Set<ChallengeCriteria> getCriteria() {

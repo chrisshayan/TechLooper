@@ -1,13 +1,15 @@
 <div class="phase-content-block">
   <div class="phase-content-details" ng-repeat="phase in registrantFunnel" ng-show="$index == selectedPhase">
-    <p translate="PhaseDes"
-       ng-show="$index == selectedPhase && (phase.phase | progress: 'challengePhaseTitle' | lowercase) != 'winner' && (phase.phase | progress: 'challengePhaseTitle' | lowercase) != 'final app'"></p>
-    <p translate="FinalDes"
-       ng-show="$index == selectedPhase && (phase.phase | progress: 'challengePhaseTitle' | lowercase) == 'final app'"></p>
-    <p translate="winnerDes"
-       ng-show="$index == selectedPhase && (phase.phase | progress: 'challengePhaseTitle' | lowercase) == 'winner'"></p>
-    <div class="announcement-winner">
-      <a translate="announceWinnerToAllContestants" class="btn btn-primary btn-flat" data-toggle="modal" data-target="#emailCompose"></a>
+    <div class="phase-description">
+      <p translate="PhaseDes"
+         ng-show="$index == selectedPhase && (phase.phase | progress: 'challengePhaseTitle' | lowercase) != 'winner' && (phase.phase | progress: 'challengePhaseTitle' | lowercase) != 'final app'"></p>
+      <p translate="FinalDes"
+         ng-show="$index == selectedPhase && (phase.phase | progress: 'challengePhaseTitle' | lowercase) == 'final app'"></p>
+      <p translate="winnerDes"
+         ng-show="$index == selectedPhase && (phase.phase | progress: 'challengePhaseTitle' | lowercase) == 'winner'"></p>
+      <div class="announcement-winner" ng-show="$index == selectedPhase && (phase.phase | progress: 'challengePhaseTitle' | lowercase) == 'winner'">
+        <a translate="announceWinnerToAllContestants" class="btn btn-primary btn-flat" data-toggle="modal" data-target="#emailCompose"></a>
+      </div>
     </div>
     <table class="contests-table">
       <thead>
@@ -21,15 +23,17 @@
               {{'fullNameField' | translate}}
             </div>
             <div class="prize-col" ng-show="(phase.phase | progress: 'challengePhaseTitle' | lowercase) == 'winner'">
-              <p>Prize</p>
-              <div class="prize">
-                <span class="gold">1</span>
+              <p translate="prize"></p>
+              <div class="prize"
+                   ng-class="{'one': contestDetail.secondPlaceReward == null && contestDetail.thirdPlaceReward == null, 'two': contestDetail.secondPlaceReward != null && contestDetail.thirdPlaceReward == null}">
+                <span class="gold">${{contestDetail.firstPlaceReward | number:0}}</span>
               </div>
-              <div class="prize" ng-show="(phase.phase | progress: 'challengePhaseTitle' | lowercase) == 'winner' && contestDetail.secondPlaceReward != null">
-                <span class="silver">2</span>
+              <div class="prize" ng-show="contestDetail.secondPlaceReward != null"
+                   ng-class="{two: contestDetail.thirdPlaceReward == null}">
+                <span class="silver">${{contestDetail.secondPlaceReward | number:0}}</span>
               </div>
-              <div class="prize" ng-show="(phase.phase | progress: 'challengePhaseTitle' | lowercase) == 'winner' && contestDetail.thirdPlaceReward != null">
-                <span class="bronze">3</span>
+              <div class="prize" ng-show="contestDetail.thirdPlaceReward != null">
+                <span class="bronze">${{contestDetail.thirdPlaceReward | number:0}}</span>
               </div>
             </div>
             <div class="registration-date" ng-show="(phase.phase | progress: 'challengePhaseTitle' | lowercase) == 'registration'"
@@ -70,12 +74,12 @@
           <p translate="noData"></p>
         </td>
       </tr>
-      <tr dir-paginate="user in registrantPhase | itemsPerPage:10" id="id-{{$index}}" ng-show="(phase.phase | progress: 'challengePhaseTitle' | lowercase) != 'winner'">
+      <tr dir-paginate="user in registrantPhase | itemsPerPage:10" id="id-{{$index}}" current-page="currentPage" pagination-id="phase.phase">
         <td>
           <div class="registrants-challenge-list">
             <div class="registrant-order">
               <div class="label-col">#</div>
-              {{$index + 1}}
+              {{ ($index + 1) + (currentPage - 1) * 10}}
             </div>
             <div class="registrant-name">
               <div class="label-col" translate="fullNameField"></div>
@@ -84,15 +88,16 @@
               <p class="note" ng-show="user.disqualifiedReason.length">{{'disqualifyingReason' | translate}}: {{user.disqualifiedReason}}</p>
             </div>
             <div class="prize-col" ng-show="(phase.phase | progress: 'challengePhaseTitle' | lowercase) == 'winner'">
-              <p>Prize</p>
-              <div class="prize1">
-                <input type="checkbox"/>
+              <div class="label-col" translate="prize"></div>
+              <div class="prize"
+                   ng-class="{'one': contestDetail.secondPlaceReward == null && contestDetail.thirdPlaceReward == null, 'two': contestDetail.secondPlaceReward != null && contestDetail.thirdPlaceReward == null}">
+                <input ng-click="contestDetail.save1stWinner(user)" ng-checked="user.reward == 'FIRST_PLACE'" type="checkbox"/>
               </div>
-              <div class="prize1" ng-show="(phase.phase | progress: 'challengePhaseTitle' | lowercase) == 'winner' && contestDetail.secondPlaceReward != null">
-                <input type="checkbox"/>
+              <div class="prize" ng-show="(phase.phase | progress: 'challengePhaseTitle' | lowercase) == 'winner' && contestDetail.secondPlaceReward != null">
+                <input ng-click="contestDetail.save2ndWinner(user)" ng-checked="user.reward == 'SECOND_PLACE'" type="checkbox"/>
               </div>
-              <div class="prize1" ng-show="(phase.phase | progress: 'challengePhaseTitle' | lowercase) == 'winner' && contestDetail.thirdPlaceReward != null">
-                <input type="checkbox"/>
+              <div class="prize" ng-show="(phase.phase | progress: 'challengePhaseTitle' | lowercase) == 'winner' && contestDetail.thirdPlaceReward != null">
+                <input ng-click="contestDetail.save3rdWinner(user)" ng-checked="user.reward == 'THIRD_PLACE'"  type="checkbox"/>
               </div>
             </div>
             <div class="registration-date" ng-show="(phase.phase | progress: 'challengePhaseTitle' | lowercase) == 'registration'">
@@ -101,11 +106,11 @@
             </div>
             <div class="registration-date" ng-show="(phase.phase | progress: 'challengePhaseTitle' | lowercase) != 'registration' && (phase.phase | progress: 'challengePhaseTitle' | lowercase) != 'winner'">
               <div class="label-col" translate="lastSubmissionDate"></div>
-              {{user.lastSubmission.submissionDateTime}}
+              {{user.lastSubmission.submissionDateTime || '-'}}
             </div>
             <div class="registration-submission">
               <div class="label-col" translate="submissions"></div>
-              <a ng-click="user.showReviewSubmission()" title="{{'submissionsReviewTip' | translate}}">{{user.phaseSubmissions.length || 0}}</a>
+              <a ng-click="user.showReviewSubmission()" title="{{'submissionsReviewTip' | translate}}">{{user.submissions.length || 0}}</a>
             </div>
             <div class="registration-score"
                  ng-show="(phase.phase | progress: 'challengePhaseTitle' | lowercase) == 'winner' || (phase.phase | progress: 'challengePhaseTitle' | lowercase) == 'final app'">
@@ -115,8 +120,8 @@
 
             <div class="registration-review" ng-show="(phase.phase | progress: 'challengePhaseTitle' | lowercase) != 'final app' && (phase.phase | progress: 'challengePhaseTitle' | lowercase) != 'winner'">
               <div class="label-col" translate="qualifiedNextPhase"></div>
-              <a ng-show="user.disqualified == null && user.qualified == null" data-auto-close="true"
-                 data-placement="top" data-template-url="modules/contest-detail/confirmQualify.html" bs-popover
+              <a ng-show="user.disqualified == null && user.qualified == null"
+                 ng-click="user.showQualification()"
                  title="{{'qualifyNextPhase' | translate}}"><i class="fa fa-thumbs-up"></i></a>
               <a ng-show="user.disqualified == null && user.qualified == null"
                  title="{{'disqualifyNextPhase' | translate}}"><i class="fa fa-thumbs-down" ng-click="user.showDisqualification()"></i></a>
@@ -133,9 +138,9 @@
       </tr>
       </tbody>
     </table>
-    <div class="registrants-paging" ng-show="(phase.phase | progress: 'challengePhaseTitle' | lowercase) != 'winner'">
-      <span translate="contestantsReturned" translate-value-number="{{registrantPhase.length}}"></span>
-      <dir-pagination-controls
+    <div class="registrants-paging">
+      <span translate="contestantsReturned" translate-value-number="{{registrantPhase.length}}" ng-show="registrantPhase.length > 0"></span>
+      <dir-pagination-controls pagination-id="phase.phase"
           max-size="10"
           direction-links="true"
           boundary-links="true">
