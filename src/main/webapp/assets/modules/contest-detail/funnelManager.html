@@ -4,7 +4,8 @@
   <div class="current-phase"
        ng-class="{active: (phase.phase | uppercase) == contestDetail.currentPhase}">
     <span translate="currentPhase"></span>
-    <span translate="daysLeft" translate-value-days="3" class="time-left"></span>
+    <span ng-show="contestDetail.currentPhaseDaysLeft > 0" translate="daysLeft" translate-value-days="{{contestDetail.currentPhaseDaysLeft}}" class="time-left">
+    </span>
     <i class="fa fa-caret-down"></i>
   </div>
   <div class="phase-name {{phase.phase | progress: 'challengePhaseTitle' | lowercase}}"
