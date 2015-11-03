@@ -90,7 +90,8 @@
             <div class="prize-col" ng-show="(phase.phase | progress: 'challengePhaseTitle' | lowercase) == 'winner'">
               <div class="label-col">Prize</div>
               <div class="prize">
-                <span class="gold">${{contestDetail.firstPlaceReward | number:0}}</span><input type="checkbox"/>
+                <span class="gold">${{contestDetail.firstPlaceReward | number:0}}</span>
+                <input ng-change="contestDetail.save1stWinner(user)" ng-checked="contestDetail.firstPlaceRewardWinnerId == user.registrantId" type="checkbox"/>
               </div>
               <div class="prize" ng-show="(phase.phase | progress: 'challengePhaseTitle' | lowercase) == 'winner' && contestDetail.secondPlaceReward != null">
                 <span class="silver">${{contestDetail.secondPlaceReward | number:0}}</span><input type="checkbox"/>
