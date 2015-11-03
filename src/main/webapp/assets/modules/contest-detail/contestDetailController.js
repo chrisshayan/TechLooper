@@ -38,7 +38,9 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
         case "REGISTRATION":
           $scope.sortByRegistrationDate();
           break;
-
+        case "WINNER":
+          $scope.sortByScore();
+          break;
         default:
           $scope.sortBySubmissionDate();
           break;
