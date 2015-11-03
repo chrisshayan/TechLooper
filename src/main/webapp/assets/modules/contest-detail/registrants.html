@@ -88,13 +88,13 @@
             <div class="prize-col" ng-show="(phase.phase | progress: 'challengePhaseTitle' | lowercase) == 'winner'">
               <div class="label-col">Prize</div>
               <div class="prize">
-                <input type="checkbox"/>
+                <input ng-change="contestDetail.save1stWinner(user)" ng-checked="contestDetail.firstPlaceRewardWinnerId == user.registrantId" type="checkbox"/>
               </div>
               <div class="prize" ng-show="(phase.phase | progress: 'challengePhaseTitle' | lowercase) == 'winner' && contestDetail.secondPlaceReward != null">
                 <input type="checkbox"/>
               </div>
               <div class="prize" ng-show="(phase.phase | progress: 'challengePhaseTitle' | lowercase) == 'winner' && contestDetail.thirdPlaceReward != null">
-                <input type="checkbox"/>
+                <input  type="checkbox"/>
               </div>
             </div>
             <div class="registration-date" ng-show="(phase.phase | progress: 'challengePhaseTitle' | lowercase) == 'registration'">
