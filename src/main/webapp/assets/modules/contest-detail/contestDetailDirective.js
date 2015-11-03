@@ -99,11 +99,11 @@ techlooper
           delete scope.registrant.visible;
         };
 
-        scope.$watch(function () {
-          return paginationService.getCurrentPage("__default");
-        }, function (currentPage, previousPage) {
-          scope.registrant.hide();
-        });
+        //scope.$watch(function () {
+        //  return paginationService.getCurrentPage("__default");
+        //}, function (currentPage, previousPage) {
+        //  scope.registrant.hide();
+        //});
 
         scope.$on("success-submission-challenge", function (sc, submission) {
           if (scope.registrant.registrantId != submission.registrantId) return;

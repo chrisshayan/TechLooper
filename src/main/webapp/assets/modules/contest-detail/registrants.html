@@ -23,11 +23,11 @@
             <div class="prize-col" ng-show="(phase.phase | progress: 'challengePhaseTitle' | lowercase) == 'winner'">
               <p>Prize</p>
               <div class="prize"
-                   ng-class="{two: contestDetail.thirdPlaceReward == null, one: contestDetail.secondPlaceReward == null}">
+                   ng-class="{'two': contestDetail.thirdPlaceReward == null, 'one': contestDetail.secondPlaceReward == null}">
                 <span class="gold">${{contestDetail.firstPlaceReward | number:0}}</span>
               </div>
               <div class="prize" ng-show="contestDetail.secondPlaceReward != null"
-                   ng-class="{two: contestDetail.thirdPlaceReward == null">
+                   ng-class="{two: contestDetail.thirdPlaceReward == null}">
                 <span class="silver">${{contestDetail.secondPlaceReward | number:0}}</span>
               </div>
               <div class="prize" ng-show="contestDetail.thirdPlaceReward != null">
@@ -117,8 +117,8 @@
 
             <div class="registration-review" ng-show="(phase.phase | progress: 'challengePhaseTitle' | lowercase) != 'final app' && (phase.phase | progress: 'challengePhaseTitle' | lowercase) != 'winner'">
               <div class="label-col" translate="qualifiedNextPhase"></div>
-              <a ng-show="user.disqualified == null && user.qualified == null" data-auto-close="true"
-                 data-placement="top" data-template-url="modules/contest-detail/confirmQualify.html" bs-popover
+              <a ng-show="user.disqualified == null && user.qualified == null"
+                 ng-click="user.showQualification()"
                  title="{{'qualifyNextPhase' | translate}}"><i class="fa fa-thumbs-up"></i></a>
               <a ng-show="user.disqualified == null && user.qualified == null"
                  title="{{'disqualifyNextPhase' | translate}}"><i class="fa fa-thumbs-down" ng-click="user.showDisqualification()"></i></a>
