@@ -834,5 +834,6 @@
   "qualified": "Qualified",
   "submissionToPhase": "Submission to phase:",
   "submissionsReviewTip": "Review",
-  "announceWinnerToAllContestants": "Announcement winner to all contestants"
+  "announceWinnerToAllContestants": "Announcement winner to all contestants",
+  "daysLeft": "{{days}} days left"
 }
