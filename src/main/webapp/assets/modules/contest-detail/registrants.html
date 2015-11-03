@@ -1,13 +1,15 @@
 <div class="phase-content-block">
   <div class="phase-content-details" ng-repeat="phase in registrantFunnel" ng-show="$index == selectedPhase">
-    <p translate="PhaseDes"
-       ng-show="$index == selectedPhase && (phase.phase | progress: 'challengePhaseTitle' | lowercase) != 'winner' && (phase.phase | progress: 'challengePhaseTitle' | lowercase) != 'final app'"></p>
-    <p translate="FinalDes"
-       ng-show="$index == selectedPhase && (phase.phase | progress: 'challengePhaseTitle' | lowercase) == 'final app'"></p>
-    <p translate="winnerDes"
-       ng-show="$index == selectedPhase && (phase.phase | progress: 'challengePhaseTitle' | lowercase) == 'winner'"></p>
-    <div class="announcement-winner">
-      <a translate="announceWinnerToAllContestants" class="btn btn-primary btn-flat" data-toggle="modal" data-target="#emailCompose"></a>
+    <div class="phase-description">
+      <p translate="PhaseDes"
+         ng-show="$index == selectedPhase && (phase.phase | progress: 'challengePhaseTitle' | lowercase) != 'winner' && (phase.phase | progress: 'challengePhaseTitle' | lowercase) != 'final app'"></p>
+      <p translate="FinalDes"
+         ng-show="$index == selectedPhase && (phase.phase | progress: 'challengePhaseTitle' | lowercase) == 'final app'"></p>
+      <p translate="winnerDes"
+         ng-show="$index == selectedPhase && (phase.phase | progress: 'challengePhaseTitle' | lowercase) == 'winner'"></p>
+      <div class="announcement-winner" ng-show="$index == selectedPhase && (phase.phase | progress: 'challengePhaseTitle' | lowercase) == 'winner'">
+        <a translate="announceWinnerToAllContestants" class="btn btn-primary btn-flat" data-toggle="modal" data-target="#emailCompose"></a>
+      </div>
     </div>
     <table class="contests-table">
       <thead>
@@ -88,13 +90,13 @@
             <div class="prize-col" ng-show="(phase.phase | progress: 'challengePhaseTitle' | lowercase) == 'winner'">
               <div class="label-col">Prize</div>
               <div class="prize">
-                <input type="checkbox"/>
+                <span class="gold">${{contestDetail.firstPlaceReward | number:0}}</span><input type="checkbox"/>
               </div>
               <div class="prize" ng-show="(phase.phase | progress: 'challengePhaseTitle' | lowercase) == 'winner' && contestDetail.secondPlaceReward != null">
-                <input type="checkbox"/>
+                <span class="silver">${{contestDetail.secondPlaceReward | number:0}}</span><input type="checkbox"/>
               </div>
               <div class="prize" ng-show="(phase.phase | progress: 'challengePhaseTitle' | lowercase) == 'winner' && contestDetail.thirdPlaceReward != null">
-                <input type="checkbox"/>
+                <span class="bronze">${{contestDetail.thirdPlaceReward | number:0}}</span><input type="checkbox"/>
               </div>
             </div>
             <div class="registration-date" ng-show="(phase.phase | progress: 'challengePhaseTitle' | lowercase) == 'registration'">
