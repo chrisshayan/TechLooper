@@ -93,28 +93,15 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
         });
     }
 
-    //see jsonValue.challengePhase
-    switch (challengeDetail.currentPhase) {
-      case "REGISTRATION":
-        challengeDetail.currentPhaseDaysLeft = moment(challengeDetail.registrationDateTime, jsonValue.dateFormat).diff(moment(), "days");
-        break;
-
-      case "IDEA":
-        challengeDetail.currentPhaseDaysLeft = moment(challengeDetail.ideaSubmissionDateTime, jsonValue.dateFormat).diff(moment(), "days");
-        break;
-
-      case "UIUX":
-        challengeDetail.currentPhaseDaysLeft = moment(challengeDetail.uxSubmissionDateTime, jsonValue.dateFormat).diff(moment(), "days");
-        break;
-
-      case "PROTOTYPE":
-        challengeDetail.currentPhaseDaysLeft = moment(challengeDetail.prototypeSubmissionDateTime, jsonValue.dateFormat).diff(moment(), "days");
-        break;
-
-      case "FINAL":
-        challengeDetail.currentPhaseDaysLeft = moment(challengeDetail.submissionDateTime, jsonValue.dateFormat).diff(moment(), "days");
-        break;
+    challengeDetail.recalculate = function() {
+      //see jsonValue.challengePhase
+      var prop = jsonValue.challengePhase[challengeDetail.currentPhase].challengeProp;
+      if (prop) {
+        challengeDetail.currentPhaseDaysLeft = moment(challengeDetail[prop], jsonValue.dateFormat).diff(moment(), "days");
+      }
     }
+
+    challengeDetail.recalculate();
 
     challengeDetail.$isRich = true;
     return challengeDetail;

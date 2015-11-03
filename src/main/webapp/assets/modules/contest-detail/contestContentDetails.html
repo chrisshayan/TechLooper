@@ -32,9 +32,9 @@
       <h3 translate="currentPhase"/>
       <p>
         {{contestDetail.progress.translate | translate}}
-                  <span ng-show="contestDetail.progress.translate != 'closed' &&  contestDetail.progress.translate != 'notStart' &&  contestDetail.progress.translate != 'registration'">
-                    ({{contestDetail.currentPhase | progress: 'challengePhaseTitle'}})
-                  </span>
+        <span ng-show="contestDetail.progress.translate != 'closed' &&  contestDetail.progress.translate != 'notStart' &&  contestDetail.progress.translate != 'registration'"
+          translate="{{contestDetail.currentPhase.toLowerCase()}}">
+        </span>
       </p>
 
       <p class="count-down-day" translate="{{contestDetail.progress.timeLeftTranslate}}"

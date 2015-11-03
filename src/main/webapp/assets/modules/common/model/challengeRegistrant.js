@@ -87,20 +87,8 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonV
         registrant.qualified = false;
       }
 
-      //registrant.recalculateReward();
+      if (!registrant.activePhase) registrant.activePhase = jsonValue.challengePhase.getRegistration().enum;
     }
-
-    //registrant.recalculateReward = function () {
-    //  if (jsonValue.rewards.firstPlaceEnum() == registrant.reward) {
-    //    registrant.isFirstPlaceWinner = true;
-    //  }
-    //  else if (jsonValue.rewards.secondPlaceEnum() == registrant.reward) {
-    //    registrant.isSecondPlaceWinner = true;
-    //  }
-    //  else if (jsonValue.rewards.thirdPlaceEnum() == registrant.reward) {
-    //    registrant.isThirdPlaceWinner = true;
-    //  }
-    //}
 
     registrant.acceptSubmission = function (submission) {
       if (!_.findWhere(registrant.submissions, submission)) {

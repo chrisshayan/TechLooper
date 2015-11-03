@@ -1029,13 +1029,20 @@ techlooper.factory("jsonValue", function () {
     //@see com.techlooper.model.ChallengePhaseEnum
     challengePhase: {
       values: [
-        {enum: "REGISTRATION", title: "Registration"},
-        {enum: "IDEA", title: "Idea"},
-        {enum: "UIUX", title: "UI/UX"},
-        {enum: "PROTOTYPE", title: "Prototype"},
-        {enum: "FINAL", title: "Final App"},
-        {enum: "WINNER", title: "Winner"}
+        {enum: "REGISTRATION", challengeProp: "registrationDateTime"},
+        {enum: "IDEA", challengeProp: "ideaSubmissionDateTime"},
+        {enum: "UIUX", challengeProp: "uxSubmissionDateTime"},
+        {enum: "PROTOTYPE", challengeProp: "prototypeSubmissionDateTime"},
+        {enum: "FINAL", challengeProp: "submissionDateTime"},
+        {enum: "WINNER"}
       ],
+
+  //{enum: "REGISTRATION", title: "Registration"},
+  //{enum: "IDEA", title: "Idea"},
+  //{enum: "UIUX", title: "UI/UX"},
+  //{enum: "PROTOTYPE", title: "Prototype"},
+  //{enum: "FINAL", title: "Final App"},
+  //{enum: "WINNER", title: "Winner"}
 
       getRegistration: function () {return instance.challengePhase.values[0]},
 
@@ -1088,7 +1095,7 @@ techlooper.factory("jsonValue", function () {
     }
   }
 
-  //$.each(instance.rewards.values, function (i, r) {instance.rewards[r.enum] = r;});
+  $.each(instance.challengePhase.values, function (i, r) {instance.challengePhase[r.enum] = r;});
 
   instance.companySizesArray = $.map(instance.companySizes, function (value, key) {
     return {id: parseInt(key), size: value.value}
