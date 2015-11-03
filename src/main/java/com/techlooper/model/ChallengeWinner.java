@@ -33,11 +33,11 @@ public class ChallengeWinner implements Serializable {
 
     ChallengeWinner that = (ChallengeWinner) o;
 
-    return !(registrantId != null ? !registrantId.equals(that.registrantId) : that.registrantId != null);
+    return reward == that.reward;
 
   }
 
   public int hashCode() {
-    return registrantId != null ? registrantId.hashCode() : 0;
+    return reward != null ? reward.hashCode() : 0;
   }
 }

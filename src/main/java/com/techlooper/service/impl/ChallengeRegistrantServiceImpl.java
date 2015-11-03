@@ -178,11 +178,7 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
 
     ChallengeEntity challenge = challengeRepository.findOne(registrant.getChallengeId());
     Set<ChallengeWinner> winners = challenge.getWinners();
-    winners.stream().sorted().peek(wnn -> {
-      if (challengeWinner.getReward() == wnn.getReward()) {
-        winners.remove(wnn);
-      }
-    });
+    winners.remove(challengeWinner);
     winners.add(challengeWinner);
 
     challenge = challengeRepository.save(challenge);
