@@ -94,6 +94,7 @@
               </div>
               <div class="prize" ng-show="(phase.phase | progress: 'challengePhaseTitle' | lowercase) == 'winner' && contestDetail.secondPlaceReward != null">
                 <input ng-click="contestDetail.save2ndWinner(user)" ng-checked="user.reward == 'SECOND_PLACE'" type="checkbox"/>
+              </div>
               <div class="prize" ng-show="(phase.phase | progress: 'challengePhaseTitle' | lowercase) == 'winner' && contestDetail.thirdPlaceReward != null">
                 <input ng-click="contestDetail.save3rdWinner(user)" ng-checked="user.reward == 'THIRD_PLACE'"  type="checkbox"/>
               </div>
