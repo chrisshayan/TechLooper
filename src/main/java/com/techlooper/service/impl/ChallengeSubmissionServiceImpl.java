@@ -1,6 +1,5 @@
 package com.techlooper.service.impl;
 
-import com.techlooper.entity.ChallengeEntity;
 import com.techlooper.entity.ChallengeRegistrantDto;
 import com.techlooper.entity.ChallengeRegistrantEntity;
 import com.techlooper.entity.ChallengeSubmissionEntity;
@@ -35,7 +34,10 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeUtility;
 import java.io.StringWriter;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import static com.techlooper.model.ChallengePhaseEnum.*;
 
@@ -45,123 +47,122 @@ import static com.techlooper.model.ChallengePhaseEnum.*;
 @Service
 public class ChallengeSubmissionServiceImpl implements ChallengeSubmissionService {
 
-  private final static Logger LOGGER = LoggerFactory.getLogger(ChallengeSubmissionServiceImpl.class);
+    private final static Logger LOGGER = LoggerFactory.getLogger(ChallengeSubmissionServiceImpl.class);
 
-  @Resource
-  private ChallengeService challengeService;
+    @Resource
+    private ChallengeService challengeService;
 
-  @Resource
-  private Mapper dozerMapper;
+    @Resource
+    private Mapper dozerMapper;
 
-  @Resource
-  private ChallengeSubmissionRepository challengeSubmissionRepository;
+    @Resource
+    private ChallengeSubmissionRepository challengeSubmissionRepository;
 
-  @Resource
-  private ElasticsearchTemplate elasticsearchTemplate;
+    @Resource
+    private ElasticsearchTemplate elasticsearchTemplate;
 
-  private final List<ChallengePhaseEnum> CHALLENGE_PHASES = Arrays.asList(REGISTRATION, IDEA, UIUX, PROTOTYPE, FINAL);
+    private final List<ChallengePhaseEnum> CHALLENGE_PHASES = Arrays.asList(REGISTRATION, IDEA, UIUX, PROTOTYPE, FINAL);
 
-  @Value("${mail.confirmUserSubmission.subject.vi}")
-  private String confirmUserSubmissionMailSubjectVi;
+    @Value("${mail.confirmUserSubmission.subject.vi}")
+    private String confirmUserSubmissionMailSubjectVi;
 
-  @Value("${mail.confirmUserSubmission.subject.en}")
-  private String confirmUserSubmissionMailSubjectEn;
+    @Value("${mail.confirmUserSubmission.subject.en}")
+    private String confirmUserSubmissionMailSubjectEn;
 
-  @Resource
-  private Template confirmUserSubmissionMailTemplateVi;
+    @Resource
+    private Template confirmUserSubmissionMailTemplateVi;
 
-  @Resource
-  private Template confirmUserSubmissionMailTemplateEn;
+    @Resource
+    private Template confirmUserSubmissionMailTemplateEn;
 
-  @Resource
-  private MimeMessage confirmUserSubmissionMailMessage;
+    @Resource
+    private MimeMessage confirmUserSubmissionMailMessage;
 
-  @Value("${web.baseUrl}")
-  private String webBaseUrl;
+    @Value("${web.baseUrl}")
+    private String webBaseUrl;
 
-  @Resource
-  private JavaMailSender mailSender;
+    @Resource
+    private JavaMailSender mailSender;
 
-  @Resource
-  private ChallengeRepository challengeRepository;
+    @Resource
+    private ChallengeRepository challengeRepository;
 
-  public ChallengeSubmissionEntity submitMyResult(ChallengeSubmissionDto challengeSubmissionDto) {
-    ChallengeDto challengeDto = challengeService.findChallengeById(
-      challengeSubmissionDto.getChallengeId(), challengeSubmissionDto.getRegistrantEmail());
-    ChallengeRegistrantEntity registrant = challengeService.findRegistrantByChallengeIdAndEmail(
-      challengeSubmissionDto.getChallengeId(), challengeSubmissionDto.getRegistrantEmail());
-    if (registrant == null) {
-      registrant = challengeService.joinChallengeEntity(dozerMapper.map(challengeSubmissionDto, ChallengeRegistrantDto.class));
-    }
-    ChallengePhaseEnum activePhase = registrant.getActivePhase() == null ? ChallengePhaseEnum.REGISTRATION : registrant.getActivePhase();
-
-    ChallengeSubmissionEntity challengeSubmissionEntity = dozerMapper.map(challengeSubmissionDto, ChallengeSubmissionEntity.class);
-    ChallengeSubmissionEntityBuilder.challengeSubmissionEntity(challengeSubmissionEntity)
-      .withChallengeSubmissionId(DateTime.now().getMillis())
-      .withRegistrantId(registrant.getRegistrantId())
-      .withRegistrantName(String.format("%s %s", registrant.getRegistrantFirstName(), registrant.getRegistrantLastName()))
-      .withSubmissionDateTime(DateTimeUtils.currentDate())
-      .withSubmissionPhase(activePhase);
-    try {
-      sendConfirmationEmailToRegistrant(challengeDto, registrant, challengeSubmissionEntity);
-    }
-    catch (Exception e) {
-      LOGGER.error(e.getMessage(), e);
-    }
-    return challengeSubmissionRepository.save(challengeSubmissionEntity);
-  }
-
-  private void sendConfirmationEmailToRegistrant(ChallengeDto challengeDto,
-                                                 ChallengeRegistrantEntity registrant, ChallengeSubmissionEntity challengeSubmissionEntity) throws Exception {
-    String mailSubject = registrant.getLang() == Language.vi ? confirmUserSubmissionMailSubjectVi :
-      confirmUserSubmissionMailSubjectEn;
-    Address[] recipientAddresses = InternetAddress.parse(registrant.getRegistrantEmail());
-    Template template = registrant.getLang() == Language.vi ? confirmUserSubmissionMailTemplateVi :
-      confirmUserSubmissionMailTemplateEn;
-    confirmUserSubmissionMailMessage.setRecipients(Message.RecipientType.TO, recipientAddresses);
-    StringWriter stringWriter = new StringWriter();
-
-    Map<String, Object> templateModel = new HashMap<>();
-    templateModel.put("webBaseUrl", webBaseUrl);
-    templateModel.put("submissionUrl", challengeSubmissionEntity.getSubmissionURL());
-    templateModel.put("currentPhase", challengeSubmissionEntity.getSubmissionPhase());
-    templateModel.put("challengeName", challengeDto.getChallengeName());
-
-    template.process(templateModel, stringWriter);
-    confirmUserSubmissionMailMessage.setSubject(MimeUtility.encodeText(mailSubject, "UTF-8", null));
-    confirmUserSubmissionMailMessage.setText(stringWriter.toString(), "UTF-8", "html");
-
-    stringWriter.flush();
-    confirmUserSubmissionMailMessage.saveChanges();
-    mailSender.send(confirmUserSubmissionMailMessage);
-  }
-
-  @Override
-  public Map<ChallengePhaseEnum, ChallengeSubmissionPhaseItem> countNumberOfSubmissionsByPhase(Long challengeId) {
-    Map<ChallengePhaseEnum, ChallengeSubmissionPhaseItem> numberOfSubmissionsByPhase = new HashMap<>();
-
-    NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withIndices("techlooper")
-      .withTypes("challengeSubmission").withSearchType(SearchType.COUNT);
-    searchQueryBuilder.withQuery(QueryBuilders.termQuery("challengeId", challengeId));
-    searchQueryBuilder.addAggregation(AggregationBuilders.terms("sumOfSubmissions").field("submissionPhase"));
-    Aggregations aggregations = elasticsearchTemplate.query(searchQueryBuilder.build(), SearchResponse::getAggregations);
-
-    Terms terms = aggregations.get("sumOfSubmissions");
-    for (ChallengePhaseEnum phaseEnum : CHALLENGE_PHASES) {
-      Terms.Bucket bucket = terms.getBucketByKey(phaseEnum.getValue());
-      if (bucket != null) {
-        numberOfSubmissionsByPhase.put(phaseEnum, new ChallengeSubmissionPhaseItem(phaseEnum, bucket.getDocCount()));
-      }
-      else {
-        bucket = terms.getBucketByKey(phaseEnum.getValue().toLowerCase());
-        if (bucket != null) {
-          numberOfSubmissionsByPhase.put(phaseEnum, new ChallengeSubmissionPhaseItem(phaseEnum, bucket.getDocCount()));
+    public ChallengeSubmissionEntity submitMyResult(ChallengeSubmissionDto challengeSubmissionDto) {
+        ChallengeDto challengeDto = challengeService.findChallengeById(
+                challengeSubmissionDto.getChallengeId(), challengeSubmissionDto.getRegistrantEmail());
+        ChallengeRegistrantEntity registrant = challengeService.findRegistrantByChallengeIdAndEmail(
+                challengeSubmissionDto.getChallengeId(), challengeSubmissionDto.getRegistrantEmail());
+        if (registrant == null) {
+            registrant = challengeService.joinChallengeEntity(dozerMapper.map(challengeSubmissionDto, ChallengeRegistrantDto.class));
         }
-        else {
-          numberOfSubmissionsByPhase.put(phaseEnum, new ChallengeSubmissionPhaseItem(phaseEnum, 0L));
+        ChallengePhaseEnum activePhase = registrant.getActivePhase() == null ? ChallengePhaseEnum.REGISTRATION : registrant.getActivePhase();
+
+        ChallengeSubmissionEntity challengeSubmissionEntity = dozerMapper.map(challengeSubmissionDto, ChallengeSubmissionEntity.class);
+        ChallengeSubmissionEntityBuilder.challengeSubmissionEntity(challengeSubmissionEntity)
+                .withChallengeSubmissionId(DateTime.now().getMillis())
+                .withRegistrantId(registrant.getRegistrantId())
+                .withRegistrantName(String.format("%s %s", registrant.getRegistrantFirstName(), registrant.getRegistrantLastName()))
+                .withSubmissionDateTime(DateTimeUtils.currentDate())
+                .withSubmissionPhase(activePhase);
+        try {
+            sendConfirmationEmailToRegistrant(challengeDto, registrant, challengeSubmissionEntity);
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage(), e);
         }
-      }
+        return challengeSubmissionRepository.save(challengeSubmissionEntity);
     }
-    return numberOfSubmissionsByPhase;
-  }
+
+    private void sendConfirmationEmailToRegistrant(ChallengeDto challengeDto,
+                                                   ChallengeRegistrantEntity registrant, ChallengeSubmissionEntity challengeSubmissionEntity) throws Exception {
+        String mailSubject = registrant.getLang() == Language.vi ? confirmUserSubmissionMailSubjectVi :
+                confirmUserSubmissionMailSubjectEn;
+        Address[] recipientAddresses = InternetAddress.parse(registrant.getRegistrantEmail());
+        Template template = registrant.getLang() == Language.vi ? confirmUserSubmissionMailTemplateVi :
+                confirmUserSubmissionMailTemplateEn;
+        confirmUserSubmissionMailMessage.setRecipients(Message.RecipientType.TO, recipientAddresses);
+        StringWriter stringWriter = new StringWriter();
+
+        Map<String, Object> templateModel = new HashMap<>();
+        templateModel.put("webBaseUrl", webBaseUrl);
+        templateModel.put("submissionUrl", challengeSubmissionEntity.getSubmissionURL());
+        templateModel.put("currentPhase", challengeSubmissionEntity.getSubmissionPhase());
+        templateModel.put("challengeId", String.valueOf(challengeDto.getChallengeId()));
+        templateModel.put("challengeAlias", challengeDto.getChallengeName().replaceAll("\\W", "-"));
+        templateModel.put("challengeName", challengeDto.getChallengeName());
+
+        template.process(templateModel, stringWriter);
+        confirmUserSubmissionMailMessage.setSubject(MimeUtility.encodeText(mailSubject, "UTF-8", null));
+        confirmUserSubmissionMailMessage.setText(stringWriter.toString(), "UTF-8", "html");
+
+        stringWriter.flush();
+        confirmUserSubmissionMailMessage.saveChanges();
+        mailSender.send(confirmUserSubmissionMailMessage);
+    }
+
+    @Override
+    public Map<ChallengePhaseEnum, ChallengeSubmissionPhaseItem> countNumberOfSubmissionsByPhase(Long challengeId) {
+        Map<ChallengePhaseEnum, ChallengeSubmissionPhaseItem> numberOfSubmissionsByPhase = new HashMap<>();
+
+        NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withIndices("techlooper")
+                .withTypes("challengeSubmission").withSearchType(SearchType.COUNT);
+        searchQueryBuilder.withQuery(QueryBuilders.termQuery("challengeId", challengeId));
+        searchQueryBuilder.addAggregation(AggregationBuilders.terms("sumOfSubmissions").field("submissionPhase"));
+        Aggregations aggregations = elasticsearchTemplate.query(searchQueryBuilder.build(), SearchResponse::getAggregations);
+
+        Terms terms = aggregations.get("sumOfSubmissions");
+        for (ChallengePhaseEnum phaseEnum : CHALLENGE_PHASES) {
+            Terms.Bucket bucket = terms.getBucketByKey(phaseEnum.getValue());
+            if (bucket != null) {
+                numberOfSubmissionsByPhase.put(phaseEnum, new ChallengeSubmissionPhaseItem(phaseEnum, bucket.getDocCount()));
+            } else {
+                bucket = terms.getBucketByKey(phaseEnum.getValue().toLowerCase());
+                if (bucket != null) {
+                    numberOfSubmissionsByPhase.put(phaseEnum, new ChallengeSubmissionPhaseItem(phaseEnum, bucket.getDocCount()));
+                } else {
+                    numberOfSubmissionsByPhase.put(phaseEnum, new ChallengeSubmissionPhaseItem(phaseEnum, 0L));
+                }
+            }
+        }
+        return numberOfSubmissionsByPhase;
+    }
 }

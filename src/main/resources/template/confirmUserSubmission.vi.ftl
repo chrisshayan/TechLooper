@@ -116,12 +116,12 @@
                             <table style="border-collapse: collapse; background:#eee; margin:0 auto" cellpadding="0" cellspacing="0" align="center" border="0" class="deviceWidth" width="100%">
                                 <tr>
                                     <td align="left" style="padding:10px" class="logo">
-                                        <a href="${webBaseUrl}#/home?utm_source=dailysummary&utm_medium=techlooperlogo&utm_campaign=onlinecontest" style="border:none; outline:none" target="_blank">
+                                        <a href="${webBaseUrl}#/home?utm_source=contestantsubmission&utm_medium=techlooperlogo&utm_campaign=onlinecontest" style="border:none; outline:none" target="_blank">
                                             <img alt="TechLooper Logo" class="logo" src="${webBaseUrl}images/logo.png" style="border:none; outline:none" width="150" />
                                         </a>
                                     </td>
                                     <td style="padding:10px" align="right" class="logo">
-                                        <a href="http://www.vietnamworks.com/?utm_source=dailysummary&utm_medium=vietnamworkslogo&utm_campaign=onlinecontest" style="border:none; outline:none" target="_blank">
+                                        <a href="http://www.vietnamworks.com/?utm_source=contestantsubmission&utm_medium=vietnamworkslogo&utm_campaign=onlinecontest" style="border:none; outline:none" target="_blank">
                                             <img alt="VietnamWorks Logo" class="logo" src="http://images.vietnamworks.com/img/jobseekers/logo.png" style="border:none; outline:none" width="150" />
                                         </a>
                                     </td>
@@ -148,12 +148,12 @@
                                     <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;">
                                         <tr>
                                             <td align="center" style="padding: 10px 0 5px 0">
-                                                <h2 style="font-size: 30px; font-weight: 500; padding:0; margin: 0;">Online Challenge</h2>
+                                                <h2 style="font-size: 30px; font-weight: 500; padding:0; margin: 0;">Thử Thách Trực Tuyến</h2>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td align="center" style="margin: 0; padding: 0">
-                                                <p style="font-size: 12px; font-style: italic; line-height: 18px; margin: 0; padding: 0">Build And Grow Your Developer Community Base With Online Contests.</p>
+                                                <p style="font-size: 12px; font-style: italic; line-height: 18px; margin: 0; padding: 0">Xây Dựng Đội Ngũ Phát Triển Sản Phẩm Của Chính Bạn Thông Qua Các Cuộc Thi Trực Tuyến.</p>
                                             </td>
                                         </tr>
                                         <tr>
@@ -163,7 +163,7 @@
                                         </tr>
                                         <tr>
                                             <td align="left" style="margin: 0; padding: 0">
-                                                <p style="font-size: 14px; line-height: 18px; margin: 0; padding: 0">Thank you.</p>
+                                                <p style="font-size: 14px; line-height: 18px; margin: 0; padding: 0">Xin chào,</p>
                                             </td>
                                         </tr>
                                         <tr>
@@ -173,7 +173,7 @@
                                         </tr>
                                         <tr>
                                             <td align="left" style="margin: 0; padding: 0">
-                                                <p style="font-size: 14px; line-height: 18px; margin: 0; padding: 0"><a href="${submissionUrl}" target="_blank">Your submission</a> to phase ${currentPhase} of challenge ${challengeName} is being reviewed.</p>
+                                                <p style="font-size: 14px; line-height: 18px; margin: 0; padding: 0"><a href="${webBaseUrl}#/?action=redirectJA&utm_source=contestantsubmission&utm_medium=clicksubmission&utm_campaign=onlinecontest&targetUrl=${submissionUrl}" target="_blank">Bài gửi của bạn</a> vào giai đoạn ${currentPhase} cho thử thách <a href="${webBaseUrl}#/challenge-detail/${challengeAlias}-${challengeId}-id?utm_source=contestantsubmission&utm_medium=clickchallenge&utm_campaign=onlinecontest">${challengeName}</a> đang được xem xét.</p>
                                             </td>
                                         </tr>
                                         <tr>
