@@ -4,6 +4,17 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonV
 
     var registrant = input;
 
+    $rootScope.$on("saveChallengeCriteriaSuccessful", function (scope, challengeCriteriaDto) {
+      var criteriaDto = _.findWhere(challengeCriteriaDto.registrantCriteria, {registrantId: registrant.registrantId});
+      registrant.criteria = criteriaDto.criteria;
+    });
+
+    $rootScope.$on("changeWinnerSuccessful", function (s, rgt) {
+      if (registrant.registrantId != rgt.registrantId && registrant.reward == rgt.reward) {
+        delete registrant.reward;
+      }
+    });
+
     var calculatePoint = function (cri) {
       return (cri.weight / 100) * cri.score;// $filter('number')((cri.weight / 100) * cri.score, 1);
     }
@@ -88,6 +99,7 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonV
       }
 
       if (!registrant.activePhase) registrant.activePhase = jsonValue.challengePhase.getRegistration().enum;
+
     }
 
     registrant.acceptSubmission = function (submission) {
@@ -98,17 +110,6 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonV
     }
 
     registrant.recalculate(challengePhase);
-
-    $rootScope.$on("saveChallengeCriteriaSuccessful", function (scope, challengeCriteriaDto) {
-      var criteriaDto = _.findWhere(challengeCriteriaDto.registrantCriteria, {registrantId: registrant.registrantId});
-      registrant.criteria = criteriaDto.criteria;
-    });
-
-    $rootScope.$on("changeWinnerSuccessful", function (s, rgt) {
-      if (registrant.registrantId != rgt.registrantId && registrant.reward == rgt.reward) {
-        delete registrant.reward;
-      }
-    });
 
     registrant.$isRich = true;
     return registrant;

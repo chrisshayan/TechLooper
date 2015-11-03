@@ -222,9 +222,11 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
       utils.sendNotification(jsonValue.notifications.loaded);
     });
   };
+
   $scope.resetActivePhase = function(){
     $scope.reviewPhase($scope.registrantFunnel.currentPosition, {phase: $scope.contestDetail.currentPhase});
   };
+
   $scope.fbShare = function () {
     ga("send", {
       hitType: "event",
