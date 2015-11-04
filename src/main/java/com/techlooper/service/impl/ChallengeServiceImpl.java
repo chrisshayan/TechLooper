@@ -917,12 +917,13 @@ public class ChallengeServiceImpl implements ChallengeService {
         return result;
     }
 
-    public boolean sendEmailToRegistrant(String challengeOwner, Long challengeId, Long registrantId, EmailContent emailContent) {
+    public boolean sendEmailToRegistrant(String challengeOwner, Long registrantId, EmailContent emailContent) {
         boolean result = false;
-        if (isOwnerOfChallenge(challengeOwner, challengeId)) {
-            ChallengeRegistrantEntity registrant = challengeRegistrantRepository.findOne(registrantId);
+        ChallengeRegistrantEntity registrant = challengeRegistrantRepository.findOne(registrantId);
+        if (isOwnerOfChallenge(challengeOwner, registrant.getChallengeId())) {
+//            ChallengeRegistrantEntity registrant = challengeRegistrantRepository.findOne(registrantId);
             String csvEmails = registrant.getRegistrantEmail();
-            ChallengeDto challengeDto = findChallengeById(challengeId, null);
+            ChallengeDto challengeDto = findChallengeById(registrant.getChallengeId(), null);
             try {
                 bindEmailTemplateVariables(emailContent, challengeDto, registrant);
                 emailContent.setRecipients(InternetAddress.parse(csvEmails));

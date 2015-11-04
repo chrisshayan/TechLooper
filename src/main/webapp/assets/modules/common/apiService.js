@@ -257,9 +257,9 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
     /**
      * @see com.techlooper.controller.UserController.sendFeedbackToRegistrant
      * */
-    sendFeedbackToRegistrant: function (challengeId, registrantId, emailContent) {
+    sendFeedbackToRegistrant: function (registrantId, emailContent) {
       emailContent.language = $translate.use();
-      return $http.post("user/challenge/feedback/" + challengeId + "/" + registrantId, emailContent);
+      return $http.post("user/challenge/feedback/" + registrantId, emailContent);
     },
 
     /**

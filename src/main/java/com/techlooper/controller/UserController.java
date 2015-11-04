@@ -387,10 +387,10 @@ public class UserController {
     }
 
     @PreAuthorize("hasAuthority('EMPLOYER')")
-    @RequestMapping(value = "user/challenge/feedback/{challengeId}/{registrantId}", method = RequestMethod.POST)
+    @RequestMapping(value = "user/challenge/feedback/{registrantId}", method = RequestMethod.POST)
     public void sendFeedbackToRegistrant(HttpServletRequest request, HttpServletResponse response,
-                                         @PathVariable Long challengeId, @PathVariable Long registrantId, @RequestBody EmailContent emailContent) {
-        if (!challengeService.sendEmailToRegistrant(request.getRemoteUser(), challengeId, registrantId, emailContent)) {
+                                         @PathVariable Long registrantId, @RequestBody EmailContent emailContent) {
+        if (!challengeService.sendEmailToRegistrant(request.getRemoteUser(), registrantId, emailContent)) {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         }
     }
