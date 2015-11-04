@@ -21,6 +21,9 @@ techlooper.directive("feedbackForm", function (apiService, $timeout) {
         else {
           scope.composeEmail.content = scope.feedbackContent;
         }
+
+        console.log(scope.composeEmail.templateId);
+
         $('.feedback-loading').css('visibility', 'inherit');
 
         apiService.sendFeedbackToRegistrant(scope.composeEmail.challengeId, scope.composeEmail.registrantId, scope.composeEmail)
@@ -43,7 +46,7 @@ techlooper.directive("feedbackForm", function (apiService, $timeout) {
         scope.composeEmail.subject = '';
         scope.feedbackContent = '';
         scope.composeEmail.error = true;
-        scope.composeEmail.emailTemplate = 0;
+        scope.composeEmail.templateId = 0;
         delete scope.composeEmail.visible;
         $('.feedback-loading').css('visibility', 'hidden');
       }

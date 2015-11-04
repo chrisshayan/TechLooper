@@ -349,7 +349,14 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
      * @see com.techlooper.controller.ChallengeController.saveWinner
      * */
     saveWinner: function (registrantId, reward) {
-      return $http.post("challenge/registrant/winner", {registrantId: registrantId, reward: reward}, {transformResponse: function (d, h) {return d;}});
+      return $http.post("challenge/registrant/winner", {
+        registrantId: registrantId,
+        reward: reward
+      }, {
+        transformResponse: function (d, h) {
+          return d;
+        }
+      });
     }
   };
 
