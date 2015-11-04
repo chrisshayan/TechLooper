@@ -26,6 +26,7 @@ techlooper.directive("feedbackForm", function (apiService, $timeout, $filter) {
       }
 
       scope.send = function () {
+        console.log(scope.composeEmail);
         if (scope.feedbackContent == undefined || scope.feedbackContent == '') {
           return;
         }
