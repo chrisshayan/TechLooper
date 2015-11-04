@@ -2,9 +2,9 @@
   <div class="phase-content-details" ng-repeat="phase in registrantFunnel" ng-show="$index == selectedPhase">
     <div class="phase-description">
       <p translate="PhaseDes"
-         ng-show="$index == selectedPhase && (phase.phase.toLowerCase()) != 'winner' && (phase.phase.toLowerCase()) != 'final app'"></p>
+         ng-show="$index == selectedPhase && (phase.phase.toLowerCase()) != 'winner' && (phase.phase.toLowerCase()) != 'final'"></p>
       <p translate="FinalDes"
-         ng-show="$index == selectedPhase && (phase.phase.toLowerCase()) == 'final app'"></p>
+         ng-show="$index == selectedPhase && (phase.phase.toLowerCase()) == 'final'"></p>
       <p translate="winnerDes"
          ng-show="$index == selectedPhase && (phase.phase.toLowerCase()) == 'winner'"></p>
       <div class="announcement-winner" ng-show="$index == selectedPhase && (phase.phase.toLowerCase()) == 'winner'">
@@ -53,12 +53,12 @@
             </div>
             <div class="registration-score"
                  ng-click="sortByScore()"
-                 ng-show="(phase.phase.toLowerCase()) == 'winner' || (phase.phase.toLowerCase()) == 'final app'">
+                 ng-show="(phase.phase.toLowerCase()) == 'winner' || (phase.phase.toLowerCase()) == 'final'">
               {{'score' | translate}}
               <i class="fa"
                  ng-class="{'fa-chevron-circle-down': sortByScoreType == 'desc','fa-chevron-circle-up': sortByScoreType == 'asc'}"></i>
             </div>
-            <div class="registration-review" ng-show="(phase.phase.toLowerCase()) != 'final app' && (phase.phase.toLowerCase()) != 'winner'">
+            <div class="registration-review" ng-show="(phase.phase.toLowerCase()) != 'final' && (phase.phase.toLowerCase()) != 'winner'">
               {{'qualifiedNextPhase' | translate}}
             </div>
             <div class="registration-action">
@@ -113,12 +113,12 @@
               <a ng-click="user.showReviewSubmission()" title="{{'submissionsReviewTip' | translate}}">{{user.submissions.length || 0}}</a>
             </div>
             <div class="registration-score"
-                 ng-show="(phase.phase.toLowerCase()) == 'winner' || (phase.phase.toLowerCase()) == 'final app'">
+                 ng-show="(phase.phase.toLowerCase()) == 'winner' || (phase.phase.toLowerCase()) == 'final'">
               <div class="label-col" translate="score"></div>
               <a ng-click="user.showScore()">{{user.savedTotalPoint}}</a>
             </div>
 
-            <div class="registration-review" ng-show="(phase.phase.toLowerCase()) != 'final app' && (phase.phase.toLowerCase()) != 'winner'">
+            <div class="registration-review" ng-show="(phase.phase.toLowerCase()) != 'final' && (phase.phase.toLowerCase()) != 'winner'">
               <div class="label-col" translate="qualifiedNextPhase"></div>
               <a ng-show="user.disqualified == null && user.qualified == null"
                  ng-click="user.showQualification()"
