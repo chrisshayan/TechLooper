@@ -3,7 +3,8 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
     if (!input || input.$isRich) return input;
 
     var challengeDetail = input;
-    var index = 0;
+    //var index = 0;
+    //challengeDetail.criteriaIndex = 0;
 
     challengeDetail.refreshCriteria = function () {
       apiService.getContestDetail(challengeDetail.challengeId)
@@ -31,7 +32,7 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
 
     challengeDetail.addCriteria = function () {
       challengeDetail.criteria = challengeDetail.criteria || [];
-      challengeDetail.criteria.push({index: index++});
+      challengeDetail.criteria.push({index: challengeDetail.criteria.length++});
     }
 
     challengeDetail.removeCriteria = function (cri) {
