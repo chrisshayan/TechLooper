@@ -5,7 +5,6 @@ import com.techlooper.entity.ChallengeRegistrantEntity;
 import com.techlooper.entity.ChallengeSubmissionEntity;
 import com.techlooper.entity.ChallengeSubmissionEntity.ChallengeSubmissionEntityBuilder;
 import com.techlooper.model.*;
-import com.techlooper.repository.elasticsearch.ChallengeRepository;
 import com.techlooper.repository.elasticsearch.ChallengeSubmissionRepository;
 import com.techlooper.service.ChallengeService;
 import com.techlooper.service.ChallengeSubmissionService;
@@ -84,8 +83,8 @@ public class ChallengeSubmissionServiceImpl implements ChallengeSubmissionServic
     @Resource
     private JavaMailSender mailSender;
 
-    @Resource
-    private ChallengeRepository challengeRepository;
+    @Value("${mail.techlooper.reply_to}")
+    private String techlooperReplyTo;
 
     public ChallengeSubmissionEntity submitMyResult(ChallengeSubmissionDto challengeSubmissionDto) {
         ChallengeDto challengeDto = challengeService.findChallengeById(
@@ -120,6 +119,7 @@ public class ChallengeSubmissionServiceImpl implements ChallengeSubmissionServic
         Template template = registrant.getLang() == Language.vi ? confirmUserSubmissionMailTemplateVi :
                 confirmUserSubmissionMailTemplateEn;
         confirmUserSubmissionMailMessage.setRecipients(Message.RecipientType.TO, recipientAddresses);
+        confirmUserSubmissionMailMessage.setReplyTo(InternetAddress.parse(techlooperReplyTo));
         StringWriter stringWriter = new StringWriter();
 
         Map<String, Object> templateModel = new HashMap<>();

@@ -104,7 +104,6 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
       if (phase) {
         challengeDetail.recalculateRegistrantRemainsPhases(phase);
       }
-      console.log(challengeDetail);
     }
 
     // see jsonValue.challengePhase
