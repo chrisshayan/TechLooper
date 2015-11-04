@@ -2,11 +2,11 @@
      ng-repeat="phase in registrantFunnel" ng-click="reviewPhase($index, phase, contestDetail.nextPhase)"
      ng-class="{col2: registrantFunnel.length == 2, col3: registrantFunnel.length == 3, col4: registrantFunnel.length == 4, col5: registrantFunnel.length == 5, col6: registrantFunnel.length == 6, active: $index == selectedPhase}">
   <div class="current-phase"
-       ng-class="{active: (phase.phase | uppercase) == contestDetail.currentPhase}">
+       ng-class="{active: (phase.phase | uppercase) == contestDetail.currentPhase, noDaysLeft: contestDetail.currentPhaseDaysLeft <=0}">
     <div class="current-phase-text">
       <div class="arrow-current"></div><span translate="currentPhase"></span>
-      <span class="time-left" ng-show="contestDetail.currentPhaseDaysLeft > 0 && phase != 'WINNER'" translate="daysLeft" translate-value-days="{{contestDetail.currentPhaseDaysLeft}}"></span>
     </div>
+    <div class="time-left" ng-show="contestDetail.currentPhaseDaysLeft > 0 && phase != 'WINNER'" translate="daysLeft" translate-value-days="{{contestDetail.currentPhaseDaysLeft}}"></div>
   </div>
   <div class="phase-name {{phase.phase.toLowerCase()}}"
        ng-class="{pass: $index <= registrantFunnel.currentPosition}">
