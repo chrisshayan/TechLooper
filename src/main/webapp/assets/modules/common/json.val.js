@@ -1037,7 +1037,8 @@ techlooper.factory("jsonValue", function () {
         {enum: "WINNER"}
       ],
 
-      getRegistration: function () {return instance.challengePhase.values[0]},
+      getRegistration: function () {return instance.challengePhase.values[0];},
+      getLastPhase: function () {return instance.challengePhase.values[4];},
 
       getEnum: function (name) {
         var found = undefined;

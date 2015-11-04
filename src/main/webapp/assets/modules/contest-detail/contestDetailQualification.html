@@ -3,10 +3,11 @@
     <p translate="acceptDescription" translate-value-current="{{registrant.activePhase.toLowerCase() | translate}}"
        translate-value-next="{{challenge.nextPhase.toLowerCase() | translate}}"></p>
     <div>
-      <!--<ul>-->
+      <ul>
+        <li ng-repeat="phase in challenge.registrantRemainsPhases">{{phase}}</li>
         <!--<li><input type="radio" name="nextPhase"/><label> {{registrant.activePhase | progress: 'registrantActivePhaseTitle'}}</label></li>-->
         <!--<li><input type="radio" name="nextPhase"/><label> {{challenge.nextPhase | progress: 'challengePhaseTitle'}}</label></li>-->
-      <!--</ul>-->
+      </ul>
     </div>
     <a ng-click="registrant.qualify()" translate="yes" class="btn btn-primary btn-flat"></a>
     <a ng-click="registrant.hide()" translate="no" class="btn btn-primary btn-flat gray"></a>
