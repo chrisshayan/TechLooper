@@ -34,8 +34,6 @@ techlooper.directive("feedbackForm", function (apiService, $timeout, $filter) {
           scope.composeEmail.content = scope.feedbackContent;
         }
 
-        //console.log(scope.composeEmail.templateId);
-
         $('.feedback-loading').css('visibility', 'inherit');
 
         apiService.sendFeedbackToRegistrant(scope.composeEmail.challengeId, scope.composeEmail.registrantId, scope.composeEmail)
