@@ -11,7 +11,7 @@
         <div class="form-group">
           <label class="col-sm-2 control-label" translate="template"></label>
           <div class="col-sm-10">
-            <selectize name="composeEmail.templateId" ng-model="composeEmail.templateId"
+            <selectize ng-model="composeEmail.templateId"
                        config="$root.resourcesService.emailTemplateConfig" ng-change="loadEmailTemplate(composeEmail.templateId)"
                        options="$root.resourcesService.emailTemplateConfig.options"></selectize>
           </div>
