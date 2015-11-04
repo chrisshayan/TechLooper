@@ -839,5 +839,6 @@
   "submissionToPhase": "Gửi vào giai đoạn:",
   "submissionsReviewTip": "Xem bài",
   "announceWinnerToAllContestants": "Thông báo người chiến thắng",
-  "daysLeft": "Còn lại {{days}} ngày"
+  "daysLeft": "Còn lại {{days}} ngày",
+  "qualifyToNextPhaseConfirm": "Bạn có muốn chọn thí sinh này từ vòng <strong>{{currentPhase}}</strong> vào vòng"
 }
