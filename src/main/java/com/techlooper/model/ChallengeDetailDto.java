@@ -64,6 +64,16 @@ public class ChallengeDetailDto {
 
   private Set<ChallengeWinner> winners;
 
+  private List<ChallengeRegistrantFunnelItem> phaseItems;
+
+  public List<ChallengeRegistrantFunnelItem> getPhaseItems() {
+    return phaseItems;
+  }
+
+  public void setPhaseItems(List<ChallengeRegistrantFunnelItem> phaseItems) {
+    this.phaseItems = phaseItems;
+  }
+
   public Set<ChallengeWinner> getWinners() {
     return winners;
   }

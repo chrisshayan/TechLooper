@@ -1004,6 +1004,7 @@ public class ChallengeServiceImpl implements ChallengeService {
             if (!isAuthor) {
                 challengeDetailDto.setCriteria(null);
             }
+            challengeDetailDto.setPhaseItems(this.getChallengeRegistrantFunnel(challengeId, loginEmail));
             return challengeDetailDto;
         }
         return null;
