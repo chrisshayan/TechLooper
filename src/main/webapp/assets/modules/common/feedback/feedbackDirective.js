@@ -1,4 +1,4 @@
-techlooper.directive("feedbackForm", function (apiService, $timeout) {
+techlooper.directive("feedbackForm", function (apiService, $timeout, $filter) {
   return {
     restrict: "E",
     replace: true,
@@ -7,6 +7,17 @@ techlooper.directive("feedbackForm", function (apiService, $timeout) {
       composeEmail: "="
     },
     link: function (scope, element, attr, ctrl, composeEmail) {
+      //scope.emailTemplatesConfig = {maxItems: 1, placeholder: $filter("translate")("exChooseATemplate")};
+
+      apiService.getAvailableEmailTemplates()
+        .success(function (templateList) {
+          _.each(templateList, function (template) {
+            template.text = $filter('translate')(template.templateName);
+            template.value = template.templateId;
+          });
+          scope.emailTemplates = templateList;
+        });
+
       if (scope.composeEmail.registrantLastName) {
         scope.composeEmail.names = scope.composeEmail.registrantFirstName + ' ' + scope.composeEmail.registrantLastName;
       }
@@ -22,18 +33,18 @@ techlooper.directive("feedbackForm", function (apiService, $timeout) {
           scope.composeEmail.content = scope.feedbackContent;
         }
 
-        console.log(scope.composeEmail.templateId);
+        //console.log(scope.composeEmail.templateId);
 
         $('.feedback-loading').css('visibility', 'inherit');
 
         apiService.sendFeedbackToRegistrant(scope.composeEmail.challengeId, scope.composeEmail.registrantId, scope.composeEmail)
-          .success(function(){
+          .success(function () {
             $timeout(function () {
               $('.feedback-loading').css('visibility', 'hidden');
               scope.cancel();
             }, 1200);
           })
-          .error(function(){
+          .error(function () {
             scope.composeEmail.error = false;
             $timeout(function () {
               $('.feedback-loading').css('visibility', 'hidden');
@@ -51,13 +62,12 @@ techlooper.directive("feedbackForm", function (apiService, $timeout) {
         $('.feedback-loading').css('visibility', 'hidden');
       }
 
-      scope.loadEmailTemplate = function (templateId) {
-        apiService.getTemplateById(templateId)
-          .success(function (template) {
-            scope.composeEmail.subject = template.subject;
-            scope.feedbackContent = template.body;
-          })
+      scope.loadEmailTemplate = function () {
+        var template = _.findWhere(scope.emailTemplates, {templateId: parseInt(scope.composeEmail.templateId)});
+        scope.composeEmail.subject = template.subject;
+        scope.feedbackContent = template.body;
       }
+
     }
   }
 });
