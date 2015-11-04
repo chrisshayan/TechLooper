@@ -9,6 +9,7 @@ techlooper
         challenge: "="
       },
       link: function (scope, element, attr, ctrl) {
+        scope.nextPhase = '';
         var showView = function (view) {
           if ($rootScope.$eval("lastRegistrant.visible")) {
             delete $rootScope.lastRegistrant.visible;
@@ -48,6 +49,12 @@ techlooper
         });
 
         scope.registrant.qualify = function () {
+          if(scope.registrant.nextPhase == undefined){
+            scope.selectionNextPhase = false;
+            return;
+          }else{
+            scope.selectionNextPhase = true;
+          }
           if (scope.registrant.activePhase == scope.challenge.nextPhase) {
             delete scope.registrant.visible;
             return;
@@ -55,13 +62,17 @@ techlooper
 
           delete scope.registrant.disqualified;
           delete scope.registrant.disqualifiedReason;
-          scope.registrant.activePhase = scope.challenge.nextPhase;
+          if(scope.challenge.registrantRemainsPhases.length > 1){
+            scope.registrant.activePhase = scope.registrant.nextPhase.toUpperCase();
+          }else{
+            scope.registrant.activePhase = scope.challenge.nextPhase;
+          }
           apiService.saveChallengeRegistrant(scope.registrant)
             .success(function () {
               apiService.acceptChallengeRegistrant(scope.registrant.registrantId)
-                .success(function (registrant) {
-                  $rootScope.$broadcast("update-funnel", registrant);
-                });
+              .success(function (registrant) {
+                $rootScope.$broadcast("update-funnel", registrant);
+              });
             });
           scope.registrant.qualified = true;
 

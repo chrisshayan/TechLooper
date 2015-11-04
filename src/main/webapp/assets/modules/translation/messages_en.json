@@ -835,5 +835,6 @@
   "submissionToPhase": "Submission to phase:",
   "submissionsReviewTip": "Review",
   "announceWinnerToAllContestants": "Announcement winner to all contestants",
-  "daysLeft": "{{days}} days left"
+  "daysLeft": "{{days}} days left",
+  "qualifyToNextPhaseConfirm": "Are you sure you want to select this contestant from <strong>{{currentPhase}}</strong> to phase"
 }

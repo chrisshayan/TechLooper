@@ -864,12 +864,12 @@ public class ChallengeServiceImpl implements ChallengeService {
             if (EmailService.VAR_MAIL_SIGNATURE.equals(variable)) {
                 result = result.replace(EmailService.VAR_MAIL_SIGNATURE, emailSettingDto.getEmailSignature());
             }
-            if (EmailService.VAR_CONTEST_SECOND_PRIZE.equals(variable)) {
+            if (EmailService.VAR_CONTEST_SECOND_PRIZE.equals(variable) && challengeDto.getSecondPlaceReward() != null) {
                 String formatPrize = currencyService.formatCurrency(Double.valueOf(challengeDto.getSecondPlaceReward()), Locale.US);
                 formatPrize = StringUtils.isNotEmpty(formatPrize) ? formatPrize : "";
                 result = result.replace(EmailService.VAR_CONTEST_SECOND_PRIZE, formatPrize);
             }
-            if (EmailService.VAR_CONTEST_THIRD_PRIZE.equals(variable)) {
+            if (EmailService.VAR_CONTEST_THIRD_PRIZE.equals(variable) && challengeDto.getThirdPlaceReward() != null) {
                 String formatPrize = currencyService.formatCurrency(Double.valueOf(challengeDto.getThirdPlaceReward()), Locale.US);
                 formatPrize = StringUtils.isNotEmpty(formatPrize) ? formatPrize : "";
                 result = result.replace(EmailService.VAR_CONTEST_THIRD_PRIZE, formatPrize);
@@ -918,6 +918,7 @@ public class ChallengeServiceImpl implements ChallengeService {
     }
 
     public boolean sendEmailToRegistrant(String challengeOwner, Long challengeId, Long registrantId, EmailContent emailContent) {
+        boolean result = false;
         if (isOwnerOfChallenge(challengeOwner, challengeId)) {
             ChallengeRegistrantEntity registrant = challengeRegistrantRepository.findOne(registrantId);
             String csvEmails = registrant.getRegistrantEmail();
@@ -925,12 +926,12 @@ public class ChallengeServiceImpl implements ChallengeService {
             try {
                 bindEmailTemplateVariables(emailContent, challengeDto, registrant);
                 emailContent.setRecipients(InternetAddress.parse(csvEmails));
+                result = emailService.sendEmail(emailContent);
             } catch (AddressException e) {
                 LOGGER.debug("Can not parse email address", e);
-                return false;
             }
         }
-        return emailService.sendEmail(emailContent);
+        return result;
     }
 
     @Override
