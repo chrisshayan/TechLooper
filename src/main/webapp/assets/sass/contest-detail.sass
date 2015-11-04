@@ -1151,28 +1151,27 @@
             text-align: center
             width: 100%
             clear: both
-            height: 45px
+            height: 28px
             padding: 0 5px 0 0
             display: block
-            i
-              font-size: 22px
-              margin: auto
-              font-weight: 300
-              cursor: pointer
-              width: 100%
-              clear: both
-              display: none
-            span
+            font-size: 12px
+            .arrow-current
+              background: url("../images/arrow-current.gif") left 4px no-repeat
+              width: 20px
+              height: 28px
+              float: left
+            .current-phase-text
               font-size: 14px
-              width: 100%
+              width: auto
               clear: both
               text-align: center
               float: left
               display: none
-            span.time-left
+            .time-left
               font-size: 12px
+              color: red
           .current-phase.active
-            span
+            .current-phase-text
               display: inline-block
             i
               display: inline-block
