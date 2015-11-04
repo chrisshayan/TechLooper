@@ -273,35 +273,35 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
     $scope.getRegistrants(registrant.challengeId);
   });
 
-  $scope.composeEmail = {
-    send: function () {
-      $scope.composeEmail.content = $('.summernote').code();
-      if($scope.composeEmail.content == '<p><br></p>'){
-        return;
-      }
-      if ($scope.composeEmail.action == "challenge-daily-mail-registrants") {
-        apiService.sendEmailToDailyChallengeRegistrants($scope.composeEmail.challengeId, $scope.composeEmail.now, $scope.composeEmail)
-            .success(function(){
-              $scope.composeEmail.cancel();
-            })
-            .error(function(){
-              $scope.composeEmail.error = false;
-            });
-      }
-      else if ($scope.composeEmail.action == "feedback-registrant") {
-        apiService.sendFeedbackToRegistrant($scope.composeEmail.challengeId, $scope.composeEmail.registrantId, $scope.composeEmail)
-            .success(function(){
-              $scope.composeEmail.cancel();
-            })
-            .error(function(){
-              $scope.composeEmail.error = false;
-            });
-      }
-    },
-    cancel: function () {
-      $('.modal-backdrop').remove();
-    }
-  };
+  //$scope.composeEmail = {
+  //  send: function () {
+  //    $scope.composeEmail.content = $('.summernote').code();
+  //    if($scope.composeEmail.content == '<p><br></p>'){
+  //      return;
+  //    }
+  //    if ($scope.composeEmail.action == "challenge-daily-mail-registrants") {
+  //      apiService.sendEmailToDailyChallengeRegistrants($scope.composeEmail.challengeId, $scope.composeEmail.now, $scope.composeEmail)
+  //          .success(function(){
+  //            $scope.composeEmail.cancel();
+  //          })
+  //          .error(function(){
+  //            $scope.composeEmail.error = false;
+  //          });
+  //    }
+  //    else if ($scope.composeEmail.action == "feedback-registrant") {
+  //      apiService.sendFeedbackToRegistrant($scope.composeEmail.challengeId, $scope.composeEmail.registrantId, $scope.composeEmail)
+  //          .success(function(){
+  //            $scope.composeEmail.cancel();
+  //          })
+  //          .error(function(){
+  //            $scope.composeEmail.error = false;
+  //          });
+  //    }
+  //  },
+  //  cancel: function () {
+  //    $('.modal-backdrop').remove();
+  //  }
+  //};
 
 });
 
