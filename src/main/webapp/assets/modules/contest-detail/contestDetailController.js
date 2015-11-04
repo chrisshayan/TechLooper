@@ -1,5 +1,5 @@
 techlooper.controller('contestDetailController', function ($scope, apiService, localStorageService, $location, $routeParams,
-                                                           jsonValue, $translate, utils, $filter, $timeout, resourcesService, $timeout) {
+                                                           jsonValue, $translate, utils, $filter, $timeout, resourcesService, $rootScope) {
   utils.sendNotification(jsonValue.notifications.loading);
   $scope.currentPage = 1;
   $scope.selectedPhase = 0;
@@ -34,6 +34,7 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
 
     apiService.getChallengeRegistrantsByPhase(contestId, phaseName).success(function (data) {
       $scope.registrantPhase = data;
+      $scope.contestDetail.recalculate(phaseName);
       switch (phaseName) {
         case "REGISTRATION":
           $scope.sortByRegistrationDate();
@@ -204,6 +205,7 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
     apiService.getRegistrantFunnel(contestId)
       .success(function (data) {
         $scope.registrantFunnel = data;
+
         $.each($scope.registrantFunnel, function (i, item) {
           if (item.phase == $scope.contestDetail.currentPhase) {
             $scope.registrantFunnel.currentPosition = i;
@@ -300,5 +302,6 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
       $('.modal-backdrop').remove();
     }
   };
+
 });
 

@@ -93,15 +93,41 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
         });
     }
 
-    challengeDetail.recalculate = function() {
+    challengeDetail.recalculate = function(phase) {
       //see jsonValue.challengePhase
       var prop = jsonValue.challengePhase[challengeDetail.currentPhase].challengeProp;
       if (prop) {
-        challengeDetail.currentPhaseDaysLeft = moment(challengeDetail[prop], jsonValue.dateFormat).diff(moment(), "days");
+        var date = moment(challengeDetail[prop], jsonValue.dateFormat);
+        challengeDetail.currentPhaseDaysLeft = date.diff(moment(0, "HH"), "days");
+      }
+
+      if (phase) {
+        challengeDetail.recalculateRegistrantRemainsPhases(phase);
+      }
+      console.log(challengeDetail);
+    }
+
+    // see jsonValue.challengePhase
+    challengeDetail.recalculateRegistrantRemainsPhases = function(phase) {
+      challengeDetail.registrantRemainsPhases = [];
+      if (!challengeDetail.phaseItems || phase == jsonValue.challengePhase.getLastPhase().enum) return;
+
+      var alreadyNext = false;
+      for (var i = 0; i < challengeDetail.phaseItems.length; i++) {
+        if (challengeDetail.phaseItems[i].phase == phase) {
+          for (var j = i + 1; j < challengeDetail.phaseItems.length; j++) {
+            if (alreadyNext) break;
+            challengeDetail.registrantRemainsPhases.push(challengeDetail.phaseItems[j].phase);
+            if (challengeDetail.phaseItems[j].phase == challengeDetail.nextPhase) {
+              alreadyNext = true;
+            }
+          }
+          break;
+        }
       }
     }
 
-    challengeDetail.recalculate();
+    //challengeDetail.recalculate();
 
     challengeDetail.$isRich = true;
     return challengeDetail;
