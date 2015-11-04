@@ -1,7 +1,7 @@
 <div class="feedback-block">
-  <div class="mail-box feedback-form">
-    <div class="mail-body mail-subject">
-      <form class="form-horizontal" method="get" name="feedbackForm">
+  <ng-form class="form-horizontal" novalidate name="feedbackForm" autocomplete="off" isolate-form>
+    <div class="mail-box feedback-form">
+      <div class="mail-body mail-subject">
         <div class="form-group">
           <label class="col-sm-2 control-label" translate="mailTo"></label>
 
@@ -26,20 +26,24 @@
             <input type="text" class="form-control" ng-model="composeEmail.subject">
           </div>
         </div>
-      </form>
-    </div>
-    <div class="mail-text h-200">
-      <summernote ng-model="feedbackContent" focus config="$root.jsonValue.summerNoteConfig"></summernote>
-      <div class="send-mail-error" ng-show="!composeEmail.error" data-ng-init="composeEmail.error = true">
-        <p translate="cannotSendMail"></p>
+
       </div>
+      <div class="mail-text h-200">
+        <summernote name="content" ng-model="composeEmail.content" focus config="$root.jsonValue.summerNoteConfig"
+                    ng-required="true"></summernote>
+        <div class="send-mail-error" ng-show="!composeEmail.error" data-ng-init="composeEmail.error = true">
+          <p translate="cannotSendMail"></p>
+        </div>
+      </div>
+      <div class="mail-body text-right tooltip-demo email-footer">
+        <a class="btn btn-sm btn-primary" title="{{'mailSend' | translate}}" ng-click="send()"><i
+          class="fa fa-reply"></i>
+          <span translate="mailSend"></span></a>
+        <a class="btn btn-sm btn-primary" title="{{'cancel' | translate}}" ng-click="cancel()"><i
+          class="fa fa-times"></i>
+          <span translate="cancel"></span></a>
+      </div>
+      <div class="feedback-loading"></div>
     </div>
-    <div class="mail-body text-right tooltip-demo email-footer">
-      <a class="btn btn-sm btn-primary" title="{{'mailSend' | translate}}" ng-click="send()"><i class="fa fa-reply"></i>
-        <span translate="mailSend"></span></a>
-      <a class="btn btn-sm btn-primary" title="{{'cancel' | translate}}" ng-click="cancel()"><i class="fa fa-times"></i>
-        <span translate="cancel"></span></a>
-    </div>
-    <div class="feedback-loading"></div>
-  </div>
+  </ng-form>
 </div>
