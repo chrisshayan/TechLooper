@@ -47,6 +47,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import static com.techlooper.util.DateTimeUtils.*;
 import static java.util.stream.Collectors.*;
@@ -229,7 +230,7 @@ public class ChallengeServiceImpl implements ChallengeService {
 
     @Override
     public void sendEmailNotifyRegistrantAboutChallengeTimeline(ChallengeEntity challengeEntity,
-             ChallengeRegistrantEntity challengeRegistrantEntity, ChallengePhaseEnum challengePhase, boolean isSpecificDayNotification) throws Exception {
+                                                                ChallengeRegistrantEntity challengeRegistrantEntity, ChallengePhaseEnum challengePhase, boolean isSpecificDayNotification) throws Exception {
         String mailSubject = getNotifyRegistrantChallengeTimelineSubject(challengeRegistrantEntity, challengePhase);
         Address[] recipientAddresses = InternetAddress.parse(challengeRegistrantEntity.getRegistrantEmail());
         Template template = challengeRegistrantEntity.getLang() == Language.vi ?
@@ -843,8 +844,8 @@ public class ChallengeServiceImpl implements ChallengeService {
     private void bindEmailTemplateVariables(EmailContent emailContent, ChallengeDto challengeDto, ChallengeRegistrantEntity registrant) {
         Long templateId = emailContent.getTemplateId();
         EmailTemplateDto emailTemplateDto = emailService.getTemplateById(templateId);
-        String subject = emailTemplateDto.getSubject();
-        String body = emailTemplateDto.getBody();
+        String subject = emailContent.getSubject();
+        String body = emailContent.getContent();
         EmailSettingDto emailSettingDto = employerService.findEmployerEmailSetting(challengeDto.getAuthorEmail());
         // Process email subject
         subject = processEmailVariables(challengeDto, registrant, emailSettingDto, subject, emailTemplateDto.getSubjectVariables());
@@ -933,10 +934,18 @@ public class ChallengeServiceImpl implements ChallengeService {
 
     public boolean sendEmailToRegistrant(String challengeOwner, Long registrantId, EmailContent emailContent) {
         boolean result = false;
+        final Long ANNOUNCE_WINNER_EMAIL_TEMPLATE_EN = 4L;
+        final Long ANNOUNCE_WINNER_EMAIL_TEMPLATE_VI = 104L;
         ChallengeRegistrantEntity registrant = challengeRegistrantRepository.findOne(registrantId);
         if (isOwnerOfChallenge(challengeOwner, registrant.getChallengeId())) {
-//            ChallengeRegistrantEntity registrant = challengeRegistrantRepository.findOne(registrantId);
             String csvEmails = registrant.getRegistrantEmail();
+
+            if (emailContent.getTemplateId() == ANNOUNCE_WINNER_EMAIL_TEMPLATE_EN
+                || emailContent.getTemplateId() == ANNOUNCE_WINNER_EMAIL_TEMPLATE_VI) {
+                csvEmails = challengeRegistrantService.findRegistrantsByChallengeId(registrant.getChallengeId()).stream()
+                        .map(challengeRegistrant -> challengeRegistrant.getRegistrantEmail()).collect(Collectors.joining(","));
+            }
+
             ChallengeDto challengeDto = findChallengeById(registrant.getChallengeId(), null);
             try {
                 bindEmailTemplateVariables(emailContent, challengeDto, registrant);
@@ -1061,11 +1070,10 @@ public class ChallengeServiceImpl implements ChallengeService {
     }
 
     public ChallengeRegistrantDto acceptRegistrant(String ownerEmail, Long registrantId, ChallengePhaseEnum activePhase) {
-        ChallengeRegistrantEntity registrant = challengeRegistrantRepository.findOne(registrantId);
-        if (registrant == null) {
-            return null;
-        }
+        Iterator<ChallengeRegistrantEntity> registrantIter = challengeRegistrantRepository.search(QueryBuilders.termQuery("registrantId", registrantId)).iterator();
+        if (!registrantIter.hasNext()) return null;
 
+        ChallengeRegistrantEntity registrant = registrantIter.next();
         ChallengeEntity challenge = challengeRepository.findOne(registrant.getChallengeId());
         if (!ownerEmail.equalsIgnoreCase(challenge.getAuthorEmail())) {
             return null;
