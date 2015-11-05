@@ -11,13 +11,17 @@ techlooper.directive("feedbackForm", function (apiService, $timeout, resourcesSe
     link: function (scope, element, attr, ctrl) {
       resourcesService.getEmailTemplates().then(function (eTemplates) {
         scope.emailTemplates = eTemplates;
+        scope.setDefaultValue();
+      });
+
+      scope.setDefaultValue = function() {
         if (scope.announceWinner == true) {
           var template = _.findWhere(scope.emailTemplates, {templateId: 104});
           if (!template) template = _.findWhere(scope.emailTemplates, {templateId: 4});
           scope.composeEmail.templateId = template.templateId;
           scope.loadEmailTemplate();
         }
-      });
+      }
 
       scope.composeEmail = {};
       if (scope.announceWinner != true) {
@@ -58,6 +62,7 @@ techlooper.directive("feedbackForm", function (apiService, $timeout, resourcesSe
         //scope.composeEmail.error = true;
         //scope.composeEmail = {names: scope.composeEmail.names};
         // scope.composeEmail.templateId = 0;
+        scope.setDefaultValue();
         scope.hide();
         //delete scope.composeEmail.visible;
         $('.feedback-loading').css('visibility', 'hidden');
