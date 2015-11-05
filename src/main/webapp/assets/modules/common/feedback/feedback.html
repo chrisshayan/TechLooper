@@ -31,9 +31,9 @@
       <div class="mail-text h-200">
         <summernote name="content" ng-model="composeEmail.content" focus config="$root.jsonValue.summerNoteConfig"
                     ng-required="true"></summernote>
-        <div class="send-mail-error" ng-show="!composeEmail.error" data-ng-init="composeEmail.error = true">
-          <p translate="cannotSendMail"></p>
-        </div>
+        <!--<div class="send-mail-error" ng-show="!composeEmail.error" data-ng-init="composeEmail.error = true">-->
+          <!--<p translate="cannotSendMail"></p>-->
+        <!--</div>-->
       </div>
       <div class="mail-body text-right tooltip-demo email-footer">
         <a class="btn btn-sm btn-primary" title="{{'mailSend' | translate}}" ng-click="send()"><i

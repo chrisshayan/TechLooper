@@ -1,4 +1,4 @@
-techlooper.factory("resourcesService", function ($translate, $q, apiService) {
+techlooper.factory("resourcesService", function ($translate, $q, apiService, $filter) {
   var registrantsFilterOptions = [
     {translate: "allContestants", id: "registrantId"},
     {translate: "allSubmission", id: "challengeSubmission"}
@@ -114,6 +114,7 @@ techlooper.factory("resourcesService", function ($translate, $q, apiService) {
     estimatedDurationConfig: $.extend(true, {}, {options: estimatedDurationOptions}, idSelectize("estimatedDurationConfig")),
     estimatedWorkloadConfig: $.extend(true, {}, {options: estimatedWorkloadOptions}, idSelectize("estimatedWorkloadConfig")),
     emailTemplateConfig: $.extend(true, {}, {options: emailTemplateOptions}, idSelectize("emailTemplateConfig")),
+
     inOptions: function (title, config) {
       var index = -1;
       $.each(config.options, function (i, opt) {
@@ -124,7 +125,8 @@ techlooper.factory("resourcesService", function ($translate, $q, apiService) {
       });
       return index;
     },
-    getOption: function(id, config) {
+
+    getOption: function (id, config) {
       var option = undefined;
       $.each(config.options, function (i, opt) {
         if (opt.id === id) {
@@ -133,9 +135,25 @@ techlooper.factory("resourcesService", function ($translate, $q, apiService) {
         }
       });
       return option;
-    }
+    },
 
-    //initialize: function() {}
+    getEmailTemplates: function() {
+      var deffer = $q.defer();
+      if (instance.emailTemplates) {
+        deffer.resolve(instance.emailTemplates);
+        return deffer.promise;
+      }
+      apiService.getAvailableEmailTemplates()
+        .success(function (templateList) {
+          _.each(templateList, function (template) {
+            template.text = $filter('translate')(template.templateName);
+            template.value = template.templateId;
+          });
+          instance.emailTemplates = templateList;
+          deffer.resolve(instance.emailTemplates);
+        });
+      return deffer.promise;
+    }
   }
 
   var translations = [
@@ -174,7 +192,7 @@ techlooper.factory("resourcesService", function ($translate, $q, apiService) {
           //console.log(array);
           //
           //return (item.ins.options = array);
-          return ;
+          return;
         }
         $translate(row.translate).then(function (translate) {
           row.title = translate;
