@@ -1,5 +1,6 @@
 package com.techlooper.service;
 
+import com.techlooper.dto.ChallengeWinnerDto;
 import com.techlooper.entity.ChallengeRegistrantDto;
 import com.techlooper.entity.ChallengeRegistrantEntity;
 import com.techlooper.model.ChallengePhaseEnum;
@@ -22,7 +23,7 @@ public interface ChallengeRegistrantService {
 
     Set<ChallengeRegistrantDto> findWinnerRegistrantsByChallengeId(Long challengeId);
 
-    boolean saveWinner(ChallengeWinner challengeWinner, String loginUser, boolean removeWinner);
+    Set<ChallengeWinner> saveWinner(ChallengeWinnerDto challengeWinner, String loginUser);
 
     List<ChallengeRegistrantEntity> findRegistrantsByChallengeId(Long challengeId);
 
