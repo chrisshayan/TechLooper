@@ -27,8 +27,8 @@
     <p translate="submissionsNumber"
        translate-value-number="{{phase.submission}}" ng-show="phase.submission > 0 && (phase.phase.toLowerCase()) != 'winner'"></p>
     <p translate="finalistNumber"
-       translate-value-number="{{phase.participant}}" ng-show="phase.participant > 0 && (phase.phase.toLowerCase()) == 'winner'"></p>
+       translate-value-number="{{contestDetail.countWinnerPaticipants}}" ng-show="contestDetail.countWinnerPaticipants > 0 && (phase.phase.toLowerCase()) == 'winner'"></p>
     <p translate="winnersNumber"
-       translate-value-number="{{contestDetail.winners.length}}"  ng-show="phase.submission > 0 && (phase.phase.toLowerCase()) == 'winner'"></p>
+       translate-value-number="{{contestDetail.winners.length}}"  ng-show="contestDetail.winners.length > 0 && (phase.phase.toLowerCase()) == 'winner'"></p>
   </div>
 </div>

@@ -66,7 +66,7 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
     //@see jsonValue.rewards
     challengeDetail.save1stWinner = function (registrant) {
       apiService.saveWinner(registrant.registrantId, jsonValue.rewards.firstPlaceEnum(), !registrant.firstAwarded)
-        .success(function(winners) {
+        .success(function (winners) {
           challengeDetail.winners = winners;
           $rootScope.$broadcast("changeWinnerSuccessful", challengeDetail)
         });
@@ -74,7 +74,7 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
 
     challengeDetail.save2ndWinner = function (registrant) {
       apiService.saveWinner(registrant.registrantId, jsonValue.rewards.secondPlaceEnum(), !registrant.secondAwarded)
-        .success(function(winners) {
+        .success(function (winners) {
           challengeDetail.winners = winners;
           $rootScope.$broadcast("changeWinnerSuccessful", challengeDetail)
         });
@@ -82,29 +82,41 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
 
     challengeDetail.save3rdWinner = function (registrant) {
       apiService.saveWinner(registrant.registrantId, jsonValue.rewards.thirdPlaceEnum(), !registrant.thirdAwarded)
-        .success(function(winners) {
+        .success(function (winners) {
           challengeDetail.winners = winners;
           $rootScope.$broadcast("changeWinnerSuccessful", challengeDetail)
         });
     }
 
-    challengeDetail.recalculate = function(phase) {
+    challengeDetail.recalculate = function (phase, registrants) {
       //see jsonValue.challengePhase
       var prop = jsonValue.challengePhase[challengeDetail.currentPhase].challengeProp;
       if (prop) {
         var date = moment(challengeDetail[prop], jsonValue.dateFormat);
-        challengeDetail.currentPhaseDaysLeft = date.diff(moment(0, "HH"), "days");
+        challengeDetail.currentPhaseDaysLeft = date.diff(moment(0, "HH"), "days") + 1;
       }
 
       if (phase) {
         challengeDetail.recalculateRegistrantRemainsPhases(phase);
       }
+
+      if (registrants) {
+        var finalRegistrants = _.where(registrants, {"activePhase": jsonValue.challengePhase.getLastPhase().enum});
+        challengeDetail.countWinnerPaticipants = 0;
+        _.each(finalRegistrants, function (registrant) {
+          if (registrant.disqualified == true) return;
+          var count = _.countBy(registrant.criteria, function (cri) {
+            return _.isNumber(cri.score) ? "hasScore" : "notHasScore";
+          });
+          challengeDetail.countWinnerPaticipants += (count.hasScore > 0) ? 1 : 0;
+        })
+      }
     }
 
     // see jsonValue.challengePhase
-    challengeDetail.recalculateRegistrantRemainsPhases = function(phase) {
+    challengeDetail.recalculateRegistrantRemainsPhases = function (phase) {
       challengeDetail.registrantRemainsPhases = [];
-      if (!challengeDetail.phaseItems || phase == jsonValue.challengePhase.getLastPhase().enum) return;
+      if (!challengeDetail.phaseItems || phase == challengeDetail.nextPhase) return;
 
       var alreadyNext = false;
       for (var i = 0; i < challengeDetail.phaseItems.length; i++) {
