@@ -145,7 +145,9 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
       .map(registrant -> {
         ChallengeRegistrantDto dto = dozerMapper.map(registrant, ChallengeRegistrantDto.class);
         BoolQueryBuilder submissionQuery = QueryBuilders.boolQuery().must(QueryBuilders.termQuery("registrantId", registrant.getRegistrantId()))
-          .must(QueryBuilders.termQuery("submissionPhase", phase));
+          .must(QueryBuilders.boolQuery()
+            .should(QueryBuilders.termQuery("submissionPhase", phase))
+            .should(QueryBuilders.filteredQuery(QueryBuilders.matchAllQuery(), FilterBuilders.missingFilter("submissionPhase"))));
         List<ChallengeSubmissionDto> submissions = StreamUtils.createStreamFromIterator(challengeSubmissionRepository.search(submissionQuery).iterator())
           .map(submission -> dozerMapper.map(submission, ChallengeSubmissionDto.class)).collect(Collectors.toList());
         dto.setSubmissions(submissions);
