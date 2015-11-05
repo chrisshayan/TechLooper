@@ -128,16 +128,16 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
 
     BoolQueryBuilder challengeQuery = QueryBuilders.boolQuery().must(QueryBuilders.termQuery("challengeId", challengeId));
     BoolQueryBuilder activePhaseQuery = QueryBuilders.boolQuery();
-    BoolQueryBuilder submissionPhaseQuery = QueryBuilders.boolQuery();
+//    BoolQueryBuilder submissionPhaseQuery = QueryBuilders.boolQuery();
     challengeQuery.must(activePhaseQuery);
 
     if (phase == REGISTRATION) {
       activePhaseQuery.should(QueryBuilders.filteredQuery(QueryBuilders.matchAllQuery(), FilterBuilders.missingFilter("activePhase")));
-      submissionPhaseQuery.should(QueryBuilders.filteredQuery(QueryBuilders.matchAllQuery(), FilterBuilders.missingFilter("submissionPhase")));
+//      submissionPhaseQuery.should(QueryBuilders.filteredQuery(QueryBuilders.matchAllQuery(), FilterBuilders.missingFilter("submissionPhase")));
     }
     for (int i = ChallengePhaseEnum.ALL_CHALLENGE_PHASES.length - 1; i >= 0; i--) {
       activePhaseQuery.should(QueryBuilders.termQuery("activePhase", ALL_CHALLENGE_PHASES[i]));
-      submissionPhaseQuery.should(QueryBuilders.termQuery("submissionPhase", ALL_CHALLENGE_PHASES[i]));
+//      submissionPhaseQuery.should(QueryBuilders.termQuery("submissionPhase", ALL_CHALLENGE_PHASES[i]));
       if (phase == ALL_CHALLENGE_PHASES[i]) break;
     }
 
@@ -145,7 +145,7 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
       .map(registrant -> {
         ChallengeRegistrantDto dto = dozerMapper.map(registrant, ChallengeRegistrantDto.class);
         BoolQueryBuilder submissionQuery = QueryBuilders.boolQuery().must(QueryBuilders.termQuery("registrantId", registrant.getRegistrantId()))
-          .must(submissionPhaseQuery);
+          .must(QueryBuilders.termQuery("submissionPhase", phase));
         List<ChallengeSubmissionDto> submissions = StreamUtils.createStreamFromIterator(challengeSubmissionRepository.search(submissionQuery).iterator())
           .map(submission -> dozerMapper.map(submission, ChallengeSubmissionDto.class)).collect(Collectors.toList());
         dto.setSubmissions(submissions);
