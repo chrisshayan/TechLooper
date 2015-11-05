@@ -206,7 +206,7 @@ public class ChallengeServiceImpl implements ChallengeService {
       challengeEntity.setChallengeId(new Date().getTime());
     }
 
-    challengeEntity.setCriteria(DataUtils.defaultChallengeCriterias());
+    challengeEntity.setCriteria(DataUtils.defaultChallengeCriterias(challengeEntity.getLang()));
     return challengeRepository.save(challengeEntity);
   }
 
