@@ -20,7 +20,7 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
 
   $scope.reviewPhase = function (index, phase, nextPhase) {
     var phaseName = phase ? phase.phase : jsonValue.challengePhase.getRegistration().enum;
-    if (index && index > activePhaseIndex + 1) {
+    if (index && (index > activePhaseIndex + 1) && flagUpdate) {
       return;
     }
     else {
@@ -82,6 +82,11 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
   $scope.sortByScore = function () {
     $scope.sortByScoreType = $scope.sortByScoreType == "desc" ? "asc" : "desc";
     utils.sortByNumber($scope.registrantPhase, "totalPoint", $scope.sortByScoreType);
+  };
+
+  $scope.sortBySubmission = function () {
+    $scope.sortBySubmissionType = $scope.sortBySubmissionType == "desc" ? "asc" : "desc";
+    utils.sortByArrayLength($scope.registrantPhase, "submissions", $scope.sortBySubmissionType);
   };
 
   $scope.failJoin = false;

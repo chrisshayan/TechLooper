@@ -128,12 +128,12 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
 
     BoolQueryBuilder challengeQuery = QueryBuilders.boolQuery().must(QueryBuilders.termQuery("challengeId", challengeId));
     BoolQueryBuilder activePhaseQuery = QueryBuilders.boolQuery();
-//    BoolQueryBuilder submissionPhaseQuery = QueryBuilders.boolQuery();
+    BoolQueryBuilder submissionPhaseQuery = QueryBuilders.boolQuery().should(QueryBuilders.termQuery("submissionPhase", phase));
     challengeQuery.must(activePhaseQuery);
 
     if (phase == REGISTRATION) {
       activePhaseQuery.should(QueryBuilders.filteredQuery(QueryBuilders.matchAllQuery(), FilterBuilders.missingFilter("activePhase")));
-//      submissionPhaseQuery.should(QueryBuilders.filteredQuery(QueryBuilders.matchAllQuery(), FilterBuilders.missingFilter("submissionPhase")));
+      submissionPhaseQuery.should(QueryBuilders.filteredQuery(QueryBuilders.matchAllQuery(), FilterBuilders.missingFilter("submissionPhase")));
     }
     for (int i = ChallengePhaseEnum.ALL_CHALLENGE_PHASES.length - 1; i >= 0; i--) {
       activePhaseQuery.should(QueryBuilders.termQuery("activePhase", ALL_CHALLENGE_PHASES[i]));
@@ -144,10 +144,9 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
     Set<ChallengeRegistrantDto> registrants = StreamUtils.createStreamFromIterator(challengeRegistrantRepository.search(challengeQuery).iterator())
       .map(registrant -> {
         ChallengeRegistrantDto dto = dozerMapper.map(registrant, ChallengeRegistrantDto.class);
-        BoolQueryBuilder submissionQuery = QueryBuilders.boolQuery().must(QueryBuilders.termQuery("registrantId", registrant.getRegistrantId()))
-          .must(QueryBuilders.boolQuery()
-            .should(QueryBuilders.termQuery("submissionPhase", phase))
-            .should(QueryBuilders.filteredQuery(QueryBuilders.matchAllQuery(), FilterBuilders.missingFilter("submissionPhase"))));
+        BoolQueryBuilder submissionQuery = QueryBuilders.boolQuery()
+          .must(QueryBuilders.termQuery("registrantId", registrant.getRegistrantId()))
+          .must(submissionPhaseQuery);
         List<ChallengeSubmissionDto> submissions = StreamUtils.createStreamFromIterator(challengeSubmissionRepository.search(submissionQuery).iterator())
           .map(submission -> dozerMapper.map(submission, ChallengeSubmissionDto.class)).collect(Collectors.toList());
         dto.setSubmissions(submissions);

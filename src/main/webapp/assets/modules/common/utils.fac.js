@@ -3,6 +3,14 @@ techlooper.factory("utils", function (jsonValue, $location, $rootScope, localSto
 
   var instance = {
 
+    sortByArrayLength: function(array, numberField, type) {
+      return array.sort(function(left, right) {
+        if (!left || !right) return 0;
+        var rs = left[numberField].length - right[numberField].length;
+        return type == "asc" ? rs : (-1 * rs);
+      });
+    },
+
     sortByNumber: function(array, numberField, type) {
       return array.sort(function(left, right) {
         if (!left || !right) return 0;
