@@ -92,22 +92,27 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
     return numberOfRegistrantsByPhase;
   }
 
-  @Override
   public Long countNumberOfFinalists(Long challengeId) {
-    return null;
-  }
-
-  public Long countNumberOfWinners(Long challengeId) {
     NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withIndices("techlooper")
       .withTypes("challengeRegistrant").withSearchType(SearchType.COUNT);
 
     BoolFilterBuilder boolFilterBuilder = boolFilter();
     boolFilterBuilder.must(termFilter("challengeId", challengeId));
     boolFilterBuilder.must(termFilter("activePhase", ChallengePhaseEnum.FINAL.getValue()));
-    boolFilterBuilder.mustNot(missingFilter("criteria"));
+    boolFilterBuilder.mustNot(missingFilter("criteria.score"));
+    boolFilterBuilder.mustNot(termFilter("disqualified", true));
 
     searchQueryBuilder.withQuery(filteredQuery(matchAllQuery(), boolFilterBuilder));
     return elasticsearchTemplate.count(searchQueryBuilder.build());
+  }
+
+  @Override
+  public int countNumberOfWinners(Long challengeId) {
+    ChallengeEntity challengeEntity = challengeRepository.findOne(challengeId);
+    if (challengeEntity != null) {
+      return challengeEntity.getWinners().isEmpty() ? 0 : challengeEntity.getWinners().size();
+    }
+    return 0;
   }
 
   public Set<ChallengeRegistrantDto> findRegistrantsByChallengeIdAndPhase(Long challengeId, ChallengePhaseEnum phase, String ownerEmail) {
