@@ -57,6 +57,11 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonV
         criteria: registrant.criteria
       }
       delete registrant.$savedCriteria;
+
+      _.each(registrant.criteria, function(cri) {
+        (cri.score == undefined || cri.score == "") && (cri.score = 0);
+      });
+
       apiService.saveChallengeRegistrantCriteria(criteria)
         .success(function (data) {
           $.each(data.criteria, function (i, cri) {
@@ -101,7 +106,7 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonV
       if (!registrant.activePhase) registrant.activePhase = jsonValue.challengePhase.getRegistration().enum;
     }
 
-    registrant.recalculateWinner = function(challengeDetail) {
+    registrant.recalculateWinner = function (challengeDetail) {
       _.extendOwn(registrant, {firstAwarded: false, secondAwarded: false, thirdAwarded: false});
 
       var rgt = _.findWhere(challengeDetail.winners, {registrantId: registrant.registrantId});
