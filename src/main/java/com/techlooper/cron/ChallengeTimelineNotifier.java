@@ -69,7 +69,7 @@ public class ChallengeTimelineNotifier {
                             try {
                                 if (StringUtils.isNotEmpty(challengeRegistrantEntity.getRegistrantEmail())) {
                                     challengeService.sendEmailNotifyRegistrantAboutChallengeTimeline(
-                                            challengeEntity, challengeRegistrantEntity, challengePhase);
+                                            challengeEntity, challengeRegistrantEntity, challengePhase, false);
                                     challengeService.updateSendEmailToContestantResultCode(challengeRegistrantEntity, EmailSentResultEnum.OK);
                                     count++;
                                 }

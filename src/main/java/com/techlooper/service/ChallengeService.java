@@ -29,7 +29,7 @@ public interface ChallengeService {
             throws MessagingException, IOException, TemplateException;
 
     void sendEmailNotifyRegistrantAboutChallengeTimeline(ChallengeEntity challengeEntity,
-                                                         ChallengeRegistrantEntity challengeRegistrantEntity, ChallengePhaseEnum challengePhase) throws Exception;
+          ChallengeRegistrantEntity challengeRegistrantEntity, ChallengePhaseEnum challengePhase, boolean isSpecificDayNotification) throws Exception;
 
     ChallengeDetailDto getChallengeDetail(Long challengeId, String loginEmail);
 
