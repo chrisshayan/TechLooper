@@ -6,8 +6,8 @@ techlooper.controller('contestsController', function (apiService, $scope, jsonVa
     localStorageService.remove("joinNow");
     var firstName = localStorageService.get("firstName");
     var lastName = localStorageService.get("lastName");
-    var email = localStorageService.get("email");
-    var contestId = localStorageService.get("joiningChallengeId");
+    var email = localStorageService.get("email");//submitNow
+    var contestId = localStorageService.get("joiningChallengeId") || localStorageService.get("submitNow");
     if (contestId) {
       apiService.joinContest(contestId, firstName, lastName, email, $translate.use())
         .success(function (numberOfRegistrants) {
