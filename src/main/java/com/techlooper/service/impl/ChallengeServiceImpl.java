@@ -223,7 +223,7 @@ public class ChallengeServiceImpl implements ChallengeService {
 
     @Override
     public void sendEmailNotifyRegistrantAboutChallengeTimeline(ChallengeEntity challengeEntity,
-              ChallengeRegistrantEntity challengeRegistrantEntity, ChallengePhaseEnum challengePhase) throws Exception {
+                                                                ChallengeRegistrantEntity challengeRegistrantEntity, ChallengePhaseEnum challengePhase) throws Exception {
         String mailSubject = getNotifyRegistrantChallengeTimelineSubject(challengeRegistrantEntity, challengePhase);
         Address[] recipientAddresses = InternetAddress.parse(challengeRegistrantEntity.getRegistrantEmail());
         Template template = challengeRegistrantEntity.getLang() == Language.vi ?
@@ -1092,8 +1092,9 @@ public class ChallengeServiceImpl implements ChallengeService {
             }
         }
 
-        Long numberOfWinners = challengeRegistrantService.countNumberOfWinners(challengeId);
-        funnel.add(new ChallengeRegistrantFunnelItem(ChallengePhaseEnum.WINNER, numberOfWinners, numberOfWinners));
+        Long numberOfFinalists = challengeRegistrantService.countNumberOfFinalists(challengeId);
+        Long numberOfWinners = Long.valueOf(challengeRegistrantService.countNumberOfWinners(challengeId));
+        funnel.add(new ChallengeRegistrantFunnelItem(ChallengePhaseEnum.WINNER, numberOfFinalists, numberOfWinners));
 
         Comparator<ChallengeRegistrantFunnelItem> sortByPhaseComparator = (item1, item2) ->
                 item1.getPhase().getOrder() - item2.getPhase().getOrder();
