@@ -101,16 +101,20 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
       }
 
       if (registrants) {
-        var finalRegistrants = _.where(registrants, {"activePhase": jsonValue.challengePhase.getLastPhase().enum});
-        challengeDetail.countWinnerPaticipants = 0;
-        _.each(finalRegistrants, function (registrant) {
-          if (registrant.disqualified == true) return;
-          var count = _.countBy(registrant.criteria, function (cri) {
-            return _.isNumber(cri.score) ? "hasScore" : "notHasScore";
-          });
-          challengeDetail.countWinnerPaticipants += (count.hasScore > 0) ? 1 : 0;
-        })
+        challengeDetail.recalculateStateWinners(registrants);
       }
+    }
+
+    challengeDetail.recalculateStateWinners = function(registrants) {
+      var finalRegistrants = _.where(registrants, {"activePhase": jsonValue.challengePhase.getLastPhase().enum});
+      challengeDetail.countWinnerPaticipants = 0;
+      _.each(finalRegistrants, function (registrant) {
+        if (registrant.disqualified == true) return;
+        var count = _.countBy(registrant.criteria, function (cri) {
+          return _.isNumber(cri.score) ? "hasScore" : "notHasScore";
+        });
+        challengeDetail.countWinnerPaticipants += (count.hasScore > 0) ? 1 : 0;
+      })
     }
 
     // see jsonValue.challengePhase
