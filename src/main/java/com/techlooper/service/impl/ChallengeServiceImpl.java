@@ -207,7 +207,7 @@ public class ChallengeServiceImpl implements ChallengeService {
             challengeEntity.setChallengeId(new Date().getTime());
         }
 
-        challengeEntity.setCriteria(DataUtils.defaultChallengeCriterias());
+        challengeEntity.setCriteria(DataUtils.defaultChallengeCriterias(challengeEntity.getLang()));
         return challengeRepository.save(challengeEntity);
     }
 
@@ -941,7 +941,7 @@ public class ChallengeServiceImpl implements ChallengeService {
             String csvEmails = registrant.getRegistrantEmail();
 
             if (emailContent.getTemplateId() == ANNOUNCE_WINNER_EMAIL_TEMPLATE_EN
-                || emailContent.getTemplateId() == ANNOUNCE_WINNER_EMAIL_TEMPLATE_VI) {
+                    || emailContent.getTemplateId() == ANNOUNCE_WINNER_EMAIL_TEMPLATE_VI) {
                 csvEmails = challengeRegistrantService.findRegistrantsByChallengeId(registrant.getChallengeId()).stream()
                         .map(challengeRegistrant -> challengeRegistrant.getRegistrantEmail()).collect(Collectors.joining(","));
             }
