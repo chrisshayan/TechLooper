@@ -41,9 +41,6 @@ techlooper.directive("feedbackForm", function (apiService, $timeout, resourcesSe
       }
 
       scope.cancel = function () {
-        if($('#emailCompose').length){
-          $('#emailCompose').modal('hide');
-        }
         //if (!scope.composeEmail.visible) return;
         //scope.composeEmail.subject = '';
         ////scope.feedbackContent = '';
