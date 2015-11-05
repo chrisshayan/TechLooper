@@ -14,7 +14,7 @@ techlooper.directive("feedbackForm", function (apiService, $timeout, resourcesSe
       scope.composeEmail = {};
       scope.$watch("registrants", function () {
         scope.composeEmail.names = _.reduce(scope.registrants, function (fullName, registrant) {
-          return registrant.fullName + ", " + fullName;
+          return registrant.registrantFirstName + " " + registrant.registrantFirstName  + ", " + fullName;
         }, "");
 
         scope.composeEmail.names = scope.composeEmail.names.slice(0, -2);
