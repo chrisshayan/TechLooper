@@ -1,5 +1,8 @@
 <div class="phase-content-block">
   <div class="phase-content-details" ng-repeat="phase in registrantFunnel" ng-show="$index == selectedPhase">
+    <div class="alert alert-success" ng-show="$index == selectedPhase && (phase.phase.toLowerCase()) == 'winner'">
+      <p translate="congratulationsForJoinContest"></p>
+    </div>
     <div class="phase-description">
       <p translate="PhaseDes"
          ng-show="$index == selectedPhase && (phase.phase.toLowerCase()) != 'winner' && (phase.phase.toLowerCase()) != 'final'"></p>
