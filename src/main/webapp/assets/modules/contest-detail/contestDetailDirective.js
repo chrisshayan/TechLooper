@@ -67,13 +67,10 @@ techlooper
           }else{
             scope.registrant.activePhase = scope.challenge.nextPhase;
           }
-          apiService.saveChallengeRegistrant(scope.registrant)
-            .success(function () {
-              apiService.acceptChallengeRegistrant(scope.registrant.registrantId)
-              .success(function (registrant) {
-                $rootScope.$broadcast("update-funnel", registrant);
-              });
-            });
+          apiService.acceptChallengeRegistrant(scope.registrant.registrantId, scope.registrant.activePhase)
+          .success(function (registrant) {
+            $rootScope.$broadcast("update-funnel", registrant);
+          });
           scope.registrant.qualified = true;
 
           delete scope.registrant.visible;
