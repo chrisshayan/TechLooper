@@ -271,6 +271,10 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
     $scope.getRegistrants(registrant.challengeId, flagUpdate);
   });
 
+  $scope.$on("saveRegistrantCriteriaSuccessful", function (sc, registrant) {
+    $scope.contestDetail.recalculateStateWinners($scope.registrantPhase);
+  });
+
   $scope.$on("success-submission-challenge", function (sc, registrant) {
     $scope.getRegistrants(registrant.challengeId);
   });
