@@ -836,5 +836,7 @@
   "submissionsReviewTip": "Review",
   "announceWinnerToAllContestants": "Announcement winner to all contestants",
   "daysLeft": "<strong>{{days}}</strong> day(s) left",
-  "qualifyToNextPhaseConfirm": "Are you sure you want to select this contestant from <strong>{{currentPhase}}</strong> to phase"
+  "qualifyToNextPhaseConfirm": "Are you sure you want to select this contestant from <strong>{{currentPhase}}</strong> to phase",
+  "cannotQualifyNextPhase": "This contestant has already been in <strong>{{activeChallenge}}</strong>. </br>Wait for next phase of the challenge (if not in Final App phase yet) to perform this action.",
+  "gotIt": "Got it"
 }
