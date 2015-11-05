@@ -1,5 +1,5 @@
 techlooper
-  .directive("contestDetailAction", function ($rootScope, apiService, paginationService, utils) {
+  .directive("contestDetailAction", function ($rootScope, apiService, paginationService, utils, jsonValue) {
     return {
       restrict: "E",
       replace: true,
@@ -49,26 +49,9 @@ techlooper
         });
 
         scope.registrant.qualify = function () {
-          //console.log(scope.registrant.selectedPhase);
-
-          //if(scope.registrant.nextPhase == undefined){
-          //  scope.selectionNextPhase = false;
-          //  return;
-          //}else{
-          //  scope.selectionNextPhase = true;
-          //}
-          //if (scope.registrant.activePhase == scope.challenge.nextPhase) {
-          //  delete scope.registrant.visible;
-          //  return;
-          //}
-          //
+          utils.sendNotification(jsonValue.notifications.loading);
           delete scope.registrant.disqualified;
           delete scope.registrant.disqualifiedReason;
-          //if(scope.challenge.registrantRemainsPhases.length > 1){
-          //  scope.registrant.activePhase = scope.registrant.nextPhase.toUpperCase();
-          //}else{
-          //  scope.registrant.activePhase = scope.challenge.nextPhase;
-          //}
           apiService.acceptChallengeRegistrant(scope.registrant.registrantId, scope.registrant.ableAcceptedPhase)
             .success(function (registrant) {
               scope.registrant.qualified = true;
@@ -76,6 +59,7 @@ techlooper
             });
 
           delete scope.registrant.visible;
+          utils.sendNotification(jsonValue.notifications.loaded);
         };
 
         scope.registrant.disqualify = function () {
