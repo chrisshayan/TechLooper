@@ -59,7 +59,7 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonV
       delete registrant.$savedCriteria;
 
       _.each(registrant.criteria, function(cri) {
-        (cri.score == undefined || cri.score == "") && (cri.score = 0);
+        (!_.isNumber(cri.score)) && (cri.score = 0);
       });
 
       apiService.saveChallengeRegistrantCriteria(criteria)
@@ -125,6 +125,8 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonV
     }
 
     registrant.recalculate(challengePhase);
+
+    registrant.criteriaLoop();
 
     registrant.$isRich = true;
     return registrant;
