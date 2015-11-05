@@ -1,5 +1,5 @@
 techlooper
-  .directive("contestDetailAction", function ($rootScope, apiService, paginationService, utils) {
+  .directive("contestDetailAction", function ($rootScope, apiService, paginationService, utils, jsonValue) {
     return {
       restrict: "E",
       replace: true,
@@ -9,6 +9,7 @@ techlooper
         challenge: "="
       },
       link: function (scope, element, attr, ctrl) {
+        scope.nextPhase = '';
         var showView = function (view) {
           if ($rootScope.$eval("lastRegistrant.visible")) {
             delete $rootScope.lastRegistrant.visible;
@@ -48,33 +49,27 @@ techlooper
         });
 
         scope.registrant.qualify = function () {
-          if (scope.registrant.activePhase == scope.challenge.nextPhase) {
-            delete scope.registrant.visible;
-            return;
-          }
-
+          utils.sendNotification(jsonValue.notifications.loading);
           delete scope.registrant.disqualified;
           delete scope.registrant.disqualifiedReason;
-          scope.registrant.activePhase = scope.challenge.nextPhase;
-          apiService.saveChallengeRegistrant(scope.registrant)
-            .success(function () {
-              apiService.acceptChallengeRegistrant(scope.registrant.registrantId)
-                .success(function (registrant) {
-                  $rootScope.$broadcast("update-funnel", registrant);
-                });
+          apiService.acceptChallengeRegistrant(scope.registrant.registrantId, scope.registrant.ableAcceptedPhase)
+            .success(function (registrant) {
+              scope.registrant.qualified = true;
+              $rootScope.$broadcast("update-funnel", registrant);
             });
-          scope.registrant.qualified = true;
 
           delete scope.registrant.visible;
+          utils.sendNotification(jsonValue.notifications.loaded);
         };
 
         scope.registrant.disqualify = function () {
           scope.registrant.disqualified = true;
           apiService.saveChallengeRegistrant(scope.registrant)
             .success(function (rt) {
+              scope.registrant.qualified = false;
               scope.registrant.disqualifiedReason = rt.disqualifiedReason;
             });
-          scope.registrant.qualified = false;
+
           delete scope.registrant.visible;
         };
 

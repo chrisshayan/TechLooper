@@ -551,7 +551,7 @@
               width: 35%
               float: left
               text-align: left
-              word-break: break-all
+              //word-break: break-word
               padding-right: 15px
             .submission-link-col
               width: 50%
@@ -629,6 +629,22 @@
                 width: 120px
                 display: inline-block
                 color: #fff
+              .selection-next-phase
+                width: 100%
+                clear: both
+                padding: 5px 0
+                text-align: center
+                display: inline-block
+              ul
+                padding: 0
+                width: 50%
+                margin: auto
+                display: inline-block
+                li
+                  display: inline-block
+                  text-align: left
+                  width: auto
+                  padding: 0 10px
           .disqualify-block
             width: 100%
             clear: both
@@ -1134,31 +1150,35 @@
             text-align: center
             width: 100%
             clear: both
-            height: 45px
+            height: 55px
             padding: 0 5px 0 0
             display: block
-            i
-              font-size: 22px
-              margin: auto
-              font-weight: 300
-              cursor: pointer
-              width: 100%
-              clear: both
+            font-size: 12px
+            .arrow-current
+              background: url("../images/arrow-current.gif") left top no-repeat
+              width: 20px
+              height: 25px
+            div
               display: none
-            span
+            .current-phase-text
               font-size: 14px
-              width: 100%
               clear: both
               text-align: center
               float: left
-              display: none
-            span.time-left
+              width: 100%
+            .time-left
               font-size: 12px
+              color: red
+              width: 100%
+              clear: both
+              text-align: center
           .current-phase.active
-            span
+            div
               display: inline-block
             i
               display: inline-block
+          .current-phase.noDaysLeft
+            height: 38px
         .challenge-phase-item.active
           .registrants-phase
             color: #fff
@@ -1228,6 +1248,9 @@
               width: 40%
               float: right
               text-align: right
+              button.disabled
+                background-color: gray !important
+                cursor: not-allowed
     .alert
       margin-top: 20px
     .evaluation-criteria

@@ -29,7 +29,7 @@ public interface ChallengeService {
             throws MessagingException, IOException, TemplateException;
 
     void sendEmailNotifyRegistrantAboutChallengeTimeline(ChallengeEntity challengeEntity,
-                                                         ChallengeRegistrantEntity challengeRegistrantEntity, ChallengePhaseEnum challengePhase) throws Exception;
+          ChallengeRegistrantEntity challengeRegistrantEntity, ChallengePhaseEnum challengePhase, boolean isSpecificDayNotification) throws Exception;
 
     ChallengeDetailDto getChallengeDetail(Long challengeId, String loginEmail);
 
@@ -91,7 +91,7 @@ public interface ChallengeService {
 
     boolean sendEmailToDailyChallengeRegistrants(String challengeOwner, Long challengeId, Long now, EmailContent emailContent);
 
-    boolean sendEmailToRegistrant(String challengeOwner, Long challengeId, Long registrantId, EmailContent emailContent);
+    boolean sendEmailToRegistrant(String challengeOwner, Long registrantId, EmailContent emailContent);
 
     List<ChallengeSubmissionDto> findChallengeSubmissionByRegistrant(Long challengeId, Long registrantId);
 
@@ -101,7 +101,7 @@ public interface ChallengeService {
 
     Set<Long> findRegistrantByChallengeSubmissionDate(Long challengeId, String fromDate, String toDate);
 
-    ChallengeRegistrantDto acceptRegistrant(String ownerEmail, Long registrantId);
+    ChallengeRegistrantDto acceptRegistrant(String ownerEmail, Long registrantId, ChallengePhaseEnum phase);
 
     void calculateChallengePhases(ChallengeDetailDto challengeDetailDto);
 

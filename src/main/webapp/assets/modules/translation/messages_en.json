@@ -820,7 +820,7 @@
   "submissionsNumber": "<strong>{{number}}</strong> submission(s)",
   "winnersNumber": "<strong>{{number}}</strong> winner(s)",
   "winner": "Winner",
-  "finalistNumber": "<strong>{{number}}</strong> finalist",
+  "finalistNumber": "<strong>{{number}}</strong> finalist(s)",
   "submissions": "Submissions",
   "reviewStatus": "Review Status",
   "winnerDes": "Select winner for each prize of the challenge:",
@@ -834,6 +834,9 @@
   "qualified": "Qualified",
   "submissionToPhase": "Submission to phase:",
   "submissionsReviewTip": "Review",
-  "announceWinnerToAllContestants": "Announcement winner to all contestants",
-  "daysLeft": "{{days}} days left"
+  "announceWinnerToAllContestants": "Announce winners to all contestants",
+  "daysLeft": "<strong>{{days}}</strong> day(s) left",
+  "qualifyToNextPhaseConfirm": "Are you sure you want to select this contestant from <strong>{{currentPhase}}</strong> to phase",
+  "cannotQualifyNextPhase": "This contestant has already been in <strong>{{activeChallenge}}</strong>. </br>Wait for next phase of the challenge (if not in Final App phase yet) to perform this action.",
+  "gotIt": "Got it"
 }

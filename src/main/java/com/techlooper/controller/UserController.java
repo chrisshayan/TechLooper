@@ -387,18 +387,18 @@ public class UserController {
     }
 
     @PreAuthorize("hasAuthority('EMPLOYER')")
-    @RequestMapping(value = "user/challenge/feedback/{challengeId}/{registrantId}", method = RequestMethod.POST)
+    @RequestMapping(value = "user/challenge/feedback/{registrantId}", method = RequestMethod.POST)
     public void sendFeedbackToRegistrant(HttpServletRequest request, HttpServletResponse response,
-                                         @PathVariable Long challengeId, @PathVariable Long registrantId, @RequestBody EmailContent emailContent) {
-        if (!challengeService.sendEmailToRegistrant(request.getRemoteUser(), challengeId, registrantId, emailContent)) {
+                                         @PathVariable Long registrantId, @RequestBody EmailContent emailContent) {
+        if (!challengeService.sendEmailToRegistrant(request.getRemoteUser(), registrantId, emailContent)) {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         }
     }
 
     @PreAuthorize("hasAuthority('EMPLOYER')")
-    @RequestMapping(value = "user/challenge/accept/{registrantId}", method = RequestMethod.GET)
-    public ChallengeRegistrantDto acceptChallengeRegistrant(HttpServletRequest request, @PathVariable Long registrantId) {
-        return challengeService.acceptRegistrant(request.getRemoteUser(), registrantId);
+    @RequestMapping(value = "user/challenge/accept/{registrantId}/{phase}", method = RequestMethod.GET)
+    public ChallengeRegistrantDto acceptChallengeRegistrant(HttpServletRequest request, @PathVariable Long registrantId, @PathVariable ChallengePhaseEnum phase) {
+        return challengeService.acceptRegistrant(request.getRemoteUser(), registrantId, phase);
     }
 
     @PreAuthorize("hasAnyAuthority('EMPLOYER')")

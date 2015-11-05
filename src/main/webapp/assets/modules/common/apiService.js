@@ -257,22 +257,23 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
     /**
      * @see com.techlooper.controller.UserController.sendFeedbackToRegistrant
      * */
-    sendFeedbackToRegistrant: function (challengeId, registrantId, emailContent) {
+    sendFeedbackToRegistrant: function (registrantId, emailContent) {
       emailContent.language = $translate.use();
-      return $http.post("user/challenge/feedback/" + challengeId + "/" + registrantId, emailContent);
+      return $http.post("user/challenge/feedback/" + registrantId, emailContent);
     },
 
     /**
      * @see com.techlooper.controller.UserController.acceptChallengeRegistrant
      * */
-    acceptChallengeRegistrant: function (registrantId) {
-      return $http.get("user/challenge/accept/" + registrantId);
+    acceptChallengeRegistrant: function (registrantId, phase) {
+      return $http.get("user/challenge/accept/" + registrantId + "/" + phase);
     },
 
     /**
      * @see com.techlooper.controller.ChallengeSubmissionController.submitMyResult
      * */
     submitMyResult: function (submission) {
+      submission.lang = $translate.use();
       return $http.post("user/challengeSubmission", submission);
     },
 
@@ -348,8 +349,12 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
     /**
      * @see com.techlooper.controller.ChallengeController.saveWinner
      * */
-    saveWinner: function (registrantId, reward) {
-      return $http.post("challenge/registrant/winner", {registrantId: registrantId, reward: reward}, {transformResponse: function (d, h) {return d;}});
+    saveWinner: function (registrantId, reward, removable) {
+      return $http.post("challenge/registrant/winner", {
+        registrantId: registrantId,
+        reward: reward,
+        removable: removable
+      });
     }
   };
 

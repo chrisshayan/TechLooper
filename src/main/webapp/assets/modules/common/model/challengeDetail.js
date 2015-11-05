@@ -3,7 +3,8 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
     if (!input || input.$isRich) return input;
 
     var challengeDetail = input;
-    var index = 0;
+    //var index = 0;
+    //challengeDetail.criteriaIndex = 0;
 
     challengeDetail.refreshCriteria = function () {
       apiService.getContestDetail(challengeDetail.challengeId)
@@ -31,7 +32,7 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
 
     challengeDetail.addCriteria = function () {
       challengeDetail.criteria = challengeDetail.criteria || [];
-      challengeDetail.criteria.push({index: index++});
+      challengeDetail.criteria.push({index: challengeDetail.criteria.length++});
     }
 
     challengeDetail.removeCriteria = function (cri) {
@@ -64,44 +65,83 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
 
     //@see jsonValue.rewards
     challengeDetail.save1stWinner = function (registrant) {
-      apiService.saveWinner(registrant.registrantId, jsonValue.rewards.firstPlaceEnum())
-        .success(function (result) {
-          if (result == 'true') {
-            registrant.reward = jsonValue.rewards.firstPlaceEnum();
-            $rootScope.$broadcast("changeWinnerSuccessful", registrant);
-          }
+      apiService.saveWinner(registrant.registrantId, jsonValue.rewards.firstPlaceEnum(), !registrant.firstAwarded)
+        .success(function (winners) {
+          challengeDetail.winners = winners;
+          $rootScope.$broadcast("changeWinnerSuccessful", challengeDetail)
         });
     }
 
     challengeDetail.save2ndWinner = function (registrant) {
-      apiService.saveWinner(registrant.registrantId, jsonValue.rewards.secondPlaceEnum())
-        .success(function (result) {
-          if (result == 'true') {
-            registrant.reward = jsonValue.rewards.secondPlaceEnum();
-            $rootScope.$broadcast("changeWinnerSuccessful", registrant);
-          }
+      apiService.saveWinner(registrant.registrantId, jsonValue.rewards.secondPlaceEnum(), !registrant.secondAwarded)
+        .success(function (winners) {
+          challengeDetail.winners = winners;
+          $rootScope.$broadcast("changeWinnerSuccessful", challengeDetail)
         });
     }
 
     challengeDetail.save3rdWinner = function (registrant) {
-      apiService.saveWinner(registrant.registrantId, jsonValue.rewards.thirdPlaceEnum())
-        .success(function (result) {
-          if (result == 'true') {
-            registrant.reward = jsonValue.rewards.thirdPlaceEnum();
-            $rootScope.$broadcast("changeWinnerSuccessful", registrant);
-          }
+      apiService.saveWinner(registrant.registrantId, jsonValue.rewards.thirdPlaceEnum(), !registrant.thirdAwarded)
+        .success(function (winners) {
+          challengeDetail.winners = winners;
+          $rootScope.$broadcast("changeWinnerSuccessful", challengeDetail)
         });
     }
 
-    challengeDetail.recalculate = function() {
+    challengeDetail.recalculate = function (phase, registrants) {
       //see jsonValue.challengePhase
       var prop = jsonValue.challengePhase[challengeDetail.currentPhase].challengeProp;
       if (prop) {
-        challengeDetail.currentPhaseDaysLeft = moment(challengeDetail[prop], jsonValue.dateFormat).diff(moment(), "days");
+        var date = moment(challengeDetail[prop], jsonValue.dateFormat);
+        challengeDetail.currentPhaseDaysLeft = date.diff(moment(0, "HH"), "days") + 1;
+      }
+
+      if (phase) {
+        challengeDetail.recalculateRegistrantRemainsPhases(phase);
+      }
+
+      if (registrants) {
+        _.each(registrants, function(rgt) {
+          rgt.ableAcceptedPhase = challengeDetail.nextPhase;
+        });
+
+        challengeDetail.recalculateStateWinners(registrants);
       }
     }
 
-    challengeDetail.recalculate();
+    challengeDetail.recalculateStateWinners = function(registrants) {
+      var finalRegistrants = _.where(registrants, {"activePhase": jsonValue.challengePhase.getLastPhase().enum});
+      challengeDetail.countWinnerPaticipants = 0;
+      _.each(finalRegistrants, function (registrant) {
+        if (registrant.disqualified == true) return;
+        var count = _.countBy(registrant.criteria, function (cri) {
+          return _.isNumber(cri.score) ? "hasScore" : "notHasScore";
+        });
+        challengeDetail.countWinnerPaticipants += (count.hasScore > 0) ? 1 : 0;
+      })
+    }
+
+    // see jsonValue.challengePhase
+    challengeDetail.recalculateRegistrantRemainsPhases = function (phase) {
+      challengeDetail.registrantRemainsPhases = [];
+      if (!challengeDetail.phaseItems || phase == challengeDetail.nextPhase) return;
+
+      var alreadyNext = false;
+      for (var i = 0; i < challengeDetail.phaseItems.length; i++) {
+        if (challengeDetail.phaseItems[i].phase == phase) {
+          for (var j = i + 1; j < challengeDetail.phaseItems.length; j++) {
+            if (alreadyNext) break;
+            challengeDetail.registrantRemainsPhases.push(challengeDetail.phaseItems[j].phase);
+            if (challengeDetail.phaseItems[j].phase == challengeDetail.nextPhase) {
+              alreadyNext = true;
+            }
+          }
+          break;
+        }
+      }
+    }
+
+    //challengeDetail.recalculate();
 
     challengeDetail.$isRich = true;
     return challengeDetail;

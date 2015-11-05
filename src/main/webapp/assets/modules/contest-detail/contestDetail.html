@@ -5,8 +5,6 @@
       <span ng-show="contestDetail.progress.translate != 'closed' &&  contestDetail.progress.translate != 'notStart'"
             ng-class="contestDetail.currentPhase | textTruncate: 'lowercase'"
             translate="{{contestDetail.currentPhase | textTruncate: 'lowercase'}}">
-            <!--ng-class="{'registration': contestDetail.currentPhase == 'REGISTRATION','idea': contestDetail.currentPhase == 'IDEA','uiux': contestDetail.currentPhase == 'UIUX','prototype': contestDetail.currentPhase == 'PROTOTYPE','final': contestDetail.currentPhase == 'FINAL'}">-->
-          <!--{{contestDetail.currentPhase | textTruncate: 'lowercase' | translate}}-->
       </span>
         <span ng-show="contestDetail.progress.translate == 'closed' || contestDetail.progress.translate == 'notStart'" class="closed">
           {{contestDetail.progress.translate | translate}}
@@ -21,8 +19,9 @@
         <div class="registrants tab-pane fade" ng-show="contestDetail.isAuthor">
           <div class="funnel-challenge-phase-block">
             <funnel-manager></funnel-manager>
-            <registrant-list></registrant-list>
           </div>
+
+          <registrant-list></registrant-list>
         </div>
         <div class="evaluation-criteria tab-pane fade" ng-show="contestDetail.isAuthor">
           <evaluation-criteria></evaluation-criteria>
@@ -31,5 +30,5 @@
       </div>
     </div>
   </div>
-  <popup-email compose-email="composeEmail"></popup-email>
+  <popup-email registrants="registrantPhase"></popup-email>
 </div>

@@ -1,5 +1,5 @@
 techlooper.controller('contestDetailController', function ($scope, apiService, localStorageService, $location, $routeParams,
-                                                           jsonValue, $translate, utils, $filter, $timeout, resourcesService, $timeout) {
+                                                           jsonValue, $translate, utils, $filter, $timeout, resourcesService, $rootScope) {
   utils.sendNotification(jsonValue.notifications.loading);
   $scope.currentPage = 1;
   $scope.selectedPhase = 0;
@@ -20,7 +20,7 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
 
   $scope.reviewPhase = function (index, phase, nextPhase) {
     var phaseName = phase ? phase.phase : jsonValue.challengePhase.getRegistration().enum;
-    if (index && index > activePhaseIndex + 1) {
+    if (index && (index > activePhaseIndex + 1) && flagUpdate) {
       return;
     }
     else {
@@ -34,13 +34,18 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
 
     apiService.getChallengeRegistrantsByPhase(contestId, phaseName).success(function (data) {
       $scope.registrantPhase = data;
+      $scope.contestDetail.recalculate(phaseName, $scope.registrantPhase);
+      _.each($scope.registrantPhase, function (rgt) {rgt.recalculateWinner($scope.contestDetail);});
+
       switch (phaseName) {
         case "REGISTRATION":
           $scope.sortByRegistrationDate();
           break;
-        //case "WINNER":
-        //  $scope.sortByScore();
-        //  break;
+
+        case "WINNER":
+          $scope.sortByScore();
+          break;
+
         default:
           $scope.sortBySubmissionDate();
           break;
@@ -62,7 +67,7 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
   };
 
   $scope.sortByRegistrationDate = function () {
-    $scope.sortByRegistrationDateType = $scope.sortByRegistrationDateType == "asc" ? "desc" : "asc";
+    $scope.sortByRegistrationDateType = $scope.sortByRegistrationDateType == "desc" ? "asc" : "desc";
     utils.sortByNumber($scope.registrantPhase, "registrantId", $scope.sortByRegistrationDateType);
   }
 
@@ -75,11 +80,13 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
   }
 
   $scope.sortByScore = function () {
-    $scope.sortByScoreType = $scope.sortByScoreType == "asc" ? "desc" : "asc";
-    $scope.registrantPhase.sort(function (a, b) {
-      var interval = $scope.sortByScoreType == "asc" ? 1 : -1;
-      return interval * ((b.totalPoint ? b.totalPoint : 0) - (a.totalPoint ? a.totalPoint : 0));
-    });
+    $scope.sortByScoreType = $scope.sortByScoreType == "desc" ? "asc" : "desc";
+    utils.sortByNumber($scope.registrantPhase, "totalPoint", $scope.sortByScoreType);
+  };
+
+  $scope.sortBySubmission = function () {
+    $scope.sortBySubmissionType = $scope.sortBySubmissionType == "desc" ? "asc" : "desc";
+    utils.sortByArrayLength($scope.registrantPhase, "submissions", $scope.sortBySubmissionType);
   };
 
   $scope.failJoin = false;
@@ -204,27 +211,33 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
     apiService.getRegistrantFunnel(contestId)
       .success(function (data) {
         $scope.registrantFunnel = data;
+
         $.each($scope.registrantFunnel, function (i, item) {
           if (item.phase == $scope.contestDetail.currentPhase) {
             $scope.registrantFunnel.currentPosition = i;
           }
         });
         //$scope.selectedPhase = $scope.registrantFunnel.currentPosition;
-        activePhaseIndex = $scope.registrantFunnel.currentPosition;
-          if(flagUpdate){
-            $scope.reviewPhase($scope.registrantFunnel.currentPosition, $scope.registrantFunnel.phase);
-            flagUpdate = undefined;
-          }else{
-            $scope.reviewPhase($scope.registrantFunnel.currentPosition, {phase: $scope.contestDetail.currentPhase});
-          }
+
+        if (flagUpdate == false) {
+          activePhaseIndex = $scope.selectedPhase;
+          $scope.reviewPhase($scope.registrantFunnel.currentPosition, $scope.registrantFunnel.phase);
+        }
+        else {
+          activePhaseIndex = $scope.registrantFunnel.currentPosition;
+          $scope.reviewPhase($scope.registrantFunnel.currentPosition, {phase: $scope.contestDetail.currentPhase});
+        }
         utils.sendNotification(jsonValue.notifications.loaded);
       }).error(function () {
       utils.sendNotification(jsonValue.notifications.loaded);
     });
   };
-  $scope.resetActivePhase = function(){
+
+  $scope.resetActivePhase = function () {
+    flagUpdate = true;
     $scope.reviewPhase($scope.registrantFunnel.currentPosition, {phase: $scope.contestDetail.currentPhase});
   };
+
   $scope.fbShare = function () {
     ga("send", {
       hitType: "event",
@@ -261,42 +274,17 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
   }
 
   $scope.$on("update-funnel", function (sc, registrant) {
-    flagUpdate = true;
+    flagUpdate = false;
     $scope.getRegistrants(registrant.challengeId, flagUpdate);
+  });
+
+  $scope.$on("saveRegistrantCriteriaSuccessful", function (sc, registrant) {
+    $scope.contestDetail.recalculateStateWinners($scope.registrantPhase);
   });
 
   $scope.$on("success-submission-challenge", function (sc, registrant) {
     $scope.getRegistrants(registrant.challengeId);
   });
 
-  $scope.composeEmail = {
-    send: function () {
-      $scope.composeEmail.content = $('.summernote').code();
-      if($scope.composeEmail.content == '<p><br></p>'){
-        return;
-      }
-      if ($scope.composeEmail.action == "challenge-daily-mail-registrants") {
-        apiService.sendEmailToDailyChallengeRegistrants($scope.composeEmail.challengeId, $scope.composeEmail.now, $scope.composeEmail)
-            .success(function(){
-              $scope.composeEmail.cancel();
-            })
-            .error(function(){
-              $scope.composeEmail.error = false;
-            });
-      }
-      else if ($scope.composeEmail.action == "feedback-registrant") {
-        apiService.sendFeedbackToRegistrant($scope.composeEmail.challengeId, $scope.composeEmail.registrantId, $scope.composeEmail)
-            .success(function(){
-              $scope.composeEmail.cancel();
-            })
-            .error(function(){
-              $scope.composeEmail.error = false;
-            });
-      }
-    },
-    cancel: function () {
-      $('.modal-backdrop').remove();
-    }
-  };
 });
 

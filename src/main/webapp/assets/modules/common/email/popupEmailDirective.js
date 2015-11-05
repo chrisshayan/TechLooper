@@ -1,35 +1,20 @@
-techlooper.directive("popupEmail", function (apiService) {
+techlooper.directive("popupEmail", function () {
   return {
     restrict: "E",
     replace: true,
     templateUrl: "modules/common/email/popupEmail.html",
-    scope: {
-      composeEmail: "="
-    },
+    scope: {registrants: "="},
     link: function (scope, element, attr, ctrl) {
-      scope.loadEmailTemplate = function (templateId) {
-        apiService.getTemplateById(templateId)
-          .success(function (template) {
-            scope.composeEmail.subject = template.subject;
-            scope.feedbackContent = template.body;
-          })
+      scope.hidePopup = function () {
+        $('#emailCompose').modal('hide');
       }
+      //scope.loadEmailTemplate = function (templateId) {
+      //  apiService.getTemplateById(templateId)
+      //    .success(function (template) {
+      //      scope.composeEmail.subject = template.subject;
+      //      scope.feedbackContent = template.body;
+      //    })
+      //}
     }
   }
-}).controller('feedbackCtrl', function($scope) {
-  $scope.options = {
-    height: 150,
-    toolbar: [
-      ['headline', ['style']],
-      ['fontface', ['fontname']],
-      ['textsize', ['fontsize']],
-      ['style', ['bold', 'italic', 'underline', 'superscript', 'subscript', 'strikethrough', 'clear']],
-      ['fontclr', ['color']],
-      ['alignment', ['ul', 'ol', 'paragraph', 'lineheight']],
-      ['height', ['height']],
-      ['table', ['table']],
-      ['insert', ['link','hr']],
-      ['view', ['fullscreen', 'codeview']]
-    ]
-  };
-});;
+});

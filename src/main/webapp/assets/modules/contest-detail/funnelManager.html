@@ -2,11 +2,14 @@
      ng-repeat="phase in registrantFunnel" ng-click="reviewPhase($index, phase, contestDetail.nextPhase)"
      ng-class="{col2: registrantFunnel.length == 2, col3: registrantFunnel.length == 3, col4: registrantFunnel.length == 4, col5: registrantFunnel.length == 5, col6: registrantFunnel.length == 6, active: $index == selectedPhase}">
   <div class="current-phase"
-       ng-class="{active: (phase.phase | uppercase) == contestDetail.currentPhase}">
-    <span translate="currentPhase"></span>
-    <span ng-show="contestDetail.currentPhaseDaysLeft > 0 && phase != 'WINNER'"
-          translate="daysLeft" translate-value-days="{{contestDetail.currentPhaseDaysLeft}}" class="time-left"></span>
-    <i class="fa fa-caret-down"></i>
+       ng-class="{active: (phase.phase | uppercase) == contestDetail.currentPhase, noDaysLeft: contestDetail.currentPhaseDaysLeft <=0}">
+    <div class="current-phase-text">
+      <span translate="currentPhase"></span>
+    </div>
+    <div class="time-left" ng-show="contestDetail.currentPhaseDaysLeft > 0 && phase != 'WINNER'"
+         translate="daysLeft"
+         translate-value-days="{{contestDetail.currentPhaseDaysLeft}}"></div>
+    <div class="arrow-current"></div>
   </div>
   <div class="phase-name {{phase.phase.toLowerCase()}}"
        ng-class="{pass: $index <= registrantFunnel.currentPosition}">
@@ -26,8 +29,8 @@
     <p translate="submissionsNumber"
        translate-value-number="{{phase.submission}}" ng-show="phase.submission > 0 && (phase.phase.toLowerCase()) != 'winner'"></p>
     <p translate="finalistNumber"
-       translate-value-number="{{phase.participant}}" ng-show="phase.participant > 0 && (phase.phase.toLowerCase()) == 'winner'"></p>
+       translate-value-number="{{contestDetail.countWinnerPaticipants}}" ng-show="contestDetail.countWinnerPaticipants > 0 && (phase.phase.toLowerCase()) == 'winner'"></p>
     <p translate="winnersNumber"
-       translate-value-number="{{phase.submission}}"  ng-show="phase.submission > 0 && (phase.phase.toLowerCase()) == 'winner'"></p>
+       translate-value-number="{{contestDetail.winners.length}}"  ng-show="contestDetail.winners.length > 0 && (phase.phase.toLowerCase()) == 'winner'"></p>
   </div>
 </div>

@@ -1,6 +1,7 @@
 package com.techlooper.service.impl;
 
 import com.techlooper.dto.EmailSettingDto;
+import com.techlooper.dto.EmailTemplateDto;
 import com.techlooper.entity.*;
 import com.techlooper.model.*;
 import com.techlooper.repository.elasticsearch.ChallengeRegistrantRepository;
@@ -46,6 +47,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import static com.techlooper.util.DateTimeUtils.*;
 import static java.util.stream.Collectors.*;
@@ -173,6 +175,12 @@ public class ChallengeServiceImpl implements ChallengeService {
     private Template notifyChallengeTimelineMailTemplateEn;
 
     @Resource
+    private Template notifyChallengeSubmissionMailTemplateVi;
+
+    @Resource
+    private Template notifyChallengeSubmissionMailTemplateEn;
+
+    @Resource
     private Template dailyChallengeSummaryMailTemplateVi;
 
     @Resource
@@ -199,7 +207,7 @@ public class ChallengeServiceImpl implements ChallengeService {
             challengeEntity.setChallengeId(new Date().getTime());
         }
 
-        challengeEntity.setCriteria(DataUtils.defaultChallengeCriterias());
+        challengeEntity.setCriteria(DataUtils.defaultChallengeCriterias(challengeEntity.getLang()));
         return challengeRepository.save(challengeEntity);
     }
 
@@ -222,11 +230,17 @@ public class ChallengeServiceImpl implements ChallengeService {
 
     @Override
     public void sendEmailNotifyRegistrantAboutChallengeTimeline(ChallengeEntity challengeEntity,
-                                                                ChallengeRegistrantEntity challengeRegistrantEntity, ChallengePhaseEnum challengePhase) throws Exception {
+                                                                ChallengeRegistrantEntity challengeRegistrantEntity, ChallengePhaseEnum challengePhase, boolean isSpecificDayNotification) throws Exception {
         String mailSubject = getNotifyRegistrantChallengeTimelineSubject(challengeRegistrantEntity, challengePhase);
         Address[] recipientAddresses = InternetAddress.parse(challengeRegistrantEntity.getRegistrantEmail());
         Template template = challengeRegistrantEntity.getLang() == Language.vi ?
                 notifyChallengeTimelineMailTemplateVi : notifyChallengeTimelineMailTemplateEn;
+
+        if (isSpecificDayNotification) {
+            template = challengeRegistrantEntity.getLang() == Language.vi ?
+                    notifyChallengeSubmissionMailTemplateVi : notifyChallengeSubmissionMailTemplateEn;
+        }
+
         postChallengeMailMessage.setRecipients(Message.RecipientType.TO, recipientAddresses);
         postChallengeMailMessage.setReplyTo(InternetAddress.parse(mailTechlooperReplyTo));
         StringWriter stringWriter = new StringWriter();
@@ -246,6 +260,16 @@ public class ChallengeServiceImpl implements ChallengeService {
         if (challengePhase == ChallengePhaseEnum.REGISTRATION) {
             numberOfDays = daysBetween(currentDate(), challengeEntity.getRegistrationDateTime()) + 1;
         } else if (challengePhase == ChallengePhaseEnum.IN_PROGRESS) {
+            numberOfDays = daysBetween(currentDate(), challengeEntity.getSubmissionDateTime()) + 1;
+        } else if (challengePhase == ChallengePhaseEnum.IDEA) {
+            numberOfDays = daysBetween(currentDate(), challengeEntity.getIdeaSubmissionDateTime()) + 1;
+        } else if (challengePhase == ChallengePhaseEnum.UIUX) {
+            numberOfDays = daysBetween(currentDate(), challengeEntity.getUxSubmissionDateTime()) + 1;
+        } else if (challengePhase == ChallengePhaseEnum.PROTOTYPE) {
+            numberOfDays = daysBetween(currentDate(), challengeEntity.getPrototypeSubmissionDateTime()) + 1;
+        } else if (challengePhase == ChallengePhaseEnum.IN_PROGRESS) {
+            numberOfDays = daysBetween(currentDate(), challengeEntity.getSubmissionDateTime()) + 1;
+        } else if (challengePhase == ChallengePhaseEnum.FINAL) {
             numberOfDays = daysBetween(currentDate(), challengeEntity.getSubmissionDateTime()) + 1;
         }
 
@@ -818,13 +842,15 @@ public class ChallengeServiceImpl implements ChallengeService {
     }
 
     private void bindEmailTemplateVariables(EmailContent emailContent, ChallengeDto challengeDto, ChallengeRegistrantEntity registrant) {
+        Long templateId = emailContent.getTemplateId();
+        EmailTemplateDto emailTemplateDto = emailService.getTemplateById(templateId);
         String subject = emailContent.getSubject();
         String body = emailContent.getContent();
         EmailSettingDto emailSettingDto = employerService.findEmployerEmailSetting(challengeDto.getAuthorEmail());
         // Process email subject
-        subject = processEmailVariables(challengeDto, registrant, emailSettingDto, subject);
+        subject = processEmailVariables(challengeDto, registrant, emailSettingDto, subject, emailTemplateDto.getSubjectVariables());
         // Process email body
-        body = processEmailVariables(challengeDto, registrant, emailSettingDto, body);
+        body = processEmailVariables(challengeDto, registrant, emailSettingDto, body, emailTemplateDto.getBodyVariables());
 
         emailContent.setSubject(subject);
         emailContent.setContent(body);
@@ -836,40 +862,98 @@ public class ChallengeServiceImpl implements ChallengeService {
     }
 
     private String processEmailVariables(ChallengeDto challengeDto, ChallengeRegistrantEntity registrant,
-                                         EmailSettingDto emailSettingDto, String replacementCandidate) {
+                                         EmailSettingDto emailSettingDto, String replacementCandidate, List<String> variables) {
         String result = replacementCandidate;
-        if (StringUtils.isNotEmpty(result)) {
-            if (result.contains(EmailService.VAR_CONTEST_NAME)) {
-                result = result.replace(EmailService.VAR_CONTEST_NAME, challengeDto.getChallengeName());
-            }
-            if (result.contains(EmailService.VAR_CONTEST_FIRST_PRIZE)) {
-                String formatPrize = currencyService.formatCurrency(Double.valueOf(challengeDto.getFirstPlaceReward()), Locale.US);
-                result = result.replace(EmailService.VAR_CONTEST_FIRST_PRIZE, formatPrize);
-            }
-            if (result.contains(EmailService.VAR_CONTESTANT_FIRST_NAME)) {
-                result = result.replace(EmailService.VAR_CONTESTANT_FIRST_NAME, registrant.getRegistrantFirstName());
-            }
-            if (result.contains(EmailService.VAR_MAIL_SIGNATURE)) {
-                result = result.replace(EmailService.VAR_MAIL_SIGNATURE, emailSettingDto.getEmailSignature());
+
+        if (result.contains(EmailService.VAR_CONTEST_NAME)) {
+            result = result.replace(EmailService.VAR_CONTEST_NAME, challengeDto.getChallengeName());
+        }
+        if (result.contains(EmailService.VAR_CONTEST_FIRST_PRIZE)) {
+            String formatPrize = currencyService.formatCurrency(Double.valueOf(challengeDto.getFirstPlaceReward()), Locale.US);
+            result = result.replace(EmailService.VAR_CONTEST_FIRST_PRIZE, formatPrize);
+        }
+        if (result.contains(EmailService.VAR_CONTESTANT_FIRST_NAME)) {
+            result = result.replace(EmailService.VAR_CONTESTANT_FIRST_NAME, registrant.getRegistrantFirstName());
+        }
+        if (result.contains(EmailService.VAR_MAIL_SIGNATURE)) {
+            result = result.replace(EmailService.VAR_MAIL_SIGNATURE, emailSettingDto.getEmailSignature());
+        }
+        if (result.contains(EmailService.VAR_CONTEST_SECOND_PRIZE) && challengeDto.getSecondPlaceReward() != null) {
+            String formatPrize = currencyService.formatCurrency(Double.valueOf(challengeDto.getSecondPlaceReward()), Locale.US);
+            formatPrize = StringUtils.isNotEmpty(formatPrize) ? formatPrize : "";
+            result = result.replace(EmailService.VAR_CONTEST_SECOND_PRIZE, formatPrize);
+        }
+        if (result.contains(EmailService.VAR_CONTEST_THIRD_PRIZE) && challengeDto.getThirdPlaceReward() != null) {
+            String formatPrize = currencyService.formatCurrency(Double.valueOf(challengeDto.getThirdPlaceReward()), Locale.US);
+            formatPrize = StringUtils.isNotEmpty(formatPrize) ? formatPrize : "";
+            result = result.replace(EmailService.VAR_CONTEST_THIRD_PRIZE, formatPrize);
+        }
+
+        Set<ChallengeRegistrantDto> winners = challengeRegistrantService.findWinnerRegistrantsByChallengeId(challengeDto.getChallengeId());
+        Optional<ChallengeRegistrantDto> firstWinner = winners.stream().filter(
+                winner -> winner.getReward() == RewardEnum.FIRST_PLACE).findFirst();
+        Optional<ChallengeRegistrantDto> secondWinner = winners.stream().filter(
+                winner -> winner.getReward() == RewardEnum.SECOND_PLACE).findFirst();
+        Optional<ChallengeRegistrantDto> thirdWinner = winners.stream().filter(
+                winner -> winner.getReward() == RewardEnum.THIRD_PLACE).findFirst();
+
+        if (result.contains(EmailService.VAR_FIRST_WINNER_FIRST_NAME)
+                || result.contains(EmailService.VAR_FIRST_WINNER_FULL_NAME)) {
+            if (firstWinner.isPresent()) {
+                String firstName = firstWinner.get().getRegistrantFirstName();
+                String lastName = firstWinner.get().getRegistrantLastName();
+                result = result.replace(EmailService.VAR_FIRST_WINNER_FIRST_NAME, firstName);
+                result = result.replace(EmailService.VAR_FIRST_WINNER_FULL_NAME, firstName + " " + lastName);
             }
         }
+
+        if (result.contains(EmailService.VAR_SECOND_WINNER_FIRST_NAME)
+                || result.contains(EmailService.VAR_SECOND_WINNER_FULL_NAME)) {
+            if (secondWinner.isPresent()) {
+                String firstName = secondWinner.get().getRegistrantFirstName();
+                String lastName = secondWinner.get().getRegistrantLastName();
+                result = result.replace(EmailService.VAR_SECOND_WINNER_FIRST_NAME, firstName);
+                result = result.replace(EmailService.VAR_SECOND_WINNER_FULL_NAME, firstName + " " + lastName);
+            }
+        }
+
+        if (result.contains(EmailService.VAR_THIRD_WINNER_FIRST_NAME)
+                || result.contains(EmailService.VAR_THIRD_WINNER_FULL_NAME)) {
+            if (thirdWinner.isPresent()) {
+                String firstName = thirdWinner.get().getRegistrantFirstName();
+                String lastName = thirdWinner.get().getRegistrantLastName();
+                result = result.replace(EmailService.VAR_THIRD_WINNER_FIRST_NAME, firstName);
+                result = result.replace(EmailService.VAR_THIRD_WINNER_FULL_NAME, firstName + " " + lastName);
+            }
+        }
+
         return result;
     }
 
-    public boolean sendEmailToRegistrant(String challengeOwner, Long challengeId, Long registrantId, EmailContent emailContent) {
-        if (isOwnerOfChallenge(challengeOwner, challengeId)) {
-            ChallengeRegistrantEntity registrant = challengeRegistrantRepository.findOne(registrantId);
+    public boolean sendEmailToRegistrant(String challengeOwner, Long registrantId, EmailContent emailContent) {
+        boolean result = false;
+        final Long ANNOUNCE_WINNER_EMAIL_TEMPLATE_EN = 4L;
+        final Long ANNOUNCE_WINNER_EMAIL_TEMPLATE_VI = 104L;
+        ChallengeRegistrantEntity registrant = challengeRegistrantRepository.findOne(registrantId);
+        if (isOwnerOfChallenge(challengeOwner, registrant.getChallengeId())) {
             String csvEmails = registrant.getRegistrantEmail();
-            ChallengeDto challengeDto = findChallengeById(challengeId, null);
+
+            if (emailContent.getTemplateId() == ANNOUNCE_WINNER_EMAIL_TEMPLATE_EN
+                    || emailContent.getTemplateId() == ANNOUNCE_WINNER_EMAIL_TEMPLATE_VI) {
+                csvEmails = challengeRegistrantService.findRegistrantsByChallengeId(registrant.getChallengeId()).stream()
+                        .map(challengeRegistrant -> challengeRegistrant.getRegistrantEmail()).collect(Collectors.joining(","));
+            }
+
+            ChallengeDto challengeDto = findChallengeById(registrant.getChallengeId(), null);
             try {
                 bindEmailTemplateVariables(emailContent, challengeDto, registrant);
                 emailContent.setRecipients(InternetAddress.parse(csvEmails));
+                result = emailService.sendEmail(emailContent);
             } catch (AddressException e) {
                 LOGGER.debug("Can not parse email address", e);
-                return false;
             }
         }
-        return emailService.sendEmail(emailContent);
+        return result;
     }
 
     @Override
@@ -943,6 +1027,7 @@ public class ChallengeServiceImpl implements ChallengeService {
             if (!isAuthor) {
                 challengeDetailDto.setCriteria(null);
             }
+            challengeDetailDto.setPhaseItems(this.getChallengeRegistrantFunnel(challengeId, loginEmail));
             return challengeDetailDto;
         }
         return null;
@@ -982,12 +1067,11 @@ public class ChallengeServiceImpl implements ChallengeService {
         }
     }
 
-    public ChallengeRegistrantDto acceptRegistrant(String ownerEmail, Long registrantId) {
-        ChallengeRegistrantEntity registrant = challengeRegistrantRepository.findOne(registrantId);
-        if (registrant == null) {
-            return null;
-        }
+    public ChallengeRegistrantDto acceptRegistrant(String ownerEmail, Long registrantId, ChallengePhaseEnum activePhase) {
+        Iterator<ChallengeRegistrantEntity> registrantIter = challengeRegistrantRepository.search(QueryBuilders.termQuery("registrantId", registrantId)).iterator();
+        if (!registrantIter.hasNext()) return null;
 
+        ChallengeRegistrantEntity registrant = registrantIter.next();
         ChallengeEntity challenge = challengeRepository.findOne(registrant.getChallengeId());
         if (!ownerEmail.equalsIgnoreCase(challenge.getAuthorEmail())) {
             return null;
@@ -995,7 +1079,7 @@ public class ChallengeServiceImpl implements ChallengeService {
 
         ChallengeDetailDto challengeDetailDto = dozerMapper.map(challenge, ChallengeDetailDto.class);
         calculateChallengePhases(challengeDetailDto);
-        ChallengePhaseEnum activePhase = challengeDetailDto.getNextPhase();
+//        ChallengePhaseEnum activePhase = challengeDetailDto.getNextPhase();
         if (activePhase != registrant.getActivePhase()) {
             registrant.setActivePhase(activePhase);
             registrant = challengeRegistrantRepository.save(registrant);
@@ -1026,8 +1110,9 @@ public class ChallengeServiceImpl implements ChallengeService {
             }
         }
 
-        Long numberOfWinners = challengeRegistrantService.countNumberOfWinners(challengeId);
-        funnel.add(new ChallengeRegistrantFunnelItem(ChallengePhaseEnum.WINNER, numberOfWinners, numberOfWinners));
+        Long numberOfFinalists = challengeRegistrantService.countNumberOfFinalists(challengeId);
+        Long numberOfWinners = Long.valueOf(challengeRegistrantService.countNumberOfWinners(challengeId));
+        funnel.add(new ChallengeRegistrantFunnelItem(ChallengePhaseEnum.WINNER, numberOfFinalists, numberOfWinners));
 
         Comparator<ChallengeRegistrantFunnelItem> sortByPhaseComparator = (item1, item2) ->
                 item1.getPhase().getOrder() - item2.getPhase().getOrder();
