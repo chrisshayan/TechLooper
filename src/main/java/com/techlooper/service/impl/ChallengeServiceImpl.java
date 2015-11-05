@@ -1046,7 +1046,7 @@ public class ChallengeServiceImpl implements ChallengeService {
         }
     }
 
-    public ChallengeRegistrantDto acceptRegistrant(String ownerEmail, Long registrantId) {
+    public ChallengeRegistrantDto acceptRegistrant(String ownerEmail, Long registrantId, ChallengePhaseEnum activePhase) {
         ChallengeRegistrantEntity registrant = challengeRegistrantRepository.findOne(registrantId);
         if (registrant == null) {
             return null;
@@ -1059,7 +1059,7 @@ public class ChallengeServiceImpl implements ChallengeService {
 
         ChallengeDetailDto challengeDetailDto = dozerMapper.map(challenge, ChallengeDetailDto.class);
         calculateChallengePhases(challengeDetailDto);
-        ChallengePhaseEnum activePhase = challengeDetailDto.getNextPhase();
+//        ChallengePhaseEnum activePhase = challengeDetailDto.getNextPhase();
         if (activePhase != registrant.getActivePhase()) {
             registrant.setActivePhase(activePhase);
             registrant = challengeRegistrantRepository.save(registrant);

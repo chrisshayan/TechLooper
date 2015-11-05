@@ -101,7 +101,7 @@ public interface ChallengeService {
 
     Set<Long> findRegistrantByChallengeSubmissionDate(Long challengeId, String fromDate, String toDate);
 
-    ChallengeRegistrantDto acceptRegistrant(String ownerEmail, Long registrantId);
+    ChallengeRegistrantDto acceptRegistrant(String ownerEmail, Long registrantId, ChallengePhaseEnum phase);
 
     void calculateChallengePhases(ChallengeDetailDto challengeDetailDto);
 
