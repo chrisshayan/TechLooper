@@ -34,16 +34,18 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
 
     apiService.getChallengeRegistrantsByPhase(contestId, phaseName).success(function (data) {
       $scope.registrantPhase = data;
-      $scope.contestDetail.recalculate(phaseName);
+      $scope.contestDetail.recalculate(phaseName, $scope.registrantPhase);
       _.each($scope.registrantPhase, function (rgt) {rgt.recalculateWinner($scope.contestDetail);});
 
       switch (phaseName) {
         case "REGISTRATION":
           $scope.sortByRegistrationDate();
           break;
-        //case "WINNER":
-        //  $scope.sortByScore();
-        //  break;
+
+        case "WINNER":
+          $scope.sortByScore();
+          break;
+
         default:
           $scope.sortBySubmissionDate();
           break;
@@ -65,7 +67,7 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
   };
 
   $scope.sortByRegistrationDate = function () {
-    $scope.sortByRegistrationDateType = $scope.sortByRegistrationDateType == "asc" ? "desc" : "asc";
+    $scope.sortByRegistrationDateType = $scope.sortByRegistrationDateType == "desc" ? "asc" : "desc";
     utils.sortByNumber($scope.registrantPhase, "registrantId", $scope.sortByRegistrationDateType);
   }
 
@@ -78,11 +80,8 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
   }
 
   $scope.sortByScore = function () {
-    $scope.sortByScoreType = $scope.sortByScoreType == "asc" ? "desc" : "asc";
-    $scope.registrantPhase.sort(function (a, b) {
-      var interval = $scope.sortByScoreType == "asc" ? 1 : -1;
-      return interval * ((b.totalPoint ? b.totalPoint : 0) - (a.totalPoint ? a.totalPoint : 0));
-    });
+    $scope.sortByScoreType = $scope.sortByScoreType == "desc" ? "asc" : "desc";
+    utils.sortByNumber($scope.registrantPhase, "totalPoint", $scope.sortByScoreType);
   };
 
   $scope.failJoin = false;
@@ -270,6 +269,10 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
   $scope.$on("update-funnel", function (sc, registrant) {
     flagUpdate = true;
     $scope.getRegistrants(registrant.challengeId, flagUpdate);
+  });
+
+  $scope.$on("saveRegistrantCriteriaSuccessful", function (sc, registrant) {
+    $scope.contestDetail.recalculateStateWinners($scope.registrantPhase);
   });
 
   $scope.$on("success-submission-challenge", function (sc, registrant) {
