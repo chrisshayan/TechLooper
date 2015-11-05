@@ -3,18 +3,28 @@
     <p translate="acceptDescription" ng-show="challenge.registrantRemainsPhases.length == 1"
        translate-value-current="{{registrant.activePhase.toLowerCase() | translate}}"
        translate-value-next="{{challenge.nextPhase.toLowerCase() | translate}}"></p>
-    <p translate="qualifyToNextPhaseConfirm" translate-value-current-phase="{{registrant.activePhase.toLowerCase() | translate}}" ng-show="challenge.registrantRemainsPhases.length > 1"></p>
+
+    <p translate="qualifyToNextPhaseConfirm"
+       translate-value-current-phase="{{registrant.activePhase.toLowerCase() | translate}}"
+       ng-show="challenge.registrantRemainsPhases.length > 1"></p>
+
     <div class="selection-next-phase">
       <ul ng-show="challenge.registrantRemainsPhases.length > 1" ng-init="nextPhase = '{{challenge.nextPhase}}'">
 
+        <!--<li ng-repeat="phase in challenge.registrantRemainsPhases">-->
+        <!--<input type="radio" name="nextPhase{{registrant.registrantId}}"-->
+        <!--value="{{phase}}"-->
+        <!--id="rad{{phase.toLowerCase()}}" ng-model="registrant.nextPhase"/>-->
+        <!--<label for="rad{{phase.toLowerCase()}}">{{phase.toLowerCase() | translate}}</label></li>-->
         <li ng-repeat="phase in challenge.registrantRemainsPhases">
-          <input type="radio" name="nextPhase{{registrant.registrantId}}"
-          value="{{phase.toLowerCase()}}"
-          id="rad{{phase.toLowerCase()}}" ng-model="registrant.nextPhase"/>
-          <label for="rad{{phase.toLowerCase()}}">{{phase.toLowerCase() | translate}}</label></li>
+          <label>
+            <input type="radio" ng-value="phase" ng-model="registrant.ableAcceptedPhase">
+            <span>{{phase.toLowerCase() | translate}}</span>
+          </label>
+        </li>
       </ul>
-      <span class="error-messages" ng-show="selectionNextPhase == false" translate="show">
-      </span>
+      <!--<span class="error-messages" ng-show="selectionNextPhase == false" translate="show">-->
+      <!--</span>-->
     </div>
     <a ng-click="registrant.qualify()" translate="yes" class="btn btn-primary btn-flat"></a>
     <a ng-click="registrant.hide()" translate="no" class="btn btn-primary btn-flat gray"></a>
