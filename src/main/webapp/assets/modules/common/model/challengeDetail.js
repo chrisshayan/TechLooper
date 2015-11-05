@@ -101,6 +101,10 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
       }
 
       if (registrants) {
+        _.each(registrants, function(rgt) {
+          rgt.ableAcceptedPhase = challengeDetail.nextPhase;
+        });
+
         challengeDetail.recalculateStateWinners(registrants);
       }
     }

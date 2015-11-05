@@ -49,29 +49,31 @@ techlooper
         });
 
         scope.registrant.qualify = function () {
-          if(scope.registrant.nextPhase == undefined){
-            scope.selectionNextPhase = false;
-            return;
-          }else{
-            scope.selectionNextPhase = true;
-          }
-          if (scope.registrant.activePhase == scope.challenge.nextPhase) {
-            delete scope.registrant.visible;
-            return;
-          }
+          //console.log(scope.registrant.selectedPhase);
 
+          //if(scope.registrant.nextPhase == undefined){
+          //  scope.selectionNextPhase = false;
+          //  return;
+          //}else{
+          //  scope.selectionNextPhase = true;
+          //}
+          //if (scope.registrant.activePhase == scope.challenge.nextPhase) {
+          //  delete scope.registrant.visible;
+          //  return;
+          //}
+          //
           delete scope.registrant.disqualified;
           delete scope.registrant.disqualifiedReason;
-          if(scope.challenge.registrantRemainsPhases.length > 1){
-            scope.registrant.activePhase = scope.registrant.nextPhase.toUpperCase();
-          }else{
-            scope.registrant.activePhase = scope.challenge.nextPhase;
-          }
-          apiService.acceptChallengeRegistrant(scope.registrant.registrantId, scope.registrant.activePhase)
-          .success(function (registrant) {
-            $rootScope.$broadcast("update-funnel", registrant);
-          });
-          scope.registrant.qualified = true;
+          //if(scope.challenge.registrantRemainsPhases.length > 1){
+          //  scope.registrant.activePhase = scope.registrant.nextPhase.toUpperCase();
+          //}else{
+          //  scope.registrant.activePhase = scope.challenge.nextPhase;
+          //}
+          apiService.acceptChallengeRegistrant(scope.registrant.registrantId, scope.registrant.ableAcceptedPhase)
+            .success(function (registrant) {
+              scope.registrant.qualified = true;
+              $rootScope.$broadcast("update-funnel", registrant);
+            });
 
           delete scope.registrant.visible;
         };
@@ -80,9 +82,10 @@ techlooper
           scope.registrant.disqualified = true;
           apiService.saveChallengeRegistrant(scope.registrant)
             .success(function (rt) {
+              scope.registrant.qualified = false;
               scope.registrant.disqualifiedReason = rt.disqualifiedReason;
             });
-          scope.registrant.qualified = false;
+
           delete scope.registrant.visible;
         };
 
