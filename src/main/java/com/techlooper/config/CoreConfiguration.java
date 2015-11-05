@@ -11,10 +11,7 @@ import com.google.api.services.calendar.CalendarScopes;
 import com.techlooper.converter.ListCSVStringConverter;
 import com.techlooper.converter.LocaleConverter;
 import com.techlooper.converter.ProfileNameConverter;
-import com.techlooper.cron.ChallengeTimelineNotifier;
-import com.techlooper.cron.DailyChallengeSummaryEmailSender;
-import com.techlooper.cron.JobAlertEmailSender;
-import com.techlooper.cron.VietnamworksJobImporter;
+import com.techlooper.cron.*;
 import com.techlooper.dto.WebinarInfoDto;
 import com.techlooper.entity.*;
 import com.techlooper.model.*;
@@ -574,5 +571,10 @@ public class CoreConfiguration implements ApplicationContextAware {
     public Template confirmUserSubmissionMailTemplateVi(freemarker.template.Configuration freemakerConfig) throws IOException {
         Template template = freemakerConfig.getTemplate("confirmUserSubmission.vi.ftl");
         return template;
+    }
+
+    @Bean
+    public ChallengeSubmissionNotifier challengeSubmissionNotifier() {
+        return new ChallengeSubmissionNotifier();
     }
 }

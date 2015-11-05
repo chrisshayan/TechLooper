@@ -223,7 +223,7 @@ public class ChallengeServiceImpl implements ChallengeService {
 
     @Override
     public void sendEmailNotifyRegistrantAboutChallengeTimeline(ChallengeEntity challengeEntity,
-                                                                ChallengeRegistrantEntity challengeRegistrantEntity, ChallengePhaseEnum challengePhase) throws Exception {
+              ChallengeRegistrantEntity challengeRegistrantEntity, ChallengePhaseEnum challengePhase) throws Exception {
         String mailSubject = getNotifyRegistrantChallengeTimelineSubject(challengeRegistrantEntity, challengePhase);
         Address[] recipientAddresses = InternetAddress.parse(challengeRegistrantEntity.getRegistrantEmail());
         Template template = challengeRegistrantEntity.getLang() == Language.vi ?
@@ -254,6 +254,8 @@ public class ChallengeServiceImpl implements ChallengeService {
             numberOfDays = daysBetween(currentDate(), challengeEntity.getUxSubmissionDateTime()) + 1;
         } else if (challengePhase == ChallengePhaseEnum.PROTOTYPE) {
             numberOfDays = daysBetween(currentDate(), challengeEntity.getPrototypeSubmissionDateTime()) + 1;
+        } else if (challengePhase == ChallengePhaseEnum.IN_PROGRESS) {
+            numberOfDays = daysBetween(currentDate(), challengeEntity.getSubmissionDateTime()) + 1;
         } else if (challengePhase == ChallengePhaseEnum.FINAL) {
             numberOfDays = daysBetween(currentDate(), challengeEntity.getSubmissionDateTime()) + 1;
         }
