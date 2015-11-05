@@ -7,103 +7,113 @@ import java.io.Serializable;
  */
 public class ChallengeSubmissionDto implements Serializable {
 
-  private Long challengeSubmissionId;
+    private Long challengeSubmissionId;
 
-  private String registrantEmail;
+    private String registrantEmail;
 
-  private String registrantFirstName;
+    private String registrantFirstName;
 
-  private String registrantLastName;
+    private String registrantLastName;
 
-  private Long challengeId;
+    private Long challengeId;
 
-  private Long registrantId;
+    private Long registrantId;
 
-  private String submissionURL;
+    private String submissionURL;
 
-  private String submissionDescription;
+    private String submissionDescription;
 
-  private String submissionDateTime;
+    private String submissionDateTime;
 
-  private ChallengePhaseEnum submissionPhase;
+    private ChallengePhaseEnum submissionPhase;
 
-  public ChallengePhaseEnum getSubmissionPhase() {
-    return submissionPhase;
-  }
+    private Language lang;
 
-  public void setSubmissionPhase(ChallengePhaseEnum submissionPhase) {
-    this.submissionPhase = submissionPhase;
-  }
+    public ChallengePhaseEnum getSubmissionPhase() {
+        return submissionPhase;
+    }
 
-  public Long getChallengeSubmissionId() {
-    return challengeSubmissionId;
-  }
+    public void setSubmissionPhase(ChallengePhaseEnum submissionPhase) {
+        this.submissionPhase = submissionPhase;
+    }
 
-  public void setChallengeSubmissionId(Long challengeSubmissionId) {
-    this.challengeSubmissionId = challengeSubmissionId;
-  }
+    public Long getChallengeSubmissionId() {
+        return challengeSubmissionId;
+    }
 
-  public Long getRegistrantId() {
-    return registrantId;
-  }
+    public void setChallengeSubmissionId(Long challengeSubmissionId) {
+        this.challengeSubmissionId = challengeSubmissionId;
+    }
 
-  public void setRegistrantId(Long registrantId) {
-    this.registrantId = registrantId;
-  }
+    public Long getRegistrantId() {
+        return registrantId;
+    }
 
-  public String getRegistrantFirstName() {
-    return registrantFirstName;
-  }
+    public void setRegistrantId(Long registrantId) {
+        this.registrantId = registrantId;
+    }
 
-  public void setRegistrantFirstName(String registrantFirstName) {
-    this.registrantFirstName = registrantFirstName;
-  }
+    public String getRegistrantFirstName() {
+        return registrantFirstName;
+    }
 
-  public String getRegistrantLastName() {
-    return registrantLastName;
-  }
+    public void setRegistrantFirstName(String registrantFirstName) {
+        this.registrantFirstName = registrantFirstName;
+    }
 
-  public void setRegistrantLastName(String registrantLastName) {
-    this.registrantLastName = registrantLastName;
-  }
+    public String getRegistrantLastName() {
+        return registrantLastName;
+    }
 
-  public String getRegistrantEmail() {
-    return registrantEmail;
-  }
+    public void setRegistrantLastName(String registrantLastName) {
+        this.registrantLastName = registrantLastName;
+    }
 
-  public void setRegistrantEmail(String registrantEmail) {
-    this.registrantEmail = registrantEmail;
-  }
+    public String getRegistrantEmail() {
+        return registrantEmail;
+    }
 
-  public Long getChallengeId() {
-    return challengeId;
-  }
+    public void setRegistrantEmail(String registrantEmail) {
+        this.registrantEmail = registrantEmail;
+    }
 
-  public void setChallengeId(Long challengeId) {
-    this.challengeId = challengeId;
-  }
+    public Long getChallengeId() {
+        return challengeId;
+    }
 
-  public String getSubmissionDateTime() {
-    return submissionDateTime;
-  }
+    public void setChallengeId(Long challengeId) {
+        this.challengeId = challengeId;
+    }
 
-  public void setSubmissionDateTime(String submissionDateTime) {
-    this.submissionDateTime = submissionDateTime;
-  }
+    public String getSubmissionDateTime() {
+        return submissionDateTime;
+    }
 
-  public String getSubmissionURL() {
-    return submissionURL;
-  }
+    public void setSubmissionDateTime(String submissionDateTime) {
+        this.submissionDateTime = submissionDateTime;
+    }
 
-  public void setSubmissionURL(String submissionURL) {
-    this.submissionURL = submissionURL;
-  }
+    public String getSubmissionURL() {
+        return submissionURL;
+    }
 
-  public String getSubmissionDescription() {
-    return submissionDescription;
-  }
+    public void setSubmissionURL(String submissionURL) {
+        this.submissionURL = submissionURL;
+    }
 
-  public void setSubmissionDescription(String submissionDescription) {
-    this.submissionDescription = submissionDescription;
-  }
+    public String getSubmissionDescription() {
+        return submissionDescription;
+    }
+
+    public void setSubmissionDescription(String submissionDescription) {
+        this.submissionDescription = submissionDescription;
+    }
+
+    public Language getLang() {
+        return lang;
+    }
+
+    public void setLang(Language lang) {
+        this.lang = lang;
+    }
 }
