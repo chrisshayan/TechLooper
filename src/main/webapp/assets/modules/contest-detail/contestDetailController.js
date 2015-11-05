@@ -213,12 +213,13 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
           }
         });
         //$scope.selectedPhase = $scope.registrantFunnel.currentPosition;
-        activePhaseIndex = $scope.registrantFunnel.currentPosition;
-        if (flagUpdate) {
+
+        if (flagUpdate == false) {
+          activePhaseIndex = $scope.selectedPhase;
           $scope.reviewPhase($scope.registrantFunnel.currentPosition, $scope.registrantFunnel.phase);
-          flagUpdate = undefined;
         }
         else {
+          activePhaseIndex = $scope.registrantFunnel.currentPosition;
           $scope.reviewPhase($scope.registrantFunnel.currentPosition, {phase: $scope.contestDetail.currentPhase});
         }
         utils.sendNotification(jsonValue.notifications.loaded);
