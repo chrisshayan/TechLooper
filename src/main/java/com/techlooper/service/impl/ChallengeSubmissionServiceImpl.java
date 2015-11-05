@@ -131,6 +131,7 @@ public class ChallengeSubmissionServiceImpl implements ChallengeSubmissionServic
         templateModel.put("challengeName", challengeDto.getChallengeName());
 
         template.process(templateModel, stringWriter);
+        mailSubject = String.format(mailSubject, challengeDto.getChallengeName());
         confirmUserSubmissionMailMessage.setSubject(MimeUtility.encodeText(mailSubject, "UTF-8", null));
         confirmUserSubmissionMailMessage.setText(stringWriter.toString(), "UTF-8", "html");
 
