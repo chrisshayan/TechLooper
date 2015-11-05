@@ -6,7 +6,9 @@
     <div class="current-phase-text">
       <span translate="currentPhase"></span>
     </div>
-    <div class="time-left" ng-show="contestDetail.currentPhaseDaysLeft > 0 && phase != 'WINNER'" translate="daysLeft" translate-value-days="{{contestDetail.currentPhaseDaysLeft}}"></div>
+    <div class="time-left" ng-show="contestDetail.currentPhaseDaysLeft > 0 && phase != 'WINNER'"
+         translate="daysLeft"
+         translate-value-days="{{contestDetail.currentPhaseDaysLeft}}"></div>
     <div class="arrow-current"></div>
   </div>
   <div class="phase-name {{phase.phase.toLowerCase()}}"
