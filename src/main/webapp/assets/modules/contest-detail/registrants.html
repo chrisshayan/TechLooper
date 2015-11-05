@@ -1,8 +1,8 @@
 <div class="phase-content-block">
   <div class="phase-content-details" ng-repeat="phase in registrantFunnel" ng-show="$index == selectedPhase">
-    <div class="alert alert-success" ng-show="$index == selectedPhase && (phase.phase.toLowerCase()) == 'winner'">
-      <p translate="congratulationsForJoinContest"></p>
-    </div>
+    <!--<div class="alert alert-success" ng-show="$index == selectedPhase && (phase.phase.toLowerCase()) == 'winner'">-->
+      <!--<p translate="congratulationsForJoinContest"></p>-->
+    <!--</div>-->
     <div class="phase-description">
       <p translate="PhaseDes"
          ng-show="$index == selectedPhase && (phase.phase.toLowerCase()) != 'winner' && (phase.phase.toLowerCase()) != 'final'"></p>
@@ -11,7 +11,11 @@
       <p translate="winnerDes"
          ng-show="$index == selectedPhase && (phase.phase.toLowerCase()) == 'winner'"></p>
       <div class="announcement-winner" ng-show="$index == selectedPhase && (phase.phase.toLowerCase()) == 'winner'">
-        <a translate="announceWinnerToAllContestants" class="btn btn-primary btn-flat" data-toggle="modal" data-target="#emailCompose"></a>
+        <button translate="announceWinnerToAllContestants" class="btn btn-primary btn-flat"
+                ng-class="{disabled: phase.submission == 0}"
+                ng-disabled="phase.submission == 0"
+                data-toggle="modal" data-target="#emailCompose"></button>
+        <!--<a translate="announceWinnerToAllContestants" class="btn btn-primary btn-flat" data-toggle="modal" data-target="#emailCompose"></a>-->
       </div>
     </div>
     <table class="contests-table">

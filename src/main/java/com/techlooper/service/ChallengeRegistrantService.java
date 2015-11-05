@@ -14,7 +14,9 @@ public interface ChallengeRegistrantService {
 
     Map<ChallengePhaseEnum, ChallengeRegistrantPhaseItem> countNumberOfRegistrantsByPhase(Long challengeId);
 
-    Long countNumberOfWinners(Long challengeId);
+    Long countNumberOfFinalists(Long challengeId);
+
+    int countNumberOfWinners(Long challengeId);
 
     Set<ChallengeRegistrantDto> findRegistrantsByChallengeIdAndPhase(Long challengeId, ChallengePhaseEnum phase, String ownerEmail);
 

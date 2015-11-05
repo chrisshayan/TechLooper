@@ -78,20 +78,23 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
         numberOfRegistrantsByPhase.put(phaseEnum, new ChallengeRegistrantPhaseItem(phaseEnum,
           bucket.getDocCount() + previousPhase));
         previousPhase = bucket.getDocCount() + previousPhase;
-      }
-      else {
+      } else {
         bucket = terms.getBucketByKey(phaseEnum.getValue().toLowerCase());
         if (bucket != null) {
           numberOfRegistrantsByPhase.put(phaseEnum, new ChallengeRegistrantPhaseItem(phaseEnum,
             bucket.getDocCount() + previousPhase));
           previousPhase = bucket.getDocCount() + previousPhase;
-        }
-        else {
+        } else {
           numberOfRegistrantsByPhase.put(phaseEnum, new ChallengeRegistrantPhaseItem(phaseEnum, previousPhase));
         }
       }
     }
     return numberOfRegistrantsByPhase;
+  }
+
+  @Override
+  public Long countNumberOfFinalists(Long challengeId) {
+    return null;
   }
 
   public Long countNumberOfWinners(Long challengeId) {
