@@ -273,6 +273,7 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
      * @see com.techlooper.controller.ChallengeSubmissionController.submitMyResult
      * */
     submitMyResult: function (submission) {
+      submission.lang = $translate.use();
       return $http.post("user/challengeSubmission", submission);
     },
 

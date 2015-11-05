@@ -14,7 +14,8 @@ import org.dozer.Mapper;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.search.SearchType;
 import org.elasticsearch.common.joda.time.DateTime;
-import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.index.query.BoolFilterBuilder;
+import org.elasticsearch.index.query.FilterBuilders;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
 import org.elasticsearch.search.aggregations.Aggregations;
 import org.elasticsearch.search.aggregations.bucket.terms.Terms;
@@ -39,6 +40,7 @@ import java.util.List;
 import java.util.Map;
 
 import static com.techlooper.model.ChallengePhaseEnum.*;
+import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * Created by phuonghqh on 10/9/15.
@@ -146,7 +148,7 @@ public class ChallengeSubmissionServiceImpl implements ChallengeSubmissionServic
 
         NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withIndices("techlooper")
                 .withTypes("challengeSubmission").withSearchType(SearchType.COUNT);
-        searchQueryBuilder.withQuery(QueryBuilders.termQuery("challengeId", challengeId));
+        searchQueryBuilder.withQuery(termQuery("challengeId", challengeId));
         searchQueryBuilder.addAggregation(AggregationBuilders.terms("sumOfSubmissions").field("submissionPhase"));
         Aggregations aggregations = elasticsearchTemplate.query(searchQueryBuilder.build(), SearchResponse::getAggregations);
 
@@ -161,6 +163,20 @@ public class ChallengeSubmissionServiceImpl implements ChallengeSubmissionServic
                     numberOfSubmissionsByPhase.put(phaseEnum, new ChallengeSubmissionPhaseItem(phaseEnum, bucket.getDocCount()));
                 } else {
                     numberOfSubmissionsByPhase.put(phaseEnum, new ChallengeSubmissionPhaseItem(phaseEnum, 0L));
+                }
+            }
+
+            // in case of submission phases is empty (previous releases), we should count them as REGISTRATION phase
+            if (phaseEnum == REGISTRATION) {
+                BoolFilterBuilder boolFilterBuilder = FilterBuilders.boolFilter();
+                boolFilterBuilder.must(FilterBuilders.termFilter("challengeId", challengeId));
+                boolFilterBuilder.must(FilterBuilders.missingFilter("submissionPhase"));
+                searchQueryBuilder.withQuery(filteredQuery(matchAllQuery(), boolFilterBuilder));
+                long registrationSubmissionPhase = elasticsearchTemplate.count(searchQueryBuilder.build());
+                ChallengeSubmissionPhaseItem registrationPhaseItem = numberOfSubmissionsByPhase.get(phaseEnum);
+                if (registrationPhaseItem != null) {
+                    registrationPhaseItem.setSubmission(registrationPhaseItem.getSubmission() + registrationSubmissionPhase);
+                    numberOfSubmissionsByPhase.put(phaseEnum, registrationPhaseItem);
                 }
             }
         }
