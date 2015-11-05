@@ -10,11 +10,17 @@ techlooper.directive("feedbackForm", function (apiService, $timeout, resourcesSe
     },
     link: function (scope, element, attr, ctrl) {
       resourcesService.getEmailTemplates().then(function (eTemplates) {
-        scope.emailTemplates = eTemplates;
+        var templates = eTemplates;
+        if (scope.announceWinner != true) {
+          templates = _.filter(templates, function (tpl) {return tpl.templateId != 104;});
+          templates = _.filter(templates, function (tpl) {return tpl.templateId != 4;});
+        }
+        scope.emailTemplates = templates;
+        console.log(scope.emailTemplates);
         scope.setDefaultValue();
       });
 
-      scope.setDefaultValue = function() {
+      scope.setDefaultValue = function () {
         if (scope.announceWinner == true) {
           var template = _.findWhere(scope.emailTemplates, {templateId: 104});
           if (!template) template = _.findWhere(scope.emailTemplates, {templateId: 4});
@@ -39,7 +45,7 @@ techlooper.directive("feedbackForm", function (apiService, $timeout, resourcesSe
         var registrant = scope.registrants[0];
         apiService.sendFeedbackToRegistrant(registrant.registrantId, scope.composeEmail)
           .success(function () {
-              scope.cancel();
+            scope.cancel();
           });
       }
 

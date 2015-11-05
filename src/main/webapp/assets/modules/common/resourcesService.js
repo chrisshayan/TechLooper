@@ -35,19 +35,6 @@ techlooper.factory("resourcesService", function ($translate, $q, apiService, $fi
     {translate: "announceWinnerToAllContestants", id: 104},
   ];
 
-  //apiService.getAvailableEmailTemplates()
-  //  .success(function (data) {
-  //    $.each(data, function (i, template) {
-  //      var templateOption = {
-  //        translate: template.templateId,
-  //        id: template.templateName
-  //      };
-  //      emailTemplateOptions.push(templateOption);
-  //    });
-  //  })
-  //
-  //console.log(emailTemplateOptions);
-
   var paymentOptions = [
     {translate: "hourlyByByHour", reviewTranslate: "hourlyJob", id: "hourly"},
     {translate: "fixedPricePayByProject", reviewTranslate: "fixedPrice", id: "fixedPrice"}
