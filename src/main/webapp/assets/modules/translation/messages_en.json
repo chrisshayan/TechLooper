@@ -820,7 +820,7 @@
   "submissionsNumber": "<strong>{{number}}</strong> submission(s)",
   "winnersNumber": "<strong>{{number}}</strong> winner(s)",
   "winner": "Winner",
-  "finalistNumber": "<strong>{{number}}</strong> finalists",
+  "finalistNumber": "<strong>{{number}}</strong> finalist(s)",
   "submissions": "Submissions",
   "reviewStatus": "Review Status",
   "winnerDes": "Select winner for each prize of the challenge:",
