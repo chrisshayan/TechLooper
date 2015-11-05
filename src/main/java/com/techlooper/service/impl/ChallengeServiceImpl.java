@@ -174,6 +174,12 @@ public class ChallengeServiceImpl implements ChallengeService {
     private Template notifyChallengeTimelineMailTemplateEn;
 
     @Resource
+    private Template notifyChallengeSubmissionMailTemplateVi;
+
+    @Resource
+    private Template notifyChallengeSubmissionMailTemplateEn;
+
+    @Resource
     private Template dailyChallengeSummaryMailTemplateVi;
 
     @Resource
@@ -223,11 +229,17 @@ public class ChallengeServiceImpl implements ChallengeService {
 
     @Override
     public void sendEmailNotifyRegistrantAboutChallengeTimeline(ChallengeEntity challengeEntity,
-                                                                ChallengeRegistrantEntity challengeRegistrantEntity, ChallengePhaseEnum challengePhase) throws Exception {
+             ChallengeRegistrantEntity challengeRegistrantEntity, ChallengePhaseEnum challengePhase, boolean isSpecificDayNotification) throws Exception {
         String mailSubject = getNotifyRegistrantChallengeTimelineSubject(challengeRegistrantEntity, challengePhase);
         Address[] recipientAddresses = InternetAddress.parse(challengeRegistrantEntity.getRegistrantEmail());
         Template template = challengeRegistrantEntity.getLang() == Language.vi ?
                 notifyChallengeTimelineMailTemplateVi : notifyChallengeTimelineMailTemplateEn;
+
+        if (isSpecificDayNotification) {
+            template = challengeRegistrantEntity.getLang() == Language.vi ?
+                    notifyChallengeSubmissionMailTemplateVi : notifyChallengeSubmissionMailTemplateEn;
+        }
+
         postChallengeMailMessage.setRecipients(Message.RecipientType.TO, recipientAddresses);
         postChallengeMailMessage.setReplyTo(InternetAddress.parse(mailTechlooperReplyTo));
         StringWriter stringWriter = new StringWriter();

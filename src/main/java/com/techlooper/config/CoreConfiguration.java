@@ -577,4 +577,16 @@ public class CoreConfiguration implements ApplicationContextAware {
     public ChallengeSubmissionNotifier challengeSubmissionNotifier() {
         return new ChallengeSubmissionNotifier();
     }
+
+    @Bean
+    public Template notifyChallengeSubmissionMailTemplateEn(freemarker.template.Configuration freemakerConfig) throws IOException {
+        Template template = freemakerConfig.getTemplate("notifyChallengeSubmission.en.ftl");
+        return template;
+    }
+
+    @Bean
+    public Template notifyChallengeSubmissionMailTemplateVi(freemarker.template.Configuration freemakerConfig) throws IOException {
+        Template template = freemakerConfig.getTemplate("notifyChallengeSubmission.vi.ftl");
+        return template;
+    }
 }
