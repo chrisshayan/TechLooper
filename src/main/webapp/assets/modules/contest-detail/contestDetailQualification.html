@@ -3,11 +3,12 @@
     <p translate="acceptDescription" ng-show="challenge.registrantRemainsPhases.length == 1"
        translate-value-current="{{registrant.activePhase.toLowerCase() | translate}}"
        translate-value-next="{{challenge.nextPhase.toLowerCase() | translate}}"></p>
-
     <p translate="qualifyToNextPhaseConfirm"
        translate-value-current-phase="{{registrant.activePhase.toLowerCase() | translate}}"
        ng-show="challenge.registrantRemainsPhases.length > 1"></p>
 
+    <p translate="cannotQualifyNextPhase"
+       translate-value-active-challenge="{{challenge.currentPhase.toLowerCase() | translate}}" ng-show="challenge.registrantRemainsPhases.length == 0"></p>
     <div class="selection-next-phase">
       <ul ng-show="challenge.registrantRemainsPhases.length > 1" ng-init="nextPhase = '{{challenge.nextPhase}}'">
 
@@ -26,7 +27,13 @@
       <!--<span class="error-messages" ng-show="selectionNextPhase == false" translate="show">-->
       <!--</span>-->
     </div>
-    <a ng-click="registrant.qualify()" translate="yes" class="btn btn-primary btn-flat"></a>
-    <a ng-click="registrant.hide()" translate="no" class="btn btn-primary btn-flat gray"></a>
+    <div ng-show="challenge.registrantRemainsPhases.length > 0">
+      <a ng-click="registrant.qualify()" translate="yes" class="btn btn-primary btn-flat"></a>
+      <a ng-click="registrant.hide()" translate="no" class="btn btn-primary btn-flat gray"></a>
+    </div>
+    <div ng-show="challenge.registrantRemainsPhases.length == 0">
+      <a ng-click="registrant.hide()" translate="gotIt" class="btn btn-primary btn-flat"></a>
+    </div>
+
   </div>
 </div>
