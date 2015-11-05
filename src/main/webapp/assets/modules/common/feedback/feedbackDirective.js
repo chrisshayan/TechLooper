@@ -1,25 +1,23 @@
-techlooper.directive("feedbackForm", function (apiService, $timeout, $filter) {
+techlooper.directive("feedbackForm", function (apiService, $timeout, resourcesService) {
   return {
     restrict: "E",
     replace: true,
     templateUrl: "modules/common/feedback/feedback.html",
     scope: {
       registrants: "=",
-      ngShow: "="
+      hide: "="
     },
-    link: function (scope, element, attr, ctrl, composeEmail) {
-      apiService.getAvailableEmailTemplates()
-        .success(function (templateList) {
-          _.each(templateList, function (template) {
-            template.text = $filter('translate')(template.templateName);
-            template.value = template.templateId;
-          });
-          scope.emailTemplates = templateList;
-        });
+    link: function (scope, element, attr, ctrl) {
 
-      scope.composeEmail.names = _.reduceRight(scope.registrants, function (fullName, name) {
-        return name.registrantFirstName + " " + name.registrantLastName + fullName;
-      }, ";");
+      resourcesService.getEmailTemplates().then(function (eTemplates) {scope.emailTemplates = eTemplates;});
+
+      scope.$watch("registrants", function () {
+        scope.composeEmail.names = _.reduce(scope.registrants, function (fullName, registrant) {
+          return registrant.registrantFirstName + " " + registrant.registrantLastName + ", " + fullName;
+        }, "");
+
+        scope.composeEmail.names = scope.composeEmail.names.slice(0, -2);
+      });
 
       scope.send = function () {
         if (scope.feedbackForm.$invalid) return;
@@ -49,7 +47,7 @@ techlooper.directive("feedbackForm", function (apiService, $timeout, $filter) {
         //scope.composeEmail.error = true;
         scope.composeEmail = {names: scope.composeEmail.names};
         scope.composeEmail.templateId = 0;
-        scope.ngShow = false;
+        scope.hide();
         //delete scope.composeEmail.visible;
         $('.feedback-loading').css('visibility', 'hidden');
       }

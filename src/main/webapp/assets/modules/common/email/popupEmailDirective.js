@@ -1,12 +1,14 @@
-techlooper.directive("popupEmail", function (apiService) {
+techlooper.directive("popupEmail", function () {
   return {
     restrict: "E",
     replace: true,
     templateUrl: "modules/common/email/popupEmail.html",
-    scope: {
-      composeEmail: "="
-    },
+    scope: {registrants: "="},
     link: function (scope, element, attr, ctrl) {
+      scope.hidePopup = function () {
+        //TODO hide popup
+        console.log("hideme");
+      }
       //scope.loadEmailTemplate = function (templateId) {
       //  apiService.getTemplateById(templateId)
       //    .success(function (template) {

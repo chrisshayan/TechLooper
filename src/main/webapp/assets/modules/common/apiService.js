@@ -265,8 +265,8 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
     /**
      * @see com.techlooper.controller.UserController.acceptChallengeRegistrant
      * */
-    acceptChallengeRegistrant: function (registrantId) {
-      return $http.get("user/challenge/accept/" + registrantId);
+    acceptChallengeRegistrant: function (registrantId, phase) {
+      return $http.get("user/challenge/accept/" + registrantId + "/" + phase);
     },
 
     /**

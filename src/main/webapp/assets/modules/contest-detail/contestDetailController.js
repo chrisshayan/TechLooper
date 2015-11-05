@@ -34,6 +34,7 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
 
     apiService.getChallengeRegistrantsByPhase(contestId, phaseName).success(function (data) {
       $scope.registrantPhase = data;
+
       $scope.contestDetail.recalculate(phaseName);
       switch (phaseName) {
         case "REGISTRATION":
