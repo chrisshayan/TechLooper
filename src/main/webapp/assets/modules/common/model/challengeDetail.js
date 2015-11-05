@@ -85,13 +85,14 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
     }
 
     challengeDetail.save3rdWinner = function (registrant) {
-      apiService.saveWinner(registrant.registrantId, jsonValue.rewards.thirdPlaceEnum())
-        .success(function (result) {
-          if (result == 'true') {
-            registrant.reward = jsonValue.rewards.thirdPlaceEnum();
-            $rootScope.$broadcast("changeWinnerSuccessful", registrant);
-          }
-        });
+      console.log(registrant);
+      //apiService.saveWinner(registrant.registrantId, jsonValue.rewards.thirdPlaceEnum())
+      //  .success(function (result) {
+      //    if (result == 'true') {
+      //      registrant.reward = jsonValue.rewards.thirdPlaceEnum();
+      //      $rootScope.$broadcast("changeWinnerSuccessful", registrant);
+      //    }
+      //  });
     }
 
     challengeDetail.recalculate = function(phase) {

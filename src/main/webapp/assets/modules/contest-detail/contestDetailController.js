@@ -34,8 +34,9 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
 
     apiService.getChallengeRegistrantsByPhase(contestId, phaseName).success(function (data) {
       $scope.registrantPhase = data;
-
       $scope.contestDetail.recalculate(phaseName);
+      _.each($scope.registrantPhase, function (rgt) {rgt.recalculateWinner($scope.contestDetail);});
+
       switch (phaseName) {
         case "REGISTRATION":
           $scope.sortByRegistrationDate();
@@ -214,19 +215,20 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
         });
         //$scope.selectedPhase = $scope.registrantFunnel.currentPosition;
         activePhaseIndex = $scope.registrantFunnel.currentPosition;
-          if(flagUpdate){
-            $scope.reviewPhase($scope.registrantFunnel.currentPosition, $scope.registrantFunnel.phase);
-            flagUpdate = undefined;
-          }else{
-            $scope.reviewPhase($scope.registrantFunnel.currentPosition, {phase: $scope.contestDetail.currentPhase});
-          }
+        if (flagUpdate) {
+          $scope.reviewPhase($scope.registrantFunnel.currentPosition, $scope.registrantFunnel.phase);
+          flagUpdate = undefined;
+        }
+        else {
+          $scope.reviewPhase($scope.registrantFunnel.currentPosition, {phase: $scope.contestDetail.currentPhase});
+        }
         utils.sendNotification(jsonValue.notifications.loaded);
       }).error(function () {
       utils.sendNotification(jsonValue.notifications.loaded);
     });
   };
 
-  $scope.resetActivePhase = function(){
+  $scope.resetActivePhase = function () {
     $scope.reviewPhase($scope.registrantFunnel.currentPosition, {phase: $scope.contestDetail.currentPhase});
   };
 

@@ -183,7 +183,17 @@ public class ChallengeController {
   @PreAuthorize("hasAuthority('EMPLOYER')")
   @RequestMapping(value = "challenge/registrant/winner", method = RequestMethod.POST)
   public boolean saveWinner(@RequestBody ChallengeWinner challengeWinner, HttpServletRequest request, HttpServletResponse response) {
-    boolean result = challengeRegistrantService.saveWinner(challengeWinner, request.getRemoteUser());
+    boolean result = challengeRegistrantService.saveWinner(challengeWinner, request.getRemoteUser(), false);
+    if (!result) {
+      response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+    }
+    return result;
+  }
+
+  @PreAuthorize("hasAuthority('EMPLOYER')")
+  @RequestMapping(value = "challenge/registrant/winner", method = RequestMethod.PUT)
+  public boolean deleteWinner(@RequestBody ChallengeWinner challengeWinner, HttpServletRequest request, HttpServletResponse response) {
+    boolean result = challengeRegistrantService.saveWinner(challengeWinner, request.getRemoteUser(), false);
     if (!result) {
       response.setStatus(HttpServletResponse.SC_FORBIDDEN);
     }

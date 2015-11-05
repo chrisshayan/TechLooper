@@ -20,7 +20,8 @@ public interface ChallengeRegistrantService {
 
     Set<ChallengeRegistrantDto> findWinnerRegistrantsByChallengeId(Long challengeId);
 
-    boolean saveWinner(ChallengeWinner challengeWinner, String loginUser);
+    boolean saveWinner(ChallengeWinner challengeWinner, String loginUser, boolean removeWinner);
 
     List<ChallengeRegistrantEntity> findRegistrantsByChallengeId(Long challengeId);
+
 }

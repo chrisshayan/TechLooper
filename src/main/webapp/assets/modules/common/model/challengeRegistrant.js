@@ -101,7 +101,15 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonV
       }
 
       if (!registrant.activePhase) registrant.activePhase = jsonValue.challengePhase.getRegistration().enum;
+    }
 
+    registrant.recalculateWinner = function(challengeDetail) {
+      var rgt = _.findWhere(challengeDetail.winners, {registrantId: registrant.registrantId});
+      if (!rgt) return;
+
+      registrant.firstAwarded = (rgt.reward == jsonValue.rewards.firstPlaceEnum());
+      registrant.secondAwarded = (rgt.reward == jsonValue.rewards.secondPlaceEnum());
+      registrant.thirdAwarded = (rgt.reward == jsonValue.rewards.thirdPlaceEnum());
     }
 
     registrant.acceptSubmission = function (submission) {

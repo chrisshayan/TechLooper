@@ -357,6 +357,20 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
           return d;
         }
       });
+    },
+
+    /**
+     * @see com.techlooper.controller.ChallengeController.saveWinner
+     * */
+    removeWinner: function (registrantId, reward) {
+      return $http.put("challenge/registrant/winner", {
+        registrantId: registrantId,
+        reward: reward
+      }, {
+        transformResponse: function (d, h) {
+          return d;
+        }
+      });
     }
   };
 
