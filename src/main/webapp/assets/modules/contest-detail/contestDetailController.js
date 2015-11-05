@@ -228,6 +228,7 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
   };
 
   $scope.resetActivePhase = function () {
+    flagUpdate = true;
     $scope.reviewPhase($scope.registrantFunnel.currentPosition, {phase: $scope.contestDetail.currentPhase});
   };
 
@@ -267,7 +268,7 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
   }
 
   $scope.$on("update-funnel", function (sc, registrant) {
-    flagUpdate = true;
+    flagUpdate = false;
     $scope.getRegistrants(registrant.challengeId, flagUpdate);
   });
 
