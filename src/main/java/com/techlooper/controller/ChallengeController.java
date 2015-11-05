@@ -1,5 +1,6 @@
 package com.techlooper.controller;
 
+import com.techlooper.dto.ChallengeWinnerDto;
 import com.techlooper.entity.ChallengeEntity;
 import com.techlooper.entity.ChallengeRegistrantDto;
 import com.techlooper.entity.ChallengeRegistrantEntity;
@@ -182,21 +183,11 @@ public class ChallengeController {
 
   @PreAuthorize("hasAuthority('EMPLOYER')")
   @RequestMapping(value = "challenge/registrant/winner", method = RequestMethod.POST)
-  public boolean saveWinner(@RequestBody ChallengeWinner challengeWinner, HttpServletRequest request, HttpServletResponse response) {
-    boolean result = challengeRegistrantService.saveWinner(challengeWinner, request.getRemoteUser(), false);
-    if (!result) {
+  public Set<ChallengeWinner> saveWinner(@RequestBody ChallengeWinnerDto challengeWinner, HttpServletRequest request, HttpServletResponse response) {
+    Set<ChallengeWinner> winners = challengeRegistrantService.saveWinner(challengeWinner, request.getRemoteUser());
+    if (winners == null) {
       response.setStatus(HttpServletResponse.SC_FORBIDDEN);
     }
-    return result;
-  }
-
-  @PreAuthorize("hasAuthority('EMPLOYER')")
-  @RequestMapping(value = "challenge/registrant/winner", method = RequestMethod.PUT)
-  public boolean deleteWinner(@RequestBody ChallengeWinner challengeWinner, HttpServletRequest request, HttpServletResponse response) {
-    boolean result = challengeRegistrantService.saveWinner(challengeWinner, request.getRemoteUser(), false);
-    if (!result) {
-      response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-    }
-    return result;
+    return winners;
   }
 }

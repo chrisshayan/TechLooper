@@ -9,10 +9,8 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonV
       registrant.criteria = criteriaDto.criteria;
     });
 
-    $rootScope.$on("changeWinnerSuccessful", function (s, rgt) {
-      if (registrant.registrantId != rgt.registrantId && registrant.reward == rgt.reward) {
-        delete registrant.reward;
-      }
+    $rootScope.$on("changeWinnerSuccessful", function (s, challengeDetail) {
+      registrant.recalculateWinner(challengeDetail);
     });
 
     var calculatePoint = function (cri) {
@@ -104,6 +102,8 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonV
     }
 
     registrant.recalculateWinner = function(challengeDetail) {
+      _.extendOwn(registrant, {firstAwarded: false, secondAwarded: false, thirdAwarded: false});
+
       var rgt = _.findWhere(challengeDetail.winners, {registrantId: registrant.registrantId});
       if (!rgt) return;
 

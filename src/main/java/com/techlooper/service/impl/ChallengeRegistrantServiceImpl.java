@@ -1,5 +1,6 @@
 package com.techlooper.service.impl;
 
+import com.techlooper.dto.ChallengeWinnerDto;
 import com.techlooper.entity.ChallengeEntity;
 import com.techlooper.entity.ChallengeRegistrantDto;
 import com.techlooper.entity.ChallengeRegistrantEntity;
@@ -27,6 +28,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.*;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import static com.techlooper.model.ChallengePhaseEnum.*;
@@ -180,23 +182,25 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
     return registrants;
   }
 
-  public boolean saveWinner(ChallengeWinner challengeWinner, String loginUser, boolean removeWinner) {
+  public Set<ChallengeWinner> saveWinner(ChallengeWinnerDto challengeWinnerDto, String loginUser) {
+    ChallengeWinner challengeWinner = dozerMapper.map(challengeWinnerDto, ChallengeWinner.class);
     Long registrantId = challengeWinner.getRegistrantId();
     ChallengeRegistrantEntity registrant = challengeRegistrantRepository.findOne(registrantId);
     if (!challengeService.isOwnerOfChallenge(loginUser, registrant.getChallengeId())) {
-      return false;
+      return null;
     }
 
     ChallengeEntity challenge = challengeRepository.findOne(registrant.getChallengeId());
     Set<ChallengeWinner> winners = challenge.getWinners();
+    winners = winners.stream().filter(wnn -> !wnn.getRegistrantId().equals(registrantId)).collect(Collectors.toSet());
     winners.remove(challengeWinner);
-    if (!removeWinner) winners.add(challengeWinner);
+    if (!challengeWinnerDto.getRemovable()) winners.add(challengeWinner);
 
+    challenge.setWinners(winners);
     challenge = challengeRepository.save(challenge);
-    return challenge != null;
+    return challenge.getWinners();
   }
 
-  @Override
   public List<ChallengeRegistrantEntity> findRegistrantsByChallengeId(Long challengeId) {
     NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withTypes("challengeRegistrant");
     searchQueryBuilder.withQuery(filteredQuery(matchAllQuery(), termFilter("challengeId", challengeId)));

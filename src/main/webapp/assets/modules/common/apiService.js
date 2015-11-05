@@ -348,28 +348,11 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
     /**
      * @see com.techlooper.controller.ChallengeController.saveWinner
      * */
-    saveWinner: function (registrantId, reward) {
+    saveWinner: function (registrantId, reward, removable) {
       return $http.post("challenge/registrant/winner", {
         registrantId: registrantId,
-        reward: reward
-      }, {
-        transformResponse: function (d, h) {
-          return d;
-        }
-      });
-    },
-
-    /**
-     * @see com.techlooper.controller.ChallengeController.saveWinner
-     * */
-    removeWinner: function (registrantId, reward) {
-      return $http.put("challenge/registrant/winner", {
-        registrantId: registrantId,
-        reward: reward
-      }, {
-        transformResponse: function (d, h) {
-          return d;
-        }
+        reward: reward,
+        removable: removable
       });
     }
   };

@@ -65,34 +65,27 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
 
     //@see jsonValue.rewards
     challengeDetail.save1stWinner = function (registrant) {
-      apiService.saveWinner(registrant.registrantId, jsonValue.rewards.firstPlaceEnum())
-        .success(function (result) {
-          if (result == 'true') {
-            registrant.reward = jsonValue.rewards.firstPlaceEnum();
-            $rootScope.$broadcast("changeWinnerSuccessful", registrant);
-          }
+      apiService.saveWinner(registrant.registrantId, jsonValue.rewards.firstPlaceEnum(), !registrant.firstAwarded)
+        .success(function(winners) {
+          challengeDetail.winners = winners;
+          $rootScope.$broadcast("changeWinnerSuccessful", challengeDetail)
         });
     }
 
     challengeDetail.save2ndWinner = function (registrant) {
-      apiService.saveWinner(registrant.registrantId, jsonValue.rewards.secondPlaceEnum())
-        .success(function (result) {
-          if (result == 'true') {
-            registrant.reward = jsonValue.rewards.secondPlaceEnum();
-            $rootScope.$broadcast("changeWinnerSuccessful", registrant);
-          }
+      apiService.saveWinner(registrant.registrantId, jsonValue.rewards.secondPlaceEnum(), !registrant.secondAwarded)
+        .success(function(winners) {
+          challengeDetail.winners = winners;
+          $rootScope.$broadcast("changeWinnerSuccessful", challengeDetail)
         });
     }
 
     challengeDetail.save3rdWinner = function (registrant) {
-      console.log(registrant);
-      //apiService.saveWinner(registrant.registrantId, jsonValue.rewards.thirdPlaceEnum())
-      //  .success(function (result) {
-      //    if (result == 'true') {
-      //      registrant.reward = jsonValue.rewards.thirdPlaceEnum();
-      //      $rootScope.$broadcast("changeWinnerSuccessful", registrant);
-      //    }
-      //  });
+      apiService.saveWinner(registrant.registrantId, jsonValue.rewards.thirdPlaceEnum(), !registrant.thirdAwarded)
+        .success(function(winners) {
+          challengeDetail.winners = winners;
+          $rootScope.$broadcast("changeWinnerSuccessful", challengeDetail)
+        });
     }
 
     challengeDetail.recalculate = function(phase) {

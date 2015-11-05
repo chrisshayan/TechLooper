@@ -11,6 +11,7 @@ techlooper.directive("feedbackForm", function (apiService, $timeout, resourcesSe
 
       resourcesService.getEmailTemplates().then(function (eTemplates) {scope.emailTemplates = eTemplates;});
 
+      scope.composeEmail = {};
       scope.$watch("registrants", function () {
         scope.composeEmail.names = _.reduce(scope.registrants, function (fullName, registrant) {
           return registrant.registrantFirstName + " " + registrant.registrantLastName + ", " + fullName;
