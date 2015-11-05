@@ -36,17 +36,10 @@ techlooper.directive("feedbackForm", function (apiService, $timeout, resourcesSe
 
       scope.send = function () {
         if (scope.feedbackForm.$invalid) return;
-        $('.feedback-loading').css('visibility', 'inherit');
         var registrant = scope.registrants[0];
         apiService.sendFeedbackToRegistrant(registrant.registrantId, scope.composeEmail)
           .success(function () {
               scope.cancel();
-          })
-          .error(function () {
-            //scope.composeEmail.error = false;
-            $timeout(function () {
-              $('.feedback-loading').css('visibility', 'hidden');
-            }, 1200);
           });
       }
 
