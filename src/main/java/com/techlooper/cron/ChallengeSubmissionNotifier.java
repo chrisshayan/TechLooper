@@ -3,9 +3,12 @@ package com.techlooper.cron;
 import com.techlooper.entity.ChallengeEntity;
 import com.techlooper.entity.ChallengeRegistrantEntity;
 import com.techlooper.model.ChallengePhaseEnum;
+import com.techlooper.model.EmailSentResultEnum;
+import com.techlooper.repository.elasticsearch.ChallengeRegistrantRepository;
 import com.techlooper.service.ChallengeRegistrantService;
 import com.techlooper.service.ChallengeService;
-import org.dozer.Mapper;
+import com.techlooper.util.DataUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,13 +16,13 @@ import org.springframework.scheduling.annotation.Scheduled;
 
 import javax.annotation.Resource;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import static com.techlooper.model.ChallengePhaseEnum.*;
-import static com.techlooper.util.DateTimeUtils.currentDate;
-import static com.techlooper.util.DateTimeUtils.daysBetween;
+import static com.techlooper.util.DateTimeUtils.*;
 
 public class ChallengeSubmissionNotifier {
 
@@ -32,7 +35,7 @@ public class ChallengeSubmissionNotifier {
     private ChallengeRegistrantService challengeRegistrantService;
 
     @Resource
-    private Mapper dozerMapper;
+    private ChallengeRegistrantRepository challengeRegistrantRepository;
 
     @Value("${jobAlert.enable}")
     private Boolean enableJobAlert;
@@ -57,13 +60,26 @@ public class ChallengeSubmissionNotifier {
                     registrants = registrants.stream().filter(isFollowingUp).filter(notDisqualified)
                             .filter(beforeTwoDays).collect(Collectors.toList());
 
+                    //Thread.sleep(DataUtils.getRandomNumberInRange(300000, 600000));
                     for (ChallengeRegistrantEntity registrantEntity : registrants) {
-                        try {
-                            challengeService.sendEmailNotifyRegistrantAboutChallengeTimeline(
-                                    challengeEntity, registrantEntity, challengePhase);
-                            count++;
-                        } catch (Exception ex) {
-                            LOGGER.error(ex.getMessage(), ex);
+                        registrantEntity = challengeRegistrantRepository.findOne(registrantEntity.getRegistrantId());
+
+                        if (StringUtils.isEmpty(registrantEntity.getLastEmailSentDateTime())) {
+                            registrantEntity.setLastEmailSentDateTime(yesterdayDate(BASIC_DATE_TIME_PATTERN));
+                        }
+
+                        Date lastSentDate = string2Date(registrantEntity.getLastEmailSentDateTime(), BASIC_DATE_TIME_PATTERN);
+                        Date currentDate = new Date();
+                        if (daysBetween(lastSentDate, currentDate) > 0) {
+                            try {
+                                challengeService.sendEmailNotifyRegistrantAboutChallengeTimeline(
+                                        challengeEntity, registrantEntity, challengePhase, true);
+                                challengeService.updateSendEmailToContestantResultCode(registrantEntity, EmailSentResultEnum.OK);
+                                count++;
+                            } catch (Exception ex) {
+                                LOGGER.error(ex.getMessage(), ex);
+                                challengeService.updateSendEmailToContestantResultCode(registrantEntity, EmailSentResultEnum.ERROR);
+                            }
                         }
                     }
                 }
