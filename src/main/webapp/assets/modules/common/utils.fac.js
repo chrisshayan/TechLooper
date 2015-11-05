@@ -7,7 +7,6 @@ techlooper.factory("utils", function (jsonValue, $location, $rootScope, localSto
       return array.sort(function(left, right) {
         if (!left || !right) return 0;
         var rs = left[numberField] - right[numberField];
-        console.log(left[numberField], left[numberField]);
         return type == "asc" ? rs : (-1 * rs);
       });
     },

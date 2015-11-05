@@ -17,7 +17,7 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonV
       return (cri.weight / 100) * cri.score;// $filter('number')((cri.weight / 100) * cri.score, 1);
     }
 
-    registrant.fullName = registrant.registrantLastName + " " + registrant.registrantFirstName;
+    registrant.fullName = registrant.registrantFirstName + " " + registrant.registrantLastName;
 
     registrant.refreshCriteria = function () {
       apiService.findRegistrantCriteriaByRegistrantId(registrant.registrantId)

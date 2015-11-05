@@ -116,7 +116,7 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
     // see jsonValue.challengePhase
     challengeDetail.recalculateRegistrantRemainsPhases = function (phase) {
       challengeDetail.registrantRemainsPhases = [];
-      if (!challengeDetail.phaseItems || phase == jsonValue.challengePhase.getLastPhase().enum) return;
+      if (!challengeDetail.phaseItems || phase == challengeDetail.nextPhase) return;
 
       var alreadyNext = false;
       for (var i = 0; i < challengeDetail.phaseItems.length; i++) {
