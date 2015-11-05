@@ -6,8 +6,7 @@ techlooper.directive("popupEmail", function () {
     scope: {registrants: "="},
     link: function (scope, element, attr, ctrl) {
       scope.hidePopup = function () {
-        //TODO hide popup
-        console.log("hideme");
+        $('#emailCompose').modal('hide');
       }
       //scope.loadEmailTemplate = function (templateId) {
       //  apiService.getTemplateById(templateId)
