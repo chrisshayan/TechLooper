@@ -41,12 +41,15 @@ techlooper.directive("feedbackForm", function (apiService, $timeout, resourcesSe
       }
 
       scope.cancel = function () {
+        if($('#emailCompose').length){
+          $('#emailCompose').modal('hide');
+        }
         //if (!scope.composeEmail.visible) return;
         //scope.composeEmail.subject = '';
         ////scope.feedbackContent = '';
         //scope.composeEmail.error = true;
-        scope.composeEmail = {names: scope.composeEmail.names};
-        scope.composeEmail.templateId = 0;
+        //scope.composeEmail = {names: scope.composeEmail.names};
+       // scope.composeEmail.templateId = 0;
         scope.hide();
         //delete scope.composeEmail.visible;
         $('.feedback-loading').css('visibility', 'hidden');
