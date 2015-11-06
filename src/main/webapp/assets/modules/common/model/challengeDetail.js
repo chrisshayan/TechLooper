@@ -32,7 +32,7 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
 
     challengeDetail.addCriteria = function () {
       challengeDetail.criteria = challengeDetail.criteria || [];
-      challengeDetail.criteria.push({index: challengeDetail.criteria.length++});
+      challengeDetail.criteria.push({index: challengeDetail.criteria.length + 1});
     }
 
     challengeDetail.removeCriteria = function (cri) {
