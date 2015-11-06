@@ -45,7 +45,7 @@ techlooper.controller('employerDashboardController', function ($scope, jsonValue
       apiService.getDailyChallengeRegistrantNames(challengeId, now)
         .success(function (names) {
           $scope.composeEmail.names = names.join("; ");
-          $("#emailCompose").modal();
+          $("#emailComposeFeedback").modal('show');
         });
     }
     else if (param.a == "feedback-registrant") {
@@ -54,7 +54,7 @@ techlooper.controller('employerDashboardController', function ($scope, jsonValue
       apiService.getChallengeRegistrantFullName($scope.composeEmail.registrantId)
         .success(function (fullname) {
           $scope.composeEmail.names = fullname;
-          $("#emailCompose").modal();
+            $("#emailComposeFeedback").modal('show');
         });
     }
   }

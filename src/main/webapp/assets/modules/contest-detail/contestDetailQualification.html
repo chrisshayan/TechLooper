@@ -8,7 +8,7 @@
            ng-show="challenge.registrantRemainsPhases.length > 1"></p>
 
         <p translate="cannotQualifyNextPhase"
-           translate-value-active-challenge="{{challenge.currentPhase.toLowerCase() | translate}}" ng-show="challenge.registrantRemainsPhases.length == 0"></p>
+           translate-value-active-challenge="{{registrant.activePhase.toLowerCase() | translate}}" ng-show="challenge.registrantRemainsPhases.length == 0"></p>
         <div class="selection-next-phase">
             <ul ng-show="challenge.registrantRemainsPhases.length > 1" ng-init="nextPhase = '{{challenge.nextPhase}}'">
 

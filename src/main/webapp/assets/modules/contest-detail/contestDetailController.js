@@ -20,7 +20,7 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
 
   $scope.reviewPhase = function (index, phase, nextPhase) {
     var phaseName = phase ? phase.phase : jsonValue.challengePhase.getRegistration().enum;
-    if (index && (index > activePhaseIndex + 1) && flagUpdate) {
+    if (index && (index > activePhaseIndex + 1) && phase.phase !='WINNER') {
       return;
     }
     else {
@@ -68,11 +68,14 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
 
   $scope.sortByRegistrationDate = function () {
     $scope.sortByRegistrationDateType = $scope.sortByRegistrationDateType == "desc" ? "asc" : "desc";
+    delete $scope.sortBySubmissionType;
     utils.sortByNumber($scope.registrantPhase, "registrantId", $scope.sortByRegistrationDateType);
   }
 
   $scope.sortBySubmissionDate = function () {
     $scope.sortBySubmissionDateType = $scope.sortBySubmissionDateType == "asc" ? "desc" : "asc";
+    delete $scope.sortBySubmissionType;
+    delete $scope.sortByScoreType;
     $scope.registrantPhase.sort(function (a, b) {
       var interval = $scope.sortBySubmissionDateType == "asc" ? 1 : -1;
       return interval * ((b.lastSubmission ? b.lastSubmission.challengeSubmissionId : 0) - (a.lastSubmission ? a.lastSubmission.challengeSubmissionId : 0));
@@ -81,11 +84,16 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
 
   $scope.sortByScore = function () {
     $scope.sortByScoreType = $scope.sortByScoreType == "desc" ? "asc" : "desc";
+    delete $scope.sortBySubmissionType;
+    delete $scope.sortBySubmissionDateType;
     utils.sortByNumber($scope.registrantPhase, "totalPoint", $scope.sortByScoreType);
   };
 
   $scope.sortBySubmission = function () {
     $scope.sortBySubmissionType = $scope.sortBySubmissionType == "desc" ? "asc" : "desc";
+    delete $scope.sortByScoreType;
+    delete $scope.sortBySubmissionDateType;
+    delete $scope.sortByRegistrationDateType
     utils.sortByArrayLength($scope.registrantPhase, "submissions", $scope.sortBySubmissionType);
   };
 
@@ -218,10 +226,15 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
           }
         });
         //$scope.selectedPhase = $scope.registrantFunnel.currentPosition;
-
         if (flagUpdate == false) {
-          activePhaseIndex = $scope.selectedPhase;
-          $scope.reviewPhase($scope.registrantFunnel.currentPosition, $scope.registrantFunnel.phase);
+          $scope.selectedPhase;
+          var activePhaseName = '';
+          $.each($scope.registrantFunnel, function(i, value){
+            if($scope.selectedPhase == i){
+              activePhaseName = value.phase;
+            }
+          });
+          $scope.reviewPhase($scope.selectedPhase, activePhaseName);
         }
         else {
           activePhaseIndex = $scope.registrantFunnel.currentPosition;
