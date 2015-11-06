@@ -1,7 +1,6 @@
 package com.techlooper.service.impl;
 
 import com.techlooper.dto.EmailSettingDto;
-import com.techlooper.dto.EmailTemplateDto;
 import com.techlooper.entity.*;
 import com.techlooper.model.*;
 import com.techlooper.repository.elasticsearch.ChallengeRegistrantRepository;
@@ -842,15 +841,13 @@ public class ChallengeServiceImpl implements ChallengeService {
     }
 
     private void bindEmailTemplateVariables(EmailContent emailContent, ChallengeDto challengeDto, ChallengeRegistrantEntity registrant) {
-        Long templateId = emailContent.getTemplateId();
-        EmailTemplateDto emailTemplateDto = emailService.getTemplateById(templateId);
         String subject = emailContent.getSubject();
         String body = emailContent.getContent();
         EmailSettingDto emailSettingDto = employerService.findEmployerEmailSetting(challengeDto.getAuthorEmail());
         // Process email subject
-        subject = processEmailVariables(challengeDto, registrant, emailSettingDto, subject, emailTemplateDto.getSubjectVariables());
+        subject = processEmailVariables(challengeDto, registrant, emailSettingDto, subject);
         // Process email body
-        body = processEmailVariables(challengeDto, registrant, emailSettingDto, body, emailTemplateDto.getBodyVariables());
+        body = processEmailVariables(challengeDto, registrant, emailSettingDto, body);
 
         emailContent.setSubject(subject);
         emailContent.setContent(body);
@@ -862,7 +859,7 @@ public class ChallengeServiceImpl implements ChallengeService {
     }
 
     private String processEmailVariables(ChallengeDto challengeDto, ChallengeRegistrantEntity registrant,
-                                         EmailSettingDto emailSettingDto, String replacementCandidate, List<String> variables) {
+                                         EmailSettingDto emailSettingDto, String replacementCandidate) {
         String result = replacementCandidate;
 
         if (result.contains(EmailService.VAR_CONTEST_NAME)) {
