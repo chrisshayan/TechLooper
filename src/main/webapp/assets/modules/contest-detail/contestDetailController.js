@@ -20,7 +20,7 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
 
   $scope.reviewPhase = function (index, phase, nextPhase) {
     var phaseName = phase ? phase.phase : jsonValue.challengePhase.getRegistration().enum;
-    if (index && (index > activePhaseIndex + 1) && !flagUpdate) {
+    if (index && (index > activePhaseIndex + 1) && phase.phase !='WINNER') {
       return;
     }
     else {
@@ -227,14 +227,14 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
         });
         //$scope.selectedPhase = $scope.registrantFunnel.currentPosition;
         if (flagUpdate == false) {
-          activePhaseIndex = $scope.selectedPhase;
+          $scope.selectedPhase;
           var activePhaseName = '';
           $.each($scope.registrantFunnel, function(i, value){
-            if(activePhaseIndex == i){
+            if($scope.selectedPhase == i){
               activePhaseName = value.phase;
             }
           });
-          $scope.reviewPhase(activePhaseIndex, activePhaseName);
+          $scope.reviewPhase($scope.selectedPhase, activePhaseName);
         }
         else {
           activePhaseIndex = $scope.registrantFunnel.currentPosition;
