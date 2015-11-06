@@ -184,7 +184,7 @@
                           <#elseif currentPhase == "FINAL">
                               <#assign localizedCurrentPhase = "Final App">
                           </#if>
-                              <p style="font-size: 14px; line-height: 18px; margin: 0; padding: 0"><a href="${webBaseUrl}#/?action=redirectJA&utm_source=contestantsubmission&utm_medium=clicksubmission&utm_campaign=onlinecontest&targetUrl=${submissionUrl}" target="_blank">Your submission</a> to phase ${localizedCurrentPhase} of challenge <a href="${webBaseUrl}#/challenge-detail/${challengeAlias}-${challengeId}-id?utm_source=contestantsubmission&utm_medium=clickchallenge&utm_campaign=onlinecontest">${challengeName}</a> is being reviewed.</p>
+                              <p style="font-size: 14px; line-height: 18px; margin: 0; padding: 0"><a href="${webBaseUrl}#/?action=redirectJA&utm_source=contestantsubmission&utm_medium=clicksubmission&utm_campaign=onlinecontest&targetUrl=${submissionUrl}" target="_blank">Your submission</a> to phase <strong>${localizedCurrentPhase}</strong> of challenge <a href="${webBaseUrl}#/challenge-detail/${challengeAlias}-${challengeId}-id?utm_source=contestantsubmission&utm_medium=clickchallenge&utm_campaign=onlinecontest">${challengeName}</a> is being reviewed.</p>
                           </td>
                       </tr>
                     <tr>

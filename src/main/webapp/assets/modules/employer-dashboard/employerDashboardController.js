@@ -19,7 +19,7 @@ techlooper.controller('employerDashboardController', function ($scope, jsonValue
             });
       }
       else if ($scope.composeEmail.action == "feedback-registrant") {
-        apiService.sendFeedbackToRegistrant($scope.composeEmail.challengeId, $scope.composeEmail.registrantId, $scope.composeEmail)
+        apiService.sendFeedbackToRegistrant($scope.composeEmail.registrantId, $scope.composeEmail)
             .success(function(){
               $scope.composeEmail.cancel();
             })
