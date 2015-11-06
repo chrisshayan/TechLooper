@@ -865,67 +865,65 @@ public class ChallengeServiceImpl implements ChallengeService {
                                          EmailSettingDto emailSettingDto, String replacementCandidate, List<String> variables) {
         String result = replacementCandidate;
 
-        for (String variable : variables) {
-            if (EmailService.VAR_CONTEST_NAME.equals(variable)) {
-                result = result.replace(EmailService.VAR_CONTEST_NAME, challengeDto.getChallengeName());
-            }
-            if (EmailService.VAR_CONTEST_FIRST_PRIZE.equals(variable)) {
-                String formatPrize = currencyService.formatCurrency(Double.valueOf(challengeDto.getFirstPlaceReward()), Locale.US);
-                result = result.replace(EmailService.VAR_CONTEST_FIRST_PRIZE, formatPrize);
-            }
-            if (EmailService.VAR_CONTESTANT_FIRST_NAME.equals(variable)) {
-                result = result.replace(EmailService.VAR_CONTESTANT_FIRST_NAME, registrant.getRegistrantFirstName());
-            }
-            if (EmailService.VAR_MAIL_SIGNATURE.equals(variable)) {
-                result = result.replace(EmailService.VAR_MAIL_SIGNATURE, emailSettingDto.getEmailSignature());
-            }
-            if (EmailService.VAR_CONTEST_SECOND_PRIZE.equals(variable) && challengeDto.getSecondPlaceReward() != null) {
-                String formatPrize = currencyService.formatCurrency(Double.valueOf(challengeDto.getSecondPlaceReward()), Locale.US);
-                formatPrize = StringUtils.isNotEmpty(formatPrize) ? formatPrize : "";
-                result = result.replace(EmailService.VAR_CONTEST_SECOND_PRIZE, formatPrize);
-            }
-            if (EmailService.VAR_CONTEST_THIRD_PRIZE.equals(variable) && challengeDto.getThirdPlaceReward() != null) {
-                String formatPrize = currencyService.formatCurrency(Double.valueOf(challengeDto.getThirdPlaceReward()), Locale.US);
-                formatPrize = StringUtils.isNotEmpty(formatPrize) ? formatPrize : "";
-                result = result.replace(EmailService.VAR_CONTEST_THIRD_PRIZE, formatPrize);
-            }
+        if (result.contains(EmailService.VAR_CONTEST_NAME)) {
+            result = result.replace(EmailService.VAR_CONTEST_NAME, challengeDto.getChallengeName());
+        }
+        if (result.contains(EmailService.VAR_CONTEST_FIRST_PRIZE)) {
+            String formatPrize = currencyService.formatCurrency(Double.valueOf(challengeDto.getFirstPlaceReward()), Locale.US);
+            result = result.replace(EmailService.VAR_CONTEST_FIRST_PRIZE, formatPrize);
+        }
+        if (result.contains(EmailService.VAR_CONTESTANT_FIRST_NAME)) {
+            result = result.replace(EmailService.VAR_CONTESTANT_FIRST_NAME, registrant.getRegistrantFirstName());
+        }
+        if (result.contains(EmailService.VAR_MAIL_SIGNATURE)) {
+            result = result.replace(EmailService.VAR_MAIL_SIGNATURE, emailSettingDto.getEmailSignature());
+        }
+        if (result.contains(EmailService.VAR_CONTEST_SECOND_PRIZE) && challengeDto.getSecondPlaceReward() != null) {
+            String formatPrize = currencyService.formatCurrency(Double.valueOf(challengeDto.getSecondPlaceReward()), Locale.US);
+            formatPrize = StringUtils.isNotEmpty(formatPrize) ? formatPrize : "";
+            result = result.replace(EmailService.VAR_CONTEST_SECOND_PRIZE, formatPrize);
+        }
+        if (result.contains(EmailService.VAR_CONTEST_THIRD_PRIZE) && challengeDto.getThirdPlaceReward() != null) {
+            String formatPrize = currencyService.formatCurrency(Double.valueOf(challengeDto.getThirdPlaceReward()), Locale.US);
+            formatPrize = StringUtils.isNotEmpty(formatPrize) ? formatPrize : "";
+            result = result.replace(EmailService.VAR_CONTEST_THIRD_PRIZE, formatPrize);
+        }
 
-            Set<ChallengeRegistrantDto> winners = challengeRegistrantService.findWinnerRegistrantsByChallengeId(challengeDto.getChallengeId());
-            Optional<ChallengeRegistrantDto> firstWinner = winners.stream().filter(
-                    winner -> winner.getReward() == RewardEnum.FIRST_PLACE).findFirst();
-            Optional<ChallengeRegistrantDto> secondWinner = winners.stream().filter(
-                    winner -> winner.getReward() == RewardEnum.SECOND_PLACE).findFirst();
-            Optional<ChallengeRegistrantDto> thirdWinner = winners.stream().filter(
-                    winner -> winner.getReward() == RewardEnum.THIRD_PLACE).findFirst();
+        Set<ChallengeRegistrantDto> winners = challengeRegistrantService.findWinnerRegistrantsByChallengeId(challengeDto.getChallengeId());
+        Optional<ChallengeRegistrantDto> firstWinner = winners.stream().filter(
+                winner -> winner.getReward() == RewardEnum.FIRST_PLACE).findFirst();
+        Optional<ChallengeRegistrantDto> secondWinner = winners.stream().filter(
+                winner -> winner.getReward() == RewardEnum.SECOND_PLACE).findFirst();
+        Optional<ChallengeRegistrantDto> thirdWinner = winners.stream().filter(
+                winner -> winner.getReward() == RewardEnum.THIRD_PLACE).findFirst();
 
-            if (EmailService.VAR_FIRST_WINNER_FIRST_NAME.equals(variable)
-                    || EmailService.VAR_FIRST_WINNER_FULL_NAME.equals(variable)) {
-                if (firstWinner.isPresent()) {
-                    String firstName = firstWinner.get().getRegistrantFirstName();
-                    String lastName = firstWinner.get().getRegistrantLastName();
-                    result = result.replace(EmailService.VAR_FIRST_WINNER_FIRST_NAME, firstName);
-                    result = result.replace(EmailService.VAR_FIRST_WINNER_FULL_NAME, firstName + " " + lastName);
-                }
+        if (result.contains(EmailService.VAR_FIRST_WINNER_FIRST_NAME)
+                || result.contains(EmailService.VAR_FIRST_WINNER_FULL_NAME)) {
+            if (firstWinner.isPresent()) {
+                String firstName = firstWinner.get().getRegistrantFirstName();
+                String lastName = firstWinner.get().getRegistrantLastName();
+                result = result.replace(EmailService.VAR_FIRST_WINNER_FIRST_NAME, firstName);
+                result = result.replace(EmailService.VAR_FIRST_WINNER_FULL_NAME, firstName + " " + lastName);
             }
+        }
 
-            if (EmailService.VAR_SECOND_WINNER_FIRST_NAME.equals(variable)
-                    || EmailService.VAR_SECOND_WINNER_FULL_NAME.equals(variable)) {
-                if (secondWinner.isPresent()) {
-                    String firstName = secondWinner.get().getRegistrantFirstName();
-                    String lastName = secondWinner.get().getRegistrantLastName();
-                    result = result.replace(EmailService.VAR_SECOND_WINNER_FIRST_NAME, firstName);
-                    result = result.replace(EmailService.VAR_SECOND_WINNER_FULL_NAME, firstName + " " + lastName);
-                }
+        if (result.contains(EmailService.VAR_SECOND_WINNER_FIRST_NAME)
+                || result.contains(EmailService.VAR_SECOND_WINNER_FULL_NAME)) {
+            if (secondWinner.isPresent()) {
+                String firstName = secondWinner.get().getRegistrantFirstName();
+                String lastName = secondWinner.get().getRegistrantLastName();
+                result = result.replace(EmailService.VAR_SECOND_WINNER_FIRST_NAME, firstName);
+                result = result.replace(EmailService.VAR_SECOND_WINNER_FULL_NAME, firstName + " " + lastName);
             }
+        }
 
-            if (EmailService.VAR_THIRD_WINNER_FIRST_NAME.equals(variable)
-                    || EmailService.VAR_THIRD_WINNER_FULL_NAME.equals(variable)) {
-                if (thirdWinner.isPresent()) {
-                    String firstName = thirdWinner.get().getRegistrantFirstName();
-                    String lastName = thirdWinner.get().getRegistrantLastName();
-                    result = result.replace(EmailService.VAR_THIRD_WINNER_FIRST_NAME, firstName);
-                    result = result.replace(EmailService.VAR_THIRD_WINNER_FULL_NAME, firstName + " " + lastName);
-                }
+        if (result.contains(EmailService.VAR_THIRD_WINNER_FIRST_NAME)
+                || result.contains(EmailService.VAR_THIRD_WINNER_FULL_NAME)) {
+            if (thirdWinner.isPresent()) {
+                String firstName = thirdWinner.get().getRegistrantFirstName();
+                String lastName = thirdWinner.get().getRegistrantLastName();
+                result = result.replace(EmailService.VAR_THIRD_WINNER_FIRST_NAME, firstName);
+                result = result.replace(EmailService.VAR_THIRD_WINNER_FULL_NAME, firstName + " " + lastName);
             }
         }
 
