@@ -28,11 +28,7 @@ techlooper.factory("resourcesService", function ($translate, $q, apiService, $fi
     {translate: "welcomeContestant", id: 1},
     {translate: "askContestantSubmission", id: 2},
     {translate: "disqualifyContestant", id: 3},
-    {translate: "announceWinnerToAllContestants", id: 4},
-    {translate: "welcomeContestant", id: 101},
-    {translate: "askContestantSubmission", id: 102},
-    {translate: "disqualifyContestant", id: 103},
-    {translate: "announceWinnerToAllContestants", id: 104},
+    {translate: "announceWinnerToAllContestants", id: 4}
   ];
 
   var paymentOptions = [
@@ -170,6 +166,9 @@ techlooper.factory("resourcesService", function ($translate, $q, apiService, $fi
           //console.log(row);
           item.ins.options = [];
           $.each(row, function (i, r) {
+            //r.title = $filter("translate")(r.translate);
+            //console.log(row);
+            //item.ins.options.push(r);
             $translate(r.translate).then(function (translate) {
               r.title = translate;
               item.ins.options.push(r);
@@ -181,6 +180,8 @@ techlooper.factory("resourcesService", function ($translate, $q, apiService, $fi
           //return (item.ins.options = array);
           return;
         }
+        //row.title = $filter("translate")(row.translate);
+        //console.log(row);
         $translate(row.translate).then(function (translate) {
           row.title = translate;
         });
