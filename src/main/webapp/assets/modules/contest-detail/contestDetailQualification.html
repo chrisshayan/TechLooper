@@ -9,14 +9,8 @@
 
         <p translate="cannotQualifyNextPhase"
            translate-value-active-challenge="{{registrant.activePhase.toLowerCase() | translate}}" ng-show="challenge.registrantRemainsPhases.length == 0"></p>
-        <div class="selection-next-phase">
-            <ul ng-show="challenge.registrantRemainsPhases.length > 1" ng-init="nextPhase = '{{challenge.nextPhase}}'">
-
-                <!--<li ng-repeat="phase in challenge.registrantRemainsPhases">-->
-                <!--<input type="radio" name="nextPhase{{registrant.registrantId}}"-->
-                <!--value="{{phase}}"-->
-                <!--id="rad{{phase.toLowerCase()}}" ng-model="registrant.nextPhase"/>-->
-                <!--<label for="rad{{phase.toLowerCase()}}">{{phase.toLowerCase() | translate}}</label></li>-->
+        <div class="selection-next-phase" ng-show="challenge.registrantRemainsPhases.length > 1" ng-init="nextPhase = '{{challenge.nextPhase}}'">
+            <ul>
                 <li ng-repeat="phase in challenge.registrantRemainsPhases">
                     <label>
                         <input type="radio" ng-value="phase" ng-model="registrant.ableAcceptedPhase">
