@@ -208,6 +208,9 @@ public class VietnamWorksJobSearchService implements JobSearchService {
     }
 
     private Long convertVND2ToUSD(Long salary) {
+        if (salary == null) {
+            return 0L;
+        }
         return salary > VIETNAM_CURRENCY_SALARY_DETECTOR ? salary / VND_USD_RATE : salary;
     }
 }
