@@ -34,15 +34,15 @@ public class DataUtils {
     Set<ChallengeCriteria> defaultCriterias = new HashSet<>();
     if (lang == Language.en) {
       defaultCriterias.add(ChallengeCriteria.ChallengeCriteriaBuilder.challengeCriteria()
-        .withName("default.uiuxIpml").withWeight(20L).build());
+        .withName("UI/UX implemented solution").withWeight(20L).build());
       defaultCriterias.add(ChallengeCriteria.ChallengeCriteriaBuilder.challengeCriteria()
-        .withName("default.creativeSolution").withWeight(20L).build());
+        .withName("Creativity on the proposed solution").withWeight(20L).build());
       defaultCriterias.add(ChallengeCriteria.ChallengeCriteriaBuilder.challengeCriteria()
-        .withName("default.srcQuality").withWeight(20L).build());
+        .withName("Source code quality").withWeight(20L).build());
       defaultCriterias.add(ChallengeCriteria.ChallengeCriteriaBuilder.challengeCriteria()
-        .withName("default.topEdgeTech").withWeight(20L).build());
+        .withName("Usage of top edge technology").withWeight(20L).build());
       defaultCriterias.add(ChallengeCriteria.ChallengeCriteriaBuilder.challengeCriteria()
-        .withName("default.appFunction").withWeight(20L).build());
+        .withName("Application functionality").withWeight(20L).build());
     }
     else {
       defaultCriterias.add(ChallengeCriteria.ChallengeCriteriaBuilder.challengeCriteria()
