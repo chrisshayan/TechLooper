@@ -124,8 +124,39 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonV
       }
     }
 
-    registrant.recalculate(challengePhase);
+    registrant.qualify = function () {
+      //utils.sendNotification(jsonValue.notifications.loading);
+      //delete registrant.disqualified;
+      //delete registrant.disqualifiedReason;
+      apiService.acceptChallengeRegistrant(registrant.registrantId, registrant.ableAcceptedPhase)
+        .success(function (rt) {
+          //registrant.qualified = !rt.disqualified;
+          registrant.disqualified = rt.disqualified;
+          registrant.disqualifiedReason = rt.disqualifiedReason;
+        })
+        .finally(function() {
+          $rootScope.$broadcast("on-qualified", registrant);
+        });
 
+      //delete scope.registrant.visible;
+      //utils.sendNotification(jsonValue.notifications.loaded);
+    };
+
+    registrant.disqualify = function () {
+      registrant.disqualified = true;
+      apiService.saveChallengeRegistrant(registrant)
+        .success(function (rt) {
+          registrant.disqualified = rt.disqualified;
+          registrant.disqualifiedReason = rt.disqualifiedReason;
+        })
+        .finally(function() {
+          $rootScope.$broadcast("on-disqualified", registrant);
+        });
+
+      //delete scope.registrant.visible;
+    };
+
+    registrant.recalculate(challengePhase);
     registrant.criteriaLoop();
 
     registrant.$isRich = true;

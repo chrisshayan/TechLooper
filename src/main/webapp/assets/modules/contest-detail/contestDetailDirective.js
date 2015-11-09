@@ -36,15 +36,15 @@ techlooper
         challenge: "="
       },
       link: function (scope, element, attr, ctrl) {
-        scope.nextPhase = '';
+        //scope.nextPhase = '';
         var showView = function (view) {
-          if ($rootScope.$eval("lastRegistrant.visible")) {
-            delete $rootScope.lastRegistrant.visible;
-          }
+          //if ($rootScope.$eval("lastRegistrant.visible")) {
+          //  delete $rootScope.lastRegistrant.visible;
+          //}
 
           scope.registrant.visible = {};
           scope.registrant.visible[view] = true;
-          $rootScope.lastRegistrant = scope.registrant;
+          //$rootScope.lastRegistrant = scope.registrant;
         }
 
         scope.registrant.showDisqualification = function () {
@@ -71,55 +71,55 @@ techlooper
           showView("acceptance");
         }
 
-        scope.$on("$destroy", function () {
-          if ($rootScope.lastRegistrant) delete $rootScope.lastRegistrant;
-        });
+        //scope.$on("$destroy", function () {
+        //  if ($rootScope.lastRegistrant) delete $rootScope.lastRegistrant;
+        //});
 
-        scope.registrant.qualify = function () {
-          utils.sendNotification(jsonValue.notifications.loading);
-          delete scope.registrant.disqualified;
-          delete scope.registrant.disqualifiedReason;
-          apiService.acceptChallengeRegistrant(scope.registrant.registrantId, scope.registrant.ableAcceptedPhase)
-            .success(function (registrant) {
-              scope.registrant.qualified = true;
-              $rootScope.$broadcast("update-funnel", registrant);
-            });
+        //scope.registrant.qualify = function () {
+        //  //utils.sendNotification(jsonValue.notifications.loading);
+        //  delete scope.registrant.disqualified;
+        //  delete scope.registrant.disqualifiedReason;
+        //  apiService.acceptChallengeRegistrant(scope.registrant.registrantId, scope.registrant.ableAcceptedPhase)
+        //    .success(function (registrant) {
+        //      scope.registrant.qualified = true;
+        //      //$rootScope.$broadcast("update-funnel", registrant);
+        //    });
+        //
+        //  delete scope.registrant.visible;
+        //  //utils.sendNotification(jsonValue.notifications.loaded);
+        //};
 
-          delete scope.registrant.visible;
-          utils.sendNotification(jsonValue.notifications.loaded);
-        };
+        //scope.registrant.disqualify = function () {
+        //  scope.registrant.disqualified = true;
+        //  apiService.saveChallengeRegistrant(scope.registrant)
+        //    .success(function (rt) {
+        //      scope.registrant.qualified = false;
+        //      scope.registrant.disqualifiedReason = rt.disqualifiedReason;
+        //    });
+        //
+        //  delete scope.registrant.visible;
+        //};
 
-        scope.registrant.disqualify = function () {
-          scope.registrant.disqualified = true;
-          apiService.saveChallengeRegistrant(scope.registrant)
-            .success(function (rt) {
-              scope.registrant.qualified = false;
-              scope.registrant.disqualifiedReason = rt.disqualifiedReason;
-            });
+        //scope.registrant.score = function () {
+        //  //apiService.acceptChallengeRegistrant(scope.registrant.registrantId)
+        //  //    .success(function(registrant) {
+        //  //      scope.registrant.activePhase = registrant.activePhase;
+        //  //    });
+        //  delete scope.registrant.visible;
+        //};
 
-          delete scope.registrant.visible;
-        };
-
-        scope.registrant.score = function () {
-          //apiService.acceptChallengeRegistrant(scope.registrant.registrantId)
-          //    .success(function(registrant) {
-          //      scope.registrant.activePhase = registrant.activePhase;
-          //    });
-          delete scope.registrant.visible;
-        };
-
-        scope.registrant.hide = function () {
+        scope.registrant.hideActionView = function () {
           if (!scope.registrant.visible) return;
           delete scope.registrant.visible;
         };
 
-        scope.registrant.accept = function () {
-          apiService.acceptChallengeRegistrant(scope.registrant.registrantId)
-            .success(function (registrant) {
-              scope.registrant.activePhase = registrant.activePhase;
-            });
-          delete scope.registrant.visible;
-        };
+        //scope.registrant.accept = function () {
+        //  apiService.acceptChallengeRegistrant(scope.registrant.registrantId)
+        //    .success(function (registrant) {
+        //      scope.registrant.activePhase = registrant.activePhase;
+        //    });
+        //  delete scope.registrant.visible;
+        //};
 
         //scope.$watch(function () {
         //  return paginationService.getCurrentPage("__default");
@@ -127,12 +127,12 @@ techlooper
         //  scope.registrant.hide();
         //});
 
-        scope.$on("success-submission-challenge", function (sc, submission) {
-          if (scope.registrant.registrantId != submission.registrantId) return;
-          scope.registrant.acceptSubmission(submission);
-        });
+        //scope.$on("success-submission-challenge", function (sc, submission) {
+        //  if (scope.registrant.registrantId != submission.registrantId) return;
+        //  scope.registrant.acceptSubmission(submission);
+        //});
 
-        utils.sortByNumber(scope.registrant.submissions, "challengeSubmissionId");
+        //utils.sortByNumber(scope.registrant.submissions, "challengeSubmissionId");
       }
     };
   })

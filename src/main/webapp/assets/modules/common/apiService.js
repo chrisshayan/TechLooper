@@ -330,9 +330,9 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
       return $http.get("user/challengeSubmissionPhase/" + registrantEmail + "/" + challengeId);
     },
 
-    getRegistrantFunnel: function (id) {
-      return $http.get("challenges/" + id + "/registrantFunnel");
-    },
+    //getRegistrantFunnel: function (id) {
+    //  return $http.get("challenges/" + id + "/registrantFunnel");
+    //},
 
     /**
      * @see com.techlooper.controller.ChallengeController.getChallengeRegistrantsByPhase

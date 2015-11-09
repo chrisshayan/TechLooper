@@ -1,4 +1,4 @@
-techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue, $filter) {
+techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue, $filter, $translate) {
   return function (input, type) {
     if (!input || input.$isRich) return input;
 
@@ -53,7 +53,7 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
       });
     };
 
-    challengeDetail.totalWeight = _.reduceRight(challengeDetail.criteria, function (sum, cri) { return sum + cri.weight; }, 0);
+    //challengeDetail.totalWeight = _.reduceRight(challengeDetail.criteria, function (sum, cri) { return sum + cri.weight; }, 0);
 
     challengeDetail.validate = function () {
       challengeDetail.$invalid = (challengeDetail.totalWeight != 100);
@@ -88,7 +88,11 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
         });
     }
 
-    challengeDetail.recalculate = function (phase, registrants) {
+    challengeDetail.recalculate = function (phaseName, registrants) {
+      if (!phaseName) {
+        phaseName = challengeDetail.selectedPhase.phase;
+      }
+
       //see jsonValue.challengePhase
       var prop = jsonValue.challengePhase[challengeDetail.currentPhase].challengeProp;
       if (prop) {
@@ -96,20 +100,46 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
         challengeDetail.currentPhaseDaysLeft = date.diff(moment(0, "HH"), "days") + 1;
       }
 
-      if (phase) {
-        challengeDetail.recalculateRegistrantRemainsPhases(phase);
+      if (phaseName) {
+        challengeDetail.recalculateRegistrantRemainsPhases(phaseName);
       }
 
       if (registrants) {
-        _.each(registrants, function(rgt) {
+        _.each(registrants, function (rgt) {
           rgt.ableAcceptedPhase = challengeDetail.nextPhase;
         });
 
         challengeDetail.recalculateStateWinners(registrants);
       }
+
+      if (challengeDetail.phaseItems) {
+        var isOver = true;
+        _.each(challengeDetail.phaseItems, function (item, index) {
+          item.isOver = isOver;
+          item.phaseLowerCase = item.phase.toLowerCase();
+
+          var cp = _.findWhere(jsonValue.challengePhase.values, {enum: item.phase});
+          item.countJoinerTitle = $filter("translate")(cp.phaseItem.translate.countJoiner, {number: item.participant});
+          item.countSubmissionTitle = $filter("translate")(cp.phaseItem.translate.countSubmission, {number: item.submission});
+
+          if (item.phase == challengeDetail.currentPhase) {
+            item.isCurrentPhase = true;
+            item.index = index;
+            isOver = false;
+          }
+        });
+
+        // mark unclickable from current-phase + 2
+        var current = _.findWhere(challengeDetail.phaseItems, {isCurrentPhase: true});
+        for (var i = current.index + 2; i < challengeDetail.phaseItems.length; i++) {
+          challengeDetail.phaseItems[i].unclickable = true;
+        }
+      }
+
+      challengeDetail.totalWeight = _.reduceRight(challengeDetail.criteria, function (sum, cri) { return sum + cri.weight; }, 0);
     }
 
-    challengeDetail.recalculateStateWinners = function(registrants) {
+    challengeDetail.recalculateStateWinners = function (registrants) {
       var finalRegistrants = _.where(registrants, {"activePhase": jsonValue.challengePhase.getLastPhase().enum});
       challengeDetail.countWinnerPaticipants = 0;
       _.each(finalRegistrants, function (registrant) {
@@ -141,7 +171,24 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
       }
     }
 
-    //challengeDetail.recalculate();
+    // see com.techlooper.model.ChallengeRegistrantFunnelItem
+    challengeDetail.setSelectedPhase = function (phaseItem) {
+      if (_.isString(phaseItem)) {
+        phaseItem = _.findWhere(challengeDetail.phaseItems, {phase: phaseItem});
+      }
+
+      if (phaseItem.unclickable) return;
+
+      challengeDetail.phaseItems.map(function (item) {item.isSelected = false;});
+      challengeDetail.selectedPhase = phaseItem;
+      phaseItem.isSelected = true;
+      challengeDetail.recalculate();
+    }
+
+    challengeDetail.setSelectedPhase(challengeDetail.currentPhase);
+    challengeDetail.recalculate();
+
+    console.log(challengeDetail);
 
     challengeDetail.$isRich = true;
     return challengeDetail;

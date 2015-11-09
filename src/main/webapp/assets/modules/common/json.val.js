@@ -1033,25 +1033,39 @@ techlooper.factory("jsonValue", function () {
     //@see com.techlooper.model.ChallengePhaseEnum
     challengePhase: {
       values: [
-        {enum: "REGISTRATION", challengeProp: "registrationDateTime"},
-        {enum: "IDEA", challengeProp: "ideaSubmissionDateTime"},
-        {enum: "UIUX", challengeProp: "uxSubmissionDateTime"},
-        {enum: "PROTOTYPE", challengeProp: "prototypeSubmissionDateTime"},
-        {enum: "FINAL", challengeProp: "submissionDateTime"},
-        {enum: "WINNER"}
+        {
+          enum: "REGISTRATION",
+          challengeProp: "registrationDateTime",
+          phaseItem: {translate: {countJoiner: "registrantsNumberPhase", countSubmission: "submissionsNumber"}}
+        },
+        {
+          enum: "IDEA",
+          challengeProp: "ideaSubmissionDateTime",
+          phaseItem: {translate: {countJoiner: "participantsNumber", countSubmission: "submissionsNumber"}}
+        },
+        {
+          enum: "UIUX",
+          challengeProp: "uxSubmissionDateTime",
+          phaseItem: {translate: {countJoiner: "participantsNumber", countSubmission: "submissionsNumber"}}
+        },
+        {
+          enum: "PROTOTYPE",
+          challengeProp: "prototypeSubmissionDateTime",
+          phaseItem: {translate: {countJoiner: "participantsNumber", countSubmission: "submissionsNumber"}}
+        },
+        {
+          enum: "FINAL",
+          challengeProp: "submissionDateTime",
+          phaseItem: {translate: {countJoiner: "participantsNumber", countSubmission: "submissionsNumber"}}
+        },
+        {
+          enum: "WINNER",
+          phaseItem: {translate: {countJoiner: "finalistNumber", countSubmission: "winnersNumber"}}
+        }
       ],
 
       getRegistration: function () {return instance.challengePhase.values[0];},
-      getLastPhase: function () {return instance.challengePhase.values[4];},
-
-      getEnum: function (name) {
-        var found = undefined;
-        $.each(instance.challengePhase.values, function (i, value) {
-          found = (value.enum == name) ? value : undefined;
-          return !found;
-        });
-        return found;
-      }
+      getLastPhase: function () {return instance.challengePhase.values[4];}
     },
 
     summerNoteConfig: {
