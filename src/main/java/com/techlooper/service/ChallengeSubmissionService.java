@@ -16,4 +16,5 @@ public interface ChallengeSubmissionService {
 
     Map<ChallengePhaseEnum, ChallengeSubmissionPhaseItem> countNumberOfSubmissionsByPhase(Long challengeId);
 
+    void markChallengeSubmissionAsRead(ChallengeSubmissionDto challengeSubmissionDto);
 }
