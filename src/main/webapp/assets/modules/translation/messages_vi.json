@@ -850,5 +850,8 @@
   "qualifyAllToNextPhaseTip": "Bạn có muốn chọn tất cả các thí sinh từ vòng <strong>{{activePhase}}</strong> vào vòng <strong>{{nextPhase}}</strong>? Những thí sinh này chưa bị loại bỏ và",
   "havingAllSubmissionsRead": "Có tất cả bài gửi đã được đọc",
   "havingSubmissions": "Có ít nhất 1 bài gửi",
-  "regardlessOfHavingSubmissions": "Có thể có hoặc không có bài gửi"
+  "regardlessOfHavingSubmissions": "Có thể có hoặc không có bài gửi",
+  "unread": "Chưa đọc",
+  "unreadTip": "Hiển thị các bài chưa đọc",
+  "readTip": "Hiển thị tất cả các bài"
 }

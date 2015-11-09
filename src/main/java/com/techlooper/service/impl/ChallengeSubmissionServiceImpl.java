@@ -183,4 +183,14 @@ public class ChallengeSubmissionServiceImpl implements ChallengeSubmissionServic
         }
         return numberOfSubmissionsByPhase;
     }
+
+    @Override
+    public void markChallengeSubmissionAsRead(ChallengeSubmissionDto challengeSubmissionDto) {
+        ChallengeSubmissionEntity challengeSubmissionEntity =
+                challengeSubmissionRepository.findOne(challengeSubmissionDto.getChallengeSubmissionId());
+        if (challengeSubmissionEntity != null) {
+            challengeSubmissionEntity.setIsRead(challengeSubmissionDto.getIsRead());
+            challengeSubmissionRepository.save(challengeSubmissionEntity);
+        }
+    }
 }

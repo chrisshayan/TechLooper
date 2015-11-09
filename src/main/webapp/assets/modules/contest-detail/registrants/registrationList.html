@@ -19,10 +19,17 @@
               <i class="fa"
                  ng-class="{'fa-chevron-circle-down':sortByRegistrationDateType == 'desc','fa-chevron-circle-up': sortByRegistrationDateType == 'asc'}"></i>
             </div>
-            <div class="registration-submission" ng-click="sortBySubmission()">
-              {{'submissions' | translate}}
-              <i class="fa"
-                 ng-class="{'fa-chevron-circle-down': sortBySubmissionType == 'desc','fa-chevron-circle-up': sortBySubmissionType == 'asc'}"></i>
+            <div class="registration-submission">
+              <span ng-click="sortBySubmission()" class="name-col" >
+                {{'submissions' | translate}}
+                <i class="fa" ng-class="{'fa-chevron-circle-down': sortBySubmissionType == 'desc','fa-chevron-circle-up': sortBySubmissionType == 'asc'}"></i>
+              </span>
+              <span class="unreadFilter" ng-model="unreadSubmission" ng-click="unreadSubmission=!unreadSubmission"
+                    ng-class="{checked: unreadSubmission}" title="{{(unreadSubmission ? 'readTip': 'unreadTip') | translate}}">
+                <i class="fa fa-circle"></i>
+                <i class="fa fa-circle-thin"></i>
+                {{'unread' | translate}}
+              </span>
             </div>
             <div class="registration-review">
               {{'qualifiedNextPhase' | translate}}
