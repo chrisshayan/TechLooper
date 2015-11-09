@@ -838,5 +838,13 @@
   "daysLeft": "<strong>{{days}}</strong> day(s) left",
   "qualifyToNextPhaseConfirm": "Are you sure you want to select this contestant from <strong>{{currentPhase}}</strong> to phase",
   "cannotQualifyNextPhase": "This contestant has already been in <strong>{{activeChallenge}}</strong>. </br>Wait for next phase of the challenge (if not in Final App phase yet) to perform this action.",
-  "gotIt": "Got it"
+  "gotIt": "Got it",
+  "read": "Read",
+  "markedAsUnread": "Marked as Unread",
+  "numberUnread": "{{number}} unread",
+  "qualifyAllToNextPhase": "Qualify All To Next Phase",
+  "qualifyAllToNextPhaseTip": "Are you sure you want to select all contestants from <strong>{{activePhase}}</strong> phase to <strong>{{nextPhase}}</strong> phase? These contestants are non-disqualified and",
+  "havingAllSubmissionsRead": "Having all submissions read",
+  "havingSubmissions": "Having submissions",
+  "regardlessOfHavingSubmissions": "Regardless of having submissions or not"
 }

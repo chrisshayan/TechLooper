@@ -842,5 +842,13 @@
   "daysLeft": "Còn lại <strong>{{days}}</strong> ngày",
   "qualifyToNextPhaseConfirm": "Bạn có muốn chọn thí sinh này từ vòng <strong>{{currentPhase}}</strong> vào vòng",
   "cannotQualifyNextPhase": "Thí sinh này đã ở giai đoạn <strong>{{activeChallenge}}</strong>. </br>Bạn cần chờ đến giai đoạn tiếp theo của cuộc thi (nếu chưa ở giai đoạn Sản Phẩm Cuối) để thực hiện thao tác này.",
-  "gotIt": "Đã hiểu"
+  "gotIt": "Đã hiểu",
+  "read": "Read",
+  "markedAsUnread": "Đánh dấu Chưa đọc",
+  "numberUnread": "{{number}} bài chưa đọc",
+  "qualifyAllToNextPhase": "Chọn tất cả vào vòng sau",
+  "qualifyAllToNextPhaseTip": "Bạn có muốn chọn tất cả các thí sinh từ vòng <strong>{{activePhase}}</strong> vào vòng <strong>{{nextPhase}}</strong>? Những thí sinh này chưa bị loại bỏ và",
+  "havingAllSubmissionsRead": "Có tất cả bài gửi đã được đọc",
+  "havingSubmissions": "Có ít nhất 1 bài gửi",
+  "regardlessOfHavingSubmissions": "Có thể có hoặc không có bài gửi"
 }
