@@ -1132,6 +1132,8 @@ public class ChallengeServiceImpl implements ChallengeService {
 //        ChallengePhaseEnum activePhase = challengeDetailDto.getNextPhase();
         if (activePhase != registrant.getActivePhase()) {
             registrant.setActivePhase(activePhase);
+            registrant.setDisqualified(Boolean.FALSE);
+            registrant.setDisqualifiedReason(null);
             registrant = challengeRegistrantRepository.save(registrant);
         }
 
