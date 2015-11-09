@@ -29,6 +29,8 @@ public class ChallengeSubmissionDto implements Serializable {
 
     private Language lang;
 
+    private Boolean isRead;
+
     public ChallengePhaseEnum getSubmissionPhase() {
         return submissionPhase;
     }
@@ -115,5 +117,13 @@ public class ChallengeSubmissionDto implements Serializable {
 
     public void setLang(Language lang) {
         this.lang = lang;
+    }
+
+    public Boolean getIsRead() {
+        return isRead;
+    }
+
+    public void setIsRead(Boolean isRead) {
+        this.isRead = isRead;
     }
 }
