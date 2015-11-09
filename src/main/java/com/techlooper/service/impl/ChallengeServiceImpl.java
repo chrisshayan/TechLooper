@@ -167,6 +167,12 @@ public class ChallengeServiceImpl implements ChallengeService {
     @Value("${mail.dailyChallengeSummary.subject.vi}")
     private String dailyChallengeSummaryMailSubjectVi;
 
+    @Value("${mail.notifyChallengePhaseClosed.subject.en}")
+    private String notifyChallengePhaseClosedMailSubjectEn;
+
+    @Value("${mail.notifyChallengePhaseClosed.subject.vi}")
+    private String notifyChallengePhaseClosedMailSubjectVi;
+
     @Resource
     private Template notifyChallengeTimelineMailTemplateVi;
 
@@ -184,6 +190,12 @@ public class ChallengeServiceImpl implements ChallengeService {
 
     @Resource
     private Template dailyChallengeSummaryMailTemplateEn;
+
+    @Resource
+    private Template notifyChallengePhaseClosedMailTemplateVi;
+
+    @Resource
+    private Template notifyChallengePhaseClosedMailTemplateEn;
 
     @Resource
     private EmailService emailService;
@@ -286,6 +298,47 @@ public class ChallengeServiceImpl implements ChallengeService {
         mailSender.send(postChallengeMailMessage);
         LOGGER.info(postChallengeMailMessage.getMessageID() + " has been sent to users " +
                 postChallengeMailMessage.getAllRecipients() + " with challengeId = " + challengeEntity.getChallengeId());
+    }
+
+    @Override
+    public void sendEmailNotifyEmployerWhenPhaseClosed(ChallengeEntity challengeEntity, ChallengePhaseEnum challengePhase)
+            throws Exception {
+        String mailSubject = challengeEntity.getLang() == Language.vi ? notifyChallengePhaseClosedMailSubjectVi :
+                notifyChallengePhaseClosedMailSubjectEn;
+        Address[] recipientAddresses = getRecipientAddresses(challengeEntity, true);
+        Template template = challengeEntity.getLang() == Language.vi ? notifyChallengePhaseClosedMailTemplateVi :
+                notifyChallengePhaseClosedMailTemplateEn;
+
+        postChallengeMailMessage.setRecipients(Message.RecipientType.TO, recipientAddresses);
+        postChallengeMailMessage.setReplyTo(InternetAddress.parse(mailTechlooperReplyTo));
+        StringWriter stringWriter = new StringWriter();
+
+        Map<String, Object> templateModel = new HashMap<>();
+        templateModel.put("challenge", challengeEntity);
+        templateModel.put("challengeNameAlias", challengeEntity.getChallengeName().replaceAll("\\W", "-"));
+        templateModel.put("webBaseUrl", webBaseUrl);
+        templateModel.put("currentPhase", challengePhase.getValue());
+
+        ChallengeDetailDto challengeDetailDto = dozerMapper.map(challengeEntity, ChallengeDetailDto.class);
+        calculateChallengePhases(challengeDetailDto);
+        ChallengePhaseEnum nextPhase = challengeDetailDto.getNextPhase();
+        templateModel.put("nextPhase", nextPhase.getValue());
+
+        Map<ChallengePhaseEnum, ChallengeRegistrantPhaseItem> numberOfRegistrantByPhase =
+                challengeRegistrantService.countNumberOfRegistrantsByPhase(challengeEntity.getChallengeId());
+        ChallengeRegistrantPhaseItem nextPhaseRegistrants = numberOfRegistrantByPhase.get(nextPhase);
+        if (nextPhaseRegistrants != null) {
+            templateModel.put("nextPhaseRegistrants", nextPhaseRegistrants.getRegistration());
+        }
+
+        template.process(templateModel, stringWriter);
+        mailSubject = String.format(mailSubject, challengePhase.getValue(), challengeEntity.getChallengeName());
+        postChallengeMailMessage.setSubject(MimeUtility.encodeText(mailSubject, "UTF-8", null));
+        postChallengeMailMessage.setText(stringWriter.toString(), "UTF-8", "html");
+
+        stringWriter.flush();
+        postChallengeMailMessage.saveChanges();
+        mailSender.send(postChallengeMailMessage);
     }
 
     private String getNotifyRegistrantChallengeTimelineSubject(

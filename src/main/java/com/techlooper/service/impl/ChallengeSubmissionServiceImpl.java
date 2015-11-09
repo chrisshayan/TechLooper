@@ -104,7 +104,8 @@ public class ChallengeSubmissionServiceImpl implements ChallengeSubmissionServic
                 .withRegistrantId(registrant.getRegistrantId())
                 .withRegistrantName(String.format("%s %s", registrant.getRegistrantFirstName(), registrant.getRegistrantLastName()))
                 .withSubmissionDateTime(DateTimeUtils.currentDate())
-                .withSubmissionPhase(activePhase);
+                .withSubmissionPhase(activePhase)
+                .withIsRead(Boolean.FALSE);
         try {
             sendConfirmationEmailToRegistrant(challengeDto, registrant, challengeSubmissionEntity);
         } catch (Exception e) {

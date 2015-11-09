@@ -60,4 +60,12 @@ techlooper.directive('funnelManagement', function () {
     link: function (scope, element, attr, ctrl) {
     }
   };
+}).directive('qualifyAllToNextPhase', function () {
+  return {
+    restrict: "E",
+    replace: true,
+    templateUrl: "modules/contest-detail/registrants/qualifyAllToNextPhase.html",
+    link: function (scope, element, attr, ctrl) {
+    }
+  };
 });

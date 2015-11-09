@@ -8,6 +8,7 @@
       <div class="subject-col" translate="descriptionCol"></div>
       <div class="submission-link-col" translate="submissionLink"></div>
       <div class="date-col" translate="date"></div>
+      <div class="unread-col" translate="markedAsUnread"></div>
       <div class="close-col" ng-click="registrant.hide()" title="{{'closed' | translate}}">
         x
       </div>
@@ -27,6 +28,11 @@
         <div class="date-col">
           <label translate="date"></label>
           {{submission.submissionDateTime}}
+        </div>
+        <div class="unread-col">
+          <label translate="markedAsUnread"></label>
+          <i class="fa fa-circle-thin"></i>
+          <i class="fa fa-circle"></i>
         </div>
         <div class="close-col"></div>
       </div>

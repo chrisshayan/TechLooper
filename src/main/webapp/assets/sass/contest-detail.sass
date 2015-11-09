@@ -550,13 +550,13 @@
                 width: 80%
                 float: left
             .subject-col
-              width: 30%
+              width: 25%
               float: left
               text-align: left
               //word-break: break-word
               padding-right: 15px
             .submission-link-col
-              width: 35%
+              width: 30%
               float: left
               text-align: left
               word-break: break-all
@@ -576,6 +576,12 @@
               width: 10%
               float: left
               text-align: right
+            .unread-col
+              width: 10%
+              float: left
+              text-align: center
+              .fa-circle
+                color: red
             .close-col
               width: 5%
               float: left
@@ -1269,6 +1275,38 @@
               button.disabled
                 background-color: gray !important
                 cursor: not-allowed
+          .qualify-all-to-next-phase
+            clear: both
+            display: inline-block
+            width: 100%
+            text-align: center
+            background-color: #f3fafe
+            border-radius: 5px
+            padding: 15px 20px
+            label
+              font-weight: 500
+              cursor: pointer
+            p
+              margin: 0
+              padding: 0 0 10px 0
+            ul
+              padding: 0
+              margin: auto
+              width: 40%
+              text-align: left
+              li
+                padding: 5px 0 0
+                clear: both
+                width: 100%
+            .submission-qualify-all-to-next-phase
+              clear: both
+              display: inline-block
+              padding: 15px 0 0
+              width: 100%
+              a.btn-flat
+                padding: 6px 40px
+                height: auto
+                margin-left: 5px
     .alert
       margin-top: 20px
     .evaluation-criteria

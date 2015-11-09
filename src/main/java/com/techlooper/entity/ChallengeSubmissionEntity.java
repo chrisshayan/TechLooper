@@ -4,6 +4,7 @@ import com.techlooper.model.ChallengePhaseEnum;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.*;
 
+import static org.springframework.data.elasticsearch.annotations.FieldType.Boolean;
 import static org.springframework.data.elasticsearch.annotations.FieldType.Long;
 import static org.springframework.data.elasticsearch.annotations.FieldType.String;
 
@@ -33,6 +34,9 @@ public class ChallengeSubmissionEntity {
 
     @Field(type = String, index = FieldIndex.not_analyzed)
     private ChallengePhaseEnum submissionPhase;
+
+    @Field(type = Boolean)
+    private Boolean isRead;
 
     public java.lang.Long getRegistrantId() {
         return registrantId;
@@ -98,6 +102,14 @@ public class ChallengeSubmissionEntity {
         this.submissionPhase = submissionPhase;
     }
 
+    public Boolean getIsRead() {
+        return isRead;
+    }
+
+    public void setIsRead(Boolean isRead) {
+        this.isRead = isRead;
+    }
+
     public static class ChallengeSubmissionEntityBuilder {
         private ChallengeSubmissionEntity challengeSubmissionEntity;
 
@@ -146,6 +158,11 @@ public class ChallengeSubmissionEntity {
 
         public ChallengeSubmissionEntityBuilder withSubmissionPhase(ChallengePhaseEnum submissionPhase) {
             challengeSubmissionEntity.submissionPhase = submissionPhase;
+            return this;
+        }
+
+        public ChallengeSubmissionEntityBuilder withIsRead(Boolean isRead) {
+            challengeSubmissionEntity.isRead = isRead;
             return this;
         }
 
