@@ -1010,6 +1010,10 @@ techlooper.factory("jsonValue", function () {
       closed: {id: "closed", translate: "closed", timeLeftTranslate: "moreDayToClosed"}
     },
 
+    feedbackStatus: {
+      cannotSendMail: {id: "cannotSendMail", translate: "cannotSendMail"},
+      errorSystem: {id: "errorSystem", translate: "errorSystem"}
+    },
     "crawlSources": [
       {id: "vietnamworks", name: "VIETNAMWORKS"},
       {id: "careerbuilder-jobs-api-pagination", name: "CAREERBUILDER"},
