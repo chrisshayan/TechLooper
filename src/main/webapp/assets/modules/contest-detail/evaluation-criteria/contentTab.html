@@ -14,7 +14,7 @@
   </div>
   <div class="evaluation-criteria-body">
     <div ng-repeat="cri in contestDetail.criteriaLoop()" class="evaluation-criteria-item">
-      <challenge-criteria-input cri="cri" contest-detail="contestDetail"></challenge-criteria-input>
+      <challenge-evaluation-criteria-input cri="cri" contest-detail="contestDetail"></challenge-evaluation-criteria-input>
     </div>
     <div ng-show="contestDetail.criteria.length == 0">
       <p translate="noData"></p>
@@ -33,7 +33,7 @@
         </div>
         <div class="save-evaluation">
           <a class="btn btn-primary btn-flat" translate="save" ng-click="saveChallengeCriteria()"></a><a
-          class="btn btn-primary btn-flat gray" translate="cancel" ng-click="contestDetail.refreshCriteria()"></a>
+            class="btn btn-primary btn-flat gray" translate="cancel" ng-click="contestDetail.refreshCriteria()"></a>
         </div>
       </div>
     </div>

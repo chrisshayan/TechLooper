@@ -1,0 +1,84 @@
+<div class="prize-and-current-phase">
+  <div class="row tell-your-friends">
+    <div class="col-md-12">
+      <button class="btnz facebook" ng-click="fbShare()"><i class="fa fa-facebook"></i> <span
+          translate="tellYourFriends"></span></button>
+    </div>
+  </div>
+  <div class="row timeline-reward-block">
+    <div class="col-md-8">
+      <div class="row">
+        <div class="col-md-4"
+             ng-class="{'col6': contestDetail.thirdPlaceReward == null, 'col12': contestDetail.secondPlaceReward == null}">
+          <p translate="stPrize" ng-show="contestDetail.secondPlaceReward != null"></p>
+
+          <p translate="prize" ng-show="contestDetail.secondPlaceReward == null"></p>
+          <strong>${{contestDetail.firstPlaceReward | number:0}}</strong>
+        </div>
+        <div class="col-md-4" ng-class="{'col6': contestDetail.thirdPlaceReward == null}"
+             ng-show="contestDetail.secondPlaceReward != null">
+          <p translate="ndPrize"></p>
+          <strong>${{contestDetail.secondPlaceReward | number:0}}</strong>
+        </div>
+        <div class="col-md-4" ng-show="contestDetail.thirdPlaceReward != null">
+          <p translate="rdPrize"></p>
+          <strong>${{contestDetail.thirdPlaceReward | number:0}}</strong>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="ic-time-down"></div>
+      <div class="time-block">
+        <h3 translate="currentPhase"/>
+        <p>
+          {{contestDetail.progress.translate | translate}}
+        <span ng-show="contestDetail.progress.translate != 'closed' &&  contestDetail.progress.translate != 'notStart' &&  contestDetail.progress.translate != 'registration'">
+          (<span translate="{{contestDetail.currentPhase.toLowerCase()}}"></span>)
+        </span>
+        </p>
+        <p class="count-down-day" translate="{{contestDetail.progress.timeLeftTranslate}}"
+           translate-value-day-left="{{contestTimeLeft(contestDetail)}}"></p>
+
+      </div>
+      <a ng-modal="dateInfo" ng-click="dateInfo = !dateInfo">
+        <span translate="ViewNextDeadlines" ng-show="dateInfo"></span>
+        <span translate="ViewAllDeadlines" ng-show="!dateInfo"></span>
+      </a>
+
+      <div class="timeline-information animate-show" ng-show="dateInfo">
+        <ul>
+          <li><span translate="startDate"></span>{{contestDetail.startDateTime}}</li>
+          <li><span translate="registerBy"></span>{{contestDetail.registrationDateTime}}</li>
+          <li><span translate="submitBy"></span>{{contestDetail.submissionDateTime}}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="alert alert-success" ng-show="!status('already-join')">
+    <p translate="congratulationsForJoinContest"></p>
+  </div>
+  <div class="alert alert-danger" ng-show="failJoin == true">
+    <p translate="errorSystem"></p>
+  </div>
+  <div class="row registration-count">
+    <div class="col-md-12">
+      <p translate="registerNumber"
+         translate-value-register-number="<strong>{{contestDetail.numberOfRegistrants}}</strong>"></p>
+
+      <div class="join-now">
+        <button ng-disabled="!status('able-to-join')" ng-click="joinNowByFB()" class="btn btn-primary btn-flat"
+                ng-class="{disabled: !status('able-to-join')}">
+          <i class="fa fa-facebook-square"></i> <span translate="joinNow"></span></button>
+
+        <button ng-show="contestDetail.currentUserJoined == true" ng-click="contestDetail.showSubmitForm()"
+                class="btn btn-primary btn-flat">
+          <i class="fa fa-paper-plane-o"></i> <span translate="submitPhase"></span></button>
+      </div>
+    </div>
+  </div>
+  <submission-challenge challenge="contestDetail"></submission-challenge>
+  <div class="alert alert-success" data-ng-init="submittedPhase = false" ng-model="submittedPhase"
+       ng-show="submittedPhase">
+    <p translate="submissionPhaseSuccessful"></p>
+  </div>
+</div>
