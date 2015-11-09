@@ -60,7 +60,7 @@ public class ChallengeSubmissionNotifier {
                     registrants = registrants.stream().filter(isFollowingUp).filter(notDisqualified)
                             .filter(beforeTwoDays).collect(Collectors.toList());
 
-                    //Thread.sleep(DataUtils.getRandomNumberInRange(300000, 600000));
+                    Thread.sleep(DataUtils.getRandomNumberInRange(300000, 600000));
                     for (ChallengeRegistrantEntity registrantEntity : registrants) {
                         registrantEntity = challengeRegistrantRepository.findOne(registrantEntity.getRegistrantId());
 

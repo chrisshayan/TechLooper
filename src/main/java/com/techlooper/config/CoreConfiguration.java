@@ -589,4 +589,21 @@ public class CoreConfiguration implements ApplicationContextAware {
         Template template = freemakerConfig.getTemplate("notifyChallengeSubmission.vi.ftl");
         return template;
     }
+
+    @Bean
+    public ChallengePhaseClosedNotifier challengePhaseClosedNotifier() {
+        return new ChallengePhaseClosedNotifier();
+    }
+
+    @Bean
+    public Template notifyChallengePhaseClosedMailTemplateEn(freemarker.template.Configuration freemakerConfig) throws IOException {
+        Template template = freemakerConfig.getTemplate("notifyChallengePhaseClosed.en.ftl");
+        return template;
+    }
+
+    @Bean
+    public Template notifyChallengePhaseClosedMailTemplateVi(freemarker.template.Configuration freemakerConfig) throws IOException {
+        Template template = freemakerConfig.getTemplate("notifyChallengePhaseClosed.vi.ftl");
+        return template;
+    }
 }

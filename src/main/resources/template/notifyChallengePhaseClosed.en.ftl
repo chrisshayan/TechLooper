@@ -117,12 +117,12 @@
               <table style="border-collapse: collapse; background:#eee; margin:0 auto" cellpadding="0" cellspacing="0" align="center" border="0" class="deviceWidth" width="100%">
                 <tr>
                   <td align="left" style="padding:10px" class="logo">
-                    <a href="${webBaseUrl}#/?lang=en&utm_source=employerapplication&utm_medium=techlooperlogo&utm_campaign=onlinecontest" style="border:none; outline:none" target="_blank">
+                    <a href="${webBaseUrl}#/?lang=en&utm_source=remindphaseclose&utm_medium=techlooperlogo&utm_campaign=onlinecontest" style="border:none; outline:none" target="_blank">
                       <img alt="Techlooper Logo" class="logo" src="${webBaseUrl}images/logo.png" style="border:none; outline:none" width="150" />
                     </a>
                   </td>
                   <td style="padding:10px" align="right" class="logo">
-                    <a href="http://www.vietnamworks.com/?utm_source=employerapplication&utm_medium=vietnamworkslogo&utm_campaign=onlinecontest" style="border:none; outline:none" target="_blank">
+                    <a href="http://www.vietnamworks.com/?utm_source=remindphaseclose&utm_medium=vietnamworkslogo&utm_campaign=onlinecontest" style="border:none; outline:none" target="_blank">
                       <img alt="VietnamWorks Logo" class="logo" src="http://images.vietnamworks.com/img/jobseekers/logo.png" style="border:none; outline:none" width="150" />
                     </a>
                   </td>
@@ -173,7 +173,30 @@
                     </tr>
                     <tr>
                       <td align="left" style="font-size: 14px;">
-                        The phase <strong>[phase-name]</strong> of challenge <a href="" style="color:#337ab7" target="_blank"><strong>[challenge-name]</strong></a>just ended. The current phase is now <strong>[next-phase-name]</strong> with <strong>[registrant-number-of-next-phase]</strong> selected.
+                      <#if currentPhase == "REGISTRATION">
+                          <#assign localizedCurrentPhase = "Registration">
+                      <#elseif currentPhase == "IDEA">
+                          <#assign localizedCurrentPhase = "Idea">
+                      <#elseif currentPhase == "UIUX">
+                          <#assign localizedCurrentPhase = "UI/UX">
+                      <#elseif currentPhase == "PROTOTYPE">
+                          <#assign localizedCurrentPhase = "Prototype">
+                      <#elseif currentPhase == "FINAL">
+                          <#assign localizedCurrentPhase = "Final App">
+                      </#if>
+
+                      <#if nextPhase == "REGISTRATION">
+                          <#assign localizedNextPhase = "Registration">
+                      <#elseif nextPhase == "IDEA">
+                          <#assign localizedNextPhase = "Idea">
+                      <#elseif nextPhase == "UIUX">
+                          <#assign localizedNextPhase = "UI/UX">
+                      <#elseif nextPhase == "PROTOTYPE">
+                          <#assign localizedNextPhase = "Prototype">
+                      <#elseif nextPhase == "FINAL">
+                          <#assign localizedNextPhase = "Final App">
+                      </#if>
+                        The phase <strong>${localizedCurrentPhase}</strong> of challenge <a href="${webBaseUrl}#/challenge-detail/${challengeNameAlias}-${challenge.challengeId}-id?utm_source=remindphaseclose&utm_medium=clickchallenge&utm_campaign=onlinecontest" style="color:#337ab7" target="_blank"><strong>${challenge.challengeName}</strong></a>just ended. The current phase is now <strong>${localizedNextPhase}</strong> with <strong>${nextPhaseRegistrants}</strong> selected.
                       </td>
                     </tr>
                     <tr>
@@ -183,7 +206,7 @@
                     </tr>
                     <tr>
                       <td align="left" style="font-size: 14px;">
-                        Do you want to go to the last phase [phase-name] to select more participants?
+                        Do you want to go to the last phase ${localizedCurrentPhase} to select more participants?
                       </td>
                     </tr>
                     <tr>
