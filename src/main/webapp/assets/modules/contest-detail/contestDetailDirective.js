@@ -1,4 +1,31 @@
 techlooper
+    .directive('contentDetailsTab', function () {
+      return {
+        restrict: "E",
+        replace: true,
+        templateUrl: "modules/contest-detail/details/contentTab.html",
+        link: function (scope, element, attr, ctrl) {
+        }
+      };
+    })
+    .directive('contentRegistrantsTab', function () {
+      return {
+        restrict: "E",
+        replace: true,
+        templateUrl: "modules/contest-detail/registrants/contentTab.html",
+        link: function (scope, element, attr, ctrl) {
+        }
+      };
+    })
+    .directive('contentEvaluationCriteriaTab', function () {
+      return {
+        restrict: "E",
+        replace: true,
+        templateUrl: "modules/contest-detail/evaluation-criteria/contentTab.html",
+        link: function (scope, element, attr, ctrl) {
+        }
+      };
+    })
   .directive("contestDetailAction", function ($rootScope, apiService, paginationService, utils, jsonValue) {
     return {
       restrict: "E",

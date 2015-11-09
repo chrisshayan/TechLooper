@@ -1,8 +1,6 @@
 techlooper.controller('employerDashboardController', function ($scope, jsonValue, utils, apiService, $location, $filter, $route) {
 
   utils.sendNotification(jsonValue.notifications.loading, $(window).height());
-
-
   $scope.composeEmail = {
     send: function () {
       $scope.composeEmail.content = $('.summernote').code();
@@ -13,20 +11,36 @@ techlooper.controller('employerDashboardController', function ($scope, jsonValue
         apiService.sendEmailToDailyChallengeRegistrants($scope.composeEmail.challengeId, $scope.composeEmail.now, $scope.composeEmail)
             .success(function(){
               $scope.composeEmail.cancel();
-            })
-            .error(function(){
+            }).error(function(status){
               $scope.composeEmail.error = false;
+              switch (status) {
+                case 403:
+                  $scope.composeEmail.errorSendEmail = jsonValue.feedbackStatus.cannotSendMail.translate;
+                  break;
+                default:
+                  $scope.composeEmail.errorSendEmail = jsonValue.feedbackStatus.errorSystem.translate;
+              }
+              console.log($scope.composeEmail.errorSendEmail);
             });
       }
       else if ($scope.composeEmail.action == "feedback-registrant") {
         apiService.sendFeedbackToRegistrant($scope.composeEmail.registrantId, $scope.composeEmail)
-            .success(function(){
-              $scope.composeEmail.cancel();
-            })
-            .error(function(){
+          .success(function(){
+            $scope.composeEmail.cancel();
+          })
+          .error(function(err,status){
               $scope.composeEmail.error = false;
-            });
+              switch (status) {
+                case 403:
+                  $scope.composeEmail.errorSendEmail = jsonValue.feedbackStatus.cannotSendMail.translate;
+                  break;
+                default:
+                  $scope.composeEmail.errorSendEmail = jsonValue.feedbackStatus.errorSystem.translate;
+              }
+          });
+        console.log($scope.composeEmail.errorSendEmail);
       }
+
     },
     cancel: function () {
       $location.search({});
