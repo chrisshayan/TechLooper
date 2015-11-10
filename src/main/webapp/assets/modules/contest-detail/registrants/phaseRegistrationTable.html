@@ -29,7 +29,7 @@
     <tr ng-repeat="registrant in contestDetail.$registrants">
       <td>
         <div class="registrants-challenge-list">
-          <div class="registrant-order">{{registrant.$index}}</div>
+          <div class="registrant-order">{{registrant.$index + 1}}</div>
           <div class="registrant-name">{{registrant.fullName}}</div>
           <div class="registration-date">{{registrant.registrantId | timestamp: 'number'}}</div>
           <!--<div class="registration-submission">{{registrant.lastSubmission.submissionDateTime || '-'}}</div>-->
