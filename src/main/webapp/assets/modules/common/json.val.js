@@ -1044,6 +1044,7 @@ techlooper.factory("jsonValue", function () {
           enum: "IDEA",
           challengeProp: "ideaSubmissionDateTime",
           phaseItem: {translate: {countJoiner: "participantsNumber", countSubmission: "submissionsNumber"}},
+          registrantTable: {templateUrl: "modules/contest-detail/registrants/phaseIdeaTable.html"},
           isIdea: true
         },
         {

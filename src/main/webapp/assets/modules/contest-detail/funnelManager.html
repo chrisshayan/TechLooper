@@ -6,25 +6,10 @@
       <div class="current-phase-text">
         <span translate="currentPhase"></span>
       </div>
-      <div class="time-left" translate="daysLeft" translate-value-days="{{contestDetail.currentPhaseDaysLeft}}"></div>
+      <div class="time-left" translate="daysLeft"
+           ng-show="contestDetail.currentPhaseDaysLeft > 0"
+           translate-value-days="{{contestDetail.currentPhaseDaysLeft}}"></div>
       <div class="arrow-current"></div>
-
-      <!--</div>-->
-      <!--<div ng-show="contestDetail.progress.translate != 'closed'">-->
-      <!--<div class="current-phase-text">-->
-      <!--<span translate="currentPhase"></span>-->
-      <!--</div>-->
-      <!--<div class="time-left" ng-show="contestDetail.currentPhaseDaysLeft > 0"-->
-      <!--translate="daysLeft"-->
-      <!--translate-value-days="{{contestDetail.currentPhaseDaysLeft}}"></div>-->
-      <!--<div class="arrow-current"></div>-->
-      <!--</div>-->
-      <!--<div ng-show="contestDetail.progress.translate == 'closed' && phase.phase == 'WINNER'">-->
-      <!--<div class="current-phase-text">-->
-      <!--<span translate="currentPhase"></span>-->
-      <!--</div>-->
-      <!--<div class="arrow-current"></div>-->
-      <!--</div>-->
     </div>
     <div class="phase-name {{phaseItem.phaseLowerCase}}" ng-click="contestDetail.setSelectedPhase(phaseItem)"
          ng-class="{pass: phaseItem.isOver, unclickable: phaseItem.unselectable}">
