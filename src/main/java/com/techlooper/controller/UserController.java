@@ -423,4 +423,19 @@ public class UserController {
     public EmailTemplateDto getTemplateById(@PathVariable Long templateId) {
         return emailService.getTemplateById(templateId);
     }
+
+    @PreAuthorize("hasAuthority('EMPLOYER')")
+    @RequestMapping(value = "user/challenge/qualifyAllRegistrants", method = RequestMethod.POST)
+    public int qualifyAllRegistrants(@RequestBody ChallengeQualificationDto challengeQualificationDto,
+                                     HttpServletRequest request, HttpServletResponse response) {
+        String ownerEmail = request.getRemoteUser();
+        if (challengeService.isOwnerOfChallenge(ownerEmail, challengeQualificationDto.getChallengeId())) {
+            return challengeService.qualifyAllRegistrants(request.getRemoteUser(), challengeQualificationDto);
+        } else {
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            return 0;
+        }
+
+    }
+
 }

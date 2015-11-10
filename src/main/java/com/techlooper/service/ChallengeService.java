@@ -1,5 +1,6 @@
 package com.techlooper.service;
 
+import com.techlooper.dto.ChallengeQualificationDto;
 import com.techlooper.entity.ChallengeEntity;
 import com.techlooper.entity.ChallengeRegistrantDto;
 import com.techlooper.entity.ChallengeRegistrantEntity;
@@ -110,4 +111,6 @@ public interface ChallengeService {
     ChallengeRegistrantEntity findRegistrantByChallengeIdAndEmail(Long challengeId, String email);
 
     List<ChallengeRegistrantFunnelItem> getChallengeRegistrantFunnel(Long challengeId, String ownerEmail);
+
+    int qualifyAllRegistrants(String remoteUser, ChallengeQualificationDto challengeQualificationDto);
 }
