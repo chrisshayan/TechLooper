@@ -24,7 +24,8 @@
           <div class="registrant-order">{{registrant.$index}}</div>
           <div class="registrant-name">{{registrant.fullName}}</div>
           <div class="registration-date">{{registrant.registrantId | timestamp: 'number'}}</div>
-          <div class="registration-submission">{{registrant.lastSubmission.submissionDateTime || '-'}}</div>
+          <!--<div class="registration-submission">{{registrant.lastSubmission.submissionDateTime || '-'}}</div>-->
+          <div class="registration-submission">{{user.submissions.length || 0}}</div>
           <div class="registration-review">
             <a title="{{'qualifyNextPhase' | translate}}"><i class="fa fa-thumbs-up"></i></a>
             <a title="{{'disqualifyNextPhase' | translate}}"><i class="fa fa-thumbs-down"></i></a>
