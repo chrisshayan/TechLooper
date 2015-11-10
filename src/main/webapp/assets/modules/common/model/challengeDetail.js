@@ -129,10 +129,10 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
           }
         });
 
-        // mark unclickable from current-phase + 2
+        // mark unselectable from current-phase + 2
         var current = _.findWhere(challengeDetail.phaseItems, {isCurrentPhase: true});
         for (var i = current.index + 2; i < challengeDetail.phaseItems.length; i++) {
-          challengeDetail.phaseItems[i].unclickable = true;
+          challengeDetail.phaseItems[i].unselectable = true;
         }
       }
 
@@ -177,7 +177,7 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
         phaseItem = _.findWhere(challengeDetail.phaseItems, {phase: phaseItem});
       }
 
-      if (phaseItem.unclickable) return;
+      if (phaseItem.unselectable) return;
 
       challengeDetail.phaseItems.map(function (item) {item.isSelected = false;});
       challengeDetail.selectedPhase = phaseItem;
