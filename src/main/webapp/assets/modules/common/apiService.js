@@ -355,6 +355,14 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
         reward: reward,
         removable: removable
       });
+    },
+
+    readSubmission: function (challengeId, challengeSubmissionId, isRead) {
+      return $http.post("user/challengeSubmission/markAsRead", {
+        challengeId: challengeId,
+        challengeSubmissionId: challengeSubmissionId,
+        isRead: isRead
+      });
     }
   };
 

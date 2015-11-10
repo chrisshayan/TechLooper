@@ -172,7 +172,7 @@ techlooper
         }
       };
     })
-  .directive('contestDetailReviewSubmission', function () {
+  .directive('contestDetailReviewSubmission', function (apiService) {
     return {
       restrict: "E",
       replace: true,
@@ -181,6 +181,10 @@ techlooper
         scope.goToSubmissionLink = function (link) {
           var url = (link.indexOf("https://") >= 0 || link.indexOf("http://") >= 0) ? link : "http://" + link;
           window.open(url, '_newtab');
+        }
+        scope.saveReadSubmission = function(submission){
+          apiService.readSubmission(submission.challengeId, submission.challengeSubmissionId, true)
+              .success(function (data) {});
         }
       }
     };
