@@ -9,7 +9,15 @@
           {{'registrationDate' | translate}}
         </div>
         <div class="registration-submission">
-          {{'submissions' | translate}}
+          <span class="name-col" >
+              {{'submissions' | translate}}
+            </span>
+            <span class="unreadFilter" ng-model="unreadSubmission" ng-click="unreadSubmission=!unreadSubmission"
+                  ng-class="{checked: unreadSubmission}" title="{{(unreadSubmission ? 'unreadTip': 'readTip') | translate}}">
+              <i class="fa fa-circle"></i>
+              <i class="fa fa-circle-thin"></i>
+              {{'unread' | translate}}
+            </span>
         </div>
         <div class="registration-review" translate="qualifiedNextPhase"></div>
         <div class="registration-action" translate="feedback"></div>
