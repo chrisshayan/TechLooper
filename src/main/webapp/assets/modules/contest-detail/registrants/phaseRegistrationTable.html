@@ -2,13 +2,17 @@
   <thead>
   <tr>
     <th>
-      <div>
-        <div>#</div>
-        <div>Full Name</div>
-        <div>Registration Date</div>
-        <div>Submission Date</div>
-        <div>Qualify to next round</div>
-        <div>Action</div>
+      <div class="registrants-challenge-list">
+        <div class="registrant-order">#</div>
+        <div class="registrant-name" translate="fullNameField"></div>
+        <div class="registration-date">
+          {{'registrationDate' | translate}}
+        </div>
+        <div class="registration-submission">
+          {{'submissions' | translate}}
+        </div>
+        <div class="registration-review" translate="qualifiedNextPhase"></div>
+        <div class="registration-action" translate="feedback"></div>
       </div>
     </th>
   </tr>
@@ -16,12 +20,20 @@
   <tbody>
     <tr ng-repeat="registrant in contestDetail.$registrants">
       <td>
-        <div>{{registrant.$index}}</div>
-        <div>{{registrant.fullName}}</div>
-        <div>{{registrant.registrantId | timestamp: 'number'}}</div>
-        <div>{{registrant.lastSubmission.submissionDateTime || '-'}}</div>
-        <div>logic</div>
-        <div>feedback</div>
+        <div class="registrants-challenge-list">
+          <div class="registrant-order">{{registrant.$index}}</div>
+          <div class="registrant-name">{{registrant.fullName}}</div>
+          <div class="registration-date">{{registrant.registrantId | timestamp: 'number'}}</div>
+          <div class="registration-submission">{{registrant.lastSubmission.submissionDateTime || '-'}}</div>
+          <div class="registration-review">
+            <a title="{{'qualifyNextPhase' | translate}}"><i class="fa fa-thumbs-up"></i></a>
+            <a title="{{'disqualifyNextPhase' | translate}}"><i class="fa fa-thumbs-down"></i></a>
+          </div>
+          <div class="registration-action">
+            <a ng-click="registrant.showFeedback()">{{'feedback' | translate}}</a>
+          </div>
+        </div>
+        <contest-detail-action registrant="registrant" challenge="contestDetail"></contest-detail-action>
       </td>
     </tr>
   </tbody>
