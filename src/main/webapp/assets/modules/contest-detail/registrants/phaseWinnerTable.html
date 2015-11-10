@@ -1,0 +1,74 @@
+<table class="contests-table">
+  <thead>
+  <tr>
+    <th>
+      <div class="registrants-challenge-list">
+        <div class="registrant-order">#</div>
+        <div class="registrant-name" translate="fullNameField"></div>
+        <div class="prize-col">
+          <p translate="prize"></p>
+          <div class="prize"
+               ng-class="{'one': contestDetail.secondPlaceReward == null && contestDetail.thirdPlaceReward == null, 'two': contestDetail.secondPlaceReward != null && contestDetail.thirdPlaceReward == null}">
+            <span class="gold">${{contestDetail.firstPlaceReward | number:0}}</span>
+          </div>
+          <div class="prize" ng-show="contestDetail.secondPlaceReward != null"
+               ng-class="{two: contestDetail.thirdPlaceReward == null}">
+            <span class="silver">${{contestDetail.secondPlaceReward | number:0}}</span>
+          </div>
+          <div class="prize" ng-show="contestDetail.thirdPlaceReward != null">
+            <span class="bronze">${{contestDetail.thirdPlaceReward | number:0}}</span>
+          </div>
+        </div>
+        <div class="registration-submission">
+          <span class="name-col" >
+              {{'submissions' | translate}}
+            </span>
+            <span class="unreadFilter" ng-model="unreadSubmission" ng-click="unreadSubmission=!unreadSubmission"
+                  ng-class="{checked: unreadSubmission}" title="{{(unreadSubmission ? 'unreadTip': 'readTip') | translate}}">
+              <i class="fa fa-circle"></i>
+              <i class="fa fa-circle-thin"></i>
+              {{'unread' | translate}}
+            </span>
+        </div>
+        <div class="registration-score">
+          {{'score' | translate}}
+        </div>
+        <div class="registration-action" translate="feedback"></div>
+      </div>
+    </th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="registrant in contestDetail.$registrants">
+      <td>
+        <div class="registrants-challenge-list">
+          <div class="registrant-order">{{registrant.$index + 1}}</div>
+          <div class="registrant-name">{{registrant.fullName}}</div>
+          <div class="prize-col">
+            <div class="label-col" translate="prize"></div>
+            <div class="prize"
+                 ng-class="{'one': contestDetail.secondPlaceReward == null && contestDetail.thirdPlaceReward == null, 'two': contestDetail.secondPlaceReward != null && contestDetail.thirdPlaceReward == null}">
+              <input ng-click="contestDetail.save1stWinner(user)" ng-model="registrant.firstAwarded" type="checkbox"/>
+            </div>
+            <div class="prize" ng-show="(phase.phase.toLowerCase()) == 'winner' && contestDetail.secondPlaceReward != null">
+              <input ng-click="contestDetail.save2ndWinner(user)" ng-model="registrant.secondAwarded" type="checkbox"/>
+            </div>
+            <div class="prize" ng-show="(phase.phase.toLowerCase()) == 'winner' && contestDetail.thirdPlaceReward != null">
+              <input ng-click="contestDetail.save3rdWinner(user)" ng-model="registrant.thirdAwarded" type="checkbox"/>
+            </div>
+          </div>
+          <div class="registration-submission">
+            <a ng-click="registrant.showReviewSubmission()" title="{{'submissionsReviewTip' | translate}}">{{registrant.submissions.length || 0}}</a>
+          </div>
+          <div class="registration-score">
+            <a ng-click="registrant.showScore()">{{registrant.savedTotalPoint}}</a>
+          </div>
+          <div class="registration-action">
+            <a ng-click="registrant.showFeedback()">{{'feedback' | translate}}</a>
+          </div>
+        </div>
+        <contest-detail-action registrant="registrant" challenge="contestDetail"></contest-detail-action>
+      </td>
+    </tr>
+  </tbody>
+</table>
