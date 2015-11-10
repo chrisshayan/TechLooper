@@ -112,7 +112,6 @@ techlooper
           if (!scope.registrant.visible) return;
           delete scope.registrant.visible;
         };
-
         //scope.registrant.accept = function () {
         //  apiService.acceptChallengeRegistrant(scope.registrant.registrantId)
         //    .success(function (registrant) {

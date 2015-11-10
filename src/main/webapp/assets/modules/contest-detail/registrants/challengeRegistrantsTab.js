@@ -16,56 +16,15 @@ techlooper.directive('funnelManagement', function () {
       }
     };
   })
-    .directive('ideaList', function () {
-      return {
-        restrict: "E",
-        replace: true,
-        templateUrl: "modules/contest-detail/registrants/ideaList.html",
-        link: function (scope, element, attr, ctrl) {
-        }
-      };
-    })
-.directive('uiuxList', function () {
-  return {
-    restrict: "E",
-    replace: true,
-    templateUrl: "modules/contest-detail/registrants/uiuxList.html",
-    link: function (scope, element, attr, ctrl) {
-    }
-  };
-})
-.directive('prototypeList', function () {
-  return {
-    restrict: "E",
-    replace: true,
-    templateUrl: "modules/contest-detail/registrants/prototypeList.html",
-    link: function (scope, element, attr, ctrl) {
-    }
-  };
-})
-    .directive('finalAppList', function () {
-      return {
-        restrict: "E",
-        replace: true,
-        templateUrl: "modules/contest-detail/registrants/finalAppList.html",
-        link: function (scope, element, attr, ctrl) {
-        }
-      };
-    })
-.directive('winnerList', function () {
-  return {
-    restrict: "E",
-    replace: true,
-    templateUrl: "modules/contest-detail/registrants/winnerList.html",
-    link: function (scope, element, attr, ctrl) {
-    }
-  };
-}).directive('qualifyAllToNextPhase', function () {
+.directive('qualifyAllToNextPhase', function () {
   return {
     restrict: "E",
     replace: true,
     templateUrl: "modules/contest-detail/registrants/qualifyAllToNextPhase.html",
     link: function (scope, element, attr, ctrl) {
+      scope.hideQualifyAllForm = function(){
+        delete scope.showQualifyAllRegistrantsForm;
+      }
     }
   };
 });
