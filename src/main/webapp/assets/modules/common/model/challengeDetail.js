@@ -147,7 +147,7 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
 
     challengeDetail.recalculateRegistrants = function (registrants) {
       challengeDetail.$registrants = registrants;
-      _.each(challengeDetail.registrants, function (rgt, index) {
+      _.each(challengeDetail.$registrants, function (rgt, index) {
         rgt.$index = index;
         //rgt.ableAcceptedPhase = challengeDetail.nextPhase;
       });

@@ -97,9 +97,9 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonV
       if (challengePhase != registrant.activePhase) {
         registrant.qualified = true;
       }
-      else if (registrant.disqualified == true) {
-        registrant.qualified = false;
-      }
+      //else if (registrant.disqualified == true) {
+      //  registrant.qualified = false;
+      //}
 
       if (!registrant.activePhase) registrant.activePhase = jsonValue.challengePhase.getRegistration().enum;
 
