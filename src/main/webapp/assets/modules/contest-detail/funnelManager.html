@@ -1,6 +1,6 @@
 <div class="col-{{contestDetail.phaseItems.length}}">
-  <div ng-repeat="phaseItem in contestDetail.phaseItems" ng-click="contestDetail.setSelectedPhase(phaseItem)"
-       class="challenge-phase-item">
+  <div ng-repeat="phaseItem in contestDetail.phaseItems"
+       class="challenge-phase-item" ng-class="{active: phaseItem.isSelected}">
     <div class="current-phase" ng-class="{active: phaseItem.isCurrentPhase}">
       <!--<div>-->
       <div class="current-phase-text">
@@ -26,14 +26,9 @@
       <!--<div class="arrow-current"></div>-->
       <!--</div>-->
     </div>
-    <div class="phase-name" ng-class="{pass: phaseItem.isOver, active: phaseItem.isSelected, unclickable: phaseItem.unselectable}">
+    <div class="phase-name {{phaseItem.phaseLowerCase}}" ng-click="contestDetail.setSelectedPhase(phaseItem)"
+         ng-class="{pass: phaseItem.isOver, unclickable: phaseItem.unselectable}">
       <i class="fa {{phaseItem.phaseLowerCase}}"></i>
-      <!--<i class="fa fa-key" ng-show="(phase.phase.toLowerCase()) == 'registration'"></i>-->
-      <!--<i class="fa fa-lightbulb-o" ng-show="(phase.phase.toLowerCase()) == 'idea'"></i>-->
-      <!--<i class="fa fa-paint-brush" ng-show="(phase.phase.toLowerCase()) == 'uiux'"></i>-->
-      <!--<i class="fa fa-cubes" ng-show="(phase.phase.toLowerCase()) == 'prototype'"></i>-->
-      <!--<i class="fa fa-check-circle-o" ng-show="(phase.phase.toLowerCase()) == 'final'"></i>-->
-      <!--<i class="fa fa-trophy" ng-show="(phase.phase.toLowerCase()) == 'winner'"></i>-->
       <span translate="{{phaseItem.phaseLowerCase}}"></span>
     </div>
     <div class="registrants-phase">
