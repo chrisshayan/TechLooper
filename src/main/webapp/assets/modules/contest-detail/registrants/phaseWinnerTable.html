@@ -1,4 +1,14 @@
-<table class="contests-table">
+<div class="phase-description">
+  <p translate="winnerDes"></p>
+  <div class="announcement-winner">
+    <button translate="announceWinnerToAllContestants" class="btn btn-primary btn-flat"
+            ng-class="{disabled: !contestDetail.winners.length}"
+            ng-disabled="!contestDetail.winners.length"
+            data-toggle="modal" data-target="#emailCompose"></button>
+  </div>
+</div>
+<div class="participant-list">
+  <table class="contests-table">
   <thead>
   <tr>
     <th>
@@ -72,3 +82,4 @@
     </tr>
   </tbody>
 </table>
+</div>

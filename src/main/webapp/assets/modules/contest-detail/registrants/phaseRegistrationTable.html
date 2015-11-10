@@ -1,14 +1,18 @@
-<table class="contests-table">
-  <thead>
-  <tr>
-    <th>
-      <div class="registrants-challenge-list">
-        <div class="registrant-order">#</div>
-        <div class="registrant-name" translate="fullNameField"></div>
-        <div class="registration-date">
-          {{'registrationDate' | translate}}
-        </div>
-        <div class="registration-submission">
+<div class="phase-description">
+  <p translate="PhaseDes"></p>
+</div>
+<div class="participant-list">
+  <table class="contests-table">
+    <thead>
+    <tr>
+      <th>
+        <div class="registrants-challenge-list">
+          <div class="registrant-order">#</div>
+          <div class="registrant-name" translate="fullNameField"></div>
+          <div class="registration-date">
+            {{'registrationDate' | translate}}
+          </div>
+          <div class="registration-submission">
           <span class="name-col" >
               {{'submissions' | translate}}
             </span>
@@ -18,14 +22,14 @@
               <i class="fa fa-circle-thin"></i>
               {{'unread' | translate}}
             </span>
+          </div>
+          <div class="registration-review" translate="qualifiedNextPhase"></div>
+          <div class="registration-action" translate="feedback"></div>
         </div>
-        <div class="registration-review" translate="qualifiedNextPhase"></div>
-        <div class="registration-action" translate="feedback"></div>
-      </div>
-    </th>
-  </tr>
-  </thead>
-  <tbody>
+      </th>
+    </tr>
+    </thead>
+    <tbody>
     <tr ng-repeat="registrant in contestDetail.$registrants">
       <td>
         <div class="registrants-challenge-list">
@@ -50,5 +54,6 @@
         <contest-detail-action registrant="registrant" challenge="contestDetail"></contest-detail-action>
       </td>
     </tr>
-  </tbody>
-</table>
+    </tbody>
+  </table>
+</div>
