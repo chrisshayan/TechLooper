@@ -17,8 +17,6 @@
       <div class="submitted-row" ng-repeat="submission in registrant.submissions | orderBy: '-challengeSubmissionId'">
         <div class="subject-col">
           <label translate="descriptionCol"></label>
-          <i class="fa fa-circle-thin" ng-show="submission.isRead"></i>
-          <i class="fa fa-circle" ng-show="!submission.isRead"></i>
           {{submission.submissionDescription}}
         </div>
         <div class="submission-link-col">
@@ -33,8 +31,14 @@
         </div>
         <div class="unread-col">
           <label translate="markedAsUnread"></label>
-          <a href="" ng-show="!submission.isRead" translate="read" ng-click="saveReadSubmission(submission)"></a>
-          <a href="" ng-show="submission.isRead" translate="markedAsUnread"></a>
+          <a data-ng-init="unread = submission.isRead" title="{{(unread ? 'read': 'markedAsUnread') | translate}}"
+             ng-model="unread" ng-click="unread=!unread; saveReadSubmission(submission, unread)">
+            <i class="fa fa-circle"
+               ng-class="{'unread': unread}"></i>
+          </a>
+          <!--<a ng-show="submission.isRead" title="{{'markedAsUnread' | translate}}" ng-click="saveReadSubmission(submission)">-->
+            <!--<i class="fa "></i>-->
+          <!--</a>-->
         </div>
         <div class="close-col"></div>
       </div>
