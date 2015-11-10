@@ -1157,7 +1157,6 @@
             width: 100%
             clear: both
             padding-top: 5px
-            cursor: pointer
             p
               margin: 0
               padding: 0
@@ -1178,6 +1177,18 @@
             border: 1px solid #dfdede
             i
               cursor: pointer
+            i.registration:before
+              content: "\f084"
+            i.idea:before
+              content: "\f0eb"
+            i.uiux:before
+              content: "\f1fc"
+            i.prototype:before
+              content: "\f1b3"
+            i.final:before
+              content: "\f05d"
+            i.winner:before
+              content: "\f091"
             span
               cursor: pointer
           .phase-name.pass
@@ -1260,15 +1271,15 @@
             color: #257abb
           .current-phase.winner
             color: #FFAA00
-        .challenge-phase-item.col2
+        .col-2 .challenge-phase-item
           width: 50%
-        .challenge-phase-item.col3
+        .col-3 .challenge-phase-item
           width: 33.3339%
-        .challenge-phase-item.col4
+        .col-4 .challenge-phase-item
           width: 25%
-        .challenge-phase-item.col5
+        .col-5 .challenge-phase-item
           width: 20%
-        .challenge-phase-item.col6
+        .col-6 .challenge-phase-item
           width: 16.66667%
       .phase-content-block
         width: 100%
