@@ -14,7 +14,7 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
     }
 
     challengeDetail.refreshRegistrants = function() {
-      apiService.getChallengeRegistrantsByPhase(challengeDetail.challengeId, challengeDetail.selectedPhase.$phaseConfig.enum)
+      apiService.getChallengeRegistrantsByPhase(challengeDetail.challengeId, challengeDetail.selectedPhaseItem.$phaseConfig.enum)
         .success(function(registrants) {
           challengeDetail.recalculateRegistrants(registrants);
         });
@@ -97,7 +97,7 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
 
     challengeDetail.recalculate = function (phaseName, registrants) {
       if (!phaseName) {
-        phaseName = challengeDetail.selectedPhase ? challengeDetail.selectedPhase.phase : challengeDetail.currentPhase;
+        phaseName = challengeDetail.selectedPhaseItem ? challengeDetail.selectedPhaseItem.phase : challengeDetail.currentPhase;
       }
 
       //see jsonValue.challengePhase
@@ -109,6 +109,7 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
 
       var isOver = true;
       _.each(challengeDetail.phaseItems, function (item, index) {
+        item.$index = index;
         item.isOver = isOver;
         item.phaseLowerCase = item.phase.toLowerCase();
 
@@ -119,7 +120,6 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
 
         if (item.phase == challengeDetail.currentPhase) {
           item.isCurrentPhase = true;
-          item.$index = index;
           isOver = false;
         }
       });
@@ -132,7 +132,7 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
 
       challengeDetail.totalWeight = _.reduceRight(challengeDetail.criteria, function (sum, cri) { return sum + cri.weight; }, 0);
 
-      if (!challengeDetail.selectedPhase) challengeDetail.setSelectedPhase(challengeDetail.currentPhase);
+      if (!challengeDetail.selectedPhaseItem) challengeDetail.setSelectedPhase(challengeDetail.currentPhase);
 
       if (_.isArray(registrants)) {
         //_.each(registrants, function (rgt) {
@@ -143,12 +143,14 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
       }
 
       challengeDetail.recalculateRegistrantRemainsPhases(phaseName);
+      console.log(challengeDetail);
     }
 
     challengeDetail.recalculateRegistrants = function (registrants) {
       challengeDetail.$registrants = registrants;
       _.each(challengeDetail.$registrants, function (rgt, index) {
         rgt.$index = index;
+        rgt.recalculate(challengeDetail);
         //rgt.ableAcceptedPhase = challengeDetail.nextPhase;
       });
 
@@ -192,7 +194,7 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
       if (phaseItem.unselectable) return;
 
       challengeDetail.phaseItems.map(function (item) {item.isSelected = false;});
-      challengeDetail.selectedPhase = phaseItem;
+      challengeDetail.selectedPhaseItem = phaseItem;
       phaseItem.isSelected = true;
 
       challengeDetail.refreshRegistrants();
@@ -200,7 +202,7 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
 
     challengeDetail.recalculate();
 
-    console.log(challengeDetail);
+    //console.log(challengeDetail);
 
     challengeDetail.$isRich = true;
     return challengeDetail;

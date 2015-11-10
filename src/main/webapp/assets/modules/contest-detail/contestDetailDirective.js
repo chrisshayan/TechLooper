@@ -108,7 +108,7 @@ techlooper
         //  delete scope.registrant.visible;
         //};
 
-        scope.registrant.hideActionView = function () {
+        scope.registrant.hide = function () {
           if (!scope.registrant.visible) return;
           delete scope.registrant.visible;
         };

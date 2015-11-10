@@ -29,8 +29,8 @@
             <a ng-click="registrant.showReviewSubmission()" title="{{'submissionsReviewTip' | translate}}">{{registrant.submissions.length || 0}}</a></div>
           <div class="registration-review">
             <div ng-show="registrant.disqualified == undefined">
-              <a title="{{'qualifyNextPhase' | translate}}"><i class="fa fa-thumbs-up"></i></a>
-              <a title="{{'disqualifyNextPhase' | translate}}"><i class="fa fa-thumbs-down"></i></a>
+              <a title="{{'qualifyNextPhase' | translate}}" ng-click="registrant.showQualification()"><i class="fa fa-thumbs-up"></i></a>
+              <a title="{{'disqualifyNextPhase' | translate}}"><i class="fa fa-thumbs-down" ng-click="registrant.showDisqualification()"></i></a>
             </div>
             <span translate="qualified" ng-show="registrant.disqualified == false"></span>
             <span translate="disqualified" ng-show="registrant.disqualified == true"></span>

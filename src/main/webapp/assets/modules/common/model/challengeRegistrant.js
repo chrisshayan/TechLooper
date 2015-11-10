@@ -1,17 +1,17 @@
 techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonValue) {
-  return function (input, challengePhase) {
+  return function (input) {
     if (!input || input.$isRich) return input;
 
     var registrant = input;
 
-    $rootScope.$on("saveChallengeCriteriaSuccessful", function (scope, challengeCriteriaDto) {
-      var criteriaDto = _.findWhere(challengeCriteriaDto.registrantCriteria, {registrantId: registrant.registrantId});
-      registrant.criteria = criteriaDto.criteria;
-    });
-
-    $rootScope.$on("changeWinnerSuccessful", function (s, challengeDetail) {
-      registrant.recalculateWinner(challengeDetail);
-    });
+    //$rootScope.$on("saveChallengeCriteriaSuccessful", function (scope, challengeCriteriaDto) {
+    //  var criteriaDto = _.findWhere(challengeCriteriaDto.registrantCriteria, {registrantId: registrant.registrantId});
+    //  registrant.criteria = criteriaDto.criteria;
+    //});
+    //
+    //$rootScope.$on("changeWinnerSuccessful", function (s, challengeDetail) {
+    //  registrant.recalculateWinner(challengeDetail);
+    //});
 
     var calculatePoint = function (cri) {
       return (cri.weight / 100) * cri.score;// $filter('number')((cri.weight / 100) * cri.score, 1);
@@ -56,7 +56,7 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonV
       }
       delete registrant.$savedCriteria;
 
-      _.each(registrant.criteria, function(cri) {
+      _.each(registrant.criteria, function (cri) {
         (!_.isNumber(cri.score)) && (cri.score = 0);
       });
 
@@ -87,23 +87,32 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonV
       return parseFloat(sum) + parseFloat(calculatePoint(cri));
     }, 0)).format("0.0");
 
-    registrant.recalculate = function (challengePhase) {
+    registrant.recalculate = function (challengeDetail) {
       if (registrant.submissions) {
         registrant.lastSubmission = _.isEmpty(registrant.submissions) ? undefined : _.max(registrant.submissions, function (submission) {return submission.challengeSubmissionId;});
         //registrant.phaseSubmissions = _.filter(registrant.submissions, function (submission) {return submission.submissionPhase == challengePhase;});
       }
 
-      registrant.activePhase = registrant.activePhase ? registrant.activePhase : jsonValue.challengePhase.getRegistration().enum;
-      if (challengePhase != registrant.activePhase) {
-        registrant.qualified = true;
-      }
+      registrant.activePhase = registrant.activePhase ? registrant.activePhase : challengeDetail.currentPhase;
+      //if (challengePhase != registrant.activePhase) {
+      //  registrant.qualified = true;
+      //}
       //else if (registrant.disqualified == true) {
       //  registrant.qualified = false;
       //}
 
-      if (!registrant.activePhase) registrant.activePhase = jsonValue.challengePhase.getRegistration().enum;
+      //if (!registrant.activePhase) registrant.activePhase = "REGISTRATION";
 
       registrant.fullName = registrant.registrantFirstName + " " + registrant.registrantLastName;
+
+      if (registrant.disqualified == undefined) {
+        var rp = _.findWhere(challengeDetail.phaseItems, {phase: registrant.activePhase});
+        if (rp.$index > challengeDetail.selectedPhaseItem.$index) {
+          registrant.disqualified = false;
+        }
+      }
+
+      //console.log(registrant);
     }
 
     registrant.recalculateWinner = function (challengeDetail) {
@@ -134,9 +143,9 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonV
           registrant.disqualified = rt.disqualified;
           registrant.disqualifiedReason = rt.disqualifiedReason;
         });
-        //.finally(function() {
-        //  $rootScope.$broadcast("registrant-qualified", registrant);
-        //});
+      //.finally(function() {
+      //  $rootScope.$broadcast("registrant-qualified", registrant);
+      //});
 
       //delete scope.registrant.visible;
       //utils.sendNotification(jsonValue.notifications.loaded);
@@ -149,14 +158,14 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonV
           registrant.disqualified = rt.disqualified;
           registrant.disqualifiedReason = rt.disqualifiedReason;
         });
-        //.finally(function() {
-        //  $rootScope.$broadcast("registrant-disqualified", registrant);
-        //});
+      //.finally(function() {
+      //  $rootScope.$broadcast("registrant-disqualified", registrant);
+      //});
 
       //delete scope.registrant.visible;
     };
 
-    registrant.recalculate(challengePhase);
+    //registrant.recalculate(challengePhase);
     registrant.criteriaLoop();
 
     registrant.$isRich = true;

@@ -1037,36 +1037,39 @@ techlooper.factory("jsonValue", function () {
           enum: "REGISTRATION",
           challengeProp: "registrationDateTime",
           phaseItem: {translate: {countJoiner: "registrantsNumberPhase", countSubmission: "submissionsNumber"}},
-          registrantTable: {templateUrl: "modules/contest-detail/registrants/phaseRegistrationTable.html"}
+          registrantTable: {templateUrl: "modules/contest-detail/registrants/phaseRegistrationTable.html"},
+          isRegistration: true
         },
         {
           enum: "IDEA",
           challengeProp: "ideaSubmissionDateTime",
-          phaseItem: {translate: {countJoiner: "participantsNumber", countSubmission: "submissionsNumber"}}
+          phaseItem: {translate: {countJoiner: "participantsNumber", countSubmission: "submissionsNumber"}},
+          isIdea: true
         },
         {
           enum: "UIUX",
           challengeProp: "uxSubmissionDateTime",
-          phaseItem: {translate: {countJoiner: "participantsNumber", countSubmission: "submissionsNumber"}}
+          phaseItem: {translate: {countJoiner: "participantsNumber", countSubmission: "submissionsNumber"}},
+          isUiux: true
         },
         {
           enum: "PROTOTYPE",
           challengeProp: "prototypeSubmissionDateTime",
-          phaseItem: {translate: {countJoiner: "participantsNumber", countSubmission: "submissionsNumber"}}
+          phaseItem: {translate: {countJoiner: "participantsNumber", countSubmission: "submissionsNumber"}},
+          isPrototype: true
         },
         {
           enum: "FINAL",
           challengeProp: "submissionDateTime",
-          phaseItem: {translate: {countJoiner: "participantsNumber", countSubmission: "submissionsNumber"}}
+          phaseItem: {translate: {countJoiner: "participantsNumber", countSubmission: "submissionsNumber"}},
+          isFinal: true
         },
         {
           enum: "WINNER",
-          phaseItem: {translate: {countJoiner: "finalistNumber", countSubmission: "winnersNumber"}}
+          phaseItem: {translate: {countJoiner: "finalistNumber", countSubmission: "winnersNumber"}},
+          isWinner: true
         }
-      ],
-
-      getRegistration: function () {return instance.challengePhase.values[0];},
-      getLastPhase: function () {return instance.challengePhase.values[4];}
+      ]
     },
 
     summerNoteConfig: {
