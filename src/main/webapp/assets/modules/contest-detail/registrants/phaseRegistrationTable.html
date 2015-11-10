@@ -1,0 +1,28 @@
+<table class="contests-table">
+  <thead>
+  <tr>
+    <th>
+      <div>
+        <div>#</div>
+        <div>Full Name</div>
+        <div>Registration Date</div>
+        <div>Submission Date</div>
+        <div>Qualify to next round</div>
+        <div>Action</div>
+      </div>
+    </th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="registrant in contestDetail.$registrants">
+      <td>
+        <div>{{registrant.$index}}</div>
+        <div>{{registrant.fullName}}</div>
+        <div>{{registrant.registrantId | timestamp: 'number'}}</div>
+        <div>{{registrant.lastSubmission.submissionDateTime || '-'}}</div>
+        <div>logic</div>
+        <div>feedback</div>
+      </td>
+    </tr>
+  </tbody>
+</table>

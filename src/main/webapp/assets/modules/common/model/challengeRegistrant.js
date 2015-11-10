@@ -17,8 +17,6 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonV
       return (cri.weight / 100) * cri.score;// $filter('number')((cri.weight / 100) * cri.score, 1);
     }
 
-    registrant.fullName = registrant.registrantFirstName + " " + registrant.registrantLastName;
-
     registrant.refreshCriteria = function () {
       apiService.findRegistrantCriteriaByRegistrantId(registrant.registrantId)
         .success(function (data) {
@@ -104,6 +102,8 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonV
       }
 
       if (!registrant.activePhase) registrant.activePhase = jsonValue.challengePhase.getRegistration().enum;
+
+      registrant.fullName = registrant.registrantFirstName + " " + registrant.registrantLastName;
     }
 
     registrant.recalculateWinner = function (challengeDetail) {
@@ -133,10 +133,10 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonV
           //registrant.qualified = !rt.disqualified;
           registrant.disqualified = rt.disqualified;
           registrant.disqualifiedReason = rt.disqualifiedReason;
-        })
-        .finally(function() {
-          $rootScope.$broadcast("on-qualified", registrant);
         });
+        //.finally(function() {
+        //  $rootScope.$broadcast("registrant-qualified", registrant);
+        //});
 
       //delete scope.registrant.visible;
       //utils.sendNotification(jsonValue.notifications.loaded);
@@ -148,10 +148,10 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonV
         .success(function (rt) {
           registrant.disqualified = rt.disqualified;
           registrant.disqualifiedReason = rt.disqualifiedReason;
-        })
-        .finally(function() {
-          $rootScope.$broadcast("on-disqualified", registrant);
         });
+        //.finally(function() {
+        //  $rootScope.$broadcast("registrant-disqualified", registrant);
+        //});
 
       //delete scope.registrant.visible;
     };

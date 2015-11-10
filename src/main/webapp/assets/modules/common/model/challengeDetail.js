@@ -1,4 +1,4 @@
-techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue, $filter, $translate) {
+techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue, $filter) {
   return function (input, type) {
     if (!input || input.$isRich) return input;
 
@@ -10,6 +10,13 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
       apiService.getContestDetail(challengeDetail.challengeId)
         .success(function (data) {
           challengeDetail.criteria = data.criteria;
+        });
+    }
+
+    challengeDetail.refreshRegistrants = function() {
+      apiService.getChallengeRegistrantsByPhase(challengeDetail.challengeId, challengeDetail.selectedPhase.$phaseConfig.enum)
+        .success(function(registrants) {
+          challengeDetail.recalculateRegistrants(registrants);
         });
     }
 
@@ -90,7 +97,7 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
 
     challengeDetail.recalculate = function (phaseName, registrants) {
       if (!phaseName) {
-        phaseName = challengeDetail.selectedPhase.phase;
+        phaseName = challengeDetail.selectedPhase ? challengeDetail.selectedPhase.phase : challengeDetail.currentPhase;
       }
 
       //see jsonValue.challengePhase
@@ -100,65 +107,70 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
         challengeDetail.currentPhaseDaysLeft = date.diff(moment(0, "HH"), "days") + 1;
       }
 
-      if (phaseName) {
-        challengeDetail.recalculateRegistrantRemainsPhases(phaseName);
-      }
+      var isOver = true;
+      _.each(challengeDetail.phaseItems, function (item, index) {
+        item.isOver = isOver;
+        item.phaseLowerCase = item.phase.toLowerCase();
 
-      if (registrants) {
-        _.each(registrants, function (rgt) {
-          rgt.ableAcceptedPhase = challengeDetail.nextPhase;
-        });
+        var cp = _.findWhere(jsonValue.challengePhase.values, {enum: item.phase});
+        item.$phaseConfig = cp;
+        item.countJoinerTitle = $filter("translate")(cp.phaseItem.translate.countJoiner, {number: item.participant});
+        item.countSubmissionTitle = $filter("translate")(cp.phaseItem.translate.countSubmission, {number: item.submission});
 
-        challengeDetail.recalculateStateWinners(registrants);
-      }
-
-      if (challengeDetail.phaseItems) {
-        var isOver = true;
-        _.each(challengeDetail.phaseItems, function (item, index) {
-          item.isOver = isOver;
-          item.phaseLowerCase = item.phase.toLowerCase();
-
-          var cp = _.findWhere(jsonValue.challengePhase.values, {enum: item.phase});
-          item.countJoinerTitle = $filter("translate")(cp.phaseItem.translate.countJoiner, {number: item.participant});
-          item.countSubmissionTitle = $filter("translate")(cp.phaseItem.translate.countSubmission, {number: item.submission});
-
-          if (item.phase == challengeDetail.currentPhase) {
-            item.isCurrentPhase = true;
-            item.index = index;
-            isOver = false;
-          }
-        });
-
-        // mark unselectable from current-phase + 2
-        var current = _.findWhere(challengeDetail.phaseItems, {isCurrentPhase: true});
-        for (var i = current.index + 2; i < challengeDetail.phaseItems.length; i++) {
-          challengeDetail.phaseItems[i].unselectable = true;
+        if (item.phase == challengeDetail.currentPhase) {
+          item.isCurrentPhase = true;
+          item.$index = index;
+          isOver = false;
         }
+      });
+
+      // mark unselectable from current-phase + 2
+      var current = _.findWhere(challengeDetail.phaseItems, {isCurrentPhase: true});
+      for (var i = current.$index + 2; i < challengeDetail.phaseItems.length; i++) {
+        challengeDetail.phaseItems[i].unselectable = true;
       }
 
       challengeDetail.totalWeight = _.reduceRight(challengeDetail.criteria, function (sum, cri) { return sum + cri.weight; }, 0);
+
+      if (!challengeDetail.selectedPhase) challengeDetail.setSelectedPhase(challengeDetail.currentPhase);
+
+      if (_.isArray(registrants)) {
+        //_.each(registrants, function (rgt) {
+        //  rgt.ableAcceptedPhase = challengeDetail.nextPhase;
+        //});
+        //challengeDetail.recalculateStateWinners(registrants);
+        challengeDetail.recalculateRegistrants(registrants);
+      }
+
+      challengeDetail.recalculateRegistrantRemainsPhases(phaseName);
     }
 
-    challengeDetail.recalculateStateWinners = function (registrants) {
-      var finalRegistrants = _.where(registrants, {"activePhase": jsonValue.challengePhase.getLastPhase().enum});
-      challengeDetail.countWinnerPaticipants = 0;
-      _.each(finalRegistrants, function (registrant) {
-        if (registrant.disqualified == true) return;
-        var count = _.countBy(registrant.criteria, function (cri) {
-          return _.isNumber(cri.score) ? "hasScore" : "notHasScore";
-        });
-        challengeDetail.countWinnerPaticipants += (count.hasScore > 0) ? 1 : 0;
-      })
+    challengeDetail.recalculateRegistrants = function (registrants) {
+      challengeDetail.$registrants = registrants;
+      _.each(challengeDetail.registrants, function (rgt, index) {
+        rgt.$index = index;
+        //rgt.ableAcceptedPhase = challengeDetail.nextPhase;
+      });
+
+      //var finalRegistrants = _.where(challengeDetail.$registrants, {activePhase: jsonValue.challengePhase.getLastPhase().enum});
+      //challengeDetail.countWinnerPaticipants = 0;
+      //_.each(finalRegistrants, function (registrant) {
+      //  if (registrant.disqualified == true) return;
+      //  var count = _.countBy(registrant.criteria, function (cri) {
+      //    return _.isNumber(cri.score) ? "hasScore" : "notHasScore";
+      //  });
+      //  challengeDetail.countWinnerPaticipants += (count.hasScore > 0) ? 1 : 0;
+      //});
     }
 
     // see jsonValue.challengePhase
-    challengeDetail.recalculateRegistrantRemainsPhases = function (phase) {
+    challengeDetail.recalculateRegistrantRemainsPhases = function (phaseName) {
       challengeDetail.registrantRemainsPhases = [];
-      if (!challengeDetail.phaseItems || phase == challengeDetail.nextPhase) return;
+      if (!challengeDetail.phaseItems || phaseName == challengeDetail.nextPhase) return;
 
       var alreadyNext = false;
       for (var i = 0; i < challengeDetail.phaseItems.length; i++) {
-        if (challengeDetail.phaseItems[i].phase == phase) {
+        if (challengeDetail.phaseItems[i].phase == phaseName) {
           for (var j = i + 1; j < challengeDetail.phaseItems.length; j++) {
             if (alreadyNext) break;
             challengeDetail.registrantRemainsPhases.push(challengeDetail.phaseItems[j].phase);
@@ -182,10 +194,10 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
       challengeDetail.phaseItems.map(function (item) {item.isSelected = false;});
       challengeDetail.selectedPhase = phaseItem;
       phaseItem.isSelected = true;
-      challengeDetail.recalculate();
+
+      challengeDetail.refreshRegistrants();
     }
 
-    challengeDetail.setSelectedPhase(challengeDetail.currentPhase);
     challengeDetail.recalculate();
 
     console.log(challengeDetail);
