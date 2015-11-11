@@ -11,13 +11,16 @@ public class ChallengeRegistrantFunnelItem {
 
     private Long submission;
 
+    private Long unreadSubmission;
+
     public ChallengeRegistrantFunnelItem() {
     }
 
-    public ChallengeRegistrantFunnelItem(ChallengePhaseEnum phase, Long participant, Long submission) {
+    public ChallengeRegistrantFunnelItem(ChallengePhaseEnum phase, Long participant, Long submission, Long unreadSubmission) {
         this.phase = phase;
         this.participant = participant;
         this.submission = submission;
+        this.unreadSubmission = unreadSubmission;
     }
 
     public ChallengePhaseEnum getPhase() {
@@ -42,5 +45,13 @@ public class ChallengeRegistrantFunnelItem {
 
     public void setSubmission(Long submission) {
         this.submission = submission;
+    }
+
+    public Long getUnreadSubmission() {
+        return unreadSubmission;
+    }
+
+    public void setUnreadSubmission(Long unreadSubmission) {
+        this.unreadSubmission = unreadSubmission;
     }
 }

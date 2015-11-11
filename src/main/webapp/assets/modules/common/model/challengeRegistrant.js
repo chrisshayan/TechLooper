@@ -54,11 +54,9 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonV
         registrantId: registrant.registrantId,
         criteria: registrant.criteria
       }
-      delete registrant.$savedCriteria;
+      //delete registrant.$savedCriteria;
 
-      _.each(registrant.criteria, function (cri) {
-        (!_.isNumber(cri.score)) && (cri.score = 0);
-      });
+      _.each(registrant.criteria, function (cri) {(!_.isNumber(cri.score)) && (cri.score = 0);});
 
       apiService.saveChallengeRegistrantCriteria(criteria)
         .success(function (data) {
@@ -72,20 +70,20 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonV
               registrant.criteria.push(cri);
             }
           });
+
+          registrant.$challengeDetail.incParticipantCount(registrant);
+
           registrant.savedTotalPoint = numeral(_.reduceRight(registrant.criteria, function (sum, cri) {
             return parseFloat(sum) + parseFloat(calculatePoint(cri));
           }, 0)).format("0.0");
-          registrant.$savedCriteria = true;
-          $rootScope.$broadcast("saveRegistrantCriteriaSuccessful", data);
-        })
-        .error(function () {
-          registrant.$savedCriteria = false;
-        });
-    }
 
-    registrant.savedTotalPoint = numeral(_.reduceRight(registrant.criteria, function (sum, cri) {
-      return parseFloat(sum) + parseFloat(calculatePoint(cri));
-    }, 0)).format("0.0");
+          //registrant.$savedCriteria = true;
+          //$rootScope.$broadcast("saveRegistrantCriteriaSuccessful", data);
+        });
+      //.error(function () {
+      //  registrant.$savedCriteria = false;
+      //});
+    }
 
     registrant.recalculate = function (challengeDetail) {
       if (registrant.submissions) {
@@ -96,6 +94,11 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonV
       registrant.activePhaseLowerCase = registrant.activePhase.toLowerCase();
       registrant.fullName = registrant.registrantFirstName + " " + registrant.registrantLastName;
 
+      //TODO refactor savedTotalPoint in order to keep the last total point of criteria
+      registrant.savedTotalPoint = numeral(_.reduceRight(registrant.criteria, function (sum, cri) {
+        return parseFloat(sum) + parseFloat(calculatePoint(cri));
+      }, 0)).format("0.0");
+
       if (challengeDetail) {
         registrant.$challengeDetail = challengeDetail;
         var rp = _.findWhere(registrant.$challengeDetail.phaseItems, {phase: registrant.activePhase});
@@ -103,6 +106,7 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonV
           registrant.disqualified = false;
         }
         registrant.recalculateRemainingPhases();
+        registrant.recalculateWinner();
       }
     }
 
@@ -120,13 +124,13 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonV
           break;
         }
       }
-      console.log(registrant);
+      //console.log(registrant);
     }
 
-    registrant.recalculateWinner = function (challengeDetail) {
+    registrant.recalculateWinner = function () {
       _.extendOwn(registrant, {firstAwarded: false, secondAwarded: false, thirdAwarded: false});
 
-      var rgt = _.findWhere(challengeDetail.winners, {registrantId: registrant.registrantId});
+      var rgt = _.findWhere(registrant.$challengeDetail.winners, {registrantId: registrant.registrantId});
       if (!rgt) return;
 
       registrant.firstAwarded = (rgt.reward == jsonValue.rewards.firstPlaceEnum());
@@ -172,7 +176,7 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonV
           registrant.disqualified = rt.disqualified;
           registrant.disqualifiedReason = rt.disqualifiedReason;
           registrant.$challengeDetail.incParticipantCount(registrant);
-          $rootScope.$broadcast("registrant-disqualified", registrant);
+          $rootScope.$broadcast("registrant-qualified", registrant);
         });
 
       //delete scope.registrant.visible;

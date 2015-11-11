@@ -1079,6 +1079,14 @@ public class ChallengeServiceImpl implements ChallengeService {
                 challengeDetailDto.setCriteria(null);
             }
             challengeDetailDto.setPhaseItems(this.getChallengeRegistrantFunnel(challengeId, loginEmail));
+
+            try {
+                Boolean isClosed = daysBetween(challengeDetailDto.getSubmissionDateTime(), currentDate()) > 0;
+                challengeDetailDto.setIsClosed(isClosed);
+            } catch (ParseException e) {
+                LOGGER.error(e.getMessage(), e);
+            }
+
             return challengeDetailDto;
         }
         return null;
@@ -1148,24 +1156,30 @@ public class ChallengeServiceImpl implements ChallengeService {
         Map<ChallengePhaseEnum, ChallengeRegistrantPhaseItem> numberOfRegistrantsByPhase =
                 challengeRegistrantService.countNumberOfRegistrantsByPhase(challengeId);
         Map<ChallengePhaseEnum, ChallengeSubmissionPhaseItem> numberOfSubmissionsByPhase =
-                challengeSubmissionService.countNumberOfSubmissionsByPhase(challengeId);
+                challengeSubmissionService.countNumberOfSubmissionsByPhase(challengeId, null);
+        Map<ChallengePhaseEnum, ChallengeSubmissionPhaseItem> numberOfUnreadSubmissionsByPhase =
+                challengeSubmissionService.countNumberOfSubmissionsByPhase(challengeId, Boolean.FALSE);
 
         for (Map.Entry<ChallengePhaseEnum, ChallengeRegistrantPhaseItem> entry : numberOfRegistrantsByPhase.entrySet()) {
             ChallengePhaseEnum phase = entry.getKey();
             Long participant = entry.getValue().getRegistration();
             Long submission = 0L;
+            Long unreadSubmission = 0L;
             if (numberOfSubmissionsByPhase.get(phase) != null) {
                 submission = numberOfSubmissionsByPhase.get(phase).getSubmission();
             }
+            if (numberOfUnreadSubmissionsByPhase.get(phase) != null) {
+                unreadSubmission = numberOfUnreadSubmissionsByPhase.get(phase).getSubmission();
+            }
 
             if (isValidPhase(challengeDto, phase)) {
-                funnel.add(new ChallengeRegistrantFunnelItem(phase, participant, submission));
+                funnel.add(new ChallengeRegistrantFunnelItem(phase, participant, submission, unreadSubmission));
             }
         }
 
         Long numberOfFinalists = challengeRegistrantService.countNumberOfFinalists(challengeId);
         Long numberOfWinners = Long.valueOf(challengeRegistrantService.countNumberOfWinners(challengeId));
-        funnel.add(new ChallengeRegistrantFunnelItem(ChallengePhaseEnum.WINNER, numberOfFinalists, numberOfWinners));
+        funnel.add(new ChallengeRegistrantFunnelItem(ChallengePhaseEnum.WINNER, numberOfFinalists, numberOfWinners, 0L));
 
         Comparator<ChallengeRegistrantFunnelItem> sortByPhaseComparator = (item1, item2) ->
                 item1.getPhase().getOrder() - item2.getPhase().getOrder();
