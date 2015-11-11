@@ -90,29 +90,19 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonV
     registrant.recalculate = function (challengeDetail) {
       if (registrant.submissions) {
         registrant.lastSubmission = _.isEmpty(registrant.submissions) ? undefined : _.max(registrant.submissions, function (submission) {return submission.challengeSubmissionId;});
-        //registrant.phaseSubmissions = _.filter(registrant.submissions, function (submission) {return submission.submissionPhase == challengePhase;});
       }
 
-      registrant.activePhase = registrant.activePhase ? registrant.activePhase : challengeDetail.currentPhase;
-      //if (challengePhase != registrant.activePhase) {
-      //  registrant.qualified = true;
-      //}
-      //else if (registrant.disqualified == true) {
-      //  registrant.qualified = false;
-      //}
-
-      //if (!registrant.activePhase) registrant.activePhase = "REGISTRATION";
-
+      if (challengeDetail) registrant.$challengeDetail = challengeDetail;
+      registrant.activePhase = registrant.activePhase ? registrant.activePhase : "REGISTRATION";
       registrant.fullName = registrant.registrantFirstName + " " + registrant.registrantLastName;
 
       if (registrant.disqualified == undefined) {
-        var rp = _.findWhere(challengeDetail.phaseItems, {phase: registrant.activePhase});
-        if (rp.$index > challengeDetail.selectedPhaseItem.$index) {
+        var rp = _.findWhere(registrant.$challengeDetail.phaseItems, {phase: registrant.activePhase});
+        if (rp.$index > registrant.$challengeDetail.selectedPhaseItem.$index) {
           registrant.disqualified = false;
         }
       }
-
-      //console.log(registrant);
+      console.log(registrant);
     }
 
     registrant.recalculateWinner = function (challengeDetail) {
@@ -142,10 +132,11 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonV
           //registrant.qualified = !rt.disqualified;
           registrant.disqualified = rt.disqualified;
           registrant.disqualifiedReason = rt.disqualifiedReason;
+          registrant.recalculate();
+        })
+        .finally(function () {
+          $rootScope.$broadcast("registrant-qualified", registrant);
         });
-      //.finally(function() {
-      //  $rootScope.$broadcast("registrant-qualified", registrant);
-      //});
 
       //delete scope.registrant.visible;
       //utils.sendNotification(jsonValue.notifications.loaded);
@@ -157,10 +148,11 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonV
         .success(function (rt) {
           registrant.disqualified = rt.disqualified;
           registrant.disqualifiedReason = rt.disqualifiedReason;
+          registrant.recalculate();
+        })
+        .finally(function () {
+          $rootScope.$broadcast("registrant-disqualified", registrant);
         });
-      //.finally(function() {
-      //  $rootScope.$broadcast("registrant-disqualified", registrant);
-      //});
 
       //delete scope.registrant.visible;
     };
