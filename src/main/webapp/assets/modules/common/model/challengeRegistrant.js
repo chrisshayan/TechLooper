@@ -92,19 +92,17 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonV
         registrant.lastSubmission = _.isEmpty(registrant.submissions) ? undefined : _.max(registrant.submissions, function (submission) {return submission.challengeSubmissionId;});
       }
 
-      if (challengeDetail) {
-        registrant.$challengeDetail = challengeDetail;
-        registrant.recalculateRemainingPhases();
-      }
       registrant.activePhase = registrant.activePhase ? registrant.activePhase : "REGISTRATION";
       registrant.activePhaseLowerCase = registrant.activePhase.toLowerCase();
       registrant.fullName = registrant.registrantFirstName + " " + registrant.registrantLastName;
 
-      if (registrant.disqualified == undefined) {
+      if (challengeDetail) {
+        registrant.$challengeDetail = challengeDetail;
         var rp = _.findWhere(registrant.$challengeDetail.phaseItems, {phase: registrant.activePhase});
         if (rp.$index > registrant.$challengeDetail.selectedPhaseItem.$index) {
           registrant.disqualified = false;
         }
+        registrant.recalculateRemainingPhases();
       }
     }
 
@@ -113,7 +111,8 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonV
       for (var i = 0; i < registrant.$challengeDetail.phaseItems.length; i++) {
         var cp = registrant.$challengeDetail.phaseItems[i];
         if (cp.phase == registrant.activePhase) {
-          for (var j = i + 1; j < registrant.$challengeDetail.phaseItems.length; j++) {
+          var endPhaseItem = _.findWhere(registrant.$challengeDetail.phaseItems, {phase: registrant.$challengeDetail.nextPhase});
+          for (var j = i + 1; j <= endPhaseItem.$index; j++) {
             cp = registrant.$challengeDetail.phaseItems[j];
             if (cp.$phaseConfig.isSpecial) continue;
             registrant.remainingPhaseItems.push(cp);
@@ -121,6 +120,7 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonV
           break;
         }
       }
+      console.log(registrant);
     }
 
     registrant.recalculateWinner = function (challengeDetail) {
