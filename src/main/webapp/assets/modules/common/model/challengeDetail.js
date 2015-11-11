@@ -14,6 +14,7 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
     }
 
     challengeDetail.refreshRegistrants = function() {
+      delete challengeDetail.$invalidCriteria;
       apiService.getChallengeRegistrantsByPhase(challengeDetail.challengeId, challengeDetail.selectedPhaseItem.$phaseConfig.enum)
         .success(function(registrants) {
           challengeDetail.recalculateRegistrants(registrants);
@@ -21,20 +22,22 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
     }
 
     challengeDetail.saveCriteria = function () {
+      challengeDetail.validateCriteria();
+      if (challengeDetail.$invalidCriteria) return false;
+
       var criteria = {
         challengeId: challengeDetail.challengeId,
         challengeCriteria: challengeDetail.criteria
       }
-      delete challengeDetail.$savedCriteria;
 
       apiService.saveChallengeCriteria(criteria)
-        .success(function (data) {
-          challengeDetail.$savedCriteria = true;
-          $rootScope.$broadcast("saveChallengeCriteriaSuccessful", data);
-        })
-        .error(function () {
-          challengeDetail.$savedCriteria = false;
+        .success(function (criteria) {
+          //challengeDetail.$savedCriteria = true;
+          $rootScope.$broadcast("challenge-criteria-saved", criteria);
         });
+        //.error(function () {
+        //  challengeDetail.$savedCriteria = false;
+        //});
     }
 
     challengeDetail.addCriteria = function () {
@@ -62,11 +65,11 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
 
     //challengeDetail.totalWeight = _.reduceRight(challengeDetail.criteria, function (sum, cri) { return sum + cri.weight; }, 0);
 
-    challengeDetail.validate = function () {
-      challengeDetail.$invalid = (challengeDetail.totalWeight != 100);
+    challengeDetail.validateCriteria = function () {
+      challengeDetail.$invalidCriteria = (challengeDetail.totalWeight != 100);
       $.each(challengeDetail.criteria, function (i, cri) {
-        challengeDetail.$invalid = challengeDetail.$invalid || (!cri.name);
-        return !challengeDetail.$invalid;
+        challengeDetail.$invalidCriteria = challengeDetail.$invalidCriteria || (!cri.name);
+        return !challengeDetail.$invalidCriteria;
       });
     }
 

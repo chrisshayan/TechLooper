@@ -4,7 +4,7 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonV
 
     var registrant = input;
 
-    //$rootScope.$on("saveChallengeCriteriaSuccessful", function (scope, challengeCriteriaDto) {
+    //$rootScope.$on("challenge-criteria-saved", function (scope, challengeCriteriaDto) {
     //  var criteriaDto = _.findWhere(challengeCriteriaDto.registrantCriteria, {registrantId: registrant.registrantId});
     //  registrant.criteria = criteriaDto.criteria;
     //});
