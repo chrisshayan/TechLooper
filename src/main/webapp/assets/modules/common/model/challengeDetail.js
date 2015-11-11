@@ -13,10 +13,10 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
         });
     }
 
-    challengeDetail.refreshRegistrants = function() {
+    challengeDetail.refreshRegistrants = function () {
       delete challengeDetail.$invalidCriteria;
       apiService.getChallengeRegistrantsByPhase(challengeDetail.challengeId, challengeDetail.selectedPhaseItem.$phaseConfig.enum)
-        .success(function(registrants) {
+        .success(function (registrants) {
           challengeDetail.recalculateRegistrants(registrants);
         });
     }
@@ -35,9 +35,9 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
           //challengeDetail.$savedCriteria = true;
           $rootScope.$broadcast("challenge-criteria-saved", criteria);
         });
-        //.error(function () {
-        //  challengeDetail.$savedCriteria = false;
-        //});
+      //.error(function () {
+      //  challengeDetail.$savedCriteria = false;
+      //});
     }
 
     challengeDetail.addCriteria = function () {
@@ -78,7 +78,7 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
       apiService.saveWinner(registrant.registrantId, jsonValue.rewards.firstPlaceEnum(), !registrant.firstAwarded)
         .success(function (winners) {
           challengeDetail.winners = winners;
-          $rootScope.$broadcast("changeWinnerSuccessful", challengeDetail)
+          challengeDetail.recalculateRegistrants();
         });
     }
 
@@ -86,7 +86,7 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
       apiService.saveWinner(registrant.registrantId, jsonValue.rewards.secondPlaceEnum(), !registrant.secondAwarded)
         .success(function (winners) {
           challengeDetail.winners = winners;
-          $rootScope.$broadcast("changeWinnerSuccessful", challengeDetail)
+          challengeDetail.recalculateRegistrants();
         });
     }
 
@@ -94,9 +94,15 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
       apiService.saveWinner(registrant.registrantId, jsonValue.rewards.thirdPlaceEnum(), !registrant.thirdAwarded)
         .success(function (winners) {
           challengeDetail.winners = winners;
-          $rootScope.$broadcast("changeWinnerSuccessful", challengeDetail)
+          challengeDetail.recalculateRegistrants();
         });
     }
+
+
+    //challengeDetail.recalculateWinners = function() {
+    //
+    //}
+
 
     challengeDetail.recalculate = function (registrants) {
       //if (!phaseName) {
@@ -150,32 +156,48 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
     }
 
     challengeDetail.recalculateRegistrants = function (registrants) {
-      challengeDetail.$registrants = registrants;
+      if (registrants) challengeDetail.$registrants = registrants;
       _.each(challengeDetail.$registrants, function (rgt, index) {
         rgt.$index = index;
         rgt.recalculate(challengeDetail);
-        //rgt.ableAcceptedPhase = challengeDetail.nextPhase;
       });
 
-      //var finalRegistrants = _.where(challengeDetail.$registrants, {activePhase: jsonValue.challengePhase.getLastPhase().enum});
-      //challengeDetail.countWinnerPaticipants = 0;
-      //_.each(finalRegistrants, function (registrant) {
-      //  if (registrant.disqualified == true) return;
-      //  var count = _.countBy(registrant.criteria, function (cri) {
-      //    return _.isNumber(cri.score) ? "hasScore" : "notHasScore";
-      //  });
-      //  challengeDetail.countWinnerPaticipants += (count.hasScore > 0) ? 1 : 0;
-      //});
+      //winner phase
+      var winnerPi = _.last(challengeDetail.phaseItems);
+      winnerPi.countSubmissionTitle = $filter("translate")(winnerPi.$phaseConfig.phaseItem.translate.countSubmission, {number: challengeDetail.winners.length});
+    }
+
+    challengeDetail.recalculateWinner = function (registrant) {
+      if (!_.findWhere(challengeDetail.phaseItems, {phase: registrant.activePhase}).$phaseConfig.isFinal) return;
+
+      var finalRegistrants = _.where(challengeDetail.$registrants, {activePhase: "FINAL"});
+      var countWinnerPaticipants = 0;
+      _.each(finalRegistrants, function (registrant) {
+        if (registrant.disqualified == true) return;
+        var count = _.countBy(registrant.criteria, function (cri) {
+          return _.isNumber(cri.score) ? "hasScore" : "notHasScore";
+        });
+        countWinnerPaticipants += (count.hasScore > 0) ? 1 : 0;
+      });
+
+      var winnerPi = _.last(challengeDetail.phaseItems);
+      winnerPi.participant = countWinnerPaticipants;
+      winnerPi.countJoinerTitle = $filter("translate")(winnerPi.$phaseConfig.phaseItem.translate.countJoiner, {number: winnerPi.participant});
       //console.log(challengeDetail);
     }
 
-    challengeDetail.incParticipantCount = function(registrant) {
+    challengeDetail.incParticipantCount = function (registrant) {
       var pi = _.findWhere(challengeDetail.phaseItems, {phase: registrant.activePhase});
       (registrant.disqualified == false) && pi.participant++;
       pi.countJoinerTitle = $filter("translate")(pi.$phaseConfig.phaseItem.translate.countJoiner, {number: pi.participant});
+
+      //var winnerPi = _.last(challengeDetail.phaseItems);
+      challengeDetail.recalculateWinner(registrant);
+      //_.countBy(registrant.criteria, function(cri) {
+      //});
     }
 
-    challengeDetail.incSubmissionCount = function(submission) {
+    challengeDetail.incSubmissionCount = function (submission) {
       var pi = _.findWhere(challengeDetail.phaseItems, {phase: submission.submissionPhase});
       pi.submission++;
       pi.countSubmissionTitle = $filter("translate")(pi.$phaseConfig.phaseItem.translate.countSubmission, {number: pi.submission});
