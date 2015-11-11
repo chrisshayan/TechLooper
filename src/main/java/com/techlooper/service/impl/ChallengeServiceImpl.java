@@ -1079,6 +1079,14 @@ public class ChallengeServiceImpl implements ChallengeService {
                 challengeDetailDto.setCriteria(null);
             }
             challengeDetailDto.setPhaseItems(this.getChallengeRegistrantFunnel(challengeId, loginEmail));
+
+            try {
+                Boolean isClosed = daysBetween(challengeDetailDto.getSubmissionDateTime(), currentDate()) > 0;
+                challengeDetailDto.setIsClosed(isClosed);
+            } catch (ParseException e) {
+                LOGGER.error(e.getMessage(), e);
+            }
+
             return challengeDetailDto;
         }
         return null;
