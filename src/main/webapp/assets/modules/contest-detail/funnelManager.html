@@ -1,8 +1,7 @@
 <div class="col-{{contestDetail.phaseItems.length}}">
   <div ng-repeat="phaseItem in contestDetail.phaseItems"
        class="challenge-phase-item" ng-class="{active: phaseItem.isSelected}">
-    <div class="current-phase" ng-class="{active: phaseItem.isCurrentPhase}">
-      <!--<div>-->
+    <div class="current-phase" ng-class="{active: phaseItem.isCurrentPhase, noDaysLeft: contestDetail.currentPhaseDaysLeft <= 0}">
       <div class="current-phase-text">
         <span translate="currentPhase"></span>
       </div>

@@ -1,33 +1,34 @@
 <div class="qualify-block">
-    <div class="qualify-form">
-        <p translate="acceptDescription" ng-show="challenge.registrantRemainsPhases.length == 1"
-           translate-value-current="{{registrant.activePhase.toLowerCase() | translate}}"
-           translate-value-next="{{challenge.nextPhase.toLowerCase() | translate}}"></p>
-        <p translate="qualifyToNextPhaseConfirm"
-           translate-value-current-phase="{{registrant.activePhase.toLowerCase() | translate}}"
-           ng-show="challenge.registrantRemainsPhases.length > 1"></p>
+  <div class="qualify-form">
+    <p translate="acceptDescription" ng-show="registrant.remainingPhaseItems.length == 1"
+       translate-value-current="{{registrant.activePhaseLowerCase | translate}}"
+       translate-value-next="{{registrant.remainingPhaseItems[0].phaseLowerCase | translate}}"></p>
 
-        <p translate="cannotQualifyNextPhase"
-           translate-value-active-challenge="{{registrant.activePhase.toLowerCase() | translate}}" ng-show="challenge.registrantRemainsPhases.length == 0"></p>
-        <div class="selection-next-phase" ng-show="challenge.registrantRemainsPhases.length > 1" ng-init="nextPhase = '{{challenge.nextPhase}}'">
-            <ul>
-                <li ng-repeat="phase in challenge.registrantRemainsPhases">
-                    <label>
-                        <input type="radio" ng-value="phase" ng-model="registrant.ableAcceptedPhase">
-                        <span>{{phase.toLowerCase() | translate}}</span>
-                    </label>
-                </li>
-            </ul>
-            <!--<span class="error-messages" ng-show="selectionNextPhase == false" translate="show">-->
-            <!--</span>-->
-        </div>
-        <div ng-show="challenge.registrantRemainsPhases.length > 0">
-            <a ng-click="registrant.qualify()" translate="yes" class="btn btn-primary btn-flat"></a>
-            <a ng-click="registrant.hide()" translate="no" class="btn btn-primary btn-flat gray"></a>
-        </div>
-        <div ng-show="challenge.registrantRemainsPhases.length == 0">
-            <a ng-click="registrant.hide()" translate="gotIt" class="btn btn-primary btn-flat"></a>
-        </div>
+    <p translate="qualifyToNextPhaseConfirm"
+       translate-value-current-phase="{{registrant.activePhaseLowerCase | translate}}"
+       ng-show="registrant.remainingPhaseItems.length > 1"></p>
 
+    <p translate="cannotQualifyNextPhase"
+       translate-value-active-challenge="{{registrant.activePhaseLowerCase | translate}}"
+       ng-show="registrant.remainingPhaseItems.length == 0"></p>
+
+    <div class="selection-next-phase" ng-show="registrant.remainingPhaseItems.length > 1">
+      <ul>
+        <li ng-repeat="phaseItem in registrant.remainingPhaseItems">
+          <label>
+            <input type="radio" ng-value="phaseItem" ng-model="registrant.selectedPhaseItem">
+            <span>{{phaseItem.phaseLowerCase | translate}}</span>
+          </label>
+        </li>
+      </ul>
     </div>
+    <div ng-show="registrant.remainingPhaseItems.length > 0">
+      <a ng-click="registrant.qualify()" translate="yes" class="btn btn-primary btn-flat"></a>
+      <a ng-click="registrant.hide()" translate="no" class="btn btn-primary btn-flat gray"></a>
+    </div>
+    <div ng-show="cregistrant.remainingPhaseItems.length == 0">
+      <a ng-click="registrant.hide()" translate="gotIt" class="btn btn-primary btn-flat"></a>
+    </div>
+
+  </div>
 </div>

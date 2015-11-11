@@ -26,7 +26,7 @@ var baseUrl = (function () {
 var techlooper = angular.module("Techlooper", [
   "ngSanitize", "pascalprecht.translate", "ngResource", "ngRoute", "satellizer", 'ngCookies', "LocalStorageModule",
   "Bubble", "Pie", "Home", "Navigation", "Footer", "Common", "Chart", "Jobs", "Skill",
-  "UserProfile", "selectize", "autocomplete", "focusOn", "mgcrea.ngStrap", "angularUtils.directives.dirPagination", "summernote"
+  "UserProfile", "selectize", "autocomplete", "focusOn", "mgcrea.ngStrap", "angularUtils.directives.dirPagination", "summernote", "ngProgress"
 ]);
 
 techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "localStorageServiceProvider", "$httpProvider",

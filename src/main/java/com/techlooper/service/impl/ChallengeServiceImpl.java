@@ -1128,12 +1128,12 @@ public class ChallengeServiceImpl implements ChallengeService {
             return null;
         }
 
-        ChallengeDetailDto challengeDetailDto = dozerMapper.map(challenge, ChallengeDetailDto.class);
-        calculateChallengePhases(challengeDetailDto);
+//        ChallengeDetailDto challengeDetailDto = dozerMapper.map(challenge, ChallengeDetailDto.class);
+//        calculateChallengePhases(challengeDetailDto);
 //        ChallengePhaseEnum activePhase = challengeDetailDto.getNextPhase();
         if (activePhase != registrant.getActivePhase()) {
             registrant.setActivePhase(activePhase);
-            registrant.setDisqualified(Boolean.FALSE);
+            registrant.setDisqualified(null);
             registrant.setDisqualifiedReason(null);
             registrant = challengeRegistrantRepository.save(registrant);
         }
@@ -1208,6 +1208,23 @@ public class ChallengeServiceImpl implements ChallengeService {
             }
         }
         return count;
+    }
+
+    public ChallengeRegistrantDto rejectRegistrant(String ownerEmail, ChallengeRegistrantDto registrantDto) {
+        Iterator<ChallengeRegistrantEntity> registrantIter = challengeRegistrantRepository.search(QueryBuilders.termQuery("registrantId", registrantDto.getRegistrantId())).iterator();
+        if (!registrantIter.hasNext()) return null;
+
+        ChallengeRegistrantEntity registrant = registrantIter.next();
+        ChallengeEntity challenge = challengeRepository.findOne(registrant.getChallengeId());
+        if (!ownerEmail.equalsIgnoreCase(challenge.getAuthorEmail())) {
+            return null;
+        }
+
+//        ChallengeDetailDto challengeDetailDto = dozerMapper.map(challenge, ChallengeDetailDto.class);
+        registrant.setDisqualified(Boolean.FALSE);
+        registrant.setDisqualifiedReason(registrantDto.getDisqualifiedReason());
+        registrant = challengeRegistrantRepository.save(registrant);
+        return dozerMapper.map(registrant, ChallengeRegistrantDto.class);
     }
 
     private Set<Long> findRegistrantByChallengeSubmissionQualification(String ownerEmail,

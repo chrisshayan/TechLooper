@@ -1051,14 +1051,14 @@ techlooper.factory("jsonValue", function () {
           enum: "UIUX",
           challengeProp: "uxSubmissionDateTime",
           phaseItem: {translate: {countJoiner: "participantsNumber", countSubmission: "submissionsNumber"}},
-          registrantTable: {templateUrl: "modules/contest-detail/registrants/phaseUiuxTable.html"},
+          registrantTable: {templateUrl: "modules/contest-detail/registrants/phaseIdeaTable.html"},
           isUiux: true
         },
         {
           enum: "PROTOTYPE",
           challengeProp: "prototypeSubmissionDateTime",
           phaseItem: {translate: {countJoiner: "participantsNumber", countSubmission: "submissionsNumber"}},
-          registrantTable: {templateUrl: "modules/contest-detail/registrants/phasePrototypeTable.html"},
+          registrantTable: {templateUrl: "modules/contest-detail/registrants/phaseIdeaTable.html"},
           isPrototype: true
         },
         {
@@ -1072,6 +1072,7 @@ techlooper.factory("jsonValue", function () {
           enum: "WINNER",
           phaseItem: {translate: {countJoiner: "finalistNumber", countSubmission: "winnersNumber"}},
           registrantTable: {templateUrl: "modules/contest-detail/registrants/phaseWinnerTable.html"},
+          isSpecial: true,
           isWinner: true
         }
       ]

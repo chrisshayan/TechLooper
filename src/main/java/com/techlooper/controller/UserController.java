@@ -401,6 +401,12 @@ public class UserController {
         return challengeService.acceptRegistrant(request.getRemoteUser(), registrantId, phase);
     }
 
+    @PreAuthorize("hasAuthority('EMPLOYER')")
+    @RequestMapping(value = "user/challenge/reject", method = RequestMethod.PUT)
+    public ChallengeRegistrantDto rejectChallengeRegistrant(HttpServletRequest request, @RequestBody ChallengeRegistrantDto registrantDto) {
+        return challengeService.rejectRegistrant(request.getRemoteUser(), registrantDto);
+    }
+
     @PreAuthorize("hasAnyAuthority('EMPLOYER')")
     @RequestMapping(value = "/user/employer/saveEmailSetting", method = RequestMethod.POST)
     public EmailSettingDto saveEmployerEmailSetting(HttpServletRequest request, @RequestBody EmailSettingDto emailSettingDto) {
