@@ -82,7 +82,7 @@ techlooper.directive("submissionChallenge", function (localStorageService, apiSe
               apiService.submitMyResult(scope.submission)
                 .success(function (data) {
                   var submission = data;
-                  $rootScope.$broadcast("success-submission-challenge", submission);
+                  $rootScope.$broadcast("submission-accepted", submission);
                 })
                 .finally(function () {
                   $timeout(function () {

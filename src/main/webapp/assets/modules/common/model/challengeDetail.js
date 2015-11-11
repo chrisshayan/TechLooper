@@ -95,10 +95,10 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
         });
     }
 
-    challengeDetail.recalculate = function (phaseName, registrants) {
-      if (!phaseName) {
-        phaseName = challengeDetail.selectedPhaseItem ? challengeDetail.selectedPhaseItem.phase : challengeDetail.currentPhase;
-      }
+    challengeDetail.recalculate = function (registrants) {
+      //if (!phaseName) {
+      //  phaseName = challengeDetail.selectedPhaseItem ? challengeDetail.selectedPhaseItem.phase : challengeDetail.currentPhase;
+      //}
 
       //see jsonValue.challengePhase
       var prop = jsonValue.challengePhase[challengeDetail.currentPhase].challengeProp;
@@ -115,8 +115,8 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
 
         var cp = _.findWhere(jsonValue.challengePhase.values, {enum: item.phase});
         item.$phaseConfig = cp;
-        item.countJoinerTitle = $filter("translate")(cp.phaseItem.translate.countJoiner, {number: item.participant});
-        item.countSubmissionTitle = $filter("translate")(cp.phaseItem.translate.countSubmission, {number: item.submission});
+        item.countJoinerTitle = $filter("translate")(item.$phaseConfig.phaseItem.translate.countJoiner, {number: item.participant});
+        item.countSubmissionTitle = $filter("translate")(item.$phaseConfig.phaseItem.translate.countSubmission, {number: item.submission});
 
         if (item.phase == challengeDetail.currentPhase) {
           item.isCurrentPhase = true;
@@ -142,8 +142,8 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
         challengeDetail.recalculateRegistrants(registrants);
       }
 
-      challengeDetail.recalculateRegistrantRemainsPhases(phaseName);
-      console.log(challengeDetail);
+      //challengeDetail.recalculateRegistrantRemainsPhases(phaseName);
+      //console.log(challengeDetail);
     }
 
     challengeDetail.recalculateRegistrants = function (registrants) {
@@ -163,26 +163,19 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
       //  });
       //  challengeDetail.countWinnerPaticipants += (count.hasScore > 0) ? 1 : 0;
       //});
+      //console.log(challengeDetail);
     }
 
-    // see jsonValue.challengePhase
-    challengeDetail.recalculateRegistrantRemainsPhases = function (phaseName) {
-      challengeDetail.registrantRemainsPhases = [];
-      if (!challengeDetail.phaseItems || phaseName == challengeDetail.nextPhase) return;
+    challengeDetail.incParticipantCount = function(registrant) {
+      var pi = _.findWhere(challengeDetail.phaseItems, {phase: registrant.activePhase});
+      (registrant.disqualified == false) && pi.participant++;
+      pi.countJoinerTitle = $filter("translate")(pi.$phaseConfig.phaseItem.translate.countJoiner, {number: pi.participant});
+    }
 
-      var alreadyNext = false;
-      for (var i = 0; i < challengeDetail.phaseItems.length; i++) {
-        if (challengeDetail.phaseItems[i].phase == phaseName) {
-          for (var j = i + 1; j < challengeDetail.phaseItems.length; j++) {
-            if (alreadyNext) break;
-            challengeDetail.registrantRemainsPhases.push(challengeDetail.phaseItems[j].phase);
-            if (challengeDetail.phaseItems[j].phase == challengeDetail.nextPhase) {
-              alreadyNext = true;
-            }
-          }
-          break;
-        }
-      }
+    challengeDetail.incSubmissionCount = function(submission) {
+      var pi = _.findWhere(challengeDetail.phaseItems, {phase: submission.submissionPhase});
+      pi.submission++;
+      pi.countSubmissionTitle = $filter("translate")(pi.$phaseConfig.phaseItem.translate.countSubmission, {number: pi.submission});
     }
 
     // see com.techlooper.model.ChallengeRegistrantFunnelItem
@@ -198,6 +191,7 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
       phaseItem.isSelected = true;
 
       challengeDetail.refreshRegistrants();
+      //challengeDetail.recalculateRegistrantRemainsPhases();
     }
 
     challengeDetail.recalculate();

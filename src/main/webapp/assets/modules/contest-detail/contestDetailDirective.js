@@ -1,31 +1,31 @@
 techlooper
-    .directive('contentDetailsTab', function () {
-      return {
-        restrict: "E",
-        replace: true,
-        templateUrl: "modules/contest-detail/details/contentTab.html",
-        link: function (scope, element, attr, ctrl) {
-        }
-      };
-    })
-    .directive('contentRegistrantsTab', function () {
-      return {
-        restrict: "E",
-        replace: true,
-        templateUrl: "modules/contest-detail/registrants/contentTab.html",
-        link: function (scope, element, attr, ctrl) {
-        }
-      };
-    })
-    .directive('contentEvaluationCriteriaTab', function () {
-      return {
-        restrict: "E",
-        replace: true,
-        templateUrl: "modules/contest-detail/evaluation-criteria/contentTab.html",
-        link: function (scope, element, attr, ctrl) {
-        }
-      };
-    })
+  .directive('contentDetailsTab', function () {
+    return {
+      restrict: "E",
+      replace: true,
+      templateUrl: "modules/contest-detail/details/contentTab.html",
+      link: function (scope, element, attr, ctrl) {
+      }
+    };
+  })
+  .directive('contentRegistrantsTab', function () {
+    return {
+      restrict: "E",
+      replace: true,
+      templateUrl: "modules/contest-detail/registrants/contentTab.html",
+      link: function (scope, element, attr, ctrl) {
+      }
+    };
+  })
+  .directive('contentEvaluationCriteriaTab', function () {
+    return {
+      restrict: "E",
+      replace: true,
+      templateUrl: "modules/contest-detail/evaluation-criteria/contentTab.html",
+      link: function (scope, element, attr, ctrl) {
+      }
+    };
+  })
   .directive("contestDetailAction", function ($rootScope, apiService, paginationService, utils, jsonValue) {
     return {
       restrict: "E",
@@ -126,51 +126,53 @@ techlooper
         //  scope.registrant.hide();
         //});
 
-        //scope.$on("success-submission-challenge", function (sc, submission) {
+        //scope.$on("submission-accepted", function (sc, submission) {
         //  if (scope.registrant.registrantId != submission.registrantId) return;
         //  scope.registrant.acceptSubmission(submission);
         //});
+        scope.$on("registrant-qualified", function (sc, submission) {scope.registrant.hide();});
+        scope.$on("registrant-disqualified", function (sc, submission) {scope.registrant.hide();});
 
         //utils.sortByNumber(scope.registrant.submissions, "challengeSubmissionId");
       }
     };
   })
-    .directive('tabManagerContestDetail', function () {
-      return {
-        restrict: "E",
-        replace: true,
-        templateUrl: "modules/contest-detail/tabManager.html",
-        link: function (scope, element, attr, ctrl) {
-        }
-      };
-    })
-    .directive('funnelManager', function () {
-      return {
-        restrict: "E",
-        replace: true,
-        templateUrl: "modules/contest-detail/funnelManager.html",
-        link: function (scope, element, attr, ctrl) {
-        }
-      };
-    })
-    .directive('contestContentDetails', function () {
-      return {
-        restrict: "E",
-        replace: true,
-        templateUrl: "modules/contest-detail/contestContentDetails.html",
-        link: function (scope, element, attr, ctrl) {
-        }
-      };
-    })
-    .directive('registrantList', function () {
-      return {
-        restrict: "E",
-        replace: true,
-        templateUrl: "modules/contest-detail/registrants.html",
-        link: function (scope, element, attr, ctrl) {
-        }
-      };
-    })
+  .directive('tabManagerContestDetail', function () {
+    return {
+      restrict: "E",
+      replace: true,
+      templateUrl: "modules/contest-detail/tabManager.html",
+      link: function (scope, element, attr, ctrl) {
+      }
+    };
+  })
+  .directive('funnelManager', function () {
+    return {
+      restrict: "E",
+      replace: true,
+      templateUrl: "modules/contest-detail/funnelManager.html",
+      link: function (scope, element, attr, ctrl) {
+      }
+    };
+  })
+  .directive('contestContentDetails', function () {
+    return {
+      restrict: "E",
+      replace: true,
+      templateUrl: "modules/contest-detail/contestContentDetails.html",
+      link: function (scope, element, attr, ctrl) {
+      }
+    };
+  })
+  .directive('registrantList', function () {
+    return {
+      restrict: "E",
+      replace: true,
+      templateUrl: "modules/contest-detail/registrants.html",
+      link: function (scope, element, attr, ctrl) {
+      }
+    };
+  })
   .directive('contestDetailReviewSubmission', function (apiService) {
     return {
       restrict: "E",
@@ -181,9 +183,9 @@ techlooper
           var url = (link.indexOf("https://") >= 0 || link.indexOf("http://") >= 0) ? link : "http://" + link;
           window.open(url, '_newtab');
         }
-        scope.saveReadSubmission = function(submission, isRead){
+        scope.saveReadSubmission = function (submission, isRead) {
           apiService.readSubmission(submission.challengeId, submission.challengeSubmissionId, isRead)
-              .success(function (data) {});
+            .success(function (data) {});
         }
       }
     };

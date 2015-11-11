@@ -1,5 +1,5 @@
 techlooper.controller('contestDetailController', function ($scope, apiService, localStorageService, $location, $routeParams,
-                                                           jsonValue, $translate, utils, $filter, $timeout, resourcesService, $rootScope) {
+                                                           jsonValue, $translate, utils, $filter, $route) {
   //utils.sendNotification(jsonValue.notifications.loading);
   //$scope.currentPage = 1;
   //$scope.selectedPhase = 0;
@@ -171,9 +171,9 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
     var email = localStorageService.get("email");
     apiService.joinContest(contestId, firstName, lastName, email, $translate.use())
       .success(function (numberOfRegistrants) {
-        if ($scope.contestDetail) {
-          $scope.contestDetail.numberOfRegistrants = numberOfRegistrants;
-        }
+        //if ($scope.contestDetail) {
+        //  $scope.contestDetail.numberOfRegistrants = numberOfRegistrants;
+        //}
 
         var joinContests = localStorageService.get("joinContests") || "";
         joinContests = joinContests.length > 0 ? joinContests.split(",") : [];
@@ -182,39 +182,45 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
         }
 
         localStorageService.set("joinContests", joinContests.join(","));
-        $filter("progress")($scope.contestDetail, "challenge");
+        //$filter("progress")($scope.contestDetail, "challenge");
         //$scope.filterContestant();
+        $location.search({});
+        $route.reload();
       })
       .error(function () {
         $scope.failJoin = true;
       });
   }
 
-  apiService.getContestDetail(contestId)
-    .success(function (data) {
-      $scope.contestDetail = data;
-      $filter("progress")($scope.contestDetail, "challenge");
-      //$scope.contestDetail.refreshRegistrants();
-      //var idea = $scope.contestDetail.ideaSubmissionDateTime ? true : false,
-      //  uiux = $scope.contestDetail.uxSubmissionDateTime ? true : false,
-      //  prototype = $scope.contestDetail.prototypeSubmissionDateTime ? true : false;
-      //if (!idea || !uiux || !prototype) {
-      //  if ((idea && uiux) || (idea && prototype) || (prototype && uiux)) {
-      //    $scope.contestDetail.timeline = 4;
-      //  }
-      //  else if (((!idea && !uiux) && prototype) || ((!idea && !prototype) && uiux) || ((!prototype && !uiux) && idea)) {
-      //    $scope.contestDetail.timeline = 3;
-      //  }
-      //  else {
-      //    $scope.contestDetail.timeline = 2;
-      //  }
-      //}
-      //else {
-      //  $scope.contestDetail.timeline = 5;
-      //}
-      //$scope.getRegistrants(contestId);
-    })
-    .error(function () {$location.url("404");});
+  $scope.refreshChallengeDetail = function() {
+    apiService.getContestDetail(contestId)
+      .success(function (data) {
+        $scope.contestDetail = data;
+        $filter("progress")($scope.contestDetail, "challenge");
+        //$scope.contestDetail.refreshRegistrants();
+        //var idea = $scope.contestDetail.ideaSubmissionDateTime ? true : false,
+        //  uiux = $scope.contestDetail.uxSubmissionDateTime ? true : false,
+        //  prototype = $scope.contestDetail.prototypeSubmissionDateTime ? true : false;
+        //if (!idea || !uiux || !prototype) {
+        //  if ((idea && uiux) || (idea && prototype) || (prototype && uiux)) {
+        //    $scope.contestDetail.timeline = 4;
+        //  }
+        //  else if (((!idea && !uiux) && prototype) || ((!idea && !prototype) && uiux) || ((!prototype && !uiux) && idea)) {
+        //    $scope.contestDetail.timeline = 3;
+        //  }
+        //  else {
+        //    $scope.contestDetail.timeline = 2;
+        //  }
+        //}
+        //else {
+        //  $scope.contestDetail.timeline = 5;
+        //}
+        //$scope.getRegistrants(contestId);
+      })
+      .error(function () {$location.url("404");});
+  }
+
+  $scope.refreshChallengeDetail();
 
   //$scope.getRegistrants = function () {
   //  apiService.getChallengeRegistrantsByPhase($scope.contestDetail.challengeId, $scope.contestDetail.selectedPhase.$phaseConfig.enum)

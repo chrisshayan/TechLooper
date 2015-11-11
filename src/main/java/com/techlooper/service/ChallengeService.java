@@ -113,4 +113,6 @@ public interface ChallengeService {
     List<ChallengeRegistrantFunnelItem> getChallengeRegistrantFunnel(Long challengeId, String ownerEmail);
 
     int qualifyAllRegistrants(String remoteUser, ChallengeQualificationDto challengeQualificationDto);
+
+    ChallengeRegistrantDto rejectRegistrant(String loginUserEmail, ChallengeRegistrantDto registrantDto);
 }

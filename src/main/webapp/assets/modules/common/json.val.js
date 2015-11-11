@@ -1072,6 +1072,7 @@ techlooper.factory("jsonValue", function () {
           enum: "WINNER",
           phaseItem: {translate: {countJoiner: "finalistNumber", countSubmission: "winnersNumber"}},
           registrantTable: {templateUrl: "modules/contest-detail/registrants/phaseWinnerTable.html"},
+          isSpecial: true,
           isWinner: true
         }
       ]

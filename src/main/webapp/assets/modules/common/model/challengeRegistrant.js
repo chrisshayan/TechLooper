@@ -92,8 +92,12 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonV
         registrant.lastSubmission = _.isEmpty(registrant.submissions) ? undefined : _.max(registrant.submissions, function (submission) {return submission.challengeSubmissionId;});
       }
 
-      if (challengeDetail) registrant.$challengeDetail = challengeDetail;
+      if (challengeDetail) {
+        registrant.$challengeDetail = challengeDetail;
+        registrant.recalculateRemainingPhases();
+      }
       registrant.activePhase = registrant.activePhase ? registrant.activePhase : "REGISTRATION";
+      registrant.activePhaseLowerCase = registrant.activePhase.toLowerCase();
       registrant.fullName = registrant.registrantFirstName + " " + registrant.registrantLastName;
 
       if (registrant.disqualified == undefined) {
@@ -102,7 +106,21 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonV
           registrant.disqualified = false;
         }
       }
-      console.log(registrant);
+    }
+
+    registrant.recalculateRemainingPhases = function () {
+      registrant.remainingPhaseItems = [];
+      for (var i = 0; i < registrant.$challengeDetail.phaseItems.length; i++) {
+        var cp = registrant.$challengeDetail.phaseItems[i];
+        if (cp.phase == registrant.activePhase) {
+          for (var j = i + 1; j < registrant.$challengeDetail.phaseItems.length; j++) {
+            cp = registrant.$challengeDetail.phaseItems[j];
+            if (cp.$phaseConfig.isSpecial) continue;
+            registrant.remainingPhaseItems.push(cp);
+          }
+          break;
+        }
+      }
     }
 
     registrant.recalculateWinner = function (challengeDetail) {
@@ -119,7 +137,8 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonV
     registrant.acceptSubmission = function (submission) {
       if (!_.findWhere(registrant.submissions, submission)) {
         registrant.submissions.unshift(submission);
-        registrant.recalculate(submission.submissionPhase);
+        registrant.$challengeDetail.incSubmissionCount(submission);
+        //registrant.recalculate(submission.submissionPhase);
       }
     }
 
@@ -127,14 +146,17 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonV
       //utils.sendNotification(jsonValue.notifications.loading);
       //delete registrant.disqualified;
       //delete registrant.disqualifiedReason;
-      apiService.acceptChallengeRegistrant(registrant.registrantId, registrant.ableAcceptedPhase)
+      if (registrant.remainingPhaseItems.length == 1) {
+        registrant.selectedPhaseItem = registrant.remainingPhaseItems[0];
+      }
+
+      apiService.acceptChallengeRegistrant(registrant.registrantId, registrant.selectedPhaseItem.phase)
         .success(function (rt) {
           //registrant.qualified = !rt.disqualified;
-          registrant.disqualified = rt.disqualified;
+          registrant.activePhase = rt.activePhase;
+          registrant.disqualified = false;
           registrant.disqualifiedReason = rt.disqualifiedReason;
-          registrant.recalculate();
-        })
-        .finally(function () {
+          registrant.$challengeDetail.incParticipantCount(registrant);
           $rootScope.$broadcast("registrant-qualified", registrant);
         });
 
@@ -144,21 +166,20 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonV
 
     registrant.disqualify = function () {
       registrant.disqualified = true;
-      apiService.saveChallengeRegistrant(registrant)
+      apiService.rejectChallengeRegistrant(registrant)
         .success(function (rt) {
+          registrant.activePhase = rt.activePhase;
           registrant.disqualified = rt.disqualified;
           registrant.disqualifiedReason = rt.disqualifiedReason;
-          registrant.recalculate();
-        })
-        .finally(function () {
+          registrant.$challengeDetail.incParticipantCount(registrant);
           $rootScope.$broadcast("registrant-disqualified", registrant);
         });
 
       //delete scope.registrant.visible;
     };
 
-    //registrant.recalculate(challengePhase);
-    registrant.criteriaLoop();
+    //registrant.criteriaLoop();
+    //console.log(registrant);
 
     registrant.$isRich = true;
     return registrant;
