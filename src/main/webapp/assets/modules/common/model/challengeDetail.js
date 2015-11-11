@@ -135,13 +135,21 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
 
       // mark unselectable from current-phase + 2
       var current = _.findWhere(challengeDetail.phaseItems, {isCurrentPhase: true});
+      if (challengeDetail.isClosed) {
+        current.isCurrentPhase = false;
+        _.last(challengeDetail.phaseItems).isCurrentPhase = true;//auto select winner if challenge is closed
+      }
       for (var i = current.$index + 2; i < challengeDetail.phaseItems.length; i++) {
         challengeDetail.phaseItems[i].unselectable = true;
       }
 
       challengeDetail.totalWeight = _.reduceRight(challengeDetail.criteria, function (sum, cri) { return sum + cri.weight; }, 0);
 
-      if (!challengeDetail.selectedPhaseItem) challengeDetail.setSelectedPhase(challengeDetail.currentPhase);
+      if (!challengeDetail.selectedPhaseItem) {
+        //if (challengeDetail.isClosed) {challengeDetail.setSelectedPhase(challengeDetail.currentPhase);}
+        //else {challengeDetail.setSelectedPhase(challengeDetail.currentPhase);}
+        challengeDetail.setSelectedPhase(challengeDetail.isClosed ? "WINNER" : challengeDetail.currentPhase)
+      }
 
       if (_.isArray(registrants)) {
         //_.each(registrants, function (rgt) {
