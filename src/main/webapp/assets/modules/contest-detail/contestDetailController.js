@@ -311,6 +311,13 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
   //$scope.$on("challenge-selected-phase-change", function (e, rt) {});
   //$scope.$on("on-qualified", function (e, rt) {rt.hideActionView();});
   //$scope.$on("on-disqualified", function (e, rt) {rt.hideActionView();});
+  $scope.$on("before-getting-registrants", function (e, challengeDetail) {
+    utils.sendNotification(jsonValue.notifications.loading);
+  });
+
+  $scope.$on("after-getting-registrants", function (e, challengeDetail) {
+    utils.sendNotification(jsonValue.notifications.loaded);
+  });
 
 });
 

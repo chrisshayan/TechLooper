@@ -14,10 +14,13 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
     }
 
     challengeDetail.refreshRegistrants = function () {
-      delete challengeDetail.$invalidCriteria;
+      $rootScope.$broadcast("before-getting-registrants", challengeDetail);
       apiService.getChallengeRegistrantsByPhase(challengeDetail.challengeId, challengeDetail.selectedPhaseItem.$phaseConfig.enum)
         .success(function (registrants) {
           challengeDetail.recalculateRegistrants(registrants);
+        })
+        .finally(function () {
+          $rootScope.$broadcast("after-getting-registrants", challengeDetail);
         });
     }
 
