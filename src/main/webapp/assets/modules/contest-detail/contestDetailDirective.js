@@ -134,7 +134,6 @@ techlooper
         //  scope.registrant.acceptSubmission(submission);
         //});
         scope.$on("registrant-qualified", function (sc, submission) {scope.registrant.hide();});
-        scope.$on("registrant-disqualified", function (sc, submission) {scope.registrant.hide();});
 
         //utils.sortByNumber(scope.registrant.submissions, "challengeSubmissionId");
       }
