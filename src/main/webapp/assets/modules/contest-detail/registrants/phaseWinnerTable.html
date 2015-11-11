@@ -62,16 +62,19 @@
           <div class="prize-col">
             <div class="label-col" translate="prize"></div>
             <div class="prize"
-                 ng-class="{'one': contestDetail.secondPlaceReward == null && contestDetail.thirdPlaceReward == null, 'two': contestDetail.secondPlaceReward != null && contestDetail.thirdPlaceReward == null}">
-              <input ng-click="contestDetail.save1stWinner(user)" ng-model="registrant.firstAwarded" type="checkbox"/>
+                 ng-class="{'one': contestDetail.secondPlaceReward == null && contestDetail.thirdPlaceReward == null,
+                 'two': contestDetail.secondPlaceReward != null && contestDetail.thirdPlaceReward == null}">
+              <input ng-click="contestDetail.save1stWinner(registrant)" ng-model="registrant.firstAwarded" type="checkbox"/>
             </div>
             <div class="prize" ng-show="contestDetail.secondPlaceReward != null"
-                 ng-class="{'one': contestDetail.secondPlaceReward == null && contestDetail.thirdPlaceReward == null, 'two': contestDetail.secondPlaceReward != null && contestDetail.thirdPlaceReward == null}">
-              <input ng-click="contestDetail.save2ndWinner(user)" ng-model="registrant.secondAwarded" type="checkbox"/>
+                 ng-class="{'one': contestDetail.secondPlaceReward == null && contestDetail.thirdPlaceReward == null,
+                 'two': contestDetail.secondPlaceReward != null && contestDetail.thirdPlaceReward == null}">
+              <input ng-click="contestDetail.save2ndWinner(registrant)" ng-model="registrant.secondAwarded" type="checkbox"/>
             </div>
             <div class="prize" ng-show="contestDetail.thirdPlaceReward != null"
-                 ng-class="{'one': contestDetail.secondPlaceReward == null && contestDetail.thirdPlaceReward == null, 'two': contestDetail.secondPlaceReward != null && contestDetail.thirdPlaceReward == null}">
-              <input ng-click="contestDetail.save3rdWinner(user)" ng-model="registrant.thirdAwarded" type="checkbox"/>
+                 ng-class="{'one': contestDetail.secondPlaceReward == null && contestDetail.thirdPlaceReward == null,
+                 'two': contestDetail.secondPlaceReward != null && contestDetail.thirdPlaceReward == null}">
+              <input ng-click="contestDetail.save3rdWinner(registrant)" ng-model="registrant.thirdAwarded" type="checkbox"/>
             </div>
           </div>
           <div class="registration-submission">
