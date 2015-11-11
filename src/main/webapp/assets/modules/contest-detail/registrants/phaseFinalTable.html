@@ -32,6 +32,11 @@
   </tr>
   </thead>
   <tbody>
+  <tr ng-show="contestDetail.$registrants.length == 0" class="no-data-found">
+    <td>
+      <p translate="noData"></p>
+    </td>
+  </tr>
     <tr ng-repeat="registrant in contestDetail.$registrants">
       <td>
         <div class="registrants-challenge-list">
