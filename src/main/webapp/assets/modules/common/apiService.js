@@ -370,6 +370,14 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
         challengeSubmissionId: challengeSubmissionId,
         isRead: isRead
       });
+    },
+    qualifyAllToNextPhase: function (challengeId , currentPhase, nextPhase, qualificationCriteria) {
+      return $http.post("user/challenge/qualifyAllRegistrants", {
+        challengeId: challengeId,
+        currentPhase: currentPhase,
+        nextPhase: nextPhase,
+        qualificationCriteria: qualificationCriteria
+      });
     }
   };
 
