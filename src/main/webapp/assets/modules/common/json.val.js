@@ -1114,6 +1114,17 @@ techlooper.factory("jsonValue", function () {
       thirdPlaceEnum: function () {
         return instance.rewards.values[2].enum;
       }
+    },
+
+    /**
+     * @see com.techlooper.model.QualificationCriteriaEnum
+     * */
+    qualificationCriteria: {
+      values: [
+        {enum: "HAVE_ALL_SUBMISSION_READ", titleTranslate: "havingAllSubmissionsRead"},
+        {enum: "HAVE_SUBMISSION", titleTranslate: "havingSubmissions"},
+        {enum: "REGARDLESS_OF_HAVING_SUBMISSION_OR_NOT", titleTranslate: "regardlessOfHavingSubmissions"}
+      ]
     }
   }
 

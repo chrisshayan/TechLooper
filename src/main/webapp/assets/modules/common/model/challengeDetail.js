@@ -231,6 +231,10 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
       //challengeDetail.recalculateRegistrantRemainsPhases();
     }
 
+    challengeDetail.acceptRegistrants = function() {
+      console.log(1)
+    }
+
     challengeDetail.recalculate();
 
     //console.log(challengeDetail);
