@@ -65,10 +65,12 @@
                  ng-class="{'one': contestDetail.secondPlaceReward == null && contestDetail.thirdPlaceReward == null, 'two': contestDetail.secondPlaceReward != null && contestDetail.thirdPlaceReward == null}">
               <input ng-click="contestDetail.save1stWinner(user)" ng-model="registrant.firstAwarded" type="checkbox"/>
             </div>
-            <div class="prize" ng-show="(phase.phase.toLowerCase()) == 'winner' && contestDetail.secondPlaceReward != null">
+            <div class="prize" ng-show="contestDetail.secondPlaceReward != null"
+                 ng-class="{'one': contestDetail.secondPlaceReward == null && contestDetail.thirdPlaceReward == null, 'two': contestDetail.secondPlaceReward != null && contestDetail.thirdPlaceReward == null}">
               <input ng-click="contestDetail.save2ndWinner(user)" ng-model="registrant.secondAwarded" type="checkbox"/>
             </div>
-            <div class="prize" ng-show="(phase.phase.toLowerCase()) == 'winner' && contestDetail.thirdPlaceReward != null">
+            <div class="prize" ng-show="contestDetail.thirdPlaceReward != null"
+                 ng-class="{'one': contestDetail.secondPlaceReward == null && contestDetail.thirdPlaceReward == null, 'two': contestDetail.secondPlaceReward != null && contestDetail.thirdPlaceReward == null}">
               <input ng-click="contestDetail.save3rdWinner(user)" ng-model="registrant.thirdAwarded" type="checkbox"/>
             </div>
           </div>
