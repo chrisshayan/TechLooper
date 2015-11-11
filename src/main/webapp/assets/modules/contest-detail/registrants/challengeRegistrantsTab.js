@@ -16,14 +16,20 @@ techlooper.directive('funnelManagement', function () {
       }
     };
   })
-.directive('qualifyAllToNextPhase', function () {
+.directive('qualifyAllToNextPhase', function (ngProgressFactory, $timeout, apiService) {
   return {
     restrict: "E",
     replace: true,
     templateUrl: "modules/contest-detail/registrants/qualifyAllToNextPhase.html",
     link: function (scope, element, attr, ctrl) {
       scope.hideQualifyAllForm = function(){
+        scope.progressbar = ngProgressFactory.createInstance();
+        $timeout(scope.progressbar.complete(), 3000);
         delete scope.showQualifyAllRegistrantsForm;
+      };
+      scope.qualifyToAllRegistrant = function(challenge){
+        apiService.save(challenge.challengeId)
+            .success(function (data) {});
       }
     }
   };
