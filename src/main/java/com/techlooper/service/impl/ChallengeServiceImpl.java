@@ -1,5 +1,6 @@
 package com.techlooper.service.impl;
 
+import com.techlooper.dto.ChallengeQualificationDto;
 import com.techlooper.dto.EmailSettingDto;
 import com.techlooper.entity.*;
 import com.techlooper.model.*;
@@ -1185,6 +1186,46 @@ public class ChallengeServiceImpl implements ChallengeService {
                 return StringUtils.isNotEmpty(challengeDto.getSubmissionDate());
             default:
                 return false;
+        }
+    }
+
+    @Override
+    public int qualifyAllRegistrants(String ownerEmail, ChallengeQualificationDto challengeQualificationDto) {
+        Set<Long> registrantIds = findRegistrantByChallengeSubmissionQualification(ownerEmail, challengeQualificationDto);
+        ChallengePhaseEnum qualifyingPhase = challengeQualificationDto.getNextPhase();
+
+        int count = 0;
+        for (Long registrantId : registrantIds) {
+            ChallengeRegistrantDto registrantDto = acceptRegistrant(ownerEmail, registrantId, qualifyingPhase);
+            if (registrantDto.getActivePhase() == qualifyingPhase) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    private Set<Long> findRegistrantByChallengeSubmissionQualification(String ownerEmail,
+                                                                       ChallengeQualificationDto challengeQualificationDto) {
+        NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withTypes("challengeSubmission");
+        Long challengeId = challengeQualificationDto.getChallengeId();
+        ChallengePhaseEnum currentPhase = challengeQualificationDto.getCurrentPhase();
+
+        if (challengeQualificationDto.getQualificationCriteria() ==
+                QualificationCriteriaEnum.REGARDLESS_OF_HAVING_SUBMISSION_OR_NOT) {
+            Set<ChallengeRegistrantDto> registrants = challengeRegistrantService.findRegistrantsByChallengeIdAndPhase(
+                    challengeId, currentPhase, ownerEmail);
+            return registrants.stream().map(registrant -> registrant.getRegistrantId()).collect(Collectors.toSet());
+        } else {
+            BoolFilterBuilder boolFilterBuilder = boolFilter();
+            boolFilterBuilder.must(termFilter("challengeId", challengeId));
+            boolFilterBuilder.must(termFilter("submissionPhase", currentPhase));
+
+            if (challengeQualificationDto.getQualificationCriteria() == QualificationCriteriaEnum.HAVE_ALL_SUBMISSION_READ) {
+                boolFilterBuilder.must(termFilter("isRead", true));
+            }
+            searchQueryBuilder.withQuery(filteredQuery(matchAllQuery(), boolFilterBuilder));
+            List<ChallengeSubmissionEntity> submissions = DataUtils.getAllEntities(challengeSubmissionRepository, searchQueryBuilder);
+            return submissions.stream().map(submission -> submission.getRegistrantId()).collect(Collectors.toSet());
         }
     }
 }
