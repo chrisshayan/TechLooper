@@ -221,6 +221,7 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
 
       challengeDetail.phaseItems.map(function (item) {item.isSelected = false;});
       challengeDetail.selectedPhaseItem = phaseItem;
+      challengeDetail.$registrantsNextPhaseItem = phaseItem.$phaseConfig.isFinal ? undefined : challengeDetail.phaseItems[phaseItem.$index + 1];
       phaseItem.isSelected = true;
 
       challengeDetail.refreshRegistrants();
