@@ -108,6 +108,13 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonV
         registrant.recalculateRemainingPhases();
         registrant.recalculateWinner();
       }
+
+      registrant.recalculateSubmissions();
+    }
+
+    registrant.recalculateSubmissions = function () {
+      registrant.$unreadSubmissions = _.reject(registrant.submissions, function (s) {return s.isRead == true;});
+      registrant.$readSubmissions = _.filter(registrant.submissions, function (s) {return s.isRead == false || s.isRead == undefined;});
     }
 
     registrant.recalculateRemainingPhases = function () {
@@ -141,8 +148,8 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonV
     registrant.acceptSubmission = function (submission) {
       if (!_.findWhere(registrant.submissions, submission)) {
         registrant.submissions.unshift(submission);
+        registrant.recalculateSubmissions();
         registrant.$challengeDetail.incSubmissionCount(submission);
-        //registrant.recalculate(submission.submissionPhase);
       }
     }
 
