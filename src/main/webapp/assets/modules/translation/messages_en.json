@@ -818,6 +818,7 @@
   "registrantsNumberPhase": "<strong>{{number}}</strong> Registrant(s)",
   "participantsNumber": "<strong>{{number}}</strong> Participant(s)",
   "submissionsNumber": "<strong>{{number}}</strong> Submission(s)",
+  "unReadNumber": "<strong>{{number}}</strong> Unread(s)",
   "winnersNumber": "<strong>{{number}}</strong> Winner(s)",
   "winner": "Winner",
   "finalistNumber": "<strong>{{number}}</strong> Finalist(s)",

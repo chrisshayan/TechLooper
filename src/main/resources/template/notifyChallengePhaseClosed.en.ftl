@@ -163,7 +163,7 @@
                     </tr>
                     <tr>
                       <td align="left" style="font-size: 14px;">
-                        Dear,
+                        Hey,
                       </td>
                     </tr>
                     <tr>
@@ -173,6 +173,18 @@
                     </tr>
                     <tr>
                       <td align="left" style="font-size: 14px;">
+                      <#if oldPhase == "REGISTRATION">
+                          <#assign localizedOldPhase = "Registration">
+                      <#elseif oldPhase == "IDEA">
+                          <#assign localizedOldPhase = "Idea">
+                      <#elseif oldPhase == "UIUX">
+                          <#assign localizedOldPhase = "UI/UX">
+                      <#elseif oldPhase == "PROTOTYPE">
+                          <#assign localizedOldPhase = "Prototype">
+                      <#elseif oldPhase == "FINAL">
+                          <#assign localizedOldPhase = "Final App">
+                      </#if>
+
                       <#if currentPhase == "REGISTRATION">
                           <#assign localizedCurrentPhase = "Registration">
                       <#elseif currentPhase == "IDEA">
@@ -184,19 +196,7 @@
                       <#elseif currentPhase == "FINAL">
                           <#assign localizedCurrentPhase = "Final App">
                       </#if>
-
-                      <#if nextPhase == "REGISTRATION">
-                          <#assign localizedNextPhase = "Registration">
-                      <#elseif nextPhase == "IDEA">
-                          <#assign localizedNextPhase = "Idea">
-                      <#elseif nextPhase == "UIUX">
-                          <#assign localizedNextPhase = "UI/UX">
-                      <#elseif nextPhase == "PROTOTYPE">
-                          <#assign localizedNextPhase = "Prototype">
-                      <#elseif nextPhase == "FINAL">
-                          <#assign localizedNextPhase = "Final App">
-                      </#if>
-                        The phase <strong>${localizedCurrentPhase}</strong> of challenge <a href="${webBaseUrl}#/challenge-detail/${challengeNameAlias}-${challenge.challengeId}-id?utm_source=remindphaseclose&utm_medium=clickchallenge&utm_campaign=onlinecontest" style="color:#337ab7" target="_blank"><strong>${challenge.challengeName}</strong></a>just ended. The current phase is now <strong>${localizedNextPhase}</strong> with <strong>${nextPhaseRegistrants}</strong> selected.
+                        The phase <strong>${localizedOldPhase}</strong> of challenge <a href="${webBaseUrl}#/challenge-detail/${challengeNameAlias}-${challengeId}-id?utm_source=remindphaseclose&utm_medium=clickchallenge&utm_campaign=onlinecontest" style="color:#337ab7" target="_blank"><strong>${challenge.challengeName}</strong></a> just ended. The current phase is now <strong>${localizedCurrentPhase}</strong> with <strong>${currentPhaseRegistrants}</strong> selected.
                       </td>
                     </tr>
                     <tr>
@@ -206,7 +206,7 @@
                     </tr>
                     <tr>
                       <td align="left" style="font-size: 14px;">
-                        Do you want to go to the last phase ${localizedCurrentPhase} to select more participants?
+                        Do you want to go to the last phase ${localizedOldPhase} to select more participants?
                       </td>
                     </tr>
                     <tr>
@@ -266,7 +266,7 @@
                         <table align="center" cellspacing="0" cellpadding="2" class="deviceWidth" width="50%" style="margin:0 auto; padding:10px 0; float: left">
                           <tr>
                             <td width="100%">
-                              <img alt="Challenge Online" class="logo" src="${webBaseUrl}images/why-challenge-banner.jpg" style="border:none; outline:none" width="100%"/>
+                              <img alt="Challenge Online" class="logo" src="http://staging.techlooper.com/images/why-challenge-banner.jpg" style="border:none; outline:none" width="100%"/>
                             </td>
                           </tr>
                         </table>
@@ -282,7 +282,7 @@
                         <table align="center" cellspacing="0" cellpadding="2" class="deviceWidth" width="50%" style="margin:0 auto; padding:10px 0; float: left">
                           <tr>
                             <td width="100%">
-                              <img alt="Challenge Online" class="logo" src="${webBaseUrl}images/why-challenge-banner.jpg" style="border:none; outline:none" width="100%"/>
+                              <img alt="Challenge Online" class="logo" src="http://staging.techlooper.com/images/why-challenge-banner.jpg" style="border:none; outline:none" width="100%"/>
                             </td>
                           </tr>
                         </table>
