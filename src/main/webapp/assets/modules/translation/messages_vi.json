@@ -820,7 +820,7 @@
   "updateEvaluationCriteria": "Tiêu chí chấm điểm đã được cập nhật.",
   "registrantsNumberPhase": "<strong>{{number}}</strong> Thí sinh",
   "participantsNumber": "<strong>{{number}}</strong> Người tham dự",
-  "unReadNumber": "<strong>{{number}}</strong> bài chưa đọc",
+  "unReadNumber": "<strong>{{number}}</strong> Bài chưa đọc",
   "submissionsNumber": "<strong>{{number}}</strong> Bài gửi",
   "selectedNumber": "<strong>{{number}}</strong> Selected",
   "winnersNumber": "<strong>{{number}}</strong> Người chiến thắng",
