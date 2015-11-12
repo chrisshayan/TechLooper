@@ -20,7 +20,6 @@ techlooper.controller('employerDashboardController', function ($scope, jsonValue
                 default:
                   $scope.composeEmail.errorSendEmail = jsonValue.feedbackStatus.errorSystem.translate;
               }
-              console.log($scope.composeEmail.errorSendEmail);
             });
       }
       else if ($scope.composeEmail.action == "feedback-registrant") {
@@ -38,7 +37,6 @@ techlooper.controller('employerDashboardController', function ($scope, jsonValue
                   $scope.composeEmail.errorSendEmail = jsonValue.feedbackStatus.errorSystem.translate;
               }
           });
-        console.log($scope.composeEmail.errorSendEmail);
       }
 
     },
