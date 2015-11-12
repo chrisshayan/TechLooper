@@ -70,13 +70,13 @@
                 ng-class="{disabled: !status('able-to-join')}">
           <i class="fa fa-facebook-square"></i> <span translate="joinNow"></span></button>
 
-        <button ng-show="contestDetail.currentUserJoined == true" ng-click="contestDetail.showSubmitForm()"
+        <button ng-show="contestDetail.currentUserJoined == true" ng-click="submissionForm.showSubmitForm()"
                 class="btn btn-primary btn-flat">
           <i class="fa fa-paper-plane-o"></i> <span translate="submitPhase"></span></button>
       </div>
     </div>
   </div>
-  <submission-challenge challenge="contestDetail"></submission-challenge>
+  <submission-challenge challenge="contestDetail" form="submissionForm"></submission-challenge>
   <div class="alert alert-success" data-ng-init="submittedPhase = false" ng-model="submittedPhase"
        ng-show="submittedPhase">
     <p translate="submissionPhaseSuccessful"></p>

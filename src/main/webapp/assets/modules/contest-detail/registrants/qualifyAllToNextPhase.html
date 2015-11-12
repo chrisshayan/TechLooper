@@ -2,12 +2,33 @@
   <p translate="qualifyAllToNextPhaseTip" translate-value-active-phase="{{contestDetail.selectedPhaseItem.phaseLowerCase}}"
      translate-value-next-phase="{{contestDetail.$rgtNextPhaseItem.phaseLowerCase}}"></p>
   <ul>
-    <li ng-repeat="qc in $root.jsonValue.qualificationCriteria.values">
+    <!--<li ng-repeat="qc in $root.jsonValue.qualificationCriteria.values">-->
+      <!--<label>-->
+        <!--<input type="radio" name="radNextPhase" checked ng-model="contestDetail.$rgtSelectedQC" ng-value="qc"/>-->
+        <!--<span translate="{{qc.titleTranslate}}"></span>-->
+      <!--</label>-->
+    <!--</li>-->
+    <li>
       <label>
-        <input type="radio" name="radNextPhase" checked ng-model="contestDetail.$rgtSelectedQC" ng-value="qc"/>
-        <span translate="{{qc.titleTranslate}}"></span>
+        <input type="radio" name="radNextPhase" ng-click="contestDetail.$fRegistrants.byNotQualifiedAndHavingReadSubmissions()"/>
+        <span translate="havingAllSubmissionsRead"></span>
       </label>
     </li>
+
+    <li>
+      <label>
+        <input type="radio" name="radNextPhase" ng-click="contestDetail.$fRegistrants.byNotQualifiedAndHavingSubmissions()"/>
+        <span translate="havingSubmissions"></span>
+      </label>
+    </li>
+
+    <li>
+      <label>
+        <input type="radio" name="radNextPhase" ng-click="contestDetail.$fRegistrants.byNotQualified()"/>
+        <span translate="regardlessOfHavingSubmissions"></span>
+      </label>
+    </li>
+
   </ul>
   <div class="submission-qualify-all-to-next-phase">
     <a ng-click="contestDetail.acceptRegistrants()" translate="yes" class="btn btn-primary btn-flat"></a>

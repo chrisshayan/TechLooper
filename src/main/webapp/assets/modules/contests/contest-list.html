@@ -31,7 +31,7 @@
       <a href="#/challenge-detail/{{contest.challengeName | nonAscii}}-{{contest.challengeId}}-id" title="{{'viewDetails' | translate}}" target="_blank">
         <i class="fa fa-eye"></i>  |  <span translate="detail"></span>
       </a>
-      <a title="{{'submitPhase' | translate}}" ng-click="contest.showSubmitForm()" ng-show="contest.currentUserJoined == true">
+      <a title="{{'submitPhase' | translate}}" ng-click="submissionForm.showSubmitForm()" ng-show="contest.currentUserJoined == true">
         <i class="fa fa-paper-plane-o"></i>  |  <span translate="submitPhase"></span>
       </a>
       <a title="{{'join' | translate}}" ng-show="contest.currentUserJoined == false" ng-click="joinNowByFB(contest)">

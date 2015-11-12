@@ -79,28 +79,23 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
     //@see jsonValue.rewards
     challengeDetail.save1stWinner = function (registrant) {
       apiService.saveWinner(registrant.registrantId, jsonValue.rewards.firstPlaceEnum(), !registrant.firstAwarded)
-        .success(function (winners) {
-          challengeDetail.winners = winners;
-          challengeDetail.recalculateRegistrants();
-        });
+        .success(challengeDetail.updateWinners);
     }
 
     challengeDetail.save2ndWinner = function (registrant) {
       apiService.saveWinner(registrant.registrantId, jsonValue.rewards.secondPlaceEnum(), !registrant.secondAwarded)
-        .success(function (winners) {
-          challengeDetail.winners = winners;
-          challengeDetail.recalculateRegistrants();
-        });
+        .success(challengeDetail.updateWinners);
     }
 
     challengeDetail.save3rdWinner = function (registrant) {
       apiService.saveWinner(registrant.registrantId, jsonValue.rewards.thirdPlaceEnum(), !registrant.thirdAwarded)
-        .success(function (winners) {
-          challengeDetail.winners = winners;
-          challengeDetail.recalculateRegistrants();
-        });
+        .success(challengeDetail.updateWinners);
     }
 
+    challengeDetail.updateWinners = function (winners) {
+      challengeDetail.winners = winners;
+      challengeDetail.recalculateRegistrants();
+    }
 
     //challengeDetail.recalculateWinners = function() {
     //
@@ -127,8 +122,9 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
 
         var cp = _.findWhere(jsonValue.challengePhase.values, {enum: item.phase});
         item.$phaseConfig = cp;
-        item.countJoinerTitle = $filter("translate")(item.$phaseConfig.phaseItem.translate.countJoiner, {number: item.participant});
-        item.countSubmissionTitle = $filter("translate")(item.$phaseConfig.phaseItem.translate.countSubmission, {number: item.submission});
+        challengeDetail.recalculatePhaseItem(item);
+        //item.countJoinerTitle = $filter("translate")(item.$phaseConfig.phaseItem.translate.countJoiner, {number: item.participant});
+        //item.countSubmissionTitle = $filter("translate")(item.$phaseConfig.phaseItem.translate.countSubmission, {number: item.submission});
 
         if (item.phase == challengeDetail.currentPhase) {
           item.isCurrentPhase = true;
@@ -136,14 +132,13 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
         }
       });
 
-      // mark unselectable from current-phase + 2
+      // make un-selectable phase from current-phase + 2
       var current = _.findWhere(challengeDetail.phaseItems, {isCurrentPhase: true});
       if (challengeDetail.isClosed) {
         current.isCurrentPhase = false;
         _.last(challengeDetail.phaseItems).isCurrentPhase = true;//auto select winner if challenge is closed
       }
-      // challengeDetail.phaseItems.length - 1 for click to winner tab
-      for (var i = current.$index + 2; i < challengeDetail.phaseItems.length-1; i++) {
+      for (var i = current.$index + 2; i < challengeDetail.phaseItems.length - 1; i++) {// winner tab is selectable
         challengeDetail.phaseItems[i].unselectable = true;
       }
 
@@ -176,7 +171,14 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
 
       //winner phase
       var winnerPi = _.last(challengeDetail.phaseItems);
-      winnerPi.countSubmissionTitle = $filter("translate")(winnerPi.$phaseConfig.phaseItem.translate.countSubmission, {number: challengeDetail.winners.length});
+      challengeDetail.recalculatePhaseItem(winnerPi);
+      //winnerPi.countSubmissionTitle = $filter("translate")(winnerPi.$phaseConfig.phaseItem.translate.countSubmission, {number: challengeDetail.winners.length});
+    }
+
+    challengeDetail.recalculatePhaseItem = function (phaseItem) {
+      var piTranslate = phaseItem.$phaseConfig.phaseItem.translate;
+      phaseItem.countJoinerTitle = $filter("translate")(piTranslate.countJoiner, {number: phaseItem.participant});
+      phaseItem.countSubmissionTitle = $filter("translate")(piTranslate.countSubmission, {number: phaseItem.submission});
     }
 
     challengeDetail.recalculateWinner = function (registrant) {
@@ -194,14 +196,16 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
 
       var winnerPi = _.last(challengeDetail.phaseItems);
       winnerPi.participant = countWinnerPaticipants;
-      winnerPi.countJoinerTitle = $filter("translate")(winnerPi.$phaseConfig.phaseItem.translate.countJoiner, {number: winnerPi.participant});
+      challengeDetail.recalculatePhaseItem(winnerPi);
+      //winnerPi.countJoinerTitle = $filter("translate")(winnerPi.$phaseConfig.phaseItem.translate.countJoiner, {number: winnerPi.participant});
       //console.log(challengeDetail);
     }
 
     challengeDetail.incParticipantCount = function (registrant) {
       var pi = _.findWhere(challengeDetail.phaseItems, {phase: registrant.activePhase});
       (registrant.disqualified == false) && pi.participant++;
-      pi.countJoinerTitle = $filter("translate")(pi.$phaseConfig.phaseItem.translate.countJoiner, {number: pi.participant});
+      challengeDetail.recalculatePhaseItem(pi);
+      //pi.countJoinerTitle = $filter("translate")(pi.$phaseConfig.phaseItem.translate.countJoiner, {number: pi.participant});
 
       //var winnerPi = _.last(challengeDetail.phaseItems);
       challengeDetail.recalculateWinner(registrant);
@@ -212,7 +216,8 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
     challengeDetail.incSubmissionCount = function (submission) {
       var pi = _.findWhere(challengeDetail.phaseItems, {phase: submission.submissionPhase});
       pi.submission++;
-      pi.countSubmissionTitle = $filter("translate")(pi.$phaseConfig.phaseItem.translate.countSubmission, {number: pi.submission});
+      challengeDetail.recalculatePhaseItem(pi);
+      //pi.countSubmissionTitle = $filter("translate")(pi.$phaseConfig.phaseItem.translate.countSubmission, {number: pi.submission});
     }
 
     // see com.techlooper.model.ChallengeRegistrantFunnelItem
@@ -234,16 +239,33 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
 
     challengeDetail.acceptRegistrants = function () {
       console.log(challengeDetail);
-      apiService.qualifyAllToNextPhase(challengeDetail.challengeId, challengeDetail.selectedPhaseItem.phase,
-        challengeDetail.$rgtNextPhaseItem.phase, challengeDetail.$rgtSelectedQC.enum)
-        .success(function (data) {
-          console.log(data);
-        });
+      //apiService.qualifyAllToNextPhase(challengeDetail.challengeId, challengeDetail.selectedPhaseItem.phase,
+      //  challengeDetail.$rgtNextPhaseItem.phase, challengeDetail.$rgtSelectedQC.enum)
+      //  .success(function (rgts) {
+      //    console.log(rgts);
+      //  });
     }
 
-    //challengeDetail.$filter = {
-    //  allRegistrants:
-    //}
+    challengeDetail.$fRegistrants = {
+
+      //filter all registrants not qualified and having all submissions read
+      byNotQualifiedAndHavingReadSubmissions: function () {
+        challengeDetail.$fRegistrants = [];
+
+      },
+
+      //filter all registrants not qualified and having submissions
+      byNotQualifiedAndHavingSubmissions: function () {
+        console.log(challengeDetail);
+        console.log(2);
+      },
+
+      //filter all registrants not qualified
+      byNotQualified: function () {
+        console.log(challengeDetail);
+        console.log(2);
+      }
+    }
 
     challengeDetail.recalculate();
 
