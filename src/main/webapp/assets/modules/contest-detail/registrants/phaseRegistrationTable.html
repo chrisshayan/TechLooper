@@ -2,9 +2,9 @@
 <div class="phase-description">
   <p translate="PhaseDes"></p>
   <div class="announcement-winner">
-    <a class="btn btn-primary btn-flat" ng-model="showQualifyAllRegistrantsForm"
-       ng-click="showQualifyAllRegistrantsForm=!showQualifyAllRegistrantsForm">
-      <i class="fa fa-thumbs-up"></i> {{'qualifyAllToNextPhase' | translate}}</a>
+    <button class="btn btn-primary btn-flat" ng-model="showQualifyAllRegistrantsForm"
+       ng-click="showQualifyAllRegistrantsForm=!showQualifyAllRegistrantsForm" ng-disabled="contestDetail.$hadRegistrant">
+      <i class="fa fa-thumbs-up"></i> {{'qualifyAllToNextPhase' | translate}}</button>
   </div>
 </div>
 <div class="participant-list">

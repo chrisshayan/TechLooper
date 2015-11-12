@@ -375,13 +375,12 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
     /**
      * @see com.techlooper.controller.UserController.qualifyAllRegistrants
      * */
-    qualifyAllToNextPhase: function (challengeId, currentPhase, nextPhase, qualificationCriteria) {
+    qualifyAllToNextPhase: function (challengeId, nextPhase, registrantIds) {
       return $http.post("user/challenge/qualifyAllRegistrants", {
         challengeId: challengeId,
-        currentPhase: currentPhase,
         nextPhase: nextPhase,
-        qualificationCriteria: qualificationCriteria
-      }, {transformResponse: function (d, h) {return d;}});
+        registrantIds: registrantIds
+      });
     }
   };
 

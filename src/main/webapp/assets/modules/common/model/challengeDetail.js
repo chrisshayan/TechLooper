@@ -172,7 +172,11 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
       //winner phase
       var winnerPi = _.last(challengeDetail.phaseItems);
       challengeDetail.recalculatePhaseItem(winnerPi);
-      //winnerPi.countSubmissionTitle = $filter("translate")(winnerPi.$phaseConfig.phaseItem.translate.countSubmission, {number: challengeDetail.winners.length});
+
+      //set $hadRegistrant to true if not found any registrant that unknown disqualified-status
+      //console.log(challengeDetail.$registrants);
+      var er = _.findWhere(challengeDetail.$registrants, {disqualified: undefined});
+      challengeDetail.$hadRegistrant = (er == undefined);
     }
 
     challengeDetail.recalculatePhaseItem = function (phaseItem) {
@@ -238,32 +242,45 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
     }
 
     challengeDetail.acceptRegistrants = function () {
-      console.log(challengeDetail);
-      //apiService.qualifyAllToNextPhase(challengeDetail.challengeId, challengeDetail.selectedPhaseItem.phase,
-      //  challengeDetail.$rgtNextPhaseItem.phase, challengeDetail.$rgtSelectedQC.enum)
-      //  .success(function (rgts) {
-      //    console.log(rgts);
-      //  });
+      var registrantIds = _.map(challengeDetail.$filter.qualifyRegistrants, function (rgt) {return rgt.registrantId;});
+      if (registrantIds.length == 0) return;
+      apiService.qualifyAllToNextPhase(challengeDetail.challengeId, challengeDetail.$rgtNextPhaseItem.phase, registrantIds)
+        .success(function (registrants) {
+          var count = 0;
+          $.each(challengeDetail.$registrants, function (i, cr) {
+            var r = _.findWhere(registrants, {registrantId: cr.registrantId});
+            if (r) {
+              count++;
+              cr.acceptActivePhase(r.activePhase);
+              challengeDetail.incParticipantCount(cr);
+            }
+            if (count == registrants.length) return false;
+          });
+        });
     }
 
-    challengeDetail.$fRegistrants = {
+    challengeDetail.$filter = {
 
       //filter all registrants not qualified and having all submissions read
       byNotQualifiedAndHavingReadSubmissions: function () {
-        challengeDetail.$fRegistrants = [];
-
+        challengeDetail.$filter.qualifyRegistrantsType = {isHavingReadSubmission: true};
+        challengeDetail.$filter.qualifyRegistrants = _.filter(challengeDetail.$registrants, function (rgt) {
+          return rgt.disqualified == undefined && (rgt.$readSubmissions.length == rgt.submissions.length);
+        });
       },
 
       //filter all registrants not qualified and having submissions
       byNotQualifiedAndHavingSubmissions: function () {
-        console.log(challengeDetail);
-        console.log(2);
+        challengeDetail.$filter.qualifyRegistrantsType = {isHavingSubmission: true};
+        challengeDetail.$filter.qualifyRegistrants = _.filter(challengeDetail.$registrants, function (rgt) {
+          return rgt.disqualified == undefined && rgt.submissions.length > 0;
+        });
       },
 
       //filter all registrants not qualified
       byNotQualified: function () {
-        console.log(challengeDetail);
-        console.log(2);
+        challengeDetail.$filter.qualifyRegistrantsType = {isNotQualified: true};
+        challengeDetail.$filter.qualifyRegistrants = _.filter(challengeDetail.$registrants, function (rgt) {return rgt.disqualified == undefined;});
       }
     }
 
