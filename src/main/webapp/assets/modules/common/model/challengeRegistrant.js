@@ -127,7 +127,9 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonV
       registrant.$unreadSubmissions = _.reject(registrant.submissions, function (s) {
         return s.isRead == false || s.isRead == undefined;
       });
+      registrant.$isSubmissionsUnread = (registrant.$unreadSubmissions.length == registrant.submissions.length);
       registrant.$readSubmissions = _.filter(registrant.submissions, function (s) {return s.isRead == true});
+      registrant.$isSubmissionsRead = (registrant.$readSubmissions.length == registrant.submissions.length);
     }
 
     registrant.recalculateRemainingPhases = function () {
@@ -163,6 +165,7 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonV
         registrant.submissions.unshift(submission);
         registrant.recalculateSubmissions();
         registrant.$challengeDetail.incSubmissionCount(submission);
+        registrant.$challengeDetail.recalculateRegistrants();
       }
     }
 

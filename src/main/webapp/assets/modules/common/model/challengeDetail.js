@@ -177,6 +177,9 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
       //console.log(challengeDetail.$registrants);
       var er = _.findWhere(challengeDetail.$registrants, {disqualified: undefined});
       challengeDetail.$hadRegistrant = (er == undefined);
+
+      //splice registrants into 2 lists: all/unread submissions
+      challengeDetail.$ursRegistrants = _.filter(challengeDetail.$registrants, function(r) {return !r.$isSubmissionsRead;})
     }
 
     challengeDetail.recalculatePhaseItem = function (phaseItem) {
@@ -265,7 +268,7 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
       byNotQualifiedAndHavingReadSubmissions: function () {
         challengeDetail.$filter.qualifyRegistrantsType = {isHavingReadSubmission: true};
         challengeDetail.$filter.qualifyRegistrants = _.filter(challengeDetail.$registrants, function (rgt) {
-          return rgt.disqualified == undefined && (rgt.$readSubmissions.length == rgt.submissions.length);
+          return rgt.disqualified == undefined && rgt.$isSubmissionsRead;
         });
       },
 
@@ -285,8 +288,6 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
     }
 
     challengeDetail.recalculate();
-
-    //console.log(challengeDetail);
 
     challengeDetail.$isRich = true;
     return challengeDetail;

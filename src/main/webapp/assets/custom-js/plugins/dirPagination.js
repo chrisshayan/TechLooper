@@ -437,7 +437,6 @@
      * @returns {Function}
      */
     function itemsPerPageFilter(paginationService) {
-
         return function(collection, itemsPerPage, paginationId) {
             if (typeof (paginationId) === 'undefined') {
                 paginationId = DEFAULT_ID;

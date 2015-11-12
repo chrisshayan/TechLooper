@@ -26,6 +26,7 @@
               <i class="fa"
                  ng-class="{'fa-chevron-circle-down': sortBySubmissionType == 'desc','fa-chevron-circle-up': sortBySubmissionType == 'asc'}"></i>
             </span>
+            <!--<span class="unreadFilter" ng-model="search.$hasUnreadSubmissions">-->
             <span class="unreadFilter" ng-model="unreadSubmission" ng-click="unreadSubmission=!unreadSubmission"
                   ng-class="{checked: unreadSubmission}" title="{{(unreadSubmission ? 'unreadTip': 'readTip') | translate}}">
               <i class="fa fa-circle"></i>
@@ -45,7 +46,8 @@
         <p translate="noData"></p>
       </td>
     </tr>
-    <tr dir-paginate="registrant in contestDetail.$registrants | itemsPerPage:10" pagination-id="contestDetail.selectedPhaseItem.phase">
+    <tr dir-paginate="registrant in (unreadSubmission ? contestDetail.$ursRegistrants : contestDetail.$registrants) | itemsPerPage:10"
+        pagination-id="contestDetail.selectedPhaseItem.phase">
       <td>
         <div class="registrants-challenge-list">
           <div class="registrant-order">{{registrant.$index + 1}}</div>
