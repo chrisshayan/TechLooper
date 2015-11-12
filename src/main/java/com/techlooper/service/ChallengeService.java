@@ -30,7 +30,7 @@ public interface ChallengeService {
             throws MessagingException, IOException, TemplateException;
 
     void sendEmailNotifyRegistrantAboutChallengeTimeline(ChallengeEntity challengeEntity,
-          ChallengeRegistrantEntity challengeRegistrantEntity, ChallengePhaseEnum challengePhase, boolean isSpecificDayNotification) throws Exception;
+                                                         ChallengeRegistrantEntity challengeRegistrantEntity, ChallengePhaseEnum challengePhase, boolean isSpecificDayNotification) throws Exception;
 
     void sendEmailNotifyEmployerWhenPhaseClosed(ChallengeEntity challengeEntity, ChallengePhaseEnum challengePhase) throws Exception;
 
@@ -112,7 +112,7 @@ public interface ChallengeService {
 
     List<ChallengeRegistrantFunnelItem> getChallengeRegistrantFunnel(Long challengeId, String ownerEmail);
 
-    int qualifyAllRegistrants(String remoteUser, ChallengeQualificationDto challengeQualificationDto);
+    List<ChallengeRegistrantDto> qualifyAllRegistrants(String remoteUser, ChallengeQualificationDto challengeQualificationDto);
 
     ChallengeRegistrantDto rejectRegistrant(String loginUserEmail, ChallengeRegistrantDto registrantDto);
 }
