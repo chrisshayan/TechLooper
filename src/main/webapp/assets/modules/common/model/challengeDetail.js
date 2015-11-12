@@ -138,8 +138,7 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
         current.isCurrentPhase = false;
         _.last(challengeDetail.phaseItems).isCurrentPhase = true;//auto select winner if challenge is closed
       }
-      // challengeDetail.phaseItems.length - 1 for click to winner tab
-      for (var i = current.$index + 2; i < challengeDetail.phaseItems.length-1; i++) {
+      for (var i = current.$index + 2; i < challengeDetail.phaseItems.length - 1; i++) {// winner tab is selectable
         challengeDetail.phaseItems[i].unselectable = true;
       }
 
