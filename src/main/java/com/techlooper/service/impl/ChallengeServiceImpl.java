@@ -1204,18 +1204,18 @@ public class ChallengeServiceImpl implements ChallengeService {
     }
 
     @Override
-    public int qualifyAllRegistrants(String ownerEmail, ChallengeQualificationDto challengeQualificationDto) {
+    public List<ChallengeRegistrantDto> qualifyAllRegistrants(String ownerEmail, ChallengeQualificationDto challengeQualificationDto) {
         Set<Long> registrantIds = findRegistrantByChallengeSubmissionQualification(ownerEmail, challengeQualificationDto);
         ChallengePhaseEnum qualifyingPhase = challengeQualificationDto.getNextPhase();
 
-        int count = 0;
+        List<ChallengeRegistrantDto> qualifiedRegistrants = new ArrayList<>();
         for (Long registrantId : registrantIds) {
             ChallengeRegistrantDto registrantDto = acceptRegistrant(ownerEmail, registrantId, qualifyingPhase);
             if (registrantDto.getActivePhase() == qualifyingPhase) {
-                count++;
+                qualifiedRegistrants.add(registrantDto);
             }
         }
-        return count;
+        return qualifiedRegistrants;
     }
 
     public ChallengeRegistrantDto rejectRegistrant(String ownerEmail, ChallengeRegistrantDto registrantDto) {

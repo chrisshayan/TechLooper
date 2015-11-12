@@ -11,7 +11,7 @@
       <div class="arrow-current"></div>
     </div>
     <div class="phase-name {{phaseItem.phaseLowerCase}}" ng-click="contestDetail.setSelectedPhase(phaseItem)"
-         ng-class="{pass: phaseItem.isOver, unclickable: phaseItem.unselectable}">
+         ng-class="{pass: phaseItem.isOver || contestDetail.isClosed, unclickable: phaseItem.unselectable}">
       <i class="fa {{phaseItem.phaseLowerCase}}"></i>
       <span translate="{{phaseItem.phaseLowerCase}}"></span>
     </div>
