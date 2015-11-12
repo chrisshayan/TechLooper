@@ -41,7 +41,7 @@
         <p translate="noData"></p>
       </td>
     </tr>
-    <tr ng-repeat="registrant in contestDetail.$registrants">
+    <tr dir-paginate="registrant in contestDetail.$registrants | itemsPerPage:10" pagination-id="contestDetail.selectedPhaseItem.phase">
       <td>
         <div class="registrants-challenge-list">
           <div class="registrant-order">{{registrant.$index + 1}}</div>
@@ -67,4 +67,13 @@
     </tr>
     </tbody>
   </table>
+  <div class="registrants-paging">
+    <span translate="contestantsReturned" translate-value-number="{{contestDetail.$registrants.length}}" ng-show="contestDetail.$registrants.length > 0"></span>
+    <dir-pagination-controls
+     pagination-id="contestDetail.selectedPhaseItem.phase"
+     max-size="10"
+     direction-links="true"
+     boundary-links="true">
+    </dir-pagination-controls>
+  </div>
 </div>
