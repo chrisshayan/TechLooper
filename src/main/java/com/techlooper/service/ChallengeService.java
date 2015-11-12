@@ -32,7 +32,8 @@ public interface ChallengeService {
     void sendEmailNotifyRegistrantAboutChallengeTimeline(ChallengeEntity challengeEntity,
                                                          ChallengeRegistrantEntity challengeRegistrantEntity, ChallengePhaseEnum challengePhase, boolean isSpecificDayNotification) throws Exception;
 
-    void sendEmailNotifyEmployerWhenPhaseClosed(ChallengeEntity challengeEntity, ChallengePhaseEnum challengePhase) throws Exception;
+    void sendEmailNotifyEmployerWhenPhaseClosed(ChallengeEntity challengeEntity, ChallengePhaseEnum currentPhase,
+                                                                    ChallengePhaseEnum oldPhase) throws Exception;
 
     ChallengeDetailDto getChallengeDetail(Long challengeId, String loginEmail);
 
