@@ -1,11 +1,11 @@
 <div class="qualify-all-to-next-phase">
   <p translate="qualifyAllToNextPhaseTip" translate-value-active-phase="{{contestDetail.selectedPhaseItem.phaseLowerCase}}"
-     translate-value-next-phase="{{contestDetail.$registrantsNextPhaseItem.phaseLowerCase}}"></p>
+     translate-value-next-phase="{{contestDetail.$rgtNextPhaseItem.phaseLowerCase}}"></p>
   <ul>
     <li ng-repeat="qc in $root.jsonValue.qualificationCriteria.values">
       <label>
-        <input type="radio" name="radNextPhase" checked ng-model="qualificationCriteria" ng-value="qc"/>
-        <span translate="havingAllSubmissionsRead"></span>
+        <input type="radio" name="radNextPhase" checked ng-model="contestDetail.$rgtSelectedQC" ng-value="qc"/>
+        <span translate="{{qc.titleTranslate}}"></span>
       </label>
     </li>
   </ul>

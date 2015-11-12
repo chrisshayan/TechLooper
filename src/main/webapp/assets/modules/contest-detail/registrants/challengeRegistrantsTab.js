@@ -16,18 +16,18 @@ techlooper.directive('funnelManagement', function () {
       }
     };
   })
-.directive('qualifyAllToNextPhase', function (ngProgressFactory, $timeout, apiService) {
-  return {
-    restrict: "E",
-    replace: true,
-    templateUrl: "modules/contest-detail/registrants/qualifyAllToNextPhase.html",
-    scope: {
-      challenge: "="
-    },
-    link: function (scope, element, attr, ctrl) {
-      scope.hideQualifyAllForm = function(){
-        delete scope.showQualifyAllRegistrantsForm;
-      };
-    }
-  };
-});
+  .directive('qualifyAllToNextPhase', function (ngProgressFactory, $timeout, apiService) {
+    return {
+      restrict: "E",
+      replace: true,
+      templateUrl: "modules/contest-detail/registrants/qualifyAllToNextPhase.html",
+      //scope: {
+      //  challenge: "="
+      //},
+      link: function (scope, element, attr, ctrl) {
+        scope.hideQualifyAllForm = function () {
+          delete scope.showQualifyAllRegistrantsForm;
+        };
+      }
+    };
+  });
