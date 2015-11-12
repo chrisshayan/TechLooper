@@ -14,12 +14,16 @@
       <div class="registrants-challenge-list">
         <div class="registrant-order">#</div>
         <div class="registrant-name" translate="fullNameField"></div>
-        <div class="registration-submission">
+        <div class="registration-submission" ng-click="sortBySubmissionDate()">
           {{'lastSubmissionDate' | translate}}
+          <i class="fa"
+             ng-class="{'fa-chevron-circle-up':sortBySubmissionDateType == 'desc','fa-chevron-circle-down': sortBySubmissionDateType == 'asc'}"></i>
         </div>
         <div class="registration-submission">
-          <span class="name-col" >
+          <span class="name-col" ng-click="sortBySubmission()">
               {{'submissions' | translate}}
+              <i class="fa"
+                 ng-class="{'fa-chevron-circle-down': sortBySubmissionType == 'desc','fa-chevron-circle-up': sortBySubmissionType == 'asc'}"></i>
             </span>
             <span class="unreadFilter" ng-model="unreadSubmission" ng-click="unreadSubmission=!unreadSubmission"
                   ng-class="{checked: unreadSubmission}" title="{{(unreadSubmission ? 'unreadTip': 'readTip') | translate}}">

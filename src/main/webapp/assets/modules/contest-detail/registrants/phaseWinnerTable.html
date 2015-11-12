@@ -30,8 +30,10 @@
             </div>
           </div>
           <div class="registration-submission">
-            <span class="name-col" >
+              <span class="name-col" ng-click="sortBySubmission()">
                 {{'submissions' | translate}}
+                <i class="fa"
+                   ng-class="{'fa-chevron-circle-down': sortBySubmissionType == 'desc','fa-chevron-circle-up': sortBySubmissionType == 'asc'}"></i>
               </span>
               <span class="unreadFilter" ng-model="unreadSubmission" ng-click="unreadSubmission=!unreadSubmission"
                     ng-class="{checked: unreadSubmission}" title="{{(unreadSubmission ? 'unreadTip': 'readTip') | translate}}">
@@ -40,8 +42,10 @@
                 {{'unread' | translate}}
               </span>
           </div>
-          <div class="registration-score">
+          <div class="registration-score" ng-click="sortByScore()">
             {{'score' | translate}}
+            <i class="fa"
+               ng-class="{'fa-chevron-circle-down': sortByScoreType == 'desc','fa-chevron-circle-up': sortByScoreType == 'asc'}"></i>
           </div>
           <div class="registration-action" translate="feedback"></div>
         </div>
@@ -54,7 +58,7 @@
       <p translate="noData"></p>
     </td>
   </tr>
-  <tr dir-paginate="registrant in contestDetail.$registrants | itemsPerPage:10" pagination-id="contestDetail.selectedPhaseItem.phase">
+  <tr dir-paginate="registrant in contestDetail.$registrants | orderBy:'registrant.savedTotalPoint' | itemsPerPage:10" pagination-id="contestDetail.selectedPhaseItem.phase">
       <td>
         <div class="registrants-challenge-list">
           <div class="registrant-order">{{registrant.$index + 1}}</div>
