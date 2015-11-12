@@ -371,13 +371,17 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
         isRead: isRead
       });
     },
-    qualifyAllToNextPhase: function (challengeId , currentPhase, nextPhase, qualificationCriteria) {
+
+    /**
+     * @see com.techlooper.controller.UserController.qualifyAllRegistrants
+     * */
+    qualifyAllToNextPhase: function (challengeId, currentPhase, nextPhase, qualificationCriteria) {
       return $http.post("user/challenge/qualifyAllRegistrants", {
         challengeId: challengeId,
         currentPhase: currentPhase,
         nextPhase: nextPhase,
         qualificationCriteria: qualificationCriteria
-      });
+      }, {transformResponse: function (d, h) {return d;}});
     }
   };
 

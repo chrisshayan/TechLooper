@@ -224,16 +224,25 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
 
       challengeDetail.phaseItems.map(function (item) {item.isSelected = false;});
       challengeDetail.selectedPhaseItem = phaseItem;
-      challengeDetail.$registrantsNextPhaseItem = phaseItem.$phaseConfig.isFinal ? undefined : challengeDetail.phaseItems[phaseItem.$index + 1];
+      challengeDetail.$rgtNextPhaseItem = phaseItem.$phaseConfig.isFinal ? undefined : challengeDetail.phaseItems[phaseItem.$index + 1];
       phaseItem.isSelected = true;
 
       challengeDetail.refreshRegistrants();
       //challengeDetail.recalculateRegistrantRemainsPhases();
     }
 
-    challengeDetail.acceptRegistrants = function() {
-      console.log(1)
+    challengeDetail.acceptRegistrants = function () {
+      console.log(challengeDetail);
+      apiService.qualifyAllToNextPhase(challengeDetail.challengeId, challengeDetail.selectedPhaseItem.phase,
+        challengeDetail.$rgtNextPhaseItem.phase, challengeDetail.$rgtSelectedQC.enum)
+        .success(function (data) {
+          console.log(data);
+        });
     }
+
+    //challengeDetail.$filter = {
+    //  allRegistrants:
+    //}
 
     challengeDetail.recalculate();
 

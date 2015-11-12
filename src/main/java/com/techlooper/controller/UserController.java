@@ -26,6 +26,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -432,16 +433,16 @@ public class UserController {
 
     @PreAuthorize("hasAuthority('EMPLOYER')")
     @RequestMapping(value = "user/challenge/qualifyAllRegistrants", method = RequestMethod.POST)
-    public int qualifyAllRegistrants(@RequestBody ChallengeQualificationDto challengeQualificationDto,
-                                     HttpServletRequest request, HttpServletResponse response) {
+    public List<ChallengeRegistrantDto> qualifyAllRegistrants(@RequestBody ChallengeQualificationDto challengeQualificationDto,
+                                      HttpServletRequest request, HttpServletResponse response) {
         String ownerEmail = request.getRemoteUser();
+        List<ChallengeRegistrantDto> qualifiedRegistrants = new ArrayList<>();
         if (challengeService.isOwnerOfChallenge(ownerEmail, challengeQualificationDto.getChallengeId())) {
-            return challengeService.qualifyAllRegistrants(request.getRemoteUser(), challengeQualificationDto);
+            qualifiedRegistrants = challengeService.qualifyAllRegistrants(request.getRemoteUser(), challengeQualificationDto);
         } else {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            return 0;
         }
-
+        return qualifiedRegistrants;
     }
 
 }
