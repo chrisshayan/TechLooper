@@ -217,7 +217,7 @@
                     </tr>
                     <tr>
                       <td width="100%" align="left">
-                        <table align="center" cellspacing="0" cellpadding="2" class="deviceWidth" width="50%" style="margin:0 auto; padding:10px 0; float: left">
+                        <table align="center" cellspacing="0" cellpadding="2" class="deviceWidth" width="50%" style="margin:0 auto; padding:10px 10px 10px 0; float: left">
                           <tr>
                             <td width="100%" align="left">
                               1. Để chọn 1 thí sinh bất kỳ:
@@ -263,7 +263,7 @@
                             </td>
                           </tr>
                         </table>
-                        <table align="center" cellspacing="0" cellpadding="2" class="deviceWidth" width="50%" style="margin:0 auto; padding:10px 0; float: left">
+                        <table align="center" cellspacing="0" cellpadding="2" class="deviceWidth" width="50%" style="margin:0 auto; padding:10px 0 10px 10px; float: left">
                           <tr>
                             <td width="100%" align="left">
                               2. Để chọn nhiều thí sinh cùng lúc:
