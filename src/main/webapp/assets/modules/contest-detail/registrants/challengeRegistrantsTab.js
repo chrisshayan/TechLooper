@@ -21,10 +21,14 @@ techlooper.directive('funnelManagement', function () {
       restrict: "E",
       replace: true,
       templateUrl: "modules/contest-detail/registrants/qualifyAllToNextPhase.html",
-      //scope: {
-      //  challenge: "="
-      //},
       link: function (scope, element, attr, ctrl) {
+        scope.contestDetail.$filter.byNotQualifiedAndHavingReadSubmissions();
+
+        scope.qualifyRegistrants = function() {
+          scope.contestDetail.acceptRegistrants();
+          scope.hideQualifyAllForm();
+        }
+
         scope.hideQualifyAllForm = function () {
           delete scope.showQualifyAllRegistrantsForm;
         };

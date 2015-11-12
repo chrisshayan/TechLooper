@@ -101,10 +101,7 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonV
 
       if (challengeDetail) {
         registrant.$challengeDetail = challengeDetail;
-        var rp = _.findWhere(registrant.$challengeDetail.phaseItems, {phase: registrant.activePhase});
-        if (rp.$index > registrant.$challengeDetail.selectedPhaseItem.$index) {
-          registrant.disqualified = false;
-        }
+        registrant.recalculateDisqualified();
         registrant.recalculateRemainingPhases();
         registrant.recalculateWinner();
       }
@@ -112,9 +109,27 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonV
       registrant.recalculateSubmissions();
     }
 
+    registrant.recalculateDisqualified = function() {
+      var rp = _.findWhere(registrant.$challengeDetail.phaseItems, {phase: registrant.activePhase});
+      if (rp.$index > registrant.$challengeDetail.selectedPhaseItem.$index) {
+        registrant.disqualified = false;
+      }
+    }
+
+    registrant.acceptActivePhase = function(phase) {
+      registrant.activePhase = phase;
+      registrant.activePhaseLowerCase = registrant.activePhase.toLowerCase();
+      registrant.recalculateDisqualified();
+      registrant.recalculateRemainingPhases();
+    }
+
     registrant.recalculateSubmissions = function () {
-      registrant.$unreadSubmissions = _.reject(registrant.submissions, function (s) {return s.isRead == true;});
-      registrant.$readSubmissions = _.filter(registrant.submissions, function (s) {return s.isRead == false || s.isRead == undefined;});
+      registrant.$unreadSubmissions = _.reject(registrant.submissions, function (s) {
+        return s.isRead == false || s.isRead == undefined;
+      });
+      registrant.$isSubmissionsUnread = (registrant.$unreadSubmissions.length == registrant.submissions.length);
+      registrant.$readSubmissions = _.filter(registrant.submissions, function (s) {return s.isRead == true});
+      registrant.$isSubmissionsRead = (registrant.$readSubmissions.length == registrant.submissions.length);
     }
 
     registrant.recalculateRemainingPhases = function () {
@@ -150,6 +165,7 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonV
         registrant.submissions.unshift(submission);
         registrant.recalculateSubmissions();
         registrant.$challengeDetail.incSubmissionCount(submission);
+        registrant.$challengeDetail.recalculateRegistrants();
       }
     }
 

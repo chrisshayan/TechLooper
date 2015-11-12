@@ -302,8 +302,8 @@ public class ChallengeServiceImpl implements ChallengeService {
     }
 
     @Override
-    public void sendEmailNotifyEmployerWhenPhaseClosed(ChallengeEntity challengeEntity, ChallengePhaseEnum challengePhase)
-            throws Exception {
+    public void sendEmailNotifyEmployerWhenPhaseClosed(ChallengeEntity challengeEntity, ChallengePhaseEnum currentPhase,
+                                                       ChallengePhaseEnum oldPhase) throws Exception {
         String mailSubject = challengeEntity.getLang() == Language.vi ? notifyChallengePhaseClosedMailSubjectVi :
                 notifyChallengePhaseClosedMailSubjectEn;
         Address[] recipientAddresses = getRecipientAddresses(challengeEntity, true);
@@ -316,24 +316,29 @@ public class ChallengeServiceImpl implements ChallengeService {
 
         Map<String, Object> templateModel = new HashMap<>();
         templateModel.put("challenge", challengeEntity);
+        templateModel.put("challengeId", String.valueOf(challengeEntity.getChallengeId()));
         templateModel.put("challengeNameAlias", challengeEntity.getChallengeName().replaceAll("\\W", "-"));
         templateModel.put("webBaseUrl", webBaseUrl);
-        templateModel.put("currentPhase", challengePhase.getValue());
+        templateModel.put("oldPhase", oldPhase.getValue());
 
         ChallengeDetailDto challengeDetailDto = dozerMapper.map(challengeEntity, ChallengeDetailDto.class);
         calculateChallengePhases(challengeDetailDto);
-        ChallengePhaseEnum nextPhase = challengeDetailDto.getNextPhase();
-        templateModel.put("nextPhase", nextPhase.getValue());
+        templateModel.put("currentPhase", currentPhase.getValue());
 
         Map<ChallengePhaseEnum, ChallengeRegistrantPhaseItem> numberOfRegistrantByPhase =
                 challengeRegistrantService.countNumberOfRegistrantsByPhase(challengeEntity.getChallengeId());
-        ChallengeRegistrantPhaseItem nextPhaseRegistrants = numberOfRegistrantByPhase.get(nextPhase);
-        if (nextPhaseRegistrants != null) {
-            templateModel.put("nextPhaseRegistrants", nextPhaseRegistrants.getRegistration());
+        ChallengeRegistrantPhaseItem currentPhaseRegistrants = numberOfRegistrantByPhase.get(currentPhase);
+        if (currentPhaseRegistrants != null) {
+            templateModel.put("currentPhaseRegistrants", currentPhaseRegistrants.getRegistration());
         }
 
         template.process(templateModel, stringWriter);
-        mailSubject = String.format(mailSubject, challengePhase.getValue(), challengeEntity.getChallengeName());
+
+        if (challengeEntity.getLang() == Language.vi) {
+            mailSubject = String.format(mailSubject, oldPhase.getVi(), challengeEntity.getChallengeName());
+        } else {
+            mailSubject = String.format(mailSubject, oldPhase.getEn(), challengeEntity.getChallengeName());
+        }
         postChallengeMailMessage.setSubject(MimeUtility.encodeText(mailSubject, "UTF-8", null));
         postChallengeMailMessage.setText(stringWriter.toString(), "UTF-8", "html");
 

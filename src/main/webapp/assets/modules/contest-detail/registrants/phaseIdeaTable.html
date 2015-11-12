@@ -44,7 +44,7 @@
       <p translate="noData"></p>
     </td>
   </tr>
-    <tr dir-paginate="registrant in contestDetail.$registrants | itemsPerPage:10" pagination-id="contestDetail.selectedPhaseItem.phase">
+    <tr dir-paginate="registrant in (unreadSubmission ? contestDetail.$ursRegistrants : contestDetail.$registrants) | itemsPerPage:10" pagination-id="contestDetail.selectedPhaseItem.phase">
       <td>
         <div class="registrants-challenge-list">
           <div class="registrant-order">{{registrant.$index + 1}}</div>
