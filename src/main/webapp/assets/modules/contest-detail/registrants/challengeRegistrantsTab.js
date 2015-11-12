@@ -16,7 +16,7 @@ techlooper.directive('funnelManagement', function () {
       }
     };
   })
-  .directive('qualifyAllToNextPhase', function (ngProgressFactory, $timeout, apiService) {
+  .directive('qualifyAllToNextPhase', function () {
     return {
       restrict: "E",
       replace: true,

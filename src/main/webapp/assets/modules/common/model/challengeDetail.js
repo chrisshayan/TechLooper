@@ -183,6 +183,7 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
       var piTranslate = phaseItem.$phaseConfig.phaseItem.translate;
       phaseItem.countJoinerTitle = $filter("translate")(piTranslate.countJoiner, {number: phaseItem.participant});
       phaseItem.countSubmissionTitle = $filter("translate")(piTranslate.countSubmission, {number: phaseItem.submission});
+      phaseItem.countUnreadTitle = $filter("translate")(piTranslate.countUnread, {number: phaseItem.unreadSubmission});
     }
 
     challengeDetail.recalculateWinner = function (registrant) {

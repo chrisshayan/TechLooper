@@ -47,8 +47,7 @@
     "datetimepicker": "latest",
     "angular-summernote": "latest",
     "underscore": "latest",
-    "numeral": "latest",
-    "ngprogress": "latest"
+    "numeral": "latest"
   },
   "overrides": {
     "jquery": {
@@ -168,12 +167,6 @@
     },
     "angular-summernote": {
       "main": "dist/angular-summernote.js"
-    },
-    "ngprogress": {
-      "main": [
-        "build/ngprogress.js",
-        "ngProgress.css"
-      ]
     }
   },
   "resolutions": {
