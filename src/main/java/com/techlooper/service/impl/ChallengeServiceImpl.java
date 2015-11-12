@@ -333,7 +333,12 @@ public class ChallengeServiceImpl implements ChallengeService {
         }
 
         template.process(templateModel, stringWriter);
-        mailSubject = String.format(mailSubject, oldPhase.getValue(), challengeEntity.getChallengeName());
+
+        if (challengeEntity.getLang() == Language.vi) {
+            mailSubject = String.format(mailSubject, oldPhase.getVi(), challengeEntity.getChallengeName());
+        } else {
+            mailSubject = String.format(mailSubject, oldPhase.getEn(), challengeEntity.getChallengeName());
+        }
         postChallengeMailMessage.setSubject(MimeUtility.encodeText(mailSubject, "UTF-8", null));
         postChallengeMailMessage.setText(stringWriter.toString(), "UTF-8", "html");
 
