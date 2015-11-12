@@ -433,7 +433,7 @@ public class UserController {
 
     @PreAuthorize("hasAuthority('EMPLOYER')")
     @RequestMapping(value = "user/challenge/qualifyAllRegistrants", method = RequestMethod.POST)
-    public List qualifyAllRegistrants(@RequestBody ChallengeQualificationDto challengeQualificationDto,
+    public List<ChallengeRegistrantDto> qualifyAllRegistrants(@RequestBody ChallengeQualificationDto challengeQualificationDto,
                                       HttpServletRequest request, HttpServletResponse response) {
         String ownerEmail = request.getRemoteUser();
         List<ChallengeRegistrantDto> qualifiedRegistrants = new ArrayList<>();
