@@ -1205,11 +1205,10 @@ public class ChallengeServiceImpl implements ChallengeService {
 
     @Override
     public List<ChallengeRegistrantDto> qualifyAllRegistrants(String ownerEmail, ChallengeQualificationDto challengeQualificationDto) {
-        Set<Long> registrantIds = findRegistrantByChallengeSubmissionQualification(ownerEmail, challengeQualificationDto);
+        List<ChallengeRegistrantDto> qualifiedRegistrants = new ArrayList<>();
         ChallengePhaseEnum qualifyingPhase = challengeQualificationDto.getNextPhase();
 
-        List<ChallengeRegistrantDto> qualifiedRegistrants = new ArrayList<>();
-        for (Long registrantId : registrantIds) {
+        for (Long registrantId : challengeQualificationDto.getRegistrantIds()) {
             ChallengeRegistrantDto registrantDto = acceptRegistrant(ownerEmail, registrantId, qualifyingPhase);
             if (registrantDto.getActivePhase() == qualifyingPhase) {
                 qualifiedRegistrants.add(registrantDto);
@@ -1233,30 +1232,5 @@ public class ChallengeServiceImpl implements ChallengeService {
         registrant.setDisqualifiedReason(registrantDto.getDisqualifiedReason());
         registrant = challengeRegistrantRepository.save(registrant);
         return dozerMapper.map(registrant, ChallengeRegistrantDto.class);
-    }
-
-    private Set<Long> findRegistrantByChallengeSubmissionQualification(String ownerEmail,
-                                                                       ChallengeQualificationDto challengeQualificationDto) {
-        NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withTypes("challengeSubmission");
-        Long challengeId = challengeQualificationDto.getChallengeId();
-        ChallengePhaseEnum currentPhase = challengeQualificationDto.getCurrentPhase();
-
-        if (challengeQualificationDto.getQualificationCriteria() ==
-                QualificationCriteriaEnum.REGARDLESS_OF_HAVING_SUBMISSION_OR_NOT) {
-            Set<ChallengeRegistrantDto> registrants = challengeRegistrantService.findRegistrantsByChallengeIdAndPhase(
-                    challengeId, currentPhase, ownerEmail);
-            return registrants.stream().map(registrant -> registrant.getRegistrantId()).collect(Collectors.toSet());
-        } else {
-            BoolFilterBuilder boolFilterBuilder = boolFilter();
-            boolFilterBuilder.must(termFilter("challengeId", challengeId));
-            boolFilterBuilder.must(termFilter("submissionPhase", currentPhase));
-
-            if (challengeQualificationDto.getQualificationCriteria() == QualificationCriteriaEnum.HAVE_ALL_SUBMISSION_READ) {
-                boolFilterBuilder.must(termFilter("isRead", true));
-            }
-            searchQueryBuilder.withQuery(filteredQuery(matchAllQuery(), boolFilterBuilder));
-            List<ChallengeSubmissionEntity> submissions = DataUtils.getAllEntities(challengeSubmissionRepository, searchQueryBuilder);
-            return submissions.stream().map(submission -> submission.getRegistrantId()).collect(Collectors.toSet());
-        }
     }
 }

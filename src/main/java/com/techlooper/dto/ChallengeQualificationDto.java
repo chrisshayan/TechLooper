@@ -1,7 +1,8 @@
 package com.techlooper.dto;
 
 import com.techlooper.model.ChallengePhaseEnum;
-import com.techlooper.model.QualificationCriteriaEnum;
+
+import java.util.List;
 
 /**
  * Created by NguyenDangKhoa on 11/10/15.
@@ -10,11 +11,9 @@ public class ChallengeQualificationDto {
 
     private Long challengeId;
 
-    private ChallengePhaseEnum currentPhase;
-
     private ChallengePhaseEnum nextPhase;
 
-    private QualificationCriteriaEnum qualificationCriteria;
+    private List<Long> registrantIds;
 
     public Long getChallengeId() {
         return challengeId;
@@ -24,12 +23,12 @@ public class ChallengeQualificationDto {
         this.challengeId = challengeId;
     }
 
-    public ChallengePhaseEnum getCurrentPhase() {
-        return currentPhase;
+    public List<Long> getRegistrantIds() {
+        return registrantIds;
     }
 
-    public void setCurrentPhase(ChallengePhaseEnum currentPhase) {
-        this.currentPhase = currentPhase;
+    public void setRegistrantIds(List<Long> registrantIds) {
+        this.registrantIds = registrantIds;
     }
 
     public ChallengePhaseEnum getNextPhase() {
@@ -38,13 +37,5 @@ public class ChallengeQualificationDto {
 
     public void setNextPhase(ChallengePhaseEnum nextPhase) {
         this.nextPhase = nextPhase;
-    }
-
-    public QualificationCriteriaEnum getQualificationCriteria() {
-        return qualificationCriteria;
-    }
-
-    public void setQualificationCriteria(QualificationCriteriaEnum qualificationCriteria) {
-        this.qualificationCriteria = qualificationCriteria;
     }
 }
