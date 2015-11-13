@@ -197,6 +197,7 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonV
           submission.isRead = !submission.isRead;
           registrant.recalculateSubmissions();
           registrant.$challengeDetail.incUnreadSubmissionCount(submission);
+          registrant.$challengeDetail.recalculateUnreadSubmissionRegistrant(registrant);
         });
     }
 

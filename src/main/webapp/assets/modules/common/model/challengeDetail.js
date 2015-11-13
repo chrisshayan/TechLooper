@@ -182,6 +182,14 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
       challengeDetail.$ursRegistrants = _.filter(challengeDetail.$registrants, function (r) {return !r.$isSubmissionsRead;})
     }
 
+    challengeDetail.recalculateUnreadSubmissionRegistrant = function (registrant) {
+      var uri = _.findIndex(challengeDetail.$ursRegistrants, function (rgt) {return rgt.registrantId == registrant.registrantId;})
+      if (uri > -1) {
+        challengeDetail.$ursRegistrants.splice(uri, 1);
+      }
+      !registrant.$isSubmissionsRead && challengeDetail.$ursRegistrants.push(registrant);
+    }
+
     challengeDetail.sortRegistrants = function (sortBy) {
       challengeDetail.$sortBy = sortBy;
     }
@@ -234,7 +242,7 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
 
     challengeDetail.incUnreadSubmissionCount = function (submission) {
       var pi = _.findWhere(challengeDetail.phaseItems, {phase: submission.submissionPhase});
-      submission.isRead ?  pi.unreadSubmission-- : pi.unreadSubmission++;
+      submission.isRead ? pi.unreadSubmission-- : pi.unreadSubmission++;
       challengeDetail.recalculatePhaseItem(pi);
     }
 
