@@ -175,8 +175,14 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
 
       //set $hadRegistrant to true if not found any registrant that unknown disqualified-status
       //console.log(challengeDetail.$registrants);
-      var er = _.findWhere(challengeDetail.$registrants, {disqualified: undefined});
-      challengeDetail.$hadRegistrant = (er == undefined);
+      _.findWhere(challengeDetail.$registrants, _.each(challengeDetail.$registrants, function (rgt, index) {
+        if(rgt.disqualified == undefined){
+          challengeDetail.$hadRegistrant = false;
+        }else{
+          challengeDetail.$hadRegistrant = true;
+        }
+      }));
+      //challengeDetail.$hadRegistrant = (er == undefined);
 
       //splice registrants into 2 lists: all/unread submissions
       challengeDetail.$ursRegistrants = _.filter(challengeDetail.$registrants, function(r) {return !r.$isSubmissionsRead;})
