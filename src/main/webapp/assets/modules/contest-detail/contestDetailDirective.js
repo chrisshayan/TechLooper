@@ -41,13 +41,13 @@ techlooper
       link: function (scope, element, attr, ctrl) {
         //scope.nextPhase = '';
         var showView = function (view) {
-          //if ($rootScope.$eval("lastRegistrant.visible")) {
-          //  delete $rootScope.lastRegistrant.visible;
-          //}
+          if ($rootScope.$eval("lastRegistrant.visible")) {
+            delete $rootScope.lastRegistrant.visible;
+          }
 
           scope.registrant.visible = {};
           scope.registrant.visible[view] = true;
-          //$rootScope.lastRegistrant = scope.registrant;
+          $rootScope.lastRegistrant = scope.registrant;
         }
 
         scope.registrant.showDisqualification = function () {
