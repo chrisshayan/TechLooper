@@ -168,11 +168,6 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
       challengeDetail.recalculateRegistrants();
     }
 
-    //challengeDetail.recalculateWinners = function() {
-    //
-    //}
-
-
     challengeDetail.recalculate = function (registrants) {
 
       //see jsonValue.challengePhase
@@ -236,15 +231,6 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
       challengeDetail.$hadRegistrant = (er == undefined);
       challengeDetail.$filter.byReadOrUnreadSubmission();
     }
-
-    //challengeDetail.recalculateUnreadSubmissionRegistrant = function (registrant) {
-    //  //var uri = _.findIndex(challengeDetail.$registrants, function (rgt) {return rgt.registrantId == registrant.registrantId;})
-    //  //if (uri > -1) {
-    //  //  challengeDetail.$ursRegistrants.splice(uri, 1);
-    //  //}
-    //  //!registrant.$isSubmissionsRead && challengeDetail.$ursRegistrants.push(registrant);
-    //  //challengeDetail.$ursRegistrants = _.filter(challengeDetail.$registrants, function (r) {return !r.$isSubmissionsRead;})
-    //}
 
     challengeDetail.recalculatePhaseItem = function (phaseItem) {
       var piTranslate = phaseItem.$phaseConfig.phaseItem.translate;
@@ -328,6 +314,7 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
               count++;
               cr.acceptActivePhase(r.activePhase);
               challengeDetail.incParticipantCount(cr);
+              challengeDetail.recalculateRegistrants();
             }
             if (count == registrants.length) return false;
           });
