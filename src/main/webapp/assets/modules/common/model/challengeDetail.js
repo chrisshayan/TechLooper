@@ -175,29 +175,12 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
 
       //set $hadRegistrant to true if not found any registrant that unknown disqualified-status
       //console.log(challengeDetail.$registrants);
-      _.findWhere(challengeDetail.$registrants, _.each(challengeDetail.$registrants, function (rgt, index) {
-        if(rgt.disqualified == undefined){
-          challengeDetail.$hadRegistrant = false;
-        }else{
-          challengeDetail.$hadRegistrant = true;
-        }
-      }));
-      //challengeDetail.$hadRegistrant = (er == undefined);
+      var er = _.findWhere(challengeDetail.$registrants, {disqualified: undefined});
+      challengeDetail.$hadRegistrant = (er == undefined);
+      console.log(er);
 
       //splice registrants into 2 lists: all/unread submissions
-      challengeDetail.$ursRegistrants = _.filter(challengeDetail.$registrants, function (r) {return !r.$isSubmissionsRead;})
-    }
-
-    challengeDetail.recalculateUnreadSubmissionRegistrant = function (registrant) {
-      var uri = _.findIndex(challengeDetail.$ursRegistrants, function (rgt) {return rgt.registrantId == registrant.registrantId;})
-      if (uri > -1) {
-        challengeDetail.$ursRegistrants.splice(uri, 1);
-      }
-      !registrant.$isSubmissionsRead && challengeDetail.$ursRegistrants.push(registrant);
-    }
-
-    challengeDetail.sortRegistrants = function (sortBy) {
-      challengeDetail.$sortBy = sortBy;
+      challengeDetail.$ursRegistrants = _.filter(challengeDetail.$registrants, function(r) {return !r.$isSubmissionsRead;})
     }
 
     challengeDetail.recalculatePhaseItem = function (phaseItem) {
@@ -244,12 +227,6 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
       pi.submission++;
       challengeDetail.recalculatePhaseItem(pi);
       //pi.countSubmissionTitle = $filter("translate")(pi.$phaseConfig.phaseItem.translate.countSubmission, {number: pi.submission});
-    }
-
-    challengeDetail.incUnreadSubmissionCount = function (submission) {
-      var pi = _.findWhere(challengeDetail.phaseItems, {phase: submission.submissionPhase});
-      submission.isRead ? pi.unreadSubmission-- : pi.unreadSubmission++;
-      challengeDetail.recalculatePhaseItem(pi);
     }
 
     // see com.techlooper.model.ChallengeRegistrantFunnelItem
