@@ -114,6 +114,7 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonV
       if (rp.$index > registrant.$challengeDetail.selectedPhaseItem.$index) {
         registrant.disqualified = false;
       }
+      if (registrant.disqualified == null) registrant.disqualified = undefined;
     }
 
     registrant.acceptActivePhase = function (phase) {

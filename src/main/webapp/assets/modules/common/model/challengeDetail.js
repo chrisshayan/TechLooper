@@ -168,11 +168,6 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
       challengeDetail.recalculateRegistrants();
     }
 
-    //challengeDetail.recalculateWinners = function() {
-    //
-    //}
-
-
     challengeDetail.recalculate = function (registrants) {
 
       //see jsonValue.challengePhase
