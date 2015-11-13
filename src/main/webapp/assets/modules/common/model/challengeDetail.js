@@ -188,6 +188,7 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
         challengeDetail.$ursRegistrants.splice(uri, 1);
       }
       !registrant.$isSubmissionsRead && challengeDetail.$ursRegistrants.push(registrant);
+      challengeDetail.$ursRegistrants = _.filter(challengeDetail.$registrants, function(r) {return !r.$isSubmissionsRead;})
     }
 
     challengeDetail.recalculatePhaseItem = function (phaseItem) {
@@ -234,12 +235,6 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
       pi.submission++;
       challengeDetail.recalculatePhaseItem(pi);
       //pi.countSubmissionTitle = $filter("translate")(pi.$phaseConfig.phaseItem.translate.countSubmission, {number: pi.submission});
-    }
-
-    challengeDetail.incUnreadSubmissionCount = function (submission) {
-      var pi = _.findWhere(challengeDetail.phaseItems, {phase: submission.submissionPhase});
-      submission.isRead ? pi.unreadSubmission-- : pi.unreadSubmission++;
-      challengeDetail.recalculatePhaseItem(pi);
     }
 
     // see com.techlooper.model.ChallengeRegistrantFunnelItem
