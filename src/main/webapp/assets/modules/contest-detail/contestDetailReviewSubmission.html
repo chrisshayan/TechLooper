@@ -31,10 +31,10 @@
         </div>
         <div class="unread-col">
           <label translate="markedAsUnread"></label>
-          <a data-ng-init="unread = submission.isRead" title="{{(unread ? 'markedAsUnread': 'read') | translate}}"
-             ng-model="unread" ng-click="unread=!unread; saveReadSubmission(submission, unread)">
+          <a title="{{(submission.isRead ? 'read' : 'markedAsUnread') | translate}}"
+             ng-click="registrant.toggleReadSubmission(submission)">
             <i class="fa fa-circle-o"
-               ng-class="{'fa-dot-circle-o': unread}"></i>
+               ng-class="{'fa-dot-circle-o': submission.isRead}"></i>
           </a>
           <!--<a ng-show="submission.isRead" title="{{'markedAsUnread' | translate}}" ng-click="saveReadSubmission(submission)">-->
             <!--<i class="fa "></i>-->

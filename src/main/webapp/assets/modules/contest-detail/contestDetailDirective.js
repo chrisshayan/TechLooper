@@ -185,10 +185,10 @@ techlooper
           var url = (link.indexOf("https://") >= 0 || link.indexOf("http://") >= 0) ? link : "http://" + link;
           window.open(url, '_newtab');
         }
-        scope.saveReadSubmission = function (submission, isRead) {
-          apiService.readSubmission(submission.challengeId, submission.challengeSubmissionId, isRead)
-            .success(function (data) {});
-        }
+        //scope.saveReadSubmission = function (submission, isRead) {
+        //  apiService.readSubmission(submission.challengeId, submission.challengeSubmissionId, isRead)
+        //    .success(function (data) {});
+        //}
       }
     };
   })
