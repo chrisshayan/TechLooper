@@ -3,8 +3,72 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
     if (!input || input.$isRich) return input;
 
     var challengeDetail = input;
-    //var index = 0;
-    //challengeDetail.criteriaIndex = 0;
+
+
+    challengeDetail.$filter = {
+
+      //filter all registrants not qualified and having all submissions read
+      byNotQualifiedAndHavingReadSubmissions: function () {
+        challengeDetail.$filter.qualifyRegistrantsType = {isHavingReadSubmission: true};
+        challengeDetail.$filter.qualifyRegistrants = _.filter(challengeDetail.$registrants, function (rgt) {
+          return rgt.disqualified == undefined && rgt.$isSubmissionsRead;
+        });
+      },
+
+      //filter all registrants not qualified and having submissions
+      byNotQualifiedAndHavingSubmissions: function () {
+        challengeDetail.$filter.qualifyRegistrantsType = {isHavingSubmission: true};
+        challengeDetail.$filter.qualifyRegistrants = _.filter(challengeDetail.$registrants, function (rgt) {
+          return rgt.disqualified == undefined && rgt.submissions.length > 0;
+        });
+      },
+
+      //filter all registrants not qualified
+      byNotQualified: function () {
+        challengeDetail.$filter.qualifyRegistrantsType = {isNotQualified: true};
+        challengeDetail.$filter.qualifyRegistrants = _.filter(challengeDetail.$registrants, function (rgt) {return rgt.disqualified == undefined;});
+      },
+
+      registrantsType: {isUnread: false},//flag to known which type of challengeDetail.$filter.registrants, default is show all registrants
+      byReadOrUnreadSubmission: function (isUnread) {//filter registrants all/unread submission
+        isUnread = (isUnread != undefined) ? isUnread : challengeDetail.$filter.registrantsType.isUnread;
+        challengeDetail.$filter.registrantsType = {isUnread: isUnread};
+        challengeDetail.$filter.registrants = isUnread ? _.filter(challengeDetail.$registrants, function (r) {return !r.$isSubmissionsRead;}) : challengeDetail.$registrants;
+      }
+    }
+
+    challengeDetail.$sort = {
+      type: {},
+
+      //sort filter-registrants by submissions
+      bySubmissionCount: function () {
+        challengeDetail.$registrants = _(challengeDetail.$registrants).chain().sortBy("submissions.length").reverse().value();
+        //challengeDetail.$ursRegistrants = _(challengeDetail.$ursRegistrants).chain().sortBy("submissions.length").reverse().value();
+        challengeDetail.$sort.type = {isSubmissionCountTypeAsc: !challengeDetail.$sort.type.isSubmissionCountTypeAsc};
+      },
+
+      //sort filter-registrants by last submission
+      byLastSubmission: function () {
+        challengeDetail.$registrants = _(challengeDetail.$registrants).chain().sortBy("lastSubmission.challengeSubmissionId").reverse().value();
+        //challengeDetail.$ursRegistrants = _(challengeDetail.$ursRegistrants).chain().sortBy("lastSubmission.challengeSubmissionId").reverse().value();
+        challengeDetail.$sort.type = {isLastSubmissionTypeAsc: !challengeDetail.$sort.type.isLastSubmissionTypeAsc};
+      },
+
+      //sort filter-registrants by total point
+      byTotalPoint: function () {
+        challengeDetail.$registrants = _(challengeDetail.$registrants).chain().sortBy("totalPoint").reverse().value();
+        //challengeDetail.$ursRegistrants = _(challengeDetail.$ursRegistrants).chain().sortBy("totalPoint").reverse().value();
+        challengeDetail.$sort.type = {isTotalPointTypeAsc: !challengeDetail.$sort.type.isTotalPointTypeAsc};
+      },
+
+      //sort filter-registrants by total point
+      byRegistrationDate: function () {
+        challengeDetail.$registrants = _(challengeDetail.$registrants).chain().sortBy("registrantId").reverse().value();
+        challengeDetail.$filter.
+          //challengeDetail.$ursRegistrants = _(challengeDetail.$ursRegistrants).chain().sortBy("registrantId").reverse().value();
+          challengeDetail.$sort.type = {isRegistrationDateAsc: !challengeDetail.$sort.type.isRegistrationDateAsc};
+      }
+    }
 
     challengeDetail.refreshCriteria = function () {
       apiService.getContestDetail(challengeDetail.challengeId)
@@ -103,9 +167,6 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
 
 
     challengeDetail.recalculate = function (registrants) {
-      //if (!phaseName) {
-      //  phaseName = challengeDetail.selectedPhaseItem ? challengeDetail.selectedPhaseItem.phase : challengeDetail.currentPhase;
-      //}
 
       //see jsonValue.challengePhase
       var prop = jsonValue.challengePhase[challengeDetail.currentPhase].challengeProp;
@@ -123,8 +184,6 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
         var cp = _.findWhere(jsonValue.challengePhase.values, {enum: item.phase});
         item.$phaseConfig = cp;
         challengeDetail.recalculatePhaseItem(item);
-        //item.countJoinerTitle = $filter("translate")(item.$phaseConfig.phaseItem.translate.countJoiner, {number: item.participant});
-        //item.countSubmissionTitle = $filter("translate")(item.$phaseConfig.phaseItem.translate.countSubmission, {number: item.submission});
 
         if (item.phase == challengeDetail.currentPhase) {
           item.isCurrentPhase = true;
@@ -145,21 +204,12 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
       challengeDetail.totalWeight = _.reduceRight(challengeDetail.criteria, function (sum, cri) { return sum + cri.weight; }, 0);
 
       if (!challengeDetail.selectedPhaseItem) {
-        //if (challengeDetail.isClosed) {challengeDetail.setSelectedPhase(challengeDetail.currentPhase);}
-        //else {challengeDetail.setSelectedPhase(challengeDetail.currentPhase);}
         challengeDetail.setSelectedPhase(challengeDetail.isClosed ? "WINNER" : challengeDetail.currentPhase)
       }
 
       if (_.isArray(registrants)) {
-        //_.each(registrants, function (rgt) {
-        //  rgt.ableAcceptedPhase = challengeDetail.nextPhase;
-        //});
-        //challengeDetail.recalculateStateWinners(registrants);
         challengeDetail.recalculateRegistrants(registrants);
       }
-
-      //challengeDetail.recalculateRegistrantRemainsPhases(phaseName);
-      //console.log(challengeDetail);
     }
 
     challengeDetail.recalculateRegistrants = function (registrants) {
@@ -177,19 +227,17 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
       //console.log(challengeDetail.$registrants);
       var er = _.findWhere(challengeDetail.$registrants, {disqualified: undefined});
       challengeDetail.$hadRegistrant = (er == undefined);
-
-      //splice registrants into 2 lists: all/unread submissions
-      challengeDetail.$ursRegistrants = _.filter(challengeDetail.$registrants, function (r) {return !r.$isSubmissionsRead;})
+      challengeDetail.$filter.byReadOrUnreadSubmission();
     }
 
-    challengeDetail.recalculateUnreadSubmissionRegistrant = function (registrant) {
-      var uri = _.findIndex(challengeDetail.$ursRegistrants, function (rgt) {return rgt.registrantId == registrant.registrantId;})
-      if (uri > -1) {
-        challengeDetail.$ursRegistrants.splice(uri, 1);
-      }
-      !registrant.$isSubmissionsRead && challengeDetail.$ursRegistrants.push(registrant);
-      challengeDetail.$ursRegistrants = _.filter(challengeDetail.$registrants, function(r) {return !r.$isSubmissionsRead;})
-    }
+    //challengeDetail.recalculateUnreadSubmissionRegistrant = function (registrant) {
+    //  //var uri = _.findIndex(challengeDetail.$registrants, function (rgt) {return rgt.registrantId == registrant.registrantId;})
+    //  //if (uri > -1) {
+    //  //  challengeDetail.$ursRegistrants.splice(uri, 1);
+    //  //}
+    //  //!registrant.$isSubmissionsRead && challengeDetail.$ursRegistrants.push(registrant);
+    //  //challengeDetail.$ursRegistrants = _.filter(challengeDetail.$registrants, function (r) {return !r.$isSubmissionsRead;})
+    //}
 
     challengeDetail.recalculatePhaseItem = function (phaseItem) {
       var piTranslate = phaseItem.$phaseConfig.phaseItem.translate;
@@ -237,6 +285,13 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
       //pi.countSubmissionTitle = $filter("translate")(pi.$phaseConfig.phaseItem.translate.countSubmission, {number: pi.submission});
     }
 
+    challengeDetail.incUnreadSubmissionCount = function (submission) {
+      var pi = _.findWhere(challengeDetail.phaseItems, {phase: submission.submissionPhase});
+      submission.isRead ? pi.unreadSubmission-- : pi.unreadSubmission++;
+      challengeDetail.recalculatePhaseItem(pi);
+    }
+
+
     // see com.techlooper.model.ChallengeRegistrantFunnelItem
     challengeDetail.setSelectedPhase = function (phaseItem) {
       if (_.isString(phaseItem)) {
@@ -270,63 +325,6 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
             if (count == registrants.length) return false;
           });
         });
-    }
-
-    challengeDetail.$filter = {
-
-      //filter all registrants not qualified and having all submissions read
-      byNotQualifiedAndHavingReadSubmissions: function () {
-        challengeDetail.$filter.qualifyRegistrantsType = {isHavingReadSubmission: true};
-        challengeDetail.$filter.qualifyRegistrants = _.filter(challengeDetail.$registrants, function (rgt) {
-          return rgt.disqualified == undefined && rgt.$isSubmissionsRead;
-        });
-      },
-
-      //filter all registrants not qualified and having submissions
-      byNotQualifiedAndHavingSubmissions: function () {
-        challengeDetail.$filter.qualifyRegistrantsType = {isHavingSubmission: true};
-        challengeDetail.$filter.qualifyRegistrants = _.filter(challengeDetail.$registrants, function (rgt) {
-          return rgt.disqualified == undefined && rgt.submissions.length > 0;
-        });
-      },
-
-      //filter all registrants not qualified
-      byNotQualified: function () {
-        challengeDetail.$filter.qualifyRegistrantsType = {isNotQualified: true};
-        challengeDetail.$filter.qualifyRegistrants = _.filter(challengeDetail.$registrants, function (rgt) {return rgt.disqualified == undefined;});
-      }
-    }
-
-    challengeDetail.$sort = {
-      type: {},
-
-      //sort registrants by submissions
-      bySubmissionCount: function () {
-        challengeDetail.$registrants = _(challengeDetail.$registrants).chain().sortBy("submissions.length").reverse().value();
-        challengeDetail.$ursRegistrants = _(challengeDetail.$ursRegistrants).chain().sortBy("submissions.length").reverse().value();
-        challengeDetail.$sort.type = {isSubmissionCountTypeAsc: !challengeDetail.$sort.type.isSubmissionCountTypeAsc};
-      },
-
-      //sort registrants by last submission
-      byLastSubmission: function () {
-        challengeDetail.$registrants = _(challengeDetail.$registrants).chain().sortBy("lastSubmission.challengeSubmissionId").reverse().value();
-        challengeDetail.$ursRegistrants = _(challengeDetail.$ursRegistrants).chain().sortBy("lastSubmission.challengeSubmissionId").reverse().value();
-        challengeDetail.$sort.type = {isLastSubmissionTypeAsc: !challengeDetail.$sort.type.isLastSubmissionTypeAsc};
-      },
-
-      //sort registrants by total point
-      byTotalPoint: function () {
-        challengeDetail.$registrants = _(challengeDetail.$registrants).chain().sortBy("totalPoint").reverse().value();
-        challengeDetail.$ursRegistrants = _(challengeDetail.$ursRegistrants).chain().sortBy("totalPoint").reverse().value();
-        challengeDetail.$sort.type = {isTotalPointTypeAsc: !challengeDetail.$sort.type.isTotalPointTypeAsc};
-      },
-
-      //sort registrants by total point
-      byRegistrationDate: function () {
-        challengeDetail.$registrants = _(challengeDetail.$registrants).chain().sortBy("registrantId").reverse().value();
-        challengeDetail.$ursRegistrants = _(challengeDetail.$ursRegistrants).chain().sortBy("registrantId").reverse().value();
-        challengeDetail.$sort.type = {isRegistrationDateAsc: !challengeDetail.$sort.type.isRegistrationDateAsc};
-      }
     }
 
     challengeDetail.recalculate();
