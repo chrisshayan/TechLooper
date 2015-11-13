@@ -38,12 +38,12 @@
     </tr>
     </thead>
     <tbody>
-    <tr ng-show="contestDetail.$registrants.length == 0" class="no-data-found">
+    <tr ng-show="contestDetail.$filter.registrants.length == 0" class="no-data-found">
       <td>
         <p translate="noData"></p>
       </td>
     </tr>
-    <tr dir-paginate="registrant in (unreadSubmission ? contestDetail.$ursRegistrants : contestDetail.$registrants) | itemsPerPage:10" pagination-id="contestDetail.selectedPhaseItem.phase">
+    <tr dir-paginate="registrant in contestDetail.$filter.registrants | itemsPerPage:10" pagination-id="contestDetail.selectedPhaseItem.phase">
       <td>
         <div class="registrants-challenge-list">
           <div class="registrant-order">{{registrant.$index + 1}}</div>
@@ -64,7 +64,7 @@
   </tbody>
 </table>
   <div class="registrants-paging">
-    <span translate="contestantsReturned" translate-value-number="{{contestDetail.$registrants.length}}" ng-show="contestDetail.$registrants.length > 0"></span>
+    <span translate="contestantsReturned" translate-value-number="{{contestDetail.$filter.registrants.length}}" ng-show="contestDetail.$filter.registrants.length > 0"></span>
     <dir-pagination-controls
         pagination-id="contestDetail.selectedPhaseItem.phase"
         max-size="10"

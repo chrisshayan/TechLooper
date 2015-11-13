@@ -54,7 +54,7 @@
     </tr>
     </thead>
   <tbody>
-  <tr ng-show="contestDetail.$filter.registrants == 0" class="no-data-found">
+  <tr ng-show="contestDetail.$filter.registrants.length == 0" class="no-data-found">
     <td>
       <p translate="noData"></p>
     </td>
@@ -98,7 +98,7 @@
   </tbody>
 </table>
   <div class="registrants-paging">
-    <span translate="contestantsReturned" translate-value-number="{{contestDetail.$filter.registrants}}" ng-show="contestDetail.$filter.registrants > 0"></span>
+    <span translate="contestantsReturned" translate-value-number="{{contestDetail.$filter.registrants.length}}" ng-show="contestDetail.$filter.registrants.length > 0"></span>
     <dir-pagination-controls
         pagination-id="contestDetail.selectedPhaseItem.phase"
         max-size="10"
