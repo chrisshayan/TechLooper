@@ -43,30 +43,30 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
       //sort filter-registrants by submissions
       bySubmissionCount: function () {
         challengeDetail.$registrants = _(challengeDetail.$registrants).chain().sortBy("submissions.length").reverse().value();
-        //challengeDetail.$ursRegistrants = _(challengeDetail.$ursRegistrants).chain().sortBy("submissions.length").reverse().value();
+        challengeDetail.$filter.byReadOrUnreadSubmission();
         challengeDetail.$sort.type = {isSubmissionCountTypeAsc: !challengeDetail.$sort.type.isSubmissionCountTypeAsc};
       },
 
       //sort filter-registrants by last submission
       byLastSubmission: function () {
         challengeDetail.$registrants = _(challengeDetail.$registrants).chain().sortBy("lastSubmission.challengeSubmissionId").reverse().value();
-        //challengeDetail.$ursRegistrants = _(challengeDetail.$ursRegistrants).chain().sortBy("lastSubmission.challengeSubmissionId").reverse().value();
+        challengeDetail.$filter.byReadOrUnreadSubmission();
         challengeDetail.$sort.type = {isLastSubmissionTypeAsc: !challengeDetail.$sort.type.isLastSubmissionTypeAsc};
       },
 
       //sort filter-registrants by total point
       byTotalPoint: function () {
+        console.log(challengeDetail.$registrants);
         challengeDetail.$registrants = _(challengeDetail.$registrants).chain().sortBy("totalPoint").reverse().value();
-        //challengeDetail.$ursRegistrants = _(challengeDetail.$ursRegistrants).chain().sortBy("totalPoint").reverse().value();
+        challengeDetail.$filter.byReadOrUnreadSubmission();
         challengeDetail.$sort.type = {isTotalPointTypeAsc: !challengeDetail.$sort.type.isTotalPointTypeAsc};
       },
 
       //sort filter-registrants by total point
       byRegistrationDate: function () {
         challengeDetail.$registrants = _(challengeDetail.$registrants).chain().sortBy("registrantId").reverse().value();
-        challengeDetail.$filter.
-          //challengeDetail.$ursRegistrants = _(challengeDetail.$ursRegistrants).chain().sortBy("registrantId").reverse().value();
-          challengeDetail.$sort.type = {isRegistrationDateAsc: !challengeDetail.$sort.type.isRegistrationDateAsc};
+        challengeDetail.$filter.byReadOrUnreadSubmission();
+        challengeDetail.$sort.type = {isRegistrationDateAsc: !challengeDetail.$sort.type.isRegistrationDateAsc};
       }
     }
 
