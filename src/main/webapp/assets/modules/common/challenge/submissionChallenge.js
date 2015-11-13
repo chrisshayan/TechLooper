@@ -125,7 +125,7 @@ techlooper.directive("submissionChallenge", function (localStorageService, apiSe
                 .finally(function () {
                   $timeout(function () {
                     $('.feedback-loading').css('visibility', 'hidden');
-                    scope.challenge.hideSubmitForm();
+                    scope.form.hideSubmitForm();
                   }, 500);
                 });
             }
