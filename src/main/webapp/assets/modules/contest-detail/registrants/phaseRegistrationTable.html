@@ -17,17 +17,17 @@
         <div class="registrants-challenge-list">
           <div class="registrant-order">#</div>
           <div class="registrant-name" translate="fullNameField"></div>
-          <div class="registration-date" ng-click="sortByRegistrationDate()">
+          <div class="registration-date" ng-click="contestDetail.$sort.byLastSubmission()">
             {{'registrationDate' | translate}}
-            <i class="fa"
-               ng-class="{'fa-chevron-circle-down':sortByRegistrationDateType == 'desc','fa-chevron-circle-up': sortByRegistrationDateType == 'asc'}"></i>
+            <i class="fa fa-chevron-circle-up" ng-show="contestDetail.$sort.type.isLastSubmissionTypeAsc == true"></i>
+            <i class="fa fa-chevron-circle-down" ng-show="contestDetail.$sort.type.isLastSubmissionTypeAsc == false"></i>
           </div>
           <div class="registration-submission">
-          <span class="name-col" ng-click="sortBySubmission()">
-              {{'submissions' | translate}}
-              <i class="fa"
-                 ng-class="{'fa-chevron-circle-down': sortBySubmissionType == 'desc','fa-chevron-circle-up': sortBySubmissionType == 'asc'}"></i>
-            </span>
+          <span class="name-col" ng-click="contestDetail.$sort.bySubmissionCount()">
+            {{'submissions' | translate}}
+            <i class="fa fa-chevron-circle-up" ng-show="contestDetail.$sort.type.isSubmissionCountTypeAsc == true"></i>
+            <i class="fa fa-chevron-circle-down" ng-show="contestDetail.$sort.type.isSubmissionCountTypeAsc == false"></i>
+          </span>
             <!--<span class="unreadFilter" ng-model="search.$hasUnreadSubmissions">-->
             <span class="unreadFilter" ng-model="unreadSubmission" ng-click="unreadSubmission=!unreadSubmission"
                   ng-class="{checked: unreadSubmission}" title="{{(unreadSubmission ? 'unreadTip': 'readTip') | translate}}">
