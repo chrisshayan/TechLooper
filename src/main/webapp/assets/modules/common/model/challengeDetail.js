@@ -190,10 +190,6 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
       !registrant.$isSubmissionsRead && challengeDetail.$ursRegistrants.push(registrant);
     }
 
-    challengeDetail.sortRegistrants = function (sortBy) {
-      challengeDetail.$sortBy = sortBy;
-    }
-
     challengeDetail.recalculatePhaseItem = function (phaseItem) {
       var piTranslate = phaseItem.$phaseConfig.phaseItem.translate;
       phaseItem.countJoinerTitle = $filter("translate")(piTranslate.countJoiner, {number: phaseItem.participant});
@@ -303,6 +299,38 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
       byNotQualified: function () {
         challengeDetail.$filter.qualifyRegistrantsType = {isNotQualified: true};
         challengeDetail.$filter.qualifyRegistrants = _.filter(challengeDetail.$registrants, function (rgt) {return rgt.disqualified == undefined;});
+      }
+    }
+
+    challengeDetail.$sort = {
+      type: {},
+
+      //sort registrants by submissions
+      bySubmissionCount: function () {
+        challengeDetail.$registrants = _(challengeDetail.$registrants).chain().sortBy("submissions.length").reverse().value();
+        challengeDetail.$ursRegistrants = _(challengeDetail.$ursRegistrants).chain().sortBy("submissions.length").reverse().value();
+        challengeDetail.$sort.type = {isSubmissionCountTypeAsc: !challengeDetail.$sort.type.isSubmissionCountTypeAsc};
+      },
+
+      //sort registrants by last submission
+      byLastSubmission: function () {
+        challengeDetail.$registrants = _(challengeDetail.$registrants).chain().sortBy("lastSubmission.challengeSubmissionId").reverse().value();
+        challengeDetail.$ursRegistrants = _(challengeDetail.$ursRegistrants).chain().sortBy("lastSubmission.challengeSubmissionId").reverse().value();
+        challengeDetail.$sort.type = {isLastSubmissionTypeAsc: !challengeDetail.$sort.type.isLastSubmissionTypeAsc};
+      },
+
+      //sort registrants by total point
+      byTotalPoint: function () {
+        challengeDetail.$registrants = _(challengeDetail.$registrants).chain().sortBy("totalPoint").reverse().value();
+        challengeDetail.$ursRegistrants = _(challengeDetail.$ursRegistrants).chain().sortBy("totalPoint").reverse().value();
+        challengeDetail.$sort.type = {isTotalPointTypeAsc: !challengeDetail.$sort.type.isTotalPointTypeAsc};
+      },
+
+      //sort registrants by total point
+      byRegistrationDate: function () {
+        challengeDetail.$registrants = _(challengeDetail.$registrants).chain().sortBy("registrantId").reverse().value();
+        challengeDetail.$ursRegistrants = _(challengeDetail.$ursRegistrants).chain().sortBy("registrantId").reverse().value();
+        challengeDetail.$sort.type = {isRegistrationDateAsc: !challengeDetail.$sort.type.isRegistrationDateAsc};
       }
     }
 
