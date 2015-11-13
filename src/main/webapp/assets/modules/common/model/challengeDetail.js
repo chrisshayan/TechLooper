@@ -179,7 +179,11 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
       challengeDetail.$hadRegistrant = (er == undefined);
 
       //splice registrants into 2 lists: all/unread submissions
-      challengeDetail.$ursRegistrants = _.filter(challengeDetail.$registrants, function(r) {return !r.$isSubmissionsRead;})
+      challengeDetail.$ursRegistrants = _.filter(challengeDetail.$registrants, function (r) {return !r.$isSubmissionsRead;})
+    }
+
+    challengeDetail.sortRegistrants = function (sortBy) {
+      challengeDetail.$sortBy = sortBy;
     }
 
     challengeDetail.recalculatePhaseItem = function (phaseItem) {
@@ -226,6 +230,12 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
       pi.submission++;
       challengeDetail.recalculatePhaseItem(pi);
       //pi.countSubmissionTitle = $filter("translate")(pi.$phaseConfig.phaseItem.translate.countSubmission, {number: pi.submission});
+    }
+
+    challengeDetail.incUnreadSubmissionCount = function (submission) {
+      var pi = _.findWhere(challengeDetail.phaseItems, {phase: submission.submissionPhase});
+      submission.isRead ?  pi.unreadSubmission-- : pi.unreadSubmission++;
+      challengeDetail.recalculatePhaseItem(pi);
     }
 
     // see com.techlooper.model.ChallengeRegistrantFunnelItem

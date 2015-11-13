@@ -26,7 +26,7 @@ techlooper.directive("submissionChallenge", function (localStorageService, apiSe
       }
 
       var challengeId = localStorageService.get("submitNow");
-      if (challengeId == scope.challenge.challengeId) {
+      if (scope.challenge && (challengeId == scope.challenge.challengeId)) {
         localStorageService.remove("submitNow");
         localStorageService.remove("joinNow");
 

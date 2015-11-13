@@ -109,14 +109,14 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonV
       registrant.recalculateSubmissions();
     }
 
-    registrant.recalculateDisqualified = function() {
+    registrant.recalculateDisqualified = function () {
       var rp = _.findWhere(registrant.$challengeDetail.phaseItems, {phase: registrant.activePhase});
       if (rp.$index > registrant.$challengeDetail.selectedPhaseItem.$index) {
         registrant.disqualified = false;
       }
     }
 
-    registrant.acceptActivePhase = function(phase) {
+    registrant.acceptActivePhase = function (phase) {
       registrant.activePhase = phase;
       registrant.activePhaseLowerCase = registrant.activePhase.toLowerCase();
       registrant.recalculateDisqualified();
@@ -190,6 +190,15 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonV
       //delete scope.registrant.visible;
       //utils.sendNotification(jsonValue.notifications.loaded);
     };
+
+    registrant.toggleReadSubmission = function (submission) {
+      apiService.readSubmission(submission.challengeId, submission.challengeSubmissionId, !submission.isRead)
+        .success(function () {
+          submission.isRead = !submission.isRead;
+          registrant.recalculateSubmissions();
+          registrant.$challengeDetail.incUnreadSubmissionCount(submission);
+        });
+    }
 
     registrant.disqualify = function () {
       registrant.disqualified = true;
