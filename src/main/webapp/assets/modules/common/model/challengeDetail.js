@@ -42,31 +42,38 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
 
       //sort filter-registrants by submissions
       bySubmissionCount: function () {
+        challengeDetail.$sort.type = {isSubmissionCountTypeAsc: !challengeDetail.$sort.type.isSubmissionCountTypeAsc};
         challengeDetail.$registrants = _(challengeDetail.$registrants).chain().sortBy("submissions.length").reverse().value();
         challengeDetail.$filter.byReadOrUnreadSubmission();
-        challengeDetail.$sort.type = {isSubmissionCountTypeAsc: !challengeDetail.$sort.type.isSubmissionCountTypeAsc};
       },
 
       //sort filter-registrants by last submission
       byLastSubmission: function () {
+        challengeDetail.$sort.type = {isLastSubmissionTypeAsc: !challengeDetail.$sort.type.isLastSubmissionTypeAsc};
         challengeDetail.$registrants = _(challengeDetail.$registrants).chain().sortBy("lastSubmission.challengeSubmissionId").reverse().value();
         challengeDetail.$filter.byReadOrUnreadSubmission();
-        challengeDetail.$sort.type = {isLastSubmissionTypeAsc: !challengeDetail.$sort.type.isLastSubmissionTypeAsc};
       },
 
       //sort filter-registrants by total point
       byTotalPoint: function () {
-        console.log(challengeDetail.$registrants);
-        challengeDetail.$registrants = _(challengeDetail.$registrants).chain().sortBy("totalPoint").reverse().value();
-        challengeDetail.$filter.byReadOrUnreadSubmission();
         challengeDetail.$sort.type = {isTotalPointTypeAsc: !challengeDetail.$sort.type.isTotalPointTypeAsc};
+
+        var sort = _(challengeDetail.$registrants).chain().sortBy("totalPoint");
+        challengeDetail.$sort.type.isTotalPointTypeAsc ? sort.reverse() : "";
+
+        challengeDetail.$registrants = sort.value();
+        challengeDetail.$filter.byReadOrUnreadSubmission();
       },
 
       //sort filter-registrants by total point
       byRegistrationDate: function () {
-        challengeDetail.$registrants = _(challengeDetail.$registrants).chain().sortBy("registrantId").reverse().value();
+        challengeDetail.$sort.type = {isRegistrationDateTypeAsc: !challengeDetail.$sort.type.isRegistrationDateTypeAsc};
+
+        var sort = _(challengeDetail.$registrants).chain().sortBy("registrantId");
+        challengeDetail.$sort.type.isRegistrationDateTypeAsc ? sort.reverse() : "";
+
+        challengeDetail.$registrants = sort.value();
         challengeDetail.$filter.byReadOrUnreadSubmission();
-        challengeDetail.$sort.type = {isRegistrationDateAsc: !challengeDetail.$sort.type.isRegistrationDateAsc};
       }
     }
 
