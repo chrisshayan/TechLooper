@@ -1213,19 +1213,15 @@ public class ChallengeServiceImpl implements ChallengeService {
     }
 
     public ChallengeRegistrantDto rejectRegistrant(String ownerEmail, ChallengeRegistrantDto registrantDto) {
-        Iterator<ChallengeRegistrantEntity> registrantIter = challengeRegistrantRepository.search(QueryBuilders.termQuery("registrantId", registrantDto.getRegistrantId())).iterator();
-        if (!registrantIter.hasNext()) return null;
+        ChallengeRegistrantEntity registrant = challengeRegistrantRepository.findOne(registrantDto.getRegistrantId());
 
-        ChallengeRegistrantEntity registrant = registrantIter.next();
-        ChallengeEntity challenge = challengeRepository.findOne(registrant.getChallengeId());
-        if (!ownerEmail.equalsIgnoreCase(challenge.getAuthorEmail())) {
-            return null;
+        if (registrant != null) {
+            registrant.setDisqualified(Boolean.FALSE);
+            registrant.setDisqualifiedReason(registrantDto.getDisqualifiedReason());
+            registrant = challengeRegistrantRepository.save(registrant);
+            return dozerMapper.map(registrant, ChallengeRegistrantDto.class);
         }
 
-//        ChallengeDetailDto challengeDetailDto = dozerMapper.map(challenge, ChallengeDetailDto.class);
-        registrant.setDisqualified(Boolean.FALSE);
-        registrant.setDisqualifiedReason(registrantDto.getDisqualifiedReason());
-        registrant = challengeRegistrantRepository.save(registrant);
-        return dozerMapper.map(registrant, ChallengeRegistrantDto.class);
+        return registrantDto;
     }
 }
