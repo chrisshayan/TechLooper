@@ -50,7 +50,9 @@
           <div class="registrant-name">{{registrant.fullName}}</div>
           <div class="registration-submission">{{registrant.lastSubmission.submissionDateTime || '-'}}</div>
           <div class="registration-submission">
-            <a ng-click="registrant.showReviewSubmission()" title="{{'submissionsReviewTip' | translate}}">{{registrant.submissions.length || 0}}</a></div>
+            <a ng-click="registrant.showReviewSubmission()"
+               ng-class="{unread: registrant.$unreadSubmissions.length > 0}"
+               title="{{'submissionsReviewTip' | translate}}">{{registrant.submissions.length || 0}}</a></div>
           <div class="registration-score">
             <a ng-click="registrant.showScore()">{{registrant.savedTotalPoint}}</a>
           </div>
