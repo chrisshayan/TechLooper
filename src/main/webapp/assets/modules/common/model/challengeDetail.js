@@ -276,6 +276,7 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
       phaseItem.countJoinerTitle = $filter("translate")(piTranslate.countJoiner, {number: phaseItem.participant});
       phaseItem.countSubmissionTitle = $filter("translate")(piTranslate.countSubmission, {number: phaseItem.submission});
       phaseItem.countUnreadTitle = $filter("translate")(piTranslate.countUnread, {number: phaseItem.unreadSubmission});
+      console.log(phaseItem);
     }
 
     challengeDetail.recalculateWinner = function (registrant) {
@@ -298,25 +299,35 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
       //console.log(challengeDetail);
     }
 
-    challengeDetail.incParticipantCount = function (registrant) {
-      var pi = _.findWhere(challengeDetail.phaseItems, {phase: registrant.activePhase});
-      (registrant.disqualified == false) && pi.participant++;
-      console.log(pi);
-      challengeDetail.recalculatePhaseItem(pi);
-      //pi.countJoinerTitle = $filter("translate")(pi.$phaseConfig.phaseItem.translate.countJoiner, {number: pi.participant});
-
-      //var winnerPi = _.last(challengeDetail.phaseItems);
-      challengeDetail.recalculateWinner(registrant);
-      //_.countBy(registrant.criteria, function(cri) {
-      //});
+    challengeDetail.refreshFunnelItems = function(registrant) {
+      apiService.getRegistrantFunnel(challengeDetail.challengeId)
+        .success(function(items) {
+          for (var i = 0; i < challengeDetail.phaseItems.length; i++) {
+            //challengeDetail.phaseItems[i].participant = items[i].participant;
+            //challengeDetail.phaseItems[i].submission = items[i].submission;
+            //challengeDetail.phaseItems[i].unreadSubmission = items[i].unreadSubmission;
+            _.extendOwn(challengeDetail.phaseItems[i], items[i]);
+            //console.log(challengeDetail.phaseItems[i]);
+            !challengeDetail.phaseItems[i].$phaseConfig.isWinner && challengeDetail.recalculatePhaseItem(challengeDetail.phaseItems[i]);
+          }
+          challengeDetail.recalculateHadRegistrant();
+          registrant && challengeDetail.recalculateWinner(registrant);
+        });
     }
 
-    challengeDetail.incSubmissionCount = function (submission) {
-      var pi = _.findWhere(challengeDetail.phaseItems, {phase: submission.submissionPhase});
-      pi.submission++;
-      challengeDetail.recalculatePhaseItem(pi);
-      //pi.countSubmissionTitle = $filter("translate")(pi.$phaseConfig.phaseItem.translate.countSubmission, {number: pi.submission});
-    }
+    //challengeDetail.incParticipantCount = function (registrant) {
+    //  var pi = _.findWhere(challengeDetail.phaseItems, {phase: registrant.activePhase});
+    //  (registrant.disqualified == false) && pi.participant++;
+    //  challengeDetail.recalculatePhaseItem(pi);
+    //  challengeDetail.recalculateWinner(registrant);
+    //}
+
+    //challengeDetail.incSubmissionCount = function (submission) {
+    //  var pi = _.findWhere(challengeDetail.phaseItems, {phase: submission.submissionPhase});
+    //  pi.submission++;
+    //  challengeDetail.recalculatePhaseItem(pi);
+    //  //pi.countSubmissionTitle = $filter("translate")(pi.$phaseConfig.phaseItem.translate.countSubmission, {number: pi.submission});
+    //}
 
     challengeDetail.incUnreadSubmissionCount = function (submission) {
       var pi = _.findWhere(challengeDetail.phaseItems, {phase: submission.submissionPhase});
@@ -360,7 +371,6 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
 
     challengeDetail.acceptRegistrants = function () {
       var registrantIds = _.map(challengeDetail.$filter.qualifyRegistrants, function (rgt) {return rgt.registrantId;});
-      console.log(registrantIds);
       if (registrantIds.length == 0) return;
       apiService.qualifyAllToNextPhase(challengeDetail.challengeId, challengeDetail.$rgtNextPhaseItem.phase, registrantIds)
         .success(function (registrants) {
@@ -370,11 +380,12 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
             if (r) {
               count++;
               cr.acceptActivePhase(r.activePhase);
-              challengeDetail.incParticipantCount(cr);
+              //challengeDetail.incParticipantCount(cr);
               challengeDetail.recalculateRegistrants();
             }
             if (count == registrants.length) return false;
           });
+          challengeDetail.refreshFunnelItems();
         });
     }
 
