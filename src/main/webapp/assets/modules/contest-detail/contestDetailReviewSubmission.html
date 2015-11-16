@@ -8,6 +8,7 @@
       <div class="subject-col" translate="descriptionCol"></div>
       <div class="submission-link-col" translate="submissionLink"></div>
       <div class="date-col" translate="date"></div>
+      <div class="unread-col" translate="markedAsUnread"></div>
       <div class="close-col" ng-click="registrant.hide()" title="{{'closed' | translate}}">
         x
       </div>
@@ -27,6 +28,17 @@
         <div class="date-col">
           <label translate="date"></label>
           {{submission.submissionDateTime}}
+        </div>
+        <div class="unread-col">
+          <label translate="markedAsUnread"></label>
+          <a title="{{(submission.isRead ? 'markedAsUnread' : 'read') | translate}}"
+             ng-click="registrant.toggleReadSubmission(submission)">
+            <i class="fa fa-check-square-o"
+               ng-class="{'fa-square-o': submission.isRead}"></i>
+          </a>
+          <!--<a ng-show="submission.isRead" title="{{'markedAsUnread' | translate}}" ng-click="saveReadSubmission(submission)">-->
+            <!--<i class="fa "></i>-->
+          <!--</a>-->
         </div>
         <div class="close-col"></div>
       </div>

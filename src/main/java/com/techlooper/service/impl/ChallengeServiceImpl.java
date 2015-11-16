@@ -1,6 +1,8 @@
 package com.techlooper.service.impl;
 
+import com.techlooper.dto.ChallengeQualificationDto;
 import com.techlooper.dto.EmailSettingDto;
+import com.techlooper.dto.RejectRegistrantDto;
 import com.techlooper.entity.*;
 import com.techlooper.model.*;
 import com.techlooper.repository.elasticsearch.ChallengeRegistrantRepository;
@@ -167,6 +169,12 @@ public class ChallengeServiceImpl implements ChallengeService {
     @Value("${mail.dailyChallengeSummary.subject.vi}")
     private String dailyChallengeSummaryMailSubjectVi;
 
+    @Value("${mail.notifyChallengePhaseClosed.subject.en}")
+    private String notifyChallengePhaseClosedMailSubjectEn;
+
+    @Value("${mail.notifyChallengePhaseClosed.subject.vi}")
+    private String notifyChallengePhaseClosedMailSubjectVi;
+
     @Resource
     private Template notifyChallengeTimelineMailTemplateVi;
 
@@ -184,6 +192,12 @@ public class ChallengeServiceImpl implements ChallengeService {
 
     @Resource
     private Template dailyChallengeSummaryMailTemplateEn;
+
+    @Resource
+    private Template notifyChallengePhaseClosedMailTemplateVi;
+
+    @Resource
+    private Template notifyChallengePhaseClosedMailTemplateEn;
 
     @Resource
     private EmailService emailService;
@@ -286,6 +300,52 @@ public class ChallengeServiceImpl implements ChallengeService {
         mailSender.send(postChallengeMailMessage);
         LOGGER.info(postChallengeMailMessage.getMessageID() + " has been sent to users " +
                 postChallengeMailMessage.getAllRecipients() + " with challengeId = " + challengeEntity.getChallengeId());
+    }
+
+    @Override
+    public void sendEmailNotifyEmployerWhenPhaseClosed(ChallengeEntity challengeEntity, ChallengePhaseEnum currentPhase,
+                                                       ChallengePhaseEnum oldPhase) throws Exception {
+        String mailSubject = challengeEntity.getLang() == Language.vi ? notifyChallengePhaseClosedMailSubjectVi :
+                notifyChallengePhaseClosedMailSubjectEn;
+        Address[] recipientAddresses = getRecipientAddresses(challengeEntity, true);
+        Template template = challengeEntity.getLang() == Language.vi ? notifyChallengePhaseClosedMailTemplateVi :
+                notifyChallengePhaseClosedMailTemplateEn;
+
+        postChallengeMailMessage.setRecipients(Message.RecipientType.TO, recipientAddresses);
+        postChallengeMailMessage.setReplyTo(InternetAddress.parse(mailTechlooperReplyTo));
+        StringWriter stringWriter = new StringWriter();
+
+        Map<String, Object> templateModel = new HashMap<>();
+        templateModel.put("challenge", challengeEntity);
+        templateModel.put("challengeId", String.valueOf(challengeEntity.getChallengeId()));
+        templateModel.put("challengeNameAlias", challengeEntity.getChallengeName().replaceAll("\\W", "-"));
+        templateModel.put("webBaseUrl", webBaseUrl);
+        templateModel.put("oldPhase", oldPhase.getValue());
+
+        ChallengeDetailDto challengeDetailDto = dozerMapper.map(challengeEntity, ChallengeDetailDto.class);
+        calculateChallengePhases(challengeDetailDto);
+        templateModel.put("currentPhase", currentPhase.getValue());
+
+        Map<ChallengePhaseEnum, ChallengeRegistrantPhaseItem> numberOfRegistrantByPhase =
+                challengeRegistrantService.countNumberOfRegistrantsByPhase(challengeEntity.getChallengeId());
+        ChallengeRegistrantPhaseItem currentPhaseRegistrants = numberOfRegistrantByPhase.get(currentPhase);
+        if (currentPhaseRegistrants != null) {
+            templateModel.put("currentPhaseRegistrants", currentPhaseRegistrants.getRegistration());
+        }
+
+        template.process(templateModel, stringWriter);
+
+        if (challengeEntity.getLang() == Language.vi) {
+            mailSubject = String.format(mailSubject, oldPhase.getVi(), challengeEntity.getChallengeName());
+        } else {
+            mailSubject = String.format(mailSubject, oldPhase.getEn(), challengeEntity.getChallengeName());
+        }
+        postChallengeMailMessage.setSubject(MimeUtility.encodeText(mailSubject, "UTF-8", null));
+        postChallengeMailMessage.setText(stringWriter.toString(), "UTF-8", "html");
+
+        stringWriter.flush();
+        postChallengeMailMessage.saveChanges();
+        mailSender.send(postChallengeMailMessage);
     }
 
     private String getNotifyRegistrantChallengeTimelineSubject(
@@ -1025,6 +1085,14 @@ public class ChallengeServiceImpl implements ChallengeService {
                 challengeDetailDto.setCriteria(null);
             }
             challengeDetailDto.setPhaseItems(this.getChallengeRegistrantFunnel(challengeId, loginEmail));
+
+            try {
+                Boolean isClosed = daysBetween(challengeDetailDto.getSubmissionDateTime(), currentDate()) > 0;
+                challengeDetailDto.setIsClosed(isClosed);
+            } catch (ParseException e) {
+                LOGGER.error(e.getMessage(), e);
+            }
+
             return challengeDetailDto;
         }
         return null;
@@ -1064,21 +1132,13 @@ public class ChallengeServiceImpl implements ChallengeService {
         }
     }
 
-    public ChallengeRegistrantDto acceptRegistrant(String ownerEmail, Long registrantId, ChallengePhaseEnum activePhase) {
-        Iterator<ChallengeRegistrantEntity> registrantIter = challengeRegistrantRepository.search(QueryBuilders.termQuery("registrantId", registrantId)).iterator();
-        if (!registrantIter.hasNext()) return null;
+    public ChallengeRegistrantDto acceptRegistrant(Long registrantId, ChallengePhaseEnum activePhase) {
+        ChallengeRegistrantEntity registrant = challengeRegistrantRepository.findOne(registrantId);
 
-        ChallengeRegistrantEntity registrant = registrantIter.next();
-        ChallengeEntity challenge = challengeRepository.findOne(registrant.getChallengeId());
-        if (!ownerEmail.equalsIgnoreCase(challenge.getAuthorEmail())) {
-            return null;
-        }
-
-        ChallengeDetailDto challengeDetailDto = dozerMapper.map(challenge, ChallengeDetailDto.class);
-        calculateChallengePhases(challengeDetailDto);
-//        ChallengePhaseEnum activePhase = challengeDetailDto.getNextPhase();
-        if (activePhase != registrant.getActivePhase()) {
+        if (registrant != null && activePhase != registrant.getActivePhase()) {
             registrant.setActivePhase(activePhase);
+            registrant.setDisqualified(null);
+            registrant.setDisqualifiedReason(null);
             registrant = challengeRegistrantRepository.save(registrant);
         }
 
@@ -1092,24 +1152,30 @@ public class ChallengeServiceImpl implements ChallengeService {
         Map<ChallengePhaseEnum, ChallengeRegistrantPhaseItem> numberOfRegistrantsByPhase =
                 challengeRegistrantService.countNumberOfRegistrantsByPhase(challengeId);
         Map<ChallengePhaseEnum, ChallengeSubmissionPhaseItem> numberOfSubmissionsByPhase =
-                challengeSubmissionService.countNumberOfSubmissionsByPhase(challengeId);
+                challengeSubmissionService.countNumberOfSubmissionsByPhase(challengeId, null);
+        Map<ChallengePhaseEnum, ChallengeSubmissionPhaseItem> numberOfUnreadSubmissionsByPhase =
+                challengeSubmissionService.countNumberOfSubmissionsByPhase(challengeId, Boolean.FALSE);
 
         for (Map.Entry<ChallengePhaseEnum, ChallengeRegistrantPhaseItem> entry : numberOfRegistrantsByPhase.entrySet()) {
             ChallengePhaseEnum phase = entry.getKey();
             Long participant = entry.getValue().getRegistration();
             Long submission = 0L;
+            Long unreadSubmission = 0L;
             if (numberOfSubmissionsByPhase.get(phase) != null) {
                 submission = numberOfSubmissionsByPhase.get(phase).getSubmission();
             }
+            if (numberOfUnreadSubmissionsByPhase.get(phase) != null) {
+                unreadSubmission = numberOfUnreadSubmissionsByPhase.get(phase).getSubmission();
+            }
 
             if (isValidPhase(challengeDto, phase)) {
-                funnel.add(new ChallengeRegistrantFunnelItem(phase, participant, submission));
+                funnel.add(new ChallengeRegistrantFunnelItem(phase, participant, submission, unreadSubmission));
             }
         }
 
         Long numberOfFinalists = challengeRegistrantService.countNumberOfFinalists(challengeId);
         Long numberOfWinners = Long.valueOf(challengeRegistrantService.countNumberOfWinners(challengeId));
-        funnel.add(new ChallengeRegistrantFunnelItem(ChallengePhaseEnum.WINNER, numberOfFinalists, numberOfWinners));
+        funnel.add(new ChallengeRegistrantFunnelItem(ChallengePhaseEnum.WINNER, numberOfFinalists, numberOfWinners, 0L));
 
         Comparator<ChallengeRegistrantFunnelItem> sortByPhaseComparator = (item1, item2) ->
                 item1.getPhase().getOrder() - item2.getPhase().getOrder();
@@ -1131,5 +1197,35 @@ public class ChallengeServiceImpl implements ChallengeService {
             default:
                 return false;
         }
+    }
+
+    @Override
+    public List<ChallengeRegistrantDto> qualifyAllRegistrants(String ownerEmail, ChallengeQualificationDto challengeQualificationDto) {
+        List<ChallengeRegistrantDto> qualifiedRegistrants = new ArrayList<>();
+        ChallengePhaseEnum qualifyingPhase = challengeQualificationDto.getNextPhase();
+
+        for (Long registrantId : challengeQualificationDto.getRegistrantIds()) {
+            ChallengeRegistrantDto registrantDto = acceptRegistrant(registrantId, qualifyingPhase);
+            if (registrantDto.getActivePhase() == qualifyingPhase) {
+                qualifiedRegistrants.add(registrantDto);
+            }
+        }
+        return qualifiedRegistrants;
+    }
+
+    public ChallengeRegistrantDto rejectRegistrant(String ownerEmail, RejectRegistrantDto rejectRegistrantDto){
+        Iterator<ChallengeRegistrantEntity> registrantIter = challengeRegistrantRepository.search(QueryBuilders.termQuery("registrantId", rejectRegistrantDto.getRegistrantId())).iterator();
+        if (!registrantIter.hasNext()) return null;
+
+        ChallengeRegistrantEntity registrant = registrantIter.next();
+        ChallengeEntity challenge = challengeRepository.findOne(registrant.getChallengeId());
+        if (!ownerEmail.equalsIgnoreCase(challenge.getAuthorEmail())) {
+            return null;
+        }
+
+        registrant.setDisqualified(Boolean.TRUE);
+        registrant.setDisqualifiedReason(rejectRegistrantDto.getReason());
+        registrant = challengeRegistrantRepository.save(registrant);
+        return dozerMapper.map(registrant, ChallengeRegistrantDto.class);
     }
 }

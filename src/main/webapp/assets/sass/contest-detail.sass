@@ -370,14 +370,42 @@
               text-align: center
               padding: 10px 0
             .registration-submission
-              width: 14%
+              width: 15%
               float: left
               text-align: center
               padding: 10px 0
               cursor: pointer
+              span
+                display: inline-block
+                clear: both
+                width: 100%
+              span.unreadFilter
+                background-color: #333
+                padding: 2px 10px
+                width: auto
+                color: #fff
+                border-radius: 3px
+                i.fa-square-o
+                  display: inline-block
+                i.fa-check-square-o
+                  display: none
+              span.unreadFilter.checked
+                background-color: red
+                i.fa-square-o
+                  display: none
+                i.fa-check-square-o
+                  display: inline-block
               a
                 color: #2e6da4
                 cursor: pointer
+                display: inline-block
+                width: auto
+                padding: 2px 10px
+                background-color: #dfdede
+                border-radius: 3px
+              a.unread
+                background-color: red
+                color: #fff
             .registration-review
               width: 15%
               float: left
@@ -428,10 +456,10 @@
               i.closed
                 background-color: #e6e6e6
             .prize-col
-              width: 18%
+              width: 16%
               float: left
               text-align: center
-              padding: 10px
+              padding: 10px 5px
               .prize
                 width: 33.33339%
                 float: left
@@ -457,7 +485,7 @@
               .prize.two
                 width: 50%
             .registration-date
-              width: 17%
+              width: 15%
               float: left
               text-align: center
               padding: 10px
@@ -485,7 +513,7 @@
               width: 10%
               float: left
               text-align: right
-              padding: 10px
+              padding: 10px 0 10px 10px
               a
                 margin: auto
                 width: auto
@@ -555,8 +583,9 @@
               text-align: left
               //word-break: break-word
               padding-right: 15px
+
             .submission-link-col
-              width: 50%
+              width: 37%
               float: left
               text-align: left
               word-break: break-all
@@ -564,12 +593,28 @@
               a
                 text-align: left
                 color: #337ab7
+            .marked-read-col
+              width: 20%
+              float: left
+              text-align: left
+              padding-right: 5px
+              a
+                text-align: left
+                color: #337ab7
             .date-col
+              width: 15%
+              float: left
+              text-align: center
+            .unread-col
               width: 10%
               float: left
-              text-align: right
+              text-align: center
+              i.fa-check-square-o
+                color: red
+              i.fa-check-square-o.fa-square-o
+                color: #333
             .close-col
-              width: 5%
+              width: 3%
               float: left
               text-align: right
               cursor: pointer
@@ -1047,11 +1092,11 @@
 
           .phase-box.two-cols
             width: 50%
-          .phase-box.three-cols
+          .phase-box.col-3
             width: 33.33%
-          .phase-box.four-cols
+          .phase-box.col-4
             width: 25%
-          .phase-box.five-cols
+          .phase-box.col-5
             width: 20%
         .timeLine-milestone.mobile
           display: none
@@ -1090,6 +1135,7 @@
         color: #333
         border: 1px solid #ddd
         text-align: center
+        width: 280px
         textarea.textarea-style
           width: 100%
           height: 70px
@@ -1122,11 +1168,10 @@
             width: 100%
             clear: both
             padding-top: 5px
-            cursor: pointer
             p
               margin: 0
               padding: 0
-              font-size: 12px
+              font-size: 11px
               text-align: right
               strong
                 font-weight: 500
@@ -1143,6 +1188,18 @@
             border: 1px solid #dfdede
             i
               cursor: pointer
+            i.registration:before
+              content: "\f084"
+            i.idea:before
+              content: "\f0eb"
+            i.uiux:before
+              content: "\f1fc"
+            i.prototype:before
+              content: "\f1b3"
+            i.final:before
+              content: "\f05d"
+            i.winner:before
+              content: "\f091"
             span
               cursor: pointer
           .phase-name.pass
@@ -1225,15 +1282,15 @@
             color: #257abb
           .current-phase.winner
             color: #FFAA00
-        .challenge-phase-item.col2
+        .col-2 .challenge-phase-item
           width: 50%
-        .challenge-phase-item.col3
+        .col-3 .challenge-phase-item
           width: 33.3339%
-        .challenge-phase-item.col4
+        .col-4 .challenge-phase-item
           width: 25%
-        .challenge-phase-item.col5
+        .col-5 .challenge-phase-item
           width: 20%
-        .challenge-phase-item.col6
+        .col-6 .challenge-phase-item
           width: 16.66667%
       .phase-content-block
         width: 100%
@@ -1244,10 +1301,16 @@
           width: 100%
           display: inline-block
           clear: both
+          .registration-list-block
+            position: relative
+            width: 100%
+            clear: both
+            display: inline-block
           .phase-description
             width: 100%
             display: inline-block
             clear: both
+            padding-top: 10px
             p
               width: 60%
               margin: 0
@@ -1260,6 +1323,38 @@
               button.disabled
                 background-color: gray !important
                 cursor: not-allowed
+          .qualify-all-to-next-phase
+            clear: both
+            display: inline-block
+            width: 100%
+            text-align: center
+            background-color: #f3fafe
+            border-radius: 5px
+            padding: 15px 20px
+            label
+              font-weight: 500
+              cursor: pointer
+            p
+              margin: 0
+              padding: 0 0 10px 0
+            ul
+              padding: 0
+              margin: auto
+              width: 40%
+              text-align: left
+              li
+                padding: 5px 0 0
+                clear: both
+                width: 100%
+            .submission-qualify-all-to-next-phase
+              clear: both
+              display: inline-block
+              padding: 15px 0 0
+              width: 100%
+              a.btn-flat
+                padding: 6px 40px
+                height: auto
+                margin-left: 5px
     .alert
       margin-top: 20px
     .evaluation-criteria

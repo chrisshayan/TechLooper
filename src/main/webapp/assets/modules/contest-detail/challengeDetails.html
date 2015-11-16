@@ -14,21 +14,15 @@
       <tab-manager-contest-detail></tab-manager-contest-detail>
       <div class="tab-content contest-content-tab-detail">
         <div class="detail tab-pane fade in active">
-          <contest-content-details></contest-content-details>
+          <content-details-tab></content-details-tab>
         </div>
         <div class="registrants tab-pane fade" ng-show="contestDetail.isAuthor">
-          <div class="funnel-challenge-phase-block">
-            <funnel-manager></funnel-manager>
-          </div>
-
-          <registrant-list></registrant-list>
+          <content-registrants-tab></content-registrants-tab>
         </div>
         <div class="evaluation-criteria tab-pane fade" ng-show="contestDetail.isAuthor">
-          <evaluation-criteria></evaluation-criteria>
+          <content-evaluation-criteria-tab></content-evaluation-criteria-tab>
         </div>
-        <div class="feedback-loading"></div>
       </div>
     </div>
   </div>
-  <popup-email registrants="registrantPhase"></popup-email>
 </div>

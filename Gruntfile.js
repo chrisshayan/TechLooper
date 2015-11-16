@@ -321,7 +321,7 @@ module.exports = function (grunt) {
   //  "cache_control:build"
   //]);
 
-  grunt.registerTask("build", [
+  grunt.registerTask("production", [
     "clean:build",
     //"template:prod",
     "copy:build",
@@ -342,6 +342,26 @@ module.exports = function (grunt) {
     "cache_control:build"
   ]);
 
+  grunt.registerTask("staging", [
+    "clean:build",
+    //"template:prod",
+    "copy:build",
+    "bower-install-simple:build",
+    "includeSource:target",
+    "wiredep:target",
+    "ngAnnotate:main",
+    "useminPrepare",
+    "concat:generated",
+    "uglify:generated",
+    "cssmin:generated",
+    "usemin",
+    "copy:font",
+    "clean:release",
+    "replace:cssConcat",
+    "rename:build",
+    "cache_control:build"
+  ]);
+
   grunt.registerTask("local", [
     "clean:build",
     //"template:staging",
@@ -353,5 +373,5 @@ module.exports = function (grunt) {
   ]);
 
   // start a http server and serve at folder "assets"
-  grunt.registerTask("run", ["connect", "watch"]);
+  //grunt.registerTask("run", ["connect", "watch"]);
 };

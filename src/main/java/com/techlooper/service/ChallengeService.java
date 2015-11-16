@@ -1,5 +1,7 @@
 package com.techlooper.service;
 
+import com.techlooper.dto.ChallengeQualificationDto;
+import com.techlooper.dto.RejectRegistrantDto;
 import com.techlooper.entity.ChallengeEntity;
 import com.techlooper.entity.ChallengeRegistrantDto;
 import com.techlooper.entity.ChallengeRegistrantEntity;
@@ -29,7 +31,10 @@ public interface ChallengeService {
             throws MessagingException, IOException, TemplateException;
 
     void sendEmailNotifyRegistrantAboutChallengeTimeline(ChallengeEntity challengeEntity,
-          ChallengeRegistrantEntity challengeRegistrantEntity, ChallengePhaseEnum challengePhase, boolean isSpecificDayNotification) throws Exception;
+                                                         ChallengeRegistrantEntity challengeRegistrantEntity, ChallengePhaseEnum challengePhase, boolean isSpecificDayNotification) throws Exception;
+
+    void sendEmailNotifyEmployerWhenPhaseClosed(ChallengeEntity challengeEntity, ChallengePhaseEnum currentPhase,
+                                                                    ChallengePhaseEnum oldPhase) throws Exception;
 
     ChallengeDetailDto getChallengeDetail(Long challengeId, String loginEmail);
 
@@ -101,11 +106,15 @@ public interface ChallengeService {
 
     Set<Long> findRegistrantByChallengeSubmissionDate(Long challengeId, String fromDate, String toDate);
 
-    ChallengeRegistrantDto acceptRegistrant(String ownerEmail, Long registrantId, ChallengePhaseEnum phase);
+    ChallengeRegistrantDto acceptRegistrant(Long registrantId, ChallengePhaseEnum phase);
 
     void calculateChallengePhases(ChallengeDetailDto challengeDetailDto);
 
     ChallengeRegistrantEntity findRegistrantByChallengeIdAndEmail(Long challengeId, String email);
 
     List<ChallengeRegistrantFunnelItem> getChallengeRegistrantFunnel(Long challengeId, String ownerEmail);
+
+    List<ChallengeRegistrantDto> qualifyAllRegistrants(String remoteUser, ChallengeQualificationDto challengeQualificationDto);
+
+    ChallengeRegistrantDto rejectRegistrant(String ownerEmail, RejectRegistrantDto rejectRegistrantDto);
 }

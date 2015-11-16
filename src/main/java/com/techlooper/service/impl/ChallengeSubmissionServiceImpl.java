@@ -8,6 +8,7 @@ import com.techlooper.model.*;
 import com.techlooper.repository.elasticsearch.ChallengeSubmissionRepository;
 import com.techlooper.service.ChallengeService;
 import com.techlooper.service.ChallengeSubmissionService;
+import com.techlooper.util.DataUtils;
 import com.techlooper.util.DateTimeUtils;
 import freemarker.template.Template;
 import org.dozer.Mapper;
@@ -15,9 +16,10 @@ import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.search.SearchType;
 import org.elasticsearch.common.joda.time.DateTime;
 import org.elasticsearch.index.query.BoolFilterBuilder;
-import org.elasticsearch.index.query.FilterBuilders;
+import org.elasticsearch.search.aggregations.AbstractAggregationBuilder;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
 import org.elasticsearch.search.aggregations.Aggregations;
+import org.elasticsearch.search.aggregations.bucket.filter.Filter;
 import org.elasticsearch.search.aggregations.bucket.terms.Terms;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,6 +42,7 @@ import java.util.List;
 import java.util.Map;
 
 import static com.techlooper.model.ChallengePhaseEnum.*;
+import static org.elasticsearch.index.query.FilterBuilders.*;
 import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
@@ -89,22 +92,28 @@ public class ChallengeSubmissionServiceImpl implements ChallengeSubmissionServic
     private String techlooperReplyTo;
 
     public ChallengeSubmissionEntity submitMyResult(ChallengeSubmissionDto challengeSubmissionDto) {
-        ChallengeDto challengeDto = challengeService.findChallengeById(
-                challengeSubmissionDto.getChallengeId(), challengeSubmissionDto.getRegistrantEmail());
-        ChallengeRegistrantEntity registrant = challengeService.findRegistrantByChallengeIdAndEmail(
-                challengeSubmissionDto.getChallengeId(), challengeSubmissionDto.getRegistrantEmail());
+        final Long challengeId = challengeSubmissionDto.getChallengeId();
+        final String registrantEmail = challengeSubmissionDto.getRegistrantEmail();
+        ChallengeDto challengeDto = challengeService.findChallengeById(challengeId, registrantEmail);
+        ChallengeRegistrantEntity registrant = challengeService.findRegistrantByChallengeIdAndEmail(challengeId, registrantEmail);
+
+        // In case user submits their works but didn't join challenge yet, we should register him first
         if (registrant == null) {
             registrant = challengeService.joinChallengeEntity(dozerMapper.map(challengeSubmissionDto, ChallengeRegistrantDto.class));
         }
+
+        final Long registrantId = registrant.getRegistrantId();
         ChallengePhaseEnum activePhase = registrant.getActivePhase() == null ? ChallengePhaseEnum.REGISTRATION : registrant.getActivePhase();
 
         ChallengeSubmissionEntity challengeSubmissionEntity = dozerMapper.map(challengeSubmissionDto, ChallengeSubmissionEntity.class);
         ChallengeSubmissionEntityBuilder.challengeSubmissionEntity(challengeSubmissionEntity)
                 .withChallengeSubmissionId(DateTime.now().getMillis())
-                .withRegistrantId(registrant.getRegistrantId())
+                .withRegistrantId(registrantId)
                 .withRegistrantName(String.format("%s %s", registrant.getRegistrantFirstName(), registrant.getRegistrantLastName()))
                 .withSubmissionDateTime(DateTimeUtils.currentDate())
-                .withSubmissionPhase(activePhase);
+                .withSubmissionPhase(activePhase)
+                .withIsRead(Boolean.FALSE);
+
         try {
             sendConfirmationEmailToRegistrant(challengeDto, registrant, challengeSubmissionEntity);
         } catch (Exception e) {
@@ -143,16 +152,28 @@ public class ChallengeSubmissionServiceImpl implements ChallengeSubmissionServic
     }
 
     @Override
-    public Map<ChallengePhaseEnum, ChallengeSubmissionPhaseItem> countNumberOfSubmissionsByPhase(Long challengeId) {
+    public Map<ChallengePhaseEnum, ChallengeSubmissionPhaseItem> countNumberOfSubmissionsByPhase(
+            Long challengeId, Boolean isRead) {
         Map<ChallengePhaseEnum, ChallengeSubmissionPhaseItem> numberOfSubmissionsByPhase = new HashMap<>();
-
         NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withIndices("techlooper")
                 .withTypes("challengeSubmission").withSearchType(SearchType.COUNT);
         searchQueryBuilder.withQuery(termQuery("challengeId", challengeId));
-        searchQueryBuilder.addAggregation(AggregationBuilders.terms("sumOfSubmissions").field("submissionPhase"));
+
+        AbstractAggregationBuilder aggregationBuilder = AggregationBuilders.terms("sumOfSubmissions").field("submissionPhase");
+        if (isRead != null) {
+            aggregationBuilder = AggregationBuilders.filter("filterByReadOrUnread").filter(termFilter("isRead", isRead))
+                    .subAggregation(AggregationBuilders.terms("sumOfSubmissions").field("submissionPhase"));
+        }
+
+        searchQueryBuilder.addAggregation(aggregationBuilder);
         Aggregations aggregations = elasticsearchTemplate.query(searchQueryBuilder.build(), SearchResponse::getAggregations);
 
         Terms terms = aggregations.get("sumOfSubmissions");
+        if (isRead != null) {
+            Filter filter = aggregations.get("filterByReadOrUnread");
+            terms = filter.getAggregations().get("sumOfSubmissions");
+        }
+
         for (ChallengePhaseEnum phaseEnum : CHALLENGE_PHASES) {
             Terms.Bucket bucket = terms.getBucketByKey(phaseEnum.getValue());
             if (bucket != null) {
@@ -167,10 +188,10 @@ public class ChallengeSubmissionServiceImpl implements ChallengeSubmissionServic
             }
 
             // in case of submission phases is empty (previous releases), we should count them as REGISTRATION phase
-            if (phaseEnum == REGISTRATION) {
-                BoolFilterBuilder boolFilterBuilder = FilterBuilders.boolFilter();
-                boolFilterBuilder.must(FilterBuilders.termFilter("challengeId", challengeId));
-                boolFilterBuilder.must(FilterBuilders.missingFilter("submissionPhase"));
+            if (phaseEnum == REGISTRATION && isRead == null) {
+                BoolFilterBuilder boolFilterBuilder = boolFilter();
+                boolFilterBuilder.must(termFilter("challengeId", challengeId));
+                boolFilterBuilder.must(missingFilter("submissionPhase"));
                 searchQueryBuilder.withQuery(filteredQuery(matchAllQuery(), boolFilterBuilder));
                 long registrationSubmissionPhase = elasticsearchTemplate.count(searchQueryBuilder.build());
                 ChallengeSubmissionPhaseItem registrationPhaseItem = numberOfSubmissionsByPhase.get(phaseEnum);
@@ -181,5 +202,32 @@ public class ChallengeSubmissionServiceImpl implements ChallengeSubmissionServic
             }
         }
         return numberOfSubmissionsByPhase;
+    }
+
+    @Override
+    public void markChallengeSubmissionAsRead(ChallengeSubmissionDto challengeSubmissionDto) {
+        ChallengeSubmissionEntity challengeSubmissionEntity =
+                challengeSubmissionRepository.findOne(challengeSubmissionDto.getChallengeSubmissionId());
+        if (challengeSubmissionEntity != null) {
+            challengeSubmissionEntity.setIsRead(challengeSubmissionDto.getIsRead());
+            challengeSubmissionRepository.save(challengeSubmissionEntity);
+        }
+    }
+
+    @Override
+    public ChallengeSubmissionEntity findChallengeSubmissionByRegistrantPhase(Long registrantId, ChallengePhaseEnum phase) {
+        NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withTypes("challengeSubmission");
+
+        searchQueryBuilder.withQuery(filteredQuery(matchAllQuery(), boolFilter()
+                .must(termFilter("registrantId", registrantId))
+                .must(termFilter("submissionPhase", phase))));
+
+        List<ChallengeSubmissionEntity> submissionEntities = DataUtils.getAllEntities(
+                challengeSubmissionRepository, searchQueryBuilder);
+
+        if (!submissionEntities.isEmpty()) {
+            return submissionEntities.get(0);
+        }
+        return null;
     }
 }

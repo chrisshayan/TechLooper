@@ -14,6 +14,9 @@ public interface ChallengeSubmissionService {
 
     ChallengeSubmissionEntity submitMyResult(ChallengeSubmissionDto challengeSubmissionDto);
 
-    Map<ChallengePhaseEnum, ChallengeSubmissionPhaseItem> countNumberOfSubmissionsByPhase(Long challengeId);
+    Map<ChallengePhaseEnum, ChallengeSubmissionPhaseItem> countNumberOfSubmissionsByPhase(Long challengeId, Boolean isRead);
 
+    void markChallengeSubmissionAsRead(ChallengeSubmissionDto challengeSubmissionDto);
+
+    ChallengeSubmissionEntity findChallengeSubmissionByRegistrantPhase(Long registrantId, ChallengePhaseEnum phase);
 }

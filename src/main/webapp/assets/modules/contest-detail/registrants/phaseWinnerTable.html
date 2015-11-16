@@ -1,0 +1,112 @@
+<div class="phase-description">
+  <p translate="winnerDes"></p>
+  <div class="announcement-winner">
+    <button translate="announceWinnerToAllContestants" class="btn btn-primary btn-flat"
+            ng-class="{disabled: !contestDetail.winners.length}"
+            ng-disabled="!contestDetail.winners.length"
+            data-toggle="modal" data-target="#emailCompose"></button>
+  </div>
+</div>
+<div class="participant-list">
+  <table class="contests-table">
+    <thead>
+    <tr>
+      <th>
+        <div class="registrants-challenge-list">
+          <div class="registrant-order">#</div>
+          <div class="registrant-name" translate="fullNameField"></div>
+          <div class="prize-col">
+            <p translate="prize"></p>
+            <div class="prize"
+                 ng-class="{'one': contestDetail.secondPlaceReward == null && contestDetail.thirdPlaceReward == null, 'two': contestDetail.secondPlaceReward != null && contestDetail.thirdPlaceReward == null}">
+              <span class="gold">${{contestDetail.firstPlaceReward | number:0}}</span>
+            </div>
+            <div class="prize" ng-show="contestDetail.secondPlaceReward != null"
+                 ng-class="{two: contestDetail.thirdPlaceReward == null}">
+              <span class="silver">${{contestDetail.secondPlaceReward | number:0}}</span>
+            </div>
+            <div class="prize" ng-show="contestDetail.thirdPlaceReward != null">
+              <span class="bronze">${{contestDetail.thirdPlaceReward | number:0}}</span>
+            </div>
+          </div>
+          <div class="registration-submission">
+              <span class="name-col" ng-click="contestDetail.$sort.bySubmissionCount()">
+            {{'submissions' | translate}}
+            <i class="fa fa-chevron-circle-up" ng-show="contestDetail.$sort.type.isSubmissionCountTypeAsc == true"></i>
+            <i class="fa fa-chevron-circle-down" ng-show="contestDetail.$sort.type.isSubmissionCountTypeAsc == false"></i>
+          </span>
+              <span class="unreadFilter" ng-model="unreadSubmission"
+                    ng-click="unreadSubmission=!unreadSubmission; contestDetail.$filter.byReadOrUnreadSubmission(unreadSubmission)"
+                    ng-class="{checked: unreadSubmission}" title="{{(unreadSubmission ? 'readTip': 'unreadTip') | translate}}">
+            <i class="fa fa-check-square-o"></i>
+            <i class="fa fa-square-o"></i>
+              {{'unread' | translate}}
+            </span>
+          </div>
+          <div class="registration-score" ng-click="contestDetail.$sort.byTotalPoint()">
+            {{'score' | translate}}
+            <i class="fa fa-chevron-circle-up" ng-show="contestDetail.$sort.type.isTotalPointTypeAsc == true"></i>
+            <i class="fa fa-chevron-circle-down" ng-show="contestDetail.$sort.type.isTotalPointTypeAsc == false"></i>
+          </div>
+          <div class="registration-action" translate="feedback"></div>
+        </div>
+      </th>
+    </tr>
+    </thead>
+  <tbody>
+  <tr ng-show="contestDetail.$filter.registrants.length == 0" class="no-data-found">
+    <td>
+      <p translate="noData"></p>
+    </td>
+  </tr>
+  <tr dir-paginate="registrant in contestDetail.$filter.registrants | itemsPerPage:10" pagination-id="contestDetail.selectedPhaseItem.phase">
+      <td>
+        <div class="registrants-challenge-list">
+          <div class="registrant-order">{{registrant.$index + 1}}</div>
+          <div class="registrant-name">{{registrant.fullName}}</div>
+          <div class="prize-col">
+            <div class="label-col" translate="prize"></div>
+            <div class="prize"
+                 ng-class="{'one': contestDetail.secondPlaceReward == null && contestDetail.thirdPlaceReward == null,
+                 'two': contestDetail.secondPlaceReward != null && contestDetail.thirdPlaceReward == null}">
+              <input ng-click="contestDetail.save1stWinner(registrant)" ng-model="registrant.firstAwarded" type="checkbox"/>
+            </div>
+            <div class="prize" ng-show="contestDetail.secondPlaceReward != null"
+                 ng-class="{'one': contestDetail.secondPlaceReward == null && contestDetail.thirdPlaceReward == null,
+                 'two': contestDetail.secondPlaceReward != null && contestDetail.thirdPlaceReward == null}">
+              <input ng-click="contestDetail.save2ndWinner(registrant)" ng-model="registrant.secondAwarded" type="checkbox"/>
+            </div>
+            <div class="prize" ng-show="contestDetail.thirdPlaceReward != null"
+                 ng-class="{'one': contestDetail.secondPlaceReward == null && contestDetail.thirdPlaceReward == null,
+                 'two': contestDetail.secondPlaceReward != null && contestDetail.thirdPlaceReward == null}">
+              <input ng-click="contestDetail.save3rdWinner(registrant)" ng-model="registrant.thirdAwarded" type="checkbox"/>
+            </div>
+          </div>
+          <div class="registration-submission">
+            <a ng-click="registrant.showReviewSubmission()"
+               ng-class="{unread: registrant.$unreadSubmissions.length > 0}"
+               title="{{'submissionsReviewTip' | translate}}">{{registrant.submissions.length || 0}}</a>
+          </div>
+          <div class="registration-score">
+            <a ng-click="registrant.showScore()">{{registrant.savedTotalPoint}}</a>
+          </div>
+          <div class="registration-action">
+            <a ng-click="registrant.showFeedback()">{{'feedback' | translate}}</a>
+          </div>
+        </div>
+        <contest-detail-action registrant="registrant" challenge="contestDetail"></contest-detail-action>
+      </td>
+    </tr>
+  </tbody>
+</table>
+  <div class="registrants-paging">
+    <span translate="contestantsReturned" translate-value-number="{{contestDetail.$filter.registrants.length}}" ng-show="contestDetail.$filter.registrants.length > 0"></span>
+    <dir-pagination-controls
+        pagination-id="contestDetail.selectedPhaseItem.phase"
+        max-size="10"
+        direction-links="true"
+        boundary-links="true">
+    </dir-pagination-controls>
+  </div>
+</div>
+<popup-email registrants="contestDetail.$registrants"></popup-email>

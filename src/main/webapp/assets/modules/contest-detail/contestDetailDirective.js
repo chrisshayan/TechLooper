@@ -1,4 +1,34 @@
 techlooper
+  .directive('contentDetailsTab', function () {
+    return {
+      restrict: "E",
+      replace: true,
+      templateUrl: "modules/contest-detail/details/contentTab.html",
+      link: function (scope, element, attr, ctrl) {
+        scope.$on("challenge-criteria-saved", function (e, criteria) {
+          scope.$eventName = "challenge-criteria-saved";
+        });
+      }
+    };
+  })
+  .directive('contentRegistrantsTab', function () {
+    return {
+      restrict: "E",
+      replace: true,
+      templateUrl: "modules/contest-detail/registrants/contentTab.html",
+      link: function (scope, element, attr, ctrl) {
+      }
+    };
+  })
+  .directive('contentEvaluationCriteriaTab', function () {
+    return {
+      restrict: "E",
+      replace: true,
+      templateUrl: "modules/contest-detail/evaluation-criteria/contentTab.html",
+      link: function (scope, element, attr, ctrl) {
+      }
+    };
+  })
   .directive("contestDetailAction", function ($rootScope, apiService, paginationService, utils, jsonValue) {
     return {
       restrict: "E",
@@ -9,7 +39,7 @@ techlooper
         challenge: "="
       },
       link: function (scope, element, attr, ctrl) {
-        scope.nextPhase = '';
+        //scope.nextPhase = '';
         var showView = function (view) {
           if ($rootScope.$eval("lastRegistrant.visible")) {
             delete $rootScope.lastRegistrant.visible;
@@ -44,55 +74,54 @@ techlooper
           showView("acceptance");
         }
 
-        scope.$on("$destroy", function () {
-          if ($rootScope.lastRegistrant) delete $rootScope.lastRegistrant;
-        });
+        //scope.$on("$destroy", function () {
+        //  if ($rootScope.lastRegistrant) delete $rootScope.lastRegistrant;
+        //});
 
-        scope.registrant.qualify = function () {
-          utils.sendNotification(jsonValue.notifications.loading);
-          delete scope.registrant.disqualified;
-          delete scope.registrant.disqualifiedReason;
-          apiService.acceptChallengeRegistrant(scope.registrant.registrantId, scope.registrant.ableAcceptedPhase)
-            .success(function (registrant) {
-              scope.registrant.qualified = true;
-              $rootScope.$broadcast("update-funnel", registrant);
-            });
+        //scope.registrant.qualify = function () {
+        //  //utils.sendNotification(jsonValue.notifications.loading);
+        //  delete scope.registrant.disqualified;
+        //  delete scope.registrant.disqualifiedReason;
+        //  apiService.acceptChallengeRegistrant(scope.registrant.registrantId, scope.registrant.ableAcceptedPhase)
+        //    .success(function (registrant) {
+        //      scope.registrant.qualified = true;
+        //      //$rootScope.$broadcast("update-funnel", registrant);
+        //    });
+        //
+        //  delete scope.registrant.visible;
+        //  //utils.sendNotification(jsonValue.notifications.loaded);
+        //};
 
-          delete scope.registrant.visible;
-          utils.sendNotification(jsonValue.notifications.loaded);
-        };
+        //scope.registrant.disqualify = function () {
+        //  scope.registrant.disqualified = true;
+        //  apiService.saveChallengeRegistrant(scope.registrant)
+        //    .success(function (rt) {
+        //      scope.registrant.qualified = false;
+        //      scope.registrant.disqualifiedReason = rt.disqualifiedReason;
+        //    });
+        //
+        //  delete scope.registrant.visible;
+        //};
 
-        scope.registrant.disqualify = function () {
-          scope.registrant.disqualified = true;
-          apiService.saveChallengeRegistrant(scope.registrant)
-            .success(function (rt) {
-              scope.registrant.qualified = false;
-              scope.registrant.disqualifiedReason = rt.disqualifiedReason;
-            });
-
-          delete scope.registrant.visible;
-        };
-
-        scope.registrant.score = function () {
-          //apiService.acceptChallengeRegistrant(scope.registrant.registrantId)
-          //    .success(function(registrant) {
-          //      scope.registrant.activePhase = registrant.activePhase;
-          //    });
-          delete scope.registrant.visible;
-        };
+        //scope.registrant.score = function () {
+        //  //apiService.acceptChallengeRegistrant(scope.registrant.registrantId)
+        //  //    .success(function(registrant) {
+        //  //      scope.registrant.activePhase = registrant.activePhase;
+        //  //    });
+        //  delete scope.registrant.visible;
+        //};
 
         scope.registrant.hide = function () {
           if (!scope.registrant.visible) return;
           delete scope.registrant.visible;
         };
-
-        scope.registrant.accept = function () {
-          apiService.acceptChallengeRegistrant(scope.registrant.registrantId)
-            .success(function (registrant) {
-              scope.registrant.activePhase = registrant.activePhase;
-            });
-          delete scope.registrant.visible;
-        };
+        //scope.registrant.accept = function () {
+        //  apiService.acceptChallengeRegistrant(scope.registrant.registrantId)
+        //    .success(function (registrant) {
+        //      scope.registrant.activePhase = registrant.activePhase;
+        //    });
+        //  delete scope.registrant.visible;
+        //};
 
         //scope.$watch(function () {
         //  return paginationService.getCurrentPage("__default");
@@ -100,52 +129,60 @@ techlooper
         //  scope.registrant.hide();
         //});
 
-        scope.$on("success-submission-challenge", function (sc, submission) {
-          if (scope.registrant.registrantId != submission.registrantId) return;
-          scope.registrant.acceptSubmission(submission);
-        });
+        //scope.$on("submission-accepted", function (sc, submission) {
+        //  if (scope.registrant.registrantId != submission.registrantId) return;
+        //  scope.registrant.acceptSubmission(submission);
+        //});
+        scope.$on("registrant-qualified", function (sc, submission) {scope.registrant.hide();});
 
-        utils.sortByNumber(scope.registrant.submissions, "challengeSubmissionId");
+        //utils.sortByNumber(scope.registrant.submissions, "challengeSubmissionId");
       }
     };
   })
-    .directive('tabManagerContestDetail', function () {
-      return {
-        restrict: "E",
-        replace: true,
-        templateUrl: "modules/contest-detail/tabManager.html",
-        link: function (scope, element, attr, ctrl) {
-        }
-      };
-    })
-    .directive('funnelManager', function () {
-      return {
-        restrict: "E",
-        replace: true,
-        templateUrl: "modules/contest-detail/funnelManager.html",
-        link: function (scope, element, attr, ctrl) {
-        }
-      };
-    })
-    .directive('contestContentDetails', function () {
-      return {
-        restrict: "E",
-        replace: true,
-        templateUrl: "modules/contest-detail/contestContentDetails.html",
-        link: function (scope, element, attr, ctrl) {
-        }
-      };
-    })
-    .directive('registrantList', function () {
-      return {
-        restrict: "E",
-        replace: true,
-        templateUrl: "modules/contest-detail/registrants.html",
-        link: function (scope, element, attr, ctrl) {
-        }
-      };
-    })
-  .directive('contestDetailReviewSubmission', function () {
+  .directive('tabManagerContestDetail', function (localStorageService, $location) {
+    return {
+      restrict: "E",
+      replace: true,
+      templateUrl: "modules/contest-detail/tabManager.html",
+      link: function (scope, element, attr, ctrl) {
+        scope.$on("challenge-detail-ready", function () {
+          var params = $location.search();
+          var showTabRegistrant = (params.a == "registrants") || (params.toPhase != undefined);
+          if (showTabRegistrant == true) {
+            $("a[href='.registrants']").tab('show');
+          }
+        });
+      }
+    };
+  })
+  .directive('funnelManager', function () {
+    return {
+      restrict: "E",
+      replace: true,
+      templateUrl: "modules/contest-detail/funnelManager.html",
+      link: function (scope, element, attr, ctrl) {
+      }
+    };
+  })
+  .directive('contestContentDetails', function () {
+    return {
+      restrict: "E",
+      replace: true,
+      templateUrl: "modules/contest-detail/contestContentDetails.html",
+      link: function (scope, element, attr, ctrl) {
+      }
+    };
+  })
+  .directive('registrantList', function () {
+    return {
+      restrict: "E",
+      replace: true,
+      templateUrl: "modules/contest-detail/registrants.html",
+      link: function (scope, element, attr, ctrl) {
+      }
+    };
+  })
+  .directive('contestDetailReviewSubmission', function (apiService) {
     return {
       restrict: "E",
       replace: true,
@@ -155,6 +192,10 @@ techlooper
           var url = (link.indexOf("https://") >= 0 || link.indexOf("http://") >= 0) ? link : "http://" + link;
           window.open(url, '_newtab');
         }
+        //scope.saveReadSubmission = function (submission, isRead) {
+        //  apiService.readSubmission(submission.challengeId, submission.challengeSubmissionId, isRead)
+        //    .success(function (data) {});
+        //}
       }
     };
   })

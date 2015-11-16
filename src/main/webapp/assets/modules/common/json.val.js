@@ -316,6 +316,8 @@ techlooper.factory("jsonValue", function () {
         name: "challengeDetail",
         url: "/challenge-detail",
         regex: /\/challenge-detail\//i,
+        requireEmployerByParams: ["toPhase", "a"],
+        loginUrl: "/login",
         type: "SEO"
       },
       {
@@ -1010,6 +1012,10 @@ techlooper.factory("jsonValue", function () {
       closed: {id: "closed", translate: "closed", timeLeftTranslate: "moreDayToClosed"}
     },
 
+    feedbackStatus: {
+      cannotSendMail: {id: "cannotSendMail", translate: "cannotSendMail"},
+      errorSystem: {id: "errorSystem", translate: "errorSystem"}
+    },
     "crawlSources": [
       {id: "vietnamworks", name: "VIETNAMWORKS"},
       {id: "careerbuilder-jobs-api-pagination", name: "CAREERBUILDER"},
@@ -1029,25 +1035,49 @@ techlooper.factory("jsonValue", function () {
     //@see com.techlooper.model.ChallengePhaseEnum
     challengePhase: {
       values: [
-        {enum: "REGISTRATION", challengeProp: "registrationDateTime"},
-        {enum: "IDEA", challengeProp: "ideaSubmissionDateTime"},
-        {enum: "UIUX", challengeProp: "uxSubmissionDateTime"},
-        {enum: "PROTOTYPE", challengeProp: "prototypeSubmissionDateTime"},
-        {enum: "FINAL", challengeProp: "submissionDateTime"},
-        {enum: "WINNER"}
-      ],
-
-      getRegistration: function () {return instance.challengePhase.values[0];},
-      getLastPhase: function () {return instance.challengePhase.values[4];},
-
-      getEnum: function (name) {
-        var found = undefined;
-        $.each(instance.challengePhase.values, function (i, value) {
-          found = (value.enum == name) ? value : undefined;
-          return !found;
-        });
-        return found;
-      }
+        {
+          enum: "REGISTRATION",
+          challengeProp: "registrationDateTime",
+          phaseItem: {translate: {countJoiner: "registrantsNumberPhase", countSubmission: "submissionsNumber", countUnread: "unReadNumber"}},
+          registrantTable: {templateUrl: "modules/contest-detail/registrants/phaseRegistrationTable.html"},
+          isRegistration: true
+        },
+        {
+          enum: "IDEA",
+          challengeProp: "ideaSubmissionDateTime",
+          phaseItem: {translate: {countJoiner: "participantsNumber", countSubmission: "submissionsNumber", countUnread: "unReadNumber"}},
+          registrantTable: {templateUrl: "modules/contest-detail/registrants/phaseIdeaTable.html"},
+          isIdea: true
+        },
+        {
+          enum: "UIUX",
+          challengeProp: "uxSubmissionDateTime",
+          phaseItem: {translate: {countJoiner: "participantsNumber", countSubmission: "submissionsNumber", countUnread: "unReadNumber"}},
+          registrantTable: {templateUrl: "modules/contest-detail/registrants/phaseIdeaTable.html"},
+          isUiux: true
+        },
+        {
+          enum: "PROTOTYPE",
+          challengeProp: "prototypeSubmissionDateTime",
+          phaseItem: {translate: {countJoiner: "participantsNumber", countSubmission: "submissionsNumber", countUnread: "unReadNumber"}},
+          registrantTable: {templateUrl: "modules/contest-detail/registrants/phaseIdeaTable.html"},
+          isPrototype: true
+        },
+        {
+          enum: "FINAL",
+          challengeProp: "submissionDateTime",
+          phaseItem: {translate: {countJoiner: "participantsNumber", countSubmission: "submissionsNumber", countUnread: "unReadNumber"}},
+          registrantTable: {templateUrl: "modules/contest-detail/registrants/phaseFinalTable.html"},
+          isFinal: true
+        },
+        {
+          enum: "WINNER",
+          phaseItem: {translate: {countJoiner: "finalistNumber", countSubmission: "winnersNumber", countUnread: "unReadNumber"}},
+          registrantTable: {templateUrl: "modules/contest-detail/registrants/phaseWinnerTable.html"},
+          isSpecial: true,
+          isWinner: true
+        }
+      ]
     },
 
     summerNoteConfig: {

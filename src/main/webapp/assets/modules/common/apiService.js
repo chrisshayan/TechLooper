@@ -270,6 +270,13 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
     },
 
     /**
+     * @see com.techlooper.controller.UserController.rejectChallengeRegistrant
+     * */
+    rejectChallengeRegistrant: function (registrantId, reason) {
+      return $http.post("user/challenge/reject/", {registrantId: registrantId, reason: reason});
+    },
+
+    /**
      * @see com.techlooper.controller.ChallengeSubmissionController.submitMyResult
      * */
     submitMyResult: function (submission) {
@@ -354,6 +361,25 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
         registrantId: registrantId,
         reward: reward,
         removable: removable
+      });
+    },
+
+    readSubmission: function (challengeId, challengeSubmissionId, isRead) {
+      return $http.post("user/challengeSubmission/markAsRead", {
+        challengeId: challengeId,
+        challengeSubmissionId: challengeSubmissionId,
+        isRead: isRead
+      });
+    },
+
+    /**
+     * @see com.techlooper.controller.UserController.qualifyAllRegistrants
+     * */
+    qualifyAllToNextPhase: function (challengeId, nextPhase, registrantIds) {
+      return $http.post("user/challenge/qualifyAllRegistrants", {
+        challengeId: challengeId,
+        nextPhase: nextPhase,
+        registrantIds: registrantIds
       });
     }
   };

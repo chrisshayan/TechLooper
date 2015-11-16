@@ -1,7 +1,10 @@
 <div class="tab-manager">
   <ul class="nav nav-tabs contest-content-tab">
-    <li class="active"><a data-toggle="tab" href=".detail" translate="detail"></a></li>
-    <li ng-show="contestDetail.isAuthor"><a data-toggle="tab" href=".registrants" ng-click="resetActivePhase()">{{'registrants' | translate}}
+    <li class="active">
+      <a data-toggle="tab" href=".detail" translate="detail" ng-click="submissionForm.hideSubmitForm()"></a>
+    </li>
+    <li ng-show="contestDetail.isAuthor && contestDetail.progress.translate != 'notStart'">
+      <a data-toggle="tab" href=".registrants" ng-click="refreshChallengeDetail()">{{'registrants' | translate}}
       ({{contestDetail.numberOfRegistrants}})</a></li>
     <li ng-show="contestDetail.isAuthor">
       <a data-toggle="tab" href=".evaluation-criteria" translate="evaluationCriteria"></a>

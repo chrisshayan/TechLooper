@@ -1,4 +1,4 @@
-<div class="submit-phase-contest show" ng-show="challenge.visibleSubmitForm">
+<div class="submit-phase-contest show" ng-show="visibleSubmitForm">
   <ng-form name="submissionForm" autocomplete="off">
     <div class="registrant-name">
       <span translate="fullName"></span>
@@ -40,7 +40,7 @@
     </div>
     <div class="phase-submission">
       <button translate="submit" class="btn btn-primary btn-flat" ng-click="pushChallengePhase()"></button>
-      <button translate="cancel" class="btn btn-primary btn-flat" ng-click="challenge.hideSubmitForm()"></button>
+      <button translate="cancel" class="btn btn-primary btn-flat" ng-click="form.hideSubmitForm()"></button>
     </div>
   </ng-form>
   <div class="feedback-loading"></div>

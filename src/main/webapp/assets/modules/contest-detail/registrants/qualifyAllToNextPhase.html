@@ -1,0 +1,37 @@
+<div class="qualify-all-to-next-phase">
+  <p translate="qualifyAllToNextPhaseTip" translate-value-active-phase="{{contestDetail.selectedPhaseItem.phaseLowerCase}}"
+     translate-value-next-phase="{{contestDetail.$rgtNextPhaseItem.phaseLowerCase}}"></p>
+  <ul>
+    <li>
+      <label>
+        <input type="radio" name="radNextPhase"
+               ng-checked="contestDetail.$filter.qualifyRegistrantsType.isHavingReadSubmission"
+               ng-click="contestDetail.$filter.byNotQualifiedAndHavingReadSubmissions()"/>
+        <span translate="havingAllSubmissionsRead"></span>
+      </label>
+    </li>
+
+    <li>
+      <label>
+        <input type="radio" name="radNextPhase"
+               ng-checked="contestDetail.$filter.qualifyRegistrantsType.isHavingSubmission"
+               ng-click="contestDetail.$filter.byNotQualifiedAndHavingSubmissions()"/>
+        <span translate="havingSubmissions"></span>
+      </label>
+    </li>
+
+    <li>
+      <label>
+        <input type="radio" name="radNextPhase"
+               ng-checked="contestDetail.$filter.qualifyRegistrantsType.isNotQualified"
+               ng-click="contestDetail.$filter.byNotQualified()"/>
+        <span translate="regardlessOfHavingSubmissions"></span>
+      </label>
+    </li>
+
+  </ul>
+  <div class="submission-qualify-all-to-next-phase">
+    <a ng-click="qualifyRegistrants()" translate="yes" class="btn btn-primary btn-flat"></a>
+    <a translate="no" ng-click="hideQualifyAllForm()" class="btn btn-primary btn-flat gray"></a>
+  </div>
+</div>
