@@ -30,11 +30,11 @@
           </span>
           <span class="unreadFilter" ng-model="unreadSubmission"
                 ng-click="unreadSubmission=!unreadSubmission; contestDetail.$filter.byReadOrUnreadSubmission(unreadSubmission)"
-                ng-class="{checked: unreadSubmission}" title="{{(unreadSubmission ? 'unreadTip': 'readTip') | translate}}">
-            <i class="fa fa-circle"></i>
-            <i class="fa fa-circle-thin"></i>
-            {{'unread' | translate}}
-          </span>
+                ng-class="{checked: unreadSubmission}" title="{{(unreadSubmission ? 'readTip': 'unreadTip') | translate}}">
+            <i class="fa fa-check-square-o"></i>
+            <i class="fa fa-square-o"></i>
+              {{'unread' | translate}}
+            </span>
         </div>
         <div class="registration-review" translate="qualifiedNextPhase"></div>
         <div class="registration-action" translate="feedback"></div>
