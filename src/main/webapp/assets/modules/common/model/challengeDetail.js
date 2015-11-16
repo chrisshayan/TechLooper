@@ -355,6 +355,7 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
 
     challengeDetail.acceptRegistrants = function () {
       var registrantIds = _.map(challengeDetail.$filter.qualifyRegistrants, function (rgt) {return rgt.registrantId;});
+      console.log(registrantIds);
       if (registrantIds.length == 0) return;
       apiService.qualifyAllToNextPhase(challengeDetail.challengeId, challengeDetail.$rgtNextPhaseItem.phase, registrantIds)
         .success(function (registrants) {
