@@ -163,8 +163,9 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonV
       if (!_.findWhere(registrant.submissions, submission)) {
         registrant.submissions.unshift(submission);
         registrant.recalculateSubmissions();
-        registrant.$challengeDetail.incSubmissionCount(submission);
-        registrant.$challengeDetail.recalculateRegistrants();
+        //registrant.$challengeDetail.incSubmissionCount(submission);
+        registrant.$challengeDetail.refreshFunnelItems(registrant);
+        //registrant.$challengeDetail.recalculateRegistrants();
       }
     }
 
@@ -182,7 +183,8 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonV
           registrant.activePhase = rt.activePhase ? rt.activePhase : "REGISTRATION";
           registrant.disqualified = false;
           registrant.disqualifiedReason = rt.disqualifiedReason;
-          registrant.$challengeDetail.incParticipantCount(registrant);
+          //registrant.$challengeDetail.incParticipantCount(registrant);
+          registrant.$challengeDetail.refreshFunnelItems(registrant);
           $rootScope.$broadcast("registrant-qualified", registrant);
         });
 
@@ -195,6 +197,7 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonV
         .success(function () {
           submission.isRead = !submission.isRead;
           registrant.recalculateSubmissions();
+          //registrant.$challengeDetail.refreshFunnelItems(registrant);
           registrant.$challengeDetail.incUnreadSubmissionCount(submission);
           //registrant.$challengeDetail.recalculateUnreadSubmissionRegistrant(registrant);
         });
@@ -207,8 +210,9 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonV
           registrant.activePhase = rt.activePhase ? rt.activePhase : "REGISTRATION";
           registrant.disqualified = rt.disqualified;
           registrant.disqualifiedReason = rt.disqualifiedReason;
-          registrant.$challengeDetail.incParticipantCount(registrant);
-          registrant.$challengeDetail.recalculateHadRegistrant();
+          //registrant.$challengeDetail.incParticipantCount(registrant);
+          registrant.$challengeDetail.refreshFunnelItems(registrant);
+          //registrant.$challengeDetail.recalculateHadRegistrant();
           $rootScope.$broadcast("registrant-qualified", registrant);
         });
 
