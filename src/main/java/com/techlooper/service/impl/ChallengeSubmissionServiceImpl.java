@@ -105,23 +105,14 @@ public class ChallengeSubmissionServiceImpl implements ChallengeSubmissionServic
         final Long registrantId = registrant.getRegistrantId();
         ChallengePhaseEnum activePhase = registrant.getActivePhase() == null ? ChallengePhaseEnum.REGISTRATION : registrant.getActivePhase();
 
-        ChallengeSubmissionEntity challengeSubmissionEntity = findChallengeSubmissionByRegistrantPhase(registrantId, activePhase);
-        if (challengeSubmissionEntity != null) {
-            ChallengeSubmissionEntityBuilder.challengeSubmissionEntity(challengeSubmissionEntity)
-                    .withSubmissionURL(challengeSubmissionDto.getSubmissionURL())
-                    .withSubmissionDescription(challengeSubmissionDto.getSubmissionDescription())
-                    .withSubmissionDateTime(DateTimeUtils.currentDate())
-                    .withIsRead(Boolean.FALSE);
-        } else {
-            challengeSubmissionEntity = dozerMapper.map(challengeSubmissionDto, ChallengeSubmissionEntity.class);
-            ChallengeSubmissionEntityBuilder.challengeSubmissionEntity(challengeSubmissionEntity)
-                    .withChallengeSubmissionId(DateTime.now().getMillis())
-                    .withRegistrantId(registrantId)
-                    .withRegistrantName(String.format("%s %s", registrant.getRegistrantFirstName(), registrant.getRegistrantLastName()))
-                    .withSubmissionDateTime(DateTimeUtils.currentDate())
-                    .withSubmissionPhase(activePhase)
-                    .withIsRead(Boolean.FALSE);
-        }
+        ChallengeSubmissionEntity challengeSubmissionEntity = dozerMapper.map(challengeSubmissionDto, ChallengeSubmissionEntity.class);
+        ChallengeSubmissionEntityBuilder.challengeSubmissionEntity(challengeSubmissionEntity)
+                .withChallengeSubmissionId(DateTime.now().getMillis())
+                .withRegistrantId(registrantId)
+                .withRegistrantName(String.format("%s %s", registrant.getRegistrantFirstName(), registrant.getRegistrantLastName()))
+                .withSubmissionDateTime(DateTimeUtils.currentDate())
+                .withSubmissionPhase(activePhase)
+                .withIsRead(Boolean.FALSE);
 
         try {
             sendConfirmationEmailToRegistrant(challengeDto, registrant, challengeSubmissionEntity);
