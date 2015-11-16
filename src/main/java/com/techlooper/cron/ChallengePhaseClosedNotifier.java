@@ -4,8 +4,10 @@ import com.techlooper.entity.ChallengeEntity;
 import com.techlooper.model.ChallengePhaseEnum;
 import com.techlooper.model.EmailSentResultEnum;
 import com.techlooper.repository.elasticsearch.ChallengeRegistrantRepository;
+import com.techlooper.repository.elasticsearch.ChallengeRepository;
 import com.techlooper.service.ChallengeRegistrantService;
 import com.techlooper.service.ChallengeService;
+import com.techlooper.util.DataUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,10 +30,7 @@ public class ChallengePhaseClosedNotifier {
     private ChallengeService challengeService;
 
     @Resource
-    private ChallengeRegistrantService challengeRegistrantService;
-
-    @Resource
-    private ChallengeRegistrantRepository challengeRegistrantRepository;
+    private ChallengeRepository challengeRepository;
 
     @Value("${jobAlert.enable}")
     private Boolean enableJobAlert;
@@ -45,7 +44,9 @@ public class ChallengePhaseClosedNotifier {
             for (ChallengePhaseEnum currentPhase : challengePhases) {
                 List<ChallengeEntity> challengeEntities = challengeService.listChallengesByPhase(currentPhase);
 
+                Thread.sleep(DataUtils.getRandomNumberInRange(300000, 600000));
                 for (ChallengeEntity challengeEntity : challengeEntities) {
+                    challengeEntity = challengeRepository.findOne(challengeEntity.getChallengeId());
                     ChallengePhaseEnum oldPhase = getPreviousPhase(challengeEntity, currentPhase);
                     if (isClosedPhase(challengeEntity, oldPhase)) {
                         if (StringUtils.isEmpty(challengeEntity.getLastEmailSentDateTime())) {
