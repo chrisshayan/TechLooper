@@ -58,7 +58,9 @@
           <div class="registration-date">{{registrant.registrantId | timestamp: 'number'}}</div>
           <!--<div class="registration-submission">{{registrant.lastSubmission.submissionDateTime || '-'}}</div>-->
           <div class="registration-submission">
-            <a ng-click="registrant.showReviewSubmission()" title="{{'submissionsReviewTip' | translate}}">{{registrant.submissions.length || 0}}</a></div>
+            <a ng-click="registrant.showReviewSubmission()"
+               ng-class="{unread: registrant.$unreadSubmissions.length > 0}"
+               title="{{'submissionsReviewTip' | translate}}">{{registrant.submissions.length || 0}}</a></div>
           <div class="registration-review">
             <div ng-show="registrant.disqualified == undefined">
               <a title="{{'qualifyNextPhase' | translate}}" ng-click="registrant.showQualification()"><i class="fa fa-thumbs-up"></i></a>
