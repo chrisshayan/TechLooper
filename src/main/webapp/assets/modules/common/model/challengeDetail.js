@@ -297,6 +297,7 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
     challengeDetail.incParticipantCount = function (registrant) {
       var pi = _.findWhere(challengeDetail.phaseItems, {phase: registrant.activePhase});
       (registrant.disqualified == false) && pi.participant++;
+      console.log(pi);
       challengeDetail.recalculatePhaseItem(pi);
       //pi.countJoinerTitle = $filter("translate")(pi.$phaseConfig.phaseItem.translate.countJoiner, {number: pi.participant});
 

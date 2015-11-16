@@ -179,7 +179,7 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonV
       apiService.acceptChallengeRegistrant(registrant.registrantId, registrant.selectedPhaseItem.phase)
         .success(function (rt) {
           //registrant.qualified = !rt.disqualified;
-          registrant.activePhase = rt.activePhase;
+          registrant.activePhase = rt.activePhase ? rt.activePhase : "REGISTRATION";
           registrant.disqualified = false;
           registrant.disqualifiedReason = rt.disqualifiedReason;
           registrant.$challengeDetail.incParticipantCount(registrant);
@@ -204,7 +204,7 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonV
       registrant.disqualified = true;
       apiService.rejectChallengeRegistrant(registrant.registrantId, registrant.disqualifiedReason)
         .success(function (rt) {
-          registrant.activePhase = rt.activePhase;
+          registrant.activePhase = rt.activePhase ? rt.activePhase : "REGISTRATION";
           registrant.disqualified = rt.disqualified;
           registrant.disqualifiedReason = rt.disqualifiedReason;
           registrant.$challengeDetail.incParticipantCount(registrant);
