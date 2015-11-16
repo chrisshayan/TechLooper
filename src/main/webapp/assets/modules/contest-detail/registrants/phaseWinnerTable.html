@@ -37,11 +37,11 @@
           </span>
               <span class="unreadFilter" ng-model="unreadSubmission"
                     ng-click="unreadSubmission=!unreadSubmission; contestDetail.$filter.byReadOrUnreadSubmission(unreadSubmission)"
-                    ng-class="{checked: unreadSubmission}" title="{{(unreadSubmission ? 'unreadTip': 'readTip') | translate}}">
-            <i class="fa fa-circle"></i>
-            <i class="fa fa-circle-thin"></i>
-                {{'unread' | translate}}
-              </span>
+                    ng-class="{checked: unreadSubmission}" title="{{(unreadSubmission ? 'readTip': 'unreadTip') | translate}}">
+            <i class="fa fa-check-square-o"></i>
+            <i class="fa fa-square-o"></i>
+              {{'unread' | translate}}
+            </span>
           </div>
           <div class="registration-score" ng-click="contestDetail.$sort.byTotalPoint()">
             {{'score' | translate}}
@@ -83,7 +83,9 @@
             </div>
           </div>
           <div class="registration-submission">
-            <a ng-click="registrant.showReviewSubmission()" title="{{'submissionsReviewTip' | translate}}">{{registrant.submissions.length || 0}}</a>
+            <a ng-click="registrant.showReviewSubmission()"
+               ng-class="{unread: registrant.$unreadSubmissions.length > 0}"
+               title="{{'submissionsReviewTip' | translate}}">{{registrant.submissions.length || 0}}</a>
           </div>
           <div class="registration-score">
             <a ng-click="registrant.showScore()">{{registrant.savedTotalPoint}}</a>
