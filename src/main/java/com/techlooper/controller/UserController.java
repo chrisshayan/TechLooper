@@ -403,9 +403,9 @@ public class UserController {
     }
 
     @PreAuthorize("hasAuthority('EMPLOYER')")
-    @RequestMapping(value = "user/challenge/reject", method = RequestMethod.PUT)
-    public ChallengeRegistrantDto rejectChallengeRegistrant(HttpServletRequest request, @RequestBody ChallengeRegistrantDto registrantDto) {
-        return challengeService.rejectRegistrant(request.getRemoteUser(), registrantDto);
+    @RequestMapping(value = "user/challenge/reject", method = RequestMethod.POST)
+    public ChallengeRegistrantDto rejectChallengeRegistrant(HttpServletRequest request, @RequestBody RejectRegistrantDto rejectRegistrantDto) {
+        return challengeService.rejectRegistrant(request.getRemoteUser(), rejectRegistrantDto);
     }
 
     @PreAuthorize("hasAnyAuthority('EMPLOYER')")

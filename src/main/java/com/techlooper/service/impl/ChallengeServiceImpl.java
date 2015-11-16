@@ -2,6 +2,7 @@ package com.techlooper.service.impl;
 
 import com.techlooper.dto.ChallengeQualificationDto;
 import com.techlooper.dto.EmailSettingDto;
+import com.techlooper.dto.RejectRegistrantDto;
 import com.techlooper.entity.*;
 import com.techlooper.model.*;
 import com.techlooper.repository.elasticsearch.ChallengeRegistrantRepository;
@@ -1222,8 +1223,8 @@ public class ChallengeServiceImpl implements ChallengeService {
         return qualifiedRegistrants;
     }
 
-    public ChallengeRegistrantDto rejectRegistrant(String ownerEmail, ChallengeRegistrantDto registrantDto) {
-        Iterator<ChallengeRegistrantEntity> registrantIter = challengeRegistrantRepository.search(QueryBuilders.termQuery("registrantId", registrantDto.getRegistrantId())).iterator();
+    public ChallengeRegistrantDto rejectRegistrant(String ownerEmail, RejectRegistrantDto rejectRegistrantDto){
+        Iterator<ChallengeRegistrantEntity> registrantIter = challengeRegistrantRepository.search(QueryBuilders.termQuery("registrantId", rejectRegistrantDto.getRegistrantId())).iterator();
         if (!registrantIter.hasNext()) return null;
 
         ChallengeRegistrantEntity registrant = registrantIter.next();
@@ -1234,7 +1235,7 @@ public class ChallengeServiceImpl implements ChallengeService {
 
 //        ChallengeDetailDto challengeDetailDto = dozerMapper.map(challenge, ChallengeDetailDto.class);
         registrant.setDisqualified(Boolean.FALSE);
-        registrant.setDisqualifiedReason(registrantDto.getDisqualifiedReason());
+        registrant.setDisqualifiedReason(rejectRegistrantDto.getReason());
         registrant = challengeRegistrantRepository.save(registrant);
         return dozerMapper.map(registrant, ChallengeRegistrantDto.class);
     }

@@ -202,7 +202,7 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonV
 
     registrant.disqualify = function () {
       registrant.disqualified = true;
-      apiService.rejectChallengeRegistrant(registrant)
+      apiService.rejectChallengeRegistrant(registrant.registrantId, registrant.disqualifiedReason)
         .success(function (rt) {
           registrant.activePhase = rt.activePhase;
           registrant.disqualified = rt.disqualified;
