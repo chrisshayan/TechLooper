@@ -16,7 +16,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
-import java.util.Random;
 
 import static com.techlooper.model.JobAlertEmailResultEnum.EMAIL_SENT;
 import static com.techlooper.model.JobAlertEmailResultEnum.JOB_NOT_FOUND;
