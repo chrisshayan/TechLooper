@@ -33,7 +33,7 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
       byReadOrUnreadSubmission: function (isUnread) {//filter registrants all/unread submission
         isUnread = (isUnread != undefined) ? isUnread : challengeDetail.$filter.registrantsType.isUnread;
         challengeDetail.$filter.registrantsType = {isUnread: isUnread};
-        challengeDetail.$filter.registrants = isUnread ? _.filter(challengeDetail.$registrants, function (r) {return !r.$isSubmissionsRead;}) : challengeDetail.$registrants;
+        challengeDetail.$filter.registrants = isUnread ? _.filter(challengeDetail.$registrants, function (r) {return r.$unreadSubmissions.length > 0;}) : challengeDetail.$registrants;
       }
     }
 
