@@ -55,7 +55,7 @@ public class ChallengeSubmissionNotifier {
                     Predicate<ChallengeRegistrantEntity> isFollowingUp = registrant -> (registrant.getActivePhase() != null &&
                             registrant.getActivePhase() == challengePhase);
                     Predicate<ChallengeRegistrantEntity> notDisqualified = registrant -> (registrant.getDisqualified() == null ||
-                            registrant.getDisqualified() == false);
+                            !registrant.getDisqualified());
                     Predicate<ChallengeRegistrantEntity> beforeTwoDays = registrant -> isBeforeTwoDays(challengeEntity, challengePhase);
                     registrants = registrants.stream().filter(isFollowingUp).filter(notDisqualified)
                             .filter(beforeTwoDays).collect(Collectors.toList());
@@ -91,15 +91,15 @@ public class ChallengeSubmissionNotifier {
     private boolean isBeforeTwoDays(ChallengeEntity challengeEntity, ChallengePhaseEnum challengePhase) {
         final int TIME_DISTANCE = 1;
         try {
-            if (challengePhase == ChallengePhaseEnum.IDEA) {
+            if (challengePhase == IDEA) {
                 return daysBetween(currentDate(), challengeEntity.getIdeaSubmissionDateTime()) == TIME_DISTANCE;
-            } else if (challengePhase == ChallengePhaseEnum.UIUX) {
+            } else if (challengePhase == UIUX) {
                 return daysBetween(currentDate(), challengeEntity.getUxSubmissionDateTime()) == TIME_DISTANCE;
-            } else if (challengePhase == ChallengePhaseEnum.PROTOTYPE) {
+            } else if (challengePhase == PROTOTYPE) {
                 return daysBetween(currentDate(), challengeEntity.getPrototypeSubmissionDateTime()) == TIME_DISTANCE;
-            } else if (challengePhase == ChallengePhaseEnum.IN_PROGRESS) {
+            } else if (challengePhase == IN_PROGRESS) {
                 return daysBetween(currentDate(), challengeEntity.getSubmissionDateTime()) == TIME_DISTANCE;
-            } else if (challengePhase == ChallengePhaseEnum.FINAL) {
+            } else if (challengePhase == FINAL) {
                 return daysBetween(currentDate(), challengeEntity.getSubmissionDateTime()) == TIME_DISTANCE;
             }
         } catch (Exception ex) {

@@ -1132,20 +1132,10 @@ public class ChallengeServiceImpl implements ChallengeService {
         }
     }
 
-    public ChallengeRegistrantDto acceptRegistrant(String ownerEmail, Long registrantId, ChallengePhaseEnum activePhase) {
-        Iterator<ChallengeRegistrantEntity> registrantIter = challengeRegistrantRepository.search(QueryBuilders.termQuery("registrantId", registrantId)).iterator();
-        if (!registrantIter.hasNext()) return null;
+    public ChallengeRegistrantDto acceptRegistrant(Long registrantId, ChallengePhaseEnum activePhase) {
+        ChallengeRegistrantEntity registrant = challengeRegistrantRepository.findOne(registrantId);
 
-        ChallengeRegistrantEntity registrant = registrantIter.next();
-        ChallengeEntity challenge = challengeRepository.findOne(registrant.getChallengeId());
-        if (!ownerEmail.equalsIgnoreCase(challenge.getAuthorEmail())) {
-            return null;
-        }
-
-//        ChallengeDetailDto challengeDetailDto = dozerMapper.map(challenge, ChallengeDetailDto.class);
-//        calculateChallengePhases(challengeDetailDto);
-//        ChallengePhaseEnum activePhase = challengeDetailDto.getNextPhase();
-        if (activePhase != registrant.getActivePhase()) {
+        if (registrant != null && activePhase != registrant.getActivePhase()) {
             registrant.setActivePhase(activePhase);
             registrant.setDisqualified(null);
             registrant.setDisqualifiedReason(null);
@@ -1215,7 +1205,7 @@ public class ChallengeServiceImpl implements ChallengeService {
         ChallengePhaseEnum qualifyingPhase = challengeQualificationDto.getNextPhase();
 
         for (Long registrantId : challengeQualificationDto.getRegistrantIds()) {
-            ChallengeRegistrantDto registrantDto = acceptRegistrant(ownerEmail, registrantId, qualifyingPhase);
+            ChallengeRegistrantDto registrantDto = acceptRegistrant(registrantId, qualifyingPhase);
             if (registrantDto.getActivePhase() == qualifyingPhase) {
                 qualifiedRegistrants.add(registrantDto);
             }

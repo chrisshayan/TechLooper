@@ -8,6 +8,7 @@ import com.techlooper.model.*;
 import com.techlooper.repository.elasticsearch.ChallengeSubmissionRepository;
 import com.techlooper.service.ChallengeService;
 import com.techlooper.service.ChallengeSubmissionService;
+import com.techlooper.util.DataUtils;
 import com.techlooper.util.DateTimeUtils;
 import freemarker.template.Template;
 import org.dozer.Mapper;
@@ -91,23 +92,37 @@ public class ChallengeSubmissionServiceImpl implements ChallengeSubmissionServic
     private String techlooperReplyTo;
 
     public ChallengeSubmissionEntity submitMyResult(ChallengeSubmissionDto challengeSubmissionDto) {
-        ChallengeDto challengeDto = challengeService.findChallengeById(
-                challengeSubmissionDto.getChallengeId(), challengeSubmissionDto.getRegistrantEmail());
-        ChallengeRegistrantEntity registrant = challengeService.findRegistrantByChallengeIdAndEmail(
-                challengeSubmissionDto.getChallengeId(), challengeSubmissionDto.getRegistrantEmail());
+        final Long challengeId = challengeSubmissionDto.getChallengeId();
+        final String registrantEmail = challengeSubmissionDto.getRegistrantEmail();
+        ChallengeDto challengeDto = challengeService.findChallengeById(challengeId, registrantEmail);
+        ChallengeRegistrantEntity registrant = challengeService.findRegistrantByChallengeIdAndEmail(challengeId, registrantEmail);
+
+        // In case user submits their works but didn't join challenge yet, we should register him first
         if (registrant == null) {
             registrant = challengeService.joinChallengeEntity(dozerMapper.map(challengeSubmissionDto, ChallengeRegistrantDto.class));
         }
+
+        final Long registrantId = registrant.getRegistrantId();
         ChallengePhaseEnum activePhase = registrant.getActivePhase() == null ? ChallengePhaseEnum.REGISTRATION : registrant.getActivePhase();
 
-        ChallengeSubmissionEntity challengeSubmissionEntity = dozerMapper.map(challengeSubmissionDto, ChallengeSubmissionEntity.class);
-        ChallengeSubmissionEntityBuilder.challengeSubmissionEntity(challengeSubmissionEntity)
-                .withChallengeSubmissionId(DateTime.now().getMillis())
-                .withRegistrantId(registrant.getRegistrantId())
-                .withRegistrantName(String.format("%s %s", registrant.getRegistrantFirstName(), registrant.getRegistrantLastName()))
-                .withSubmissionDateTime(DateTimeUtils.currentDate())
-                .withSubmissionPhase(activePhase)
-                .withIsRead(Boolean.FALSE);
+        ChallengeSubmissionEntity challengeSubmissionEntity = findChallengeSubmissionByRegistrantPhase(registrantId, activePhase);
+        if (challengeSubmissionEntity != null) {
+            ChallengeSubmissionEntityBuilder.challengeSubmissionEntity(challengeSubmissionEntity)
+                    .withSubmissionURL(challengeSubmissionDto.getSubmissionURL())
+                    .withSubmissionDescription(challengeSubmissionDto.getSubmissionDescription())
+                    .withSubmissionDateTime(DateTimeUtils.currentDate())
+                    .withIsRead(Boolean.FALSE);
+        } else {
+            challengeSubmissionEntity = dozerMapper.map(challengeSubmissionDto, ChallengeSubmissionEntity.class);
+            ChallengeSubmissionEntityBuilder.challengeSubmissionEntity(challengeSubmissionEntity)
+                    .withChallengeSubmissionId(DateTime.now().getMillis())
+                    .withRegistrantId(registrantId)
+                    .withRegistrantName(String.format("%s %s", registrant.getRegistrantFirstName(), registrant.getRegistrantLastName()))
+                    .withSubmissionDateTime(DateTimeUtils.currentDate())
+                    .withSubmissionPhase(activePhase)
+                    .withIsRead(Boolean.FALSE);
+        }
+
         try {
             sendConfirmationEmailToRegistrant(challengeDto, registrant, challengeSubmissionEntity);
         } catch (Exception e) {
@@ -206,5 +221,22 @@ public class ChallengeSubmissionServiceImpl implements ChallengeSubmissionServic
             challengeSubmissionEntity.setIsRead(challengeSubmissionDto.getIsRead());
             challengeSubmissionRepository.save(challengeSubmissionEntity);
         }
+    }
+
+    @Override
+    public ChallengeSubmissionEntity findChallengeSubmissionByRegistrantPhase(Long registrantId, ChallengePhaseEnum phase) {
+        NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withTypes("challengeSubmission");
+
+        searchQueryBuilder.withQuery(filteredQuery(matchAllQuery(), boolFilter()
+                .must(termFilter("registrantId", registrantId))
+                .must(termFilter("submissionPhase", phase))));
+
+        List<ChallengeSubmissionEntity> submissionEntities = DataUtils.getAllEntities(
+                challengeSubmissionRepository, searchQueryBuilder);
+
+        if (!submissionEntities.isEmpty()) {
+            return submissionEntities.get(0);
+        }
+        return null;
     }
 }

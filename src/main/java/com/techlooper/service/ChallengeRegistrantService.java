@@ -27,4 +27,5 @@ public interface ChallengeRegistrantService {
 
     List<ChallengeRegistrantEntity> findRegistrantsByChallengeId(Long challengeId);
 
+    ChallengeRegistrantEntity findRegistrantById(Long registrantId);
 }
