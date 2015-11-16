@@ -419,18 +419,13 @@ public class UserController {
     }
 
     @PreAuthorize("hasAuthority('EMPLOYER')")
-    @RequestMapping(value = "user/challenge/reject", method = RequestMethod.PUT)
-    public ChallengeRegistrantDto rejectChallengeRegistrant(HttpServletRequest request, HttpServletResponse response,
-                                                            @RequestBody ChallengeRegistrantDto registrantDto) {
-        String ownerEmail = request.getRemoteUser();
-        ChallengeRegistrantDto challengeRegistrantDto = new ChallengeRegistrantDto();
-
-        if (challengeService.isOwnerOfChallenge(ownerEmail, registrantDto.getChallengeId())) {
-            challengeRegistrantDto = challengeService.rejectRegistrant(request.getRemoteUser(), registrantDto);
-        } else {
-            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+    @RequestMapping(value = "user/challenge/reject", method = RequestMethod.POST)
+    public ChallengeRegistrantDto rejectChallengeRegistrant(HttpServletRequest request, HttpServletResponse response, @RequestBody RejectRegistrantDto rejectRegistrantDto) {
+        ChallengeRegistrantDto registrantDto = challengeService.rejectRegistrant(request.getRemoteUser(), rejectRegistrantDto);
+        if (registrantDto == null) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
-        return challengeRegistrantDto;
+        return registrantDto;
     }
 
     @PreAuthorize("hasAnyAuthority('EMPLOYER')")

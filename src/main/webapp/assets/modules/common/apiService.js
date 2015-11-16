@@ -272,8 +272,8 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
     /**
      * @see com.techlooper.controller.UserController.rejectChallengeRegistrant
      * */
-    rejectChallengeRegistrant: function (registrant) {
-      return $http.put("user/challenge/reject", registrant);
+    rejectChallengeRegistrant: function (registrantId, reason) {
+      return $http.post("user/challenge/reject/", {registrantId: registrantId, reason: reason});
     },
 
     /**
