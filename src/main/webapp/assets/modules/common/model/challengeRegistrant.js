@@ -216,7 +216,7 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonV
       //delete scope.registrant.visible;
     };
 
-    //registrant.criteriaLoop();
+    registrant.criteriaLoop();//calc totalPoint
     //console.log(registrant);
 
     registrant.$isRich = true;

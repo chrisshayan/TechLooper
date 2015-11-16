@@ -1,4 +1,4 @@
-techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue, $filter) {
+techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue, $filter, $q) {
   return function (input, type) {
     if (!input || input.$isRich) return input;
 
@@ -48,31 +48,59 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
       },
 
       //sort filter-registrants by last submission
-      byLastSubmission: function () {
-        challengeDetail.$sort.type = {isLastSubmissionTypeAsc: !challengeDetail.$sort.type.isLastSubmissionTypeAsc};
-        challengeDetail.$registrants = _(challengeDetail.$registrants).chain().sortBy("lastSubmission.challengeSubmissionId").reverse().value();
+      byLastSubmission: function (sortType) {
+        if (sortType != undefined) {
+          challengeDetail.$sort.type = {isLastSubmissionTypeAsc: sortType};
+        }
+        else {
+          challengeDetail.$sort.type = {isLastSubmissionTypeAsc: !challengeDetail.$sort.type.isLastSubmissionTypeAsc};
+        }
+
+        challengeDetail.$registrants.sort(function(r1, r2) {
+          var int = challengeDetail.$sort.type.isLastSubmissionTypeAsc ? 1 : -1;
+          var n1 = (r1.lastSubmission ? r1.lastSubmission.challengeSubmissionId : 0);
+          var n2 = (r2.lastSubmission ? r2.lastSubmission.challengeSubmissionId : 0);
+          return int * (n1 - n2);
+        });
+
         challengeDetail.$filter.byReadOrUnreadSubmission();
       },
 
       //sort filter-registrants by total point
-      byTotalPoint: function () {
-        challengeDetail.$sort.type = {isTotalPointTypeAsc: !challengeDetail.$sort.type.isTotalPointTypeAsc};
+      byTotalPoint: function (sortType) {
+        if (sortType != undefined) {
+          challengeDetail.$sort.type = {isTotalPointTypeAsc: sortType};
+        }
+        else {
+          challengeDetail.$sort.type = {isTotalPointTypeAsc: !challengeDetail.$sort.type.isTotalPointTypeAsc};
+        }
 
-        var sort = _(challengeDetail.$registrants).chain().sortBy("totalPoint");
-        challengeDetail.$sort.type.isTotalPointTypeAsc ? sort.reverse() : "";
+        challengeDetail.$registrants.sort(function(r1, r2) {
+          var int = challengeDetail.$sort.type.isTotalPointTypeAsc ? 1 : -1;
+          var n1 = parseFloat(r1.totalPoint ? r1.totalPoint : 0);
+          var n2 = parseFloat(r2.totalPoint ? r2.totalPoint : 0);
+          return int * (n1 - n2);
+        });
 
-        challengeDetail.$registrants = sort.value();
         challengeDetail.$filter.byReadOrUnreadSubmission();
       },
 
       //sort filter-registrants by total point
-      byRegistrationDate: function () {
-        challengeDetail.$sort.type = {isRegistrationDateTypeAsc: !challengeDetail.$sort.type.isRegistrationDateTypeAsc};
+      byRegistrationDate: function (sortType) {
+        if (sortType != undefined) {
+          challengeDetail.$sort.type = {isRegistrationDateTypeAsc: sortType}
+        }
+        else {
+          challengeDetail.$sort.type = {isRegistrationDateTypeAsc: !challengeDetail.$sort.type.isRegistrationDateTypeAsc};
+        }
 
-        var sort = _(challengeDetail.$registrants).chain().sortBy("registrantId");
-        challengeDetail.$sort.type.isRegistrationDateTypeAsc ? sort.reverse() : "";
+        challengeDetail.$registrants.sort(function(r1, r2) {
+          var int = challengeDetail.$sort.type.isRegistrationDateTypeAsc ? 1 : -1;
+          var n1 = (r1.registrantId ? r1.registrantId : 0);
+          var n2 = (r2.registrantId ? r2.registrantId : 0);
+          return int * (n1 - n2);
+        });
 
-        challengeDetail.$registrants = sort.value();
         challengeDetail.$filter.byReadOrUnreadSubmission();
       }
     }
@@ -85,14 +113,17 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
     }
 
     challengeDetail.refreshRegistrants = function () {
+      var defer = $q.defer();
       $rootScope.$broadcast("before-getting-registrants", challengeDetail);
       apiService.getChallengeRegistrantsByPhase(challengeDetail.challengeId, challengeDetail.selectedPhaseItem.$phaseConfig.enum)
         .success(function (registrants) {
           challengeDetail.recalculateRegistrants(registrants);
+          defer.resolve();
         })
         .finally(function () {
           $rootScope.$broadcast("after-getting-registrants", challengeDetail);
         });
+      return defer.promise;
     }
 
     challengeDetail.saveCriteria = function () {
@@ -298,8 +329,20 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
       challengeDetail.$rgtNextPhaseItem = phaseItem.$phaseConfig.isFinal ? undefined : challengeDetail.phaseItems[phaseItem.$index + 1];
       phaseItem.isSelected = true;
 
-      challengeDetail.refreshRegistrants();
-      //challengeDetail.recalculateRegistrantRemainsPhases();
+      challengeDetail.refreshRegistrants()
+        .then(function () {
+          //console.log(challengeDetail.$registrants);
+          //TODO refactor default sort`
+          if (phaseItem.$phaseConfig.isRegistration) {
+            challengeDetail.$sort.byRegistrationDate(false);
+          }
+          else if (phaseItem.$phaseConfig.isIdea || phaseItem.$phaseConfig.isUiux || phaseItem.$phaseConfig.isPrototype) {
+            challengeDetail.$sort.byLastSubmission(false);
+          }
+          else {
+            challengeDetail.$sort.byTotalPoint(false);
+          }
+        });
     }
 
     challengeDetail.acceptRegistrants = function () {
