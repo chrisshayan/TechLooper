@@ -102,8 +102,9 @@ public class ChallengePhaseClosedNotifier {
                 } else {
                     return REGISTRATION;
                 }
+            default:
+                return null;
         }
-        return null;
     }
 
     private boolean isClosedPhase(ChallengeEntity challengeEntity, ChallengePhaseEnum oldPhase) {
