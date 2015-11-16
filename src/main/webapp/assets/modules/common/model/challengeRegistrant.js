@@ -71,7 +71,7 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonV
             }
           });
 
-          registrant.$challengeDetail.incParticipantCount(registrant);
+          registrant.$challengeDetail.refreshFunnelItems();
 
           registrant.savedTotalPoint = numeral(_.reduceRight(registrant.criteria, function (sum, cri) {
             return parseFloat(sum) + parseFloat(calculatePoint(cri));

@@ -197,6 +197,7 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
     challengeDetail.updateWinners = function (winners) {
       challengeDetail.winners = winners;
       challengeDetail.recalculateRegistrants();
+      challengeDetail.refreshFunnelItems();
     }
 
     challengeDetail.recalculate = function (registrants) {
@@ -257,10 +258,10 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
       });
 
       //winner phase
-      var winnerPi = _.last(challengeDetail.phaseItems);
-      challengeDetail.recalculatePhaseItem(winnerPi);
-
-      challengeDetail.recalculateHadRegistrant();
+      //var winnerPi = _.last(challengeDetail.phaseItems);
+      //challengeDetail.recalculatePhaseItem(winnerPi);
+      //
+      //challengeDetail.recalculateHadRegistrant();
     }
 
       //set $hadRegistrant to true if not found any registrant that unknown disqualified-status
@@ -276,7 +277,6 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
       phaseItem.countJoinerTitle = $filter("translate")(piTranslate.countJoiner, {number: phaseItem.participant});
       phaseItem.countSubmissionTitle = $filter("translate")(piTranslate.countSubmission, {number: phaseItem.submission});
       phaseItem.countUnreadTitle = $filter("translate")(piTranslate.countUnread, {number: phaseItem.unreadSubmission});
-      console.log(phaseItem);
     }
 
     challengeDetail.recalculateWinner = function (registrant) {
@@ -299,7 +299,7 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
       //console.log(challengeDetail);
     }
 
-    challengeDetail.refreshFunnelItems = function(registrant) {
+    challengeDetail.refreshFunnelItems = function() {
       apiService.getRegistrantFunnel(challengeDetail.challengeId)
         .success(function(items) {
           for (var i = 0; i < challengeDetail.phaseItems.length; i++) {
@@ -308,10 +308,10 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
             //challengeDetail.phaseItems[i].unreadSubmission = items[i].unreadSubmission;
             _.extendOwn(challengeDetail.phaseItems[i], items[i]);
             //console.log(challengeDetail.phaseItems[i]);
-            !challengeDetail.phaseItems[i].$phaseConfig.isWinner && challengeDetail.recalculatePhaseItem(challengeDetail.phaseItems[i]);
+            challengeDetail.recalculatePhaseItem(challengeDetail.phaseItems[i]);
           }
           challengeDetail.recalculateHadRegistrant();
-          registrant && challengeDetail.recalculateWinner(registrant);
+          //registrant && challengeDetail.recalculateWinner(registrant);
         });
     }
 
