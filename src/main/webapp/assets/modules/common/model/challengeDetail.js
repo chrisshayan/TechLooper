@@ -260,8 +260,12 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
       var winnerPi = _.last(challengeDetail.phaseItems);
       challengeDetail.recalculatePhaseItem(winnerPi);
 
+      challengeDetail.recalculateHadRegistrant();
+    }
+
       //set $hadRegistrant to true if not found any registrant that unknown disqualified-status
       //console.log(challengeDetail.$registrants);
+    challengeDetail.recalculateHadRegistrant = function() {
       var er = _.findWhere(challengeDetail.$registrants, {disqualified: undefined});
       challengeDetail.$hadRegistrant = (er == undefined);
       challengeDetail.$filter.byReadOrUnreadSubmission();

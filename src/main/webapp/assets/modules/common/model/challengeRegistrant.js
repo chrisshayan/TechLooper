@@ -208,6 +208,7 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonV
           registrant.disqualified = rt.disqualified;
           registrant.disqualifiedReason = rt.disqualifiedReason;
           registrant.$challengeDetail.incParticipantCount(registrant);
+          registrant.$challengeDetail.recalculateHadRegistrant();
           $rootScope.$broadcast("registrant-qualified", registrant);
         });
 
