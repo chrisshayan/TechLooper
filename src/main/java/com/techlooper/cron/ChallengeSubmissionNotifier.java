@@ -55,7 +55,7 @@ public class ChallengeSubmissionNotifier {
                     Predicate<ChallengeRegistrantEntity> isFollowingUp = registrant -> (registrant.getActivePhase() != null &&
                             registrant.getActivePhase() == challengePhase);
                     Predicate<ChallengeRegistrantEntity> notDisqualified = registrant -> (registrant.getDisqualified() == null ||
-                            registrant.getDisqualified() == false);
+                            !registrant.getDisqualified());
                     Predicate<ChallengeRegistrantEntity> beforeTwoDays = registrant -> isBeforeTwoDays(challengeEntity, challengePhase);
                     registrants = registrants.stream().filter(isFollowingUp).filter(notDisqualified)
                             .filter(beforeTwoDays).collect(Collectors.toList());
