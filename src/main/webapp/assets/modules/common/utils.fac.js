@@ -3,16 +3,16 @@ techlooper.factory("utils", function (jsonValue, $location, $rootScope, localSto
 
   var instance = {
 
-    sortByArrayLength: function(array, numberField, type) {
-      return array.sort(function(left, right) {
+    sortByArrayLength: function (array, numberField, type) {
+      return array.sort(function (left, right) {
         if (!left || !right) return 0;
         var rs = left[numberField].length - right[numberField].length;
         return type == "asc" ? rs : (-1 * rs);
       });
     },
 
-    sortByNumber: function(array, numberField, type) {
-      return array.sort(function(left, right) {
+    sortByNumber: function (array, numberField, type) {
+      return array.sort(function (left, right) {
         if (!left || !right) return 0;
         var rs = left[numberField] - right[numberField];
         return type == "asc" ? rs : (-1 * rs);
@@ -21,7 +21,7 @@ techlooper.factory("utils", function (jsonValue, $location, $rootScope, localSto
 
     sortByDate: function (array, dateField, type) {
       type = type || "asc";
-      return array.sort(function(left, right) {
+      return array.sort(function (left, right) {
         if (!left || !right) return 0;
         var rightStartDate = moment(right[dateField], jsonValue.dateFormat);
         var leftStartDate = moment(left[dateField], jsonValue.dateFormat);
@@ -48,6 +48,13 @@ techlooper.factory("utils", function (jsonValue, $location, $rootScope, localSto
           rs = view;
         }
       });
+
+      if (rs.requireEmployerByParams) {
+        var params = _.allKeys($location.search());
+        params = _.intersection(params, rs.requireEmployerByParams);
+        _.isEmpty(params) ? "" : rs.roles = ["EMPLOYER"];
+        rs.isRequireLogin = !_.isEmpty(params);
+      }
       return rs;
     },
 
