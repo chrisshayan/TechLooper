@@ -1223,8 +1223,7 @@ public class ChallengeServiceImpl implements ChallengeService {
             return null;
         }
 
-//        ChallengeDetailDto challengeDetailDto = dozerMapper.map(challenge, ChallengeDetailDto.class);
-        registrant.setDisqualified(Boolean.FALSE);
+        registrant.setDisqualified(Boolean.TRUE);
         registrant.setDisqualifiedReason(rejectRegistrantDto.getReason());
         registrant = challengeRegistrantRepository.save(registrant);
         return dozerMapper.map(registrant, ChallengeRegistrantDto.class);
