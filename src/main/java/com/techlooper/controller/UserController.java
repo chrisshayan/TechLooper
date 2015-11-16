@@ -96,6 +96,9 @@ public class UserController {
     @Resource
     private EmailService emailService;
 
+    @Resource
+    private ChallengeRegistrantService challengeRegistrantService;
+
     private final static Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
     @RequestMapping(value = "/api/users/add", method = RequestMethod.POST)
@@ -398,8 +401,21 @@ public class UserController {
 
     @PreAuthorize("hasAuthority('EMPLOYER')")
     @RequestMapping(value = "user/challenge/accept/{registrantId}/{phase}", method = RequestMethod.GET)
-    public ChallengeRegistrantDto acceptChallengeRegistrant(HttpServletRequest request, @PathVariable Long registrantId, @PathVariable ChallengePhaseEnum phase) {
-        return challengeService.acceptRegistrant(request.getRemoteUser(), registrantId, phase);
+    public ChallengeRegistrantDto acceptChallengeRegistrant(HttpServletRequest request, HttpServletResponse response,
+                                                            @PathVariable Long registrantId, @PathVariable ChallengePhaseEnum phase) {
+        String ownerEmail = request.getRemoteUser();
+        ChallengeRegistrantDto challengeRegistrantDto = new ChallengeRegistrantDto();
+        ChallengeRegistrantEntity registrant = challengeRegistrantService.findRegistrantById(registrantId);
+        if (registrant != null) {
+            if (challengeService.isOwnerOfChallenge(ownerEmail, registrant.getChallengeId())) {
+                challengeRegistrantDto = challengeService.acceptRegistrant(registrantId, phase);
+            } else {
+                response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            }
+        } else {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        }
+        return challengeRegistrantDto;
     }
 
     @PreAuthorize("hasAuthority('EMPLOYER')")
@@ -434,13 +450,13 @@ public class UserController {
     @PreAuthorize("hasAuthority('EMPLOYER')")
     @RequestMapping(value = "user/challenge/qualifyAllRegistrants", method = RequestMethod.POST)
     public List<ChallengeRegistrantDto> qualifyAllRegistrants(@RequestBody ChallengeQualificationDto challengeQualificationDto,
-                                      HttpServletRequest request, HttpServletResponse response) {
+                                                              HttpServletRequest request, HttpServletResponse response) {
         String ownerEmail = request.getRemoteUser();
         List<ChallengeRegistrantDto> qualifiedRegistrants = new ArrayList<>();
         if (challengeService.isOwnerOfChallenge(ownerEmail, challengeQualificationDto.getChallengeId())) {
-            qualifiedRegistrants = challengeService.qualifyAllRegistrants(request.getRemoteUser(), challengeQualificationDto);
+            qualifiedRegistrants = challengeService.qualifyAllRegistrants(ownerEmail, challengeQualificationDto);
         } else {
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
         }
         return qualifiedRegistrants;
     }

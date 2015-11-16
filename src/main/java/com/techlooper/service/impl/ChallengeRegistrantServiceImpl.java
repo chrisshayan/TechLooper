@@ -206,4 +206,9 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
         searchQueryBuilder.withQuery(filteredQuery(matchAllQuery(), termFilter("challengeId", challengeId)));
         return DataUtils.getAllEntities(challengeRegistrantRepository, searchQueryBuilder);
     }
+
+    @Override
+    public ChallengeRegistrantEntity findRegistrantById(Long registrantId) {
+        return challengeRegistrantRepository.findOne(registrantId);
+    }
 }
