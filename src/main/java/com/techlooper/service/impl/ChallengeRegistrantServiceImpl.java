@@ -99,7 +99,7 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
 
         BoolFilterBuilder boolFilterBuilder = boolFilter();
         boolFilterBuilder.must(termFilter("challengeId", challengeId));
-        boolFilterBuilder.must(termFilter("activePhase", ChallengePhaseEnum.FINAL.getValue()));
+        boolFilterBuilder.must(termFilter("activePhase", FINAL.getValue()));
         boolFilterBuilder.mustNot(missingFilter("criteria.score"));
         boolFilterBuilder.mustNot(termFilter("disqualified", true));
 
@@ -134,7 +134,7 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
             activePhaseQuery.should(QueryBuilders.filteredQuery(QueryBuilders.matchAllQuery(), FilterBuilders.missingFilter("activePhase")));
             submissionPhaseQuery.should(QueryBuilders.filteredQuery(QueryBuilders.matchAllQuery(), FilterBuilders.missingFilter("submissionPhase")));
         }
-        for (int i = ChallengePhaseEnum.ALL_CHALLENGE_PHASES.length - 1; i >= 0; i--) {
+        for (int i = ALL_CHALLENGE_PHASES.length - 1; i >= 0; i--) {
             activePhaseQuery.should(QueryBuilders.termQuery("activePhase", ALL_CHALLENGE_PHASES[i]));
 //      submissionPhaseQuery.should(QueryBuilders.termQuery("submissionPhase", ALL_CHALLENGE_PHASES[i]));
             if (phase == ALL_CHALLENGE_PHASES[i]) break;
@@ -161,7 +161,7 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
                 FilterBuilders.boolFilter()
                         .must(FilterBuilders.existsFilter("criteria.score"))
                         .must(FilterBuilders.termFilter("challengeId", challengeId))
-                        .must(FilterBuilders.termFilter("activePhase", ChallengePhaseEnum.FINAL))
+                        .must(FilterBuilders.termFilter("activePhase", FINAL))
                         .mustNot(FilterBuilders.termFilter("disqualified", Boolean.TRUE)));
 
         Set<ChallengeRegistrantDto> registrants = StreamUtils.createStreamFromIterator(challengeRegistrantRepository.search(winnerQuery).iterator())
@@ -173,7 +173,7 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
                     }
 
                     BoolQueryBuilder submissionQuery = QueryBuilders.boolQuery().must(QueryBuilders.termQuery("registrantId", registrant.getRegistrantId()))
-                            .must(QueryBuilders.termQuery("submissionPhase", ChallengePhaseEnum.FINAL));
+                            .must(QueryBuilders.termQuery("submissionPhase", FINAL));
                     List<ChallengeSubmissionDto> submissions = StreamUtils.createStreamFromIterator(challengeSubmissionRepository.search(submissionQuery).iterator())
                             .map(submission -> dozerMapper.map(submission, ChallengeSubmissionDto.class)).collect(Collectors.toList());
                     dto.setSubmissions(submissions);
