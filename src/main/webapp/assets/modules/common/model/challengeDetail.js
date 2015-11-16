@@ -1,4 +1,4 @@
-techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue, $filter, $q) {
+techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue, $filter, $q, localStorageService) {
   return function (input, type) {
     if (!input || input.$isRich) return input;
 
@@ -236,9 +236,13 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
 
       challengeDetail.totalWeight = _.reduceRight(challengeDetail.criteria, function (sum, cri) { return sum + cri.weight; }, 0);
 
-      if (!challengeDetail.selectedPhaseItem) {
-        challengeDetail.setSelectedPhase(challengeDetail.isClosed ? "WINNER" : challengeDetail.currentPhase)
-      }
+      //var phaseName = localStorageService.get("toPhase");
+      //phaseName && challengeDetail.setSelectedPhase(phaseName);
+      //localStorageService.remove("toPhase");
+      //
+      //if (!challengeDetail.selectedPhaseItem) {
+      //  challengeDetail.setSelectedPhase(challengeDetail.isClosed ? "WINNER" : challengeDetail.currentPhase)
+      //}
 
       if (_.isArray(registrants)) {
         challengeDetail.recalculateRegistrants(registrants);
@@ -320,6 +324,10 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
     challengeDetail.setSelectedPhase = function (phaseItem) {
       if (_.isString(phaseItem)) {
         phaseItem = _.findWhere(challengeDetail.phaseItems, {phase: phaseItem});
+      }
+
+      if (!phaseItem) {
+        return challengeDetail.setSelectedPhase(challengeDetail.isClosed ? "WINNER" : challengeDetail.currentPhase);
       }
 
       if (phaseItem.unselectable) return;

@@ -1,5 +1,5 @@
 techlooper.controller('contestDetailController', function ($scope, apiService, localStorageService, $location, $routeParams,
-                                                           jsonValue, $translate, utils, $filter, $route) {
+                                                           jsonValue, $translate, utils, $filter, $route, $rootScope) {
   var parts = $routeParams.id.split("-");
   var lastPart = parts.pop();
   if (parts.length < 2 || (lastPart !== "id")) {
@@ -13,36 +13,20 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
     return $location.url(sprintf("/challenge-detail/%s-%s-id", title, contestId));
   }
 
-  //$scope.sortByRegistrationDate = function () {
-  //  $scope.sortByRegistrationDateType = $scope.sortByRegistrationDateType == "desc" ? "asc" : "desc";
-  //  delete $scope.sortBySubmissionType;
-  //  utils.sortByNumber($scope.contestDetail.$registrants, "registrantId", $scope.sortByRegistrationDateType);
+  //console.log($rootScope.userInfo);
+
+  //var param = $location.search();
+  //if (param.toPhase) {
+  //  localStorageService.set("showTabRegistrant", true);
+  //  localStorageService.set("toPhase", param.toPhase);
+  //  return $location.search({});
+  //  //return $route.reload();
   //}
-
-  //$scope.sortBySubmissionDate = function () {
-  //  $scope.sortBySubmissionDateType = $scope.sortBySubmissionDateType == "asc" ? "desc" : "asc";
-  //  delete $scope.sortBySubmissionType;
-  //  delete $scope.sortByScoreType;
-  //  $scope.contestDetail.$registrants.sort(function (a, b) {
-  //    var interval = $scope.sortBySubmissionDateType == "asc" ? 1 : -1;
-  //    return interval * ((b.lastSubmission ? b.lastSubmission.challengeSubmissionId : 0) - (a.lastSubmission ? a.lastSubmission.challengeSubmissionId : 0));
-  //  });
+  //else if (param.a == "registrants") {
+  //  localStorageService.set("showTabRegistrant", true);
+  //  return $location.search({});
+  //  //return $route.reload();
   //}
-
-  //$scope.sortByScore = function () {
-  //  $scope.sortByScoreType = $scope.sortByScoreType == "desc" ? "asc" : "desc";
-  //  delete $scope.sortBySubmissionType;
-  //  delete $scope.sortBySubmissionDateType;
-  //  utils.sortByNumber($scope.contestDetail.$registrants, "totalPoint", $scope.sortByScoreType);
-  //};
-
-  //$scope.sortBySubmission = function () {
-  //  $scope.sortBySubmissionType = $scope.sortBySubmissionType == "desc" ? "asc" : "desc";
-  //  delete $scope.sortByScoreType;
-  //  delete $scope.sortBySubmissionDateType;
-  //  delete $scope.sortByRegistrationDateType
-  //  utils.sortByArrayLength($scope.contestDetail.$registrants, "submissions", $scope.sortBySubmissionType);
-  //};
 
   $scope.status = function (type, id) {
     switch (type) {
@@ -119,11 +103,13 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
       });
   }
 
-  $scope.refreshChallengeDetail = function() {
+  $scope.refreshChallengeDetail = function () {
     apiService.getContestDetail(contestId)
       .success(function (data) {
         $scope.contestDetail = data;
         $filter("progress")($scope.contestDetail, "challenge");
+        $scope.contestDetail.setSelectedPhase($location.search().toPhase);
+        $scope.$emit("challenge-detail-ready");
       })
       .error(function () {$location.url("404");});
   }

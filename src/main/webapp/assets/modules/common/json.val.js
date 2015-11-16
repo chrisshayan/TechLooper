@@ -316,6 +316,8 @@ techlooper.factory("jsonValue", function () {
         name: "challengeDetail",
         url: "/challenge-detail",
         regex: /\/challenge-detail\//i,
+        requireEmployerByParams: ["toPhase", "a"],
+        loginUrl: "/login",
         type: "SEO"
       },
       {

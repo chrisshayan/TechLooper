@@ -5,7 +5,7 @@ techlooper
       replace: true,
       templateUrl: "modules/contest-detail/details/contentTab.html",
       link: function (scope, element, attr, ctrl) {
-        scope.$on("challenge-criteria-saved", function(e, criteria) {
+        scope.$on("challenge-criteria-saved", function (e, criteria) {
           scope.$eventName = "challenge-criteria-saved";
         });
       }
@@ -139,12 +139,19 @@ techlooper
       }
     };
   })
-  .directive('tabManagerContestDetail', function () {
+  .directive('tabManagerContestDetail', function (localStorageService, $location) {
     return {
       restrict: "E",
       replace: true,
       templateUrl: "modules/contest-detail/tabManager.html",
       link: function (scope, element, attr, ctrl) {
+        scope.$on("challenge-detail-ready", function () {
+          var params = $location.search();
+          var showTabRegistrant = (params.a == "registrants") || (params.toPhase != undefined);
+          if (showTabRegistrant == true) {
+            $("a[href='.registrants']").tab('show');
+          }
+        });
       }
     };
   })
