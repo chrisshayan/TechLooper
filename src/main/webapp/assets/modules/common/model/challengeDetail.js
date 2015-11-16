@@ -11,7 +11,7 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
       byNotQualifiedAndHavingReadSubmissions: function () {
         challengeDetail.$filter.qualifyRegistrantsType = {isHavingReadSubmission: true};
         challengeDetail.$filter.qualifyRegistrants = _.filter(challengeDetail.$registrants, function (rgt) {
-          return rgt.disqualified == undefined && rgt.$isSubmissionsRead;
+          return rgt.disqualified == undefined && rgt.submissions.length > 0 && rgt.$isSubmissionsRead;
         });
       },
 
