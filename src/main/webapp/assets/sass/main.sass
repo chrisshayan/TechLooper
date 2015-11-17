@@ -1199,191 +1199,6 @@ footer
     opacity: 0
     -moz-transform: rotate(900deg)
 
-
-@-webkit-keyframes orbit
-  0%
-    opacity: 1
-    z-index: 99
-    -webkit-transform: rotate(180deg)
-    -webkit-animation-timing-function: ease-out
-
-  7%
-    opacity: 1
-    -webkit-transform: rotate(300deg)
-    -webkit-animation-timing-function: linear
-    -webkit-origin: 0%
-
-  30%
-  opacity: 1
-  -webkit-transform: rotate(410deg)
-  -webkit-animation-timing-function: ease-in-out
-  -webkit-origin: 7%
-
-  39%
-    opacity: 1
-    -webkit-transform: rotate(645deg)
-    -webkit-animation-timing-function: linear
-    -webkit-origin: 30%
-
-  70%
-  opacity: 1
-  -webkit-transform: rotate(770deg)
-  -webkit-animation-timing-function: ease-out
-  -webkit-origin: 39%
-
-  75%
-    opacity: 1
-    -webkit-transform: rotate(900deg)
-    -webkit-animation-timing-function: ease-out
-    -webkit-origin: 70%
-
-  76%
-    opacity: 0
-    -webkit-transform: rotate(900deg)
-
-  100%
-    opacity: 0
-    -webkit-transform: rotate(900deg)
-
-
-@-ms-keyframes orbit
-  0%
-    opacity: 1
-    z-index: 99
-    -ms-transform: rotate(180deg)
-    -ms-animation-timing-function: ease-out
-
-  7%
-    opacity: 1
-    -ms-transform: rotate(300deg)
-    -ms-animation-timing-function: linear
-    -ms-origin: 0%
-
-  30%
-    opacity: 1
-    -ms-transform: rotate(410deg)
-    -ms-animation-timing-function: ease-in-out
-    -ms-origin: 7%
-
-  39%
-    opacity: 1
-    -ms-transform: rotate(645deg)
-    -ms-animation-timing-function: linear
-    -ms-origin: 30%
-
-  70%
-    opacity: 1
-    -ms-transform: rotate(770deg)
-    -ms-animation-timing-function: ease-out
-    -ms-origin: 39%
-
-  75%
-    opacity: 1
-    -ms-transform: rotate(900deg)
-    -ms-animation-timing-function: ease-out
-    -ms-origin: 70%
-
-  76%
-    opacity: 0
-    -ms-transform: rotate(900deg)
-
-  100%
-    opacity: 0
-    -ms-transform: rotate(900deg)
-
-
-@-o-keyframes orbit
-  0%
-    opacity: 1
-    z-index: 99
-    -o-transform: rotate(180deg)
-    -o-animation-timing-function: ease-out
-
-  7%
-    opacity: 1
-    -o-transform: rotate(300deg)
-    -o-animation-timing-function: linear
-    -o-origin: 0%
-
-  30%
-    opacity: 1
-    -o-transform: rotate(410deg)
-    -o-animation-timing-function: ease-in-out
-    -o-origin: 7%
-
-  39%
-    opacity: 1
-    -o-transform: rotate(645deg)
-    -o-animation-timing-function: linear
-    -o-origin: 0%
-
-  70%
-    opacity: 1
-    -o-transform: rotate(770deg)
-    -o-animation-timing-function: ease-out
-    -o-origin: 39%
-
-  75%
-    opacity: 1
-    -o-transform: rotate(900deg)
-    -o-animation-timing-function: ease-out
-    -o-origin: 70%
-
-  76%
-    opacity: 0
-    -o-transform: rotate(900deg)
-
-  100%
-    opacity: 0
-    -o-transform: rotate(900deg)
-
-
-@keyframes orbit
-  0%
-    opacity: 1
-    z-index: 99
-    transform: rotate(180deg)
-    animation-timing-function: ease-out
-
-  7%
-    opacity: 1
-    transform: rotate(300deg)
-    animation-timing-function: linear
-    origin: 0%
-
-  30%
-    opacity: 1
-    transform: rotate(410deg)
-    animation-timing-function: ease-in-out
-    origin: 7%
-
-  39%
-    opacity: 1
-    transform: rotate(645deg)
-    animation-timing-function: linear
-    origin: 30%
-
-  70%
-    opacity: 1
-    transform: rotate(770deg)
-    animation-timing-function: ease-out
-    origin: 39%
-
-  75%
-    opacity: 1
-    transform: rotate(900deg)
-    animation-timing-function: ease-out
-    origin: 70%
-
-  76%
-    opacity: 0
-    transform: rotate(900deg)
-
-  100%
-    opacity: 0
-    transform: rotate(900deg)
-
-
 .bootstrap-checkbox > button.btn
   padding: 0
   width: 28px
@@ -1430,9 +1245,7 @@ label.bootstrap-checkbox.disabled
   margin-top: 1px
   line-height: 14px
   vertical-align: text-top
-  background-image: url("../images/icons.png")
-  background-position: 14px 14px
-  background-repeat: no-repeat
+  background: url("../images/icons.png") 14px 14px no-repeat
 
 .bootstrap-checkbox button.btn > span.cb-icon-check
   background-position: 0 0
@@ -1587,7 +1400,7 @@ label.bootstrap-checkbox.disabled
         border: 1px solid #fff
       span:hover
         img
-          filter: url("data:image/svg+xmlutf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='grayscale'><feColorMatrix type='matrix' values='1 0 0 0 0, 0 1 0 0 0, 0 0 1 0 0, 0 0 0 1 0'/></filter></svg>#grayscale")   
+          filter: url("data:image/svg+xmlutf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='grayscale'><feColorMatrix type='matrix' values='1 0 0 0 0, 0 1 0 0 0, 0 0 1 0 0, 0 0 0 1 0'/></filter></svg>#grayscale")
           filter: grayscale(0%)
           -moz-filter: grayscale(0%)
           -ms-filter: grayscale(0%)
@@ -1967,8 +1780,6 @@ label.bootstrap-checkbox.disabled
   .modal-body
     padding: 20px 20px 30px 20px
     text-align: justify
-//.modal-footer
-//  border-top: 1px solid #494647
 .icheckbox_polaris,
 .iradio_polaris
   background: url(../images/polaris.png) no-repeat
