@@ -328,8 +328,8 @@ public class UserController {
     @RequestMapping(value = "/user/current", method = RequestMethod.GET)
     public UserProfileDto getUserProfile(HttpServletRequest request) {
         LOGGER.debug("Reading current user profile info");
-        Principal userPrincipal = request.getUserPrincipal();
-        Object principal = ((UsernamePasswordAuthenticationToken) userPrincipal).getPrincipal();
+        org.springframework.security.core.Authentication authentication = (org.springframework.security.core.Authentication)request.getUserPrincipal();
+        Object principal = authentication.getPrincipal();
         if (!(principal instanceof UserProfileDto)) {
             return dozerMapper.map(userService.findVnwUserByUsername(request.getRemoteUser()), UserProfileDto.class);
         }
@@ -345,8 +345,8 @@ public class UserController {
     @PreAuthorize("hasAnyAuthority('EMPLOYER', 'JOB_SEEKER')")
     @RequestMapping(value = "/user/employer/webinar", method = RequestMethod.POST)
     public WebinarInfoDto createWebinar(@RequestBody WebinarInfoDto webinarInfoDto, HttpServletRequest request) throws IOException {
-        Principal userPrincipal = request.getUserPrincipal();
-        Object principal = ((UsernamePasswordAuthenticationToken) userPrincipal).getPrincipal();
+        org.springframework.security.core.Authentication authentication = (org.springframework.security.core.Authentication)request.getUserPrincipal();
+        Object principal = authentication.getPrincipal();
         UserProfileDto organiser = (principal instanceof UserProfileDto) ? ((UserProfileDto) principal) :
                 dozerMapper.map(getVnwCurrentUser(request), UserProfileDto.class);
         return webinarService.createWebinarInfo(webinarInfoDto, organiser);
