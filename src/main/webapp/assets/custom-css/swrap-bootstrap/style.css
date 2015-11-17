@@ -390,7 +390,7 @@ body.fixed-sidebar.mini-navbar .navbar-static-side {
   width: 0;
 }
 body.fixed-sidebar.mini-navbar #page-wrapper {
-  margin: 0 0 0 0px;
+  margin: 0;
 }
 body.body-small.fixed-sidebar.mini-navbar #page-wrapper {
   margin: 0 0 0 220px;
@@ -444,7 +444,7 @@ body.canvas-menu.mini-navbar .navbar-default .nav li .profile-element a span {
 }
 .fixed-sidebar.mini-navbar .nav-second-level,
 .canvas-menu.mini-navbar .nav-second-level {
-  left: 0px;
+  left: 0;
 }
 body.canvas-menu nav.navbar-static-side {
   z-index: 2001;
@@ -529,7 +529,7 @@ body.canvas-menu.mini-navbar nav.navbar-static-side {
 }
 .top-navigation.body-small .wrapper.wrapper-content,
 .body-small .top-navigation .wrapper.wrapper-content {
-  padding: 40px 0 40px 0px;
+  padding: 40px 0;
 }
 .navbar-toggle {
   background-color: #1ab394;
