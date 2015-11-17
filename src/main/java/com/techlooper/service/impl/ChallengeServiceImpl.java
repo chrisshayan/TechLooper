@@ -303,10 +303,10 @@ public class ChallengeServiceImpl implements ChallengeService {
         }
 
         searchQueryBuilder.withQuery(filteredQuery(boolQueryBuilder, boolFilterBuilder));
-        searchQueryBuilder.withSort(SortBuilders.fieldSort("challengeId").order(SortOrder.DESC));
+        searchQueryBuilder.withSort(SortBuilders.fieldSort("startDateTime").order(SortOrder.DESC));
         return searchQueryBuilder;
     }
-    
+
     private boolean checkIfRegistrantAlreadyExist(Long challengeId, String email) {
         return challengeRegistrantService.findRegistrantByChallengeIdAndEmail(challengeId, email) != null;
     }
