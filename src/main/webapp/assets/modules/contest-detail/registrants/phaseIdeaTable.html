@@ -64,7 +64,8 @@
               <i class="fa fa-chevron-circle-down" ng-show="contestDetail.$sort.type.isLastSubmissionTypeAsc == false"></i>
             </div>
             {{registrant.lastSubmission.submissionDateTime || '-'}}</div>
-          <div class="registration-submission"><div class="label-col" ng-click="contestDetail.$sort.bySubmissionCount()">
+          <div class="registration-submission">
+            <div class="label-col" ng-click="contestDetail.$sort.bySubmissionCount()">
             {{'submissions' | translate}}
             <i class="fa fa-chevron-circle-up" ng-show="contestDetail.$sort.type.isSubmissionCountTypeAsc == true"></i>
             <i class="fa fa-chevron-circle-down" ng-show="contestDetail.$sort.type.isSubmissionCountTypeAsc == false"></i>
