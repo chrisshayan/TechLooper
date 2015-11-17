@@ -5,7 +5,6 @@ import com.techlooper.entity.*;
 import com.techlooper.entity.userimport.UserImportEntity;
 import com.techlooper.entity.vnw.dto.VnwUserDto;
 import com.techlooper.model.*;
-import com.techlooper.model.Authentication;
 import com.techlooper.service.*;
 import freemarker.template.TemplateException;
 import org.apache.commons.io.IOUtils;
@@ -17,9 +16,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.authentication.RememberMeAuthenticationToken;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.*;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -123,8 +120,7 @@ public class UserController {
       List<UserImportEntity> userImportEntities = dataProcessor.process(users);
       httpServletResponse.setStatus(userService.addCrawledUserAll(userImportEntities, provider, UpdateModeEnum.MERGE) == users.size() ?
         HttpServletResponse.SC_NO_CONTENT : HttpServletResponse.SC_NOT_ACCEPTABLE);
-    }
-    else {
+    } else {
       httpServletResponse.setStatus(HttpServletResponse.SC_NOT_ACCEPTABLE);
     }
   }
@@ -193,8 +189,7 @@ public class UserController {
     boolean isSaved = userEvaluationService.saveSalaryReviewSurvey(salaryReviewSurvey);
     if (isSaved) {
       httpServletResponse.setStatus(HttpServletResponse.SC_OK);
-    }
-    else {
+    } else {
       httpServletResponse.setStatus(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
     }
   }
@@ -210,8 +205,7 @@ public class UserController {
     boolean isSaved = userEvaluationService.savePriceJobSurvey(priceJobSurvey);
     if (isSaved) {
       httpServletResponse.setStatus(HttpServletResponse.SC_OK);
-    }
-    else {
+    } else {
       httpServletResponse.setStatus(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
     }
   }
@@ -264,8 +258,7 @@ public class UserController {
       response.setHeader("Content-Disposition", "attachment;filename=braille.txt");
       IOUtils.copy(brailleTextFile.getInputStream(), response.getOutputStream());
       response.flushBuffer();
-    }
-    catch (IOException ex) {
+    } catch (IOException ex) {
       response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
       throw ex;
     }
@@ -287,32 +280,28 @@ public class UserController {
       TermStatisticResponse termStatisticResponse =
         jobStatisticService.generateTermStatistic(termStatisticRequest, HistogramEnum.ONE_YEAR);
       personalHomepage.setTermStatistic(termStatisticResponse);
-    }
-    catch (Exception ex) {
+    } catch (Exception ex) {
       LOGGER.error(ex.getMessage(), ex);
     }
 
     try {
       ChallengeDetailDto latestChallenge = challengeService.getTheLatestChallenge();
-      latestChallenge.setNumberOfRegistrants(challengeService.getNumberOfRegistrants(latestChallenge.getChallengeId()));
+      latestChallenge.setNumberOfRegistrants(challengeRegistrantService.getNumberOfRegistrants(latestChallenge.getChallengeId()));
       personalHomepage.setLatestChallenge(latestChallenge);
-    }
-    catch (Exception ex) {
+    } catch (Exception ex) {
       LOGGER.error(ex.getMessage(), ex);
     }
 
     try {
       personalHomepage.setLatestEvents(webinarService.listUpcomingWebinar());
-    }
-    catch (Exception ex) {
+    } catch (Exception ex) {
       LOGGER.error(ex.getMessage(), ex);
     }
 
     try {
       List<ProjectDto> latestProjects = projectService.listProject().stream().limit(MAX_NUMBER_OF_ITEMS_DISPLAY).collect(toList());
       personalHomepage.setLatestProjects(latestProjects);
-    }
-    catch (Exception ex) {
+    } catch (Exception ex) {
       LOGGER.error(ex.getMessage(), ex);
     }
 
@@ -320,8 +309,7 @@ public class UserController {
     try {
       JobSearchResponse allJobSearchResponse = jobAggregatorService.findJob(criteria);
       personalHomepage.setTotalLatestJob(allJobSearchResponse.getTotalJob());
-    }
-    catch (Exception ex) {
+    } catch (Exception ex) {
       LOGGER.error(ex.getMessage(), ex);
     }
 
@@ -329,8 +317,7 @@ public class UserController {
     try {
       JobSearchResponse latestJobSearchResponse = jobAggregatorService.findJob(criteria);
       personalHomepage.setLatestJobs(latestJobSearchResponse.getJobs().stream().limit(MAX_NUMBER_OF_ITEMS_DISPLAY).collect(toSet()));
-    }
-    catch (Exception ex) {
+    } catch (Exception ex) {
       LOGGER.error(ex.getMessage(), ex);
     }
 
@@ -385,7 +372,7 @@ public class UserController {
   public List<String> getDailyChallengeRegistrantNames(HttpServletRequest request, HttpServletResponse response,
                                                        @PathVariable Long challengeId, @PathVariable Long now) {
     if (challengeService.isOwnerOfChallenge(request.getRemoteUser(), challengeId)) {
-      List<ChallengeRegistrantEntity> registrants = challengeService.findChallengeRegistrantWithinPeriod(challengeId, now, TimePeriodEnum.TWENTY_FOUR_HOURS);
+      List<ChallengeRegistrantEntity> registrants = challengeRegistrantService.findChallengeRegistrantWithinPeriod(challengeId, now, TimePeriodEnum.TWENTY_FOUR_HOURS);
       return registrants.stream()
         .map(registrant -> registrant.getRegistrantFirstName() + " " + registrant.getRegistrantLastName())
         .collect(toList());
@@ -421,13 +408,11 @@ public class UserController {
     ChallengeRegistrantEntity registrant = challengeRegistrantService.findRegistrantById(registrantId);
     if (registrant != null) {
       if (challengeService.isOwnerOfChallenge(ownerEmail, registrant.getChallengeId())) {
-        challengeRegistrantDto = challengeService.acceptRegistrant(registrantId, phase);
-      }
-      else {
+        challengeRegistrantDto = challengeRegistrantService.acceptRegistrant(registrantId, phase);
+      } else {
         response.setStatus(HttpServletResponse.SC_FORBIDDEN);
       }
-    }
-    else {
+    } else {
       response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
     }
     return challengeRegistrantDto;
@@ -436,7 +421,7 @@ public class UserController {
   @PreAuthorize("hasAuthority('EMPLOYER')")
   @RequestMapping(value = "user/challenge/reject", method = RequestMethod.POST)
   public ChallengeRegistrantDto rejectChallengeRegistrant(HttpServletRequest request, HttpServletResponse response, @RequestBody RejectRegistrantDto rejectRegistrantDto) {
-    ChallengeRegistrantDto registrantDto = challengeService.rejectRegistrant(request.getRemoteUser(), rejectRegistrantDto);
+    ChallengeRegistrantDto registrantDto = challengeRegistrantService.rejectRegistrant(request.getRemoteUser(), rejectRegistrantDto);
     if (registrantDto == null) {
       response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
     }
@@ -473,12 +458,10 @@ public class UserController {
     String ownerEmail = request.getRemoteUser();
     List<ChallengeRegistrantDto> qualifiedRegistrants = new ArrayList<>();
     if (challengeService.isOwnerOfChallenge(ownerEmail, challengeQualificationDto.getChallengeId())) {
-      qualifiedRegistrants = challengeService.qualifyAllRegistrants(ownerEmail, challengeQualificationDto);
-    }
-    else {
+      qualifiedRegistrants = challengeRegistrantService.qualifyAllRegistrants(ownerEmail, challengeQualificationDto);
+    } else {
       response.setStatus(HttpServletResponse.SC_FORBIDDEN);
     }
     return qualifiedRegistrants;
   }
-
 }

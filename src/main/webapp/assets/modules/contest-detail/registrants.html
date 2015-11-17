@@ -99,12 +99,15 @@
               <div class="label-col" translate="prize"></div>
               <div class="prize"
                    ng-class="{'one': contestDetail.secondPlaceReward == null && contestDetail.thirdPlaceReward == null, 'two': contestDetail.secondPlaceReward != null && contestDetail.thirdPlaceReward == null}">
+                <span class="gold">${{contestDetail.firstPlaceReward | number:0}}</span>
                 <input ng-click="contestDetail.save1stWinner(user)" ng-model="user.firstAwarded" type="checkbox"/>
               </div>
               <div class="prize" ng-show="(phase.phase.toLowerCase()) == 'winner' && contestDetail.secondPlaceReward != null">
+                <span class="silver">${{contestDetail.secondPlaceReward | number:0}}</span>
                 <input ng-click="contestDetail.save2ndWinner(user)" ng-model="user.secondAwarded" type="checkbox"/>
               </div>
               <div class="prize" ng-show="(phase.phase.toLowerCase()) == 'winner' && contestDetail.thirdPlaceReward != null">
+                <span class="bronze">${{contestDetail.thirdPlaceReward | number:0}}</span>
                 <input ng-click="contestDetail.save3rdWinner(user)" ng-model="user.thirdAwarded" type="checkbox"/>
               </div>
             </div>

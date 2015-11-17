@@ -1375,6 +1375,10 @@
                 a.dis
                   clear: none
                   width: auto
+              .prize-col
+                .prize
+                  span.col-mobile
+                    display: inline-block
             .disqualify-block
               padding: 0
               a.btn
@@ -1459,10 +1463,13 @@
             p
               text-align: left !important
         .challenge-phase-item
-          width: 100%
+          width: 100% !important
+          p
+            text-align: center !important
           .current-phase
             height: auto !important
             padding: 5px 0
+
             span
               width: auto
               float: left
@@ -1616,7 +1623,9 @@
       .prize-col
         span.label-col
           display: block
-
+        .prize
+          span.col-mobile
+            display: inline-block
   .warning-alert-block
     .alert-warning
       top: auto

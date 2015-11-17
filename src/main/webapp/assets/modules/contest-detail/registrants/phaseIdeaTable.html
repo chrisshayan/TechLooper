@@ -51,10 +51,25 @@
     <tr dir-paginate="registrant in contestDetail.$filter.registrants | itemsPerPage:10" pagination-id="contestDetail.selectedPhaseItem.phase">
       <td>
         <div class="registrants-challenge-list">
-          <div class="registrant-order">{{registrant.$index + 1}}</div>
-          <div class="registrant-name">{{registrant.fullName}}</div>
-          <div class="registration-submission">{{registrant.lastSubmission.submissionDateTime || '-'}}</div>
+          <div class="registrant-order">
+            <div class="label-col">#</div>
+            {{registrant.$index + 1}}</div>
+          <div class="registrant-name">
+            <div class="label-col" translate="fullNameField"></div>
+            {{registrant.fullName}}</div>
           <div class="registration-submission">
+            <div class="label-col" ng-click="contestDetail.$sort.byLastSubmission()">
+              {{'lastSubmissionDate' | translate}}
+              <i class="fa fa-chevron-circle-up" ng-show="contestDetail.$sort.type.isLastSubmissionTypeAsc == true"></i>
+              <i class="fa fa-chevron-circle-down" ng-show="contestDetail.$sort.type.isLastSubmissionTypeAsc == false"></i>
+            </div>
+            {{registrant.lastSubmission.submissionDateTime || '-'}}</div>
+          <div class="registration-submission">
+            <div class="label-col" ng-click="contestDetail.$sort.bySubmissionCount()">
+            {{'submissions' | translate}}
+            <i class="fa fa-chevron-circle-up" ng-show="contestDetail.$sort.type.isSubmissionCountTypeAsc == true"></i>
+            <i class="fa fa-chevron-circle-down" ng-show="contestDetail.$sort.type.isSubmissionCountTypeAsc == false"></i>
+          </div>
             <a ng-click="registrant.showReviewSubmission()"
                ng-class="{unread: registrant.$unreadSubmissions.length > 0}"
                title="{{'submissionsReviewTip' | translate}}">{{registrant.submissions.length || 0}}</a></div>

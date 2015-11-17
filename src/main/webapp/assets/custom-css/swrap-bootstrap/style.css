@@ -259,7 +259,7 @@ body.mini-navbar .navbar-default .nav > li > .nav-second-level li a {
 .mini-navbar .nav-second-level {
   position: absolute;
   left: 70px;
-  top: 0px;
+  top: 0;
   background-color: #2f4050;
   padding: 10px 10px 10px 10px;
   font-size: 12px;
@@ -336,7 +336,7 @@ body.top-navigation.fixed-nav #wrapper #page-wrapper {
   margin: 14px 5px 5px 15px;
 }
 .body-small .navbar-fixed-top {
-  margin-left: 0px;
+  margin-left: 0;
 }
 body.mini-navbar .navbar-static-side {
   width: 70px;
@@ -387,10 +387,10 @@ body.canvas-menu .navbar-static-side {
   height: 100%;
 }
 body.fixed-sidebar.mini-navbar .navbar-static-side {
-  width: 0px;
+  width: 0;
 }
 body.fixed-sidebar.mini-navbar #page-wrapper {
-  margin: 0 0 0 0px;
+  margin: 0;
 }
 body.body-small.fixed-sidebar.mini-navbar #page-wrapper {
   margin: 0 0 0 220px;
@@ -423,7 +423,7 @@ body.canvas-menu.mini-navbar .navbar-default .nav > li > .nav-second-level li a 
 }
 .fixed-sidebar.mini-navbar li.active .nav-second-level,
 .canvas-menu.mini-navbar li.active .nav-second-level {
-  left: 0px;
+  left: 0;
 }
 body.fixed-sidebar.mini-navbar .navbar-default .nav > li > a,
 body.canvas-menu.mini-navbar .navbar-default .nav > li > a {
@@ -444,7 +444,7 @@ body.canvas-menu.mini-navbar .navbar-default .nav li .profile-element a span {
 }
 .fixed-sidebar.mini-navbar .nav-second-level,
 .canvas-menu.mini-navbar .nav-second-level {
-  left: 0px;
+  left: 0;
 }
 body.canvas-menu nav.navbar-static-side {
   z-index: 2001;
@@ -500,7 +500,7 @@ body.canvas-menu.mini-navbar nav.navbar-static-side {
   padding: 7px 20px;
 }
 .navbar .dropdown-menu {
-  margin-top: 0px;
+  margin-top: 0;
 }
 .top-navigation .navbar-brand {
   background: #1ab394;
@@ -529,7 +529,7 @@ body.canvas-menu.mini-navbar nav.navbar-static-side {
 }
 .top-navigation.body-small .wrapper.wrapper-content,
 .body-small .top-navigation .wrapper.wrapper-content {
-  padding: 40px 0px 40px 0px;
+  padding: 40px 0;
 }
 .navbar-toggle {
   background-color: #1ab394;
@@ -3452,7 +3452,7 @@ body.fixed-sidebar.body-small.mini-navbar .footer.fixed {
   margin: 0 0 0 220px;
 }
 body.body-small .footer.fixed {
-  margin-left: 0px;
+  margin-left: 0;
 }
 /* PANELS */
 .page-heading {
@@ -7197,7 +7197,7 @@ body.rtls.top-navigation .footer.fixed {
   }
   .body-small.rtls #page-wrapper {
     position: inherit;
-    margin: 0 0 0 0px;
+    margin: 0;
     min-height: 1000px;
   }
   .body-small.rtls .navbar-static-side {
