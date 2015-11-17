@@ -164,11 +164,6 @@
   border-collapse: collapse;
   border-spacing: 0;
 }
-.note-editor *,
-.note-editor *:before,
-.note-editor *:after {
-  box-sizing: border-box;
-}
 .note-editor html {
   font-size: 62.5%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -308,6 +303,18 @@
 }
 .note-editor h1,
 .note-editor h2,
+.note-editor h3 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+.note-editor h4,
+.note-editor h5,
+.note-editor h6 {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.note-editor h1,
+.note-editor h2,
 .note-editor h3,
 .note-editor h4,
 .note-editor h5,
@@ -318,11 +325,35 @@
 .note-editor .h4,
 .note-editor .h5,
 .note-editor .h6 {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 500;
   line-height: 1.1;
   color: inherit;
 }
+.note-editor h1,
+.note-editor .h1 {
+  font-size: 36px;
+}
+.note-editor h2,
+.note-editor .h2 {
+  font-size: 30px;
+}
+.note-editor h3,
+.note-editor .h3 {
+  font-size: 24px;
+}
+.note-editor h4,
+.note-editor .h4 {
+  font-size: 18px;
+}
+.note-editor h5,
+.note-editor .h5 {
+  font-size: 14px;
+}
+.note-editor h6,
+.note-editor .h6 {
+  font-size: 12px;
+}
+
 .note-editor h1 small,
 .note-editor h2 small,
 .note-editor h3 small,
@@ -350,58 +381,6 @@
   font-weight: normal;
   line-height: 1;
   color: #999999;
-}
-.note-editor h1,
-.note-editor h2,
-.note-editor h3 {
-  margin-top: 20px;
-  margin-bottom: 10px;
-}
-.note-editor h1 small,
-.note-editor h2 small,
-.note-editor h3 small,
-.note-editor h1 .small,
-.note-editor h2 .small,
-.note-editor h3 .small {
-  font-size: 65%;
-}
-.note-editor h4,
-.note-editor h5,
-.note-editor h6 {
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-.note-editor h4 small,
-.note-editor h5 small,
-.note-editor h6 small,
-.note-editor h4 .small,
-.note-editor h5 .small,
-.note-editor h6 .small {
-  font-size: 75%;
-}
-.note-editor h1,
-.note-editor .h1 {
-  font-size: 36px;
-}
-.note-editor h2,
-.note-editor .h2 {
-  font-size: 30px;
-}
-.note-editor h3,
-.note-editor .h3 {
-  font-size: 24px;
-}
-.note-editor h4,
-.note-editor .h4 {
-  font-size: 18px;
-}
-.note-editor h5,
-.note-editor .h5 {
-  font-size: 14px;
-}
-.note-editor h6,
-.note-editor .h6 {
-  font-size: 12px;
 }
 .note-editor .page-header {
   padding-bottom: 9px;
@@ -1547,7 +1526,6 @@
 .note-editor .form-control:focus {
   border-color: #66afe9;
   outline: 0;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
   box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
 }
 .note-editor .form-control[disabled],
@@ -1574,7 +1552,6 @@ textarea.note-editor .form-control {
 .note-editor .radio label,
 .note-editor .checkbox label {
   display: inline;
-  margin-bottom: 0;
   font-weight: normal;
   cursor: pointer;
 }
@@ -1651,12 +1628,10 @@ textarea.note-editor .input-lg {
 }
 .note-editor .has-warning .form-control {
   border-color: #c09853;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
 }
 .note-editor .has-warning .form-control:focus {
   border-color: #a47e3c;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #dbc59e;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #dbc59e;
 }
 .note-editor .has-warning .input-group-addon {
@@ -1670,12 +1645,10 @@ textarea.note-editor .input-lg {
 }
 .note-editor .has-error .form-control {
   border-color: #b94a48;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
 }
 .note-editor .has-error .form-control:focus {
   border-color: #953b39;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #d59392;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #d59392;
 }
 .note-editor .has-error .input-group-addon {
@@ -1689,12 +1662,10 @@ textarea.note-editor .input-lg {
 }
 .note-editor .has-success .form-control {
   border-color: #468847;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
 }
 .note-editor .has-success .form-control:focus {
   border-color: #356635;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #7aba7b;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #7aba7b;
 }
 .note-editor .has-success .input-group-addon {
@@ -1812,7 +1783,6 @@ textarea.note-editor .input-lg {
 .note-editor .btn.active {
   outline: 0;
   background-image: none;
-  -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
   box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
 }
 .note-editor .btn.disabled,
@@ -1822,7 +1792,6 @@ fieldset[disabled] .note-editor .btn {
   pointer-events: none;
   opacity: 0.65;
   filter: alpha(opacity=65);
-  -webkit-box-shadow: none;
   box-shadow: none;
 }
 .note-editor .btn-default {
@@ -2058,7 +2027,6 @@ fieldset[disabled] .note-editor .btn-info.active {
 .note-editor .btn-link[disabled],
 fieldset[disabled] .note-editor .btn-link {
   background-color: transparent;
-  -webkit-box-shadow: none;
   box-shadow: none;
 }
 .note-editor .btn-link,
@@ -2782,7 +2750,6 @@ fieldset[disabled] .note-editor .btn-link:focus {
   border: 1px solid #cccccc;
   border: 1px solid rgba(0, 0, 0, 0.15);
   border-radius: 4px;
-  -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
   background-clip: padding-box;
 }
@@ -3021,7 +2988,6 @@ fieldset[disabled] .note-editor .btn-link:focus {
   padding-right: 12px;
 }
 .note-editor .btn-group.open .dropdown-toggle {
-  -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
   box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
 }
 .note-editor .btn .caret {
@@ -3744,7 +3710,6 @@ textarea.note-editor .input-group-sm > .input-group-btn > .btn {
   padding: 10px 15px;
   border-top: 1px solid transparent;
   border-bottom: 1px solid transparent;
-  -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 0 rgba(255, 255, 255, 0.1);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 0 rgba(255, 255, 255, 0.1);
   margin-top: 8px;
   margin-bottom: 8px;
@@ -3784,7 +3749,6 @@ textarea.note-editor .input-group-sm > .input-group-btn > .btn {
     margin-right: 0;
     padding-top: 0;
     padding-bottom: 0;
-    -webkit-box-shadow: none;
     box-shadow: none;
   }
 }
@@ -4458,7 +4422,6 @@ textarea.note-editor .input-group-sm > .input-group-btn > .btn {
   margin-bottom: 20px;
   background-color: #f5f5f5;
   border-radius: 4px;
-  -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 .note-editor .progress-bar {
@@ -4470,7 +4433,6 @@ textarea.note-editor .input-group-sm > .input-group-btn > .btn {
   color: #ffffff;
   text-align: center;
   background-color: #428bca;
-  -webkit-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
   box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
   -webkit-transition: width 0.6s ease;
   transition: width 0.6s ease;
@@ -4622,7 +4584,6 @@ textarea.note-editor .input-group-sm > .input-group-btn > .btn {
   background-color: #ffffff;
   border: 1px solid transparent;
   border-radius: 4px;
-  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
 }
 .note-editor .panel-body {
@@ -4854,7 +4815,6 @@ textarea.note-editor .input-group-sm > .input-group-btn > .btn {
   background-color: #f5f5f5;
   border: 1px solid #e3e3e3;
   border-radius: 4px;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
 }
 .note-editor .well blockquote {
@@ -4935,7 +4895,6 @@ button.note-editor .close {
   border: 1px solid #999999;
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 6px;
-  -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
   box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
   background-clip: padding-box;
   outline: none;
@@ -5020,7 +4979,6 @@ button.note-editor .close {
     padding-bottom: 30px;
   }
   .modal-content {
-    -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
   }
 }
@@ -5136,7 +5094,6 @@ button.note-editor .close {
   border: 1px solid #cccccc;
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 6px;
-  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   white-space: normal;
 }
