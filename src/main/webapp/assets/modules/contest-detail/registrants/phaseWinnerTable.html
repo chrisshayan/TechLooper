@@ -62,32 +62,49 @@
   <tr dir-paginate="registrant in contestDetail.$filter.registrants | itemsPerPage:10" pagination-id="contestDetail.selectedPhaseItem.phase">
       <td>
         <div class="registrants-challenge-list">
-          <div class="registrant-order">{{registrant.$index + 1}}</div>
-          <div class="registrant-name">{{registrant.fullName}}</div>
+          <div class="registrant-order">
+            <div class="label-col">#</div>
+            {{registrant.$index + 1}}</div>
+          <div class="registrant-name">
+            <div class="label-col" translate="fullNameField"></div>
+            {{registrant.fullName}}</div>
           <div class="prize-col">
             <div class="label-col" translate="prize"></div>
             <div class="prize"
                  ng-class="{'one': contestDetail.secondPlaceReward == null && contestDetail.thirdPlaceReward == null,
                  'two': contestDetail.secondPlaceReward != null && contestDetail.thirdPlaceReward == null}">
+              <span class="col-mobile gold">${{contestDetail.firstPlaceReward | number:0}}</span>
               <input ng-click="contestDetail.save1stWinner(registrant)" ng-model="registrant.firstAwarded" type="checkbox"/>
             </div>
             <div class="prize" ng-show="contestDetail.secondPlaceReward != null"
                  ng-class="{'one': contestDetail.secondPlaceReward == null && contestDetail.thirdPlaceReward == null,
                  'two': contestDetail.secondPlaceReward != null && contestDetail.thirdPlaceReward == null}">
+              <span class="col-mobile silver">${{contestDetail.secondPlaceReward | number:0}}</span>
               <input ng-click="contestDetail.save2ndWinner(registrant)" ng-model="registrant.secondAwarded" type="checkbox"/>
             </div>
             <div class="prize" ng-show="contestDetail.thirdPlaceReward != null"
                  ng-class="{'one': contestDetail.secondPlaceReward == null && contestDetail.thirdPlaceReward == null,
                  'two': contestDetail.secondPlaceReward != null && contestDetail.thirdPlaceReward == null}">
+              <span class="col-mobile bronze">${{contestDetail.thirdPlaceReward | number:0}}</span>
               <input ng-click="contestDetail.save3rdWinner(registrant)" ng-model="registrant.thirdAwarded" type="checkbox"/>
             </div>
           </div>
           <div class="registration-submission">
+            <div class="label-col" ng-click="contestDetail.$sort.bySubmissionCount()">
+              {{'submissions' | translate}}
+              <i class="fa fa-chevron-circle-up" ng-show="contestDetail.$sort.type.isSubmissionCountTypeAsc == true"></i>
+              <i class="fa fa-chevron-circle-down" ng-show="contestDetail.$sort.type.isSubmissionCountTypeAsc == false"></i>
+            </div>
             <a ng-click="registrant.showReviewSubmission()"
                ng-class="{unread: registrant.$unreadSubmissions.length > 0}"
                title="{{'submissionsReviewTip' | translate}}">{{registrant.submissions.length || 0}}</a>
           </div>
           <div class="registration-score">
+            <div class="label-col" ng-click="contestDetail.$sort.byTotalPoint()">
+              {{'score' | translate}}
+              <i class="fa fa-chevron-circle-up" ng-show="contestDetail.$sort.type.isTotalPointTypeAsc == true"></i>
+              <i class="fa fa-chevron-circle-down" ng-show="contestDetail.$sort.type.isTotalPointTypeAsc == false"></i>
+            </div>
             <a ng-click="registrant.showScore()">{{registrant.savedTotalPoint}}</a>
           </div>
           <div class="registration-action">
