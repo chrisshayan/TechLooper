@@ -286,7 +286,7 @@ public class UserController {
 
         try {
             ChallengeDetailDto latestChallenge = challengeService.getTheLatestChallenge();
-            latestChallenge.setNumberOfRegistrants(challengeService.getNumberOfRegistrants(latestChallenge.getChallengeId()));
+            latestChallenge.setNumberOfRegistrants(challengeRegistrantService.getNumberOfRegistrants(latestChallenge.getChallengeId()));
             personalHomepage.setLatestChallenge(latestChallenge);
         } catch (Exception ex) {
             LOGGER.error(ex.getMessage(), ex);
@@ -372,7 +372,7 @@ public class UserController {
     public List<String> getDailyChallengeRegistrantNames(HttpServletRequest request, HttpServletResponse response,
                                                          @PathVariable Long challengeId, @PathVariable Long now) {
         if (challengeService.isOwnerOfChallenge(request.getRemoteUser(), challengeId)) {
-            List<ChallengeRegistrantEntity> registrants = challengeService.findChallengeRegistrantWithinPeriod(challengeId, now, TimePeriodEnum.TWENTY_FOUR_HOURS);
+            List<ChallengeRegistrantEntity> registrants = challengeRegistrantService.findChallengeRegistrantWithinPeriod(challengeId, now, TimePeriodEnum.TWENTY_FOUR_HOURS);
             return registrants.stream()
                     .map(registrant -> registrant.getRegistrantFirstName() + " " + registrant.getRegistrantLastName())
                     .collect(toList());
@@ -408,7 +408,7 @@ public class UserController {
         ChallengeRegistrantEntity registrant = challengeRegistrantService.findRegistrantById(registrantId);
         if (registrant != null) {
             if (challengeService.isOwnerOfChallenge(ownerEmail, registrant.getChallengeId())) {
-                challengeRegistrantDto = challengeService.acceptRegistrant(registrantId, phase);
+                challengeRegistrantDto = challengeRegistrantService.acceptRegistrant(registrantId, phase);
             } else {
                 response.setStatus(HttpServletResponse.SC_FORBIDDEN);
             }
@@ -421,7 +421,7 @@ public class UserController {
     @PreAuthorize("hasAuthority('EMPLOYER')")
     @RequestMapping(value = "user/challenge/reject", method = RequestMethod.POST)
     public ChallengeRegistrantDto rejectChallengeRegistrant(HttpServletRequest request, HttpServletResponse response, @RequestBody RejectRegistrantDto rejectRegistrantDto) {
-        ChallengeRegistrantDto registrantDto = challengeService.rejectRegistrant(request.getRemoteUser(), rejectRegistrantDto);
+        ChallengeRegistrantDto registrantDto = challengeRegistrantService.rejectRegistrant(request.getRemoteUser(), rejectRegistrantDto);
         if (registrantDto == null) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
@@ -458,7 +458,7 @@ public class UserController {
         String ownerEmail = request.getRemoteUser();
         List<ChallengeRegistrantDto> qualifiedRegistrants = new ArrayList<>();
         if (challengeService.isOwnerOfChallenge(ownerEmail, challengeQualificationDto.getChallengeId())) {
-            qualifiedRegistrants = challengeService.qualifyAllRegistrants(ownerEmail, challengeQualificationDto);
+            qualifiedRegistrants = challengeRegistrantService.qualifyAllRegistrants(ownerEmail, challengeQualificationDto);
         } else {
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
         }

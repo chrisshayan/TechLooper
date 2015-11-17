@@ -2,15 +2,12 @@ package com.techlooper.integration;
 
 import com.techlooper.config.BaseConfigurationTest;
 import com.techlooper.config.ElasticsearchConfiguration;
-import com.techlooper.model.ChallengeDetailDto;
 import com.techlooper.repository.elasticsearch.ChallengeRegistrantRepository;
 import com.techlooper.repository.elasticsearch.ChallengeRepository;
 import com.techlooper.service.ChallengeService;
 import com.techlooper.service.impl.ChallengeServiceImpl;
 import org.dozer.DozerBeanMapper;
-import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.context.ContextConfiguration;
@@ -18,7 +15,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import javax.annotation.Resource;
-import java.util.Collection;
 
 /**
  * Created by phuonghqh on 8/11/15.
@@ -28,34 +24,25 @@ import java.util.Collection;
 @ContextConfiguration(classes = {BaseConfigurationTest.class, ElasticsearchConfiguration.class})
 public class ChallengeServiceIntegrationTest {
 
-  private ChallengeService challengeService;
+    private ChallengeService challengeService;
 
-  @Resource
-  private ChallengeRepository challengeRepository;
+    @Resource
+    private ChallengeRepository challengeRepository;
 
-  @Resource
-  private ChallengeRegistrantRepository challengeRegistrantRepository;
+    @Resource
+    private ChallengeRegistrantRepository challengeRegistrantRepository;
 
-  @Value("${elasticsearch.userimport.index.name}")
-  private String techlooperIndex;
+    @Value("${elasticsearch.userimport.index.name}")
+    private String techlooperIndex;
 
 
-  @Before
-  public void before() {
-    challengeService = new ChallengeServiceImpl();
-    ReflectionTestUtils.setField(challengeService, "challengeRepository", challengeRepository);
-    ReflectionTestUtils.setField(challengeService, "challengeRegistrantRepository", challengeRegistrantRepository);
-    ReflectionTestUtils.setField(challengeService, "techlooperIndex", techlooperIndex);
-    ReflectionTestUtils.setField(challengeService, "dozerMapper", new DozerBeanMapper());
-  }
+    @Before
+    public void before() {
+        challengeService = new ChallengeServiceImpl();
+        ReflectionTestUtils.setField(challengeService, "challengeRepository", challengeRepository);
+        ReflectionTestUtils.setField(challengeService, "challengeRegistrantRepository", challengeRegistrantRepository);
+        ReflectionTestUtils.setField(challengeService, "techlooperIndex", techlooperIndex);
+        ReflectionTestUtils.setField(challengeService, "dozerMapper", new DozerBeanMapper());
+    }
 
-  @Test
-  public void testFindByUser() {
-    Collection<ChallengeDetailDto> challenges = challengeService.findInProgressChallenges("thu.hoang@navigosgroup.com");
-    Assert.assertNotNull(challenges);
-  }
-
-//  public void testCountRegistrantsByChallengeId() {
-//    challengeService.countRegistrantsByChallengeId(1436339203843L);
-//  }
 }

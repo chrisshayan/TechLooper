@@ -6,6 +6,7 @@ import com.techlooper.entity.ChallengeSubmissionEntity;
 import com.techlooper.entity.ChallengeSubmissionEntity.ChallengeSubmissionEntityBuilder;
 import com.techlooper.model.*;
 import com.techlooper.repository.elasticsearch.ChallengeSubmissionRepository;
+import com.techlooper.service.ChallengeRegistrantService;
 import com.techlooper.service.ChallengeService;
 import com.techlooper.service.ChallengeSubmissionService;
 import com.techlooper.util.DataUtils;
@@ -16,11 +17,13 @@ import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.search.SearchType;
 import org.elasticsearch.common.joda.time.DateTime;
 import org.elasticsearch.index.query.BoolFilterBuilder;
+import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.search.aggregations.AbstractAggregationBuilder;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
 import org.elasticsearch.search.aggregations.Aggregations;
 import org.elasticsearch.search.aggregations.bucket.filter.Filter;
 import org.elasticsearch.search.aggregations.bucket.terms.Terms;
+import org.elasticsearch.search.sort.SortOrder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -42,8 +45,10 @@ import java.util.List;
 import java.util.Map;
 
 import static com.techlooper.model.ChallengePhaseEnum.*;
+import static com.techlooper.util.DateTimeUtils.yesterdayDate;
 import static org.elasticsearch.index.query.FilterBuilders.*;
 import static org.elasticsearch.index.query.QueryBuilders.*;
+import static org.elasticsearch.search.sort.SortBuilders.fieldSort;
 
 /**
  * Created by phuonghqh on 10/9/15.
@@ -55,6 +60,9 @@ public class ChallengeSubmissionServiceImpl implements ChallengeSubmissionServic
 
     @Resource
     private ChallengeService challengeService;
+
+    @Resource
+    private ChallengeRegistrantService challengeRegistrantService;
 
     @Resource
     private Mapper dozerMapper;
@@ -95,7 +103,7 @@ public class ChallengeSubmissionServiceImpl implements ChallengeSubmissionServic
         final Long challengeId = challengeSubmissionDto.getChallengeId();
         final String registrantEmail = challengeSubmissionDto.getRegistrantEmail();
         ChallengeDto challengeDto = challengeService.findChallengeById(challengeId, registrantEmail);
-        ChallengeRegistrantEntity registrant = challengeService.findRegistrantByChallengeIdAndEmail(challengeId, registrantEmail);
+        ChallengeRegistrantEntity registrant = challengeRegistrantService.findRegistrantByChallengeIdAndEmail(challengeId, registrantEmail);
 
         // In case user submits their works but didn't join challenge yet, we should register him first
         if (registrant == null) {
@@ -230,4 +238,20 @@ public class ChallengeSubmissionServiceImpl implements ChallengeSubmissionServic
         }
         return null;
     }
+
+    @Override
+    public List<ChallengeSubmissionEntity> findChallengeSubmissionWithinPeriod(
+            Long challengeId, Long currentDateTime, TimePeriodEnum period) {
+        NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withTypes("challengeSubmission");
+
+        BoolQueryBuilder boolQueryBuilder = boolQuery();
+        boolQueryBuilder.must(termQuery("challengeId", challengeId));
+
+        boolQueryBuilder.must(rangeQuery("submissionDateTime").from(yesterdayDate()));
+        searchQueryBuilder.withQuery(boolQueryBuilder);
+        searchQueryBuilder.withSort(fieldSort("challengeSubmissionId").order(SortOrder.DESC));
+
+        return DataUtils.getAllEntities(challengeSubmissionRepository, searchQueryBuilder);
+    }
+
 }
