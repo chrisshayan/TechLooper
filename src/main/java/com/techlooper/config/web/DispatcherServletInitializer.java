@@ -27,37 +27,31 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration.Dynamic;
 
 public class DispatcherServletInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
-//
-//  @Resource
-//  private Environment environment;
-//
-//  @Value("${spring.profiles.active}")
-//  private String profile;
 
-    public void onStartup(ServletContext servletContext) throws ServletException {
-        super.onStartup(servletContext);
-        servletContext.getSessionCookieConfig().setMaxAge(15770000);
-        servletContext.addListener(new SessionListener());
-    }
+  public void onStartup(ServletContext servletContext) throws ServletException {
+    super.onStartup(servletContext);
+    servletContext.getSessionCookieConfig().setMaxAge(SessionListener.MAX_INACTIVE_INTERVAL);
+    servletContext.addListener(new SessionListener());
+  }
 
-    protected Class<?>[] getRootConfigClasses() {
-        return null;
-    }
+  protected Class<?>[] getRootConfigClasses() {
+    return null;
+  }
 
-    protected Class<?>[] getServletConfigClasses() {
-        return new Class<?>[]{
-                CoreConfiguration.class,
-                VnwDbConfiguration.class,
-                WebConfiguration.class,
-                SecurityConfiguration.class
-        };
-    }
+  protected Class<?>[] getServletConfigClasses() {
+    return new Class<?>[]{
+      CoreConfiguration.class,
+      VnwDbConfiguration.class,
+      WebConfiguration.class,
+      SecurityConfiguration.class
+    };
+  }
 
-    protected String[] getServletMappings() {
-        return new String[]{"/"};
-    }
+  protected String[] getServletMappings() {
+    return new String[]{"/"};
+  }
 
-    protected void customizeRegistration(Dynamic registration) {
-        registration.setInitParameter("dispatchOptionsRequest", "true");
-    }
+  protected void customizeRegistration(Dynamic registration) {
+    registration.setInitParameter("dispatchOptionsRequest", "true");
+  }
 }

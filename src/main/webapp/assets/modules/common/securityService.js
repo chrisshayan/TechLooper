@@ -47,7 +47,8 @@ techlooper.factory("securityService", function (apiService, $route, $rootScope, 
     login: function (username, password, type) {
       var auth = type ? {us: username, pwd: password} : {
         us: $.base64.encode(username),
-        pwd: $.base64.encode(password)
+        pwd: $.base64.encode(password),
+        rm: true
       };
       localStorageService.remove("logout");
       return apiService.login(auth)
