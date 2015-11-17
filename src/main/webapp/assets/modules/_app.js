@@ -90,10 +90,6 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
         templateUrl: "modules/technical-detail/technical-detail.tem.html",
         controller: "technicalDetailController"
       })
-      .when("/companies/:companyName", {//vietnamworks
-        templateUrl: "modules/talent-search/home.tem.html",
-        controller: "companyProfileController"
-      })
       .when("/pie-chart", {
         templateUrl: "modules/it-professional/main.tem.html",
         controller: "chartController"

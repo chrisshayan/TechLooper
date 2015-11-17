@@ -29,7 +29,7 @@ techlooper
       }
     };
   })
-  .directive("contestDetailAction", function ($rootScope, apiService, paginationService, utils, jsonValue) {
+  .directive("contestDetailAction", function ($rootScope, apiService, paginationService, utils) {
     return {
       restrict: "E",
       replace: true,
@@ -115,27 +115,7 @@ techlooper
           if (!scope.registrant.visible) return;
           delete scope.registrant.visible;
         };
-        //scope.registrant.accept = function () {
-        //  apiService.acceptChallengeRegistrant(scope.registrant.registrantId)
-        //    .success(function (registrant) {
-        //      scope.registrant.activePhase = registrant.activePhase;
-        //    });
-        //  delete scope.registrant.visible;
-        //};
-
-        //scope.$watch(function () {
-        //  return paginationService.getCurrentPage("__default");
-        //}, function (currentPage, previousPage) {
-        //  scope.registrant.hide();
-        //});
-
-        //scope.$on("submission-accepted", function (sc, submission) {
-        //  if (scope.registrant.registrantId != submission.registrantId) return;
-        //  scope.registrant.acceptSubmission(submission);
-        //});
         scope.$on("registrant-qualified", function (sc, submission) {scope.registrant.hide();});
-
-        //utils.sortByNumber(scope.registrant.submissions, "challengeSubmissionId");
       }
     };
   })
