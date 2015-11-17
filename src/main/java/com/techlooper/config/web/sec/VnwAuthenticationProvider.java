@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
+import org.springframework.security.authentication.RememberMeAuthenticationToken;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -42,7 +43,7 @@ public class VnwAuthenticationProvider implements AuthenticationProvider {
         VnwUser vnwUser = vnwUserRepo.findByUsernameIgnoreCaseAndUserPassAndRoleName(username, hashPassword, RoleName.EMPLOYER);
         if (vnwUser != null) {
             UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(vnwUser.getUsername(), null,
-                    Arrays.asList(new SimpleGrantedAuthority(RoleName.EMPLOYER.name())));
+                    Arrays.asList(new SimpleGrantedAuthority(vnwUser.getRoleName().name())));
             return auth;
         }
 
@@ -52,7 +53,7 @@ public class VnwAuthenticationProvider implements AuthenticationProvider {
     }
 
     public boolean supports(Class<?> authentication) {
-        return (UsernamePasswordAuthenticationToken.class.isAssignableFrom(authentication));
+        return (UsernamePasswordAuthenticationToken.class.isAssignableFrom(authentication) || RememberMeAuthenticationToken.class.isAssignableFrom(authentication));
     }
 
 }
