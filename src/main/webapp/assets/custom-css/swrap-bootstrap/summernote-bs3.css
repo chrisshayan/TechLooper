@@ -62,7 +62,6 @@
   font-style: italic;
 }
 .note-editor hr {
-  -moz-box-sizing: content-box;
   box-sizing: content-box;
   height: 0;
 }
@@ -137,7 +136,7 @@
 .note-editor html input[type="button"],
 .note-editor input[type="reset"],
 .note-editor input[type="submit"] {
-  -webkit-appearance: button;
+  appearance: button;
   cursor: pointer;
 }
 .note-editor button[disabled],
@@ -150,14 +149,11 @@
   padding: 0;
 }
 .note-editor input[type="search"] {
-  -webkit-appearance: textfield;
-  -moz-box-sizing: content-box;
-  -webkit-box-sizing: content-box;
   box-sizing: content-box;
 }
 .note-editor input[type="search"]::-webkit-search-cancel-button,
 .note-editor input[type="search"]::-webkit-search-decoration {
-  -webkit-appearance: none;
+  appearance: none;
 }
 .note-editor button::-moz-focus-inner,
 .note-editor input::-moz-focus-inner {
@@ -301,7 +297,6 @@
   background-color: #ffffff;
   border: 1px solid #dddddd;
   border-radius: 4px;
-  -webkit-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
   display: inline-block;
   max-width: 100%;
@@ -1627,9 +1622,7 @@
   background-image: none;
   border: 1px solid #cccccc;
   border-radius: 4px;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
   transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
 }
 .note-editor .form-control:focus {
