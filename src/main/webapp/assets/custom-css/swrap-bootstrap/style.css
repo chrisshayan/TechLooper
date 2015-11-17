@@ -1,11 +1,6 @@
-@import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&lang=en");
-@import url("https://fonts.googleapis.com/css?family=Roboto:400,300,500,700");
-/*
- *
- *   INSPINIA - Responsive Admin Theme
- *   version 2.3
- *
-*/
+*{
+  box-sizing: border-box;
+}
 h1,
 h2,
 h3,
