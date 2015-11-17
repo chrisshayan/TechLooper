@@ -1,11 +1,6 @@
-@import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&lang=en");
-@import url("https://fonts.googleapis.com/css?family=Roboto:400,300,500,700");
-/*
- *
- *   INSPINIA - Responsive Admin Theme
- *   version 2.3
- *
-*/
+*{
+  box-sizing: border-box;
+}
 h1,
 h2,
 h3,
@@ -623,24 +618,7 @@ body.canvas-menu.mini-navbar nav.navbar-static-side {
 .open .dropdown-toggle.btn-primary {
   background-image: none;
 }
-.btn-primary.disabled,
-.btn-primary.disabled:hover,
-.btn-primary.disabled:focus,
-.btn-primary.disabled:active,
-.btn-primary.disabled.active,
-.btn-primary[disabled],
-.btn-primary[disabled]:hover,
-.btn-primary[disabled]:focus,
-.btn-primary[disabled]:active,
-.btn-primary.active[disabled],
-fieldset[disabled] .btn-primary,
-fieldset[disabled] .btn-primary:hover,
-fieldset[disabled] .btn-primary:focus,
-fieldset[disabled] .btn-primary:active,
-fieldset[disabled] .btn-primary.active {
-  background-color: #1dc5a3;
-  border-color: #1dc5a3;
-}
+
 .btn-success {
   background-color: #1c84c6;
   border-color: #1c84c6;

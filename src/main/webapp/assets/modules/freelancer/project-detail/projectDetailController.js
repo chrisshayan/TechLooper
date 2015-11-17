@@ -28,16 +28,17 @@ techlooper.controller('freelancerProjectDetailController', function ($scope, uti
   });
 
   $scope.status = function (type) {
+    var option = undefined;
     switch (type) {
       case "show-fixed-price-fields":
         if (!$scope.project) return false;
-        var option = resourcesService.getOption($scope.project.payMethod, resourcesService.paymentConfig);
+        option = resourcesService.getOption($scope.project.payMethod, resourcesService.paymentConfig);
         if (!option) return false;
         return option.id == "fixedPrice";
 
       case "show-hourly-price-fields":
         if (!$scope.project) return false;
-        var option = resourcesService.getOption($scope.project.payMethod, resourcesService.paymentConfig);
+        option = resourcesService.getOption($scope.project.payMethod, resourcesService.paymentConfig);
         if (!option) return false;
         return option.id == "hourly";
 
