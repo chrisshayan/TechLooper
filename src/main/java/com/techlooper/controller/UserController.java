@@ -385,7 +385,7 @@ public class UserController {
     @RequestMapping(value = "user/challenge/sendMailToDaily/{challengeId}/{now}", method = RequestMethod.POST)
     public void sendEmailToDailyChallengeRegistrants(HttpServletRequest request, HttpServletResponse response,
                                                      @PathVariable Long challengeId, @PathVariable Long now, @RequestBody EmailContent emailContent) {
-        if (!challengeService.sendEmailToDailyChallengeRegistrants(request.getRemoteUser(), challengeId, now, emailContent)) {
+        if (!emailService.sendEmailToDailyChallengeRegistrants(request.getRemoteUser(), challengeId, now, emailContent)) {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         }
     }
@@ -394,7 +394,7 @@ public class UserController {
     @RequestMapping(value = "user/challenge/feedback/{registrantId}", method = RequestMethod.POST)
     public void sendFeedbackToRegistrant(HttpServletRequest request, HttpServletResponse response,
                                          @PathVariable Long registrantId, @RequestBody EmailContent emailContent) {
-        if (!challengeService.sendEmailToRegistrant(request.getRemoteUser(), registrantId, emailContent)) {
+        if (!emailService.sendEmailToRegistrant(request.getRemoteUser(), registrantId, emailContent)) {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         }
     }

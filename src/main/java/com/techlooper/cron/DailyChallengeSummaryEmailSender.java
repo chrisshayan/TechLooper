@@ -5,6 +5,7 @@ import com.techlooper.model.ChallengePhaseEnum;
 import com.techlooper.model.EmailSentResultEnum;
 import com.techlooper.repository.elasticsearch.ChallengeRepository;
 import com.techlooper.service.ChallengeService;
+import com.techlooper.service.EmailService;
 import com.techlooper.util.DataUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -32,6 +33,9 @@ public class DailyChallengeSummaryEmailSender {
     @Resource
     private ChallengeRepository challengeRepository;
 
+    @Resource
+    private EmailService emailService;
+
     @Scheduled(cron = "${scheduled.cron.dailyChallengeSummary}")
     public synchronized void sendDailyEmailAboutChallengeSummary() throws Exception {
         if (enableJobAlert) {
@@ -52,12 +56,12 @@ public class DailyChallengeSummaryEmailSender {
                         Date lastSentDate = string2Date(challengeEntity.getLastEmailSentDateTime(), BASIC_DATE_TIME_PATTERN);
                         Date currentDate = new Date();
                         if (daysBetween(lastSentDate, currentDate) > 0) {
-                            challengeService.sendDailySummaryEmailToChallengeOwner(challengeEntity);
-                            challengeService.updateSendEmailToChallengeOwnerResultCode(challengeEntity, EmailSentResultEnum.OK);
+                            emailService.sendDailySummaryEmailToChallengeOwner(challengeEntity);
+                            emailService.updateSendEmailToChallengeOwnerResultCode(challengeEntity, EmailSentResultEnum.OK);
                             count++;
                         }
                     } catch (Exception ex) {
-                        challengeService.updateSendEmailToChallengeOwnerResultCode(challengeEntity, EmailSentResultEnum.ERROR);
+                        emailService.updateSendEmailToChallengeOwnerResultCode(challengeEntity, EmailSentResultEnum.ERROR);
                         LOGGER.error(ex.getMessage(), ex);
                     }
                 }

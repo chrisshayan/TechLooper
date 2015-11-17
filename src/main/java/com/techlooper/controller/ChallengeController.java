@@ -8,11 +8,9 @@ import com.techlooper.entity.vnw.VnwCompany;
 import com.techlooper.entity.vnw.VnwUser;
 import com.techlooper.model.*;
 import com.techlooper.repository.elasticsearch.ChallengeRegistrantRepository;
-import com.techlooper.service.ChallengeRegistrantService;
-import com.techlooper.service.ChallengeService;
-import com.techlooper.service.EmployerService;
-import com.techlooper.service.LeadAPIService;
+import com.techlooper.service.*;
 import com.techlooper.util.EmailValidator;
+import org.dozer.Mapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -45,20 +43,26 @@ public class ChallengeController {
     @Resource
     private ChallengeRegistrantService challengeRegistrantService;
 
+    @Resource
+    private EmailService emailService;
+
+    @Resource
+    private Mapper dozerMapper;
+
     @PreAuthorize("hasAuthority('EMPLOYER')")
     @RequestMapping(value = "/challenge/publish", method = RequestMethod.POST)
     public ChallengeResponse publishChallenge(@RequestBody ChallengeDto challengeDto, HttpServletRequest servletRequest) throws Exception {
         int responseCode = 0;
         String employerEmail = servletRequest.getRemoteUser();
         challengeDto.setAuthorEmail(employerEmail);
-        ChallengeEntity challengeEntity = challengeService.savePostChallenge(challengeDto);
+        ChallengeEntity challengeEntity = challengeService.postChallenge(challengeDto);
         boolean newEntity = challengeDto.getChallengeId() == null;
         if (newEntity) {
             if (challengeEntity != null) {
                 if (EmailValidator.validate(challengeEntity.getAuthorEmail())) {
-                    challengeService.sendPostChallengeEmailToEmployer(challengeEntity);
+                    emailService.sendPostChallengeEmailToEmployer(challengeEntity);
                 }
-                challengeService.sendPostChallengeEmailToTechloopies(challengeEntity, Boolean.TRUE);
+                emailService.sendPostChallengeEmailToTechloopies(challengeEntity, Boolean.TRUE);
             }
 
             // Call Lead Management API to create new lead on CRM system
@@ -76,7 +80,7 @@ public class ChallengeController {
                 LOGGER.error(ex.getMessage(), ex);
             }
         } else {
-            challengeService.sendPostChallengeEmailToTechloopies(challengeEntity, Boolean.FALSE);
+            emailService.sendPostChallengeEmailToTechloopies(challengeEntity, Boolean.FALSE);
         }
 
         return new ChallengeResponse(challengeEntity.getChallengeId(), responseCode);
@@ -90,12 +94,12 @@ public class ChallengeController {
     }
 
     @RequestMapping(value = "/challenge/join", method = RequestMethod.POST)
-    public long joinChallenge(@RequestBody ChallengeRegistrantDto joinChallenge, HttpServletResponse response) throws Exception {
-        if (!EmailValidator.validate(joinChallenge.getRegistrantEmail())) {
+    public long joinChallenge(@RequestBody ChallengeRegistrantDto challengeRegistrantDto, HttpServletResponse response) throws Exception {
+        if (!EmailValidator.validate(challengeRegistrantDto.getRegistrantEmail())) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             return 0L;
         }
-        return challengeService.joinChallenge(joinChallenge);
+        return challengeService.joinChallenge(challengeRegistrantDto);
     }
 
     @RequestMapping(value = "/challenge/list", method = RequestMethod.GET)
@@ -115,14 +119,17 @@ public class ChallengeController {
     @PreAuthorize("hasAuthority('EMPLOYER')")
     @RequestMapping(value = "/challenge/{id}", method = RequestMethod.DELETE)
     public void deleteChallengeById(@PathVariable Long id, HttpServletRequest request, HttpServletResponse response) {
-        if (!challengeService.delete(id, request.getRemoteUser())) {
+        if (!challengeService.deleteChallenge(id, request.getRemoteUser())) {
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
         }
     }
 
     @RequestMapping(value = "/challenges/{challengeId}", method = RequestMethod.GET)
     public ChallengeDto findChallengeById(@PathVariable Long challengeId, HttpServletRequest request) throws Exception {
-        return challengeService.findChallengeById(challengeId, request.getRemoteUser());
+        String ownerEmail = request.getRemoteUser();
+        ChallengeDto challengeDto = dozerMapper.map(
+                challengeService.findChallengeById(challengeId, ownerEmail), ChallengeDto.class);
+        return challengeDto;
     }
 
     @PreAuthorize("hasAuthority('EMPLOYER')")

@@ -317,7 +317,7 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
     @Override
     public List<ChallengeRegistrantFunnelItem> getChallengeRegistrantFunnel(Long challengeId, String ownerEmail) {
         List<ChallengeRegistrantFunnelItem> funnel = new ArrayList<>();
-        ChallengeDto challengeDto = challengeService.findChallengeById(challengeId, ownerEmail);
+        ChallengeEntity challenge = challengeService.findChallengeById(challengeId, ownerEmail);
         Map<ChallengePhaseEnum, ChallengeRegistrantPhaseItem> numberOfRegistrantsByPhase =
                 countNumberOfRegistrantsByPhase(challengeId);
         Map<ChallengePhaseEnum, ChallengeSubmissionPhaseItem> numberOfSubmissionsByPhase =
@@ -337,7 +337,7 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
                 unreadSubmission = numberOfUnreadSubmissionsByPhase.get(phase).getSubmission();
             }
 
-            if (isValidPhase(challengeDto, phase)) {
+            if (isValidPhase(challenge, phase)) {
                 funnel.add(new ChallengeRegistrantFunnelItem(phase, participant, submission, unreadSubmission));
             }
         }
@@ -351,18 +351,18 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
         return funnel.stream().sorted(sortByPhaseComparator).collect(toList());
     }
 
-    private boolean isValidPhase(ChallengeDto challengeDto, ChallengePhaseEnum phase) {
+    private boolean isValidPhase(ChallengeEntity challengeDto, ChallengePhaseEnum phase) {
         switch (phase) {
             case REGISTRATION:
-                return StringUtils.isNotEmpty(challengeDto.getRegistrationDate());
+                return StringUtils.isNotEmpty(challengeDto.getRegistrationDateTime());
             case IDEA:
-                return StringUtils.isNotEmpty(challengeDto.getIdeaSubmissionDate());
+                return StringUtils.isNotEmpty(challengeDto.getIdeaSubmissionDateTime());
             case UIUX:
-                return StringUtils.isNotEmpty(challengeDto.getUxSubmissionDate());
+                return StringUtils.isNotEmpty(challengeDto.getUxSubmissionDateTime());
             case PROTOTYPE:
-                return StringUtils.isNotEmpty(challengeDto.getPrototypeSubmissionDate());
+                return StringUtils.isNotEmpty(challengeDto.getPrototypeSubmissionDateTime());
             case FINAL:
-                return StringUtils.isNotEmpty(challengeDto.getSubmissionDate());
+                return StringUtils.isNotEmpty(challengeDto.getSubmissionDateTime());
             default:
                 return false;
         }

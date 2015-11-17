@@ -1,6 +1,6 @@
 package com.techlooper.service.impl;
 
-import com.techlooper.entity.ChallengeRegistrantDto;
+import com.techlooper.entity.ChallengeEntity;
 import com.techlooper.entity.ChallengeRegistrantEntity;
 import com.techlooper.entity.ChallengeSubmissionEntity;
 import com.techlooper.entity.ChallengeSubmissionEntity.ChallengeSubmissionEntityBuilder;
@@ -102,14 +102,8 @@ public class ChallengeSubmissionServiceImpl implements ChallengeSubmissionServic
     public ChallengeSubmissionEntity submitMyResult(ChallengeSubmissionDto challengeSubmissionDto) {
         final Long challengeId = challengeSubmissionDto.getChallengeId();
         final String registrantEmail = challengeSubmissionDto.getRegistrantEmail();
-        ChallengeDto challengeDto = challengeService.findChallengeById(challengeId, registrantEmail);
+        ChallengeEntity challenge = challengeService.findChallengeById(challengeId, registrantEmail);
         ChallengeRegistrantEntity registrant = challengeRegistrantService.findRegistrantByChallengeIdAndEmail(challengeId, registrantEmail);
-
-        // In case user submits their works but didn't join challenge yet, we should register him first
-        if (registrant == null) {
-            registrant = challengeService.joinChallengeEntity(dozerMapper.map(challengeSubmissionDto, ChallengeRegistrantDto.class));
-        }
-
         final Long registrantId = registrant.getRegistrantId();
         ChallengePhaseEnum activePhase = registrant.getActivePhase() == null ? ChallengePhaseEnum.REGISTRATION : registrant.getActivePhase();
 
@@ -123,14 +117,14 @@ public class ChallengeSubmissionServiceImpl implements ChallengeSubmissionServic
                 .withIsRead(Boolean.FALSE);
 
         try {
-            sendConfirmationEmailToRegistrant(challengeDto, registrant, challengeSubmissionEntity);
+            sendConfirmationEmailToRegistrant(challenge, registrant, challengeSubmissionEntity);
         } catch (Exception e) {
             LOGGER.error(e.getMessage(), e);
         }
         return challengeSubmissionRepository.save(challengeSubmissionEntity);
     }
 
-    private void sendConfirmationEmailToRegistrant(ChallengeDto challengeDto,
+    private void sendConfirmationEmailToRegistrant(ChallengeEntity challenge,
                                                    ChallengeRegistrantEntity registrant, ChallengeSubmissionEntity challengeSubmissionEntity) throws Exception {
         String mailSubject = registrant.getLang() == Language.vi ? confirmUserSubmissionMailSubjectVi :
                 confirmUserSubmissionMailSubjectEn;
@@ -145,12 +139,12 @@ public class ChallengeSubmissionServiceImpl implements ChallengeSubmissionServic
         templateModel.put("webBaseUrl", webBaseUrl);
         templateModel.put("submissionUrl", challengeSubmissionEntity.getSubmissionURL());
         templateModel.put("currentPhase", challengeSubmissionEntity.getSubmissionPhase());
-        templateModel.put("challengeId", String.valueOf(challengeDto.getChallengeId()));
-        templateModel.put("challengeAlias", challengeDto.getChallengeName().replaceAll("\\W", "-"));
-        templateModel.put("challengeName", challengeDto.getChallengeName());
+        templateModel.put("challengeId", String.valueOf(challenge.getChallengeId()));
+        templateModel.put("challengeAlias", challenge.getChallengeName().replaceAll("\\W", "-"));
+        templateModel.put("challengeName", challenge.getChallengeName());
 
         template.process(templateModel, stringWriter);
-        mailSubject = String.format(mailSubject, challengeDto.getChallengeName());
+        mailSubject = String.format(mailSubject, challenge.getChallengeName());
         confirmUserSubmissionMailMessage.setSubject(MimeUtility.encodeText(mailSubject, "UTF-8", null));
         confirmUserSubmissionMailMessage.setText(stringWriter.toString(), "UTF-8", "html");
 

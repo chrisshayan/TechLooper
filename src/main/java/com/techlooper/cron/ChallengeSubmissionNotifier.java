@@ -7,6 +7,7 @@ import com.techlooper.model.EmailSentResultEnum;
 import com.techlooper.repository.elasticsearch.ChallengeRegistrantRepository;
 import com.techlooper.service.ChallengeRegistrantService;
 import com.techlooper.service.ChallengeService;
+import com.techlooper.service.EmailService;
 import com.techlooper.util.DataUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -36,6 +37,9 @@ public class ChallengeSubmissionNotifier {
 
     @Resource
     private ChallengeRegistrantRepository challengeRegistrantRepository;
+
+    @Resource
+    private EmailService emailService;
 
     @Value("${jobAlert.enable}")
     private Boolean enableJobAlert;
@@ -72,13 +76,13 @@ public class ChallengeSubmissionNotifier {
                         Date currentDate = new Date();
                         if (daysBetween(lastSentDate, currentDate) > 0) {
                             try {
-                                challengeService.sendEmailNotifyRegistrantAboutChallengeTimeline(
+                                emailService.sendEmailNotifyRegistrantAboutChallengeTimeline(
                                         challengeEntity, registrantEntity, challengePhase, true);
-                                challengeService.updateSendEmailToContestantResultCode(registrantEntity, EmailSentResultEnum.OK);
+                                emailService.updateSendEmailToContestantResultCode(registrantEntity, EmailSentResultEnum.OK);
                                 count++;
                             } catch (Exception ex) {
                                 LOGGER.error(ex.getMessage(), ex);
-                                challengeService.updateSendEmailToContestantResultCode(registrantEntity, EmailSentResultEnum.ERROR);
+                                emailService.updateSendEmailToContestantResultCode(registrantEntity, EmailSentResultEnum.ERROR);
                             }
                         }
                     }

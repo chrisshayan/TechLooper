@@ -7,6 +7,7 @@ import com.techlooper.model.EmailSentResultEnum;
 import com.techlooper.repository.elasticsearch.ChallengeRegistrantRepository;
 import com.techlooper.service.ChallengeRegistrantService;
 import com.techlooper.service.ChallengeService;
+import com.techlooper.service.EmailService;
 import com.techlooper.util.DataUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.dozer.Mapper;
@@ -31,6 +32,9 @@ public class ChallengeTimelineNotifier {
 
     @Resource
     private ChallengeRegistrantService challengeRegistrantService;
+
+    @Resource
+    private EmailService emailService;
 
     @Resource
     private Mapper dozerMapper;
@@ -67,14 +71,14 @@ public class ChallengeTimelineNotifier {
                         if (daysBetween(lastSentDate, currentDate) > 0) {
                             try {
                                 if (StringUtils.isNotEmpty(challengeRegistrantEntity.getRegistrantEmail())) {
-                                    challengeService.sendEmailNotifyRegistrantAboutChallengeTimeline(
+                                    emailService.sendEmailNotifyRegistrantAboutChallengeTimeline(
                                             challengeEntity, challengeRegistrantEntity, challengePhase, false);
-                                    challengeService.updateSendEmailToContestantResultCode(challengeRegistrantEntity, EmailSentResultEnum.OK);
+                                    emailService.updateSendEmailToContestantResultCode(challengeRegistrantEntity, EmailSentResultEnum.OK);
                                     count++;
                                 }
                             } catch (Exception ex) {
                                 LOGGER.error(ex.getMessage(), ex);
-                                challengeService.updateSendEmailToContestantResultCode(challengeRegistrantEntity, EmailSentResultEnum.ERROR);
+                                emailService.updateSendEmailToContestantResultCode(challengeRegistrantEntity, EmailSentResultEnum.ERROR);
                             }
                         }
                     }

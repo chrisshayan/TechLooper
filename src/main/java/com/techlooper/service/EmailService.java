@@ -1,9 +1,16 @@
 package com.techlooper.service;
 
 import com.techlooper.dto.EmailTemplateDto;
+import com.techlooper.entity.ChallengeEntity;
+import com.techlooper.entity.ChallengeRegistrantEntity;
+import com.techlooper.model.ChallengePhaseEnum;
 import com.techlooper.model.EmailContent;
+import com.techlooper.model.EmailSentResultEnum;
 import com.techlooper.model.Language;
+import freemarker.template.TemplateException;
 
+import javax.mail.MessagingException;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -40,4 +47,29 @@ public interface EmailService {
     List<EmailTemplateDto> getAvailableEmailTemplates(Language language);
 
     EmailTemplateDto getTemplateById(Long templateId);
+
+    void sendPostChallengeEmailToEmployer(ChallengeEntity challengeEntity)
+            throws MessagingException, IOException, TemplateException;
+
+    void sendPostChallengeEmailToTechloopies(ChallengeEntity challengeEntity, Boolean isNewChallenge)
+            throws MessagingException, IOException, TemplateException;
+
+    void sendEmailNotifyRegistrantAboutChallengeTimeline(ChallengeEntity challengeEntity,
+                                                         ChallengeRegistrantEntity challengeRegistrantEntity, ChallengePhaseEnum challengePhase, boolean isSpecificDayNotification) throws Exception;
+
+    void sendEmailNotifyEmployerWhenPhaseClosed(ChallengeEntity challengeEntity, ChallengePhaseEnum currentPhase,
+                                                ChallengePhaseEnum oldPhase) throws Exception;
+
+    void sendApplicationEmailToContestant(ChallengeEntity challengeEntity, ChallengeRegistrantEntity challengeRegistrantEntity)
+            throws MessagingException, IOException, TemplateException;
+
+    void sendDailySummaryEmailToChallengeOwner(ChallengeEntity challengeEntity) throws Exception;
+
+    void updateSendEmailToContestantResultCode(ChallengeRegistrantEntity challengeRegistrantEntity, EmailSentResultEnum code);
+
+    void updateSendEmailToChallengeOwnerResultCode(ChallengeEntity challengeEntity, EmailSentResultEnum code);
+
+    boolean sendEmailToDailyChallengeRegistrants(String challengeOwner, Long challengeId, Long now, EmailContent emailContent);
+
+    boolean sendEmailToRegistrant(String challengeOwner, Long registrantId, EmailContent emailContent);
 }
