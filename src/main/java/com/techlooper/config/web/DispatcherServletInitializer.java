@@ -25,12 +25,15 @@ import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatche
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration.Dynamic;
+import javax.servlet.SessionCookieConfig;
 
 public class DispatcherServletInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
   public void onStartup(ServletContext servletContext) throws ServletException {
     super.onStartup(servletContext);
-    servletContext.getSessionCookieConfig().setMaxAge(SessionListener.MAX_INACTIVE_INTERVAL);
+    SessionCookieConfig sessionCookieConfig = servletContext.getSessionCookieConfig();
+    sessionCookieConfig.setMaxAge(SessionListener.MAX_INACTIVE_INTERVAL);
+    sessionCookieConfig.setHttpOnly(true);
     servletContext.addListener(new SessionListener());
   }
 
