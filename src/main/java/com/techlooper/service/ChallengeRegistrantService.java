@@ -1,12 +1,14 @@
 package com.techlooper.service;
 
+import com.techlooper.dto.ChallengeQualificationDto;
 import com.techlooper.dto.ChallengeWinnerDto;
+import com.techlooper.dto.RejectRegistrantDto;
 import com.techlooper.entity.ChallengeRegistrantDto;
 import com.techlooper.entity.ChallengeRegistrantEntity;
-import com.techlooper.model.ChallengePhaseEnum;
-import com.techlooper.model.ChallengeRegistrantPhaseItem;
-import com.techlooper.model.ChallengeWinner;
+import com.techlooper.entity.ChallengeSubmissionEntity;
+import com.techlooper.model.*;
 
+import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -28,4 +30,22 @@ public interface ChallengeRegistrantService {
     List<ChallengeRegistrantEntity> findRegistrantsByChallengeId(Long challengeId);
 
     ChallengeRegistrantEntity findRegistrantById(Long registrantId);
+
+    ChallengeRegistrantDto rejectRegistrant(String ownerEmail, RejectRegistrantDto rejectRegistrantDto);
+
+    ChallengeRegistrantDto acceptRegistrant(Long registrantId, ChallengePhaseEnum phase);
+
+    List<ChallengeRegistrantDto> qualifyAllRegistrants(String remoteUser, ChallengeQualificationDto challengeQualificationDto);
+
+    Long getNumberOfRegistrants(Long challengeId);
+
+    ChallengeRegistrantDto saveRegistrant(String ownerEmail, ChallengeRegistrantDto challengeRegistrantDto);
+
+    List<ChallengeRegistrantEntity> findChallengeRegistrantWithinPeriod(Long challengeId, Long currentDateTime, TimePeriodEnum period);
+
+    ChallengeRegistrantEntity findRegistrantByChallengeIdAndEmail(Long challengeId, String email);
+
+    List<ChallengeRegistrantFunnelItem> getChallengeRegistrantFunnel(Long challengeId, String ownerEmail);
+
+    Long getTotalNumberOfRegistrants();
 }
