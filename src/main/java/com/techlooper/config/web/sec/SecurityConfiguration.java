@@ -54,9 +54,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     return switchingAuthenticationProvider;
   }
 
-  @Bean
   public UserDetailsService userDetailsService() {
-    return new UserDetailsServiceImpl();
+    return new SecurityUserDetailsServiceImpl();
   }
 
   @Bean

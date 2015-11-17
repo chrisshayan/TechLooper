@@ -14,7 +14,7 @@ import java.util.Arrays;
 /**
  * Created by phuonghqh on 11/17/15.
  */
-public class UserDetailsServiceImpl implements UserDetailsService {
+public class SecurityUserDetailsServiceImpl implements UserDetailsService {
 
   @Resource
   private VnwUserRepo vnwUserRepo;
