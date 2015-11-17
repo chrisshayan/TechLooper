@@ -1,13 +1,13 @@
 package com.techlooper.cron;
 
 import com.techlooper.entity.ChallengeEntity;
-import com.techlooper.entity.ChallengeRegistrantDto;
 import com.techlooper.entity.ChallengeRegistrantEntity;
 import com.techlooper.model.ChallengePhaseEnum;
 import com.techlooper.model.EmailSentResultEnum;
-import com.techlooper.model.RegistrantFilterCondition;
 import com.techlooper.repository.elasticsearch.ChallengeRegistrantRepository;
+import com.techlooper.service.ChallengeRegistrantService;
 import com.techlooper.service.ChallengeService;
+import com.techlooper.service.EmailService;
 import com.techlooper.util.DataUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.dozer.Mapper;
@@ -20,7 +20,6 @@ import javax.annotation.Resource;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 import static com.techlooper.util.DateTimeUtils.*;
 
@@ -30,6 +29,12 @@ public class ChallengeTimelineNotifier {
 
     @Resource
     private ChallengeService challengeService;
+
+    @Resource
+    private ChallengeRegistrantService challengeRegistrantService;
+
+    @Resource
+    private EmailService emailService;
 
     @Resource
     private Mapper dozerMapper;
@@ -50,13 +55,11 @@ public class ChallengeTimelineNotifier {
                 List<ChallengeEntity> challengeEntities = challengeService.listChallengesByPhase(challengePhase);
 
                 for (ChallengeEntity challengeEntity : challengeEntities) {
-                    RegistrantFilterCondition condition = new RegistrantFilterCondition();
-                    condition.setAuthorEmail(challengeEntity.getAuthorEmail());
-                    condition.setChallengeId(challengeEntity.getChallengeId());
-                    Set<ChallengeRegistrantDto> challengeRegistrants = challengeService.findRegistrantsByOwner(condition);
+                    Long challengeId = challengeEntity.getChallengeId();
+                    List<ChallengeRegistrantEntity> challengeRegistrants = challengeRegistrantService.findRegistrantsByChallengeId(challengeId);
 
                     Thread.sleep(DataUtils.getRandomNumberInRange(300000, 600000));
-                    for (ChallengeRegistrantDto challengeRegistrant : challengeRegistrants) {
+                    for (ChallengeRegistrantEntity challengeRegistrant : challengeRegistrants) {
                         ChallengeRegistrantEntity challengeRegistrantEntity = challengeRegistrantRepository.findOne(
                                 challengeRegistrant.getRegistrantId());
                         if (StringUtils.isEmpty(challengeRegistrantEntity.getLastEmailSentDateTime())) {
@@ -68,14 +71,14 @@ public class ChallengeTimelineNotifier {
                         if (daysBetween(lastSentDate, currentDate) > 0) {
                             try {
                                 if (StringUtils.isNotEmpty(challengeRegistrantEntity.getRegistrantEmail())) {
-                                    challengeService.sendEmailNotifyRegistrantAboutChallengeTimeline(
+                                    emailService.sendEmailNotifyRegistrantAboutChallengeTimeline(
                                             challengeEntity, challengeRegistrantEntity, challengePhase, false);
-                                    challengeService.updateSendEmailToContestantResultCode(challengeRegistrantEntity, EmailSentResultEnum.OK);
+                                    emailService.updateSendEmailToContestantResultCode(challengeRegistrantEntity, EmailSentResultEnum.OK);
                                     count++;
                                 }
                             } catch (Exception ex) {
                                 LOGGER.error(ex.getMessage(), ex);
-                                challengeService.updateSendEmailToContestantResultCode(challengeRegistrantEntity, EmailSentResultEnum.ERROR);
+                                emailService.updateSendEmailToContestantResultCode(challengeRegistrantEntity, EmailSentResultEnum.ERROR);
                             }
                         }
                     }

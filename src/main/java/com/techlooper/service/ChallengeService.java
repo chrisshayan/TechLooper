@@ -1,54 +1,23 @@
 package com.techlooper.service;
 
-import com.techlooper.dto.ChallengeQualificationDto;
-import com.techlooper.dto.RejectRegistrantDto;
 import com.techlooper.entity.ChallengeEntity;
 import com.techlooper.entity.ChallengeRegistrantDto;
-import com.techlooper.entity.ChallengeRegistrantEntity;
-import com.techlooper.entity.ChallengeSubmissionEntity;
-import com.techlooper.model.*;
-import freemarker.template.TemplateException;
+import com.techlooper.model.ChallengeDetailDto;
+import com.techlooper.model.ChallengeDto;
+import com.techlooper.model.ChallengePhaseEnum;
 
-import javax.mail.MessagingException;
-import java.io.IOException;
-import java.text.ParseException;
-import java.util.Collection;
 import java.util.List;
-import java.util.Set;
-import java.util.function.Predicate;
 
 /**
  * Created by NguyenDangKhoa on 6/29/15.
  */
 public interface ChallengeService {
 
-    ChallengeEntity savePostChallenge(ChallengeDto challengeDto) throws Exception;
+    ChallengeEntity postChallenge(ChallengeDto challengeDto);
 
-    void sendPostChallengeEmailToEmployer(ChallengeEntity challengeEntity)
-            throws MessagingException, IOException, TemplateException;
-
-    void sendPostChallengeEmailToTechloopies(ChallengeEntity challengeEntity, Boolean isNewChallenge)
-            throws MessagingException, IOException, TemplateException;
-
-    void sendEmailNotifyRegistrantAboutChallengeTimeline(ChallengeEntity challengeEntity,
-                                                         ChallengeRegistrantEntity challengeRegistrantEntity, ChallengePhaseEnum challengePhase, boolean isSpecificDayNotification) throws Exception;
-
-    void sendEmailNotifyEmployerWhenPhaseClosed(ChallengeEntity challengeEntity, ChallengePhaseEnum currentPhase,
-                                                                    ChallengePhaseEnum oldPhase) throws Exception;
+    Long joinChallenge(ChallengeRegistrantDto challengeRegistrantDto);
 
     ChallengeDetailDto getChallengeDetail(Long challengeId, String loginEmail);
-
-    Long getNumberOfRegistrants(Long challengeId);
-
-    void sendApplicationEmailToContestant(ChallengeEntity challengeEntity, ChallengeRegistrantEntity challengeRegistrantEntity)
-            throws MessagingException, IOException, TemplateException;
-
-    void sendApplicationEmailToEmployer(ChallengeEntity challengeEntity, ChallengeRegistrantEntity challengeRegistrantEntity)
-            throws MessagingException, IOException, TemplateException;
-
-    ChallengeRegistrantEntity joinChallengeEntity(ChallengeRegistrantDto challengeRegistrantDto);
-
-    long joinChallenge(ChallengeRegistrantDto challengeRegistrantDto);
 
     List<ChallengeDetailDto> listChallenges();
 
@@ -60,61 +29,14 @@ public interface ChallengeService {
 
     Double getTotalAmountOfPrizeValues();
 
-    Long getTotalNumberOfRegistrants();
-
     ChallengeDetailDto getTheLatestChallenge();
 
-    Collection<ChallengeDetailDto> findByOwnerAndCondition(String owner, Predicate<? super ChallengeEntity> condition);
-
-    Collection<ChallengeDetailDto> findInProgressChallenges(String owner);
-
-//  Collection<ChallengeRegistrantDto> findRegistrantsByChallengeId(Long challengeId);
-
-    Long countRegistrantsByChallengeId(Long challengeId);
-
-    boolean delete(Long id, String ownerEmail);
-
-    ChallengeDto findChallengeById(Long id, String ownerEmail);
-
-    Set<ChallengeRegistrantDto> findRegistrantsByOwner(RegistrantFilterCondition condition) throws ParseException;
-
-    ChallengeRegistrantDto saveRegistrant(String ownerEmail, ChallengeRegistrantDto challengeRegistrantDto);
-
-    List<ChallengeRegistrantEntity> findChallengeRegistrantWithinPeriod(
-            Long challengeId, Long currentDateTime, TimePeriodEnum period);
-
-    List<ChallengeRegistrantEntity> filterChallengeRegistrantByDate(RegistrantFilterCondition condition) throws ParseException;
-
-    List<ChallengeSubmissionEntity> findChallengeSubmissionWithinPeriod(
-            Long challengeId, Long currentDateTime, TimePeriodEnum period);
-
-    void sendDailySummaryEmailToChallengeOwner(ChallengeEntity challengeEntity) throws Exception;
+    boolean deleteChallenge(Long challengeId, String ownerEmail);
 
     boolean isOwnerOfChallenge(String ownerEmail, Long challengeId);
 
-    ChallengeEntity findChallengeIdAndOwnerEmail(Long challengeId, String ownerEmail);
-
-    boolean sendEmailToDailyChallengeRegistrants(String challengeOwner, Long challengeId, Long now, EmailContent emailContent);
-
-    boolean sendEmailToRegistrant(String challengeOwner, Long registrantId, EmailContent emailContent);
-
-    List<ChallengeSubmissionDto> findChallengeSubmissionByRegistrant(Long challengeId, Long registrantId);
-
-    void updateSendEmailToContestantResultCode(ChallengeRegistrantEntity challengeRegistrantEntity, EmailSentResultEnum code);
-
-    void updateSendEmailToChallengeOwnerResultCode(ChallengeEntity challengeEntity, EmailSentResultEnum code);
-
-    Set<Long> findRegistrantByChallengeSubmissionDate(Long challengeId, String fromDate, String toDate);
-
-    ChallengeRegistrantDto acceptRegistrant(Long registrantId, ChallengePhaseEnum phase);
+    ChallengeEntity findChallengeById(Long challengeId, String ownerEmail);
 
     void calculateChallengePhases(ChallengeDetailDto challengeDetailDto);
 
-    ChallengeRegistrantEntity findRegistrantByChallengeIdAndEmail(Long challengeId, String email);
-
-    List<ChallengeRegistrantFunnelItem> getChallengeRegistrantFunnel(Long challengeId, String ownerEmail);
-
-    List<ChallengeRegistrantDto> qualifyAllRegistrants(String remoteUser, ChallengeQualificationDto challengeQualificationDto);
-
-    ChallengeRegistrantDto rejectRegistrant(String ownerEmail, RejectRegistrantDto rejectRegistrantDto);
 }

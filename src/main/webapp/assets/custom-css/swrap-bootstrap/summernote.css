@@ -1,3 +1,6 @@
+*{
+  box-sizing: border-box;
+}
 .note-editor {
     height: 300px;
 }

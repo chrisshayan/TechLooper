@@ -81,7 +81,7 @@ techlooper.controller("technicalDetailController", function (utils, connectionFa
   $scope.loadData = function () {
     utils.sendNotification(jsonValue.notifications.switchScope, $scope);
     connectionFactory.termStatisticInOneYear($scope.termRequest)
-      .success(function (data, status, headers, config) {
+      .success(function (data, status, headers) {
         $scope.termRequest.skills = data.skills.map(function (skill) {return skill.skillName;});
         $.each(data.skills, function (i, skill) {skill.id = i;});
         $scope.termStatistic = termService.toViewTerm(data);

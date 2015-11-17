@@ -286,7 +286,7 @@ public class UserController {
 
         try {
             ChallengeDetailDto latestChallenge = challengeService.getTheLatestChallenge();
-            latestChallenge.setNumberOfRegistrants(challengeService.getNumberOfRegistrants(latestChallenge.getChallengeId()));
+            latestChallenge.setNumberOfRegistrants(challengeRegistrantService.getNumberOfRegistrants(latestChallenge.getChallengeId()));
             personalHomepage.setLatestChallenge(latestChallenge);
         } catch (Exception ex) {
             LOGGER.error(ex.getMessage(), ex);
@@ -328,8 +328,8 @@ public class UserController {
     @RequestMapping(value = "/user/current", method = RequestMethod.GET)
     public UserProfileDto getUserProfile(HttpServletRequest request) {
         LOGGER.debug("Reading current user profile info");
-        Principal userPrincipal = request.getUserPrincipal();
-        Object principal = ((UsernamePasswordAuthenticationToken) userPrincipal).getPrincipal();
+        org.springframework.security.core.Authentication authentication = (org.springframework.security.core.Authentication)request.getUserPrincipal();
+        Object principal = authentication.getPrincipal();
         if (!(principal instanceof UserProfileDto)) {
             return dozerMapper.map(userService.findVnwUserByUsername(request.getRemoteUser()), UserProfileDto.class);
         }
@@ -345,8 +345,8 @@ public class UserController {
     @PreAuthorize("hasAnyAuthority('EMPLOYER', 'JOB_SEEKER')")
     @RequestMapping(value = "/user/employer/webinar", method = RequestMethod.POST)
     public WebinarInfoDto createWebinar(@RequestBody WebinarInfoDto webinarInfoDto, HttpServletRequest request) throws IOException {
-        Principal userPrincipal = request.getUserPrincipal();
-        Object principal = ((UsernamePasswordAuthenticationToken) userPrincipal).getPrincipal();
+        org.springframework.security.core.Authentication authentication = (org.springframework.security.core.Authentication)request.getUserPrincipal();
+        Object principal = authentication.getPrincipal();
         UserProfileDto organiser = (principal instanceof UserProfileDto) ? ((UserProfileDto) principal) :
                 dozerMapper.map(getVnwCurrentUser(request), UserProfileDto.class);
         return webinarService.createWebinarInfo(webinarInfoDto, organiser);
@@ -372,7 +372,7 @@ public class UserController {
     public List<String> getDailyChallengeRegistrantNames(HttpServletRequest request, HttpServletResponse response,
                                                          @PathVariable Long challengeId, @PathVariable Long now) {
         if (challengeService.isOwnerOfChallenge(request.getRemoteUser(), challengeId)) {
-            List<ChallengeRegistrantEntity> registrants = challengeService.findChallengeRegistrantWithinPeriod(challengeId, now, TimePeriodEnum.TWENTY_FOUR_HOURS);
+            List<ChallengeRegistrantEntity> registrants = challengeRegistrantService.findChallengeRegistrantWithinPeriod(challengeId, now, TimePeriodEnum.TWENTY_FOUR_HOURS);
             return registrants.stream()
                     .map(registrant -> registrant.getRegistrantFirstName() + " " + registrant.getRegistrantLastName())
                     .collect(toList());
@@ -385,7 +385,7 @@ public class UserController {
     @RequestMapping(value = "user/challenge/sendMailToDaily/{challengeId}/{now}", method = RequestMethod.POST)
     public void sendEmailToDailyChallengeRegistrants(HttpServletRequest request, HttpServletResponse response,
                                                      @PathVariable Long challengeId, @PathVariable Long now, @RequestBody EmailContent emailContent) {
-        if (!challengeService.sendEmailToDailyChallengeRegistrants(request.getRemoteUser(), challengeId, now, emailContent)) {
+        if (!emailService.sendEmailToDailyChallengeRegistrants(request.getRemoteUser(), challengeId, now, emailContent)) {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         }
     }
@@ -394,7 +394,7 @@ public class UserController {
     @RequestMapping(value = "user/challenge/feedback/{registrantId}", method = RequestMethod.POST)
     public void sendFeedbackToRegistrant(HttpServletRequest request, HttpServletResponse response,
                                          @PathVariable Long registrantId, @RequestBody EmailContent emailContent) {
-        if (!challengeService.sendEmailToRegistrant(request.getRemoteUser(), registrantId, emailContent)) {
+        if (!emailService.sendEmailToRegistrant(request.getRemoteUser(), registrantId, emailContent)) {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         }
     }
@@ -408,7 +408,7 @@ public class UserController {
         ChallengeRegistrantEntity registrant = challengeRegistrantService.findRegistrantById(registrantId);
         if (registrant != null) {
             if (challengeService.isOwnerOfChallenge(ownerEmail, registrant.getChallengeId())) {
-                challengeRegistrantDto = challengeService.acceptRegistrant(registrantId, phase);
+                challengeRegistrantDto = challengeRegistrantService.acceptRegistrant(registrantId, phase);
             } else {
                 response.setStatus(HttpServletResponse.SC_FORBIDDEN);
             }
@@ -421,7 +421,7 @@ public class UserController {
     @PreAuthorize("hasAuthority('EMPLOYER')")
     @RequestMapping(value = "user/challenge/reject", method = RequestMethod.POST)
     public ChallengeRegistrantDto rejectChallengeRegistrant(HttpServletRequest request, HttpServletResponse response, @RequestBody RejectRegistrantDto rejectRegistrantDto) {
-        ChallengeRegistrantDto registrantDto = challengeService.rejectRegistrant(request.getRemoteUser(), rejectRegistrantDto);
+        ChallengeRegistrantDto registrantDto = challengeRegistrantService.rejectRegistrant(request.getRemoteUser(), rejectRegistrantDto);
         if (registrantDto == null) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
@@ -458,7 +458,7 @@ public class UserController {
         String ownerEmail = request.getRemoteUser();
         List<ChallengeRegistrantDto> qualifiedRegistrants = new ArrayList<>();
         if (challengeService.isOwnerOfChallenge(ownerEmail, challengeQualificationDto.getChallengeId())) {
-            qualifiedRegistrants = challengeService.qualifyAllRegistrants(ownerEmail, challengeQualificationDto);
+            qualifiedRegistrants = challengeRegistrantService.qualifyAllRegistrants(ownerEmail, challengeQualificationDto);
         } else {
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
         }

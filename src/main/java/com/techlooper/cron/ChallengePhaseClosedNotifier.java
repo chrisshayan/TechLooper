@@ -7,6 +7,7 @@ import com.techlooper.repository.elasticsearch.ChallengeRegistrantRepository;
 import com.techlooper.repository.elasticsearch.ChallengeRepository;
 import com.techlooper.service.ChallengeRegistrantService;
 import com.techlooper.service.ChallengeService;
+import com.techlooper.service.EmailService;
 import com.techlooper.util.DataUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -35,6 +36,9 @@ public class ChallengePhaseClosedNotifier {
     @Value("${jobAlert.enable}")
     private Boolean enableJobAlert;
 
+    @Resource
+    private EmailService emailService;
+
     @Scheduled(cron = "${scheduled.cron.notifyChallengePhaseClosed}")
     public synchronized void notifyChallengePhaseClosed() throws Exception {
         if (enableJobAlert) {
@@ -57,12 +61,12 @@ public class ChallengePhaseClosedNotifier {
                         Date currentDate = new Date();
                         if (daysBetween(lastSentDate, currentDate) > 0) {
                             try {
-                                challengeService.sendEmailNotifyEmployerWhenPhaseClosed(challengeEntity, currentPhase, oldPhase);
-                                challengeService.updateSendEmailToChallengeOwnerResultCode(challengeEntity, EmailSentResultEnum.OK);
+                                emailService.sendEmailNotifyEmployerWhenPhaseClosed(challengeEntity, currentPhase, oldPhase);
+                                emailService.updateSendEmailToChallengeOwnerResultCode(challengeEntity, EmailSentResultEnum.OK);
                                 count++;
                             } catch (Exception ex) {
                                 LOGGER.error(ex.getMessage(), ex);
-                                challengeService.updateSendEmailToChallengeOwnerResultCode(challengeEntity, EmailSentResultEnum.ERROR);
+                                emailService.updateSendEmailToChallengeOwnerResultCode(challengeEntity, EmailSentResultEnum.ERROR);
                             }
                         }
                     }

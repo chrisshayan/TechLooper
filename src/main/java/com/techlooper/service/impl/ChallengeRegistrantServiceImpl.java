@@ -1,19 +1,20 @@
 package com.techlooper.service.impl;
 
+import com.techlooper.dto.ChallengeQualificationDto;
 import com.techlooper.dto.ChallengeWinnerDto;
+import com.techlooper.dto.RejectRegistrantDto;
 import com.techlooper.entity.ChallengeEntity;
 import com.techlooper.entity.ChallengeRegistrantDto;
 import com.techlooper.entity.ChallengeRegistrantEntity;
-import com.techlooper.model.ChallengePhaseEnum;
-import com.techlooper.model.ChallengeRegistrantPhaseItem;
-import com.techlooper.model.ChallengeSubmissionDto;
-import com.techlooper.model.ChallengeWinner;
+import com.techlooper.model.*;
 import com.techlooper.repository.elasticsearch.ChallengeRegistrantRepository;
 import com.techlooper.repository.elasticsearch.ChallengeRepository;
 import com.techlooper.repository.elasticsearch.ChallengeSubmissionRepository;
 import com.techlooper.service.ChallengeRegistrantService;
 import com.techlooper.service.ChallengeService;
+import com.techlooper.service.ChallengeSubmissionService;
 import com.techlooper.util.DataUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.dozer.Mapper;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.search.SearchType;
@@ -21,6 +22,7 @@ import org.elasticsearch.index.query.*;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
 import org.elasticsearch.search.aggregations.Aggregations;
 import org.elasticsearch.search.aggregations.bucket.terms.Terms;
+import org.elasticsearch.search.sort.SortOrder;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.data.util.StreamUtils;
@@ -31,8 +33,10 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.techlooper.model.ChallengePhaseEnum.*;
+import static java.util.stream.Collectors.toList;
 import static org.elasticsearch.index.query.FilterBuilders.*;
 import static org.elasticsearch.index.query.QueryBuilders.*;
+import static org.elasticsearch.search.sort.SortBuilders.fieldSort;
 
 @Service
 public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantService {
@@ -53,6 +57,9 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
 
     @Resource
     private ChallengeSubmissionRepository challengeSubmissionRepository;
+
+    @Resource
+    private ChallengeSubmissionService challengeSubmissionService;
 
     @Resource
     private ChallengeRepository challengeRepository;
@@ -211,4 +218,159 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
     public ChallengeRegistrantEntity findRegistrantById(Long registrantId) {
         return challengeRegistrantRepository.findOne(registrantId);
     }
+
+    @Override
+    public ChallengeRegistrantDto rejectRegistrant(String ownerEmail, RejectRegistrantDto rejectRegistrantDto) {
+        Iterator<ChallengeRegistrantEntity> registrantIter = challengeRegistrantRepository.search(QueryBuilders.termQuery("registrantId", rejectRegistrantDto.getRegistrantId())).iterator();
+        if (!registrantIter.hasNext()) return null;
+
+        ChallengeRegistrantEntity registrant = registrantIter.next();
+        ChallengeEntity challenge = challengeRepository.findOne(registrant.getChallengeId());
+        if (!ownerEmail.equalsIgnoreCase(challenge.getAuthorEmail())) {
+            return null;
+        }
+
+        registrant.setDisqualified(Boolean.TRUE);
+        registrant.setDisqualifiedReason(rejectRegistrantDto.getReason());
+        registrant = challengeRegistrantRepository.save(registrant);
+        return dozerMapper.map(registrant, ChallengeRegistrantDto.class);
+    }
+
+    @Override
+    public ChallengeRegistrantDto acceptRegistrant(Long registrantId, ChallengePhaseEnum activePhase) {
+        ChallengeRegistrantEntity registrant = challengeRegistrantRepository.findOne(registrantId);
+
+        if (registrant != null && activePhase != registrant.getActivePhase()) {
+            registrant.setActivePhase(activePhase);
+            registrant.setDisqualified(null);
+            registrant.setDisqualifiedReason(null);
+            registrant = challengeRegistrantRepository.save(registrant);
+        }
+
+        return dozerMapper.map(registrant, ChallengeRegistrantDto.class);
+    }
+
+    @Override
+    public List<ChallengeRegistrantDto> qualifyAllRegistrants(String ownerEmail, ChallengeQualificationDto challengeQualificationDto) {
+        List<ChallengeRegistrantDto> qualifiedRegistrants = new ArrayList<>();
+        ChallengePhaseEnum qualifyingPhase = challengeQualificationDto.getNextPhase();
+
+        for (Long registrantId : challengeQualificationDto.getRegistrantIds()) {
+            ChallengeRegistrantDto registrantDto = acceptRegistrant(registrantId, qualifyingPhase);
+            if (registrantDto.getActivePhase() == qualifyingPhase) {
+                qualifiedRegistrants.add(registrantDto);
+            }
+        }
+        return qualifiedRegistrants;
+    }
+
+    @Override
+    public Long getNumberOfRegistrants(Long challengeId) {
+        NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withSearchType(SearchType.COUNT);
+        searchQueryBuilder.withFilter(FilterBuilders.termFilter("challengeId", challengeId));
+        return challengeRegistrantRepository.search(searchQueryBuilder.build()).getTotalElements();
+    }
+
+    @Override
+    public ChallengeRegistrantDto saveRegistrant(String ownerEmail, ChallengeRegistrantDto challengeRegistrantDto) {
+        ChallengeRegistrantDto resultChallengeRegistrantDto = challengeRegistrantDto;
+        ChallengeEntity challenge = challengeRepository.findOne(challengeRegistrantDto.getChallengeId());
+        if (ownerEmail.equalsIgnoreCase(challenge.getAuthorEmail())) {
+            ChallengeRegistrantEntity registrant = challengeRegistrantRepository.findOne(challengeRegistrantDto.getRegistrantId());
+            challengeRegistrantDto.setRegistrantEmail(registrant.getRegistrantEmail());
+            dozerMapper.map(challengeRegistrantDto, registrant);
+            registrant = challengeRegistrantRepository.save(registrant);
+            resultChallengeRegistrantDto = dozerMapper.map(registrant, ChallengeRegistrantDto.class);
+        }
+        return resultChallengeRegistrantDto;
+    }
+
+    @Override
+    public List<ChallengeRegistrantEntity> findChallengeRegistrantWithinPeriod(
+            Long challengeId, Long currentDateTime, TimePeriodEnum period) {
+        NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withTypes("challengeRegistrant");
+
+        BoolQueryBuilder boolQueryBuilder = boolQuery();
+        boolQueryBuilder.must(termQuery("challengeId", challengeId));
+
+        Long pastTime = currentDateTime - period.getMiliseconds() > 0 ? currentDateTime - period.getMiliseconds() : 0;
+        boolQueryBuilder.must(rangeQuery("registrantId").from(pastTime));
+        searchQueryBuilder.withQuery(boolQueryBuilder);
+        searchQueryBuilder.withSort(fieldSort("registrantId").order(SortOrder.DESC));
+        return DataUtils.getAllEntities(challengeRegistrantRepository, searchQueryBuilder);
+    }
+
+    @Override
+    public ChallengeRegistrantEntity findRegistrantByChallengeIdAndEmail(Long challengeId, String email) {
+        NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withTypes("challengeRegistrant");
+        searchQueryBuilder.withQuery(boolQuery()
+                .must(termQuery("registrantEmail", email))
+                .must(termQuery("challengeId", challengeId)));
+
+        List<ChallengeRegistrantEntity> registrantEntities = DataUtils.getAllEntities(challengeRegistrantRepository, searchQueryBuilder);
+        if (!registrantEntities.isEmpty()) {
+            return registrantEntities.get(0);
+        }
+        return null;
+    }
+
+    @Override
+    public List<ChallengeRegistrantFunnelItem> getChallengeRegistrantFunnel(Long challengeId, String ownerEmail) {
+        List<ChallengeRegistrantFunnelItem> funnel = new ArrayList<>();
+        ChallengeEntity challenge = challengeService.findChallengeById(challengeId, ownerEmail);
+        Map<ChallengePhaseEnum, ChallengeRegistrantPhaseItem> numberOfRegistrantsByPhase =
+                countNumberOfRegistrantsByPhase(challengeId);
+        Map<ChallengePhaseEnum, ChallengeSubmissionPhaseItem> numberOfSubmissionsByPhase =
+                challengeSubmissionService.countNumberOfSubmissionsByPhase(challengeId, null);
+        Map<ChallengePhaseEnum, ChallengeSubmissionPhaseItem> numberOfUnreadSubmissionsByPhase =
+                challengeSubmissionService.countNumberOfSubmissionsByPhase(challengeId, Boolean.FALSE);
+
+        for (Map.Entry<ChallengePhaseEnum, ChallengeRegistrantPhaseItem> entry : numberOfRegistrantsByPhase.entrySet()) {
+            ChallengePhaseEnum phase = entry.getKey();
+            Long participant = entry.getValue().getRegistration();
+            Long submission = 0L;
+            Long unreadSubmission = 0L;
+            if (numberOfSubmissionsByPhase.get(phase) != null) {
+                submission = numberOfSubmissionsByPhase.get(phase).getSubmission();
+            }
+            if (numberOfUnreadSubmissionsByPhase.get(phase) != null) {
+                unreadSubmission = numberOfUnreadSubmissionsByPhase.get(phase).getSubmission();
+            }
+
+            if (isValidPhase(challenge, phase)) {
+                funnel.add(new ChallengeRegistrantFunnelItem(phase, participant, submission, unreadSubmission));
+            }
+        }
+
+        Long numberOfFinalists = countNumberOfFinalists(challengeId);
+        Long numberOfWinners = Long.valueOf(countNumberOfWinners(challengeId));
+        funnel.add(new ChallengeRegistrantFunnelItem(ChallengePhaseEnum.WINNER, numberOfFinalists, numberOfWinners, 0L));
+
+        Comparator<ChallengeRegistrantFunnelItem> sortByPhaseComparator = (item1, item2) ->
+                item1.getPhase().getOrder() - item2.getPhase().getOrder();
+        return funnel.stream().sorted(sortByPhaseComparator).collect(toList());
+    }
+
+    private boolean isValidPhase(ChallengeEntity challengeDto, ChallengePhaseEnum phase) {
+        switch (phase) {
+            case REGISTRATION:
+                return StringUtils.isNotEmpty(challengeDto.getRegistrationDateTime());
+            case IDEA:
+                return StringUtils.isNotEmpty(challengeDto.getIdeaSubmissionDateTime());
+            case UIUX:
+                return StringUtils.isNotEmpty(challengeDto.getUxSubmissionDateTime());
+            case PROTOTYPE:
+                return StringUtils.isNotEmpty(challengeDto.getPrototypeSubmissionDateTime());
+            case FINAL:
+                return StringUtils.isNotEmpty(challengeDto.getSubmissionDateTime());
+            default:
+                return false;
+        }
+    }
+
+    @Override
+    public Long getTotalNumberOfRegistrants() {
+        return challengeRegistrantRepository.count();
+    }
+
 }

@@ -4,7 +4,7 @@ techlooper.controller("jobListingController", function (apiService, $scope, vnwC
 
   var searchText = $routeParams.searchText;
 
-  var capitalizeWords = function capitalizeWords(str) {
+  var capitalizeWords = function(str) {
     if (str) {
       str = str.replace(/-/g, ' ');
       return str.replace(/\w\S*/g, function(txt) {
@@ -14,7 +14,7 @@ techlooper.controller("jobListingController", function (apiService, $scope, vnwC
     return "";
   }
 
-  var bindSearchResultData = function bindSearchResultData(response) {
+  var bindSearchResultData = function(response) {
     $scope.totalPage = response.totalPage;
     $scope.totalJob = response.totalJob;
     $scope.page = response.page;
