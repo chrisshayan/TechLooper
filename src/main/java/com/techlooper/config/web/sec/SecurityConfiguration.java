@@ -68,9 +68,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     http.csrf().disable();
     http.headers().frameOptions().disable();
     http.authorizeRequests()
-      .and().formLogin().loginPage("/login").usernameParameter("us").passwordParameter("pwd").successHandler(getSuccessHandler()).failureHandler(getAuthenticationFailureHandler())
-      .and().rememberMe().rememberMeParameter("rm").key(environment.getProperty("core.textEncryptor.password")).tokenValiditySeconds(SessionListener.MAX_INACTIVE_INTERVAL)
-      .and().logout().logoutUrl("/logout").logoutSuccessHandler(getLogoutSuccessHandler()).invalidateHttpSession(true).deleteCookies("JSESSIONID").permitAll()
+      .and().formLogin()
+        .loginPage("/login").usernameParameter("us").passwordParameter("pwd")
+        .successHandler(getSuccessHandler()).failureHandler(getAuthenticationFailureHandler())
+      .and().rememberMe()
+        .rememberMeParameter("rm").key(environment.getProperty("core.textEncryptor.password"))
+        .tokenValiditySeconds(SessionListener.MAX_INACTIVE_INTERVAL)
+      .and().logout()
+        .logoutUrl("/logout").logoutSuccessHandler(getLogoutSuccessHandler())
+        .invalidateHttpSession(true).deleteCookies("JSESSIONID").permitAll()
       .and().exceptionHandling().authenticationEntryPoint(exceptionHandler());
   }
 
