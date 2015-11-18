@@ -16,7 +16,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -25,7 +24,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.IOException;
-import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -371,7 +369,7 @@ public class UserController {
     @RequestMapping(value = "user/challengeRegistrantNames/{challengeId}/{now}", method = RequestMethod.GET)
     public List<String> getDailyChallengeRegistrantNames(HttpServletRequest request, HttpServletResponse response,
                                                          @PathVariable Long challengeId, @PathVariable Long now) {
-        if (challengeService.isOwnerOfChallenge(request.getRemoteUser(), challengeId)) {
+        if (challengeService.isChallengeOwner(request.getRemoteUser(), challengeId)) {
             List<ChallengeRegistrantEntity> registrants = challengeRegistrantService.findChallengeRegistrantWithinPeriod(challengeId, now, TimePeriodEnum.TWENTY_FOUR_HOURS);
             return registrants.stream()
                     .map(registrant -> registrant.getRegistrantFirstName() + " " + registrant.getRegistrantLastName())
@@ -407,7 +405,7 @@ public class UserController {
         ChallengeRegistrantDto challengeRegistrantDto = new ChallengeRegistrantDto();
         ChallengeRegistrantEntity registrant = challengeRegistrantService.findRegistrantById(registrantId);
         if (registrant != null) {
-            if (challengeService.isOwnerOfChallenge(ownerEmail, registrant.getChallengeId())) {
+            if (challengeService.isChallengeOwner(ownerEmail, registrant.getChallengeId())) {
                 challengeRegistrantDto = challengeRegistrantService.acceptRegistrant(registrantId, phase);
             } else {
                 response.setStatus(HttpServletResponse.SC_FORBIDDEN);
@@ -457,7 +455,7 @@ public class UserController {
                                                               HttpServletRequest request, HttpServletResponse response) {
         String ownerEmail = request.getRemoteUser();
         List<ChallengeRegistrantDto> qualifiedRegistrants = new ArrayList<>();
-        if (challengeService.isOwnerOfChallenge(ownerEmail, challengeQualificationDto.getChallengeId())) {
+        if (challengeService.isChallengeOwner(ownerEmail, challengeQualificationDto.getChallengeId())) {
             qualifiedRegistrants = challengeRegistrantService.qualifyAllRegistrants(ownerEmail, challengeQualificationDto);
         } else {
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);

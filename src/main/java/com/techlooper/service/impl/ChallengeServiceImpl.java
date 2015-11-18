@@ -118,7 +118,7 @@ public class ChallengeServiceImpl implements ChallengeService {
     }
 
     @Override
-    public List<ChallengeDetailDto> listChallenges() {
+    public List<ChallengeDetailDto> findChallenges() {
         ChallengeFilterCondition allChallengeFilterCondition = new ChallengeFilterCondition();
         NativeSearchQueryBuilder allChallengeQueryBuilder = getChallengeSearchQueryBuilder(allChallengeFilterCondition);
         List<ChallengeEntity> challenges = DataUtils.getAllEntities(challengeRepository, allChallengeQueryBuilder);
@@ -133,7 +133,7 @@ public class ChallengeServiceImpl implements ChallengeService {
     }
 
     @Override
-    public Long getTotalNumberOfChallenges() {
+    public Long getNumberOfChallenges() {
         return challengeRepository.count();
     }
 
@@ -154,15 +154,15 @@ public class ChallengeServiceImpl implements ChallengeService {
     @Override
     public ChallengeDetailDto getTheLatestChallenge() {
         ChallengeDetailDto challengeDetailDto = new ChallengeDetailDto();
-        List<ChallengeDetailDto> challenges = listChallenges();
-        if (!listChallenges().isEmpty()) {
+        List<ChallengeDetailDto> challenges = findChallenges();
+        if (!findChallenges().isEmpty()) {
             return challenges.get(0);
         }
         return challengeDetailDto;
     }
 
     @Override
-    public List<ChallengeDetailDto> listChallenges(String ownerEmail) {
+    public List<ChallengeDetailDto> findChallengeByOwner(String ownerEmail) {
         List<ChallengeDetailDto> challengeDetails = new ArrayList<>();
         ChallengeFilterCondition challengeFilterCondition = new ChallengeFilterCondition();
         challengeFilterCondition.setAuthorEmail(ownerEmail);
@@ -190,7 +190,7 @@ public class ChallengeServiceImpl implements ChallengeService {
     }
 
     @Override
-    public List<ChallengeEntity> listChallengesByPhase(ChallengePhaseEnum challengePhase) {
+    public List<ChallengeEntity> findChallengeByPhase(ChallengePhaseEnum challengePhase) {
         ChallengeFilterCondition challengeFilterCondition = new ChallengeFilterCondition();
         challengeFilterCondition.setPhase(challengePhase);
         NativeSearchQueryBuilder searchChallengeByPhaseQuery = getChallengeSearchQueryBuilder(challengeFilterCondition);
@@ -198,7 +198,7 @@ public class ChallengeServiceImpl implements ChallengeService {
     }
 
     @Override
-    public boolean isOwnerOfChallenge(String ownerEmail, Long challengeId) {
+    public boolean isChallengeOwner(String ownerEmail, Long challengeId) {
         ChallengeEntity challenge = challengeRepository.findOne(challengeId);
         return challenge.getAuthorEmail().equalsIgnoreCase(ownerEmail);
     }

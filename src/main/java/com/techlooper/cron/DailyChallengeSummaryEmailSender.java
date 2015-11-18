@@ -43,7 +43,7 @@ public class DailyChallengeSummaryEmailSender {
 
             int count = 0;
             for (ChallengePhaseEnum challengePhase : challengePhases) {
-                List<ChallengeEntity> challengeEntities = challengeService.listChallengesByPhase(challengePhase);
+                List<ChallengeEntity> challengeEntities = challengeService.findChallengeByPhase(challengePhase);
 
                 Thread.sleep(DataUtils.getRandomNumberInRange(300000, 600000));
                 for (ChallengeEntity challengeEntity : challengeEntities) {

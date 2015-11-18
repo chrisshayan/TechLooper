@@ -3,9 +3,7 @@ package com.techlooper.cron;
 import com.techlooper.entity.ChallengeEntity;
 import com.techlooper.model.ChallengePhaseEnum;
 import com.techlooper.model.EmailSentResultEnum;
-import com.techlooper.repository.elasticsearch.ChallengeRegistrantRepository;
 import com.techlooper.repository.elasticsearch.ChallengeRepository;
-import com.techlooper.service.ChallengeRegistrantService;
 import com.techlooper.service.ChallengeService;
 import com.techlooper.service.EmailService;
 import com.techlooper.util.DataUtils;
@@ -46,7 +44,7 @@ public class ChallengePhaseClosedNotifier {
 
             int count = 0;
             for (ChallengePhaseEnum currentPhase : challengePhases) {
-                List<ChallengeEntity> challengeEntities = challengeService.listChallengesByPhase(currentPhase);
+                List<ChallengeEntity> challengeEntities = challengeService.findChallengeByPhase(currentPhase);
 
                 Thread.sleep(DataUtils.getRandomNumberInRange(300000, 600000));
                 for (ChallengeEntity challengeEntity : challengeEntities) {

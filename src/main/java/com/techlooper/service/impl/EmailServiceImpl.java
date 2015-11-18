@@ -534,7 +534,7 @@ public class EmailServiceImpl implements EmailService {
         final Long ANNOUNCE_WINNER_EMAIL_TEMPLATE_EN = 4L;
         final Long ANNOUNCE_WINNER_EMAIL_TEMPLATE_VI = 104L;
         ChallengeRegistrantEntity registrant = challengeRegistrantRepository.findOne(registrantId);
-        if (challengeService.isOwnerOfChallenge(challengeOwner, registrant.getChallengeId())) {
+        if (challengeService.isChallengeOwner(challengeOwner, registrant.getChallengeId())) {
             String csvEmails = registrant.getRegistrantEmail();
 
             if (emailContent.getTemplateId() == ANNOUNCE_WINNER_EMAIL_TEMPLATE_EN
@@ -643,7 +643,7 @@ public class EmailServiceImpl implements EmailService {
     }
 
     public boolean sendEmailToDailyChallengeRegistrants(String challengeOwner, Long challengeId, Long now, EmailContent emailContent) {
-        if (challengeService.isOwnerOfChallenge(challengeOwner, challengeId)) {
+        if (challengeService.isChallengeOwner(challengeOwner, challengeId)) {
             List<ChallengeRegistrantEntity> registrants = challengeRegistrantService.findChallengeRegistrantWithinPeriod(challengeId, now, TimePeriodEnum.TWENTY_FOUR_HOURS);
             String csvEmails = registrants.stream().map(ChallengeRegistrantEntity::getRegistrantEmail).distinct().collect(joining(","));
             try {

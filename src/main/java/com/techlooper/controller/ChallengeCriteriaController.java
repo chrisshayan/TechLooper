@@ -28,7 +28,7 @@ public class ChallengeCriteriaController {
     public ChallengeCriteriaDto saveChallengeCriteria(@RequestBody ChallengeCriteriaDto challengeCriteriaDto,
                                                       HttpServletRequest request, HttpServletResponse response) {
         String ownerEmail = request.getRemoteUser();
-        if (challengeService.isOwnerOfChallenge(ownerEmail, challengeCriteriaDto.getChallengeId())) {
+        if (challengeService.isChallengeOwner(ownerEmail, challengeCriteriaDto.getChallengeId())) {
             ChallengeCriteriaDto result = challengeCriteriaService.saveChallengeCriteria(challengeCriteriaDto, ownerEmail);
             if (result == null) {
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);

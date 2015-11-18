@@ -108,7 +108,7 @@ public class ChallengeCriteriaServiceImpl implements ChallengeCriteriaService {
 
     public ChallengeRegistrantCriteriaDto findByChallengeRegistrantId(Long registrantId, String ownerEmail) {
         ChallengeRegistrantEntity registrant = challengeRegistrantRepository.findOne(registrantId);
-        if (!challengeService.isOwnerOfChallenge(ownerEmail, registrant.getChallengeId())) {
+        if (!challengeService.isChallengeOwner(ownerEmail, registrant.getChallengeId())) {
             return null;
         }
 

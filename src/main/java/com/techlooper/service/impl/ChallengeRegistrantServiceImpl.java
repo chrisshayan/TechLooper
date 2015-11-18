@@ -124,7 +124,7 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
     }
 
     public Set<ChallengeRegistrantDto> findRegistrantsByChallengeIdAndPhase(Long challengeId, ChallengePhaseEnum phase, String ownerEmail) {
-        if (!challengeService.isOwnerOfChallenge(ownerEmail, challengeId)) {
+        if (!challengeService.isChallengeOwner(ownerEmail, challengeId)) {
             return null;
         }
 
@@ -193,7 +193,7 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
         ChallengeWinner challengeWinner = dozerMapper.map(challengeWinnerDto, ChallengeWinner.class);
         Long registrantId = challengeWinner.getRegistrantId();
         ChallengeRegistrantEntity registrant = challengeRegistrantRepository.findOne(registrantId);
-        if (!challengeService.isOwnerOfChallenge(loginUser, registrant.getChallengeId())) {
+        if (!challengeService.isChallengeOwner(loginUser, registrant.getChallengeId())) {
             return null;
         }
 

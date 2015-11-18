@@ -52,7 +52,7 @@ public class ChallengeTimelineNotifier {
 
             int count = 0;
             for (ChallengePhaseEnum challengePhase : challengePhases) {
-                List<ChallengeEntity> challengeEntities = challengeService.listChallengesByPhase(challengePhase);
+                List<ChallengeEntity> challengeEntities = challengeService.findChallengeByPhase(challengePhase);
 
                 for (ChallengeEntity challengeEntity : challengeEntities) {
                     Long challengeId = challengeEntity.getChallengeId();
