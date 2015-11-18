@@ -19,13 +19,13 @@ public interface ChallengeService {
 
     ChallengeDetailDto getChallengeDetail(Long challengeId, String loginEmail);
 
-    List<ChallengeDetailDto> listChallenges();
+    List<ChallengeDetailDto> findChallenges();
 
-    List<ChallengeDetailDto> listChallenges(String ownerEmail);
+    List<ChallengeDetailDto> findChallengeByOwner(String ownerEmail);
 
-    List<ChallengeEntity> listChallengesByPhase(ChallengePhaseEnum challengePhase);
+    List<ChallengeEntity> findChallengeByPhase(ChallengePhaseEnum challengePhase);
 
-    Long getTotalNumberOfChallenges();
+    Long getNumberOfChallenges();
 
     Double getTotalAmountOfPrizeValues();
 
@@ -33,9 +33,11 @@ public interface ChallengeService {
 
     boolean deleteChallenge(Long challengeId, String ownerEmail);
 
-    boolean isOwnerOfChallenge(String ownerEmail, Long challengeId);
+    boolean isChallengeOwner(String ownerEmail, Long challengeId);
 
     ChallengeEntity findChallengeById(Long challengeId, String ownerEmail);
+
+    ChallengeEntity findChallengeById(Long challengeId);
 
     void calculateChallengePhases(ChallengeDetailDto challengeDetailDto);
 

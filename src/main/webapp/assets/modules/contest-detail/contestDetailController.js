@@ -131,6 +131,9 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
   });
 
   $scope.$on("after-getting-registrants", function (e, challengeDetail) {
+    if (!_.isEmpty(challengeDetail.$error)) {
+      return $location.search({});
+    }
     $('.feedback-loading').css('visibility', 'hidden');
   });
 });

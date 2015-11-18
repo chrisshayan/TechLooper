@@ -338,7 +338,7 @@
                                     Start Date:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;" valign="top">
-                                  ${challenge.startDate}
+                                  ${challenge.startDateTime}
                                   </td>
                                 </tr>
                                 <tr>
@@ -354,7 +354,7 @@
                                     Register By:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;" valign="top">
-                                  ${challenge.registrationDate}
+                                  ${challenge.registrationDateTime}
                                   </td>
                                 </tr>
                                 <tr>
@@ -370,7 +370,7 @@
                                     Submit By:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;" valign="top">
-                                  ${challenge.submissionDate}
+                                  ${challenge.submissionDateTime}
                                   </td>
                                 </tr>
 

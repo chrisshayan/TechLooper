@@ -124,7 +124,7 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
     }
 
     public Set<ChallengeRegistrantDto> findRegistrantsByChallengeIdAndPhase(Long challengeId, ChallengePhaseEnum phase, String ownerEmail) {
-        if (!challengeService.isOwnerOfChallenge(ownerEmail, challengeId)) {
+        if (!challengeService.isChallengeOwner(ownerEmail, challengeId)) {
             return null;
         }
 
@@ -193,7 +193,7 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
         ChallengeWinner challengeWinner = dozerMapper.map(challengeWinnerDto, ChallengeWinner.class);
         Long registrantId = challengeWinner.getRegistrantId();
         ChallengeRegistrantEntity registrant = challengeRegistrantRepository.findOne(registrantId);
-        if (!challengeService.isOwnerOfChallenge(loginUser, registrant.getChallengeId())) {
+        if (!challengeService.isChallengeOwner(loginUser, registrant.getChallengeId())) {
             return null;
         }
 
@@ -317,7 +317,7 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
     @Override
     public List<ChallengeRegistrantFunnelItem> getChallengeRegistrantFunnel(Long challengeId, String ownerEmail) {
         List<ChallengeRegistrantFunnelItem> funnel = new ArrayList<>();
-        ChallengeEntity challenge = challengeService.findChallengeById(challengeId, ownerEmail);
+        ChallengeEntity challenge = challengeService.findChallengeById(challengeId);
         Map<ChallengePhaseEnum, ChallengeRegistrantPhaseItem> numberOfRegistrantsByPhase =
                 countNumberOfRegistrantsByPhase(challengeId);
         Map<ChallengePhaseEnum, ChallengeSubmissionPhaseItem> numberOfSubmissionsByPhase =

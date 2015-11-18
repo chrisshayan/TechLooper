@@ -104,13 +104,13 @@ public class ChallengeController {
 
     @RequestMapping(value = "/challenge/list", method = RequestMethod.GET)
     public List<ChallengeDetailDto> listChallenges() throws Exception {
-        return challengeService.listChallenges();
+        return challengeService.findChallenges();
     }
 
     @RequestMapping(value = "/challenge/stats", method = RequestMethod.GET)
     public ChallengeStatsDto getChallengeStatistics() throws Exception {
         ChallengeStatsDto challengeStatsDto = new ChallengeStatsDto();
-        challengeStatsDto.setNumberOfChallenges(challengeService.getTotalNumberOfChallenges());
+        challengeStatsDto.setNumberOfChallenges(challengeService.getNumberOfChallenges());
         challengeStatsDto.setNumberOfRegistrants(challengeRegistrantService.getTotalNumberOfRegistrants());
         challengeStatsDto.setTotalPrizeAmount(challengeService.getTotalAmountOfPrizeValues());
         return challengeStatsDto;
@@ -126,9 +126,7 @@ public class ChallengeController {
 
     @RequestMapping(value = "/challenges/{challengeId}", method = RequestMethod.GET)
     public ChallengeDto findChallengeById(@PathVariable Long challengeId, HttpServletRequest request) throws Exception {
-        String ownerEmail = request.getRemoteUser();
-        ChallengeDto challengeDto = dozerMapper.map(
-                challengeService.findChallengeById(challengeId, ownerEmail), ChallengeDto.class);
+        ChallengeDto challengeDto = dozerMapper.map(challengeService.findChallengeById(challengeId), ChallengeDto.class);
         return challengeDto;
     }
 
@@ -151,7 +149,7 @@ public class ChallengeController {
                                                                             HttpServletRequest request, HttpServletResponse response) {
         List<ChallengeRegistrantFunnelItem> funnel = new ArrayList<>();
         String ownerEmail = request.getRemoteUser();
-        if (challengeService.isOwnerOfChallenge(ownerEmail, challengeId)) {
+        if (challengeService.isChallengeOwner(ownerEmail, challengeId)) {
             funnel = challengeRegistrantService.getChallengeRegistrantFunnel(challengeId, ownerEmail);
         } else {
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);

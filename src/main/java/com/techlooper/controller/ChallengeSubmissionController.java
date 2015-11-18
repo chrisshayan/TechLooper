@@ -47,7 +47,7 @@ public class ChallengeSubmissionController {
     public void markAsRead(@RequestBody ChallengeSubmissionDto challengeSubmissionDto,
                            HttpServletRequest request, HttpServletResponse response) {
         String ownerEmail = request.getRemoteUser();
-        boolean isChallengeOwner = challengeService.isOwnerOfChallenge(ownerEmail, challengeSubmissionDto.getChallengeId());
+        boolean isChallengeOwner = challengeService.isChallengeOwner(ownerEmail, challengeSubmissionDto.getChallengeId());
         if (isChallengeOwner) {
             challengeSubmissionService.markChallengeSubmissionAsRead(challengeSubmissionDto);
         } else {

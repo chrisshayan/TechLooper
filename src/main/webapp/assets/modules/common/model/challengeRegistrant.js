@@ -125,6 +125,9 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonV
     }
 
     registrant.recalculateSubmissions = function () {
+      _.each(registrant.submissions, function (submission) {
+        (submission.isRead == null) || (submission.isRead == undefined) ? submission.isRead = true : "";
+      });
       registrant.$unreadSubmissions = _.reject(registrant.submissions, function (s) {return s.isRead == true;});
       registrant.$isSubmissionsUnread = (registrant.$unreadSubmissions.length == registrant.submissions.length);
       registrant.$readSubmissions = _.filter(registrant.submissions, function (s) {return s.isRead == true;});

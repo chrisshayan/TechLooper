@@ -120,6 +120,10 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
           challengeDetail.recalculateRegistrants(registrants);
           defer.resolve();
         })
+        .error(function() {
+          challengeDetail.$error = challengeDetail.$error || {};
+          challengeDetail.$error.registrants = true;
+        })
         .finally(function () {
           $rootScope.$broadcast("after-getting-registrants", challengeDetail);
         });
