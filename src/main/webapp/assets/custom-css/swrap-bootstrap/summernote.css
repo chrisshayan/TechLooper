@@ -1,8 +1,6 @@
-.note-editor *{
-  box-sizing: border-box;
-}
 .note-editor {
     height: 300px;
+    box-sizing: border-box;
 }
 
 .note-editor .note-dropzone {
