@@ -338,7 +338,7 @@
                                       Ngày Bắt Đầu:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;" valign="top">
-                                  ${challenge.startDate}
+                                  ${challenge.startDateTime}
                                   </td>
                                 </tr>
                                 <tr>
@@ -354,7 +354,7 @@
                                       Ngày Hết Hạn Đăng Ký:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;" valign="top">
-                                  ${challenge.registrationDate}
+                                  ${challenge.registrationDateTime}
                                   </td>
                                 </tr>
                                 <tr>
@@ -370,7 +370,7 @@
                                       Ngày Hết Hạn Gửi Sản Phẩm:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;" valign="top">
-                                  ${challenge.submissionDate}
+                                  ${challenge.submissionDateTime}
                                   </td>
                                 </tr>
 
