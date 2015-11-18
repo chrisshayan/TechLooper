@@ -317,7 +317,7 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
     @Override
     public List<ChallengeRegistrantFunnelItem> getChallengeRegistrantFunnel(Long challengeId, String ownerEmail) {
         List<ChallengeRegistrantFunnelItem> funnel = new ArrayList<>();
-        ChallengeEntity challenge = challengeService.findChallengeById(challengeId, ownerEmail);
+        ChallengeEntity challenge = challengeService.findChallengeById(challengeId);
         Map<ChallengePhaseEnum, ChallengeRegistrantPhaseItem> numberOfRegistrantsByPhase =
                 countNumberOfRegistrantsByPhase(challengeId);
         Map<ChallengePhaseEnum, ChallengeSubmissionPhaseItem> numberOfSubmissionsByPhase =

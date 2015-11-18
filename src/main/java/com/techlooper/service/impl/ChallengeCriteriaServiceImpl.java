@@ -40,7 +40,7 @@ public class ChallengeCriteriaServiceImpl implements ChallengeCriteriaService {
     private Mapper dozerMapper;
 
     public ChallengeCriteriaDto saveChallengeCriteria(ChallengeCriteriaDto challengeCriteriaDto, String ownerEmail) {
-        ChallengeEntity challenge = challengeService.findChallengeById(challengeCriteriaDto.getChallengeId(), ownerEmail);
+        ChallengeEntity challenge = challengeService.findChallengeById(challengeCriteriaDto.getChallengeId());
         if (challenge == null) {
             return null;
         }

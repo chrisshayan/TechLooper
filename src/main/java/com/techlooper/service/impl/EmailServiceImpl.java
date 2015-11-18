@@ -543,7 +543,7 @@ public class EmailServiceImpl implements EmailService {
                         .map(challengeRegistrant -> challengeRegistrant.getRegistrantEmail()).collect(Collectors.joining(","));
             }
 
-            ChallengeEntity challenge = challengeService.findChallengeById(registrant.getChallengeId(), null);
+            ChallengeEntity challenge = challengeService.findChallengeById(registrant.getChallengeId());
             try {
                 bindEmailTemplateVariables(emailContent, challenge, registrant);
                 emailContent.setRecipients(InternetAddress.parse(csvEmails));

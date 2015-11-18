@@ -37,6 +37,8 @@ public interface ChallengeService {
 
     ChallengeEntity findChallengeById(Long challengeId, String ownerEmail);
 
+    ChallengeEntity findChallengeById(Long challengeId);
+
     void calculateChallengePhases(ChallengeDetailDto challengeDetailDto);
 
 }

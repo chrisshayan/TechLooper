@@ -126,9 +126,7 @@ public class ChallengeController {
 
     @RequestMapping(value = "/challenges/{challengeId}", method = RequestMethod.GET)
     public ChallengeDto findChallengeById(@PathVariable Long challengeId, HttpServletRequest request) throws Exception {
-        String ownerEmail = request.getRemoteUser();
-        ChallengeDto challengeDto = dozerMapper.map(
-                challengeService.findChallengeById(challengeId, ownerEmail), ChallengeDto.class);
+        ChallengeDto challengeDto = dozerMapper.map(challengeService.findChallengeById(challengeId), ChallengeDto.class);
         return challengeDto;
     }
 

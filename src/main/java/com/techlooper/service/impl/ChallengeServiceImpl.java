@@ -204,6 +204,11 @@ public class ChallengeServiceImpl implements ChallengeService {
     }
 
     @Override
+    public ChallengeEntity findChallengeById(Long challengeId) {
+        return challengeRepository.findOne(challengeId);
+    }
+
+    @Override
     public ChallengeEntity findChallengeById(Long challengeId, String ownerEmail) {
         ChallengeEntity challenge = challengeRepository.findOne(challengeId);
         if (challenge != null && challenge.getAuthorEmail().equalsIgnoreCase(ownerEmail)) {
