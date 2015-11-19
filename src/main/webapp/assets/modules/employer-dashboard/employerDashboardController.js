@@ -14,6 +14,9 @@ techlooper.controller('employerDashboardController', function ($scope, jsonValue
             }).error(function(status){
               $scope.composeEmail.error = false;
               switch (status) {
+                case 401:
+                  $scope.composeEmail.errorSendEmail = jsonValue.feedbackStatus.cannotSendMail.translate;
+                  break;
                 case 403:
                   $scope.composeEmail.errorSendEmail = jsonValue.feedbackStatus.cannotSendMail.translate;
                   break;
@@ -30,6 +33,9 @@ techlooper.controller('employerDashboardController', function ($scope, jsonValue
           .error(function(err,status){
               $scope.composeEmail.error = false;
               switch (status) {
+                case 401:
+                  $scope.composeEmail.errorSendEmail = jsonValue.feedbackStatus.cannotSendMail.translate;
+                  break;
                 case 403:
                   $scope.composeEmail.errorSendEmail = jsonValue.feedbackStatus.cannotSendMail.translate;
                   break;
