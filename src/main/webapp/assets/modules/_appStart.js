@@ -45,7 +45,7 @@ techlooper.run(function (connectionFactory, loadingBoxFactory, cleanupFactory, u
         break;
 
       case "redirectJA":
-        window.location.href = param.targetUrl;
+        window.location.href = (param.targetUrl.startsWith("http://") || param.targetUrl.startsWith("https://")) ? param.targetUrl : "http://" + param.targetUrl;
         break;
 
       case "cancel":
