@@ -25,84 +25,32 @@ techlooper.directive("submissionChallenge", function (localStorageService, apiSe
         apiService.joinNowByFB();
       }
 
-      var challengeId = localStorageService.get("submitNow");
-      if (scope.challenge && (challengeId == scope.challenge.challengeId)) {
-        localStorageService.remove("submitNow");
-        localStorageService.remove("joinNow");
 
-        var firstName = localStorageService.get("firstName");
-        var lastName = localStorageService.get("lastName");
-        var email = localStorageService.get("email");
+      scope.$watch("challenge", function() {
+        var challengeId = localStorageService.get("submitNow");
+        if (scope.challenge && (challengeId == scope.challenge.challengeId)) {
+          localStorageService.remove("submitNow");
+          localStorageService.remove("joinNow");
 
-        apiService.findRegistrantActivePhase(challengeId, email)
-          .success(function (phase) {
-            scope.submission.submissionPhase = phase;
-          })
+          var firstName = localStorageService.get("firstName");
+          var lastName = localStorageService.get("lastName");
+          var email = localStorageService.get("email");
 
-        //apiService.joinContest(challengeId, firstName, lastName, email, $translate.use())
-        //  .success(function() {
-        scope.visibleSubmitForm = true;
-        //});
-        //scope.challenge.mixed = true;
-      }
+          apiService.findRegistrantActivePhase(challengeId, email)
+            .success(function (phase) {
+              scope.submission.submissionPhase = phase;
+            })
 
-      //var activePhase;
+          scope.visibleSubmitForm = true;
+        }
 
-      //var mixChallenge = function () {
-      //  scope.challenge.hideSubmitForm = function () {
-      //    if (scope.submissionForm) {
-      //      scope.submissionForm.$setPristine();
-      //      scope.submissionForm.$setUntouched();
-      //    }
-      //    delete scope.challenge.visibleSubmitForm;
-      //    delete scope.submission.submissionURL;
-      //    delete scope.submission.submissionDescription;
-      //  }
-      //
-      //  scope.challenge.showSubmitForm = function () {
-      //    localStorageService.set("submitNow", scope.challenge.challengeId);
-      //    apiService.joinNowByFB();
-      //  }
-      //
-      //  var challengeId = localStorageService.get("submitNow");
-      //  if (challengeId == scope.challenge.challengeId) {
-      //    localStorageService.remove("submitNow");
-      //    localStorageService.remove("joinNow");
-      //
-      //    var firstName = localStorageService.get("firstName");
-      //    var lastName = localStorageService.get("lastName");
-      //    var email = localStorageService.get("email");
-      //
-      //    apiService.findRegistrantActivePhase(challengeId, email)
-      //      .success(function (phase) {
-      //        scope.submission.submissionPhase = phase;
-      //      })
-      //
-      //    //apiService.joinContest(challengeId, firstName, lastName, email, $translate.use())
-      //    //  .success(function() {
-      //    scope.challenge.visibleSubmitForm = true;
-      //    //});
-      //    //scope.challenge.mixed = true;
-      //  }
-      //}
-      //
-      //if (scope.challenge) {
-      //  mixChallenge();
-      //}
-      //else {
-      //  scope.$watch("challenge", function () {
-      //    if (!scope.challenge) return;
-      //    mixChallenge();
-      //  });
-      //}
-
-
-      scope.submission = {
-        name: localStorageService.get("firstName") + " " + localStorageService.get("lastName"),
-        registrantEmail: localStorageService.get("email"),
-        registrantFirstName: localStorageService.get("firstName"),
-        registrantLastName: localStorageService.get("lastName")
-      }
+        scope.submission = {
+          name: localStorageService.get("firstName") + " " + localStorageService.get("lastName"),
+          registrantEmail: localStorageService.get("email"),
+          registrantFirstName: localStorageService.get("firstName"),
+          registrantLastName: localStorageService.get("lastName")
+        }
+      });
 
       scope.pushChallengePhase = function () {
         scope.submissionForm.$setSubmitted();
