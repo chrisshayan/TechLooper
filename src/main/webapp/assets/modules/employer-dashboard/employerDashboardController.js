@@ -4,7 +4,7 @@ techlooper.controller('employerDashboardController', function ($scope, jsonValue
   $scope.composeEmail = {
     send: function () {
       $scope.composeEmail.content = $('.summernote').code();
-      if($scope.composeEmail.content == '<p><br></p>'){
+      if($scope.composeEmail.content == '<p><br></p>' || $scope.composeEmail.content == ''){
         return;
       }
       if ($scope.composeEmail.action == "challenge-daily-mail-registrants") {
