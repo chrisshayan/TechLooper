@@ -4,7 +4,7 @@ techlooper.controller('employerDashboardController', function ($scope, jsonValue
   $scope.composeEmail = {
     send: function () {
       $scope.composeEmail.content = $('.summernote').code();
-      if($scope.composeEmail.content == '<p><br></p>'){
+      if($scope.composeEmail.content == '<p><br></p>' || $scope.composeEmail.content == ''){
         return;
       }
       if ($scope.composeEmail.action == "challenge-daily-mail-registrants") {
@@ -14,6 +14,9 @@ techlooper.controller('employerDashboardController', function ($scope, jsonValue
             }).error(function(status){
               $scope.composeEmail.error = false;
               switch (status) {
+                case 401:
+                  $scope.composeEmail.errorSendEmail = jsonValue.feedbackStatus.cannotSendMail.translate;
+                  break;
                 case 403:
                   $scope.composeEmail.errorSendEmail = jsonValue.feedbackStatus.cannotSendMail.translate;
                   break;
@@ -30,6 +33,9 @@ techlooper.controller('employerDashboardController', function ($scope, jsonValue
           .error(function(err,status){
               $scope.composeEmail.error = false;
               switch (status) {
+                case 401:
+                  $scope.composeEmail.errorSendEmail = jsonValue.feedbackStatus.cannotSendMail.translate;
+                  break;
                 case 403:
                   $scope.composeEmail.errorSendEmail = jsonValue.feedbackStatus.cannotSendMail.translate;
                   break;

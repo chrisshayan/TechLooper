@@ -128,7 +128,7 @@ techlooper
         scope.$on("challenge-detail-ready", function () {
           var params = $location.search();
           var showTabRegistrant = (params.a == "registrants") || (params.toPhase != undefined);
-          if (showTabRegistrant == true) {
+          if (showTabRegistrant == true && scope.contestDetail.numberOfRegistrants > 0) {
             $("a[href='.registrants']").tab('show');
           }
         });

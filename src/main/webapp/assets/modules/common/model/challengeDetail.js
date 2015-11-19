@@ -227,6 +227,9 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
           item.isCurrentPhase = true;
           isOver = false;
         }
+        if (item.phase == challengeDetail.nextPhase) {
+          item.isNextPhase = true;
+        }
       });
 
       // make un-selectable phase from current-phase + 2
@@ -271,6 +274,7 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
       //set $hadRegistrant to true if not found any registrant that unknown disqualified-status
       //console.log(challengeDetail.$registrants);
     challengeDetail.recalculateHadRegistrant = function() {
+      console.log(challengeDetail.$registrants);
       var er = _.findWhere(challengeDetail.$registrants, {disqualified: undefined});
       challengeDetail.$hadRegistrant = (er == undefined);
       challengeDetail.$filter.byReadOrUnreadSubmission();
@@ -299,39 +303,18 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
       var winnerPi = _.last(challengeDetail.phaseItems);
       winnerPi.participant = countWinnerPaticipants;
       challengeDetail.recalculatePhaseItem(winnerPi);
-      //winnerPi.countJoinerTitle = $filter("translate")(winnerPi.$phaseConfig.phaseItem.translate.countJoiner, {number: winnerPi.participant});
-      //console.log(challengeDetail);
     }
 
     challengeDetail.refreshFunnelItems = function() {
       apiService.getRegistrantFunnel(challengeDetail.challengeId)
         .success(function(items) {
           for (var i = 0; i < challengeDetail.phaseItems.length; i++) {
-            //challengeDetail.phaseItems[i].participant = items[i].participant;
-            //challengeDetail.phaseItems[i].submission = items[i].submission;
-            //challengeDetail.phaseItems[i].unreadSubmission = items[i].unreadSubmission;
             _.extendOwn(challengeDetail.phaseItems[i], items[i]);
-            //console.log(challengeDetail.phaseItems[i]);
             challengeDetail.recalculatePhaseItem(challengeDetail.phaseItems[i]);
           }
           challengeDetail.recalculateHadRegistrant();
-          //registrant && challengeDetail.recalculateWinner(registrant);
         });
     }
-
-    //challengeDetail.incParticipantCount = function (registrant) {
-    //  var pi = _.findWhere(challengeDetail.phaseItems, {phase: registrant.activePhase});
-    //  (registrant.disqualified == false) && pi.participant++;
-    //  challengeDetail.recalculatePhaseItem(pi);
-    //  challengeDetail.recalculateWinner(registrant);
-    //}
-
-    //challengeDetail.incSubmissionCount = function (submission) {
-    //  var pi = _.findWhere(challengeDetail.phaseItems, {phase: submission.submissionPhase});
-    //  pi.submission++;
-    //  challengeDetail.recalculatePhaseItem(pi);
-    //  //pi.countSubmissionTitle = $filter("translate")(pi.$phaseConfig.phaseItem.translate.countSubmission, {number: pi.submission});
-    //}
 
     challengeDetail.incUnreadSubmissionCount = function (submission) {
       var pi = _.findWhere(challengeDetail.phaseItems, {phase: submission.submissionPhase});
@@ -354,7 +337,9 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
 
       challengeDetail.phaseItems.map(function (item) {item.isSelected = false;});
       challengeDetail.selectedPhaseItem = phaseItem;
-      challengeDetail.$rgtNextPhaseItem = phaseItem.$phaseConfig.isFinal ? undefined : challengeDetail.phaseItems[phaseItem.$index + 1];
+      var nextPhaseItem = _.findWhere(challengeDetail.phaseItems, {isNextPhase: true});
+      challengeDetail.$rgtNextPhaseItem = phaseItem.$phaseConfig.isFinal ? undefined :
+        challengeDetail.phaseItems[_.min([phaseItem.$index + 1, nextPhaseItem.$index])];
       phaseItem.isSelected = true;
 
       challengeDetail.refreshRegistrants()
@@ -371,6 +356,8 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
             challengeDetail.$sort.byTotalPoint(false);
           }
         });
+
+      challengeDetail.refreshFunnelItems();
     }
 
     challengeDetail.acceptRegistrants = function () {
