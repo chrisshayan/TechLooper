@@ -326,7 +326,7 @@ public class UserController {
     @RequestMapping(value = "/user/current", method = RequestMethod.GET)
     public UserProfileDto getUserProfile(HttpServletRequest request) {
         LOGGER.debug("Reading current user profile info");
-        org.springframework.security.core.Authentication authentication = (org.springframework.security.core.Authentication)request.getUserPrincipal();
+        org.springframework.security.core.Authentication authentication = (org.springframework.security.core.Authentication) request.getUserPrincipal();
         Object principal = authentication.getPrincipal();
         if (!(principal instanceof UserProfileDto)) {
             return dozerMapper.map(userService.findVnwUserByUsername(request.getRemoteUser()), UserProfileDto.class);
@@ -343,7 +343,7 @@ public class UserController {
     @PreAuthorize("hasAnyAuthority('EMPLOYER', 'JOB_SEEKER')")
     @RequestMapping(value = "/user/employer/webinar", method = RequestMethod.POST)
     public WebinarInfoDto createWebinar(@RequestBody WebinarInfoDto webinarInfoDto, HttpServletRequest request) throws IOException {
-        org.springframework.security.core.Authentication authentication = (org.springframework.security.core.Authentication)request.getUserPrincipal();
+        org.springframework.security.core.Authentication authentication = (org.springframework.security.core.Authentication) request.getUserPrincipal();
         Object principal = authentication.getPrincipal();
         UserProfileDto organiser = (principal instanceof UserProfileDto) ? ((UserProfileDto) principal) :
                 dozerMapper.map(getVnwCurrentUser(request), UserProfileDto.class);
@@ -392,8 +392,20 @@ public class UserController {
     @RequestMapping(value = "user/challenge/feedback/{registrantId}", method = RequestMethod.POST)
     public void sendFeedbackToRegistrant(HttpServletRequest request, HttpServletResponse response,
                                          @PathVariable Long registrantId, @RequestBody EmailContent emailContent) {
-        if (!emailService.sendEmailToRegistrant(request.getRemoteUser(), registrantId, emailContent)) {
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        ChallengeRegistrantEntity registrant = challengeRegistrantService.findRegistrantById(registrantId);
+        if (registrant != null) {
+            String ownerEmail = request.getRemoteUser();
+            Long challengeId = registrant.getChallengeId();
+            if (challengeService.isChallengeOwner(ownerEmail, challengeId)) {
+                boolean success = emailService.sendEmailToRegistrant(request.getRemoteUser(), registrantId, emailContent);
+                if (!success) {
+                    response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                }
+            } else {
+                response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            }
+        } else {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
     }
 
