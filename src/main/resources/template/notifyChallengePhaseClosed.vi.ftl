@@ -217,7 +217,7 @@
                     </tr>
                     <tr>
                       <td width="100%" align="left">
-                        <table align="center" cellspacing="0" cellpadding="2" class="deviceWidth" width="50%" style="margin:0 auto; padding:10px 10px 10px 0; float: left">
+                        <table align="center" cellspacing="0" cellpadding="2" class="deviceWidth" width="100%" style="margin:0 auto; padding:10px 10px 10px 0; float: left">
                           <tr>
                             <td width="100%" align="left">
                               1. Để chọn 1 thí sinh bất kỳ:
@@ -240,10 +240,19 @@
                             </td>
                           </tr>
                         </table>
-                        <table align="center" cellspacing="0" cellpadding="2" class="deviceWidth" width="50%" style="margin:0 auto; padding:10px 0; float: left">
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="height:10px; line-height: 10px;" width="100%">
+                        <img height="10px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td width="100%" align="left">
+                        <table align="center" cellspacing="0" cellpadding="2" class="deviceWidth" width="100%" style="margin:0 auto; padding:10px 0; float: left">
                           <tr>
                             <td width="100%">
-                              <img alt="Challenge Online" class="logo" src="${webBaseUrl}images/why-challenge-banner.jpg" style="border:none; outline:none" width="100%"/>
+                              <img alt="Challenge Online" class="logo" src="${webBaseUrl}images/tip-for-qualify.png" style="border:none; outline:none" width="100%"/>
                             </td>
                           </tr>
                         </table>
@@ -256,14 +265,7 @@
                     </tr>
                     <tr>
                       <td width="100%" align="left">
-                        <table align="center" cellspacing="0" cellpadding="2" class="deviceWidth" width="50%" style="margin:0 auto; padding:10px 0; float: left">
-                          <tr>
-                            <td width="100%">
-                              <img alt="Challenge Online" class="logo" src="${webBaseUrl}images/why-challenge-banner.jpg" style="border:none; outline:none" width="100%"/>
-                            </td>
-                          </tr>
-                        </table>
-                        <table align="center" cellspacing="0" cellpadding="2" class="deviceWidth" width="50%" style="margin:0 auto; padding:10px 0 10px 10px; float: left">
+                        <table align="center" cellspacing="0" cellpadding="2" class="deviceWidth" width="100%" style="margin:0 auto; padding:10px 0 10px 10px; float: left">
                           <tr>
                             <td width="100%" align="left">
                               2. Để chọn nhiều thí sinh cùng lúc:
@@ -283,6 +285,23 @@
                           <tr>
                             <td style="height:10px; line-height: 10px;" width="100%">
                               <img height="10px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
+                            </td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td style="height:10px; line-height: 10px;" width="100%">
+                        <img height="10px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td width="100%" align="left">
+                        <table align="center" cellspacing="0" cellpadding="2" class="deviceWidth" width="100%" style="margin:0 auto; padding:10px 0; float: left">
+                          <tr>
+                            <td width="100%">
+                              <img alt="Challenge Online" class="logo" src="${webBaseUrl}images/tip-for-qualify-all.png" style="border:none; outline:none" width="100%"/>
                             </td>
                           </tr>
                         </table>
