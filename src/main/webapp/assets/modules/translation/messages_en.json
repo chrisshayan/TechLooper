@@ -795,7 +795,7 @@
   "criteriaWeight1": "Weight <br/>0% - 100%",
   "criteriaTotalWeight": "Total weight %",
   "maximumScore": "Maximum Score",
-  "emailSetting": "Email Setting",
+  "emailSetting": "Email Settings",
   "replyTo": "Reply-To Email Address: <strong>*</strong>",
   "emailSignature": "Email Signature:",
   "evaluationCriteriaDes": "Input scoring criteria and their weight that will be used for final score calculation",
