@@ -227,6 +227,9 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
           item.isCurrentPhase = true;
           isOver = false;
         }
+        if (item.phase == challengeDetail.nextPhase) {
+          item.isNextPhase = true;
+        }
       });
 
       // make un-selectable phase from current-phase + 2
@@ -333,7 +336,9 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
 
       challengeDetail.phaseItems.map(function (item) {item.isSelected = false;});
       challengeDetail.selectedPhaseItem = phaseItem;
-      challengeDetail.$rgtNextPhaseItem = phaseItem.$phaseConfig.isFinal ? undefined : challengeDetail.phaseItems[phaseItem.$index + 1];
+      var nextPhaseItem = _.findWhere(challengeDetail.phaseItems, {isNextPhase: true});
+      challengeDetail.$rgtNextPhaseItem = phaseItem.$phaseConfig.isFinal ? undefined :
+        challengeDetail.phaseItems[_.min([phaseItem.$index + 1, nextPhaseItem.$index])];
       phaseItem.isSelected = true;
 
       challengeDetail.refreshRegistrants()
