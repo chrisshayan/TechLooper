@@ -174,27 +174,27 @@
                     <tr>
                       <td align="left" style="font-size: 14px;">
                       <#if oldPhase == "REGISTRATION">
-                          <#assign localizedOldPhase = "Registration">
+                        <#assign localizedOldPhase = "Registration">
                       <#elseif oldPhase == "IDEA">
-                          <#assign localizedOldPhase = "Idea">
+                        <#assign localizedOldPhase = "Idea">
                       <#elseif oldPhase == "UIUX">
-                          <#assign localizedOldPhase = "UI/UX">
+                        <#assign localizedOldPhase = "UI/UX">
                       <#elseif oldPhase == "PROTOTYPE">
-                          <#assign localizedOldPhase = "Prototype">
+                        <#assign localizedOldPhase = "Prototype">
                       <#elseif oldPhase == "FINAL">
-                          <#assign localizedOldPhase = "Final App">
+                        <#assign localizedOldPhase = "Final App">
                       </#if>
 
                       <#if currentPhase == "REGISTRATION">
-                          <#assign localizedCurrentPhase = "Registration">
+                        <#assign localizedCurrentPhase = "Registration">
                       <#elseif currentPhase == "IDEA">
-                          <#assign localizedCurrentPhase = "Idea">
+                        <#assign localizedCurrentPhase = "Idea">
                       <#elseif currentPhase == "UIUX">
-                          <#assign localizedCurrentPhase = "UI/UX">
+                        <#assign localizedCurrentPhase = "UI/UX">
                       <#elseif currentPhase == "PROTOTYPE">
-                          <#assign localizedCurrentPhase = "Prototype">
+                        <#assign localizedCurrentPhase = "Prototype">
                       <#elseif currentPhase == "FINAL">
-                          <#assign localizedCurrentPhase = "Final App">
+                        <#assign localizedCurrentPhase = "Final App">
                       </#if>
                         The phase <strong>${localizedOldPhase}</strong> of challenge <a href="${webBaseUrl}#/challenge-detail/${challengeNameAlias}-${challengeId}-id?utm_source=remindphaseclose&utm_medium=clickchallenge&utm_campaign=onlinecontest" style="color:#337ab7" target="_blank"><strong>${challenge.challengeName}</strong></a> just ended. The current phase is now <strong>${localizedCurrentPhase}</strong> with <strong>${currentPhaseRegistrants}</strong> selected.
                       </td>
@@ -240,7 +240,7 @@
                     </tr>
                     <tr>
                       <td width="100%" align="left">
-                        <table align="center" cellspacing="0" cellpadding="2" class="deviceWidth" width="50%" style="margin:0 auto; padding:10px 10px 10px 0; float: left">
+                        <table align="center" cellspacing="0" cellpadding="2" class="deviceWidth" width="100%" style="margin:0 auto; padding:10px 10px 10px 0; float: left">
                           <tr>
                             <td width="100%" align="left">
                               1. To select 1 contestant:
@@ -263,10 +263,20 @@
                             </td>
                           </tr>
                         </table>
-                        <table align="center" cellspacing="0" cellpadding="2" class="deviceWidth" width="50%" style="margin:0 auto; padding:10px 0; float: left">
+
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="height:10px; line-height: 10px;" width="100%">
+                        <img height="10px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td width="100%" align="left">
+                        <table align="center" cellspacing="0" cellpadding="2" class="deviceWidth" width="100%" style="margin:0 auto; padding:10px 0; float: left">
                           <tr>
                             <td width="100%">
-                              <img alt="Challenge Online" class="logo" src="http://staging.techlooper.com/images/why-challenge-banner.jpg" style="border:none; outline:none" width="100%"/>
+                              <img alt="Challenge Online" class="logo" src="${webBaseUrl}images/tip-for-qualify.png" style="border:none; outline:none" width="100%"/>
                             </td>
                           </tr>
                         </table>
@@ -279,14 +289,7 @@
                     </tr>
                     <tr>
                       <td width="100%" align="left">
-                        <table align="center" cellspacing="0" cellpadding="2" class="deviceWidth" width="50%" style="margin:0 auto; padding:10px 0; float: left">
-                          <tr>
-                            <td width="100%">
-                              <img alt="Challenge Online" class="logo" src="http://staging.techlooper.com/images/why-challenge-banner.jpg" style="border:none; outline:none" width="100%"/>
-                            </td>
-                          </tr>
-                        </table>
-                        <table align="center" cellspacing="0" cellpadding="2" class="deviceWidth" width="50%" style="margin:0 auto; padding:10px 0 10px 10px; float: left">
+                        <table align="center" cellspacing="0" cellpadding="2" class="deviceWidth" width="100%" style="margin:0 auto; padding:10px 0 10px 10px; float: left">
                           <tr>
                             <td width="100%" align="left">
                               2. To select multiple contestants:
@@ -311,6 +314,23 @@
                         </table>
                       </td>
                     </tr>
+                    <tr>
+                      <td style="height:10px; line-height: 10px;" width="100%">
+                        <img height="10px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td width="100%" align="left">
+                        <table align="center" cellspacing="0" cellpadding="2" class="deviceWidth" width="100%" style="margin:0 auto; padding:10px 0; float: left">
+                          <tr>
+                            <td width="100%">
+                              <img alt="Challenge Online" class="logo" src="${webBaseUrl}images/tip-for-qualify-all.png" style="border:none; outline:none" width="100%"/>
+                            </td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+
                   </table>
                 </td>
               </tr>
