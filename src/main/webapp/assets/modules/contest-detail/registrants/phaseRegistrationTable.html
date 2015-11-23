@@ -41,19 +41,19 @@
       </th>
     </tr>
     </thead>
-    <tbody>
+    <tbody data-ng-init="currentPage = 1">
     <tr ng-show="contestDetail.$filter.registrants.length == 0" class="no-data-found">
       <td>
         <p translate="noData"></p>
       </td>
     </tr>
-    <tr dir-paginate="registrant in contestDetail.$filter.registrants | itemsPerPage:10"
+    <tr dir-paginate="registrant in contestDetail.$filter.registrants | itemsPerPage:10" current-page="currentPage"
         pagination-id="contestDetail.selectedPhaseItem.phase">
       <td>
         <div class="registrants-challenge-list">
           <div class="registrant-order">
             <div class="label-col">#</div>
-            {{registrant.$index + 1}}
+            {{($index + 1) + (currentPage - 1) * 10}}
           </div>
           <div class="registrant-name">
             <div class="label-col" translate="fullNameField"></div>
