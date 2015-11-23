@@ -217,7 +217,8 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
       _.each(challengeDetail.phaseItems, function (item, index) {
         item.$index = index;
         item.isOver = isOver;
-        item.phaseLowerCase = $filter("translate")(item.phase.toLowerCase());
+        item.phaseLowerCase = item.phase.toLowerCase();//$filter("translate")(item.phase.toLowerCase());
+        item.phaseTitleLowerCase = $filter("translate")(item.phase.toLowerCase());
 
         var cp = _.findWhere(jsonValue.challengePhase.values, {enum: item.phase});
         item.$phaseConfig = cp;
