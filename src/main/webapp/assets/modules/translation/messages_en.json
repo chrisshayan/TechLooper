@@ -850,5 +850,6 @@
   "havingSubmissions": "Having submissions",
   "regardlessOfHavingSubmissions": "Regardless of having submissions or not",
   "unreadTip": "Click here to only show unread submissions",
-  "readTip": "Click here to show all submissions"
+  "readTip": "Click here to show all submissions",
+  "searchContestantName": "Enter contestant name to search"
 }

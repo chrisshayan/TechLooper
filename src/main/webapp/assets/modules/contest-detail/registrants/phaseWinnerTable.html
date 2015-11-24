@@ -8,6 +8,10 @@
   </div>
 </div>
 <div class="participant-list">
+  <div>
+    <label for="search">Search:</label>
+    <input ng-model="search.fullName" id="search" class="form-control" placeholder="Filter text">
+  </div>
   <table class="contests-table">
     <thead>
     <tr>
@@ -53,18 +57,20 @@
       </th>
     </tr>
     </thead>
-  <tbody>
+  <tbody data-ng-init="currentPage = 1">
   <tr ng-show="contestDetail.$filter.registrants.length == 0" class="no-data-found">
     <td>
       <p translate="noData"></p>
     </td>
   </tr>
-  <tr dir-paginate="registrant in contestDetail.$filter.registrants | itemsPerPage:10" pagination-id="contestDetail.selectedPhaseItem.phase">
+  <tr dir-paginate="registrant in contestDetail.$filter.registrants | filter: search.fullName | orderBy:predicate:reverse | itemsPerPage:10"
+      pagination-id="contestDetail.selectedPhaseItem.phase" current-page="currentPage">
       <td>
         <div class="registrants-challenge-list">
           <div class="registrant-order">
             <div class="label-col">#</div>
-            {{registrant.$index + 1}}</div>
+            {{($index + 1) + (currentPage - 1) * 10}}
+          </div>
           <div class="registrant-name">
             <div class="label-col" translate="fullNameField"></div>
             {{registrant.fullName}}</div>

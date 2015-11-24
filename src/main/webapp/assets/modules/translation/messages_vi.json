@@ -854,5 +854,6 @@
   "regardlessOfHavingSubmissions": "Có thể có hoặc không có bài gửi",
   "unread": "Chưa đọc",
   "unreadTip": "Hiển thị các bài chưa đọc",
-  "readTip": "Hiển thị tất cả các bài"
+  "readTip": "Hiển thị tất cả các bài",
+  "searchContestantName": "Enter Contestant Name To Search"
 }
