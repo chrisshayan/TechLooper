@@ -8,6 +8,10 @@
   </div>
 </div>
 <div class="participant-list">
+  <div>
+    <label for="search">Search:</label>
+    <input ng-model="search.fullName" id="search" class="form-control" placeholder="Filter text">
+  </div>
   <table class="contests-table">
     <thead>
     <tr>
@@ -47,7 +51,7 @@
         <p translate="noData"></p>
       </td>
     </tr>
-    <tr dir-paginate="registrant in contestDetail.$filter.registrants | itemsPerPage:10" current-page="currentPage"
+    <tr dir-paginate="registrant in contestDetail.$filter.registrants | itemsPerPage:10 | filter: search" current-page="currentPage"
         pagination-id="contestDetail.selectedPhaseItem.phase">
       <td>
         <div class="registrants-challenge-list">
