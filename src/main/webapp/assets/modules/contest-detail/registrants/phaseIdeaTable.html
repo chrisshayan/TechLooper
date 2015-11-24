@@ -14,7 +14,15 @@
     <th>
       <div class="registrants-challenge-list">
         <div class="registrant-order">#</div>
-        <div class="registrant-name" translate="fullNameField"></div>
+        <div class="registrant-name">
+          <div class="contestant-name">
+            {{'fullNameField' | translate}}
+            <i class="fa fa-search"></i>
+          </div>
+          <div class="search-by-name">
+            <input ng-model="search.fullName" id="search" class="form-control" placeholder="{{'searchContestantName' | translate}}">
+          </div>
+        </div>
         <div class="registration-submission" ng-click="contestDetail.$sort.byLastSubmission()">
           {{'lastSubmissionDate' | translate}}
           <i class="fa fa-chevron-circle-up" ng-show="contestDetail.$sort.type.isLastSubmissionTypeAsc == true"></i>
@@ -46,8 +54,8 @@
       <p translate="noData"></p>
     </td>
   </tr>
-    <tr dir-paginate="registrant in contestDetail.$filter.registrants | itemsPerPage:10"
-        pagination-id="contestDetail.selectedPhaseItem.phase" current-page="currentPage">
+  <tr dir-paginate="registrant in contestDetail.$filter.registrants | filter: search.fullName | orderBy:predicate:reverse | itemsPerPage:10"
+      pagination-id="contestDetail.selectedPhaseItem.phase" current-page="currentPage">
       <td>
         <div class="registrants-challenge-list">
           <div class="registrant-order">
