@@ -128,6 +128,8 @@ techlooper.factory("resourcesService", function ($translate, $q, apiService, $fi
       }
       apiService.getAvailableEmailTemplates()
         .success(function (templateList) {
+          templateList.unshift({templateId: 0, body: "", bodyVariables: [], language: $translate.use(),
+            subject: "", subjectVariables: [], templateName: "None"});
           _.each(templateList, function (template) {
             template.text = $filter('translate')(template.templateName);
             template.value = template.templateId;
