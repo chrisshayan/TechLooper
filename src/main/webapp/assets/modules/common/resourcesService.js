@@ -152,39 +152,19 @@ techlooper.factory("resourcesService", function ($translate, $q, apiService, $fi
 
   $.each(translations, function (i, item) {
     item.ins.getSelectize().then(function ($selectize) {
-      $translate(item.placeholder).then(function (translate) {
-        item.ins.placeholder = translate;
-        $selectize.setPlaceholder(translate);
-      });
+      item.ins.placeholder = $filter("translate")(item.placeholder);
+      $selectize.setPlaceholder(item.ins.placeholder);
 
       $.each(item.ins.options, function (i, row) {
-        //console.log(row);
-        //console.log($.type(row));
-        //console.log(row);
         if ($.type(row) == "array") {
-          //row = row[0];
-          //console.log(row);
           item.ins.options = [];
           $.each(row, function (i, r) {
-            //r.title = $filter("translate")(r.translate);
-            //console.log(row);
-            //item.ins.options.push(r);
-            $translate(r.translate).then(function (translate) {
-              r.title = translate;
-              item.ins.options.push(r);
-            });
+            r.title = $filter("translate")(r.translate);
+            item.ins.options.push(r);
           });
-          //console.log(row);
-          //console.log(array);
-          //
-          //return (item.ins.options = array);
           return;
         }
-        //row.title = $filter("translate")(row.translate);
-        //console.log(row);
-        $translate(row.translate).then(function (translate) {
-          row.title = translate;
-        });
+        row.title = $filter("translate")(row.translate);
       });
     });
   });
