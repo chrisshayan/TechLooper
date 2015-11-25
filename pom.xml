@@ -27,7 +27,6 @@
     <aspectj.version>1.8.1</aspectj.version>
     <spring-data-jpa.version>1.9.0.RELEASE</spring-data-jpa.version>
     <spring-data-elasticsearch>1.3.0.RELEASE</spring-data-elasticsearch>
-    <spring-data-couchbase>1.3.0.RELEASE</spring-data-couchbase>
     <hsqldb.version>2.3.2</hsqldb.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <javax.servlet-api.version>3.1.0</javax.servlet-api.version>
@@ -271,10 +270,6 @@
                       <directory>src/main/resources/local</directory>
                     </resource>
                     <resource>
-                      <directory>src/main/resources/couchbase_view</directory>
-                      <targetPath>couchbase_view</targetPath>
-                    </resource>
-                    <resource>
                       <directory>src/main/resources/template</directory>
                       <targetPath>template</targetPath>
                     </resource>
@@ -317,10 +312,6 @@
                   <resources>
                     <resource>
                       <directory>src/main/resources/staging</directory>
-                    </resource>
-                    <resource>
-                      <directory>src/main/resources/couchbase_view</directory>
-                      <targetPath>couchbase_view</targetPath>
                     </resource>
                     <resource>
                       <directory>src/main/resources/template</directory>
@@ -367,10 +358,6 @@
                       <directory>src/main/resources/staging</directory>
                     </resource>
                     <resource>
-                      <directory>src/main/resources/couchbase_view</directory>
-                      <targetPath>couchbase_view</targetPath>
-                    </resource>
-                    <resource>
                       <directory>src/main/resources/template</directory>
                       <targetPath>template</targetPath>
                     </resource>
@@ -413,10 +400,6 @@
                   <resources>
                     <resource>
                       <directory>src/main/resources/production</directory>
-                    </resource>
-                    <resource>
-                      <directory>src/main/resources/couchbase_view</directory>
-                      <targetPath>couchbase_view</targetPath>
                     </resource>
                     <resource>
                       <directory>src/main/resources/template</directory>
@@ -588,11 +571,6 @@
       <groupId>org.springframework.data</groupId>
       <artifactId>spring-data-elasticsearch</artifactId>
       <version>${spring-data-elasticsearch}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.data</groupId>
-      <artifactId>spring-data-couchbase</artifactId>
-      <version>${spring-data-couchbase}</version>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>

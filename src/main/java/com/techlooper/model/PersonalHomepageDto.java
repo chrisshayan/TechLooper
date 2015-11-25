@@ -22,8 +22,6 @@ public class PersonalHomepageDto {
 
     private Set<JobResponse> latestJobs;
 
-    private List<Topic> latestTopics;
-
     private Long totalLatestJob;
 
     public TermStatisticResponse getTermStatistic() {
