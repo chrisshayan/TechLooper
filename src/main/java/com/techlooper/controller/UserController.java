@@ -7,12 +7,10 @@ import com.techlooper.entity.vnw.dto.VnwUserDto;
 import com.techlooper.model.*;
 import com.techlooper.service.*;
 import freemarker.template.TemplateException;
-import org.apache.commons.io.IOUtils;
 import org.dozer.Mapper;
 import org.jasypt.util.text.TextEncryptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -40,6 +38,8 @@ import static java.util.stream.Collectors.toSet;
 public class UserController {
 
     private final int MAX_NUMBER_OF_ITEMS_DISPLAY = 3;
+
+    private final static Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
     @Resource
     private ApplicationContext applicationContext;
@@ -71,15 +71,6 @@ public class UserController {
     @Resource
     private ChallengeService challengeService;
 
-    @Value("${mail.citibank.title.vn}")
-    private String citibankTitleVn;
-
-    @Value("${mail.citibank.title.en}")
-    private String citibankTitleEn;
-
-    @Value("classpath:braille.txt")
-    private org.springframework.core.io.Resource brailleTextFile;
-
     @Resource
     private EmployerService employerService;
 
@@ -103,8 +94,6 @@ public class UserController {
 
     @Resource
     private ForumService forumService;
-
-    private final static Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
     @RequestMapping(value = "/api/users/add", method = RequestMethod.POST)
     public void save(@RequestBody UserImportData userImportData, HttpServletResponse httpServletResponse) {
@@ -232,7 +221,8 @@ public class UserController {
 
     @RequestMapping(value = "/promotion/citibank/title/{lang}", method = RequestMethod.GET)
     public String getCitiBankPromotionTitle(@PathVariable String lang) {
-        return "vn".equalsIgnoreCase(lang) ? citibankTitleVn : citibankTitleEn;
+        EmailTemplateDto emailTemplateDto = emailService.getTemplateById(5L);
+        return Language.en.name().equalsIgnoreCase(lang) ? emailTemplateDto.getTitleEN() : emailTemplateDto.getTitleVI();
     }
 
     @RequestMapping(value = "/getPromoted/email", method = RequestMethod.POST)
@@ -254,19 +244,6 @@ public class UserController {
     @RequestMapping(value = "/getPromotedResult/{id}", method = RequestMethod.GET)
     public GetPromotedEntity getPromotedResult(@PathVariable Long id) {
         return salaryReviewService.getPromotedEntity(id);
-    }
-
-    @RequestMapping(value = "/download/braille", method = RequestMethod.GET)
-    public void getFile(HttpServletResponse response) throws IOException {
-        try {
-            response.setContentType("text/plain");
-            response.setHeader("Content-Disposition", "attachment;filename=braille.txt");
-            IOUtils.copy(brailleTextFile.getInputStream(), response.getOutputStream());
-            response.flushBuffer();
-        } catch (IOException ex) {
-            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            throw ex;
-        }
     }
 
     @PreAuthorize("hasAnyAuthority('EMPLOYER')")

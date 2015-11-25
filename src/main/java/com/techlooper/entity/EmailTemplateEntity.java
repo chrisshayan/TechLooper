@@ -47,6 +47,12 @@ public class EmailTemplateEntity {
     @Field(type = String, index = FieldIndex.not_analyzed)
     private Language language;
 
+    @Field(type = String)
+    private String titleEN;
+
+    @Field(type = String)
+    private String titleVI;
+
     public Long getTemplateId() {
         return templateId;
     }
@@ -133,5 +139,21 @@ public class EmailTemplateEntity {
 
     public void setFromAddress(String fromAddress) {
         this.fromAddress = fromAddress;
+    }
+
+    public String getTitleEN() {
+        return titleEN;
+    }
+
+    public void setTitleEN(String titleEN) {
+        this.titleEN = titleEN;
+    }
+
+    public String getTitleVI() {
+        return titleVI;
+    }
+
+    public void setTitleVI(String titleVI) {
+        this.titleVI = titleVI;
     }
 }

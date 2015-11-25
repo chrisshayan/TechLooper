@@ -26,6 +26,10 @@ public class EmailTemplateDto {
 
     private String fromAddress;
 
+    private String titleEN;
+
+    private String titleVI;
+
     public Long getTemplateId() {
         return templateId;
     }
@@ -104,5 +108,21 @@ public class EmailTemplateDto {
 
     public void setFromAddress(String fromAddress) {
         this.fromAddress = fromAddress;
+    }
+
+    public String getTitleEN() {
+        return titleEN;
+    }
+
+    public void setTitleEN(String titleEN) {
+        this.titleEN = titleEN;
+    }
+
+    public String getTitleVI() {
+        return titleVI;
+    }
+
+    public void setTitleVI(String titleVI) {
+        this.titleVI = titleVI;
     }
 }
