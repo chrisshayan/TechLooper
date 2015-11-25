@@ -116,12 +116,12 @@
               <table style="border-collapse: collapse; background:#eee; margin:0 auto" cellpadding="0" cellspacing="0" align="center" border="0" class="deviceWidth" width="100%">
                 <tr>
                   <td align="left" style="padding:10px" class="logo">
-                    <a href="${webBaseUrl}#/home?utm_source=dailysummary&utm_medium=techlooperlogo&utm_campaign=onlinecontest" style="border:none; outline:none" target="_blank">
+                    <a href="${webBaseUrl}#/home?utm_source=updatecriteria&utm_medium=techlooperlogo&utm_campaign=onlinecontest" style="border:none; outline:none" target="_blank">
                       <img alt="TechLooper Logo" class="logo" src="${webBaseUrl}images/logo.png" style="border:none; outline:none" width="150" />
                     </a>
                   </td>
                   <td style="padding:10px" align="right" class="logo">
-                    <a href="http://www.vietnamworks.com/?utm_source=dailysummary&utm_medium=vietnamworkslogo&utm_campaign=onlinecontest" style="border:none; outline:none" target="_blank">
+                    <a href="http://www.vietnamworks.com/?utm_source=updatecriteria&utm_medium=vietnamworkslogo&utm_campaign=onlinecontest" style="border:none; outline:none" target="_blank">
                       <img alt="VietnamWorks Logo" class="logo" src="http://images.vietnamworks.com/img/jobseekers/logo.png" style="border:none; outline:none" width="150" />
                     </a>
                   </td>
@@ -173,7 +173,7 @@
                     </tr>
                     <tr>
                       <td align="left" style="margin: 0; padding: 0">
-                        <p style="font-size: 14px; line-height: 18px; margin: 0; padding: 0">You are just posted successfully the challenge <a href="" style="font-size: 14px; font-weight: 600; color: #277cbd; text-decoration: none" target="_blank">Challenge Name</a>. <br/>Do you want to set up your own judging criteria for it now?</p>
+                        <p style="font-size: 14px; line-height: 18px; margin: 0; padding: 0">You are just posted successfully the challenge <a href="${webBaseUrl}#/challenge-detail/${challengeNameAlias}-${challengeId}-id?utm_source=updatecriteria&utm_medium=clickchallenge&utm_campaign=onlinecontest" style="font-size: 14px; font-weight: 600; color: #277cbd; text-decoration: none" target="_blank">${challengeName}</a>. <br/>Do you want to set up your own judging criteria for it now?</p>
                       </td>
                     </tr>
                     <tr>
@@ -186,7 +186,7 @@
                         <table width="300px" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;" class="fullWidth">
                           <tr>
                             <td bgcolor="#277cbd" width="100%" style="padding: 10px 5px; -webkit-border-radius:3px; border-radius:3px; text-align: center">
-                              <a href="" target="_blank" style="font-family: Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; display: block; width: 100%">Update judging & Scoring Criteria</a>
+                              <a href="${webBaseUrl}#/challenge-detail/${challengeNameAlias}-${challengeId}-id?toPhase=FINAL&utm_source=updatecriteria&utm_medium=updatebtn&utm_campaign=onlinecontest" target="_blank" style="font-family: Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; display: block; width: 100%">Update judging & Scoring Criteria</a>
                             </td>
                           </tr>
                         </table>

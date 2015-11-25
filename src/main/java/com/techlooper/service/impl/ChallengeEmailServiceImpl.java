@@ -108,6 +108,21 @@ public class ChallengeEmailServiceImpl implements ChallengeEmailService {
     }
 
     @Override
+    public void sendEmailNotifyEmployerUpdateCriteria(ChallengeEntity challengeEntity) {
+        String recipientAddresses = challengeEntity.getAuthorEmail();
+        List<String> subjectVariableValues = Arrays.asList(challengeEntity.getChallengeName());
+
+        EmailRequestModel emailRequestModel = new EmailRequestModel.Builder()
+                .withTemplateName(EmailTemplateNameEnum.CHALLENGE_NOTIFY_EMPLOYER_UPDATE_CRITERIA.name())
+                .withLanguage(challengeEntity.getLang())
+                .withTemplateModel(buildNotifyEmployerUpdateCriteriaEmailTemplateModel(challengeEntity))
+                .withMailMessage(postChallengeMailMessage)
+                .withRecipientAddresses(recipientAddresses)
+                .withSubjectVariableValues(subjectVariableValues).build();
+        emailService.sendMail(emailRequestModel);
+    }
+
+    @Override
     public void sendPostChallengeEmailToTechloopies(ChallengeEntity challengeEntity, Boolean isNewChallenge) {
         List<String> subjectVariableValues = Arrays.asList(challengeEntity.getAuthorEmail(), challengeEntity.getChallengeName());
         EmailRequestModel emailRequestModel = new EmailRequestModel.Builder()
@@ -258,6 +273,15 @@ public class ChallengeEmailServiceImpl implements ChallengeEmailService {
         templateModel.put("challengeId", challengeEntity.getChallengeId().toString());
         templateModel.put("authorEmail", challengeEntity.getAuthorEmail());
         templateModel.put("challengeOverview", challengeEntity.getChallengeOverview());
+        templateModel.put("challengeNameAlias", challengeEntity.getChallengeName().replaceAll("\\W", "-"));
+        return templateModel;
+    }
+
+    private Map<String, Object> buildNotifyEmployerUpdateCriteriaEmailTemplateModel(ChallengeEntity challengeEntity) {
+        Map<String, Object> templateModel = new HashMap<>();
+        templateModel.put("webBaseUrl", webBaseUrl);
+        templateModel.put("challengeName", challengeEntity.getChallengeName());
+        templateModel.put("challengeId", String.valueOf(challengeEntity.getChallengeId()));
         templateModel.put("challengeNameAlias", challengeEntity.getChallengeName().replaceAll("\\W", "-"));
         return templateModel;
     }

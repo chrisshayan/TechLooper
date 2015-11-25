@@ -61,6 +61,7 @@ public class ChallengeController {
             if (challengeEntity != null) {
                 if (EmailValidator.validate(challengeEntity.getAuthorEmail())) {
                     challengeEmailService.sendPostChallengeEmailToEmployer(challengeEntity);
+                    challengeEmailService.sendEmailNotifyEmployerUpdateCriteria(challengeEntity);
                 }
                 challengeEmailService.sendPostChallengeEmailToTechloopies(challengeEntity, Boolean.TRUE);
             }

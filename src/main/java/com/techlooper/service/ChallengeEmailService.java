@@ -36,6 +36,8 @@ public interface ChallengeEmailService {
 
     void sendPostChallengeEmailToEmployer(ChallengeEntity challengeEntity);
 
+    void sendEmailNotifyEmployerUpdateCriteria(ChallengeEntity challengeEntity);
+
     void sendPostChallengeEmailToTechloopies(ChallengeEntity challengeEntity, Boolean isNewChallenge);
 
     void sendEmailNotifyRegistrantAboutChallengeTimeline(ChallengeEntity challengeEntity,
