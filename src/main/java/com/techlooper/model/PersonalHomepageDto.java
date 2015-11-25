@@ -20,6 +20,8 @@ public class PersonalHomepageDto {
 
     private Set<JobResponse> latestJobs;
 
+    private List<Topic> latestTopics;
+
     private Long totalLatestJob;
 
     public TermStatisticResponse getTermStatistic() {
@@ -68,5 +70,13 @@ public class PersonalHomepageDto {
 
     public void setTotalLatestJob(Long totalLatestJob) {
         this.totalLatestJob = totalLatestJob;
+    }
+
+    public List<Topic> getLatestTopics() {
+        return latestTopics;
+    }
+
+    public void setLatestTopics(List<Topic> latestTopics) {
+        this.latestTopics = latestTopics;
     }
 }

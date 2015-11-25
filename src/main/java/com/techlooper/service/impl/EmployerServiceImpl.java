@@ -47,8 +47,8 @@ public class EmployerServiceImpl implements EmployerService {
     @Resource
     private Mapper dozerMapper;
 
-    @Value("${mail.techlooper.reply_to}")
-    private String mailTechlooperReplyTo;
+    @Value("${mail.techlooper.replyTo}")
+    private String replyToMailAddress;
 
     public DashBoardInfo getDashboardInfo(String owner) {
         VnwUser user = vnwUserRepo.findByUsernameIgnoreCase(owner);
@@ -85,7 +85,7 @@ public class EmployerServiceImpl implements EmployerService {
             emailSettingDto = dozerMapper.map(emailSettingEntity, EmailSettingDto.class);
         } else {
             emailSettingDto.setEmployerEmail(employerEmail);
-            emailSettingDto.setReplyEmail(mailTechlooperReplyTo);
+            emailSettingDto.setReplyEmail(replyToMailAddress);
             EmployerDto employerDto = companyService.findByUserName(employerEmail);
             if (employerDto != null) {
                 StringBuilder emailSignatureBuilder = new StringBuilder("");

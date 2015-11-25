@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toSet;
@@ -92,10 +93,16 @@ public class UserController {
     private JobAggregatorService jobAggregatorService;
 
     @Resource
-    private EmailService emailService;
+    private ChallengeEmailService challengeEmailService;
 
     @Resource
     private ChallengeRegistrantService challengeRegistrantService;
+
+    @Resource
+    private EmailService emailService;
+
+    @Resource
+    private ForumService forumService;
 
     private final static Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
@@ -319,6 +326,13 @@ public class UserController {
             LOGGER.error(ex.getMessage(), ex);
         }
 
+        try {
+            TopicList topicList = forumService.getLatestTopics();
+            personalHomepage.setLatestTopics(topicList.getTopics().stream().limit(3).collect(Collectors.toList()));
+        } catch (Exception ex) {
+            LOGGER.error(ex.getMessage(), ex);
+        }
+
         return personalHomepage;
     }
 
@@ -383,7 +397,7 @@ public class UserController {
     @RequestMapping(value = "user/challenge/sendMailToDaily/{challengeId}/{now}", method = RequestMethod.POST)
     public void sendEmailToDailyChallengeRegistrants(HttpServletRequest request, HttpServletResponse response,
                                                      @PathVariable Long challengeId, @PathVariable Long now, @RequestBody EmailContent emailContent) {
-        if (!emailService.sendEmailToDailyChallengeRegistrants(request.getRemoteUser(), challengeId, now, emailContent)) {
+        if (!challengeEmailService.sendEmailToDailyChallengeRegistrants(request.getRemoteUser(), challengeId, now, emailContent)) {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         }
     }
@@ -397,7 +411,7 @@ public class UserController {
             String ownerEmail = request.getRemoteUser();
             Long challengeId = registrant.getChallengeId();
             if (challengeService.isChallengeOwner(ownerEmail, challengeId)) {
-                boolean success = emailService.sendEmailToRegistrant(request.getRemoteUser(), registrantId, emailContent);
+                boolean success = challengeEmailService.sendEmailToRegistrant(request.getRemoteUser(), registrantId, emailContent);
                 if (!success) {
                     response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
                 }

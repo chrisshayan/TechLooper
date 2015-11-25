@@ -14,7 +14,7 @@ public class EmailContent implements Serializable {
 
     private String content;
 
-    private Address[] recipients;
+    private String recipients;
 
     private Language language;
 
@@ -36,11 +36,11 @@ public class EmailContent implements Serializable {
         this.language = language;
     }
 
-    public Address[] getRecipients() {
+    public String getRecipients() {
         return recipients;
     }
 
-    public void setRecipients(Address[] recipients) {
+    public void setRecipients(String recipients) {
         this.recipients = recipients;
     }
 

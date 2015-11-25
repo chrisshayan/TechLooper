@@ -5,9 +5,9 @@ import com.techlooper.entity.ChallengeRegistrantEntity;
 import com.techlooper.model.ChallengePhaseEnum;
 import com.techlooper.model.EmailSentResultEnum;
 import com.techlooper.repository.elasticsearch.ChallengeRegistrantRepository;
+import com.techlooper.service.ChallengeEmailService;
 import com.techlooper.service.ChallengeRegistrantService;
 import com.techlooper.service.ChallengeService;
-import com.techlooper.service.EmailService;
 import com.techlooper.util.DataUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -39,7 +39,7 @@ public class ChallengeSubmissionNotifier {
     private ChallengeRegistrantRepository challengeRegistrantRepository;
 
     @Resource
-    private EmailService emailService;
+    private ChallengeEmailService challengeEmailService;
 
     @Value("${jobAlert.enable}")
     private Boolean enableJobAlert;
@@ -76,13 +76,13 @@ public class ChallengeSubmissionNotifier {
                         Date currentDate = new Date();
                         if (daysBetween(lastSentDate, currentDate) > 0) {
                             try {
-                                emailService.sendEmailNotifyRegistrantAboutChallengeTimeline(
+                                challengeEmailService.sendEmailNotifyRegistrantAboutChallengeTimeline(
                                         challengeEntity, registrantEntity, challengePhase, true);
-                                emailService.updateSendEmailToContestantResultCode(registrantEntity, EmailSentResultEnum.OK);
+                                challengeEmailService.updateSendEmailToContestantResultCode(registrantEntity, EmailSentResultEnum.OK);
                                 count++;
                             } catch (Exception ex) {
                                 LOGGER.error(ex.getMessage(), ex);
-                                emailService.updateSendEmailToContestantResultCode(registrantEntity, EmailSentResultEnum.ERROR);
+                                challengeEmailService.updateSendEmailToContestantResultCode(registrantEntity, EmailSentResultEnum.ERROR);
                             }
                         }
                     }

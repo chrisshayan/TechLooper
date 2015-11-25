@@ -5,12 +5,11 @@ import com.techlooper.entity.ChallengeRegistrantEntity;
 import com.techlooper.model.ChallengePhaseEnum;
 import com.techlooper.model.EmailSentResultEnum;
 import com.techlooper.repository.elasticsearch.ChallengeRegistrantRepository;
+import com.techlooper.service.ChallengeEmailService;
 import com.techlooper.service.ChallengeRegistrantService;
 import com.techlooper.service.ChallengeService;
-import com.techlooper.service.EmailService;
 import com.techlooper.util.DataUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.dozer.Mapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -34,10 +33,7 @@ public class ChallengeTimelineNotifier {
     private ChallengeRegistrantService challengeRegistrantService;
 
     @Resource
-    private EmailService emailService;
-
-    @Resource
-    private Mapper dozerMapper;
+    private ChallengeEmailService challengeEmailService;
 
     @Value("${jobAlert.enable}")
     private Boolean enableJobAlert;
@@ -71,14 +67,14 @@ public class ChallengeTimelineNotifier {
                         if (daysBetween(lastSentDate, currentDate) > 0) {
                             try {
                                 if (StringUtils.isNotEmpty(challengeRegistrantEntity.getRegistrantEmail())) {
-                                    emailService.sendEmailNotifyRegistrantAboutChallengeTimeline(
+                                    challengeEmailService.sendEmailNotifyRegistrantAboutChallengeTimeline(
                                             challengeEntity, challengeRegistrantEntity, challengePhase, false);
-                                    emailService.updateSendEmailToContestantResultCode(challengeRegistrantEntity, EmailSentResultEnum.OK);
+                                    challengeEmailService.updateSendEmailToContestantResultCode(challengeRegistrantEntity, EmailSentResultEnum.OK);
                                     count++;
                                 }
                             } catch (Exception ex) {
                                 LOGGER.error(ex.getMessage(), ex);
-                                emailService.updateSendEmailToContestantResultCode(challengeRegistrantEntity, EmailSentResultEnum.ERROR);
+                                challengeEmailService.updateSendEmailToContestantResultCode(challengeRegistrantEntity, EmailSentResultEnum.ERROR);
                             }
                         }
                     }

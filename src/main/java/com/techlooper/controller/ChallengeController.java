@@ -44,7 +44,7 @@ public class ChallengeController {
     private ChallengeRegistrantService challengeRegistrantService;
 
     @Resource
-    private EmailService emailService;
+    private ChallengeEmailService challengeEmailService;
 
     @Resource
     private Mapper dozerMapper;
@@ -60,9 +60,9 @@ public class ChallengeController {
         if (newEntity) {
             if (challengeEntity != null) {
                 if (EmailValidator.validate(challengeEntity.getAuthorEmail())) {
-                    emailService.sendPostChallengeEmailToEmployer(challengeEntity);
+                    challengeEmailService.sendPostChallengeEmailToEmployer(challengeEntity);
                 }
-                emailService.sendPostChallengeEmailToTechloopies(challengeEntity, Boolean.TRUE);
+                challengeEmailService.sendPostChallengeEmailToTechloopies(challengeEntity, Boolean.TRUE);
             }
 
             // Call Lead Management API to create new lead on CRM system
@@ -80,7 +80,7 @@ public class ChallengeController {
                 LOGGER.error(ex.getMessage(), ex);
             }
         } else {
-            emailService.sendPostChallengeEmailToTechloopies(challengeEntity, Boolean.FALSE);
+            challengeEmailService.sendPostChallengeEmailToTechloopies(challengeEntity, Boolean.FALSE);
         }
 
         return new ChallengeResponse(challengeEntity.getChallengeId(), responseCode);

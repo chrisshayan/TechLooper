@@ -8,14 +8,14 @@ import com.techlooper.repository.elasticsearch.CompanySearchResultRepository;
 import com.techlooper.repository.elasticsearch.ProjectRegistrantRepository;
 import com.techlooper.repository.elasticsearch.ProjectRepository;
 import com.techlooper.service.CompanyService;
+import com.techlooper.service.EmailService;
 import com.techlooper.service.ProjectService;
-import freemarker.template.Template;
+import com.techlooper.util.DateTimeUtils;
 import freemarker.template.TemplateException;
 import org.apache.commons.lang3.StringUtils;
 import org.dozer.Mapper;
 import org.elasticsearch.action.search.SearchType;
 import org.elasticsearch.index.query.FilterBuilders;
-import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.index.query.QueryStringQueryBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,18 +23,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.elasticsearch.core.FacetedPage;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import javax.mail.Address;
-import javax.mail.Message;
 import javax.mail.MessagingException;
-import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeUtility;
 import java.io.IOException;
-import java.io.StringWriter;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -63,59 +57,11 @@ public class ProjectServiceImpl implements ProjectService {
     @Resource
     private MimeMessage applyJobMailMessage;
 
-    @Resource
-    private JavaMailSender mailSender;
-
     @Value("${web.baseUrl}")
     private String webBaseUrl;
 
-    @Resource
-    private Template alertJobSeekerApplyJobMailTemplateEn;
-
-    @Resource
-    private Template alertJobSeekerApplyJobMailTemplateVi;
-
-    @Resource
-    private Template alertEmployerApplyJobMailTemplateEn;
-
-    @Resource
-    private Template alertEmployerApplyJobMailTemplateVi;
-
-    @Resource
-    private Template alertEmployerPostJobMailTemplateVi;
-
-    @Resource
-    private Template alertEmployerPostJobMailTemplateEn;
-
-    @Resource
-    private Template alertTechloopiesPostJobMailTemplateEn;
-
-    @Value("${mail.alertJobSeekerApplyJob.subject.en}")
-    private String alertJobSeekerApplyJobMailSubjectEn;
-
-    @Value("${mail.alertJobSeekerApplyJob.subject.vn}")
-    private String alertJobSeekerApplyJobMailSubjectVn;
-
-    @Value("${mail.alertEmployerApplyJob.subject.en}")
-    private String alertEmployerApplyJobMailSubjectEn;
-
-    @Value("${mail.alertEmployerApplyJob.subject.vn}")
-    private String alertEmployerApplyJobMailSubjectVn;
-
-    @Value("${mail.alertEmployerPostJob.subject.vn}")
-    private String alertEmployerPostJobMailSubjectVn;
-
-    @Value("${mail.alertEmployerPostJob.subject.en}")
-    private String alertEmployerPostJobMailSubjectEn;
-
-    @Value("${mail.alertTechloopiesPostJob.subject.en}")
-    private String alertTechloopiesPostJobMailSubjectEn;
-
-    @Value("${mail.postChallenge.techloopies.mailList}")
-    private String techloopiesMailList;
-
-    @Value("${mail.techlooper.reply_to}")
-    private String mailTechlooperReplyTo;
+    @Value("${mail.techlooper.mailingList}")
+    private String techlooperMailingList;
 
     private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -125,6 +71,9 @@ public class ProjectServiceImpl implements ProjectService {
     @Resource
     private CompanyService companyService;
 
+    @Resource
+    private EmailService emailService;
+
     private static final Logger LOGGER = LoggerFactory.getLogger(ProjectServiceImpl.class);
 
     @Override
@@ -132,7 +81,7 @@ public class ProjectServiceImpl implements ProjectService {
         ProjectEntity projectEntity = dozerMapper.map(projectDto, ProjectEntity.class);
         Date currentDate = new Date();
         projectEntity.setProjectId(currentDate.getTime());
-        projectEntity.setCreatedDate(simpleDateFormat.format(currentDate));
+        projectEntity.setCreatedDate(DateTimeUtils.currentDate());
         projectEntity = projectRepository.save(projectEntity);
 
         if (projectEntity != null) {
@@ -148,23 +97,30 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public void sendEmailAlertEmployerPostJob(ProjectEntity projectEntity)
-            throws MessagingException, IOException, TemplateException {
-        Template template = projectEntity.getLang() == Language.vi ?
-                alertEmployerPostJobMailTemplateVi : alertEmployerPostJobMailTemplateEn;
-        String mailSubject = projectEntity.getLang() == Language.vi ?
-                alertEmployerPostJobMailSubjectVn : alertEmployerPostJobMailSubjectEn;
-        mailSubject = String.format(mailSubject, projectEntity.getProjectTitle());
-        Address[] emailAddress = InternetAddress.parse(projectEntity.getAuthorEmail());
-        sendEmailAlertApplyJob(projectEntity, null, mailSubject, emailAddress, template, false);
+    public void sendEmailAlertEmployerPostJob(ProjectEntity projectEntity) {
+        List<String> subjectVariableValues = Arrays.asList(projectEntity.getProjectTitle());
+        String recipientAddress = projectEntity.getAuthorEmail();
+
+        EmailRequestModel emailRequestModel = new EmailRequestModel.Builder()
+                .withTemplateName(EmailTemplateNameEnum.PROJECT_ALERT_EMPLOYER_POST_JOB.name())
+                .withLanguage(projectEntity.getLang())
+                .withTemplateModel(buildAlertEmployerApplyJobEmailTemplateModel(projectEntity, null))
+                .withMailMessage(applyJobMailMessage)
+                .withRecipientAddresses(recipientAddress)
+                .withSubjectVariableValues(subjectVariableValues).build();
+        emailService.sendMail(emailRequestModel);
     }
 
     @Override
     public void sendEmailAlertTechloopiesPostJob(ProjectEntity projectEntity)
             throws MessagingException, IOException, TemplateException {
-        Address[] emailAddress = InternetAddress.parse(techloopiesMailList);
-        sendEmailAlertApplyJob(projectEntity, null, alertTechloopiesPostJobMailSubjectEn,
-                emailAddress, alertTechloopiesPostJobMailTemplateEn, false);
+        EmailRequestModel emailRequestModel = new EmailRequestModel.Builder()
+                .withTemplateName(EmailTemplateNameEnum.PROJECT_ALERT_TECHLOOPIES_APPLY_JOB.name())
+                .withLanguage(Language.en)
+                .withTemplateModel(buildAlertEmployerApplyJobEmailTemplateModel(projectEntity, null))
+                .withMailMessage(applyJobMailMessage)
+                .withRecipientAddresses(techlooperMailingList).build();
+        emailService.sendMail(emailRequestModel);
     }
 
     @Override
@@ -262,46 +218,36 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public void sendEmailAlertJobSeekerApplyJob(ProjectEntity projectEntity, ProjectRegistrantEntity projectRegistrantEntity)
             throws MessagingException, IOException, TemplateException {
-        Template template = projectRegistrantEntity.getLang() == Language.vi ?
-                alertJobSeekerApplyJobMailTemplateVi : alertJobSeekerApplyJobMailTemplateEn;
-        String mailSubject = projectRegistrantEntity.getLang() == Language.vi ?
-                alertJobSeekerApplyJobMailSubjectVn : alertJobSeekerApplyJobMailSubjectEn;
-        mailSubject = String.format(mailSubject, projectEntity.getProjectTitle());
-        Address[] emailAddress = InternetAddress.parse(projectRegistrantEntity.getRegistrantEmail());
-        sendEmailAlertApplyJob(projectEntity, projectRegistrantEntity, mailSubject, emailAddress, template, false);
+        List<String> subjectVariableValues = Arrays.asList(projectEntity.getProjectTitle());
+        String recipientAddress = projectRegistrantEntity.getRegistrantEmail();
+
+        EmailRequestModel emailRequestModel = new EmailRequestModel.Builder()
+                .withTemplateName(EmailTemplateNameEnum.PROJECT_ALERT_EMPLOYER_APPLY_JOB.name())
+                .withLanguage(projectRegistrantEntity.getLang())
+                .withTemplateModel(buildAlertEmployerApplyJobEmailTemplateModel(projectEntity, projectRegistrantEntity))
+                .withMailMessage(applyJobMailMessage)
+                .withRecipientAddresses(recipientAddress)
+                .withSubjectVariableValues(subjectVariableValues).build();
+        emailService.sendMail(emailRequestModel);
     }
 
     @Override
-    public void sendEmailAlertEmployerApplyJob(ProjectEntity projectEntity, ProjectRegistrantEntity projectRegistrantEntity)
-            throws MessagingException, IOException, TemplateException {
-        Template template = projectRegistrantEntity.getLang() == Language.vi ?
-                alertEmployerApplyJobMailTemplateVi : alertEmployerApplyJobMailTemplateEn;
-        String mailSubject = projectRegistrantEntity.getLang() == Language.vi ?
-                alertEmployerApplyJobMailSubjectVn : alertEmployerApplyJobMailSubjectEn;
-        mailSubject = String.format(mailSubject, projectEntity.getProjectTitle());
-        Address[] emailAddress = InternetAddress.parse(projectEntity.getAuthorEmail());
-        sendEmailAlertApplyJob(projectEntity, projectRegistrantEntity, mailSubject, emailAddress, template, true);
+    public void sendEmailAlertEmployerApplyJob(ProjectEntity projectEntity, ProjectRegistrantEntity projectRegistrantEntity) {
+        List<String> subjectVariableValues = Arrays.asList(projectEntity.getProjectTitle());
+        String recipientAddress = projectEntity.getAuthorEmail();
+
+        EmailRequestModel emailRequestModel = new EmailRequestModel.Builder()
+                .withTemplateName(EmailTemplateNameEnum.PROJECT_ALERT_EMPLOYER_APPLY_JOB.name())
+                .withLanguage(projectRegistrantEntity.getLang())
+                .withTemplateModel(buildAlertEmployerApplyJobEmailTemplateModel(projectEntity, projectRegistrantEntity))
+                .withMailMessage(applyJobMailMessage)
+                .withRecipientAddresses(recipientAddress)
+                .withSubjectVariableValues(subjectVariableValues).build();
+        emailService.sendMail(emailRequestModel);
     }
 
-    @Override
-    public Long getNumberOfRegistrants(Long projectId) {
-        NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withSearchType(SearchType.COUNT);
-        searchQueryBuilder.withFilter(FilterBuilders.termFilter("projectId", projectId));
-        return projectRegistrantRepository.search(searchQueryBuilder.build()).getTotalElements();
-    }
-
-    private void sendEmailAlertApplyJob(ProjectEntity projectEntity, ProjectRegistrantEntity projectRegistrantEntity,
-                                        String mailSubject, Address[] recipientAddresses, Template template, boolean hasReplyTo)
-            throws MessagingException, IOException, TemplateException {
-        applyJobMailMessage.setRecipients(Message.RecipientType.TO, recipientAddresses);
-
-        if (hasReplyTo) {
-            applyJobMailMessage.setReplyTo(InternetAddress.parse(projectRegistrantEntity.getRegistrantEmail()));
-        } else {
-            applyJobMailMessage.setReplyTo(InternetAddress.parse(mailTechlooperReplyTo));
-        }
-
-        StringWriter stringWriter = new StringWriter();
+    private Map<String, Object> buildAlertEmployerApplyJobEmailTemplateModel(
+            ProjectEntity projectEntity, ProjectRegistrantEntity projectRegistrantEntity) {
         Map<String, Object> templateModel = new HashMap<>();
         templateModel.put("webBaseUrl", webBaseUrl);
         templateModel.put("projectTitle", projectEntity.getProjectTitle());
@@ -325,14 +271,14 @@ public class ProjectServiceImpl implements ProjectService {
             templateModel.put("resumeLink", projectRegistrantEntity.getResumeLink());
         }
 
-        template.process(templateModel, stringWriter);
-        String formatMailSubject = String.format(mailSubject, projectEntity.getProjectTitle());
-        applyJobMailMessage.setSubject(MimeUtility.encodeText(formatMailSubject, "UTF-8", null));
-        applyJobMailMessage.setText(stringWriter.toString(), "UTF-8", "html");
+        return templateModel;
+    }
 
-        stringWriter.flush();
-        applyJobMailMessage.saveChanges();
-        mailSender.send(applyJobMailMessage);
+    @Override
+    public Long getNumberOfRegistrants(Long projectId) {
+        NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withSearchType(SearchType.COUNT);
+        searchQueryBuilder.withFilter(FilterBuilders.termFilter("projectId", projectId));
+        return projectRegistrantRepository.search(searchQueryBuilder.build()).getTotalElements();
     }
 
     public boolean checkIfProjectRegistrantExist(Long projectId, String email) {
@@ -345,7 +291,6 @@ public class ProjectServiceImpl implements ProjectService {
         long total = projectRegistrantRepository.search(searchQueryBuilder.build()).getTotalElements();
         return (total > 0);
     }
-
 
     public Collection<ProjectDto> findByOwner(String owner) {
         NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder().withIndices(techlooperIndex).withTypes("project");

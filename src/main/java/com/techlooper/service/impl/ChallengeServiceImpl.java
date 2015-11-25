@@ -10,9 +10,9 @@ import com.techlooper.model.ChallengeFilterCondition;
 import com.techlooper.model.ChallengePhaseEnum;
 import com.techlooper.repository.elasticsearch.ChallengeRegistrantRepository;
 import com.techlooper.repository.elasticsearch.ChallengeRepository;
+import com.techlooper.service.ChallengeEmailService;
 import com.techlooper.service.ChallengeRegistrantService;
 import com.techlooper.service.ChallengeService;
-import com.techlooper.service.EmailService;
 import com.techlooper.util.DataUtils;
 import com.techlooper.util.DateTimeUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -74,7 +74,7 @@ public class ChallengeServiceImpl implements ChallengeService {
     private ChallengeRegistrantService challengeRegistrantService;
 
     @Resource
-    private EmailService emailService;
+    private ChallengeEmailService challengeEmailService;
 
     @Override
     public ChallengeEntity postChallenge(ChallengeDto challengeDto) {
@@ -106,7 +106,7 @@ public class ChallengeServiceImpl implements ChallengeService {
 
             try {
                 challengeRegistrantEntity = challengeRegistrantRepository.save(challengeRegistrantEntity);
-                emailService.sendApplicationEmailToContestant(challengeEntity, challengeRegistrantEntity);
+                challengeEmailService.sendApplicationEmailToContestant(challengeEntity, challengeRegistrantEntity);
                 challengeRegistrantEntity.setMailSent(Boolean.TRUE);
                 numberOfRegistrants = challengeRegistrantService.getNumberOfRegistrants(challengeId);
             } catch (Exception ex) {

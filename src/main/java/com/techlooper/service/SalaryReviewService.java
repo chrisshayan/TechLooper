@@ -16,7 +16,7 @@ public interface SalaryReviewService {
 
     List<SalaryReviewEntity> searchSalaryReview(SalaryReviewEntity salaryReviewEntity);
 
-    void sendSalaryReviewReportEmail(EmailRequest emailRequest) throws IOException, TemplateException, MessagingException;
+    void sendSalaryReviewReportEmail(EmailRequest emailRequest);
 
     void createVnwJobAlert(VnwJobAlertRequest vnwJobAlertRequest);
 
