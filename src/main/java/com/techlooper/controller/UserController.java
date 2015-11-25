@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toSet;
@@ -96,6 +97,9 @@ public class UserController {
 
     @Resource
     private ChallengeRegistrantService challengeRegistrantService;
+
+    @Resource
+    private ForumService forumService;
 
     private final static Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
@@ -315,6 +319,13 @@ public class UserController {
         try {
             JobSearchResponse latestJobSearchResponse = jobAggregatorService.findJob(criteria);
             personalHomepage.setLatestJobs(latestJobSearchResponse.getJobs().stream().limit(MAX_NUMBER_OF_ITEMS_DISPLAY).collect(toSet()));
+        } catch (Exception ex) {
+            LOGGER.error(ex.getMessage(), ex);
+        }
+
+        try {
+            TopicList topicList = forumService.getLatestTopics();
+            personalHomepage.setLatestTopics(topicList.getTopics().stream().limit(3).collect(Collectors.toList()));
         } catch (Exception ex) {
             LOGGER.error(ex.getMessage(), ex);
         }
