@@ -10,35 +10,26 @@ import com.techlooper.repository.elasticsearch.ProjectRepository;
 import com.techlooper.service.CompanyService;
 import com.techlooper.service.EmailService;
 import com.techlooper.service.ProjectService;
-import com.techlooper.util.DateTimeUtils;
-import freemarker.template.TemplateException;
+import com.techlooper.util.DataUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.dozer.Mapper;
 import org.elasticsearch.action.search.SearchType;
 import org.elasticsearch.index.query.FilterBuilders;
 import org.elasticsearch.index.query.QueryStringQueryBuilder;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.elasticsearch.search.sort.SortBuilders;
+import org.elasticsearch.search.sort.SortOrder;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.elasticsearch.core.FacetedPage;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.stream.Collectors;
 
+import static com.techlooper.util.DateTimeUtils.*;
 import static org.elasticsearch.index.query.FilterBuilders.queryFilter;
 import static org.elasticsearch.index.query.QueryBuilders.*;
 
-/**
- * Created by NguyenDangKhoa on 7/10/15.
- */
 @Service
 public class ProjectServiceImpl implements ProjectService {
 
@@ -63,36 +54,20 @@ public class ProjectServiceImpl implements ProjectService {
     @Value("${mail.techlooper.mailingList}")
     private String techlooperMailingList;
 
-    private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-
-    @Value("${elasticsearch.userimport.index.name}")
-    private String techlooperIndex;
-
     @Resource
     private CompanyService companyService;
 
     @Resource
     private EmailService emailService;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ProjectServiceImpl.class);
-
     @Override
     public ProjectEntity saveProject(ProjectDto projectDto) {
         ProjectEntity projectEntity = dozerMapper.map(projectDto, ProjectEntity.class);
-        Date currentDate = new Date();
-        projectEntity.setProjectId(currentDate.getTime());
-        projectEntity.setCreatedDate(DateTimeUtils.currentDate());
+        projectEntity.setProjectId(currentDateTime());
+        projectEntity.setCreatedDate(currentDate());
         projectEntity = projectRepository.save(projectEntity);
-
-        if (projectEntity != null) {
-            try {
-                sendEmailAlertEmployerPostJob(projectEntity);
-                sendEmailAlertTechloopiesPostJob(projectEntity);
-            } catch (Exception ex) {
-                LOGGER.error(ex.getMessage(), ex);
-            }
-        }
-
+        sendEmailAlertEmployerPostJob(projectEntity);
+        sendEmailAlertTechloopiesPostJob(projectEntity);
         return projectEntity;
     }
 
@@ -112,8 +87,7 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public void sendEmailAlertTechloopiesPostJob(ProjectEntity projectEntity)
-            throws MessagingException, IOException, TemplateException {
+    public void sendEmailAlertTechloopiesPostJob(ProjectEntity projectEntity) {
         EmailRequestModel emailRequestModel = new EmailRequestModel.Builder()
                 .withTemplateName(EmailTemplateNameEnum.PROJECT_ALERT_TECHLOOPIES_APPLY_JOB.name())
                 .withLanguage(Language.en)
@@ -131,22 +105,24 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public Long countTotalNumberOfSkills() {
         Long total = 0L;
-        Iterator<ProjectEntity> projectIterator = projectRepository.findAll().iterator();
-        while (projectIterator.hasNext()) {
-            ProjectEntity projectEntity = projectIterator.next();
-            if (!projectEntity.getSkills().isEmpty()) {
-                total += projectEntity.getSkills().size();
-            }
+        NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withTypes("project");
+        searchQueryBuilder.withQuery(matchAllQuery());
+        List<ProjectEntity> projects = DataUtils.getAllEntities(projectRepository, searchQueryBuilder);
+        for (ProjectEntity project : projects) {
+            total += project.getSkills().size();
         }
+
         return total;
     }
 
     @Override
     public List<ProjectDto> listProject() {
         List<ProjectDto> projects = new ArrayList<>();
-        Iterator<ProjectEntity> projectIterator = projectRepository.findAll().iterator();
-        while (projectIterator.hasNext()) {
-            ProjectEntity projectEntity = projectIterator.next();
+        NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withTypes("project");
+        searchQueryBuilder.withQuery(matchAllQuery());
+        searchQueryBuilder.withSort(SortBuilders.fieldSort("projectId").order(SortOrder.DESC));
+        List<ProjectEntity> projectEntities = DataUtils.getAllEntities(projectRepository, searchQueryBuilder);
+        for (ProjectEntity projectEntity : projectEntities) {
             ProjectDto projectDto = dozerMapper.map(projectEntity, ProjectDto.class);
             EmployerDto employerDto = companyService.findByUserName(projectDto.getAuthorEmail());
 
@@ -156,15 +132,7 @@ public class ProjectServiceImpl implements ProjectService {
             }
             projects.add(projectDto);
         }
-
-        return projects.stream().sorted((project1, project2) -> {
-            if (project2.getProjectId() > project1.getProjectId()) {
-                return 1;
-            } else if (project2.getProjectId() < project1.getProjectId()) {
-                return -1;
-            }
-            return 0;
-        }).collect(Collectors.toList());
+        return projects;
     }
 
     @Override
@@ -178,14 +146,14 @@ public class ProjectServiceImpl implements ProjectService {
         NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder();
         searchQueryBuilder.withQuery(nestedQuery("employers",
                 matchPhraseQuery("employers.userName", project.getAuthorEmail())));
-        List<EmployerEntity> employerEntities = companySearchResultRepository.search(searchQueryBuilder.build()).getContent();
+        List<EmployerEntity> employerEntities = DataUtils.getAllEntities(companySearchResultRepository, searchQueryBuilder);
 
         if (!employerEntities.isEmpty()) {
             EmployerEntity employerEntity = employerEntities.get(0);
             EmployerDto employerDto = dozerMapper.map(employerEntity, EmployerDto.class);
             if (!employerEntity.getEmployers().isEmpty()) {
                 Employer employer = employerEntity.getEmployers().get(0);
-                employerDto.setCreatedDate(simpleDateFormat.format(employer.getCreatedDate()));
+                employerDto.setCreatedDate(date2String(employer.getCreatedDate(), BASIC_DATE_PATTERN));
             }
             projectDetail.setCompany(employerDto);
         }
@@ -193,22 +161,16 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public long joinProject(ProjectRegistrantDto projectRegistrantDto) throws MessagingException, IOException, TemplateException {
+    public long joinProject(ProjectRegistrantDto projectRegistrantDto) {
         Long projectId = projectRegistrantDto.getProjectId();
         boolean isExist = checkIfProjectRegistrantExist(projectId, projectRegistrantDto.getRegistrantEmail());
 
         if (!isExist) {
             ProjectRegistrantEntity projectRegistrantEntity = dozerMapper.map(projectRegistrantDto, ProjectRegistrantEntity.class);
             ProjectEntity projectEntity = projectRepository.findOne(projectId);
-
-            try {
-                sendEmailAlertJobSeekerApplyJob(projectEntity, projectRegistrantEntity);
-                sendEmailAlertEmployerApplyJob(projectEntity, projectRegistrantEntity);
-                projectRegistrantEntity.setMailSent(Boolean.TRUE);
-            } catch (Exception ex) {
-                LOGGER.error(ex.getMessage(), ex);
-            }
-
+            sendEmailAlertJobSeekerApplyJob(projectEntity, projectRegistrantEntity);
+            sendEmailAlertEmployerApplyJob(projectEntity, projectRegistrantEntity);
+            projectRegistrantEntity.setMailSent(Boolean.TRUE);
             projectRegistrantEntity.setProjectRegistrantId(new Date().getTime());
             projectRegistrantRepository.save(projectRegistrantEntity);
         }
@@ -216,8 +178,7 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public void sendEmailAlertJobSeekerApplyJob(ProjectEntity projectEntity, ProjectRegistrantEntity projectRegistrantEntity)
-            throws MessagingException, IOException, TemplateException {
+    public void sendEmailAlertJobSeekerApplyJob(ProjectEntity projectEntity, ProjectRegistrantEntity projectRegistrantEntity) {
         List<String> subjectVariableValues = Arrays.asList(projectEntity.getProjectTitle());
         String recipientAddress = projectRegistrantEntity.getRegistrantEmail();
 
@@ -292,47 +253,24 @@ public class ProjectServiceImpl implements ProjectService {
         return (total > 0);
     }
 
-    public Collection<ProjectDto> findByOwner(String owner) {
-        NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder().withIndices(techlooperIndex).withTypes("project");
-        QueryStringQueryBuilder query = queryStringQuery(owner).defaultField("authorEmail");
+    @Override
+    public List<ProjectDto> findProjectByOwner(String ownerEmail) {
+        NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder().withTypes("project");
+        QueryStringQueryBuilder query = queryStringQuery(ownerEmail).defaultField("authorEmail");
         queryBuilder.withFilter(queryFilter(query));
-
-        int pageIndex = 0;
-        Set<ProjectDto> projects = new HashSet<>();
-        while (true) {
-            queryBuilder.withPageable(new PageRequest(pageIndex++, 100));
-            FacetedPage<ProjectEntity> page = projectRepository.search(queryBuilder.build());
-            if (!page.hasContent()) {
-                break;
-            }
-            page.spliterator().forEachRemaining(project -> {
-                ProjectDto projectDto = dozerMapper.map(project, ProjectDto.class);
-                projectDto.setNumberOfApplications(countRegistrantsByProjectId(project.getProjectId()));
-                projects.add(projectDto);
-            });
+        List<ProjectEntity> projectEntities = DataUtils.getAllEntities(projectRepository, queryBuilder);
+        List<ProjectDto> projects = new ArrayList<>();
+        for (ProjectEntity projectEntity : projectEntities) {
+            ProjectDto projectDto = dozerMapper.map(projectEntity, ProjectDto.class);
+            projectDto.setNumberOfApplications(countRegistrantsByProjectId(projectEntity.getProjectId()));
+            projects.add(projectDto);
         }
         return projects;
     }
 
-    public Collection<ProjectRegistrantDto> findRegistrantsByProjectId(Long projectId) {
-        NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder().withIndices(techlooperIndex).withTypes("projectRegistrant");
-        queryBuilder.withFilter(queryFilter(termQuery("projectId", projectId)));
-
-        int pageIndex = 0;
-        Set<ProjectRegistrantDto> registrants = new HashSet<>();
-        while (true) {
-            queryBuilder.withPageable(new PageRequest(pageIndex++, 100));
-            FacetedPage<ProjectRegistrantEntity> page = projectRegistrantRepository.search(queryBuilder.build());
-            if (!page.hasContent()) {
-                break;
-            }
-            page.spliterator().forEachRemaining(registrant -> registrants.add(dozerMapper.map(registrant, ProjectRegistrantDto.class)));
-        }
-        return registrants;
-    }
-
+    @Override
     public Long countRegistrantsByProjectId(Long projectId) {
-        NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder().withIndices(techlooperIndex).withTypes("projectRegistrant");
+        NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder().withTypes("projectRegistrant");
         queryBuilder.withFilter(queryFilter(termQuery("projectId", projectId))).withSearchType(SearchType.COUNT);
         return projectRegistrantRepository.search(queryBuilder.build()).getTotalElements();
     }

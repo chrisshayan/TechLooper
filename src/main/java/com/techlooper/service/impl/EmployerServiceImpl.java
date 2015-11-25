@@ -54,9 +54,8 @@ public class EmployerServiceImpl implements EmployerService {
         VnwUser user = vnwUserRepo.findByUsernameIgnoreCase(owner);
         String email = user.getEmail();
         return DashBoardInfo.DashBoardInfoBuilder.dashBoardInfo()
-                .withProjects(projectService.findByOwner(email))
+                .withProjects(projectService.findProjectByOwner(email))
                 .withChallenges(challengeService.findChallengeByOwner(email))
-//      .withChallenges(challengeService.findInProgressChallenges(email))
                 .build();
     }
 
