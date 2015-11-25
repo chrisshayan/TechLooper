@@ -20,7 +20,7 @@
               <i class="fa fa-search"></i>
             </div>
             <div class="search-by-name">
-              <input ng-model="search.fullName" id="search" class="form-control" placeholder="{{'searchContestantName' | translate}}">
+              <input ng-model="search.registrant.fullName" class="form-control text-search-name" placeholder="{{'searchContestantName' | translate}}">
             </div>
           </div>
           <div class="registration-date" ng-click="contestDetail.$sort.byRegistrationDate()">
@@ -55,8 +55,8 @@
         <p translate="noData"></p>
       </td>
     </tr>
-    <tr dir-paginate="registrant in contestDetail.$filter.registrants | filter: search.fullName | orderBy:predicate:reverse | itemsPerPage:10"
-        pagination-id="contestDetail.selectedPhaseItem.phase" current-page="currentPage">
+    <tr dir-paginate="registrant in contestDetail.$filter.registrants | filter: search.registrant.fullName | itemsPerPage:10"
+        pagination-id="contestDetail.selectedPhaseItem.phase" current-page="currentPage" on-finish-render="scrollTop">
       <td>
         <div class="registrants-challenge-list">
           <div class="registrant-order">
