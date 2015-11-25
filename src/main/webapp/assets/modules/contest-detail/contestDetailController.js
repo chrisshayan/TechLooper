@@ -129,5 +129,9 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
     }
     $('.feedback-loading').css('visibility', 'hidden');
   });
+  $scope.$on('scrollTop', function() {
+    $("html, body").animate({ scrollTop: 0 }, 0);
+    $('input.text-search-name').focus();
+  });
 });
 

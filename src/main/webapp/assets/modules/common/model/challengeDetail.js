@@ -356,7 +356,6 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
             challengeDetail.$sort.byTotalPoint(false);
           }
         });
-
       challengeDetail.refreshFunnelItems();
     }
 

@@ -60,7 +60,7 @@
     </td>
   </tr>
   <tr dir-paginate="registrant in contestDetail.$filter.registrants | itemsPerPage:10"
-      pagination-id="contestDetail.selectedPhaseItem.phase" current-page="currentPage">
+      pagination-id="contestDetail.selectedPhaseItem.phase" current-page="currentPage" on-finish-render="scrollTop">
       <td>
         <div class="registrants-challenge-list">
           <div class="registrant-order">
