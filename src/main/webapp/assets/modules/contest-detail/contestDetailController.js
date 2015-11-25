@@ -1,5 +1,13 @@
 techlooper.controller('contestDetailController', function ($scope, apiService, localStorageService, $location, $routeParams,
-                                                           jsonValue, $translate, utils, $filter, $route, $rootScope) {
+                                                           jsonValue, $translate, utils, $filter, $route, $rootScope, $timeout) {
+
+  if(localStorage.postedChallenge == "justPosted"){
+    $scope.postChallengeSuccess = true;
+    $timeout(function(){
+      delete localStorage.postedChallenge;
+      $scope.postChallengeSuccess = false;
+    }, 7000);
+  }
   var parts = $routeParams.id.split("-");
   var lastPart = parts.pop();
   if (parts.length < 2 || (lastPart !== "id")) {
@@ -12,21 +20,6 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
     title = utils.toAscii(title);
     return $location.url(sprintf("/challenge-detail/%s-%s-id", title, contestId));
   }
-
-  //console.log($rootScope.userInfo);
-
-  //var param = $location.search();
-  //if (param.toPhase) {
-  //  localStorageService.set("showTabRegistrant", true);
-  //  localStorageService.set("toPhase", param.toPhase);
-  //  return $location.search({});
-  //  //return $route.reload();
-  //}
-  //else if (param.a == "registrants") {
-  //  localStorageService.set("showTabRegistrant", true);
-  //  return $location.search({});
-  //  //return $route.reload();
-  //}
 
   $scope.status = function (type, id) {
     switch (type) {
