@@ -18,6 +18,8 @@ public class PersonalHomepageDto {
 
     private List<ProjectDto> latestProjects;
 
+    private List<Topic> latestTopics;
+
     private Set<JobResponse> latestJobs;
 
     private List<Topic> latestTopics;
