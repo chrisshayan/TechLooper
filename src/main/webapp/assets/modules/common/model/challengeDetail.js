@@ -207,10 +207,15 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
     challengeDetail.recalculate = function (registrants) {
 
       //see jsonValue.challengePhase
-      var prop = jsonValue.challengePhase[challengeDetail.currentPhase].challengeProp;
-      if (prop) {
-        var date = moment(challengeDetail[prop], jsonValue.dateFormat);
+      var dtProp = jsonValue.challengePhase[challengeDetail.currentPhase].challengeProp;
+      if (dtProp) {
+        var date = moment(challengeDetail[dtProp], jsonValue.dateFormat);
         challengeDetail.currentPhaseDaysLeft = date.diff(moment(0, "HH"), "days") + 1;
+      }
+
+      dtProp = jsonValue.challengePhase[challengeDetail.currentPhase].challengeProp;
+      if (dtProp) {
+        challengeDetail.$currentPhaseEndDay = challengeDetail[dtProp];
       }
 
       var isOver = true;
@@ -241,6 +246,11 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
       }
       for (var i = current.$index + 2; i < challengeDetail.phaseItems.length - 1; i++) {// winner tab is selectable
         challengeDetail.phaseItems[i].unselectable = true;
+      }
+
+      var next = _.findWhere(challengeDetail.phaseItems, {isNextPhase: true});
+      if (next.$index < challengeDetail.phaseItems.length) {
+        challengeDetail.$afterNextPhaseItem =  challengeDetail.phaseItems[next.$index + 1];
       }
 
       challengeDetail.totalWeight = _.reduceRight(challengeDetail.criteria, function (sum, cri) { return sum + cri.weight; }, 0);
@@ -380,6 +390,7 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
     }
 
     challengeDetail.recalculate();
+    console.log(challengeDetail);
 
     challengeDetail.$isRich = true;
     return challengeDetail;
