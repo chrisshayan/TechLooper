@@ -1,14 +1,16 @@
 <div class="contestant-page contest-detail-page">
   <div class="alert alert-warning post-challenge-success" ng-show="postChallengeSuccess">
-    <!--<p translate="submissionPhaseSuccessful"></p>-->
-    <p>You have just posted the challenge successfully. Click <a href="">here</a> to set up your own judging criteria for it.</p>
+    {{'updateEvaluationCriteria1' | translate}}
+    <strong><a ng-click="openEvaluationCriteria()" translate="here"></a></strong>
+    {{'updateEvaluationCriteria2' | translate}}
   </div>
   <div class="content-page-block contest-detail-content">
     <div class="header-page">
       <h2 class="text-left">{{contestDetail.challengeName}}
       <span ng-show="contestDetail.progress.translate != 'closed' &&  contestDetail.progress.translate != 'notStart'"
             ng-class="contestDetail.currentPhase | textTruncate: 'lowercase'"
-            translate="{{contestDetail.currentPhase | textTruncate: 'lowercase'}}">
+            translate="{{contestDetail.currentPhase | textTruncate: 'lowercase'}}"
+            ng-click="refreshChallengeDetail()">
       </span>
         <span ng-show="contestDetail.progress.translate == 'closed' || contestDetail.progress.translate == 'notStart'" class="closed">
           {{contestDetail.progress.translate | translate}}

@@ -13,7 +13,9 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
   if (parts.length < 2 || (lastPart !== "id")) {
     return $location.path("/");
   }
-
+  $scope.openEvaluationCriteria = function () {
+    $("a[href='.evaluation-criteria']").tab('show');
+  }
   var contestId = parts.pop();
   var title = parts.join("");
   if (utils.hasNonAsciiChar(title)) {
@@ -108,7 +110,6 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
   }
 
   $scope.refreshChallengeDetail();
-
   $scope.fbShare = function () {
     ga("send", {
       hitType: "event",
