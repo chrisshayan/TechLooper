@@ -776,7 +776,7 @@
   "join": "Tham Gia",
   "submitPhase": "Gửi Bài",
   "accept": "Đi Tiếp",
-  "acceptDescription": "Bạn có muốn chọn thí sinh này từ vòng <strong>{{current}}</strong> vào vòng <strong>{{next}}</strong>?",
+  "acceptDescription": "Bạn có muốn chọn thí sinh này vào vòng <strong>{{next}}</strong>?",
   "allContestants": "Tất cả thí sinh",
   "exRegistrantsFilterConfig": "Tất cả thí sinh",
   "allSubmission": "Tất cả bài nộp",
@@ -843,7 +843,7 @@
   "announceWinnerToAllContestants": "Thông báo người chiến thắng",
   "daysLeft": "Còn lại <strong>{{days}}</strong> ngày",
   "qualifyToNextPhaseConfirm": "Bạn có muốn chọn thí sinh này từ vòng <strong>{{currentPhase}}</strong> vào vòng",
-  "cannotQualifyNextPhase": "Thí sinh này đã ở giai đoạn <strong>{{activeChallenge}}</strong>. </br>Bạn cần chờ đến giai đoạn tiếp theo của cuộc thi (nếu chưa ở giai đoạn Sản Phẩm Cuối) để thực hiện thao tác này.",
+  "cannotQualifyNextPhase": "Từ đây đến hết ngày <strong>{{endDatePhase}}</strong>, giai đoạn <strong>{{nextPhase}}</strong> sẽ không được mở cho thí sinh tham gia.",
   "gotIt": "Đã hiểu",
   "read": "Read",
   "markedAsUnread": "Đánh dấu Chưa đọc",
@@ -856,5 +856,6 @@
   "unread": "Chưa đọc",
   "unreadTip": "Hiển thị các bài chưa đọc",
   "readTip": "Hiển thị tất cả các bài",
-  "searchContestantName": "Enter Contestant Name To Search"
+  "searchContestantName": "Điền họ tên thí sinh",
+  "updateEvaluationCriteria": "Bạn vừa tạo thành công thử thách. Nhấn <a href={{evaluationCriteria}}>ở đây</a> để thiết lập tiêu chí đánh giá cho thử thách."
 }
