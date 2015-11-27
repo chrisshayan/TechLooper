@@ -857,5 +857,7 @@
   "unreadTip": "Hiển thị các bài chưa đọc",
   "readTip": "Hiển thị tất cả các bài",
   "searchContestantName": "Điền họ tên thí sinh",
-  "updateEvaluationCriteria": "Bạn vừa tạo thành công thử thách. Nhấn <a href={{evaluationCriteria}}>ở đây</a> để thiết lập tiêu chí đánh giá cho thử thách."
+  "updateEvaluationCriteria1": "Bạn vừa tạo thành công thử thách. Nhấn",
+  "updateEvaluationCriteria2": "để thiết lập tiêu chí đánh giá cho thử thách.",
+  "here": "ở đây"
 }

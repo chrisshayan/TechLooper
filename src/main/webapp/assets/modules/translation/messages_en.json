@@ -853,5 +853,7 @@
   "unreadTip": "Click here to only show unread submissions",
   "readTip": "Click here to show all submissions",
   "searchContestantName": "Enter contestant name to search",
-  "updateEvaluationCriteria": "You have just posted the challenge successfully. Click <a href={{evaluationCriteria}}>here</a> to set up your own judging criteria for it."
+  "updateEvaluationCriteria1": "You have just posted the challenge successfully. Click",
+  "updateEvaluationCriteria2": "to set up your own judging criteria for it.",
+  "here": "here"
 }
