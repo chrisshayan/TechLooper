@@ -56,7 +56,7 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
           challengeDetail.$sort.type = {isLastSubmissionTypeAsc: !challengeDetail.$sort.type.isLastSubmissionTypeAsc};
         }
 
-        challengeDetail.$registrants.sort(function(r1, r2) {
+        challengeDetail.$registrants.sort(function (r1, r2) {
           var int = challengeDetail.$sort.type.isLastSubmissionTypeAsc ? 1 : -1;
           var n1 = (r1.lastSubmission ? r1.lastSubmission.challengeSubmissionId : 0);
           var n2 = (r2.lastSubmission ? r2.lastSubmission.challengeSubmissionId : 0);
@@ -75,7 +75,7 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
           challengeDetail.$sort.type = {isTotalPointTypeAsc: !challengeDetail.$sort.type.isTotalPointTypeAsc};
         }
 
-        challengeDetail.$registrants.sort(function(r1, r2) {
+        challengeDetail.$registrants.sort(function (r1, r2) {
           var int = challengeDetail.$sort.type.isTotalPointTypeAsc ? 1 : -1;
           var n1 = parseFloat(r1.totalPoint ? r1.totalPoint : 0);
           var n2 = parseFloat(r2.totalPoint ? r2.totalPoint : 0);
@@ -94,7 +94,7 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
           challengeDetail.$sort.type = {isRegistrationDateTypeAsc: !challengeDetail.$sort.type.isRegistrationDateTypeAsc};
         }
 
-        challengeDetail.$registrants.sort(function(r1, r2) {
+        challengeDetail.$registrants.sort(function (r1, r2) {
           var int = challengeDetail.$sort.type.isRegistrationDateTypeAsc ? 1 : -1;
           var n1 = (r1.registrantId ? r1.registrantId : 0);
           var n2 = (r2.registrantId ? r2.registrantId : 0);
@@ -120,7 +120,7 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
           challengeDetail.recalculateRegistrants(registrants);
           defer.resolve();
         })
-        .error(function() {
+        .error(function () {
           challengeDetail.$error = challengeDetail.$error || {};
           challengeDetail.$error.registrants = true;
         })
@@ -249,9 +249,8 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
       }
 
       var next = _.findWhere(challengeDetail.phaseItems, {isNextPhase: true});
-      if (next.$index < challengeDetail.phaseItems.length) {
-        challengeDetail.$afterNextPhaseItem =  challengeDetail.phaseItems[next.$index + 1];
-      }
+      var index = _.min([next.$index + 1, challengeDetail.phaseItems.length - 1])
+      challengeDetail.$afterNextPhaseItem = challengeDetail.phaseItems[index];
 
       challengeDetail.totalWeight = _.reduceRight(challengeDetail.criteria, function (sum, cri) { return sum + cri.weight; }, 0);
 
@@ -282,9 +281,9 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
       //challengeDetail.recalculateHadRegistrant();
     }
 
-      //set $hadRegistrant to true if not found any registrant that unknown disqualified-status
-      //console.log(challengeDetail.$registrants);
-    challengeDetail.recalculateHadRegistrant = function() {
+    //set $hadRegistrant to true if not found any registrant that unknown disqualified-status
+    //console.log(challengeDetail.$registrants);
+    challengeDetail.recalculateHadRegistrant = function () {
       var er = _.findWhere(challengeDetail.$registrants, {disqualified: undefined});
       challengeDetail.$hadRegistrant = (er == undefined);
       challengeDetail.$filter.byReadOrUnreadSubmission();
@@ -315,9 +314,9 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
       challengeDetail.recalculatePhaseItem(winnerPi);
     }
 
-    challengeDetail.refreshFunnelItems = function() {
+    challengeDetail.refreshFunnelItems = function () {
       apiService.getRegistrantFunnel(challengeDetail.challengeId)
-        .success(function(items) {
+        .success(function (items) {
           for (var i = 0; i < challengeDetail.phaseItems.length; i++) {
             _.extendOwn(challengeDetail.phaseItems[i], items[i]);
             challengeDetail.recalculatePhaseItem(challengeDetail.phaseItems[i]);
