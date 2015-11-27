@@ -390,7 +390,6 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
     }
 
     challengeDetail.recalculate();
-    console.log(challengeDetail);
 
     challengeDetail.$isRich = true;
     return challengeDetail;
