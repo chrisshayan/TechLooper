@@ -389,7 +389,10 @@ public class ChallengeEmailServiceImpl implements ChallengeEmailService {
         List<ChallengeSubmissionEntity> latestSubmissions = challengeSubmissionService.findChallengeSubmissionWithinPeriod(
                 challengeEntity.getChallengeId(), currentDateTime, TimePeriodEnum.TWENTY_FOUR_HOURS);
         templateModel.put("numberOfSubmissions", latestSubmissions.size());
-        templateModel.put("latestSubmissions", latestSubmissions);
+
+        Map<ChallengePhaseEnum, List<ChallengeSubmissionEntity>> submissionGroupByPhase =
+                latestSubmissions.stream().collect(Collectors.groupingBy(ChallengeSubmissionEntity::getSubmissionPhase));
+        templateModel.put("submissionGroupByPhase", submissionGroupByPhase);
         return templateModel;
     }
 
