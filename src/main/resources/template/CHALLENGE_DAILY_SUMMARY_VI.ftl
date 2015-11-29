@@ -147,12 +147,12 @@
                                     <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;">
                                         <tr>
                                             <td align="center" style="padding: 10px 0 5px 0">
-                                                <h2 style="font-size: 30px; font-weight: 500; padding:0; margin: 0;">Online Challenge</h2>
+                                                <h2 style="font-size: 30px; font-weight: 500; padding:0; margin: 0;">Thử Thách Trực Tuyến</h2>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td align="center" style="margin: 0; padding: 0">
-                                                <p style="font-size: 12px; font-style: italic; line-height: 18px; margin: 0; padding: 0">Build And Grow Your Developer Community Base With Online Contests.</p>
+                                                <p style="font-size: 12px; font-style: italic; line-height: 18px; margin: 0; padding: 0">Xây Dựng Đội Ngũ Phát Triển Sản Phẩm Của Chính Bạn Thông Qua Các Cuộc Thi Trực Tuyến.</p>
                                             </td>
                                         </tr>
                                         <tr>
@@ -172,7 +172,7 @@
                                         </tr>
                                         <tr>
                                             <td align="left" style="margin: 0; padding: 0">
-                                                <p style="font-size: 14px; line-height: 18px; margin: 0; padding: 0">Here is your summary for challenge <a href="${webBaseUrl}#/challenge-detail/${challengeNameAlias}-${challengeId}-id?utm_source=dailysummary&utm_medium=challengename&utm_campaign=onlinecontest" style="font-size: 14px; font-weight: 600; color: #277cbd; text-decoration: none" target="_blank">${challengeName}</a>  in last 24 hours</p>
+                                                <p style="font-size: 14px; line-height: 18px; margin: 0; padding: 0">Dưới đây là báo cáo hằng ngày cho thử thách <a href="${webBaseUrl}#/challenge-detail/${challengeNameAlias}-${challengeId}-id?utm_source=dailysummary&utm_medium=challengename&utm_campaign=onlinecontest" style="font-size: 14px; font-weight: 600; color: #277cbd; text-decoration: none" target="_blank">${challengeName}</a>  trong vòng 24 giờ qua</p>
                                             </td>
                                         </tr>
                                         <tr>
@@ -185,7 +185,7 @@
                                                 <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;">
                                                     <tr>
                                                         <td style="padding: 5px 0; text-align: left; font-size: 14px; font-weight: 700; color:#257abb; text-transform: capitalize;">
-                                                            1. See how your challenge grows in last 24 hours
+                                                            1. Thử thách của bạn mở rộng như thế nào trong 24 giờ qua
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -195,7 +195,7 @@
                                                     </tr>
                                                     <tr>
                                                         <td style="text-align: left;">
-                                                            You have received <strong>${numberOfRegistrants}</strong> new registration(s) since yesterday
+                                                            Bạn nhận được thêm <strong>${numberOfRegistrants}</strong> đăng ký mới
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -212,7 +212,7 @@
                                                                         <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="float:left;border: 1px solid #84c1ef;">
                                                                             <tr style="background-color: #edf7ff; color:#000;">
                                                                                 <td style="text-align: center; font-weight: 600;padding: 10px 5px;" width="30px">#</td>
-                                                                                <td style="text-align: left; font-weight: 600;padding: 10px 5px; border-left: 1px solid #84c1ef;">Full Name</td>
+                                                                                <td style="text-align: left; font-weight: 600;padding: 10px 5px; border-left: 1px solid #84c1ef;">Họ Tên</td>
                                                                             </tr>
                                                                             <#list latestRegistrants as latestRegistrant>
                                                                                 <tr>
@@ -228,7 +228,7 @@
                                                                         <table border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto; width: auto" class="fullWidth">
                                                                             <tr>
                                                                                 <td bgcolor="#277cbd" width="100%" style="padding: 7px 20px; font-weight: 700; -webkit-border-radius:3px; border-radius:3px; text-align: center">
-                                                                                    <a href="${webBaseUrl}#/employer-dashboard?a=challenge-daily-mail-registrants&challengeId=${challengeId}&currentDateTime=${currentDateTime}&utm_source=dailysummary&utm_medium=sendthememailbtn&utm_campaign=onlinecontest" target="_blank" style="font-family: Arial, sans-serif; font-size: 14px; color: #ffffff; text-decoration: none; display: block; width: 100%">Send Them Email</a>
+                                                                                    <a href="${webBaseUrl}#/employer-dashboard?a=challenge-daily-mail-registrants&challengeId=${challengeId}&currentDateTime=${currentDateTime}&utm_source=dailysummary&utm_medium=sendthememailbtn&utm_campaign=onlinecontest" target="_blank" style="font-family: Arial, sans-serif; font-size: 14px; color: #ffffff; text-decoration: none; display: block; width: 100%">Gửi Email Cho Tất Cả</a>
                                                                                 </td>
                                                                             </tr>
                                                                         </table>
@@ -251,7 +251,7 @@
                                                 <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;">
                                                     <tr>
                                                         <td style="padding: 5px 0; text-align: left; font-size: 14px; font-weight: 700; color:#89288a; text-transform: capitalize;">
-                                                            2. This is the time of boost your challenge?
+                                                            2. Đây có phải là thời điểm để quảng bá cho thử thách của bạn?
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -261,7 +261,7 @@
                                                     </tr>
                                                     <tr>
                                                         <td style="text-align: left;">
-                                                            If you want to receive more registrations, reply to this email to boost your contest post.
+                                                            Nếu bạn muốn nhận thêm nhiều lượt đăng ký, trả lời email này để chúng tôi có thể hỗ trợ bạn.
                                                         </td>
                                                     </tr>
                                                 </table>
@@ -277,7 +277,7 @@
                                                 <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;">
                                                     <tr>
                                                         <td style="padding: 5px 0; text-align: left; font-size: 14px; font-weight: 700; color:#000; text-transform: capitalize;">
-                                                            3. Discover how many submission(s) you have since yesterday
+                                                            3. Khám phá số lượng bài nộp mới vào thử thách
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -291,7 +291,7 @@
                                                         <#assign numberOfSubmissions = submissions.size()/>
                                                         <tr>
                                                             <td style="text-align: left;">
-                                                                You have received <strong>${numberOfSubmissions}</strong> new submissions to <a href="" style="color: #277cbd; text-decoration: none; font-weight: 600;text-transform: uppercase;">${phase}</a> phase since yesterday.
+                                                                Bạn nhận được thêm <strong>${numberOfSubmissions}</strong> bài nộp mới cho giai đoạn <a href="" style="color: #277cbd; text-decoration: none; font-weight: 600;text-transform: uppercase;">${phase}</a>
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -307,18 +307,18 @@
                                                                             <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="float:left;border: 1px solid #bdbdbd;">
                                                                                 <tr style="background-color: #f7f7f7; color:#000;">
                                                                                     <td style="text-align: center; font-weight: 600;padding: 10px 5px;" width="30px">#</td>
-                                                                                    <td style="text-align: left; font-weight: 600;padding: 10px 5px; border-left: 1px solid #bdbdbd;">Full Name</td>
-                                                                                    <td style="text-align: center;font-weight: 600; padding: 10px 5px; border-left: 1px solid #bdbdbd;" width="120px">Review</td>
-                                                                                    <td style="text-align: center;font-weight: 600;padding: 10px 5px; border-left: 1px solid #bdbdbd;" width="120px">Feedback</td>
+                                                                                    <td style="text-align: left; font-weight: 600;padding: 10px 5px; border-left: 1px solid #bdbdbd;">Họ Tên</td>
+                                                                                    <td style="text-align: center;font-weight: 600; padding: 10px 5px; border-left: 1px solid #bdbdbd;" width="120px">Xét Duyệt</td>
+                                                                                    <td style="text-align: center;font-weight: 600;padding: 10px 5px; border-left: 1px solid #bdbdbd;" width="120px">Phản Hồi</td>
                                                                                 </tr>
                                                                                 <#list submissions as submission>
                                                                                     <tr>
                                                                                         <td style="text-align: center; padding: 10px 5px;border-top: 1px solid #bdbdbd;" width="30px">${submission_index + 1}</td>
                                                                                         <td style="padding: 10px 5px; border-left: 1px solid #bdbdbd;border-top: 1px solid #bdbdbd;">${submission.registrantName}</td>
                                                                                         <td style="text-align: center;padding: 10px 5px; border-left: 1px solid #bdbdbd;border-top: 1px solid #bdbdbd;" width="120px">
-                                                                                            <a href="${webBaseUrl}#/?action=redirectJA&utm_source=dailysummary&utm_medium=review&utm_campaign=onlinecontest&targetUrl=${submission.submissionURL}" style="color: #277cbd; text-decoration: none;" target="_blank" >Review</a></td>
+                                                                                            <a href="${webBaseUrl}#/?action=redirectJA&utm_source=dailysummary&utm_medium=review&utm_campaign=onlinecontest&targetUrl=${submission.submissionURL}" style="color: #277cbd; text-decoration: none;" target="_blank" >Xét Duyệt</a></td>
                                                                                         <td style="text-align: center;padding: 10px 5px; border-left: 1px solid #bdbdbd;border-top: 1px solid #bdbdbd;" width="120px">
-                                                                                            <a href="${webBaseUrl}#/employer-dashboard?a=feedback-registrant&challengeId=${challengeId}&registrantId=${submission.registrantId?c}&utm_source=dailysummary&utm_medium=feedback&utm_campaign=onlinecontest" style="color: #277cbd; text-decoration: none;" target="_blank" >Feedback</a>
+                                                                                            <a href="${webBaseUrl}#/employer-dashboard?a=feedback-registrant&challengeId=${challengeId}&registrantId=${submission.registrantId?c}&utm_source=dailysummary&utm_medium=feedback&utm_campaign=onlinecontest" style="color: #277cbd; text-decoration: none;" target="_blank" >Phản Hồi</a>
                                                                                         </td>
                                                                                     </tr>
                                                                                 </#list>
@@ -335,7 +335,7 @@
                                                                             <table border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto; width: auto" class="fullWidth">
                                                                                 <tbody><tr>
                                                                                     <td bgcolor="#277cbd" width="100%" style="padding: 7px 20px; font-weight: 700; -webkit-border-radius:3px; border-radius:3px; text-align: center">
-                                                                                        <a href="${webBaseUrl}#/challenge-detail/${challengeNameAlias}-${challengeId}-id?action=employerLogin&toPhase=${phase}&utm_source=dailysummary&utm_medium=allsubmissionsbtn&utm_campaign=onlinecontest" target="_blank" style="font-family: Arial, sans-serif; font-size: 14px; color: #ffffff; text-decoration: none; display: block; width: 100%">Accept Submissions</a>
+                                                                                        <a href="${webBaseUrl}#/challenge-detail/${challengeNameAlias}-${challengeId}-id?action=employerLogin&toPhase=${phase}&utm_source=dailysummary&utm_medium=allsubmissionsbtn&utm_campaign=onlinecontest" target="_blank" style="font-family: Arial, sans-serif; font-size: 14px; color: #ffffff; text-decoration: none; display: block; width: 100%">Xem Tất Cả Bài Gửi</a>
                                                                                     </td>
                                                                                 </tr>
                                                                                 </tbody></table>
@@ -375,7 +375,7 @@
                                                 <table align="center" cellspacing="0" cellpadding="2" class="deviceWidth" width="100%" style="margin:0 auto; padding:10px 0">
                                                     <tr>
                                                         <td style="text-align: center; margin-top:0px">
-                                                            <p style="font-family: Arial, sans-serif; font-size: 12px; line-height: 20px; color: #555;text-align: center; vertical-align: middle" class="subscription">FOLLOW US</p>
+                                                            <p style="font-family: Arial, sans-serif; font-size: 12px; line-height: 20px; color: #555;text-align: center; vertical-align: middle" class="subscription">KẾT NỐI VỚI CHÚNG TÔI</p>
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -390,7 +390,7 @@
                                                 <table width="100%" align="center" class="deviceWidth" style="padding:10px 0">
                                                     <tr>
                                                         <td class="copyright" style="font-size:11px;font-family:Arial,sans-serif;color:#999;text-align:center;">
-                                                            Copyright © Navigos Group Vietnam Joint Stock Company.
+                                                            Bản quyền © Công Ty Cổ Phần Navigos Group Việt Nam.
                                                         </td>
                                                     </tr>
                                                 </table>
