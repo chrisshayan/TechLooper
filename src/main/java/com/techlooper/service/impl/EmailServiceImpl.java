@@ -29,8 +29,8 @@ import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
+import static java.util.stream.Collectors.joining;
 import static org.elasticsearch.index.query.QueryBuilders.boolQuery;
 import static org.elasticsearch.index.query.QueryBuilders.termQuery;
 
@@ -74,12 +74,12 @@ public class EmailServiceImpl implements EmailService {
 
         try {
             if (emailTemplateConfig.getReplyToAddresses() != null && !emailTemplateConfig.getReplyToAddresses().isEmpty()) {
-                String replyToAddresses = emailTemplateConfig.getReplyToAddresses().stream().collect(Collectors.joining(", "));
+                String replyToAddresses = emailTemplateConfig.getReplyToAddresses().stream().collect(joining(", "));
                 mailMessage.setReplyTo(InternetAddress.parse(replyToAddresses));
             }
 
             if (emailTemplateConfig.getRecipientAddresses() != null && !emailTemplateConfig.getRecipientAddresses().isEmpty()) {
-                String recipientAddresses = emailTemplateConfig.getRecipientAddresses().stream().collect(Collectors.joining(", "));
+                String recipientAddresses = emailTemplateConfig.getRecipientAddresses().stream().collect(joining(", "));
                 mailMessage.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipientAddresses));
             } else {
                 Address[] recipientAddresses = InternetAddress.parse(emailRequestModel.getRecipientAddresses());
@@ -144,11 +144,7 @@ public class EmailServiceImpl implements EmailService {
         searchQueryBuilder.withQuery(boolQuery().must(termQuery("templateName", templateName))
                 .must(termQuery("language", language)));
         List<EmailTemplateEntity> templates = DataUtils.getAllEntities(emailTemplateRepository, searchQueryBuilder);
-
-        if (!templates.isEmpty()) {
-            return dozerMapper.map(templates.get(0), EmailTemplateDto.class);
-        }
-        return null;
+        return templates.isEmpty() ? null : dozerMapper.map(templates.get(0), EmailTemplateDto.class);
     }
 
 }
