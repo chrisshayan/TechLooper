@@ -30,10 +30,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static com.techlooper.model.VNWConfigurationResponseData.ConfigurationDegree;
-import static com.techlooper.model.VNWConfigurationResponseData.ConfigurationLocation;
-import static com.techlooper.model.VNWJobSearchResponseDataItem.JOB_LEVEL;
-import static com.techlooper.model.VNWJobSearchResponseDataItem.JOB_LOCATION;
 import static org.apache.commons.lang3.StringUtils.EMPTY;
 import static org.elasticsearch.index.query.FilterBuilders.boolFilter;
 import static org.elasticsearch.index.query.FilterBuilders.termFilter;
@@ -114,32 +110,6 @@ public class VietnamWorksJobSearchService implements JobSearchService {
             }
         }
         return VNWJobSearchResponse.getDefaultObject();
-    }
-
-    /**
-     * Merge the search result with configuration in order to get its meaningful name
-     *
-     * @param id            Unique ID value
-     * @param itemType      The kind of id such as location, level or category
-     * @param configuration The job configuration
-     * @return The unique item name value after merging
-     */
-    private String translateConfigurationId(String id, String itemType, VNWConfigurationResponse configuration) {
-        switch (itemType) {
-            case JOB_LOCATION:
-                Optional<ConfigurationLocation> locationOptional = configuration.getData().getLocations().stream()
-                        .filter(item -> item.getLocationId().equals(id))
-                        .findFirst();
-                return locationOptional.isPresent() ? locationOptional.get().getEnglish() : EMPTY;
-            case JOB_LEVEL:
-                Optional<ConfigurationDegree> degreeOptional =
-                        configuration.getData().getDegrees().stream()
-                                .filter(item -> item.getDegreeId().equals(id))
-                                .findFirst();
-                return degreeOptional.isPresent() ? degreeOptional.get().getEnglish() : EMPTY;
-            default:
-                return EMPTY;
-        }
     }
 
     public List<JobEntity> getHigherSalaryJobs(SalaryReviewEntity salaryReviewEntity) {

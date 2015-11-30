@@ -26,13 +26,11 @@ public class VietnamWorksJobSearchServiceITCase {
     @Resource
     private JobSearchService jobSearchService;
 
-    private String vnwJobSearchRequestJson;
-
     private VNWJobSearchRequest vnwJobSearchRequest;
 
     @Before
     public void setUp() throws Exception {
-        vnwJobSearchRequestJson = IOUtils.toString(getClass().getResourceAsStream("/expect/vnw-jobs-request.json"), "UTF-8");
+        String vnwJobSearchRequestJson = IOUtils.toString(getClass().getResourceAsStream("/expect/vnw-jobs-request.json"), "UTF-8");
         assertNotNull(jobSearchService);
         vnwJobSearchRequest = JsonUtils.toPOJO(vnwJobSearchRequestJson, VNWJobSearchRequest.class).get();
         assertNotNull(vnwJobSearchRequest);

@@ -69,12 +69,6 @@ public class CoreConfiguration implements ApplicationContextAware {
     @Resource
     private Environment environment;
 
-    @Value("${mail.techlooper.services}")
-    private String servicesMailAddress;
-
-    @Value("${mail.techlooper.replyTo}")
-    private String replyToMailAddress;
-
     @Value("classpath:vnwConfig.json")
     private org.springframework.core.io.Resource vnwConfigRes;
 
