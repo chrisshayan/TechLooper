@@ -213,7 +213,7 @@ public class ChallengeEmailServiceImpl implements ChallengeEmailService {
             if (emailContent.getTemplateId() == ANNOUNCE_WINNER_EMAIL_TEMPLATE_EN
                     || emailContent.getTemplateId() == ANNOUNCE_WINNER_EMAIL_TEMPLATE_VI) {
                 csvEmails = challengeRegistrantService.findRegistrantsByChallengeId(registrant.getChallengeId()).stream()
-                        .map(challengeRegistrant -> challengeRegistrant.getRegistrantEmail()).collect(Collectors.joining(","));
+                        .map(challengeRegistrant -> challengeRegistrant.getRegistrantEmail()).collect(joining(","));
             }
 
             ChallengeEntity challenge = challengeService.findChallengeById(registrant.getChallengeId());
