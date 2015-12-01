@@ -3,7 +3,7 @@
   <div class="announcement-winner">
     <button translate="announceWinnerToAllContestants" class="btn btn-primary btn-flat"
             ng-class="{disabled: !contestDetail.winners.length}"
-            ng-disabled="!contestDetail.winners.length"
+            ng-disabled="!contestDetail.winners.length" ng-click="announcementWinner()"
             data-toggle="modal" data-target="#emailCompose"></button>
   </div>
 </div>

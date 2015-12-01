@@ -204,8 +204,6 @@ public class ChallengeEmailServiceImpl implements ChallengeEmailService {
     @Override
     public boolean sendEmailToRegistrant(String challengeOwner, Long registrantId, EmailContent emailContent) {
         boolean result = false;
-        final Long ANNOUNCE_WINNER_EMAIL_TEMPLATE_EN = 4L;
-        final Long ANNOUNCE_WINNER_EMAIL_TEMPLATE_VI = 104L;
         ChallengeRegistrantEntity registrant = challengeRegistrantRepository.findOne(registrantId);
         if (challengeService.isChallengeOwner(challengeOwner, registrant.getChallengeId())) {
             String csvEmails = registrant.getRegistrantEmail();

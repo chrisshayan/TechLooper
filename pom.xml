@@ -704,6 +704,12 @@
       <groupId>org.springframework.social</groupId>
       <artifactId>spring-social-linkedin</artifactId>
       <version>${spring-social-linkedin.version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>org.springframework.social</groupId>
+          <artifactId>spring-social-core</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
     <dependency>

@@ -308,8 +308,8 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
       return $http.get("emailTemplates/" + language);
     },
 
-    getTemplateById: function (templateId) {
-      return $http.get("emailTemplate/" + templateId);
+    getTemplateById: function (templateId, challengeId) {
+      return $http.get("emailTemplate/" + templateId + "/" + challengeId);
     },
 
     /**

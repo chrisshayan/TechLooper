@@ -1,14 +1,19 @@
 package com.techlooper.service.impl;
 
 import com.techlooper.dto.EmailTemplateDto;
+import com.techlooper.entity.ChallengeRegistrantDto;
 import com.techlooper.entity.EmailTemplateEntity;
 import com.techlooper.model.EmailRequestModel;
 import com.techlooper.model.Language;
+import com.techlooper.model.RewardEnum;
 import com.techlooper.repository.elasticsearch.EmailTemplateRepository;
+import com.techlooper.service.ChallengeEmailService;
+import com.techlooper.service.ChallengeRegistrantService;
 import com.techlooper.service.EmailService;
 import com.techlooper.util.DataUtils;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.dozer.Mapper;
 import org.slf4j.Logger;
@@ -26,9 +31,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.io.IOException;
 import java.io.StringWriter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static java.util.stream.Collectors.joining;
 import static org.elasticsearch.index.query.QueryBuilders.boolQuery;
@@ -54,6 +57,9 @@ public class EmailServiceImpl implements EmailService {
     private EmailTemplateRepository emailTemplateRepository;
 
     @Resource
+    private ChallengeRegistrantService challengeRegistrantService;
+
+    @Resource
     private Mapper dozerMapper;
 
     @Value("${mail.techlooper.services}")
@@ -73,12 +79,12 @@ public class EmailServiceImpl implements EmailService {
         StringWriter stringWriter = new StringWriter();
 
         try {
-            if (emailTemplateConfig.getReplyToAddresses() != null && !emailTemplateConfig.getReplyToAddresses().isEmpty()) {
+            if (CollectionUtils.isNotEmpty(emailTemplateConfig.getReplyToAddresses())) {
                 String replyToAddresses = emailTemplateConfig.getReplyToAddresses().stream().collect(joining(", "));
                 mailMessage.setReplyTo(InternetAddress.parse(replyToAddresses));
             }
 
-            if (emailTemplateConfig.getRecipientAddresses() != null && !emailTemplateConfig.getRecipientAddresses().isEmpty()) {
+            if (CollectionUtils.isNotEmpty(emailTemplateConfig.getRecipientAddresses())) {
                 String recipientAddresses = emailTemplateConfig.getRecipientAddresses().stream().collect(joining(", "));
                 mailMessage.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipientAddresses));
             } else {
@@ -92,16 +98,13 @@ public class EmailServiceImpl implements EmailService {
                 mailMessage.setFrom(new InternetAddress(serviceMailAddress, MAIL_SENDER_NAME, "UTF-8"));
             }
 
-            if (emailRequestModel.getSubjectVariableValues() == null ||
-                    emailRequestModel.getSubjectVariableValues().isEmpty()) {
-                if (StringUtils.isNotEmpty(emailRequestModel.getSubject())) {
-                    mailMessage.setSubject(emailRequestModel.getSubject());
-                } else {
-                    mailMessage.setSubject(mailSubject);
-                }
-            } else {
+            if (CollectionUtils.isNotEmpty(emailRequestModel.getSubjectVariableValues())) {
                 mailMessage.setSubject(String.format(mailSubject,
                         emailRequestModel.getSubjectVariableValues().toArray(new String[]{})));
+            } else if (StringUtils.isNotEmpty(emailRequestModel.getSubject())) {
+                mailMessage.setSubject(emailRequestModel.getSubject());
+            } else {
+                mailMessage.setSubject(mailSubject);
             }
 
             template.process(templateModel, stringWriter);
@@ -115,9 +118,13 @@ public class EmailServiceImpl implements EmailService {
     }
 
     @Override
-    public EmailTemplateDto getTemplateById(Long templateId) {
+    public EmailTemplateDto getTemplateById(Long templateId, Long challengeId) {
         EmailTemplateEntity emailTemplateEntity = emailTemplateRepository.findOne(templateId);
         if (emailTemplateEntity != null && emailTemplateEntity.getIsEnable()) {
+            if (emailTemplateEntity.getTemplateId() == ChallengeEmailService.ANNOUNCE_WINNER_EMAIL_TEMPLATE_EN
+                    || emailTemplateEntity.getTemplateId() == ChallengeEmailService.ANNOUNCE_WINNER_EMAIL_TEMPLATE_VI) {
+                processWinnerAnnouncementEmailContent(challengeId, emailTemplateEntity);
+            }
             return dozerMapper.map(emailTemplateEntity, EmailTemplateDto.class);
         }
         return null;
@@ -145,6 +152,29 @@ public class EmailServiceImpl implements EmailService {
                 .must(termQuery("language", language)));
         List<EmailTemplateEntity> templates = DataUtils.getAllEntities(emailTemplateRepository, searchQueryBuilder);
         return templates.isEmpty() ? null : dozerMapper.map(templates.get(0), EmailTemplateDto.class);
+    }
+
+    private void processWinnerAnnouncementEmailContent(Long challengeId, EmailTemplateEntity emailTemplateEntity) {
+        Set<ChallengeRegistrantDto> winners = challengeRegistrantService.
+                findWinnerRegistrantsByChallengeId(challengeId);
+        Optional<ChallengeRegistrantDto> firstWinner = winners.stream().filter(
+                winner -> winner.getReward() == RewardEnum.FIRST_PLACE).findFirst();
+        Optional<ChallengeRegistrantDto> secondWinner = winners.stream().filter(
+                winner -> winner.getReward() == RewardEnum.SECOND_PLACE).findFirst();
+        Optional<ChallengeRegistrantDto> thirdWinner = winners.stream().filter(
+                winner -> winner.getReward() == RewardEnum.THIRD_PLACE).findFirst();
+
+        if (!firstWinner.isPresent()) {
+            emailTemplateEntity.setBody(emailTemplateEntity.getBody().replaceFirst("<li class='1st'>(.+?)</li>", ""));
+        }
+
+        if (!secondWinner.isPresent()) {
+            emailTemplateEntity.setBody(emailTemplateEntity.getBody().replaceFirst("<li class='2nd'>(.+?)</li>", ""));
+        }
+
+        if (!thirdWinner.isPresent()) {
+            emailTemplateEntity.setBody(emailTemplateEntity.getBody().replaceFirst("<li class='3rd'>(.+?)</li>", ""));
+        }
     }
 
 }

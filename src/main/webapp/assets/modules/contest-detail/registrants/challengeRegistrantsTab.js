@@ -13,6 +13,9 @@ techlooper.directive('funnelManagement', function () {
       replace: true,
       templateUrl: "modules/contest-detail/registrants/registrationList.html",
       link: function (scope, element, attr, ctrl) {
+        scope.announcementWinner = function() {
+          scope.$broadcast("reload-default-email-template");
+        }
       }
     };
   })

@@ -13,7 +13,7 @@ public interface EmailService {
 
     void sendMail(EmailRequestModel emailRequestModel);
 
-    EmailTemplateDto getTemplateById(Long templateId);
+    EmailTemplateDto getTemplateById(Long templateId, Long challengeId);
 
     List<EmailTemplateDto> getAvailableEmailTemplates(Language language);
 
