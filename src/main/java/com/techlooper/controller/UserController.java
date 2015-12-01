@@ -152,7 +152,7 @@ public class UserController {
 
     @RequestMapping(value = "/promotion/citibank/title/{lang}", method = RequestMethod.GET)
     public String getCitiBankPromotionTitle(@PathVariable String lang) {
-        EmailTemplateDto emailTemplateDto = emailService.getTemplateById(5L);
+        EmailTemplateDto emailTemplateDto = emailService.getTemplateById(5L, null);
         return Language.en.name().equalsIgnoreCase(lang) ? emailTemplateDto.getTitleEN() : emailTemplateDto.getTitleVI();
     }
 
@@ -378,9 +378,9 @@ public class UserController {
         return emailService.getAvailableEmailTemplates(language);
     }
 
-    @RequestMapping(value = "/emailTemplate/{templateId}", method = RequestMethod.GET)
-    public EmailTemplateDto getTemplateById(@PathVariable Long templateId) {
-        return emailService.getTemplateById(templateId);
+    @RequestMapping(value = "/emailTemplate/{templateId}/{challengeId}", method = RequestMethod.GET)
+    public EmailTemplateDto getTemplateById(@PathVariable Long templateId, @PathVariable Long challengeId) {
+        return emailService.getTemplateById(templateId, challengeId);
     }
 
     @PreAuthorize("hasAuthority('EMPLOYER')")

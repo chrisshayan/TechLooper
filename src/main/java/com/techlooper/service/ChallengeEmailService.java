@@ -8,6 +8,10 @@ import com.techlooper.model.EmailSentResultEnum;
 
 public interface ChallengeEmailService {
 
+    final Long ANNOUNCE_WINNER_EMAIL_TEMPLATE_EN = 4L;
+
+    final Long ANNOUNCE_WINNER_EMAIL_TEMPLATE_VI = 104L;
+
     final String VAR_CONTEST_NAME = "{contest_name}";
 
     final String VAR_CONTEST_FIRST_PRIZE = "{contest_1st_prize}";
