@@ -55,7 +55,7 @@ techlooper.directive("feedbackForm", function (apiService, $timeout, resourcesSe
         ////scope.feedbackContent = '';
         //scope.composeEmail.error = true;
         //scope.composeEmail = {names: scope.composeEmail.names};
-         scope.composeEmail.templateId = 0;
+        scope.composeEmail.templateId = 0;
         scope.setDefaultValue();
         scope.hide();
         //delete scope.composeEmail.visible;
@@ -67,7 +67,7 @@ techlooper.directive("feedbackForm", function (apiService, $timeout, resourcesSe
           if (!_.isEmpty(scope.registrants)) {
             var registrant = scope.registrants[0];
             apiService.getTemplateById(scope.composeEmail.templateId, registrant.challengeId)
-              .success(function(template) {
+              .success(function (template) {
                 scope.composeEmail.subject = template.subject;
                 scope.composeEmail.content = template.body;
               });
@@ -79,6 +79,10 @@ techlooper.directive("feedbackForm", function (apiService, $timeout, resourcesSe
           scope.composeEmail.content = template.body;
         }
       }
+
+      scope.$on("reload-default-email-template", function () {
+        scope.setDefaultValue();
+      });
     }
   }
 });
