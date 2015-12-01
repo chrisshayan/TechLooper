@@ -161,7 +161,7 @@
                     </tr>
                     <tr>
                       <td align="left" style="font-size: 14px;">
-                        Congratulations <strong><#if firstName??>${firstName}</#if><#if lastName??> ${lastName}</#if></strong>! You have enrolled successfully in the following challenge
+                        Congratulations <strong><#if challengeRegistrant.registrantFirstName??>${challengeRegistrant.registrantFirstName}</#if><#if challengeRegistrant.registrantLastName??> ${challengeRegistrant.registrantLastName}</#if></strong>! You have enrolled successfully in the following challenge
                       </td>
                     </tr>
                     <tr>
@@ -190,7 +190,7 @@
                                     Challenge Name:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                                  ${challengeName}
+                                  ${challenge.challengeName}
                                   </td>
                                 </tr>
                                 <tr>
@@ -206,7 +206,7 @@
                                     Challenge Overview:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                                  ${challengeOverview?replace("\n", "<br>")}
+                                  ${challenge.challengeOverview?replace("\n", "<br>")}
                                   </td>
                                 </tr>
                                 <tr>
@@ -222,7 +222,7 @@
                                     Business Requirements:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                                  ${businessRequirement?replace("\n", "<br>")}
+                                  ${challenge.businessRequirement?replace("\n", "<br>")}
                                   </td>
                                 </tr>
                                 <tr>
@@ -238,7 +238,7 @@
                                     General Notes:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                                  ${generalNote?replace("\n", "<br>")}
+                                  ${challenge.generalNote?replace("\n", "<br>")}
                                   </td>
                                 </tr>
                                 <tr>
@@ -270,7 +270,7 @@
                                     Documents:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                                  ${documents?replace("\n", "<br>")}
+                                  ${challenge.documents?replace("\n", "<br>")}
                                   </td>
                                 </tr>
                                 <tr>
@@ -286,7 +286,7 @@
                                     Deliverables:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;">
-                                  ${deliverables?replace("\n", "<br>")}
+                                  ${challenge.deliverables?replace("\n", "<br>")}
                                   </td>
                                 </tr>
                                 <tr>
@@ -302,7 +302,7 @@
                                     Review Style:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;" valign="top">
-                                  ${reviewStyle}
+                                  ${challenge.reviewStyle}
                                   </td>
                                 </tr>
                               </table>
@@ -338,7 +338,7 @@
                                     Start Date:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;" valign="top">
-                                  ${startDate}
+                                  ${challenge.startDateTime}
                                   </td>
                                 </tr>
                                 <tr>
@@ -354,7 +354,7 @@
                                     Register By:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;" valign="top">
-                                  ${registrationDate}
+                                  ${challenge.registrationDateTime}
                                   </td>
                                 </tr>
                                 <tr>
@@ -370,7 +370,7 @@
                                     Submit By:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;" valign="top">
-                                  ${submissionDate}
+                                  ${challenge.submissionDateTime}
                                   </td>
                                 </tr>
 
@@ -421,7 +421,7 @@
                                     Quality of Idea:
                                   </td>
                                   <td align="left" width="55%" style="color: #000000; font-size: 14px;" valign="top">
-                                  ${qualityIdea}
+                                  ${challenge.qualityIdea}
                                   </td>
                                 </tr>
                                 <tr>

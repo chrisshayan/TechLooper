@@ -27,98 +27,98 @@ import java.util.Set;
 @Service
 public class ChallengeCriteriaServiceImpl implements ChallengeCriteriaService {
 
-  @Resource
-  private ChallengeRepository challengeRepository;
+    @Resource
+    private ChallengeRepository challengeRepository;
 
-  @Resource
-  private ChallengeService challengeService;
+    @Resource
+    private ChallengeService challengeService;
 
-  @Resource
-  private ChallengeRegistrantRepository challengeRegistrantRepository;
+    @Resource
+    private ChallengeRegistrantRepository challengeRegistrantRepository;
 
-  @Resource
-  private Mapper dozerMapper;
+    @Resource
+    private Mapper dozerMapper;
 
-  public ChallengeCriteriaDto saveChallengeCriteria(ChallengeCriteriaDto challengeCriteriaDto, String ownerEmail) {
-    ChallengeEntity challenge = challengeService.findChallengeIdAndOwnerEmail(challengeCriteriaDto.getChallengeId(), ownerEmail);
-    if (challenge == null) {
-      return null;
+    public ChallengeCriteriaDto saveChallengeCriteria(ChallengeCriteriaDto challengeCriteriaDto, String ownerEmail) {
+        ChallengeEntity challenge = challengeService.findChallengeById(challengeCriteriaDto.getChallengeId());
+        if (challenge == null) {
+            return null;
+        }
+
+        Set<ChallengeCriteria> criteria = new HashSet<>();
+        challengeCriteriaDto.getChallengeCriteria().forEach(cri -> {
+            if (cri.getCriteriaId() == null) cri.setCriteriaId(DataUtils.generateStringId());
+            criteria.add(cri);
+        });
+
+        Set<ChallengeRegistrantEntity> challengeRegistrantEntities = new HashSet<>();
+        Iterator<ChallengeRegistrantEntity> challengeIterator = challengeRegistrantRepository.search(
+                QueryBuilders.termQuery("challengeId", challengeCriteriaDto.getChallengeId())).iterator();
+
+        while (challengeIterator.hasNext()) {
+            final ChallengeRegistrantEntity registrantEntity = challengeIterator.next();
+            final Set<ChallengeRegistrantCriteria> registrantCriteria = new HashSet<>();
+
+            criteria.forEach(challengeCri -> {
+                ChallengeRegistrantCriteria registrantCri = registrantEntity.getCriteria().stream()
+                        .filter(cri -> challengeCri.getCriteriaId().equals(cri.getCriteriaId()))
+                        .findFirst().orElse(new ChallengeRegistrantCriteria());
+                dozerMapper.map(challengeCri, registrantCri);
+                registrantCriteria.add(registrantCri);
+                registrantEntity.getCriteria().remove(registrantCri);
+            });
+            registrantEntity.setCriteria(registrantCriteria);
+            challengeRegistrantEntities.add(registrantEntity);
+        }
+
+        challenge.setCriteria(criteria);
+        if (challengeRegistrantEntities.size() > 0) {
+            Set<ChallengeRegistrantCriteriaDto> registrantCriteria = new HashSet<>();
+            challengeRegistrantRepository.save(challengeRegistrantEntities)
+                    .forEach(registrant -> registrantCriteria.add(toChallengeRegistrantCriteriaDto(registrant)));
+            challengeCriteriaDto.setRegistrantCriteria(registrantCriteria);
+        }
+
+        challenge = challengeRepository.save(challenge);
+        challengeCriteriaDto.setChallengeId(challenge.getChallengeId());
+        challengeCriteriaDto.setChallengeCriteria(challenge.getCriteria());
+        return challengeCriteriaDto;
     }
 
-    Set<ChallengeCriteria> criteria = new HashSet<>();
-    challengeCriteriaDto.getChallengeCriteria().forEach(cri -> {
-      if (cri.getCriteriaId() == null) cri.setCriteriaId(DataUtils.generateStringId());
-      criteria.add(cri);
-    });
+    public ChallengeRegistrantCriteriaDto saveScoreChallengeRegistrantCriteria(ChallengeRegistrantCriteriaDto registrantCriteriaDto, String ownerEmail) {
+        ChallengeRegistrantEntity registrant = challengeRegistrantRepository.findOne(registrantCriteriaDto.getRegistrantId());
+        ChallengeEntity challenge = challengeService.findChallengeById(registrant.getChallengeId(), ownerEmail);
+        if (challenge == null) {
+            return null;
+        }
 
-    Set<ChallengeRegistrantEntity> challengeRegistrantEntities = new HashSet<>();
-    Iterator<ChallengeRegistrantEntity> challengeIterator = challengeRegistrantRepository.search(
-      QueryBuilders.termQuery("challengeId", challengeCriteriaDto.getChallengeId())).iterator();
+        registrant.getCriteria().forEach(cri -> {
+            ChallengeRegistrantCriteria criteriaDto = registrantCriteriaDto.getCriteria().stream()
+                    .filter(criDto -> criDto.getCriteriaId().equals(cri.getCriteriaId())).findFirst().get();
 
-    while (challengeIterator.hasNext()) {
-      final ChallengeRegistrantEntity registrantEntity = challengeIterator.next();
-      final Set<ChallengeRegistrantCriteria> registrantCriteria = new HashSet<>();
+            // only save score and comment
+            cri.setScore(criteriaDto.getScore());
+            cri.setComment(criteriaDto.getComment());
+            registrantCriteriaDto.getCriteria().remove(criteriaDto);
+        });
 
-      criteria.forEach(challengeCri -> {
-        ChallengeRegistrantCriteria registrantCri = registrantEntity.getCriteria().stream()
-          .filter(cri -> challengeCri.getCriteriaId().equals(cri.getCriteriaId()))
-          .findFirst().orElse(new ChallengeRegistrantCriteria());
-        dozerMapper.map(challengeCri, registrantCri);
-        registrantCriteria.add(registrantCri);
-        registrantEntity.getCriteria().remove(registrantCri);
-      });
-      registrantEntity.setCriteria(registrantCriteria);
-      challengeRegistrantEntities.add(registrantEntity);
+        registrant = challengeRegistrantRepository.save(registrant);
+        return toChallengeRegistrantCriteriaDto(registrant);
     }
 
-    challenge.setCriteria(criteria);
-    if (challengeRegistrantEntities.size() > 0) {
-      Set<ChallengeRegistrantCriteriaDto> registrantCriteria = new HashSet<>();
-      challengeRegistrantRepository.save(challengeRegistrantEntities)
-        .forEach(registrant -> registrantCriteria.add(toChallengeRegistrantCriteriaDto(registrant)));
-      challengeCriteriaDto.setRegistrantCriteria(registrantCriteria);
+    public ChallengeRegistrantCriteriaDto findByChallengeRegistrantId(Long registrantId, String ownerEmail) {
+        ChallengeRegistrantEntity registrant = challengeRegistrantRepository.findOne(registrantId);
+        if (!challengeService.isChallengeOwner(ownerEmail, registrant.getChallengeId())) {
+            return null;
+        }
+
+        return ChallengeRegistrantCriteriaDtoBuilder.challengeRegistrantCriteriaDto()
+                .withRegistrantId(registrantId).withCriteria(registrant.getCriteria()).build();
     }
 
-    challenge = challengeRepository.save(challenge);
-    challengeCriteriaDto.setChallengeId(challenge.getChallengeId());
-    challengeCriteriaDto.setChallengeCriteria(challenge.getCriteria());
-    return challengeCriteriaDto;
-  }
-
-  public ChallengeRegistrantCriteriaDto saveScoreChallengeRegistrantCriteria(ChallengeRegistrantCriteriaDto registrantCriteriaDto, String ownerEmail) {
-    ChallengeRegistrantEntity registrant = challengeRegistrantRepository.findOne(registrantCriteriaDto.getRegistrantId());
-    ChallengeEntity challenge = challengeService.findChallengeIdAndOwnerEmail(registrant.getChallengeId(), ownerEmail);
-    if (challenge == null) {
-      return null;
+    private ChallengeRegistrantCriteriaDto toChallengeRegistrantCriteriaDto(ChallengeRegistrantEntity registrantEntity) {
+        return ChallengeRegistrantCriteriaDtoBuilder.challengeRegistrantCriteriaDto()
+                .withRegistrantId(registrantEntity.getRegistrantId())
+                .withCriteria(registrantEntity.getCriteria()).build();
     }
-
-    registrant.getCriteria().forEach(cri -> {
-      ChallengeRegistrantCriteria criteriaDto = registrantCriteriaDto.getCriteria().stream()
-        .filter(criDto -> criDto.getCriteriaId().equals(cri.getCriteriaId())).findFirst().get();
-
-      // only save score and comment
-      cri.setScore(criteriaDto.getScore());
-      cri.setComment(criteriaDto.getComment());
-      registrantCriteriaDto.getCriteria().remove(criteriaDto);
-    });
-
-    registrant = challengeRegistrantRepository.save(registrant);
-    return toChallengeRegistrantCriteriaDto(registrant);
-  }
-
-  public ChallengeRegistrantCriteriaDto findByChallengeRegistrantId(Long registrantId, String ownerEmail) {
-    ChallengeRegistrantEntity registrant = challengeRegistrantRepository.findOne(registrantId);
-    if (!challengeService.isOwnerOfChallenge(ownerEmail, registrant.getChallengeId())) {
-      return null;
-    }
-
-    return ChallengeRegistrantCriteriaDtoBuilder.challengeRegistrantCriteriaDto()
-      .withRegistrantId(registrantId).withCriteria(registrant.getCriteria()).build();
-  }
-
-  private ChallengeRegistrantCriteriaDto toChallengeRegistrantCriteriaDto(ChallengeRegistrantEntity registrantEntity) {
-    return ChallengeRegistrantCriteriaDtoBuilder.challengeRegistrantCriteriaDto()
-      .withRegistrantId(registrantEntity.getRegistrantId())
-      .withCriteria(registrantEntity.getCriteria()).build();
-  }
 }

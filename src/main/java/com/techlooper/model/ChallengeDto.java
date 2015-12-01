@@ -1,6 +1,7 @@
 package com.techlooper.model;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by NguyenDangKhoa on 6/29/15.
@@ -50,6 +51,8 @@ public class ChallengeDto {
     private Language lang;
 
     private String challengeOverview;
+
+    private Set<ChallengeWinner> winners;
 
     public Long getChallengeId() {
         return challengeId;
@@ -225,5 +228,13 @@ public class ChallengeDto {
 
     public void setChallengeOverview(String challengeOverview) {
         this.challengeOverview = challengeOverview;
+    }
+
+    public Set<ChallengeWinner> getWinners() {
+        return winners;
+    }
+
+    public void setWinners(Set<ChallengeWinner> winners) {
+        this.winners = winners;
     }
 }

@@ -76,7 +76,7 @@
                   </span>
                 </div>
               </div>
-              <div ng-show="timelineForm.ideaSubmissionDate.$touched || timelineForm.$submitted">
+              <div ng-show="timelineForm.ideaSubmissionDateRequire.$dirty || timelineForm.$submitted">
                 <div class="error-messages" ng-show="timelineForm.ideaSubmissionDate.$error.required" translate="requiredThisField"></div>
                 <div class="error-messages" ng-show="timelineForm.ideaSubmissionDate.$error.gtRegistrationDate"
                      translate="ideaDateGtRegisterDate"></div>
@@ -103,7 +103,7 @@
                   </span>
                 </div>
               </div>
-              <div ng-show="timelineForm.uxSubmissionDate.$touched || timelineForm.$submitted">
+              <div ng-show="timelineForm.uxSubmissionDateRequire.$dirty || timelineForm.$submitted">
                 <div class="error-messages" ng-show="timelineForm.uxSubmissionDate.$error.required" translate="requiredThisField"></div>
                 <div class="error-messages" ng-show="timelineForm.uxSubmissionDate.$error.gtRegistrationDate"
                      translate="uxDateGtRegisterDate"></div>
@@ -113,7 +113,7 @@
             </li>
             <li>
               <div class="left-content">
-                <input type="checkbox" id="ckbPrototype" ng-model="prototypeChecked"/> <label for="ckbPrototype" translate="prototype"></label>
+                <input name="prototypeDateRequire" type="checkbox" id="ckbPrototype" ng-model="prototypeChecked"/> <label for="ckbPrototype" translate="prototype"></label>
               </div>
               <div class="right-content" ng-class="{'date-disabled': !prototypeChecked}">
                 <label for="txtPrototypeDeadline" translate="prototypeDeadline"></label>
@@ -131,7 +131,7 @@
                   </span>
                 </div>
               </div>
-              <div ng-show="timelineForm.prototypeSubmissionDate.$touched || timelineForm.$submitted">
+              <div ng-show="timelineForm.prototypeDateRequire.$dirty || timelineForm.$submitted">
                 <div class="error-messages" ng-show="timelineForm.prototypeSubmissionDate.$error.required" translate="requiredThisField"></div>
                 <div class="error-messages" ng-show="timelineForm.prototypeSubmissionDate.$error.gtRegistrationDate"
                      translate="prototypeDateGtRegisterDate"></div>

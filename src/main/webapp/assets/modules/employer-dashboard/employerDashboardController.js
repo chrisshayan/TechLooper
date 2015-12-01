@@ -1,32 +1,50 @@
 techlooper.controller('employerDashboardController', function ($scope, jsonValue, utils, apiService, $location, $filter, $route) {
 
   utils.sendNotification(jsonValue.notifications.loading, $(window).height());
-
-
   $scope.composeEmail = {
     send: function () {
       $scope.composeEmail.content = $('.summernote').code();
-      if($scope.composeEmail.content == '<p><br></p>'){
+      if($scope.composeEmail.content == '<p><br></p>' || $scope.composeEmail.content == ''){
         return;
       }
       if ($scope.composeEmail.action == "challenge-daily-mail-registrants") {
         apiService.sendEmailToDailyChallengeRegistrants($scope.composeEmail.challengeId, $scope.composeEmail.now, $scope.composeEmail)
             .success(function(){
               $scope.composeEmail.cancel();
-            })
-            .error(function(){
+            }).error(function(status){
               $scope.composeEmail.error = false;
+              switch (status) {
+                case 401:
+                  $scope.composeEmail.errorSendEmail = jsonValue.feedbackStatus.cannotSendMail.translate;
+                  break;
+                case 403:
+                  $scope.composeEmail.errorSendEmail = jsonValue.feedbackStatus.cannotSendMail.translate;
+                  break;
+                default:
+                  $scope.composeEmail.errorSendEmail = jsonValue.feedbackStatus.errorSystem.translate;
+              }
             });
       }
       else if ($scope.composeEmail.action == "feedback-registrant") {
-        apiService.sendFeedbackToRegistrant($scope.composeEmail.challengeId, $scope.composeEmail.registrantId, $scope.composeEmail)
-            .success(function(){
-              $scope.composeEmail.cancel();
-            })
-            .error(function(){
+        apiService.sendFeedbackToRegistrant($scope.composeEmail.registrantId, $scope.composeEmail)
+          .success(function(){
+            $scope.composeEmail.cancel();
+          })
+          .error(function(err,status){
               $scope.composeEmail.error = false;
-            });
+              switch (status) {
+                case 401:
+                  $scope.composeEmail.errorSendEmail = jsonValue.feedbackStatus.cannotSendMail.translate;
+                  break;
+                case 403:
+                  $scope.composeEmail.errorSendEmail = jsonValue.feedbackStatus.cannotSendMail.translate;
+                  break;
+                default:
+                  $scope.composeEmail.errorSendEmail = jsonValue.feedbackStatus.errorSystem.translate;
+              }
+          });
       }
+
     },
     cancel: function () {
       $location.search({});
@@ -45,7 +63,7 @@ techlooper.controller('employerDashboardController', function ($scope, jsonValue
       apiService.getDailyChallengeRegistrantNames(challengeId, now)
         .success(function (names) {
           $scope.composeEmail.names = names.join("; ");
-          $("#emailCompose").modal();
+          $("#emailComposeFeedback").modal('show');
         });
     }
     else if (param.a == "feedback-registrant") {
@@ -54,7 +72,7 @@ techlooper.controller('employerDashboardController', function ($scope, jsonValue
       apiService.getChallengeRegistrantFullName($scope.composeEmail.registrantId)
         .success(function (fullname) {
           $scope.composeEmail.names = fullname;
-          $("#emailCompose").modal();
+            $("#emailComposeFeedback").modal('show');
         });
     }
   }

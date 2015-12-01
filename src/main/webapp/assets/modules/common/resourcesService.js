@@ -1,4 +1,4 @@
-techlooper.factory("resourcesService", function ($translate, $q, apiService) {
+techlooper.factory("resourcesService", function ($translate, $q, apiService, $filter) {
   var registrantsFilterOptions = [
     {translate: "allContestants", id: "registrantId"},
     {translate: "allSubmission", id: "challengeSubmission"}
@@ -27,21 +27,9 @@ techlooper.factory("resourcesService", function ($translate, $q, apiService) {
     {translate: "chooseATemplate", id: 0},
     {translate: "welcomeContestant", id: 1},
     {translate: "askContestantSubmission", id: 2},
-    {translate: "disqualifyContestant", id: 3}
+    {translate: "disqualifyContestant", id: 3},
+    {translate: "announceWinnerToAllContestants", id: 4}
   ];
-
-  //apiService.getAvailableEmailTemplates()
-  //  .success(function (data) {
-  //    $.each(data, function (i, template) {
-  //      var templateOption = {
-  //        translate: template.templateId,
-  //        id: template.templateName
-  //      };
-  //      emailTemplateOptions.push(templateOption);
-  //    });
-  //  })
-  //
-  //console.log(emailTemplateOptions);
 
   var paymentOptions = [
     {translate: "hourlyByByHour", reviewTranslate: "hourlyJob", id: "hourly"},
@@ -109,6 +97,7 @@ techlooper.factory("resourcesService", function ($translate, $q, apiService) {
     estimatedDurationConfig: $.extend(true, {}, {options: estimatedDurationOptions}, idSelectize("estimatedDurationConfig")),
     estimatedWorkloadConfig: $.extend(true, {}, {options: estimatedWorkloadOptions}, idSelectize("estimatedWorkloadConfig")),
     emailTemplateConfig: $.extend(true, {}, {options: emailTemplateOptions}, idSelectize("emailTemplateConfig")),
+
     inOptions: function (title, config) {
       var index = -1;
       $.each(config.options, function (i, opt) {
@@ -119,7 +108,8 @@ techlooper.factory("resourcesService", function ($translate, $q, apiService) {
       });
       return index;
     },
-    getOption: function(id, config) {
+
+    getOption: function (id, config) {
       var option = undefined;
       $.each(config.options, function (i, opt) {
         if (opt.id === id) {
@@ -128,9 +118,25 @@ techlooper.factory("resourcesService", function ($translate, $q, apiService) {
         }
       });
       return option;
-    }
+    },
 
-    //initialize: function() {}
+    getEmailTemplates: function() {
+      var deffer = $q.defer();
+      if (instance.emailTemplates) {
+        deffer.resolve(instance.emailTemplates);
+        return deffer.promise;
+      }
+      apiService.getAvailableEmailTemplates()
+        .success(function (templateList) {
+          _.each(templateList, function (template) {
+            template.text = $filter('translate')(template.templateName);
+            template.value = template.templateId;
+          });
+          instance.emailTemplates = templateList;
+          deffer.resolve(instance.emailTemplates);
+        });
+      return deffer.promise;
+    }
   }
 
   var translations = [
@@ -160,6 +166,9 @@ techlooper.factory("resourcesService", function ($translate, $q, apiService) {
           //console.log(row);
           item.ins.options = [];
           $.each(row, function (i, r) {
+            //r.title = $filter("translate")(r.translate);
+            //console.log(row);
+            //item.ins.options.push(r);
             $translate(r.translate).then(function (translate) {
               r.title = translate;
               item.ins.options.push(r);
@@ -169,8 +178,10 @@ techlooper.factory("resourcesService", function ($translate, $q, apiService) {
           //console.log(array);
           //
           //return (item.ins.options = array);
-          return ;
+          return;
         }
+        //row.title = $filter("translate")(row.translate);
+        //console.log(row);
         $translate(row.translate).then(function (translate) {
           row.title = translate;
         });

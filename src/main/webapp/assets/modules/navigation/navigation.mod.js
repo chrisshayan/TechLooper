@@ -1,5 +1,5 @@
 techlooper
-  .directive("navBar", function ($http) {
+  .directive("navBar", function () {
     return {
       restrict: "E",
       replace: true,
@@ -8,7 +8,7 @@ techlooper
       controller: "navigationController"
     }
   })
-  .directive("jobseekerHeader", function ($http) {
+  .directive("jobseekerHeader", function () {
     return {
       restrict: "E",
       replace: true,
@@ -16,14 +16,14 @@ techlooper
       controller: "navigationController"
     }
   })
-  .directive("employerHeader", function ($http) {
+  .directive("employerHeader", function () {
     return {
       restrict: "E",
       replace: true,
       templateUrl: "modules/navigation/employer-header.tem.html"
     }
   })
-  .directive("footer", function ($http) {
+  .directive("footer", function () {
     return {
       restrict: "E",
       replace: true,

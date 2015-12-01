@@ -1,5 +1,6 @@
 package com.techlooper.entity;
 
+import com.techlooper.model.ChallengeWinner;
 import com.techlooper.model.Language;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.DateFormat;
@@ -98,6 +99,18 @@ public class ChallengeEntity {
 
     @Field(type = Integer)
     private int lastEmailSentResultCode;
+
+    @Field(type = Nested)
+    private Set<ChallengeWinner> winners;
+
+    public Set<ChallengeWinner> getWinners() {
+        if (winners == null) winners = new HashSet<>();
+        return winners;
+    }
+
+    public void setWinners(Set<ChallengeWinner> winners) {
+        this.winners = winners;
+    }
 
     public Set<ChallengeCriteria> getCriteria() {
         if (criteria == null) criteria = new HashSet<>();

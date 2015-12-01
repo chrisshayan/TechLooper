@@ -257,22 +257,30 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
     /**
      * @see com.techlooper.controller.UserController.sendFeedbackToRegistrant
      * */
-    sendFeedbackToRegistrant: function (challengeId, registrantId, emailContent) {
+    sendFeedbackToRegistrant: function (registrantId, emailContent) {
       emailContent.language = $translate.use();
-      return $http.post("user/challenge/feedback/" + challengeId + "/" + registrantId, emailContent);
+      return $http.post("user/challenge/feedback/" + registrantId, emailContent);
     },
 
     /**
      * @see com.techlooper.controller.UserController.acceptChallengeRegistrant
      * */
-    acceptChallengeRegistrant: function (registrantId) {
-      return $http.get("user/challenge/accept/" + registrantId);
+    acceptChallengeRegistrant: function (registrantId, phase) {
+      return $http.get("user/challenge/accept/" + registrantId + "/" + phase);
+    },
+
+    /**
+     * @see com.techlooper.controller.UserController.rejectChallengeRegistrant
+     * */
+    rejectChallengeRegistrant: function (registrantId, reason) {
+      return $http.post("user/challenge/reject/", {registrantId: registrantId, reason: reason});
     },
 
     /**
      * @see com.techlooper.controller.ChallengeSubmissionController.submitMyResult
      * */
     submitMyResult: function (submission) {
+      submission.lang = $translate.use();
       return $http.post("user/challengeSubmission", submission);
     },
 
@@ -296,11 +304,12 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
     },
 
     getAvailableEmailTemplates: function () {
-      return $http.get("emailTemplates");
+      var language = $translate.use();
+      return $http.get("emailTemplates/" + language);
     },
 
     getTemplateById: function (templateId) {
-      return $http.get("emailTemplates/" + templateId);
+      return $http.get("emailTemplate/" + templateId);
     },
 
     /**
@@ -329,19 +338,49 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
     },
 
     getRegistrantFunnel: function (id) {
-      return $http.get("challenges/"+ id + "/registrantFunnel");
+      return $http.get("challenges/" + id + "/registrantFunnel");
     },
 
     /**
      * @see com.techlooper.controller.ChallengeController.getChallengeRegistrantsByPhase
      * */
-    getChallengeRegistrantsByPhase: function(challengeId, phase) {
+    getChallengeRegistrantsByPhase: function (challengeId, phase) {
       return $http.get("challenge/" + challengeId + "/registrants/" + phase)
-        .success(function(registrants) {
+        .success(function (registrants) {
           $.each(registrants, function (i, registrant) {
             $filter("challengeRegistrant")(registrant, phase);
           });
         });
+    },
+
+    /**
+     * @see com.techlooper.controller.ChallengeController.saveWinner
+     * */
+    saveWinner: function (registrantId, reward, removable) {
+      return $http.post("challenge/registrant/winner", {
+        registrantId: registrantId,
+        reward: reward,
+        removable: removable
+      });
+    },
+
+    readSubmission: function (challengeId, challengeSubmissionId, isRead) {
+      return $http.post("user/challengeSubmission/markAsRead", {
+        challengeId: challengeId,
+        challengeSubmissionId: challengeSubmissionId,
+        isRead: isRead
+      });
+    },
+
+    /**
+     * @see com.techlooper.controller.UserController.qualifyAllRegistrants
+     * */
+    qualifyAllToNextPhase: function (challengeId, nextPhase, registrantIds) {
+      return $http.post("user/challenge/qualifyAllRegistrants", {
+        challengeId: challengeId,
+        nextPhase: nextPhase,
+        registrantIds: registrantIds
+      });
     }
   };
 

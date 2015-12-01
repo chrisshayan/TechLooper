@@ -260,6 +260,11 @@ public class JobAggregatorServiceImpl implements JobAggregatorService {
         return criteria;
     }
 
+    @Override
+    public JobAlertRegistrationEntity getJobAlertRegistrationById(Long id) {
+        return jobAlertRegistrationRepository.findOne(id);
+    }
+
     private ScrapeJobEntity convertToJobEntity(VNWJobSearchResponseDataItem job, Boolean isTopPriority) {
         ScrapeJobEntity jobEntity = dozerMapper.map(job, ScrapeJobEntity.class);
         jobEntity.setTopPriority(isTopPriority);

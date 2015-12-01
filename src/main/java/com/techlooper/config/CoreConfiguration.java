@@ -11,10 +11,7 @@ import com.google.api.services.calendar.CalendarScopes;
 import com.techlooper.converter.ListCSVStringConverter;
 import com.techlooper.converter.LocaleConverter;
 import com.techlooper.converter.ProfileNameConverter;
-import com.techlooper.cron.ChallengeTimelineNotifier;
-import com.techlooper.cron.DailyChallengeSummaryEmailSender;
-import com.techlooper.cron.JobAlertEmailSender;
-import com.techlooper.cron.VietnamworksJobImporter;
+import com.techlooper.cron.*;
 import com.techlooper.dto.WebinarInfoDto;
 import com.techlooper.entity.*;
 import com.techlooper.model.*;
@@ -555,5 +552,58 @@ public class CoreConfiguration implements ApplicationContextAware {
     @Bean
     public VietnamworksJobImporter vietnamworksJobImporter() {
         return new VietnamworksJobImporter();
+    }
+
+    @Bean
+    public MimeMessage confirmUserSubmissionMailMessage(JavaMailSender mailSender) throws MessagingException, UnsupportedEncodingException {
+        MimeMessage mailMessage = mailSender.createMimeMessage();
+        mailMessage.setFrom(new InternetAddress(mailTechlooperForm, "TechLooper", "UTF-8"));
+        return mailMessage;
+    }
+
+    @Bean
+    public Template confirmUserSubmissionMailTemplateEn(freemarker.template.Configuration freemakerConfig) throws IOException {
+        Template template = freemakerConfig.getTemplate("confirmUserSubmission.en.ftl");
+        return template;
+    }
+
+    @Bean
+    public Template confirmUserSubmissionMailTemplateVi(freemarker.template.Configuration freemakerConfig) throws IOException {
+        Template template = freemakerConfig.getTemplate("confirmUserSubmission.vi.ftl");
+        return template;
+    }
+
+    @Bean
+    public ChallengeSubmissionNotifier challengeSubmissionNotifier() {
+        return new ChallengeSubmissionNotifier();
+    }
+
+    @Bean
+    public Template notifyChallengeSubmissionMailTemplateEn(freemarker.template.Configuration freemakerConfig) throws IOException {
+        Template template = freemakerConfig.getTemplate("notifyChallengeSubmission.en.ftl");
+        return template;
+    }
+
+    @Bean
+    public Template notifyChallengeSubmissionMailTemplateVi(freemarker.template.Configuration freemakerConfig) throws IOException {
+        Template template = freemakerConfig.getTemplate("notifyChallengeSubmission.vi.ftl");
+        return template;
+    }
+
+    @Bean
+    public ChallengePhaseClosedNotifier challengePhaseClosedNotifier() {
+        return new ChallengePhaseClosedNotifier();
+    }
+
+    @Bean
+    public Template notifyChallengePhaseClosedMailTemplateEn(freemarker.template.Configuration freemakerConfig) throws IOException {
+        Template template = freemakerConfig.getTemplate("notifyChallengePhaseClosed.en.ftl");
+        return template;
+    }
+
+    @Bean
+    public Template notifyChallengePhaseClosedMailTemplateVi(freemarker.template.Configuration freemakerConfig) throws IOException {
+        Template template = freemakerConfig.getTemplate("notifyChallengePhaseClosed.vi.ftl");
+        return template;
     }
 }

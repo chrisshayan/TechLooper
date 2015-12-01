@@ -5,6 +5,7 @@ import com.techlooper.model.JobAlertPeriodEnum;
 import com.techlooper.model.JobSearchCriteria;
 import com.techlooper.model.JobSearchResponse;
 import com.techlooper.service.JobAggregatorService;
+import com.techlooper.util.DataUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.dozer.Mapper;
 import org.slf4j.Logger;
@@ -15,7 +16,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
-import java.util.Random;
 
 import static com.techlooper.model.JobAlertEmailResultEnum.EMAIL_SENT;
 import static com.techlooper.model.JobAlertEmailResultEnum.JOB_NOT_FOUND;
@@ -55,8 +55,10 @@ public class JobAlertEmailSender {
 
             if (!jobAlertRegistrationEntities.isEmpty()) {
                 int count = 0;
-                Thread.sleep(getRandomNumberInRange(600000, 900000) + 600000);
+                Thread.sleep(DataUtils.getRandomNumberInRange(300000, 600000));
                 for (JobAlertRegistrationEntity jobAlertRegistrationEntity : jobAlertRegistrationEntities) {
+                    jobAlertRegistrationEntity = jobAggregatorService.getJobAlertRegistrationById(
+                            jobAlertRegistrationEntity.getJobAlertRegistrationId());
                     if (StringUtils.isEmpty(jobAlertRegistrationEntity.getLastEmailSentDateTime())) {
                         jobAlertRegistrationEntity.setLastEmailSentDateTime(yesterdayDate(BASIC_DATE_TIME_PATTERN));
                     }
@@ -81,8 +83,4 @@ public class JobAlertEmailSender {
         }
     }
 
-    private static int getRandomNumberInRange(int min, int max) {
-        Random r = new Random();
-        return r.ints(min, (max + 1)).limit(1).findFirst().getAsInt();
-    }
 }

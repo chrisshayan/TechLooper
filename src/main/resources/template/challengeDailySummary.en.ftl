@@ -322,12 +322,21 @@
                                   </tr>
                                   <tr>
                                     <td align="left" valign="top">
-                                      <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto; float: left" class="fullWidth">
+                                      <table width="55%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto; float: left" class="fullWidth">
                                         <tr>
-                                          <td style="font-size: 14px;" width="40px" align="center">${latestSubmission_index + 1}</td>
+                                          <td style="font-size: 14px;; padding-right: 5px" width="40px" align="center">${latestSubmission_index + 1}</td>
                                           <td style="font-size: 14px;">${latestSubmission.registrantName}</td>
                                         </tr>
                                       </table>
+                                        <table width="45%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto; float: left" class="fullWidth">
+                                            <tr>
+                                                <td style="font-size: 14px;; padding-right: 5px">
+                                                    <a href="${webBaseUrl}#/?action=redirectJA&utm_source=dailysummary&utm_medium=review&utm_campaign=onlinecontest&targetUrl=${latestSubmission.submissionURL}" target="_blank" style="font-family: Arial, sans-serif; font-size: 14px; color: #277cbd; text-decoration: none; display: block; width: 100%">Review</a></td>
+                                                <td style="font-size: 14px;">
+                                                    <a href="${webBaseUrl}#/employer-dashboard?a=feedback-registrant&challengeId=${challengeId}&registrantId=${latestSubmission.registrantId?c}&utm_source=dailysummary&utm_medium=feedback&utm_campaign=onlinecontest" target="_blank" style="font-family: Arial, sans-serif; font-size: 14px; color: #277cbd; text-decoration: none; display: block; width: 100%">Feedback</a>
+                                                </td>
+                                            </tr>
+                                        </table>
                                     </td>
                                   </tr>
                                 </#list>
@@ -341,7 +350,7 @@
                                     <table width="200px" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;" class="fullWidth">
                                       <tr>
                                         <td bgcolor="#277cbd" width="100%" style="padding: 10px 5px; -webkit-border-radius:3px; border-radius:3px; text-align: center">
-                                          <a href="${webBaseUrl}#/challenge-detail/${challengeNameAlias}-${challengeId}-id?action=employerLogin&a=registrants&utm_source=dailysummary&utm_medium=allsubmissionsbtn&utm_campaign=onlinecontest" target="_blank" style="font-family: Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; display: block; width: 100%">Review All Submissions</a>
+                                          <a href="${webBaseUrl}#/challenge-detail/${challengeNameAlias}-${challengeId}-id?action=employerLogin&a=registrants&utm_source=dailysummary&utm_medium=allsubmissionsbtn&utm_campaign=onlinecontest" target="_blank" style="font-family: Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; display: block; width: 100%">Accept Submissions</a>
                                         </td>
                                       </tr>
                                     </table>
