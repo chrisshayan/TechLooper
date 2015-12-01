@@ -64,12 +64,14 @@ techlooper.directive("feedbackForm", function (apiService, $timeout, resourcesSe
 
       scope.loadEmailTemplate = function () {
         if (scope.announceWinner == true) {
-          var registrant = scope.registrants[0];
-          apiService.getTemplateById(scope.composeEmail.templateId, registrant.challengeId)
-            .success(function(template) {
-              scope.composeEmail.subject = template.subject;
-              scope.composeEmail.content = template.body;
-            });
+          if (!_.isEmpty(scope.registrants)) {
+            var registrant = scope.registrants[0];
+            apiService.getTemplateById(scope.composeEmail.templateId, registrant.challengeId)
+              .success(function(template) {
+                scope.composeEmail.subject = template.subject;
+                scope.composeEmail.content = template.body;
+              });
+          }
         }
         else {
           var template = _.findWhere(scope.emailTemplates, {templateId: parseInt(scope.composeEmail.templateId)});
