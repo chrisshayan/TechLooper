@@ -196,7 +196,12 @@
                       <#elseif currentPhase == "FINAL">
                         <#assign localizedCurrentPhase = "Final App">
                       </#if>
-                        The phase <strong>${localizedOldPhase}</strong> of challenge <a href="${webBaseUrl}#/challenge-detail/${challengeNameAlias}-${challengeId}-id?utm_source=remindphaseclose&utm_medium=clickchallenge&utm_campaign=onlinecontest" style="color:#337ab7" target="_blank"><strong>${challenge.challengeName}</strong></a> just ended. The current phase is now <strong>${localizedCurrentPhase}</strong> with <strong>${currentPhaseRegistrants}</strong> selected.
+                        The phase <strong>${localizedOldPhase}</strong> of challenge <a href="${webBaseUrl}#/challenge-detail/${challengeNameAlias}-${challengeId}-id?utm_source=remindphaseclose&utm_medium=clickchallenge&utm_campaign=onlinecontest" style="color:#337ab7" target="_blank"><strong>${challenge.challengeName}</strong></a> just ended.
+                        <#if oldPhase != "FINAL">
+                            The current phase is now <strong>${localizedCurrentPhase}</strong> with <strong>${currentPhaseRegistrants}</strong> selected.
+                        <#else>
+                            Now it is the time for you to score contestant final app submissions and select winner(s).
+                        </#if>
                       </td>
                     </tr>
                     <tr>
@@ -206,7 +211,11 @@
                     </tr>
                     <tr>
                       <td align="left" style="font-size: 14px;">
-                        Do you want to go to the last phase ${localizedOldPhase} to select more participants?
+                        <#if oldPhase != "FINAL">
+                            Do you want to go to the last phase ${localizedOldPhase} to select more participants?
+                        <#else>
+                            Do you want to evaluate contestant now?
+                        </#if>
                       </td>
                     </tr>
                     <tr>
@@ -219,7 +228,12 @@
                         <table width="200px" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;" class="fullWidth">
                           <tr>
                             <td bgcolor="#277cbd" width="100%" style="padding: 10px 5px; -webkit-border-radius:3px; border-radius:3px; text-align: center">
-                              <a href="${webBaseUrl}#/challenge-detail/${challengeNameAlias}-${challengeId}-id?toPhase=${oldPhase}&utm_source=remindphaseclose&utm_medium=selectnowbtn&utm_campaign=onlinecontest" target="_blank" style="font-family: Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; display: block; width: 100%">Select Now</a>
+                              <a href="${webBaseUrl}#/challenge-detail/${challengeNameAlias}-${challengeId}-id?toPhase=${oldPhase}&utm_source=remindphaseclose&utm_medium=selectnowbtn&utm_campaign=onlinecontest" target="_blank" style="font-family: Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; display: block; width: 100%">
+                                <#if oldPhase != "FINAL">
+                                    Select Now
+                                <#else>
+                                    Evaluate Now
+                                </#if></a>
                             </td>
                           </tr>
                         </table>
@@ -230,6 +244,7 @@
                         <img height="30px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
                       </td>
                     </tr>
+                    <#if oldPhase != "FINAL">
                     <tr>
                       <td width="100%" style="font-size: 14px; line-hight: 16px; padding: 5px 10px; -webkit-border-radius:3px; border-radius:3px; text-align: left; font-weight: 700">Tips for you:</td>
                     </tr>
@@ -330,7 +345,83 @@
                         </table>
                       </td>
                     </tr>
+                    <#else>
+                        <tr>
+                            <td style="padding: 15px; background: #f5f8fa; border-radius: 15px;">
+                                <h1 style="font-family:Arial, sans-serif; font-size: 24px; color:#277cbd;text-align: center;margin:40px 0 25px 0">Tips for you:</h1>
+                                <table cellpadding="0" cellspacing="0" style="border-collapse: collapse;" width="100%" border="0">
+                                    <tbody><tr>
+                                        <td style="text-align: right; padding-right:20px;font-family:Arial, sans-serif; font-size: 14px;">
+                                            <h2 style="font-size: 18px;margin: 0 0 10px 0 ; color: #424242;font-weight: normal;">
 
+                                                1. Setup your own judging criteria for the challenge:</h2> &#8203;
+                                            <p style="font-size: 14px;color:#616161; margin:0">
+                                                Click on the tab <a href="#" style="color:#277cbd;font-weight: bold;font-size: 14px; text-decoration: none; border-color:#277cbd;" target="_blank">Evaluation Criteria</a> to define your criteria.
+                                            </p>
+                                            &#8203;
+                                        </td>
+                                        <td>
+                                            <img src="${webBaseUrl}images/criteria.png" width="300">
+                                        </td>
+                                    </tr>
+                                    </tbody></table>
+                                <p style="text-align:center">
+                                    <img src="http://images.vietnamworks.com/img/email_divider.png" width="255" height="3">
+                                </p>
+                                <table cellpadding="0" cellspacing="0" style="border-collapse: collapse;" width="100%" border="0">
+                                    <tbody><tr>
+                                        <td style="width: 170px;">
+                                            &#8203;
+                                            <img src="${webBaseUrl}images/score-criteria.png" width="300"> &#8203;
+                                        </td>
+                                        <td style="padding-left: 20px">
+                                            <h2 style="font-family:Arial, sans-serif;font-size: 18px;margin: 0 0 10px 0 ; color: #424242;font-weight: normal;">
+
+                                                2. Score a contestant per each criteria:</h2>
+                                            <p style="font-family:Arial, sans-serif;margin: 0 0 25px 0; font-size:14px; color:#666;line-height: 18px;text-align: left;">
+                                                Click on the score <a href="#" style="color:#277cbd;font-weight: bold;font-size: 14px; text-decoration: none; border-color:#277cbd;" target="_blank">0.0</a> in Score column to score contestants.
+                                            </p>
+                                        </td>
+                                    </tr>
+                                    </tbody></table>
+                                <p style="text-align:center">
+                                    <img src="http://images.vietnamworks.com/img/email_divider.png" width="255" height="3">
+                                </p>
+                                <table cellpadding="0" cellspacing="0" style="border-collapse: collapse;" width="100%" border="0">
+                                    <tbody><tr>
+                                        <td style="text-align: right;padding-right: 20px;">
+                                            <h2 style="font-family:Arial, sans-serif;font-size: 18px;margin: 0 0 10px 0 ; color: #424242;font-weight: normal;">3. Select winner(s) for each challenge prize:</h2>
+                                            <p style="font-family:Arial, sans-serif;margin: 0 0 25px 0; font-size:14px; color:#666;line-height: 18px;text-align: right;">
+                                                Tick on the checkbox to select who is the winner for each prize.
+                                            </p>
+                                        </td>
+                                        <td style="width: 213px;">
+                                            <img src="${webBaseUrl}images/select-winner.png" width="300">
+                                        </td>
+                                    </tr>
+                                    </tbody></table>
+                                <p style="text-align:center">
+                                    <img src="http://images.vietnamworks.com/img/email_divider.png" width="255" height="3">
+                                </p>
+                                <table cellpadding="0" cellspacing="0" style="border-collapse: collapse;" width="100%" border="0">
+                                    <tbody><tr>
+                                        <td style="width: 170px;">
+                                            &#8203;
+                                            <img src="${webBaseUrl}images/announce-winner.png" width="300"> &#8203;
+                                        </td>
+                                        <td style="padding-left: 20px">
+                                            <h2 style="font-family:Arial, sans-serif;font-size: 18px;margin: 0 0 10px 0 ; color: #424242;font-weight: normal;">4. Announce winner(s):</h2>
+                                            <p style="font-family:Arial, sans-serif;margin: 0 0 25px 0; font-size:14px; color:#666;line-height: 18px;text-align: left;">
+                                                Click on <a href="#" style="color:#fff;background:#277cbd;font-size: 12px;text-decoration: none; border-color:#277cbd; border-width:5px 12px; border-style:solid;border-radius:3px; display:inline-block;" target="_blank">Announce winners to all contestants</a> to announce winner(s) to all contestants in predefined template.
+                                            </p>
+                                        </td>
+                                    </tr>
+                                    </tbody></table>
+                                <br>
+                                <br>
+                            </td>
+                        </tr>
+                    </#if>
                   </table>
                 </td>
               </tr>

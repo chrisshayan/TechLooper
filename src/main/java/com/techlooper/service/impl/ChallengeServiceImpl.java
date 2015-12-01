@@ -296,9 +296,14 @@ public class ChallengeServiceImpl implements ChallengeService {
 
         ChallengePhaseEnum phase = challengeFilterCondition.getPhase();
         if (phase != null) {
-            RangeFilterBuilder fromFilter = rangeFilter(phase.getFromDateTimeField()).lt("now/d");
-            RangeFilterBuilder toFilter = rangeFilter(phase.getToDateTimeField()).gte("now/d");
-            boolFilterBuilder.must(fromFilter).must(toFilter);
+            if (StringUtils.isNotEmpty(phase.getFromDateTimeField())) {
+                RangeFilterBuilder fromFilter = rangeFilter(phase.getFromDateTimeField()).lt("now/d");
+                boolFilterBuilder.must(fromFilter);
+            }
+            if (StringUtils.isNotEmpty(phase.getToDateTimeField())) {
+                RangeFilterBuilder toFilter = rangeFilter(phase.getToDateTimeField()).gte("now/d");
+                boolFilterBuilder.must(toFilter);
+            }
         }
 
         searchQueryBuilder.withQuery(filteredQuery(boolQueryBuilder, boolFilterBuilder));
