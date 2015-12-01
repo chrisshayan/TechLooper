@@ -5,14 +5,14 @@ package com.techlooper.model;
  */
 public enum RewardEnum {
 
-  FIRST_PLACE("1st place"),
-  SECOND_PLACE("2nd place"),
-  THIRD_PLACE("3rd place");
+    FIRST_PLACE("1st place"),
+    SECOND_PLACE("2nd place"),
+    THIRD_PLACE("3rd place");
 
-  private String value;
+    private String value;
 
-  RewardEnum(String value) {
-    this.value = value;
-  }
+    RewardEnum(String value) {
+        this.value = value;
+    }
 
 }

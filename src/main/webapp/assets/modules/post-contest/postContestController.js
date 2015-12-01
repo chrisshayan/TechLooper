@@ -120,6 +120,7 @@ techlooper.controller("postContestController", function ($scope, $http, jsonValu
         $http.post("challenge/publish", request)
           .then(function (response) {
             var title = utils.toAscii($scope.contest.challengeName);
+            localStorage.postedChallenge = "justPosted";
             $location.url(sprintf("/challenge-detail/%s-%s-id", title, response.data.challengeId));
           })
           .finally(function () {

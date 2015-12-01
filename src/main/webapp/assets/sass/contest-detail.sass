@@ -4,6 +4,12 @@
   width: 100%
   text-align: center
   padding-bottom: 20px
+  .post-challenge-success
+    width: 100%
+    max-width: 1000px
+    display: inline-block
+    margin: auto auto 20px auto
+    clear: both
   .modal-dialog
     top: 10%
   .modal-body
@@ -376,7 +382,7 @@
                 width: 100%
               span.unreadFilter
                 background-color: #333
-                padding: 2px 10px
+                padding: 5px 10px
                 width: auto
                 color: #fff
                 border-radius: 3px
@@ -424,7 +430,7 @@
               padding: 10px
               i
                 padding-right: 5px
-                color: #930909
+                color: #333
               i.not-started,
               i.closed,
               i.registration,
@@ -450,6 +456,19 @@
                 background-color: #257abb
               i.closed
                 background-color: #e6e6e6
+              .contestant-name
+                clear: both
+                display: inline-block
+                width: 100%
+                cursor: pointer
+              .search-by-name
+                clear: both
+                display: inline-block
+                width: 100%
+                font-weight: 300
+                input
+                  height: 30px
+                  line-height: 30px
             .prize-col
               width: 16%
               float: left
@@ -463,8 +482,8 @@
                 span
                   width: 100%
                   text-align: center
-                  height: 20px
-                  line-height: 20px
+                  height: 30px
+                  line-height: 30px
                   display: inline-block
                   color: #fff
                   padding: 0 2px
@@ -485,7 +504,7 @@
               width: 15%
               float: left
               text-align: center
-              padding: 10px
+              padding: 10px 5px
               cursor: pointer
             .registration-score
               width: 14%
@@ -1321,6 +1340,10 @@
               button.disabled
                 background-color: gray !important
                 cursor: not-allowed
+          .search-contestant-name
+            display: none
+            width: 100%
+            clear: both
           .qualify-all-to-next-phase
             clear: both
             display: inline-block

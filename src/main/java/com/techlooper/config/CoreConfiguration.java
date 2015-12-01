@@ -18,6 +18,7 @@ import com.techlooper.model.*;
 import com.techlooper.repository.JsonConfigRepository;
 import freemarker.template.Template;
 import freemarker.template.TemplateExceptionHandler;
+import freemarker.template.TemplateNotFoundException;
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
 import org.dozer.loader.api.BeanMappingBuilder;
@@ -38,7 +39,6 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.env.Environment;
 import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -49,11 +49,8 @@ import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import javax.annotation.Resource;
-import javax.mail.MessagingException;
-import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
 import java.nio.file.Paths;
 import java.security.GeneralSecurityException;
@@ -71,24 +68,6 @@ public class CoreConfiguration implements ApplicationContextAware {
 
     @Resource
     private Environment environment;
-
-    @Value("${mail.techlooper.form}")
-    private String mailTechlooperForm;
-
-    @Value("${mail.techlooper.reply_to}")
-    private String mailTechlooperReplyTo;
-
-    @Value("${mail.form}")
-    private String mailForm;
-
-    @Value("${mail.reply_to}")
-    private String mailReplyTo;
-
-    @Value("${mail.citibank.cc_promotion.to}")
-    private String mailCitibankCreditCardPromotionTo;
-
-    @Value("${mail.citibank.cc_promotion.subject}")
-    private String mailCitibankCreditCardPromotionSubject;
 
     @Value("classpath:vnwConfig.json")
     private org.springframework.core.io.Resource vnwConfigRes;
@@ -224,28 +203,12 @@ public class CoreConfiguration implements ApplicationContextAware {
     }
 
     @Bean
-    public SimpleMailMessage citibankCreditCardPromotionMailMessage() {
-        SimpleMailMessage mailMessage = new SimpleMailMessage();
-        mailMessage.setFrom(mailForm);
-        mailMessage.setTo(mailCitibankCreditCardPromotionTo);
-        mailMessage.setReplyTo(mailReplyTo);
-        mailMessage.setSubject(mailCitibankCreditCardPromotionSubject);
-        return mailMessage;
-    }
-
-    @Bean
     public freemarker.template.Configuration freemakerConfig() throws IOException, URISyntaxException {
         freemarker.template.Configuration cfg = new freemarker.template.Configuration(freemarker.template.Configuration.VERSION_2_3_22);
         cfg.setDirectoryForTemplateLoading(Paths.get(this.getClass().getClassLoader().getResource("/template").toURI()).toFile());
         cfg.setDefaultEncoding("UTF-8");
         cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
         return cfg;
-    }
-
-    @Bean
-    public Template citibankCreditCardPromotionTemplate(freemarker.template.Configuration freemakerConfig) throws IOException {
-        Template template = freemakerConfig.getTemplate("citibankCreditCardPromotion.ftl");
-        return template;
     }
 
     @Bean
@@ -257,217 +220,48 @@ public class CoreConfiguration implements ApplicationContextAware {
     }
 
     @Bean
-    public MimeMessage salaryReviewMailMessage(JavaMailSender mailSender) throws MessagingException, UnsupportedEncodingException {
-        MimeMessage mailMessage = mailSender.createMimeMessage();
-        mailMessage.setReplyTo(InternetAddress.parse(mailTechlooperReplyTo));
-        mailMessage.setFrom(new InternetAddress(mailTechlooperForm, "TechLooper", "UTF-8"));
-        return mailMessage;
+    public MimeMessage citibankCreditCardPromotionMailMessage(JavaMailSender mailSender) throws Exception {
+        return mailSender.createMimeMessage();
     }
 
     @Bean
-    public MimeMessage getPromotedMailMessage(JavaMailSender mailSender) throws MessagingException, UnsupportedEncodingException {
-        MimeMessage mailMessage = mailSender.createMimeMessage();
-        mailMessage.setReplyTo(InternetAddress.parse(mailTechlooperReplyTo));
-        mailMessage.setFrom(new InternetAddress(mailTechlooperForm, "TechLooper", "UTF-8"));
-        return mailMessage;
+    public MimeMessage salaryReviewMailMessage(JavaMailSender mailSender) {
+        return mailSender.createMimeMessage();
     }
 
     @Bean
-    public MimeMessage postChallengeMailMessage(JavaMailSender mailSender) throws MessagingException, UnsupportedEncodingException {
-        MimeMessage mailMessage = mailSender.createMimeMessage();
-        mailMessage.setReplyTo(InternetAddress.parse(mailTechlooperReplyTo));
-        mailMessage.setFrom(new InternetAddress(mailTechlooperForm, "TechLooper", "UTF-8"));
-        return mailMessage;
+    public MimeMessage getPromotedMailMessage(JavaMailSender mailSender) {
+        return mailSender.createMimeMessage();
     }
 
     @Bean
-    public MimeMessage applyJobMailMessage(JavaMailSender mailSender) throws MessagingException, UnsupportedEncodingException {
-        MimeMessage mailMessage = mailSender.createMimeMessage();
-        mailMessage.setFrom(new InternetAddress(mailTechlooperForm, "TechLooper", "UTF-8"));
-        return mailMessage;
+    public MimeMessage postChallengeMailMessage(JavaMailSender mailSender) {
+        return mailSender.createMimeMessage();
     }
 
     @Bean
-    public MimeMessage jobAlertMailMessage(JavaMailSender mailSender) throws MessagingException, UnsupportedEncodingException {
-        MimeMessage mailMessage = mailSender.createMimeMessage();
-        mailMessage.setReplyTo(InternetAddress.parse(mailTechlooperReplyTo));
-        mailMessage.setFrom(new InternetAddress(mailTechlooperForm, "TechLooper", "UTF-8"));
-        return mailMessage;
+    public MimeMessage applyJobMailMessage(JavaMailSender mailSender) {
+        return mailSender.createMimeMessage();
     }
 
     @Bean
-    public MimeMessage alertEventOrganiserMailMessage(JavaMailSender mailSender) throws MessagingException, UnsupportedEncodingException {
-        MimeMessage mailMessage = mailSender.createMimeMessage();
-        mailMessage.setFrom(new InternetAddress(mailTechlooperForm, "TechLooper", "UTF-8"));
-        return mailMessage;
+    public MimeMessage jobAlertMailMessage(JavaMailSender mailSender) {
+        return mailSender.createMimeMessage();
     }
 
     @Bean
-    public Template salaryReviewReportTemplateEn(freemarker.template.Configuration freemakerConfig) throws IOException {
-        Template template = freemakerConfig.getTemplate("salaryReviewReport.en.ftl");
-        return template;
+    public MimeMessage alertEventOrganiserMailMessage(JavaMailSender mailSender) {
+        return mailSender.createMimeMessage();
     }
 
     @Bean
-    public Template salaryReviewReportTemplateVi(freemarker.template.Configuration freemakerConfig) throws IOException {
-        Template template = freemakerConfig.getTemplate("salaryReviewReport.vi.ftl");
-        return template;
+    public MimeMessage fromTechlooperMailMessage(JavaMailSender mailSender) {
+        return mailSender.createMimeMessage();
     }
 
     @Bean
-    public Template getPromotedTemplateEn(freemarker.template.Configuration freemakerConfig) throws IOException {
-        Template template = freemakerConfig.getTemplate("getPromoted.en.ftl");
-        return template;
-    }
-
-    @Bean
-    public Template getPromotedTemplateVi(freemarker.template.Configuration freemakerConfig) throws IOException {
-        Template template = freemakerConfig.getTemplate("getPromoted.vi.ftl");
-        return template;
-    }
-
-    @Bean
-    public Template postChallengeMailTemplateEn(freemarker.template.Configuration freemakerConfig) throws IOException {
-        Template template = freemakerConfig.getTemplate("postChallenge.en.ftl");
-        return template;
-    }
-
-    @Bean
-    public Template notifyChallengeTimelineMailTemplateVi(freemarker.template.Configuration freemakerConfig) throws IOException {
-        Template template = freemakerConfig.getTemplate("notifyChallengeTimeline.vi.ftl");
-        return template;
-    }
-
-    @Bean
-    public Template notifyChallengeTimelineMailTemplateEn(freemarker.template.Configuration freemakerConfig) throws IOException {
-        Template template = freemakerConfig.getTemplate("notifyChallengeTimeline.en.ftl");
-        return template;
-    }
-
-    @Bean
-    public Template postChallengeUpdateMailTemplateEn(freemarker.template.Configuration freemakerConfig) throws IOException {
-        Template template = freemakerConfig.getTemplate("updateChallenge.en.ftl");
-        return template;
-    }
-
-    @Bean
-    public Template postChallengeMailTemplateVi(freemarker.template.Configuration freemakerConfig) throws IOException {
-        Template template = freemakerConfig.getTemplate("postChallenge.vi.ftl");
-        return template;
-    }
-
-    @Bean
-    public Template confirmUserJoinChallengeMailTemplateEn(freemarker.template.Configuration freemakerConfig) throws IOException {
-        Template template = freemakerConfig.getTemplate("confirmUserJoinChallenge.en.ftl");
-        return template;
-    }
-
-    @Bean
-    public Template confirmUserJoinChallengeMailTemplateVi(freemarker.template.Configuration freemakerConfig) throws IOException {
-        Template template = freemakerConfig.getTemplate("confirmUserJoinChallenge.vi.ftl");
-        return template;
-    }
-
-    @Bean
-    public Template alertEmployerChallengeMailTemplateEn(freemarker.template.Configuration freemakerConfig) throws IOException {
-        Template template = freemakerConfig.getTemplate("alertEmployerChallenge.en.ftl");
-        return template;
-    }
-
-    @Bean
-    public Template alertEmployerChallengeMailTemplateVi(freemarker.template.Configuration freemakerConfig) throws IOException {
-        Template template = freemakerConfig.getTemplate("alertEmployerChallenge.vi.ftl");
-        return template;
-    }
-
-    @Bean
-    public Template alertJobSeekerApplyJobMailTemplateEn(freemarker.template.Configuration freemakerConfig) throws IOException {
-        Template template = freemakerConfig.getTemplate("alertJobSeekerApplyJob.en.ftl");
-        return template;
-    }
-
-    @Bean
-    public Template alertJobSeekerApplyJobMailTemplateVi(freemarker.template.Configuration freemakerConfig) throws IOException {
-        Template template = freemakerConfig.getTemplate("alertJobSeekerApplyJob.vi.ftl");
-        return template;
-    }
-
-    @Bean
-    public Template alertEmployerApplyJobMailTemplateEn(freemarker.template.Configuration freemakerConfig) throws IOException {
-        Template template = freemakerConfig.getTemplate("alertEmployerApplyJob.en.ftl");
-        return template;
-    }
-
-    @Bean
-    public Template alertEmployerApplyJobMailTemplateVi(freemarker.template.Configuration freemakerConfig) throws IOException {
-        Template template = freemakerConfig.getTemplate("alertEmployerApplyJob.vi.ftl");
-        return template;
-    }
-
-    @Bean
-    public Template alertEmployerPostJobMailTemplateVi(freemarker.template.Configuration freemakerConfig) throws IOException {
-        Template template = freemakerConfig.getTemplate("alertEmployerPostJob.vi.ftl");
-        return template;
-    }
-
-    @Bean
-    public Template alertEmployerPostJobMailTemplateEn(freemarker.template.Configuration freemakerConfig) throws IOException {
-        Template template = freemakerConfig.getTemplate("alertEmployerPostJob.en.ftl");
-        return template;
-    }
-
-    @Bean
-    public Template alertTechloopiesPostJobMailTemplateEn(freemarker.template.Configuration freemakerConfig) throws IOException {
-        Template template = freemakerConfig.getTemplate("alertTechloopiesApplyJob.en.ftl");
-        return template;
-    }
-
-    @Bean
-    public Template jobAlertMailTemplateEn(freemarker.template.Configuration freemakerConfig) throws IOException {
-        Template template = freemakerConfig.getTemplate("jobAlert.en.ftl");
-        return template;
-    }
-
-    @Bean
-    public Template jobAlertMailTemplateVi(freemarker.template.Configuration freemakerConfig) throws IOException {
-        Template template = freemakerConfig.getTemplate("jobAlert.vi.ftl");
-        return template;
-    }
-
-    @Bean
-    public Template alertEventOrganiserMailTemplateEn(freemarker.template.Configuration freemakerConfig) throws IOException {
-        Template template = freemakerConfig.getTemplate("webinar.en.ftl");
-        return template;
-    }
-
-    @Bean
-    public Template alertEventOrganiserMailTemplateVi(freemarker.template.Configuration freemakerConfig) throws IOException {
-        Template template = freemakerConfig.getTemplate("webinar.vi.ftl");
-        return template;
-    }
-
-    @Bean
-    public Template onBoardingMailTemplateEn(freemarker.template.Configuration freemakerConfig) throws IOException {
-        Template template = freemakerConfig.getTemplate("onboarding.en.ftl");
-        return template;
-    }
-
-    @Bean
-    public Template onBoardingMailTemplateVi(freemarker.template.Configuration freemakerConfig) throws IOException {
-        Template template = freemakerConfig.getTemplate("onboarding.vi.ftl");
-        return template;
-    }
-
-    @Bean
-    public Template dailyChallengeSummaryMailTemplateEn(freemarker.template.Configuration freemakerConfig) throws IOException {
-        Template template = freemakerConfig.getTemplate("challengeDailySummary.en.ftl");
-        return template;
-    }
-
-    @Bean
-    public Template dailyChallengeSummaryMailTemplateVi(freemarker.template.Configuration freemakerConfig) throws IOException {
-        Template template = freemakerConfig.getTemplate("challengeDailySummary.vi.ftl");
-        return template;
+    public MimeMessage confirmUserSubmissionMailMessage(JavaMailSender mailSender) {
+        return mailSender.createMimeMessage();
     }
 
     @Bean
@@ -507,14 +301,6 @@ public class CoreConfiguration implements ApplicationContextAware {
         this.applicationContext.getEnvironment().acceptsProfiles(environment.getProperty("spring.profiles.active"));
     }
 
-    @Bean
-    public MimeMessage fromTechlooperMailMessage(JavaMailSender mailSender) throws MessagingException, UnsupportedEncodingException {
-        MimeMessage mailMessage = mailSender.createMimeMessage();
-        mailMessage.setFrom(new InternetAddress(mailTechlooperForm, "TechLooper", "UTF-8"));
-        mailMessage.setReplyTo(InternetAddress.parse(mailTechlooperReplyTo));
-        return mailMessage;
-    }
-
     private ClientHttpRequestFactory clientHttpRequestFactory() {
         HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory();
         factory.setReadTimeout(5000);
@@ -523,15 +309,20 @@ public class CoreConfiguration implements ApplicationContextAware {
     }
 
     @Bean
-    public Template challengeEmployerMailTemplateEn(freemarker.template.Configuration freemakerConfig) throws IOException {
-        Template template = freemakerConfig.getTemplate("challengeEmployerEmail.en.ftl");
-        return template;
-    }
+    public Map<String, Template> mailTemplates(freemarker.template.Configuration freemakerConfig) throws IOException {
+        Map<String, Template> mailTemplates = new HashMap<>();
+        for (EmailTemplateNameEnum emailTemplateName : EmailTemplateNameEnum.values()) {
+            for (Language language : Language.values()) {
+                String localizedMailTemplateName = emailTemplateName + "_" + language.getValue();
+                try {
+                    Template template = freemakerConfig.getTemplate(localizedMailTemplateName + ".ftl");
+                    mailTemplates.put(localizedMailTemplateName, template);
+                } catch (TemplateNotFoundException ex) {
 
-    @Bean
-    public Template challengeEmployerMailTemplateVi(freemarker.template.Configuration freemakerConfig) throws IOException {
-        Template template = freemakerConfig.getTemplate("challengeEmployerEmail.vi.ftl");
-        return template;
+                }
+            }
+        }
+        return mailTemplates;
     }
 
     @Bean
@@ -555,39 +346,8 @@ public class CoreConfiguration implements ApplicationContextAware {
     }
 
     @Bean
-    public MimeMessage confirmUserSubmissionMailMessage(JavaMailSender mailSender) throws MessagingException, UnsupportedEncodingException {
-        MimeMessage mailMessage = mailSender.createMimeMessage();
-        mailMessage.setFrom(new InternetAddress(mailTechlooperForm, "TechLooper", "UTF-8"));
-        return mailMessage;
-    }
-
-    @Bean
-    public Template confirmUserSubmissionMailTemplateEn(freemarker.template.Configuration freemakerConfig) throws IOException {
-        Template template = freemakerConfig.getTemplate("confirmUserSubmission.en.ftl");
-        return template;
-    }
-
-    @Bean
-    public Template confirmUserSubmissionMailTemplateVi(freemarker.template.Configuration freemakerConfig) throws IOException {
-        Template template = freemakerConfig.getTemplate("confirmUserSubmission.vi.ftl");
-        return template;
-    }
-
-    @Bean
     public ChallengeSubmissionNotifier challengeSubmissionNotifier() {
         return new ChallengeSubmissionNotifier();
-    }
-
-    @Bean
-    public Template notifyChallengeSubmissionMailTemplateEn(freemarker.template.Configuration freemakerConfig) throws IOException {
-        Template template = freemakerConfig.getTemplate("notifyChallengeSubmission.en.ftl");
-        return template;
-    }
-
-    @Bean
-    public Template notifyChallengeSubmissionMailTemplateVi(freemarker.template.Configuration freemakerConfig) throws IOException {
-        Template template = freemakerConfig.getTemplate("notifyChallengeSubmission.vi.ftl");
-        return template;
     }
 
     @Bean
@@ -595,15 +355,4 @@ public class CoreConfiguration implements ApplicationContextAware {
         return new ChallengePhaseClosedNotifier();
     }
 
-    @Bean
-    public Template notifyChallengePhaseClosedMailTemplateEn(freemarker.template.Configuration freemakerConfig) throws IOException {
-        Template template = freemakerConfig.getTemplate("notifyChallengePhaseClosed.en.ftl");
-        return template;
-    }
-
-    @Bean
-    public Template notifyChallengePhaseClosedMailTemplateVi(freemarker.template.Configuration freemakerConfig) throws IOException {
-        Template template = freemakerConfig.getTemplate("notifyChallengePhaseClosed.vi.ftl");
-        return template;
-    }
 }

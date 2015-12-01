@@ -3,7 +3,7 @@
   <div class="announcement-winner">
     <button translate="announceWinnerToAllContestants" class="btn btn-primary btn-flat"
             ng-class="{disabled: !contestDetail.winners.length}"
-            ng-disabled="!contestDetail.winners.length"
+            ng-disabled="!contestDetail.winners.length" ng-click="announcementWinner()"
             data-toggle="modal" data-target="#emailCompose"></button>
   </div>
 </div>
@@ -53,21 +53,24 @@
       </th>
     </tr>
     </thead>
-  <tbody>
+  <tbody data-ng-init="currentPage = 1">
   <tr ng-show="contestDetail.$filter.registrants.length == 0" class="no-data-found">
     <td>
       <p translate="noData"></p>
     </td>
   </tr>
-  <tr dir-paginate="registrant in contestDetail.$filter.registrants | itemsPerPage:10" pagination-id="contestDetail.selectedPhaseItem.phase">
+  <tr dir-paginate="registrant in contestDetail.$filter.registrants | itemsPerPage:10"
+      pagination-id="contestDetail.selectedPhaseItem.phase" current-page="currentPage" on-finish-render="scrollTop">
       <td>
         <div class="registrants-challenge-list">
           <div class="registrant-order">
             <div class="label-col">#</div>
-            {{registrant.$index + 1}}</div>
+            {{($index + 1) + (currentPage - 1) * 10}}
+          </div>
           <div class="registrant-name">
             <div class="label-col" translate="fullNameField"></div>
-            {{registrant.fullName}}</div>
+            {{registrant.fullName}}
+          </div>
           <div class="prize-col">
             <div class="label-col" translate="prize"></div>
             <div class="prize"

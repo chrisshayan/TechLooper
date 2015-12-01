@@ -5,10 +5,8 @@ import com.techlooper.dto.ChallengeWinnerDto;
 import com.techlooper.dto.RejectRegistrantDto;
 import com.techlooper.entity.ChallengeRegistrantDto;
 import com.techlooper.entity.ChallengeRegistrantEntity;
-import com.techlooper.entity.ChallengeSubmissionEntity;
 import com.techlooper.model.*;
 
-import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;

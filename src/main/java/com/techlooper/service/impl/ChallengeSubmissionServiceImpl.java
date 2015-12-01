@@ -9,9 +9,9 @@ import com.techlooper.repository.elasticsearch.ChallengeSubmissionRepository;
 import com.techlooper.service.ChallengeRegistrantService;
 import com.techlooper.service.ChallengeService;
 import com.techlooper.service.ChallengeSubmissionService;
+import com.techlooper.service.EmailService;
 import com.techlooper.util.DataUtils;
 import com.techlooper.util.DateTimeUtils;
-import freemarker.template.Template;
 import org.dozer.Mapper;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.search.SearchType;
@@ -24,21 +24,13 @@ import org.elasticsearch.search.aggregations.Aggregations;
 import org.elasticsearch.search.aggregations.bucket.filter.Filter;
 import org.elasticsearch.search.aggregations.bucket.terms.Terms;
 import org.elasticsearch.search.sort.SortOrder;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import javax.mail.Address;
-import javax.mail.Message;
-import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeUtility;
-import java.io.StringWriter;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -55,8 +47,6 @@ import static org.elasticsearch.search.sort.SortBuilders.fieldSort;
  */
 @Service
 public class ChallengeSubmissionServiceImpl implements ChallengeSubmissionService {
-
-    private final static Logger LOGGER = LoggerFactory.getLogger(ChallengeSubmissionServiceImpl.class);
 
     @Resource
     private ChallengeService challengeService;
@@ -75,18 +65,6 @@ public class ChallengeSubmissionServiceImpl implements ChallengeSubmissionServic
 
     private final List<ChallengePhaseEnum> CHALLENGE_PHASES = Arrays.asList(REGISTRATION, IDEA, UIUX, PROTOTYPE, FINAL);
 
-    @Value("${mail.confirmUserSubmission.subject.vi}")
-    private String confirmUserSubmissionMailSubjectVi;
-
-    @Value("${mail.confirmUserSubmission.subject.en}")
-    private String confirmUserSubmissionMailSubjectEn;
-
-    @Resource
-    private Template confirmUserSubmissionMailTemplateVi;
-
-    @Resource
-    private Template confirmUserSubmissionMailTemplateEn;
-
     @Resource
     private MimeMessage confirmUserSubmissionMailMessage;
 
@@ -94,10 +72,7 @@ public class ChallengeSubmissionServiceImpl implements ChallengeSubmissionServic
     private String webBaseUrl;
 
     @Resource
-    private JavaMailSender mailSender;
-
-    @Value("${mail.techlooper.reply_to}")
-    private String techlooperReplyTo;
+    private EmailService emailService;
 
     public ChallengeSubmissionEntity submitMyResult(ChallengeSubmissionDto challengeSubmissionDto) {
         final Long challengeId = challengeSubmissionDto.getChallengeId();
@@ -116,25 +91,27 @@ public class ChallengeSubmissionServiceImpl implements ChallengeSubmissionServic
                 .withSubmissionPhase(activePhase)
                 .withIsRead(Boolean.FALSE);
 
-        try {
-            sendConfirmationEmailToRegistrant(challenge, registrant, challengeSubmissionEntity);
-        } catch (Exception e) {
-            LOGGER.error(e.getMessage(), e);
-        }
+        sendConfirmationEmailToRegistrant(challenge, registrant, challengeSubmissionEntity);
         return challengeSubmissionRepository.save(challengeSubmissionEntity);
     }
 
-    private void sendConfirmationEmailToRegistrant(ChallengeEntity challenge,
-                                                   ChallengeRegistrantEntity registrant, ChallengeSubmissionEntity challengeSubmissionEntity) throws Exception {
-        String mailSubject = registrant.getLang() == Language.vi ? confirmUserSubmissionMailSubjectVi :
-                confirmUserSubmissionMailSubjectEn;
-        Address[] recipientAddresses = InternetAddress.parse(registrant.getRegistrantEmail());
-        Template template = registrant.getLang() == Language.vi ? confirmUserSubmissionMailTemplateVi :
-                confirmUserSubmissionMailTemplateEn;
-        confirmUserSubmissionMailMessage.setRecipients(Message.RecipientType.TO, recipientAddresses);
-        confirmUserSubmissionMailMessage.setReplyTo(InternetAddress.parse(techlooperReplyTo));
-        StringWriter stringWriter = new StringWriter();
+    private void sendConfirmationEmailToRegistrant(ChallengeEntity challenge, ChallengeRegistrantEntity registrant,
+                                                   ChallengeSubmissionEntity challengeSubmissionEntity) {
+        String recipientAddresses = registrant.getRegistrantEmail();
+        List<String> subjectVariableValues = Arrays.asList(challenge.getChallengeName());
 
+        EmailRequestModel emailRequestModel = new EmailRequestModel.Builder()
+                .withTemplateName(EmailTemplateNameEnum.CHALLENGE_CONFIRM_USER_SUBMISSION.name())
+                .withLanguage(registrant.getLang())
+                .withTemplateModel(buildConfirmSubmissionEmailTemplateModel(challenge, challengeSubmissionEntity))
+                .withMailMessage(confirmUserSubmissionMailMessage)
+                .withRecipientAddresses(recipientAddresses)
+                .withSubjectVariableValues(subjectVariableValues).build();
+        emailService.sendMail(emailRequestModel);
+    }
+
+    private Map<String, Object> buildConfirmSubmissionEmailTemplateModel(
+            ChallengeEntity challenge, ChallengeSubmissionEntity challengeSubmissionEntity) {
         Map<String, Object> templateModel = new HashMap<>();
         templateModel.put("webBaseUrl", webBaseUrl);
         templateModel.put("submissionUrl", challengeSubmissionEntity.getSubmissionURL());
@@ -142,15 +119,7 @@ public class ChallengeSubmissionServiceImpl implements ChallengeSubmissionServic
         templateModel.put("challengeId", String.valueOf(challenge.getChallengeId()));
         templateModel.put("challengeAlias", challenge.getChallengeName().replaceAll("\\W", "-"));
         templateModel.put("challengeName", challenge.getChallengeName());
-
-        template.process(templateModel, stringWriter);
-        mailSubject = String.format(mailSubject, challenge.getChallengeName());
-        confirmUserSubmissionMailMessage.setSubject(MimeUtility.encodeText(mailSubject, "UTF-8", null));
-        confirmUserSubmissionMailMessage.setText(stringWriter.toString(), "UTF-8", "html");
-
-        stringWriter.flush();
-        confirmUserSubmissionMailMessage.saveChanges();
-        mailSender.send(confirmUserSubmissionMailMessage);
+        return templateModel;
     }
 
     @Override

@@ -18,6 +18,8 @@ public class PersonalHomepageDto {
 
     private List<ProjectDto> latestProjects;
 
+    private List<Topic> latestTopics;
+
     private Set<JobResponse> latestJobs;
 
     private Long totalLatestJob;
@@ -68,5 +70,13 @@ public class PersonalHomepageDto {
 
     public void setTotalLatestJob(Long totalLatestJob) {
         this.totalLatestJob = totalLatestJob;
+    }
+
+    public List<Topic> getLatestTopics() {
+        return latestTopics;
+    }
+
+    public void setLatestTopics(List<Topic> latestTopics) {
+        this.latestTopics = latestTopics;
     }
 }

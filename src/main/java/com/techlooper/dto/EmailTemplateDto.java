@@ -20,6 +20,16 @@ public class EmailTemplateDto {
 
     private List<String> bodyVariables;
 
+    private List<String> replyToAddresses;
+
+    private List<String> recipientAddresses;
+
+    private String fromAddress;
+
+    private String titleEN;
+
+    private String titleVI;
+
     public Long getTemplateId() {
         return templateId;
     }
@@ -74,5 +84,45 @@ public class EmailTemplateDto {
 
     public void setBodyVariables(List<String> bodyVariables) {
         this.bodyVariables = bodyVariables;
+    }
+
+    public List<String> getReplyToAddresses() {
+        return replyToAddresses;
+    }
+
+    public void setReplyToAddresses(List<String> replyToAddresses) {
+        this.replyToAddresses = replyToAddresses;
+    }
+
+    public List<String> getRecipientAddresses() {
+        return recipientAddresses;
+    }
+
+    public void setRecipientAddresses(List<String> recipientAddresses) {
+        this.recipientAddresses = recipientAddresses;
+    }
+
+    public String getFromAddress() {
+        return fromAddress;
+    }
+
+    public void setFromAddress(String fromAddress) {
+        this.fromAddress = fromAddress;
+    }
+
+    public String getTitleEN() {
+        return titleEN;
+    }
+
+    public void setTitleEN(String titleEN) {
+        this.titleEN = titleEN;
+    }
+
+    public String getTitleVI() {
+        return titleVI;
+    }
+
+    public void setTitleVI(String titleVI) {
+        this.titleVI = titleVI;
     }
 }

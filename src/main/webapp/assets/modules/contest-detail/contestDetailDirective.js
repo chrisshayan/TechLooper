@@ -150,6 +150,7 @@ techlooper
       replace: true,
       templateUrl: "modules/contest-detail/contestContentDetails.html",
       link: function (scope, element, attr, ctrl) {
+
       }
     };
   })

@@ -16,11 +16,11 @@ public interface SalaryReviewService {
 
     List<SalaryReviewEntity> searchSalaryReview(SalaryReviewEntity salaryReviewEntity);
 
-    void sendSalaryReviewReportEmail(EmailRequest emailRequest) throws IOException, TemplateException, MessagingException;
+    void sendSalaryReviewReportEmail(EmailRequest emailRequest);
 
     void createVnwJobAlert(VnwJobAlertRequest vnwJobAlertRequest);
 
-    void sendTopDemandedSkillsEmail(long getPromotedId, GetPromotedEmailRequest emailRequest) throws MessagingException, IOException, TemplateException;
+    void sendTopDemandedSkillsEmail(long getPromotedId, GetPromotedEmailRequest emailRequest);
 
     long saveGetPromotedInformation(GetPromotedEmailRequest getPromotedEmailRequest);
 

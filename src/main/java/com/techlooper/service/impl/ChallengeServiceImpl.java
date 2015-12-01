@@ -10,9 +10,9 @@ import com.techlooper.model.ChallengeFilterCondition;
 import com.techlooper.model.ChallengePhaseEnum;
 import com.techlooper.repository.elasticsearch.ChallengeRegistrantRepository;
 import com.techlooper.repository.elasticsearch.ChallengeRepository;
+import com.techlooper.service.ChallengeEmailService;
 import com.techlooper.service.ChallengeRegistrantService;
 import com.techlooper.service.ChallengeService;
-import com.techlooper.service.EmailService;
 import com.techlooper.util.DataUtils;
 import com.techlooper.util.DateTimeUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -74,7 +74,7 @@ public class ChallengeServiceImpl implements ChallengeService {
     private ChallengeRegistrantService challengeRegistrantService;
 
     @Resource
-    private EmailService emailService;
+    private ChallengeEmailService challengeEmailService;
 
     @Override
     public ChallengeEntity postChallenge(ChallengeDto challengeDto) {
@@ -89,32 +89,26 @@ public class ChallengeServiceImpl implements ChallengeService {
 
     @Override
     public Long joinChallenge(ChallengeRegistrantDto challengeRegistrantDto) {
-        Long numberOfRegistrants = 0L;
         Long challengeId = challengeRegistrantDto.getChallengeId();
         boolean isExistRegistrant = checkIfRegistrantAlreadyExist(challengeId, challengeRegistrantDto.getRegistrantEmail());
 
-        if (!isExistRegistrant) {
-            ChallengeRegistrantEntity challengeRegistrantEntity = dozerMapper.map(challengeRegistrantDto, ChallengeRegistrantEntity.class);
-            ChallengeEntity challengeEntity = challengeRepository.findOne(challengeId);
-
-            challengeRegistrantEntity.setRegistrantId(DateTimeUtils.currentDateTime());
-            if (challengeEntity.getCriteria().size() > 0) {
-                final Set<ChallengeRegistrantCriteria> criteria = new HashSet<>();
-                challengeEntity.getCriteria().forEach(cri -> criteria.add(dozerMapper.map(cri, ChallengeRegistrantCriteria.class)));
-                challengeRegistrantEntity.setCriteria(criteria);
-            }
-
-            try {
-                challengeRegistrantEntity = challengeRegistrantRepository.save(challengeRegistrantEntity);
-                emailService.sendApplicationEmailToContestant(challengeEntity, challengeRegistrantEntity);
-                challengeRegistrantEntity.setMailSent(Boolean.TRUE);
-                numberOfRegistrants = challengeRegistrantService.getNumberOfRegistrants(challengeId);
-            } catch (Exception ex) {
-                LOGGER.error(ex.getMessage(), ex);
-            }
+        if (isExistRegistrant) {
+            return 0L;
         }
 
-        return numberOfRegistrants;
+        ChallengeRegistrantEntity challengeRegistrantEntity = dozerMapper.map(challengeRegistrantDto, ChallengeRegistrantEntity.class);
+        ChallengeEntity challengeEntity = challengeRepository.findOne(challengeId);
+        challengeRegistrantEntity.setRegistrantId(DateTimeUtils.currentDateTime());
+        if (challengeEntity.getCriteria().size() > 0) {
+            final Set<ChallengeRegistrantCriteria> criteria = new HashSet<>();
+            challengeEntity.getCriteria().forEach(cri -> criteria.add(dozerMapper.map(cri, ChallengeRegistrantCriteria.class)));
+            challengeRegistrantEntity.setCriteria(criteria);
+        }
+
+        challengeRegistrantEntity = challengeRegistrantRepository.save(challengeRegistrantEntity);
+        challengeEmailService.sendApplicationEmailToContestant(challengeEntity, challengeRegistrantEntity);
+        challengeRegistrantEntity.setMailSent(Boolean.TRUE);
+        return challengeRegistrantService.getNumberOfRegistrants(challengeId);
     }
 
     @Override

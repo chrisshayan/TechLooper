@@ -1,7 +1,6 @@
 <div class="qualify-block">
   <div class="qualify-form">
     <p translate="acceptDescription" ng-show="registrant.remainingPhaseItems.length == 1"
-       translate-value-current="{{registrant.activePhaseLowerCase | translate}}"
        translate-value-next="{{registrant.remainingPhaseItems[0].phaseLowerCase | translate}}"></p>
 
     <p translate="qualifyToNextPhaseConfirm"
@@ -9,7 +8,8 @@
        ng-show="registrant.remainingPhaseItems.length > 1"></p>
 
     <p translate="cannotQualifyNextPhase"
-       translate-value-active-challenge="{{registrant.activePhaseLowerCase | translate}}"
+       translate-value-next-phase="{{challenge.$afterNextPhaseItem.phaseLowerCase | translate}}"
+       translate-value-end-date-phase="{{challenge.$currentPhaseEndDay}}"
        ng-show="registrant.remainingPhaseItems.length == 0"></p>
 
     <div class="selection-next-phase" ng-show="registrant.remainingPhaseItems.length > 1">

@@ -25,6 +25,11 @@ public class DateTimeUtils {
         return formatter.parse(datetime);
     }
 
+    public static String date2String(Date datetime, String pattern) {
+        SimpleDateFormat formatter = new SimpleDateFormat(pattern);
+        return formatter.format(datetime);
+    }
+
     public static String currentDate() {
         SimpleDateFormat formatter = new SimpleDateFormat(BASIC_DATE_PATTERN);
         return formatter.format(new Date());

@@ -125,6 +125,7 @@ techlooper.controller('employerDashboardController', function ($scope, jsonValue
   };
 
   $scope.goToChallengeDetails = function (challenge) {
-    $location.url("challenge-detail/-" + challenge.challengeId + "-id?a=registrants");
+    var challengeName = utils.toAscii(challenge.challengeName);
+    $location.url("challenge-detail/"+ challengeName +"-" + challenge.challengeId + "-id?a=registrants");
   }
 });

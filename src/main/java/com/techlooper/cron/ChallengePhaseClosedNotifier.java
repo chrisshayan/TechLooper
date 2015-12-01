@@ -4,9 +4,8 @@ import com.techlooper.entity.ChallengeEntity;
 import com.techlooper.model.ChallengePhaseEnum;
 import com.techlooper.model.EmailSentResultEnum;
 import com.techlooper.repository.elasticsearch.ChallengeRepository;
+import com.techlooper.service.ChallengeEmailService;
 import com.techlooper.service.ChallengeService;
-import com.techlooper.service.EmailService;
-import com.techlooper.util.DataUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,7 +34,7 @@ public class ChallengePhaseClosedNotifier {
     private Boolean enableJobAlert;
 
     @Resource
-    private EmailService emailService;
+    private ChallengeEmailService challengeEmailService;
 
     @Scheduled(cron = "${scheduled.cron.notifyChallengePhaseClosed}")
     public synchronized void notifyChallengePhaseClosed() throws Exception {
@@ -46,7 +45,7 @@ public class ChallengePhaseClosedNotifier {
             for (ChallengePhaseEnum currentPhase : challengePhases) {
                 List<ChallengeEntity> challengeEntities = challengeService.findChallengeByPhase(currentPhase);
 
-                Thread.sleep(DataUtils.getRandomNumberInRange(300000, 600000));
+                //Thread.sleep(DataUtils.getRandomNumberInRange(300000, 600000));
                 for (ChallengeEntity challengeEntity : challengeEntities) {
                     challengeEntity = challengeRepository.findOne(challengeEntity.getChallengeId());
                     ChallengePhaseEnum oldPhase = getPreviousPhase(challengeEntity, currentPhase);
@@ -59,12 +58,12 @@ public class ChallengePhaseClosedNotifier {
                         Date currentDate = new Date();
                         if (daysBetween(lastSentDate, currentDate) > 0) {
                             try {
-                                emailService.sendEmailNotifyEmployerWhenPhaseClosed(challengeEntity, currentPhase, oldPhase);
-                                emailService.updateSendEmailToChallengeOwnerResultCode(challengeEntity, EmailSentResultEnum.OK);
+                                challengeEmailService.sendEmailNotifyEmployerWhenPhaseClosed(challengeEntity, currentPhase, oldPhase);
+                                challengeEmailService.updateSendEmailToChallengeOwnerResultCode(challengeEntity, EmailSentResultEnum.OK);
                                 count++;
                             } catch (Exception ex) {
                                 LOGGER.error(ex.getMessage(), ex);
-                                emailService.updateSendEmailToChallengeOwnerResultCode(challengeEntity, EmailSentResultEnum.ERROR);
+                                challengeEmailService.updateSendEmailToChallengeOwnerResultCode(challengeEntity, EmailSentResultEnum.ERROR);
                             }
                         }
                     }

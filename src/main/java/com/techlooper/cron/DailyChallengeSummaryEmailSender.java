@@ -4,9 +4,8 @@ import com.techlooper.entity.ChallengeEntity;
 import com.techlooper.model.ChallengePhaseEnum;
 import com.techlooper.model.EmailSentResultEnum;
 import com.techlooper.repository.elasticsearch.ChallengeRepository;
+import com.techlooper.service.ChallengeEmailService;
 import com.techlooper.service.ChallengeService;
-import com.techlooper.service.EmailService;
-import com.techlooper.util.DataUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,7 +33,7 @@ public class DailyChallengeSummaryEmailSender {
     private ChallengeRepository challengeRepository;
 
     @Resource
-    private EmailService emailService;
+    private ChallengeEmailService challengeEmailService;
 
     @Scheduled(cron = "${scheduled.cron.dailyChallengeSummary}")
     public synchronized void sendDailyEmailAboutChallengeSummary() throws Exception {
@@ -45,7 +44,7 @@ public class DailyChallengeSummaryEmailSender {
             for (ChallengePhaseEnum challengePhase : challengePhases) {
                 List<ChallengeEntity> challengeEntities = challengeService.findChallengeByPhase(challengePhase);
 
-                Thread.sleep(DataUtils.getRandomNumberInRange(300000, 600000));
+                //Thread.sleep(DataUtils.getRandomNumberInRange(300000, 600000));
                 for (ChallengeEntity challengeEntity : challengeEntities) {
                     challengeEntity = challengeRepository.findOne(challengeEntity.getChallengeId());
                     try {
@@ -56,12 +55,12 @@ public class DailyChallengeSummaryEmailSender {
                         Date lastSentDate = string2Date(challengeEntity.getLastEmailSentDateTime(), BASIC_DATE_TIME_PATTERN);
                         Date currentDate = new Date();
                         if (daysBetween(lastSentDate, currentDate) > 0) {
-                            emailService.sendDailySummaryEmailToChallengeOwner(challengeEntity);
-                            emailService.updateSendEmailToChallengeOwnerResultCode(challengeEntity, EmailSentResultEnum.OK);
+                            challengeEmailService.sendDailySummaryEmailToChallengeOwner(challengeEntity);
+                            challengeEmailService.updateSendEmailToChallengeOwnerResultCode(challengeEntity, EmailSentResultEnum.OK);
                             count++;
                         }
                     } catch (Exception ex) {
-                        emailService.updateSendEmailToChallengeOwnerResultCode(challengeEntity, EmailSentResultEnum.ERROR);
+                        challengeEmailService.updateSendEmailToChallengeOwnerResultCode(challengeEntity, EmailSentResultEnum.ERROR);
                         LOGGER.error(ex.getMessage(), ex);
                     }
                 }

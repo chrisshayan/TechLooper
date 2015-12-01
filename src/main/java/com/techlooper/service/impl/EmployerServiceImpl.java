@@ -47,16 +47,15 @@ public class EmployerServiceImpl implements EmployerService {
     @Resource
     private Mapper dozerMapper;
 
-    @Value("${mail.techlooper.reply_to}")
-    private String mailTechlooperReplyTo;
+    @Value("${mail.techlooper.replyTo}")
+    private String replyToMailAddress;
 
     public DashBoardInfo getDashboardInfo(String owner) {
         VnwUser user = vnwUserRepo.findByUsernameIgnoreCase(owner);
         String email = user.getEmail();
         return DashBoardInfo.DashBoardInfoBuilder.dashBoardInfo()
-                .withProjects(projectService.findByOwner(email))
+                .withProjects(projectService.findProjectByOwner(email))
                 .withChallenges(challengeService.findChallengeByOwner(email))
-//      .withChallenges(challengeService.findInProgressChallenges(email))
                 .build();
     }
 
@@ -85,7 +84,7 @@ public class EmployerServiceImpl implements EmployerService {
             emailSettingDto = dozerMapper.map(emailSettingEntity, EmailSettingDto.class);
         } else {
             emailSettingDto.setEmployerEmail(employerEmail);
-            emailSettingDto.setReplyEmail(mailTechlooperReplyTo);
+            emailSettingDto.setReplyEmail(replyToMailAddress);
             EmployerDto employerDto = companyService.findByUserName(employerEmail);
             if (employerDto != null) {
                 StringBuilder emailSignatureBuilder = new StringBuilder("");

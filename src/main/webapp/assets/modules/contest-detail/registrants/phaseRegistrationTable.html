@@ -7,6 +7,9 @@
       <i class="fa fa-thumbs-up"></i> {{'qualifyAllToNextPhase' | translate}}</button>
   </div>
 </div>
+<div class="search-contestant-name">
+  <input ng-model="search.registrant.fullName" class="form-control text-search-name" placeholder="{{'searchContestantName' | translate}}">
+</div>
 <div class="participant-list">
   <table class="contests-table">
     <thead>
@@ -14,7 +17,15 @@
       <th>
         <div class="registrants-challenge-list">
           <div class="registrant-order">#</div>
-          <div class="registrant-name" translate="fullNameField"></div>
+          <div class="registrant-name">
+            <div class="contestant-name">
+              {{'fullNameField' | translate}}
+              <i class="fa fa-search"></i>
+            </div>
+            <div class="search-by-name">
+              <input ng-model="search.registrant.fullName" class="form-control text-search-name" placeholder="{{'searchContestantName' | translate}}">
+            </div>
+          </div>
           <div class="registration-date" ng-click="contestDetail.$sort.byRegistrationDate()">
             {{'registrationDate' | translate}}
             <i class="fa fa-chevron-circle-up" ng-show="contestDetail.$sort.type.isRegistrationDateTypeAsc == true"></i>
@@ -41,19 +52,19 @@
       </th>
     </tr>
     </thead>
-    <tbody>
+    <tbody data-ng-init="currentPage = 1">
     <tr ng-show="contestDetail.$filter.registrants.length == 0" class="no-data-found">
       <td>
         <p translate="noData"></p>
       </td>
     </tr>
-    <tr dir-paginate="registrant in contestDetail.$filter.registrants | itemsPerPage:10"
-        pagination-id="contestDetail.selectedPhaseItem.phase">
+    <tr dir-paginate="registrant in contestDetail.$filter.registrants | filter: search.registrant.fullName | itemsPerPage:10"
+        pagination-id="contestDetail.selectedPhaseItem.phase" current-page="currentPage" on-finish-render="scrollTop">
       <td>
         <div class="registrants-challenge-list">
           <div class="registrant-order">
             <div class="label-col">#</div>
-            {{registrant.$index + 1}}
+            {{($index + 1) + (currentPage - 1) * 10}}
           </div>
           <div class="registrant-name">
             <div class="label-col" translate="fullNameField"></div>

@@ -2,58 +2,59 @@ package com.techlooper.service.impl;
 
 import com.techlooper.entity.SalaryReviewEntity;
 import com.techlooper.model.CitibankCreditCardPromotion;
+import com.techlooper.model.EmailRequestModel;
+import com.techlooper.model.EmailTemplateNameEnum;
+import com.techlooper.model.Language;
 import com.techlooper.repository.elasticsearch.SalaryReviewRepository;
-import com.techlooper.service.CurrencyService;
+import com.techlooper.service.EmailService;
 import com.techlooper.service.PromotionService;
-import freemarker.template.Template;
-import freemarker.template.TemplateException;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.io.IOException;
-import java.io.StringWriter;
-import java.text.NumberFormat;
-import java.util.Locale;
+import javax.mail.internet.MimeMessage;
+import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by phuonghqh on 5/27/15.
- */
 @Service
 public class PromotionServiceImpl implements PromotionService {
 
-  @Resource
-  private JavaMailSender mailSender;
+    @Resource
+    private MimeMessage citibankCreditCardPromotionMailMessage;
 
-  @Resource
-  private SimpleMailMessage citibankCreditCardPromotionMailMessage;
+    @Resource
+    private SalaryReviewRepository salaryReviewRepository;
 
-  @Resource
-  private Template citibankCreditCardPromotionTemplate;
+    @Resource
+    private Map<Long, String> locationMap;
 
-  @Resource
-  private SalaryReviewRepository salaryReviewRepository;//USD_VND
+    @Resource
+    private EmailService emailService;
 
-  @Resource
-  private Map<Long, String> locationMap;
+    @Override
+    public void placePromotion(CitibankCreditCardPromotion citibankCreditCardPromotion) {
+        SalaryReviewEntity salaryReviewEntity = salaryReviewRepository.findOne(citibankCreditCardPromotion.getSalaryReviewId());
 
-  @Resource
-  private CurrencyService currencyService;
+        citibankCreditCardPromotion.setNetIncome(String.valueOf(salaryReviewEntity.getNetSalary()));
 
-  public void placePromotion(CitibankCreditCardPromotion citibankCreditCardPromotion) throws IOException, TemplateException {
-    SalaryReviewEntity salaryReviewEntity = salaryReviewRepository.findOne(citibankCreditCardPromotion.getSalaryReviewId());
+        String location = locationMap.get(salaryReviewEntity.getLocationId());
+        citibankCreditCardPromotion.setLocation(location);
 
-    Long netIncome = currencyService.usdToVndRate() * salaryReviewEntity.getNetSalary();
-    citibankCreditCardPromotion.setNetIncome("VND " + NumberFormat.getNumberInstance(Locale.US).format(netIncome));
+        EmailRequestModel emailRequestModel = new EmailRequestModel.Builder()
+                .withTemplateName(EmailTemplateNameEnum.CITIBANK_CREDIT_CARD_PROMOTION.name())
+                .withLanguage(Language.en)
+                .withTemplateModel(buildTemplateModel(citibankCreditCardPromotion))
+                .withMailMessage(citibankCreditCardPromotionMailMessage).build();
+        emailService.sendMail(emailRequestModel);
+    }
 
-    String location = locationMap.get(salaryReviewEntity.getLocationId());
-    citibankCreditCardPromotion.setLocation(location);
-    StringWriter stringWriter = new StringWriter();
-    citibankCreditCardPromotionTemplate.process(citibankCreditCardPromotion, stringWriter);
-    stringWriter.flush();
-    citibankCreditCardPromotionMailMessage.setText(stringWriter.toString());
-    mailSender.send(citibankCreditCardPromotionMailMessage);
-  }
+    private Map<String, Object> buildTemplateModel(CitibankCreditCardPromotion model) {
+        Map<String, Object> templateModel = new HashMap<>();
+        templateModel.put("fullName", model.getFullName());
+        templateModel.put("mobileNumber", model.getMobileNumber());
+        templateModel.put("email", model.getEmail());
+        templateModel.put("location", model.getLocation());
+        templateModel.put("netIncome", model.getNetIncome());
+        templateModel.put("paymentMethod", model.getPaymentMethod());
+        return templateModel;
+    }
 }
