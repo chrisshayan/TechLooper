@@ -15,6 +15,7 @@ import com.techlooper.service.ChallengeRegistrantService;
 import com.techlooper.service.ChallengeService;
 import com.techlooper.util.DataUtils;
 import com.techlooper.util.DateTimeUtils;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.dozer.Mapper;
 import org.elasticsearch.action.search.SearchResponse;
@@ -35,7 +36,6 @@ import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilde
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -149,7 +149,7 @@ public class ChallengeServiceImpl implements ChallengeService {
     public ChallengeDetailDto getTheLatestChallenge() {
         ChallengeDetailDto challengeDetailDto = new ChallengeDetailDto();
         List<ChallengeDetailDto> challenges = findChallenges();
-        if (!findChallenges().isEmpty()) {
+        if (CollectionUtils.isNotEmpty(challenges)) {
             return challenges.get(0);
         }
         return challengeDetailDto;
@@ -174,8 +174,8 @@ public class ChallengeServiceImpl implements ChallengeService {
 
     @Override
     public boolean deleteChallenge(Long challengeId, String ownerEmail) {
-        ChallengeEntity challenge = challengeRepository.findOne(challengeId);
-        if (challenge != null && challenge.getAuthorEmail().equalsIgnoreCase(ownerEmail)) {
+        if (isChallengeOwner(ownerEmail, challengeId)) {
+            ChallengeEntity challenge = challengeRepository.findOne(challengeId);
             challenge.setExpired(Boolean.TRUE);
             challengeRepository.save(challenge);
             return true;
@@ -205,7 +205,7 @@ public class ChallengeServiceImpl implements ChallengeService {
     @Override
     public ChallengeEntity findChallengeById(Long challengeId, String ownerEmail) {
         ChallengeEntity challenge = challengeRepository.findOne(challengeId);
-        if (challenge != null && challenge.getAuthorEmail().equalsIgnoreCase(ownerEmail)) {
+        if (isChallengeOwner(ownerEmail, challengeId)) {
             return challenge;
         }
         return null;
@@ -220,7 +220,7 @@ public class ChallengeServiceImpl implements ChallengeService {
         searchQueryBuilder.withQuery(boolQuery().must(challengeIdQuery).mustNot(expiredChallengeQuery));
         List<ChallengeEntity> challengeEntities = DataUtils.getAllEntities(challengeRepository, searchQueryBuilder);
 
-        if (!challengeEntities.isEmpty()) {
+        if (CollectionUtils.isNotEmpty(challengeEntities)) {
             ChallengeEntity challengeEntity = challengeEntities.get(0);
             ChallengeDetailDto challengeDetailDto = dozerMapper.map(challengeEntity, ChallengeDetailDto.class);
             challengeDetailDto.setNumberOfRegistrants(challengeRegistrantService.getNumberOfRegistrants(challengeId));
@@ -230,15 +230,10 @@ public class ChallengeServiceImpl implements ChallengeService {
             if (!isAuthor) {
                 challengeDetailDto.setCriteria(null);
             }
+
             challengeDetailDto.setPhaseItems(challengeRegistrantService.getChallengeRegistrantFunnel(challengeId, ownerEmail));
-
-            try {
-                Boolean isClosed = daysBetween(challengeDetailDto.getSubmissionDateTime(), currentDate()) > 0;
-                challengeDetailDto.setIsClosed(isClosed);
-            } catch (ParseException e) {
-                LOGGER.error(e.getMessage(), e);
-            }
-
+            Boolean isClosed = daysBetween(challengeDetailDto.getSubmissionDateTime(), currentDate()) > 0;
+            challengeDetailDto.setIsClosed(isClosed);
             return challengeDetailDto;
         }
         return null;
