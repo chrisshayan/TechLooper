@@ -268,8 +268,8 @@
                           </tr>
                           <tr>
                             <td width="100%" align="left">
-                              Nhấp chuột trên biểu tượng <a href="" target="_blank">
-                              <img src="${webBaseUrl}images/like.png" alt=""></a> của thí sinh bạn muốn chọn.
+                              Nhấp chuột trên biểu tượng <spam>
+                              <img src="${webBaseUrl}images/like.png" alt=""></spam> của thí sinh bạn muốn chọn.
                             </td>
                           </tr>
                           <tr>
@@ -316,8 +316,8 @@
                           </tr>
                           <tr>
                             <td width="100%" align="left">
-                              Nhấp chuột trên nút <a href="" target="_blank">
-                              <img src="${webBaseUrl}images/qualify-all-to-next-phase-en.png" alt=""></a> để chọn nhiều thí sinh
+                              Nhấp chuột trên nút <spam>
+                              <img src="${webBaseUrl}images/qualify-all-to-next-phase-en.png" alt=""></spam> để chọn nhiều thí sinh
                             </td>
                           </tr>
                           <tr>
@@ -355,7 +355,7 @@
                                             <h2 style="font-size: 18px;margin: 0 0 10px 0 ; color: #424242;font-weight: normal;">
                                                 1. Thiết lập tiêu chí đánh giá cho thử thách:</h2> &#8203;
                                             <p style="font-size: 14px;color:#616161; margin:0">
-                                                Nhấp chuột trên tab <a href="#" style="color:#277cbd;font-weight: bold;font-size: 14px; text-decoration: none; border-color:#277cbd;" target="_blank">Tiêu Chí Đánh Giá</a> để định nghĩa các tiêu chí.
+                                                Nhấp chuột trên tab <spam style="color:#277cbd;font-weight: bold;font-size: 14px; text-decoration: none; border-color:#277cbd;">Tiêu Chí Đánh Giá</spam> để định nghĩa các tiêu chí.
                                             </p>
                                             &#8203;
                                         </td>
@@ -377,7 +377,7 @@
                                             <h2 style="font-family:Arial, sans-serif;font-size: 18px;margin: 0 0 10px 0 ; color: #424242;font-weight: normal;">
                                                 2. Chấm điểm thí sinh dựa trên từng tiêu chí:</h2>
                                             <p style="font-family:Arial, sans-serif;margin: 0 0 25px 0; font-size:14px; color:#666;line-height: 18px;text-align: left;">
-                                                Nhấp chuột trên số điểm <a href="#" style="color:#277cbd;font-weight: bold;font-size: 14px; text-decoration: none; border-color:#277cbd;" target="_blank">0.0</a> ở cột "Điểm" để chấm điểm thí sinh.
+                                                Nhấp chuột trên số điểm <spam style="color:#277cbd;font-weight: bold;font-size: 14px; text-decoration: none; border-color:#277cbd;">0.0</spam> ở cột "Điểm" để chấm điểm thí sinh.
                                             </p>
                                         </td>
                                     </tr>
@@ -410,7 +410,7 @@
                                         <td style="padding-left: 20px">
                                             <h2 style="font-family:Arial, sans-serif;font-size: 18px;margin: 0 0 10px 0 ; color: #424242;font-weight: normal;">4. Thông báo người thắng cuộc:</h2>
                                             <p style="font-family:Arial, sans-serif;margin: 0 0 25px 0; font-size:14px; color:#666;line-height: 18px;text-align: left;">
-                                                Nhấp chuột vào nút <a href="#" style="color:#fff;background:#277cbd;font-size: 12px;text-decoration: none; border-color:#277cbd; border-width:5px 12px; border-style:solid;border-radius:3px; display:inline-block;" target="_blank">Thông báo người chiến thắng</a> để thông báo người chiến thắng đến tất cả các thí sinh.
+                                                Nhấp chuột vào nút <spam style="color:#fff;background:#277cbd;font-size: 12px;text-decoration: none; border-color:#277cbd; border-width:5px 12px; border-style:solid;border-radius:3px; display:inline-block;">Thông báo người chiến thắng</spam> để thông báo người chiến thắng đến tất cả các thí sinh.
                                             </p>
                                         </td>
                                     </tr>

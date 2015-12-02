@@ -268,8 +268,8 @@
                           </tr>
                           <tr>
                             <td width="100%" align="left">
-                              Click on the <a href="" target="_blank">
-                              <img src="${webBaseUrl}images/like.png" alt=""></a> in a row to qualify the relevant contestant
+                              Click on the <spam>
+                              <img src="${webBaseUrl}images/like.png" alt=""></spam> in a row to qualify the relevant contestant
                             </td>
                           </tr>
                           <tr>
@@ -317,8 +317,8 @@
                           </tr>
                           <tr>
                             <td width="100%" align="left">
-                              Click on button <a href="" target="_blank">
-                              <img src="${webBaseUrl}images/qualify-all-to-next-phase-en.png" alt=""></a> to qualify contestants
+                              Click on button <spam>
+                              <img src="${webBaseUrl}images/qualify-all-to-next-phase-en.png" alt=""></spam> to qualify contestants
                             </td>
                           </tr>
                           <tr>
@@ -356,7 +356,7 @@
 
                                                 1. Setup your own judging criteria for the challenge:</h2> &#8203;
                                             <p style="font-size: 14px;color:#616161; margin:0">
-                                                Click on the tab <a href="#" style="color:#277cbd;font-weight: bold;font-size: 14px; text-decoration: none; border-color:#277cbd;" target="_blank">Evaluation Criteria</a> to define your criteria.
+                                                Click on the tab <span  style="color:#277cbd;font-weight: bold;font-size: 14px; text-decoration: none; border-color:#277cbd;">Evaluation Criteria</span> to define your criteria.
                                             </p>
                                             &#8203;
                                         </td>
@@ -379,7 +379,7 @@
 
                                                 2. Score a contestant per each criteria:</h2>
                                             <p style="font-family:Arial, sans-serif;margin: 0 0 25px 0; font-size:14px; color:#666;line-height: 18px;text-align: left;">
-                                                Click on the score <a href="#" style="color:#277cbd;font-weight: bold;font-size: 14px; text-decoration: none; border-color:#277cbd;" target="_blank">0.0</a> in Score column to score contestants.
+                                                Click on the score <span style="color:#277cbd;font-weight: bold;font-size: 14px; text-decoration: none; border-color:#277cbd;">0.0</span> in Score column to score contestants.
                                             </p>
                                         </td>
                                     </tr>
@@ -412,7 +412,7 @@
                                         <td style="padding-left: 20px">
                                             <h2 style="font-family:Arial, sans-serif;font-size: 18px;margin: 0 0 10px 0 ; color: #424242;font-weight: normal;">4. Announce winner(s):</h2>
                                             <p style="font-family:Arial, sans-serif;margin: 0 0 25px 0; font-size:14px; color:#666;line-height: 18px;text-align: left;">
-                                                Click on <a href="#" style="color:#fff;background:#277cbd;font-size: 12px;text-decoration: none; border-color:#277cbd; border-width:5px 12px; border-style:solid;border-radius:3px; display:inline-block;" target="_blank">Announce winners to all contestants</a> to announce winner(s) to all contestants in predefined template.
+                                                Click on <span style="color:#fff;background:#277cbd;font-size: 12px;text-decoration: none; border-color:#277cbd; border-width:5px 12px; border-style:solid;border-radius:3px; display:inline-block;">Announce winners to all contestants</span> to announce winner(s) to all contestants in a predefined template.
                                             </p>
                                         </td>
                                     </tr>
