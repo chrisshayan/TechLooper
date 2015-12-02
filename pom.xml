@@ -524,11 +524,11 @@
       <!--<version>2.42.4</version>-->
     <!--</dependency>-->
 
-    <!--<dependency>-->
-      <!--<groupId>org.xhtmlrenderer</groupId>-->
-      <!--<artifactId>flying-saucer-pdf</artifactId>-->
-      <!--<version>9.0.8</version>-->
-    <!--</dependency>-->
+    <dependency>
+      <groupId>org.xhtmlrenderer</groupId>
+      <artifactId>flying-saucer-pdf</artifactId>
+      <version>9.0.8</version>
+    </dependency>
 
     <!--<dependency>-->
       <!--<groupId>org.mozilla</groupId>-->

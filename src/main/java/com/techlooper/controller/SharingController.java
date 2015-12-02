@@ -106,7 +106,7 @@ public class SharingController {
     ByteArrayOutputStream os = reportService.generateFinalChallengeReport(request.getRemoteUser(), challengeId);
     byte[] data = os.toByteArray();
     response.setContentType("application/pdf");
-    response.setHeader("Content-disposition", "attachment; filename=report.pdf");
+    response.setHeader("Content-disposition", "attachment;filename=report.pdf");
     response.setContentLength(data.length);
     response.getOutputStream().write(data);
     response.getOutputStream().flush();
