@@ -1,6 +1,14 @@
 techlooper.controller('contestDetailController', function ($scope, apiService, localStorageService, $location, $routeParams,
                                                            jsonValue, $translate, utils, $filter, $route, $rootScope, $timeout) {
 
+  $(document).keydown(function(e) {
+    if (e.keyCode == 8 && !$(".text-search-name").is(":focus")){
+      e.preventDefault();
+      $('input.text-search-name').focus();
+    }else{
+      $('input.text-search-name').focus();
+    }
+  });
   if(localStorage.postedChallenge == "justPosted"){
     $scope.postChallengeSuccess = true;
     $timeout(function(){
