@@ -50,12 +50,12 @@
     </tr>
     </thead>
     <tbody data-ng-init="currentPage = 1">
-    <tr ng-show="contestDetail.$filter.registrants.length == 0" class="no-data-found">
+    <tr ng-show="filtered.length == 0" class="no-data-found">
       <td>
         <p translate="noData"></p>
       </td>
     </tr>
-    <tr dir-paginate="registrant in contestDetail.$filter.registrants | filter: search | itemsPerPage:10"
+    <tr dir-paginate="registrant in filtered = (contestDetail.$filter.registrants | filter: search) | itemsPerPage:10"
         pagination-id="contestDetail.selectedPhaseItem.phase" current-page="currentPage" on-finish-render="scrollTop">
       <td>
         <div class="registrants-challenge-list">
@@ -100,7 +100,7 @@
   </tbody>
 </table>
   <div class="registrants-paging">
-    <span translate="contestantsReturned" translate-value-number="{{contestDetail.$filter.registrants.length}}" ng-show="contestDetail.$filter.registrants.length > 0"></span>
+    <span translate="contestantsReturned" translate-value-number="{{filtered.length}}" ng-show="filtered.length > 0"></span>
     <dir-pagination-controls
         pagination-id="contestDetail.selectedPhaseItem.phase"
         max-size="10"
