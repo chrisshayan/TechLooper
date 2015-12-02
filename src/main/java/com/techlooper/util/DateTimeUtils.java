@@ -20,9 +20,14 @@ public class DateTimeUtils {
 
     public static final String BASIC_DATE_TIME_PATTERN = "dd/MM/yyyy HH:mm";
 
-    public static Date string2Date(String datetime, String pattern) throws ParseException {
+    public static Date string2Date(String datetime, String pattern) {
         SimpleDateFormat formatter = new SimpleDateFormat(pattern);
-        return formatter.parse(datetime);
+        try {
+            return formatter.parse(datetime);
+        } catch (ParseException e) {
+            LOGGER.error(e.getMessage(), e);
+        }
+        return null;
     }
 
     public static String date2String(Date datetime, String pattern) {
@@ -60,7 +65,7 @@ public class DateTimeUtils {
         return Days.daysBetween(new DateTime(firstDate), new DateTime(secondDate)).getDays();
     }
 
-    public static int daysBetween(String firstDateStr, String secondDateStr) throws ParseException {
+    public static int daysBetween(String firstDateStr, String secondDateStr) {
         DateTime firstDateTime = new DateTime(string2Date(firstDateStr, BASIC_DATE_PATTERN));
         DateTime secondDateTime = new DateTime(string2Date(secondDateStr, BASIC_DATE_PATTERN));
         return Days.daysBetween(firstDateTime, secondDateTime).getDays();

@@ -1,12 +1,9 @@
 techlooper.controller('contestDetailController', function ($scope, apiService, localStorageService, $location, $routeParams,
-                                                           jsonValue, $translate, utils, $filter, $route, $rootScope, $timeout) {
+                                                           jsonValue, $translate, utils, $filter, $route, localStorageService, $rootScope) {
 
-  if(localStorage.postedChallenge == "justPosted"){
+  if (localStorageService.get("postChallenge") == true) {
+    localStorageService.remove("postChallenge");
     $scope.postChallengeSuccess = true;
-    $timeout(function(){
-      delete localStorage.postedChallenge;
-      $scope.postChallengeSuccess = false;
-    }, 7000);
   }
   var parts = $routeParams.id.split("-");
   var lastPart = parts.pop();
@@ -134,5 +131,11 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
     $("html, body").animate({ scrollTop: 0 }, 0);
     $('input.text-search-name').focus();
   });
+  $(document).keydown(function(e) {
+    if (e.keyCode == 8){
+      if(!$(".text-search-name").is(":focus"))
+        e.preventDefault();
+      $('input.text-search-name').focus();
+    }
+  });
 });
-
