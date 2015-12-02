@@ -1,13 +1,6 @@
 techlooper.controller('contestDetailController', function ($scope, apiService, localStorageService, $location, $routeParams,
                                                            jsonValue, $translate, utils, $filter, $route, localStorageService, $rootScope) {
 
-  //if(localStorage.postedChallenge == "justPosted"){
-  //  $scope.postChallengeSuccess = true;
-  //  $timeout(function(){
-  //    delete localStorage.postedChallenge;
-  //    $scope.postChallengeSuccess = false;
-  //  }, 7000);
-  //}
   if (localStorageService.get("postChallenge") == true) {
     localStorageService.remove("postChallenge");
     $scope.postChallengeSuccess = true;
