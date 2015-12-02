@@ -1,20 +1,16 @@
 techlooper.controller('contestDetailController', function ($scope, apiService, localStorageService, $location, $routeParams,
-                                                           jsonValue, $translate, utils, $filter, $route, $rootScope, $timeout) {
+                                                           jsonValue, $translate, utils, $filter, $route, localStorageService, $rootScope) {
 
-  $(document).keydown(function(e) {
-    if (e.keyCode == 8 && !$(".text-search-name").is(":focus")){
-      e.preventDefault();
-      $('input.text-search-name').focus();
-    }else{
-      $('input.text-search-name').focus();
-    }
-  });
-  if(localStorage.postedChallenge == "justPosted"){
+  //if(localStorage.postedChallenge == "justPosted"){
+  //  $scope.postChallengeSuccess = true;
+  //  $timeout(function(){
+  //    delete localStorage.postedChallenge;
+  //    $scope.postChallengeSuccess = false;
+  //  }, 7000);
+  //}
+  if (localStorageService.get("postChallenge") == true) {
+    localStorageService.remove("postChallenge");
     $scope.postChallengeSuccess = true;
-    $timeout(function(){
-      delete localStorage.postedChallenge;
-      $scope.postChallengeSuccess = false;
-    }, 7000);
   }
   var parts = $routeParams.id.split("-");
   var lastPart = parts.pop();
@@ -142,5 +138,11 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
     $("html, body").animate({ scrollTop: 0 }, 0);
     $('input.text-search-name').focus();
   });
+  $(document).keydown(function(e) {
+    if (e.keyCode == 8){
+      if(!$(".text-search-name").is(":focus"))
+        e.preventDefault();
+      $('input.text-search-name').focus();
+    }
+  });
 });
-
