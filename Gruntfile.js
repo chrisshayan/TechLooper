@@ -165,7 +165,7 @@ module.exports = function (grunt) {
       server: {
         options: {
           port: 8080,
-          base: "src/main/webapp/assets",
+          base: "/Users/phuonghqh/Documents/working/TechLooper/src/main/webapp/assets/",
           keepalive: true
         }
       }
@@ -364,7 +364,6 @@ module.exports = function (grunt) {
 
   grunt.registerTask("local", [
     "clean:build",
-    //"template:staging",
     "copy",
     "bower-install-simple:build",
     "includeSource:target",
