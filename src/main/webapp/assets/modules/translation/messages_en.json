@@ -855,5 +855,6 @@
   "searchContestantName": "Enter contestant name to search",
   "updateEvaluationCriteria1": "You have just posted the challenge successfully. Click",
   "updateEvaluationCriteria2": "to set up your own judging criteria for it.",
-  "here": "here"
+  "here": "here",
+  "getFinalReport": "Get final report"
 }
