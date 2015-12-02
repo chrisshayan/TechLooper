@@ -846,7 +846,7 @@
   "unread": "Unread",
   "numberUnread": "{{number}} unread",
   "qualifyAllToNextPhase": "Qualify All To Next Phase",
-  "qualifyAllToNextPhaseTip": "Are you sure you want to select all contestants from <strong>{{activePhase}}</strong> phase to <strong>{{nextPhase}}</strong> phase? These contestants are non-disqualified and",
+  "qualifyAllToNextPhaseTip": "Are you sure you want to qualify all contestants to <strong>{{nextPhase}}</strong> phase? These contestants are non-disqualified and",
   "havingAllSubmissionsRead": "Having all submissions read",
   "havingSubmissions": "Having submissions",
   "regardlessOfHavingSubmissions": "Regardless of having submissions or not",

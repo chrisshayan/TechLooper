@@ -849,7 +849,7 @@
   "markedAsUnread": "Đánh dấu Chưa đọc",
   "numberUnread": "{{number}} bài chưa đọc",
   "qualifyAllToNextPhase": "Chọn tất cả vào vòng sau",
-  "qualifyAllToNextPhaseTip": "Bạn có muốn chọn tất cả các thí sinh từ vòng <strong>{{activePhase}}</strong> vào vòng <strong>{{nextPhase}}</strong>? Những thí sinh này chưa bị loại bỏ và",
+  "qualifyAllToNextPhaseTip": "Bạn có muốn chọn tất cả các thí sinh vào vòng <strong>{{nextPhase}}</strong>? Những thí sinh này chưa bị loại bỏ và",
   "havingAllSubmissionsRead": "Có tất cả bài gửi đã được đọc",
   "havingSubmissions": "Có ít nhất 1 bài gửi",
   "regardlessOfHavingSubmissions": "Có thể có hoặc không có bài gửi",
