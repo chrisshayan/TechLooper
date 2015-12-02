@@ -363,12 +363,12 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask("local", [
-    //"clean:build",
-    //"copy",
-    //"bower-install-simple:build",
-    //"includeSource:target",
-    //"wiredep:target",
-    //"copy:dev"
+    "clean:build",
+    "copy",
+    "bower-install-simple:build",
+    "includeSource:target",
+    "wiredep:target",
+    "copy:dev"
   ]);
 
   // start a http server and serve at folder "assets"

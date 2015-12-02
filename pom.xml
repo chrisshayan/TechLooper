@@ -165,22 +165,22 @@
           </execution>
         </executions>
       </plugin>
-      <!--<plugin>-->
-        <!--<groupId>com.github.phuonghuynh</groupId>-->
-        <!--<artifactId>compressor</artifactId>-->
-        <!--<version>1.0</version>-->
-        <!--<configuration>-->
-          <!--<workingDirectory>src/main/webapp/public</workingDirectory>-->
-        <!--</configuration>-->
-        <!--<executions>-->
-          <!--<execution>-->
-            <!--<phase>generate-resources</phase>-->
-            <!--<goals>-->
-              <!--<goal>compress</goal>-->
-            <!--</goals>-->
-          <!--</execution>-->
-        <!--</executions>-->
-      <!--</plugin>-->
+      <plugin>
+        <groupId>com.github.phuonghuynh</groupId>
+        <artifactId>compressor</artifactId>
+        <version>1.0</version>
+        <configuration>
+          <workingDirectory>src/main/webapp/public</workingDirectory>
+        </configuration>
+        <executions>
+          <execution>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>compress</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
       <plugin>
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-maven-plugin</artifactId>
