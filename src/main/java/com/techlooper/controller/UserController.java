@@ -236,7 +236,7 @@ public class UserController {
 
         try {
             TopicList topicList = forumService.getLatestTopics();
-            personalHomepage.setLatestTopics(topicList.getTopics().stream().limit(MAX_NUMBER_OF_ITEMS_DISPLAY).collect(toList()));
+            personalHomepage.setLatestTopics(topicList.getTopics().stream().limit(5).collect(toList()));
         } catch (Exception ex) {
             LOGGER.error(ex.getMessage(), ex);
         }
