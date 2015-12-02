@@ -1,6 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
-
 <head>
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
     <meta content="telephone=no" name="format-detection" />
@@ -467,7 +465,7 @@
                                     </ul>
                                 </td>
                                 <td align="center" width="60%" valign="top">
-                                    <img src="img/full-phase.png" alt="">
+                                    <img src="http://localhost:8080/images/full-phase.png" alt="" />
                                 </td>
                                 <td align="left" width="20%" valign="top">
                                     <ul style="margin: 0; padding:0">
@@ -494,7 +492,7 @@
                                     </ul>
                                 </td>
                                 <td align="center" width="60%" valign="top">
-                                    <img src="img/three-phase.png" alt="">
+                                    <img src="http://localhost:8080/images/three-phase.png" alt="" />
                                 </td>
                                 <td align="left" width="20%" valign="top">
                                     <ul style="margin: 0; padding:0">
@@ -520,7 +518,7 @@
                                     </ul>
                                 </td>
                                 <td align="center" width="60%" valign="top">
-                                    <img src="img/idea-uiux-phase.png" alt="">
+                                    <img src="http://localhost:8080/images/idea-uiux-phase.png" alt="" />
                                 </td>
                                 <td align="left" width="20%" valign="top">
                                     <ul style="margin: 0; padding:0">
@@ -548,7 +546,7 @@
                                     </ul>
                                 </td>
                                 <td align="center" width="60%" valign="top">
-                                    <img src="img/idea-prototype-phase.png" alt="">
+                                    <img src="http://localhost:8080/images/idea-prototype-phase.png" alt="" />
                                 </td>
                                 <td align="left" width="20%" valign="top">
                                     <ul style="margin: 0; padding:0">
@@ -576,7 +574,7 @@
                                     </ul>
                                 </td>
                                 <td align="center" width="60%" valign="top">
-                                    <img src="img/uiux-prototype-phase.png" alt="">
+                                    <img src="http://localhost:8080/images/uiux-prototype-phase.png" alt="" />
                                 </td>
                                 <td align="left" width="20%" valign="top">
                                     <ul style="margin: 0; padding:0">
@@ -603,7 +601,7 @@
                                     </ul>
                                 </td>
                                 <td align="center" width="60%" valign="top">
-                                    <img src="img/idea-phase.png" alt="">
+                                    <img src="http://localhost:8080/images/idea-phase.png" alt="" />
                                 </td>
                                 <td align="left" width="20%" valign="top">
                                     <ul style="margin: 0; padding:0">
@@ -629,7 +627,7 @@
                                     </ul>
                                 </td>
                                 <td align="center" width="60%" valign="top">
-                                    <img src="img/uiux-phase.png" alt="">
+                                    <img src="http://localhost:8080/images/uiux-phase.png" alt="" />
                                 </td>
                                 <td align="left" width="20%" valign="top">
                                     <ul style="margin: 0; padding:0">
@@ -655,7 +653,7 @@
                                     </ul>
                                 </td>
                                 <td align="center" width="60%" valign="top">
-                                    <img src="img/prototype-phase.png" alt="">
+                                    <img src="http://localhost:8080/images/prototype-phase.png" alt="" />
                                 </td>
                                 <td align="left" width="20%" valign="top">
                                     <ul style="margin: 0; padding:0">

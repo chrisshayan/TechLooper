@@ -355,4 +355,8 @@ public class CoreConfiguration implements ApplicationContextAware {
         return new ChallengePhaseClosedNotifier();
     }
 
+    @Bean
+    public Template finalChallengeReportEn(freemarker.template.Configuration freemakerConfig) throws IOException {
+        return freemakerConfig.getTemplate("FINAL_CHALLENGE_REPORT_EN.ftl");
+    }
 }

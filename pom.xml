@@ -105,30 +105,30 @@
           <target>1.8</target>
         </configuration>
       </plugin>
-      <plugin>
-        <groupId>org.jasig.maven</groupId>
-        <artifactId>sass-maven-plugin</artifactId>
-        <version>${sass-maven-plugin.version}</version>
-        <executions>
-          <execution>
-            <id>Generate CSS files</id>
-            <goals>
-              <goal>update-stylesheets</goal>
-            </goals>
-            <phase>generate-sources</phase>
-          </execution>
-        </executions>
-        <configuration>
-          <resources>
-            <resource>
-              <source>
-                <directory>${project.basedir}/src/main/webapp/assets/sass</directory>
-              </source>
-              <destination>${project.basedir}/src/main/webapp/assets/css</destination>
-            </resource>
-          </resources>
-        </configuration>
-      </plugin>
+      <!--<plugin>-->
+        <!--<groupId>org.jasig.maven</groupId>-->
+        <!--<artifactId>sass-maven-plugin</artifactId>-->
+        <!--<version>${sass-maven-plugin.version}</version>-->
+        <!--<executions>-->
+          <!--<execution>-->
+            <!--<id>Generate CSS files</id>-->
+            <!--<goals>-->
+              <!--<goal>update-stylesheets</goal>-->
+            <!--</goals>-->
+            <!--<phase>generate-sources</phase>-->
+          <!--</execution>-->
+        <!--</executions>-->
+        <!--<configuration>-->
+          <!--<resources>-->
+            <!--<resource>-->
+              <!--<source>-->
+                <!--<directory>${project.basedir}/src/main/webapp/assets/sass</directory>-->
+              <!--</source>-->
+              <!--<destination>${project.basedir}/src/main/webapp/assets/css</destination>-->
+            <!--</resource>-->
+          <!--</resources>-->
+        <!--</configuration>-->
+      <!--</plugin>-->
       <plugin>
         <groupId>com.github.eirslett</groupId>
         <artifactId>frontend-maven-plugin</artifactId>
@@ -165,22 +165,22 @@
           </execution>
         </executions>
       </plugin>
-      <plugin>
-        <groupId>com.github.phuonghuynh</groupId>
-        <artifactId>compressor</artifactId>
-        <version>1.0</version>
-        <configuration>
-          <workingDirectory>src/main/webapp/public</workingDirectory>
-        </configuration>
-        <executions>
-          <execution>
-            <phase>generate-resources</phase>
-            <goals>
-              <goal>compress</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
+      <!--<plugin>-->
+        <!--<groupId>com.github.phuonghuynh</groupId>-->
+        <!--<artifactId>compressor</artifactId>-->
+        <!--<version>1.0</version>-->
+        <!--<configuration>-->
+          <!--<workingDirectory>src/main/webapp/public</workingDirectory>-->
+        <!--</configuration>-->
+        <!--<executions>-->
+          <!--<execution>-->
+            <!--<phase>generate-resources</phase>-->
+            <!--<goals>-->
+              <!--<goal>compress</goal>-->
+            <!--</goals>-->
+          <!--</execution>-->
+        <!--</executions>-->
+      <!--</plugin>-->
       <plugin>
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-maven-plugin</artifactId>
@@ -493,11 +493,18 @@
       <scope>provided</scope>
     </dependency>
 
-    <!--<dependency>-->
-      <!--<groupId>com.itextpdf</groupId>-->
-      <!--<artifactId>itextpdf</artifactId>-->
-      <!--<version>5.5.7</version>-->
-    <!--</dependency>-->
+    <dependency>
+      <groupId>com.itextpdf</groupId>
+      <artifactId>itextpdf</artifactId>
+      <version>5.5.8</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.itextpdf.tool</groupId>
+      <artifactId>xmlworker</artifactId>
+      <version>5.5.8</version>
+    </dependency>
+
 
     <!--<dependency>-->
       <!--<groupId>org.jfree</groupId>-->
@@ -517,11 +524,11 @@
       <!--<version>2.42.4</version>-->
     <!--</dependency>-->
 
-    <dependency>
-      <groupId>org.xhtmlrenderer</groupId>
-      <artifactId>flying-saucer-pdf</artifactId>
-      <version>9.0.8</version>
-    </dependency>
+    <!--<dependency>-->
+      <!--<groupId>org.xhtmlrenderer</groupId>-->
+      <!--<artifactId>flying-saucer-pdf</artifactId>-->
+      <!--<version>9.0.8</version>-->
+    <!--</dependency>-->
 
     <!--<dependency>-->
       <!--<groupId>org.mozilla</groupId>-->
