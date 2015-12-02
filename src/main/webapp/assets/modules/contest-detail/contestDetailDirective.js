@@ -131,6 +131,9 @@ techlooper
           if (showTabRegistrant == true && scope.contestDetail.numberOfRegistrants > 0) {
             $("a[href='.registrants']").tab('show');
           }
+          if(params.a == "evaluationCriteria"){
+            $("a[href='.evaluation-criteria']").tab('show');
+          }
         });
       }
     };
