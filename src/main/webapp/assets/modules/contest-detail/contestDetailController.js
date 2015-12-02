@@ -1,6 +1,5 @@
 techlooper.controller('contestDetailController', function ($scope, apiService, localStorageService, $location, $routeParams,
                                                            jsonValue, $translate, utils, $filter, $route, localStorageService, $rootScope) {
-
   if (localStorageService.get("postChallenge") == true) {
     localStorageService.remove("postChallenge");
     $scope.postChallengeSuccess = true;
