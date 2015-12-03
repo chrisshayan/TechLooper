@@ -1,11 +1,11 @@
 <div class="phase-description">
   <p translate="winnerDes"></p>
   <div class="announcement-winner">
-    <a href="report/challenge/final/{{contestDetail.challengeId}}" translate="getFinalReport" class="btn btn-primary btn-flat"></a>
     <button translate="announceWinnerToAllContestants" class="btn btn-primary btn-flat"
             ng-class="{disabled: !contestDetail.winners.length}"
             ng-disabled="!contestDetail.winners.length" ng-click="announcementWinner()"
             data-toggle="modal" data-target="#emailCompose"></button>
+    <a href="report/challenge/final/{{contestDetail.challengeId}}" class="export-pdf" title="{{'getFinalReport' | translate}}"></a>
   </div>
 </div>
 <div class="participant-list">
