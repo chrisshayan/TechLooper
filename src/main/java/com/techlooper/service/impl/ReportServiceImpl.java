@@ -95,7 +95,7 @@ public class ReportServiceImpl implements ReportService {
       ByteArrayOutputStream os = new ByteArrayOutputStream();
 
       ITextRenderer renderer = new ITextRenderer();
-      renderer.getFontResolver().addFont("font/verdana.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+      renderer.getFontResolver().addFont("font/arial.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
       renderer.setDocumentFromString(stringWriter.toString());
       renderer.layout();
       renderer.createPDF(os);

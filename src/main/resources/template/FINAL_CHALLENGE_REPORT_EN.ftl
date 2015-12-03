@@ -6,7 +6,7 @@
   <meta content="width=device-width, initial-scale=1.0;" name="viewport"/>
   <style>
     * {
-      font-family: "Verdana";
+      font-family: "Arial";
     }
   </style>
 </head>
