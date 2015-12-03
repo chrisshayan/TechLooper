@@ -32,21 +32,21 @@
         </tr>
         <tr>
           <td style="text-align: left;height: 50px; font-size: 12px">
-            <span style="font-size: 26px; font-weight: 500; color:#fbd819;">${phaseEntries[2].countMembers}</span> Finalist(s)</td>
+            <span style="font-size: 26px; font-weight: 500; color:#fbd819;">${phaseEntries[2].countMembers}</span> Người tiềm năng</td>
         </tr>
         <tr>
           <td height="47px"></td>
         </tr>
         <tr>
           <td style="text-align: left;height: 150px; font-size: 12px">
-            <span style="font-size: 26px; font-weight: 500; color:#1c7abc;">${phaseEntries[1].countMembers}</span> Participant(s)
+            <span style="font-size: 26px; font-weight: 500; color:#1c7abc;">${phaseEntries[1].countMembers}</span> Người tham dự
           </td>
         </tr>
         <tr>
           <td height="10px"></td>
         </tr>
         <tr>
-          <td style="text-align: left;height: 20px; font-size: 12px"><span style="font-size: 26px; font-weight: 500; color:#0f775d;">${phaseEntries[0].date}</span> Registrant(s)</td>
+          <td style="text-align: left;height: 20px; font-size: 12px"><span style="font-size: 26px; font-weight: 500; color:#0f775d;">${phaseEntries[0].date}</span> Thí sinh</td>
         </tr>
       </table>
     </td>

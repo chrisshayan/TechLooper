@@ -361,11 +361,15 @@ public class CoreConfiguration implements ApplicationContextAware {
     return freemakerConfig.getTemplate("FINAL_CHALLENGE_REPORT_EN.ftl");
   }
 
+  @Bean
+  public Template finalChallengeReportVi(freemarker.template.Configuration freemakerConfig) throws IOException {
+    return freemakerConfig.getTemplate("FINAL_CHALLENGE_REPORT_VI.ftl");
+  }
+
 //  @Bean
 //  public ITextRenderer reportRender() throws IOException, DocumentException {
 //    ITextRenderer renderer = new ITextRenderer();
 //    renderer.getFontResolver().addFont("font/verdana.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
-//    renderer.getFontResolver().addFont("font/arial.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
 //    return renderer;
 //  }
 }

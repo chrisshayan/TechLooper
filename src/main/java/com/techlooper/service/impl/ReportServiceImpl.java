@@ -9,6 +9,7 @@ import com.techlooper.entity.ChallengeRegistrantEntity;
 import com.techlooper.model.ChallengePhaseEnum;
 import com.techlooper.model.ChallengeRegistrantPhaseItem;
 import com.techlooper.model.ChallengeWinner;
+import com.techlooper.model.Language;
 import com.techlooper.repository.elasticsearch.ChallengeRegistrantRepository;
 import com.techlooper.repository.elasticsearch.ChallengeRepository;
 import com.techlooper.service.ChallengeRegistrantService;
@@ -52,6 +53,9 @@ public class ReportServiceImpl implements ReportService {
 
   @Resource
   private Template finalChallengeReportEn;
+
+  @Resource
+  private Template finalChallengeReportVi;
 
   @Value("${web.baseUrl}")
   private String baseUrl;
@@ -101,7 +105,7 @@ public class ReportServiceImpl implements ReportService {
     finalChallengeReportDto.calculateRemainingFields();
 
     try {
-      Template template = finalChallengeReportEn;
+      Template template = challenge.getLang() == Language.en ? finalChallengeReportEn : finalChallengeReportVi;
       StringWriter stringWriter = new StringWriter();
       template.process(finalChallengeReportDto, stringWriter);
 
