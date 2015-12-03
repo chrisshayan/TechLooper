@@ -40,7 +40,14 @@
             <#if winnersInfo?size != 0>
               <span style="font-size: 18px;"><strong style="font-size: 25px; color:#bf3a2f">${winnersInfo?size}</strong> winner(s)</span>
               <#list winnersInfo as winnerInfo>
-                <p style="1font-family:Times New Roman,serif">${winnerInfo.registrantFirstName?capitalize} ${winnerInfo.registrantLastName?capitalize}</p>
+                <p style="1font-family:Times New Roman,serif">
+                  <#if winnerInfo.registrantFirstName?has_content>
+                    <span>${winnerInfo.registrantFirstName?capitalize} </span>
+                  </#if>
+                  <#if winnerInfo.registrantLastName?has_content>
+                  <span>${winnerInfo.registrantLastName?capitalize}</span>
+                  </#if>
+                </p>
               </#list>
             </#if>
           </td>
