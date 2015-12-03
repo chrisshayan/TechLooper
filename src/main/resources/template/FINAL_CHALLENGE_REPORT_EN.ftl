@@ -20,7 +20,7 @@
           <th align="left">
             <h2 style="font-size: 18px; font-weight: normal; text-transform: capitalize;color: #898989;">
           ${challengeName}
-            <span style="font-size: 12px; font-weight: normal;color: #898989;">$${totalPlaceReward?string["0.####"]}</span>
+            <span style="font-size: 25px; font-weight: normal; color:#1c7abc">$${totalPlaceReward?string["0.####"]}</span>
             </h2>
           <span style="font-size: 12px; font-weight: normal;color: #898989;">${challengeOverview}</span>
           </th>
@@ -59,10 +59,10 @@
           </td>
         </tr>
         <tr>
-          <td align="left" style="height: 30px;"></td>
+          <td align="left" style="height: 250px;"></td>
         </tr>
         <tr>
-          <td align="left" style="height: 3px; background-color: #f4f4f4;"></td>
+          <td align="left" style="height: 1px; background-color: #8d8d8d;"></td>
         </tr>
         <tr>
           <td align="left" style="height: 30px;"></td>
