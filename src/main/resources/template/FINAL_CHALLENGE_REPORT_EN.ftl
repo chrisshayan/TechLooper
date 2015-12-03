@@ -38,8 +38,10 @@
           </td>
         </tr>
         <tr>
+          <td align="left" style="height: 50px;"></td>
+        </tr>
+        <tr>
           <td align="center">
-            <br/>
             <#if winnersInfo?size != 0>
               <span style="font-size: 12px; font-weight: normal"><strong style="font-size: 25px; color:#bf3a2f">${winnersInfo?size}</strong> winner(s)</span>
               <#list winnersInfo as winnerInfo>
