@@ -536,17 +536,6 @@
                                                                         <img height="15px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
                                                                     </td>
                                                                 </tr>
-                                                                <tr>
-                                                                    <td style="text-align: center; padding: 10px 0">
-                                                                        <table border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto; width: auto" class="fullWidth">
-                                                                            <tbody><tr>
-                                                                                <td bgcolor="#277cbd" width="100%" style="padding: 7px 20px; font-weight: 700; -webkit-border-radius:3px; border-radius:3px; text-align: center">
-                                                                                    <a href="" target="_blank" style="font-family: Arial, sans-serif; font-size: 14px; color: #ffffff; text-decoration: none; display: block; width: 100%">Accept Submissions</a>
-                                                                                </td>
-                                                                            </tr>
-                                                                            </tbody></table>
-                                                                    </td>
-                                                                </tr>
                                                             </table>
                                                         </td>
                                                     </tr>
