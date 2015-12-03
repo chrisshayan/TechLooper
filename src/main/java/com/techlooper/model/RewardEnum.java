@@ -5,14 +5,32 @@ package com.techlooper.model;
  */
 public enum RewardEnum {
 
-    FIRST_PLACE("1st place"),
-    SECOND_PLACE("2nd place"),
-    THIRD_PLACE("3rd place");
+  FIRST_PLACE("1st place", 1),
+  SECOND_PLACE("2nd place", 2),
+  THIRD_PLACE("3rd place", 3);
 
-    private String value;
+  private String value;
 
-    RewardEnum(String value) {
-        this.value = value;
-    }
+  private int order;
 
+  RewardEnum(String value, int order) {
+    this.value = value;
+    this.order = order;
+  }
+
+  public String getValue() {
+    return value;
+  }
+
+  public void setValue(String value) {
+    this.value = value;
+  }
+
+  public int getOrder() {
+    return order;
+  }
+
+  public void setOrder(int order) {
+    this.order = order;
+  }
 }

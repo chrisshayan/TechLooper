@@ -1,6 +1,7 @@
 package com.techlooper.dto;
 
 import com.techlooper.entity.ChallengeRegistrantDto;
+import com.techlooper.entity.ChallengeRegistrantEntity;
 import com.techlooper.model.ChallengeDto;
 import com.techlooper.model.ChallengePhaseEnum;
 
@@ -16,7 +17,7 @@ public class FinalChallengeReportDto extends ChallengeDto {
 
   private List<PhaseEntry> phaseEntries;
 
-  private Set<ChallengeRegistrantDto> winnersInfo;
+  private List<ChallengeRegistrantEntity> winnersInfo;
 
   private int totalPlaceReward;
 
@@ -34,11 +35,11 @@ public class FinalChallengeReportDto extends ChallengeDto {
     this.baseUrl = baseUrl;
   }
 
-  public Set<ChallengeRegistrantDto> getWinnersInfo() {
+  public List<ChallengeRegistrantEntity> getWinnersInfo() {
     return winnersInfo;
   }
 
-  public void setWinnersInfo(Set<ChallengeRegistrantDto> winnersInfo) {
+  public void setWinnersInfo(List<ChallengeRegistrantEntity> winnersInfo) {
     this.winnersInfo = winnersInfo;
   }
 

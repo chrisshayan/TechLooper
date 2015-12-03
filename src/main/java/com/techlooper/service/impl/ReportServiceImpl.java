@@ -1,18 +1,19 @@
 package com.techlooper.service.impl;
 
 import com.itextpdf.text.pdf.BaseFont;
-import com.lowagie.text.DocumentException;
 import com.techlooper.dto.FinalChallengeReportDto;
 import com.techlooper.dto.PhaseEntry;
 import com.techlooper.dto.PhaseEntry.PhaseEntryBuilder;
 import com.techlooper.entity.ChallengeEntity;
+import com.techlooper.entity.ChallengeRegistrantEntity;
 import com.techlooper.model.ChallengePhaseEnum;
 import com.techlooper.model.ChallengeRegistrantPhaseItem;
+import com.techlooper.model.ChallengeWinner;
+import com.techlooper.repository.elasticsearch.ChallengeRegistrantRepository;
 import com.techlooper.repository.elasticsearch.ChallengeRepository;
 import com.techlooper.service.ChallengeRegistrantService;
 import com.techlooper.service.ReportService;
 import freemarker.template.Template;
-import freemarker.template.TemplateException;
 import org.dozer.Mapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,8 +23,8 @@ import org.xhtmlrenderer.pdf.ITextRenderer;
 
 import javax.annotation.Resource;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.StringWriter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -41,6 +42,9 @@ public class ReportServiceImpl implements ReportService {
   private ChallengeRepository challengeRepository;
 
   @Resource
+  private ChallengeRegistrantRepository challengeRegistrantRepository;
+
+  @Resource
   private ChallengeRegistrantService challengeRegistrantService;
 
   @Resource
@@ -51,6 +55,9 @@ public class ReportServiceImpl implements ReportService {
 
   @Value("${web.baseUrl}")
   private String baseUrl;
+
+//  @Resource
+//  private ITextRenderer reportRender;
 
   public ByteArrayOutputStream generateFinalChallengeReport(String challengeAuthorEmail, Long challengeId) {
     ChallengeEntity challenge = challengeRepository.findOne(challengeId);
@@ -83,7 +90,13 @@ public class ReportServiceImpl implements ReportService {
     phaseEntries.sort((pe1, pe2) -> pe1.getPhase().getOrder().compareTo(pe2.getPhase().getOrder()));
 
     finalChallengeReportDto.setPhaseEntries(phaseEntries);
-    finalChallengeReportDto.setWinnersInfo(challengeRegistrantService.findWinnerRegistrantsByChallengeId(challengeId));
+
+    List<ChallengeRegistrantEntity> winnersInfo = new ArrayList<>();
+    List<ChallengeWinner> winners = new ArrayList<>(challenge.getWinners());
+    winners.sort((w1, w2) -> w1.getReward().getOrder() - w2.getReward().getOrder());
+    winners.forEach(winner -> winnersInfo.add(challengeRegistrantRepository.findOne(winner.getRegistrantId())));
+    finalChallengeReportDto.setWinnersInfo(winnersInfo);
+
     finalChallengeReportDto.setBaseUrl(baseUrl);
     finalChallengeReportDto.calculateRemainingFields();
 
@@ -94,15 +107,16 @@ public class ReportServiceImpl implements ReportService {
 
       ByteArrayOutputStream os = new ByteArrayOutputStream();
 
-      ITextRenderer renderer = new ITextRenderer();
-      renderer.getFontResolver().addFont("font/arial.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
-      renderer.setDocumentFromString(stringWriter.toString());
-      renderer.layout();
-      renderer.createPDF(os);
+      ITextRenderer reportRender = new ITextRenderer();
+      reportRender.getFontResolver().addFont("font/arial.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+      reportRender.setDocumentFromString(stringWriter.toString());
+      reportRender.layout();
+      reportRender.createPDF(os);
+      reportRender.finishPDF();
       stringWriter.flush();
       return os;
     }
-    catch (TemplateException | IOException | DocumentException e) {
+    catch (Exception e) {
       LOGGER.debug("Can not process template", e);
     }
 

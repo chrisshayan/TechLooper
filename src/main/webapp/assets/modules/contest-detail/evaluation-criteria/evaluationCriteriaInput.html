@@ -8,8 +8,10 @@
   <div class="evaluation-criteria-weight">
     <input name="weight" type="text" class="input-style"
            ng-class="{'input-error': cri.weight > 100 || cri.weight < 5}"
+           data-toggle="tooltip"
+           data-original-title="{{'thisMustBeBw5And100' | translate}}"
            ng-model="cri.weight" ng-required="true" input-number="" maxlength="3"/>
-    <button data-auto-close="true" ng-show="cri.weight >= 5"
+    <button data-auto-close="true" ng-show="cri.weight != undefined"
             data-placement="top" class="btn btn-primary btn-flat gray"
             data-template-url="modules/contest-detail/remove-criteria-item.html" bs-popover>
       <i class="fa fa-minus"></i>
