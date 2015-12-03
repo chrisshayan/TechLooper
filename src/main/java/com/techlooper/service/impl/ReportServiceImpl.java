@@ -1,6 +1,6 @@
 package com.techlooper.service.impl;
 
-import com.itextpdf.text.pdf.BaseFont;
+import com.lowagie.text.PageSize;
 import com.techlooper.dto.FinalChallengeReportDto;
 import com.techlooper.dto.PhaseEntry;
 import com.techlooper.dto.PhaseEntry.PhaseEntryBuilder;
@@ -116,7 +116,10 @@ public class ReportServiceImpl implements ReportService {
       reportRender.setDocumentFromString(stringWriter.toString());
       reportRender.layout();
       reportRender.createPDF(os);
-      reportRender.finishPDF();
+//      reportRender.getWriter().setMarginMirroring(true);
+//      reportRender.getWriter().setMargins(0, 0, 0, 0);
+//      reportRender.getWriter().setPageSize(PageSize.A4);
+//      reportRender.finishPDF();
       stringWriter.flush();
       return os;
     }
