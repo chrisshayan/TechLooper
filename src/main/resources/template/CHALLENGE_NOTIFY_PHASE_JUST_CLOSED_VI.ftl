@@ -228,12 +228,11 @@
                         <table width="200px" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;" class="fullWidth">
                           <tr>
                             <td bgcolor="#277cbd" width="100%" style="padding: 10px 5px; -webkit-border-radius:3px; border-radius:3px; text-align: center">
-                              <a href="${webBaseUrl}#/challenge-detail/${challengeNameAlias}-${challengeId}-id?toPhase=${oldPhase}&utm_source=remindphaseclose&utm_medium=selectnowbtn&utm_campaign=onlinecontest" target="_blank" style="font-family: Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; display: block; width: 100%">
-                                <#if oldPhase != "FINAL">
-                                    Chọn Ngay
-                                <#else>
-                                    Đánh Giá Ngay
-                                </#if></a>
+                            <#if oldPhase != "FINAL">
+                                <a href="${webBaseUrl}#/challenge-detail/${challengeNameAlias}-${challengeId}-id?toPhase=${oldPhase}&utm_source=remindphaseclose&utm_medium=selectnowbtn&utm_campaign=onlinecontest" target="_blank" style="font-family: Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; display: block; width: 100%">Chọn Ngay</a>
+                            <#else>
+                                <a href="${webBaseUrl}#/challenge-detail/${challengeNameAlias}-${challengeId}-id?toPhase=${oldPhase}&utm_source=remindphaseclose&utm_medium=evaluatenowbtn&utm_campaign=onlinecontest" target="_blank" style="font-family: Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; display: block; width: 100%">Đánh Giá Ngay</a>
+                            </#if>
                             </td>
                           </tr>
                         </table>
