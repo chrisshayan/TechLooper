@@ -60,8 +60,8 @@ public class ReportServiceImpl implements ReportService {
   @Value("${web.baseUrl}")
   private String baseUrl;
 
-//  @Resource
-//  private ITextRenderer reportRender;
+  @Resource
+  private ITextRenderer reportRender;
 
   public ByteArrayOutputStream generateFinalChallengeReport(String challengeAuthorEmail, Long challengeId) {
     ChallengeEntity challenge = challengeRepository.findOne(challengeId);
@@ -111,8 +111,8 @@ public class ReportServiceImpl implements ReportService {
 
       ByteArrayOutputStream os = new ByteArrayOutputStream();
 
-      ITextRenderer reportRender = new ITextRenderer();
-      reportRender.getFontResolver().addFont("font/verdana.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+//      ITextRenderer reportRender = new ITextRenderer();
+//      reportRender.getFontResolver().addFont("font/verdana.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
       reportRender.setDocumentFromString(stringWriter.toString());
       reportRender.layout();
       reportRender.createPDF(os);

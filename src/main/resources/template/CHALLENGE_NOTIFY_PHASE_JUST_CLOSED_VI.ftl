@@ -228,12 +228,11 @@
                         <table width="200px" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;" class="fullWidth">
                           <tr>
                             <td bgcolor="#277cbd" width="100%" style="padding: 10px 5px; -webkit-border-radius:3px; border-radius:3px; text-align: center">
-                              <a href="${webBaseUrl}#/challenge-detail/${challengeNameAlias}-${challengeId}-id?toPhase=${oldPhase}&utm_source=remindphaseclose&utm_medium=selectnowbtn&utm_campaign=onlinecontest" target="_blank" style="font-family: Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; display: block; width: 100%">
-                                <#if oldPhase != "FINAL">
-                                    Chọn Ngay
-                                <#else>
-                                    Đánh Giá Ngay
-                                </#if></a>
+                            <#if oldPhase != "FINAL">
+                                <a href="${webBaseUrl}#/challenge-detail/${challengeNameAlias}-${challengeId}-id?toPhase=${oldPhase}&utm_source=remindphaseclose&utm_medium=selectnowbtn&utm_campaign=onlinecontest" target="_blank" style="font-family: Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; display: block; width: 100%">Chọn Ngay</a>
+                            <#else>
+                                <a href="${webBaseUrl}#/challenge-detail/${challengeNameAlias}-${challengeId}-id?toPhase=${oldPhase}&utm_source=remindphaseclose&utm_medium=evaluatenowbtn&utm_campaign=onlinecontest" target="_blank" style="font-family: Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; display: block; width: 100%">Đánh Giá Ngay</a>
+                            </#if>
                             </td>
                           </tr>
                         </table>
@@ -245,106 +244,46 @@
                       </td>
                     </tr>
                     <#if oldPhase != "FINAL">
-                    <tr>
-                      <td width="100%" style="font-size: 14px; line-hight: 16px; padding: 5px 10px; -webkit-border-radius:3px; border-radius:3px; text-align: left; font-weight: 700">Gợi ý cho bạn:</td>
-                    </tr>
-                    <tr>
-                      <td style="height:20px; line-height: 20px;" width="100%">
-                        <img height="20px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                      </td>
-                    </tr>
-                    <tr>
-                      <td width="100%" align="left">
-                        <table align="center" cellspacing="0" cellpadding="2" class="deviceWidth" width="100%" style="margin:0 auto; padding:10px 10px 10px 0; float: left">
-                          <tr>
-                            <td width="100%" align="left">
-                              1. Để chọn 1 thí sinh bất kỳ:
+                        <tr>
+                            <td style="padding: 15px; background: #f5f8fa; border-radius: 15px;">
+                                <h1 style="font-family:Arial, sans-serif; font-size: 24px; color:#277cbd;text-align: center;margin:40px 0 25px 0">Gợi ý cho bạn:</h1>
+                                <table cellpadding="0" cellspacing="0" style="border-collapse: collapse;" width="100%" border="0">
+                                    <tbody><tr>
+                                        <td style="text-align: right; padding-right:20px;font-family:Arial, sans-serif; font-size: 14px;">
+                                            <h2 style="font-size: 18px;margin: 0 0 10px 0 ; color: #424242;font-weight: normal;">
+                                                1. Để chọn 1 thí sinh bất kỳ:</h2> &#8203;
+                                            <p style="font-size: 14px;color:#616161; margin:0">
+                                                Nhấp chuột trên biểu tượng <spam>
+                                                <img src="${webBaseUrl}images/like.png" alt=""></spam> của thí sinh bạn muốn chọn.
+                                            </p>
+                                            &#8203;
+                                        </td>
+                                        <td>
+                                            <img src="${webBaseUrl}images/tip-for-qualify.png" width="300">
+                                        </td>
+                                    </tr>
+                                    </tbody></table>
+                                <p style="text-align:center">
+                                    <img src="http://images.vietnamworks.com/img/email_divider.png" width="255" height="3">
+                                </p>
+                                <table cellpadding="0" cellspacing="0" style="border-collapse: collapse;" width="100%" border="0">
+                                    <tbody><tr>
+                                        <td style="width: 170px;">
+                                            &#8203;
+                                            <img src="${webBaseUrl}images/tip-for-qualify-all.png" width="300"> &#8203;
+                                        </td>
+                                        <td style="padding-left: 20px">
+                                            <h2 style="font-family:Arial, sans-serif;font-size: 18px;margin: 0 0 10px 0 ; color: #424242;font-weight: normal;">
+                                                2. Để chọn nhiều thí sinh cùng lúc:</h2>
+                                            <p style="font-family:Arial, sans-serif;margin: 0 0 25px 0; font-size:14px; color:#666;line-height: 18px;text-align: left;">
+                                                Nhấp chuột trên nút <spam>
+                                                <img src="${webBaseUrl}images/qualify-all-to-next-phase-en.png" alt=""></spam> để chọn nhiều thí sinh
+                                            </p>
+                                        </td>
+                                    </tr>
+                                    </tbody></table>
                             </td>
-                          </tr>
-                          <tr>
-                            <td style="height:10px; line-height: 10px;" width="100%">
-                              <img height="10px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                            </td>
-                          </tr>
-                          <tr>
-                            <td width="100%" align="left">
-                              Nhấp chuột trên biểu tượng <spam>
-                              <img src="${webBaseUrl}images/like.png" alt=""></spam> của thí sinh bạn muốn chọn.
-                            </td>
-                          </tr>
-                          <tr>
-                            <td style="height:10px; line-height: 10px;" width="100%">
-                              <img height="10px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                            </td>
-                          </tr>
-                        </table>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td style="height:10px; line-height: 10px;" width="100%">
-                        <img height="10px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                      </td>
-                    </tr>
-                    <tr>
-                      <td width="100%" align="left">
-                        <table align="center" cellspacing="0" cellpadding="2" class="deviceWidth" width="100%" style="margin:0 auto; padding:10px 0; float: left">
-                          <tr>
-                            <td width="100%">
-                              <img alt="Challenge Online" class="logo" src="${webBaseUrl}images/tip-for-qualify.png" style="border:none; outline:none" width="100%"/>
-                            </td>
-                          </tr>
-                        </table>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td style="height:20px; line-height: 20px;" width="100%">
-                        <img height="20px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                      </td>
-                    </tr>
-                    <tr>
-                      <td width="100%" align="left">
-                        <table align="center" cellspacing="0" cellpadding="2" class="deviceWidth" width="100%" style="margin:0 auto; padding:10px 0 10px 10px; float: left">
-                          <tr>
-                            <td width="100%" align="left">
-                              2. Để chọn nhiều thí sinh cùng lúc:
-                            </td>
-                          </tr>
-                          <tr>
-                            <td style="height:10px; line-height: 10px;" width="100%">
-                              <img height="10px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                            </td>
-                          </tr>
-                          <tr>
-                            <td width="100%" align="left">
-                              Nhấp chuột trên nút <spam>
-                              <img src="${webBaseUrl}images/qualify-all-to-next-phase-en.png" alt=""></spam> để chọn nhiều thí sinh
-                            </td>
-                          </tr>
-                          <tr>
-                            <td style="height:10px; line-height: 10px;" width="100%">
-                              <img height="10px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                            </td>
-                          </tr>
-                        </table>
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td style="height:10px; line-height: 10px;" width="100%">
-                        <img height="10px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                      </td>
-                    </tr>
-                    <tr>
-                      <td width="100%" align="left">
-                        <table align="center" cellspacing="0" cellpadding="2" class="deviceWidth" width="100%" style="margin:0 auto; padding:10px 0; float: left">
-                          <tr>
-                            <td width="100%">
-                              <img alt="Challenge Online" class="logo" src="${webBaseUrl}images/tip-for-qualify-all.png" style="border:none; outline:none" width="100%"/>
-                            </td>
-                          </tr>
-                        </table>
-                      </td>
-                    </tr>
+                        </tr>
                     <#else>
                         <tr>
                             <td style="padding: 15px; background: #f5f8fa; border-radius: 15px;">

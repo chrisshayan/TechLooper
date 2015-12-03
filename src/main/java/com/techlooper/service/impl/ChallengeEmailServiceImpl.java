@@ -390,7 +390,15 @@ public class ChallengeEmailServiceImpl implements ChallengeEmailService {
 
         Map<ChallengePhaseEnum, List<ChallengeSubmissionEntity>> submissionGroupByPhase =
                 latestSubmissions.stream().collect(Collectors.groupingBy(ChallengeSubmissionEntity::getSubmissionPhase));
-        templateModel.put("submissionGroupByPhase", submissionGroupByPhase);
+        List<ChallengePhaseEnum> phases = Arrays.asList(REGISTRATION, IDEA, UIUX, PROTOTYPE, FINAL);
+        for (ChallengePhaseEnum phase : phases) {
+            if (submissionGroupByPhase.containsKey(phase)) {
+                List<ChallengeSubmissionEntity> submissions = submissionGroupByPhase.get(phase);
+                templateModel.put(phase.getValue() + "Submissions", submissions);
+            } else {
+                templateModel.put(phase.getValue() + "Submissions", new ArrayList<>());
+            }
+        }
         return templateModel;
     }
 
