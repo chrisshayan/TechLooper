@@ -856,5 +856,6 @@
   "updateEvaluationCriteria1": "You have just posted the challenge successfully. Click",
   "updateEvaluationCriteria2": "to set up your own judging criteria for it.",
   "here": "here",
-  "getFinalReport": "Get final report"
+  "getFinalReport": "Get final report",
+  "thisMustBeBw5And100": "This must be between 5% and 100%"
 }

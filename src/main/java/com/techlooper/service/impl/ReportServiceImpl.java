@@ -27,7 +27,10 @@ import javax.annotation.Resource;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.StringWriter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -56,8 +59,8 @@ public class ReportServiceImpl implements ReportService {
   @Value("${web.baseUrl}")
   private String baseUrl;
 
-  @Resource
-  private ITextRenderer reportRender;
+//  @Resource
+//  private ITextRenderer reportRender;
 
   public ByteArrayOutputStream generateFinalChallengeReport(String challengeAuthorEmail, Long challengeId) {
     ChallengeEntity challenge = challengeRepository.findOne(challengeId);
@@ -107,11 +110,12 @@ public class ReportServiceImpl implements ReportService {
 
       ByteArrayOutputStream os = new ByteArrayOutputStream();
 
-//      ITextRenderer renderer = new ITextRenderer();
-//      renderer.getFontResolver().addFont("font/arial.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+      ITextRenderer reportRender = new ITextRenderer();
+      reportRender.getFontResolver().addFont("font/arial.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
       reportRender.setDocumentFromString(stringWriter.toString());
       reportRender.layout();
       reportRender.createPDF(os);
+      reportRender.finishPDF();
       stringWriter.flush();
       return os;
     }
