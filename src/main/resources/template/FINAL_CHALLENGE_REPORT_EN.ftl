@@ -18,7 +18,7 @@
       <table width="100%" cellpadding="0" cellspacing="0">
         <tr>
           <th align="left">
-            <h2 style="font-size: 18px; font-weight: normal; text-transform: capitalize;color: #898989;">
+            <h2 style="font-size: 18px; font-weight: normal; text-transform: capitalize;color: #000;">
           ${challengeName}
             <span style="font-size: 25px; font-weight: normal; color:#1c7abc">$${totalPlaceReward?string["0.####"]}</span>
             </h2>
@@ -67,7 +67,7 @@
           <td align="left" style="height: 1px; background-color: #8d8d8d;"></td>
         </tr>
         <tr>
-          <td align="left" style="height: 30px;"></td>
+          <td align="left" style="height: 5px;"></td>
         </tr>
         <tr>
           <td align="left" width="100%">
