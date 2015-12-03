@@ -493,35 +493,16 @@
       <scope>provided</scope>
     </dependency>
 
-    <dependency>
-      <groupId>com.itextpdf</groupId>
-      <artifactId>itextpdf</artifactId>
-      <version>5.5.8</version>
-    </dependency>
-
-    <dependency>
-      <groupId>com.itextpdf.tool</groupId>
-      <artifactId>xmlworker</artifactId>
-      <version>5.5.8</version>
-    </dependency>
-
-
     <!--<dependency>-->
-      <!--<groupId>org.jfree</groupId>-->
-      <!--<artifactId>jfreechart</artifactId>-->
-      <!--<version>1.0.19</version>-->
+      <!--<groupId>com.itextpdf</groupId>-->
+      <!--<artifactId>itextpdf</artifactId>-->
+      <!--<version>5.5.8</version>-->
     <!--</dependency>-->
 
     <!--<dependency>-->
-      <!--<groupId>net.sourceforge.htmlunit</groupId>-->
-      <!--<artifactId>htmlunit</artifactId>-->
-      <!--<version>2.19</version>-->
-    <!--</dependency>-->
-
-    <!--<dependency>-->
-      <!--<groupId>commons-io</groupId>-->
-      <!--<artifactId>commons-io</artifactId>-->
-      <!--<version>2.42.4</version>-->
+      <!--<groupId>com.itextpdf.tool</groupId>-->
+      <!--<artifactId>xmlworker</artifactId>-->
+      <!--<version>5.5.8</version>-->
     <!--</dependency>-->
 
     <dependency>

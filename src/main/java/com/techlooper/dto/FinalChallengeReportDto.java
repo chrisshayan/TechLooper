@@ -1,13 +1,10 @@
 package com.techlooper.dto;
 
-import com.techlooper.entity.ChallengeRegistrantDto;
 import com.techlooper.entity.ChallengeRegistrantEntity;
 import com.techlooper.model.ChallengeDto;
-import com.techlooper.model.ChallengePhaseEnum;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -24,8 +21,6 @@ public class FinalChallengeReportDto extends ChallengeDto {
   private String baseUrl;
 
   private String phaseOptions = "";
-
-//  private static final ChallengePhaseEnum[] ALL_OPTS = new ChallengePhaseEnum[] {ChallengePhaseEnum.IDEA, ChallengePhaseEnum.UIUX, ChallengePhaseEnum.PROTOTYPE};
 
   public String getBaseUrl() {
     return baseUrl;
