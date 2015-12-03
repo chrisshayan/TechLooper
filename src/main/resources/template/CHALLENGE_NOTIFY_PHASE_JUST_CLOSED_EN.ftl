@@ -244,106 +244,46 @@
                       </td>
                     </tr>
                     <#if oldPhase != "FINAL">
-                    <tr>
-                      <td width="100%" style="font-size: 14px; line-hight: 16px; padding: 5px 10px; -webkit-border-radius:3px; border-radius:3px; text-align: left; font-weight: 700">Tips for you:</td>
-                    </tr>
-                    <tr>
-                      <td style="height:20px; line-height: 20px;" width="100%">
-                        <img height="20px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                      </td>
-                    </tr>
-                    <tr>
-                      <td width="100%" align="left">
-                        <table align="center" cellspacing="0" cellpadding="2" class="deviceWidth" width="100%" style="margin:0 auto; padding:10px 10px 10px 0; float: left">
-                          <tr>
-                            <td width="100%" align="left">
-                              1. To select 1 contestant:
+                        <tr>
+                            <td style="padding: 15px; background: #f5f8fa; border-radius: 15px;">
+                                <h1 style="font-family:Arial, sans-serif; font-size: 24px; color:#277cbd;text-align: center;margin:40px 0 25px 0">Tips for you:</h1>
+                                <table cellpadding="0" cellspacing="0" style="border-collapse: collapse;" width="100%" border="0">
+                                    <tbody><tr>
+                                        <td style="text-align: right; padding-right:20px;font-family:Arial, sans-serif; font-size: 14px;">
+                                            <h2 style="font-size: 18px;margin: 0 0 10px 0 ; color: #424242;font-weight: normal;">
+                                                1. To select 1 contestant:</h2> &#8203;
+                                            <p style="font-size: 14px;color:#616161; margin:0">
+                                                Click on the <spam>
+                                                <img src="${webBaseUrl}images/like.png" alt=""></spam> in a row to qualify the relevant contestant
+                                            </p>
+                                            &#8203;
+                                        </td>
+                                        <td>
+                                            <img src="${webBaseUrl}images/tip-for-qualify.png" width="300">
+                                        </td>
+                                    </tr>
+                                    </tbody></table>
+                                <p style="text-align:center">
+                                    <img src="http://images.vietnamworks.com/img/email_divider.png" width="255" height="3">
+                                </p>
+                                <table cellpadding="0" cellspacing="0" style="border-collapse: collapse;" width="100%" border="0">
+                                    <tbody><tr>
+                                        <td style="width: 170px;">
+                                            &#8203;
+                                            <img src="${webBaseUrl}images/tip-for-qualify-all.png" width="300"> &#8203;
+                                        </td>
+                                        <td style="padding-left: 20px">
+                                            <h2 style="font-family:Arial, sans-serif;font-size: 18px;margin: 0 0 10px 0 ; color: #424242;font-weight: normal;">
+                                                2. To select multiple contestants:</h2>
+                                            <p style="font-family:Arial, sans-serif;margin: 0 0 25px 0; font-size:14px; color:#666;line-height: 18px;text-align: left;">
+                                                Click on button <spam>
+                                                <img src="${webBaseUrl}images/qualify-all-to-next-phase-en.png" alt=""></spam> to qualify contestants
+                                            </p>
+                                        </td>
+                                    </tr>
+                                    </tbody></table>
                             </td>
-                          </tr>
-                          <tr>
-                            <td style="height:10px; line-height: 10px;" width="100%">
-                              <img height="10px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                            </td>
-                          </tr>
-                          <tr>
-                            <td width="100%" align="left">
-                              Click on the <spam>
-                              <img src="${webBaseUrl}images/like.png" alt=""></spam> in a row to qualify the relevant contestant
-                            </td>
-                          </tr>
-                          <tr>
-                            <td style="height:10px; line-height: 10px;" width="100%">
-                              <img height="10px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                            </td>
-                          </tr>
-                        </table>
-
-                      </td>
-                    </tr>
-                    <tr>
-                      <td style="height:10px; line-height: 10px;" width="100%">
-                        <img height="10px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                      </td>
-                    </tr>
-                    <tr>
-                      <td width="100%" align="left">
-                        <table align="center" cellspacing="0" cellpadding="2" class="deviceWidth" width="100%" style="margin:0 auto; padding:10px 0; float: left">
-                          <tr>
-                            <td width="100%">
-                              <img alt="Challenge Online" class="logo" src="${webBaseUrl}images/tip-for-qualify.png" style="border:none; outline:none" width="100%"/>
-                            </td>
-                          </tr>
-                        </table>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td style="height:20px; line-height: 20px;" width="100%">
-                        <img height="20px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                      </td>
-                    </tr>
-                    <tr>
-                      <td width="100%" align="left">
-                        <table align="center" cellspacing="0" cellpadding="2" class="deviceWidth" width="100%" style="margin:0 auto; padding:10px 0 10px 10px; float: left">
-                          <tr>
-                            <td width="100%" align="left">
-                              2. To select multiple contestants:
-                            </td>
-                          </tr>
-                          <tr>
-                            <td style="height:10px; line-height: 10px;" width="100%">
-                              <img height="10px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                            </td>
-                          </tr>
-                          <tr>
-                            <td width="100%" align="left">
-                              Click on button <spam>
-                              <img src="${webBaseUrl}images/qualify-all-to-next-phase-en.png" alt=""></spam> to qualify contestants
-                            </td>
-                          </tr>
-                          <tr>
-                            <td style="height:10px; line-height: 10px;" width="100%">
-                              <img height="10px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                            </td>
-                          </tr>
-                        </table>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td style="height:10px; line-height: 10px;" width="100%">
-                        <img height="10px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                      </td>
-                    </tr>
-                    <tr>
-                      <td width="100%" align="left">
-                        <table align="center" cellspacing="0" cellpadding="2" class="deviceWidth" width="100%" style="margin:0 auto; padding:10px 0; float: left">
-                          <tr>
-                            <td width="100%">
-                              <img alt="Challenge Online" class="logo" src="${webBaseUrl}images/tip-for-qualify-all.png" style="border:none; outline:none" width="100%"/>
-                            </td>
-                          </tr>
-                        </table>
-                      </td>
-                    </tr>
+                        </tr>
                     <#else>
                         <tr>
                             <td style="padding: 15px; background: #f5f8fa; border-radius: 15px;">
