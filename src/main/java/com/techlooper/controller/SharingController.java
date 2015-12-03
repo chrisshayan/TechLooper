@@ -15,12 +15,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ViewResolver;
 
 import javax.annotation.Resource;
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -108,7 +106,7 @@ public class SharingController {
       response.setStatus(HttpServletResponse.SC_EXPECTATION_FAILED);
       return;
     }
-    
+
     byte[] data = os.toByteArray();
     response.setContentType("application/pdf");
     response.setHeader("Content-disposition", "attachment;filename=report.pdf");

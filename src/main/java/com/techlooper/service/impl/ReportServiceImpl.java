@@ -1,7 +1,6 @@
 package com.techlooper.service.impl;
 
 import com.itextpdf.text.pdf.BaseFont;
-import com.lowagie.text.DocumentException;
 import com.techlooper.dto.FinalChallengeReportDto;
 import com.techlooper.dto.PhaseEntry;
 import com.techlooper.dto.PhaseEntry.PhaseEntryBuilder;
@@ -15,7 +14,6 @@ import com.techlooper.repository.elasticsearch.ChallengeRepository;
 import com.techlooper.service.ChallengeRegistrantService;
 import com.techlooper.service.ReportService;
 import freemarker.template.Template;
-import freemarker.template.TemplateException;
 import org.dozer.Mapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,7 +23,6 @@ import org.xhtmlrenderer.pdf.ITextRenderer;
 
 import javax.annotation.Resource;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
@@ -119,7 +116,7 @@ public class ReportServiceImpl implements ReportService {
       stringWriter.flush();
       return os;
     }
-    catch (TemplateException | IOException | DocumentException e) {
+    catch (Exception e) {
       LOGGER.debug("Can not process template", e);
     }
 
