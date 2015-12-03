@@ -37,10 +37,12 @@
         <tr>
           <td align="center">
             <br/>
-            <span style="font-size: 18px;"><strong style="font-size: 25px; color:#bf3a2f">${winnersInfo?size}</strong> winner(s)</span>
-          <#list winnersInfo as winnerInfo>
-            <p style="1font-family:Times New Roman,serif">${winnerInfo.registrantFirstName?capitalize} ${winnerInfo.registrantLastName?capitalize}</p>
-          </#list>
+            <#if winnersInfo?size != 0>
+              <span style="font-size: 18px;"><strong style="font-size: 25px; color:#bf3a2f">${winnersInfo?size}</strong> winner(s)</span>
+              <#list winnersInfo as winnerInfo>
+                <p style="1font-family:Times New Roman,serif">${winnerInfo.registrantFirstName?capitalize} ${winnerInfo.registrantLastName?capitalize}</p>
+              </#list>
+            </#if>
           </td>
         </tr>
         <tr>
