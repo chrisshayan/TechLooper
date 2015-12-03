@@ -8,6 +8,12 @@ techlooper.directive('challengeEvaluationCriteriaInput', function () {
         contestDetail: "="
       },
       link: function (scope, element, attr, ctrl) {
+        $(element).find('input[name=weight]').tooltip({
+          html: true,
+          placement: 'bottom',
+          'trigger': "focus",
+          animation: true
+        });
       }
     };
   });

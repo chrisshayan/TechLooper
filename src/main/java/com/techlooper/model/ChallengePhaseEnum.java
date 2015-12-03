@@ -12,7 +12,7 @@ public enum ChallengePhaseEnum {
     UIUX("ideaSubmissionDateTime", "uxSubmissionDateTime", "UIUX", 4, "UI/UX", "UI/UX"),
     PROTOTYPE("uxSubmissionDateTime", "prototypeSubmissionDateTime", "PROTOTYPE", 5, "Prototype", "Prototype"),
     FINAL("prototypeSubmissionDateTime", "submissionDateTime", "FINAL", 6, "Final App", "Sản Phẩm Cuối"),
-    WINNER("prototypeSubmissionDateTime", "submissionDateTime", "WINNER", 7, "", "");
+    WINNER("submissionDateTime", "", "WINNER", 7, "", "");
 
     private String fromDateTimeField;
 

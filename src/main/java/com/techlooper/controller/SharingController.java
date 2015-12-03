@@ -4,6 +4,7 @@ import com.techlooper.dto.ResourceDto;
 import com.techlooper.repository.elasticsearch.ProjectRepository;
 import com.techlooper.repository.elasticsearch.SalaryReviewRepository;
 import com.techlooper.service.ChallengeService;
+import com.techlooper.service.ReportService;
 import com.techlooper.service.WebinarService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,8 +12,13 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ViewResolver;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -38,6 +44,12 @@ public class SharingController {
 
   @Resource
   private ProjectRepository projectRepository;
+
+  @Resource
+  private ReportService reportService;
+
+  @Resource
+  private ViewResolver viewResolver;
 
   @RequestMapping(value = "renderSalaryReport/{language}/{salaryReviewId}")
   public String renderReport(@PathVariable String language, @PathVariable Long salaryReviewId, ModelMap model) {
@@ -86,19 +98,20 @@ public class SharingController {
     }
     return 404L;
   }
-//
-//  public static void main(String[] args) {
-//    try {
-//      HttpURLConnection.setFollowRedirects(false);
-//      String url = "https://facebook.com";
-//      url = (url.startsWith("https://") || url.startsWith("http://")) ? url : "http://" + url;
-//      HttpURLConnection con = (HttpURLConnection) new URL(url).openConnection();
-//      con.setRequestMethod("HEAD");
-//      int responseCode = con.getResponseCode();
-//      System.out.println(responseCode);
-//    }
-//    catch (Exception e) {
-//      e.printStackTrace();
-//    }
-//  }
+
+  @RequestMapping(value = "report/challenge/final/{challengeId}")
+  public void renderFinalChallengeReport(@PathVariable Long challengeId, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    ByteArrayOutputStream os = reportService.generateFinalChallengeReport(request.getRemoteUser(), challengeId);
+    if (os == null) {
+      response.setStatus(HttpServletResponse.SC_EXPECTATION_FAILED);
+      return;
+    }
+
+    byte[] data = os.toByteArray();
+    response.setContentType("application/pdf");
+    response.setHeader("Content-disposition", "attachment;filename=report.pdf");
+    response.setContentLength(data.length);
+    response.getOutputStream().write(data);
+    response.getOutputStream().flush();
+  }
 }

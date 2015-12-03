@@ -20,6 +20,8 @@
     text-align: left
     ul
       list-style: inherit !important
+      padding: inherit !important
+      margin: 0 0 0 10px !important
   .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus
     border-color: #dddddd #dddddd #fff
   .nav-tabs > li > a
@@ -469,6 +471,7 @@
                 input
                   height: 30px
                   line-height: 30px
+                  background: url(../images/search-icon.png) right 3px no-repeat
             .prize-col
               width: 16%
               float: left
@@ -1329,17 +1332,30 @@
             clear: both
             padding-top: 10px
             p
-              width: 60%
+              width: 50%
               margin: 0
               padding: 15px 0 0 0
               float: left
             .announcement-winner
-              width: 40%
+              width: 50%
               float: right
               text-align: right
+              button
+                cursor: pointer
               button.disabled
                 background-color: gray !important
                 cursor: not-allowed
+              a.export-pdf
+                display: inline-block
+                background: url(../images/pdf.png) left top no-repeat
+                width: 35px
+                height: 35px
+                line-height: 35px
+                cursor: pointer
+                text-indent: -99999px
+                font-size: 0
+                float: right
+                margin-left: 5px
           .search-contestant-name
             display: none
             width: 100%

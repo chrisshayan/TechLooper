@@ -846,7 +846,7 @@
   "unread": "Unread",
   "numberUnread": "{{number}} unread",
   "qualifyAllToNextPhase": "Qualify All To Next Phase",
-  "qualifyAllToNextPhaseTip": "Are you sure you want to select all contestants from <strong>{{activePhase}}</strong> phase to <strong>{{nextPhase}}</strong> phase? These contestants are non-disqualified and",
+  "qualifyAllToNextPhaseTip": "Are you sure you want to qualify all contestants to <strong>{{nextPhase}}</strong> phase? These contestants are non-disqualified and",
   "havingAllSubmissionsRead": "Having all submissions read",
   "havingSubmissions": "Having submissions",
   "regardlessOfHavingSubmissions": "Regardless of having submissions or not",
@@ -855,5 +855,7 @@
   "searchContestantName": "Enter contestant name to search",
   "updateEvaluationCriteria1": "You have just posted the challenge successfully. Click",
   "updateEvaluationCriteria2": "to set up your own judging criteria for it.",
-  "here": "here"
+  "here": "here",
+  "getFinalReport": "Get final report",
+  "thisMustBeBw5And100": "This must be between 5% and 100%"
 }

@@ -125,6 +125,10 @@ techlooper
       replace: true,
       templateUrl: "modules/contest-detail/tabManager.html",
       link: function (scope, element, attr, ctrl) {
+        var params = $location.search();
+        if(params.a == "evaluationCriteria"){
+          $("a[href='.evaluation-criteria']").tab('show');
+        }
         scope.$on("challenge-detail-ready", function () {
           var params = $location.search();
           var showTabRegistrant = (params.a == "registrants") || (params.toPhase != undefined);
@@ -150,7 +154,6 @@ techlooper
       replace: true,
       templateUrl: "modules/contest-detail/contestContentDetails.html",
       link: function (scope, element, attr, ctrl) {
-
       }
     };
   })

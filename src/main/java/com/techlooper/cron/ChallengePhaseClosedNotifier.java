@@ -39,7 +39,7 @@ public class ChallengePhaseClosedNotifier {
     @Scheduled(cron = "${scheduled.cron.notifyChallengePhaseClosed}")
     public synchronized void notifyChallengePhaseClosed() throws Exception {
         if (enableJobAlert) {
-            List<ChallengePhaseEnum> challengePhases = Arrays.asList(IDEA, UIUX, PROTOTYPE, FINAL);
+            List<ChallengePhaseEnum> challengePhases = Arrays.asList(IDEA, UIUX, PROTOTYPE, FINAL, WINNER);
 
             int count = 0;
             for (ChallengePhaseEnum currentPhase : challengePhases) {
@@ -104,6 +104,8 @@ public class ChallengePhaseClosedNotifier {
                 } else {
                     return REGISTRATION;
                 }
+            case WINNER:
+                return FINAL;
             default:
                 return null;
         }

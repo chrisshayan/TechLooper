@@ -285,13 +285,11 @@
                                                             <img height="5px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
                                                         </td>
                                                     </tr>
-                                                <#list submissionGroupByPhase?keys as phase>
-                                                    <#assign submissions = submissionGroupByPhase.get(phase)/>
-                                                    <#if submissions?has_content>
-                                                        <#assign numberOfSubmissions = submissions.size()/>
+                                                    <#if REGISTRATIONSubmissions?has_content>
+                                                        <#assign numberOfSubmissions = REGISTRATIONSubmissions?size />
                                                         <tr>
                                                             <td style="text-align: left;">
-                                                                You have received <strong>${numberOfSubmissions}</strong> new submissions to <a href="" style="color: #277cbd; text-decoration: none; font-weight: 600;text-transform: uppercase;">${phase}</a> phase since yesterday.
+                                                                You have received <strong>${numberOfSubmissions}</strong> new submissions to <a href="${webBaseUrl}#/challenge-detail/${challengeNameAlias}-${challengeId}-id?action=employerLogin&toPhase=REGISTRATION&utm_source=dailysummary&utm_medium=phasename&utm_campaign=onlinecontest" style="color: #277cbd; text-decoration: none; font-weight: 600;text-transform: uppercase;">Registration</a> phase since yesterday.
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -311,7 +309,7 @@
                                                                                     <td style="text-align: center;font-weight: 600; padding: 10px 5px; border-left: 1px solid #bdbdbd;" width="120px">Review</td>
                                                                                     <td style="text-align: center;font-weight: 600;padding: 10px 5px; border-left: 1px solid #bdbdbd;" width="120px">Feedback</td>
                                                                                 </tr>
-                                                                                <#list submissions as submission>
+                                                                                <#list REGISTRATIONSubmissions as submission>
                                                                                     <tr>
                                                                                         <td style="text-align: center; padding: 10px 5px;border-top: 1px solid #bdbdbd;" width="30px">${submission_index + 1}</td>
                                                                                         <td style="padding: 10px 5px; border-left: 1px solid #bdbdbd;border-top: 1px solid #bdbdbd;">${submission.registrantName}</td>
@@ -330,17 +328,6 @@
                                                                             <img height="15px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
                                                                         </td>
                                                                     </tr>
-                                                                    <tr>
-                                                                        <td style="text-align: center; padding: 10px 0">
-                                                                            <table border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto; width: auto" class="fullWidth">
-                                                                                <tbody><tr>
-                                                                                    <td bgcolor="#277cbd" width="100%" style="padding: 7px 20px; font-weight: 700; -webkit-border-radius:3px; border-radius:3px; text-align: center">
-                                                                                        <a href="${webBaseUrl}#/challenge-detail/${challengeNameAlias}-${challengeId}-id?action=employerLogin&toPhase=${phase}&utm_source=dailysummary&utm_medium=allsubmissionsbtn&utm_campaign=onlinecontest" target="_blank" style="font-family: Arial, sans-serif; font-size: 14px; color: #ffffff; text-decoration: none; display: block; width: 100%">Accept Submissions</a>
-                                                                                    </td>
-                                                                                </tr>
-                                                                                </tbody></table>
-                                                                        </td>
-                                                                    </tr>
                                                                 </table>
                                                             </td>
                                                         </tr>
@@ -350,7 +337,225 @@
                                                             </td>
                                                         </tr>
                                                     </#if>
-                                                </#list>
+                                                <#if IDEASubmissions?has_content>
+                                                    <#assign numberOfSubmissions = IDEASubmissions?size />
+                                                    <tr>
+                                                        <td style="text-align: left;">
+                                                            You have received <strong>${numberOfSubmissions}</strong> new submissions to <a href="${webBaseUrl}#/challenge-detail/${challengeNameAlias}-${challengeId}-id?action=employerLogin&toPhase=IDEA&utm_source=dailysummary&utm_medium=phasename&utm_campaign=onlinecontest" style="color: #277cbd; text-decoration: none; font-weight: 600;text-transform: uppercase;">Idea</a> phase since yesterday.
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="height:5px; line-height: 5px;" width="100%">
+                                                            <img height="5px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="padding:5px 0;text-align: left;">
+                                                            <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="float:left;" class="fullWidth">
+                                                                <tr>
+                                                                    <td width="100%">
+                                                                        <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="float:left;border: 1px solid #bdbdbd;">
+                                                                            <tr style="background-color: #f7f7f7; color:#000;">
+                                                                                <td style="text-align: center; font-weight: 600;padding: 10px 5px;" width="30px">#</td>
+                                                                                <td style="text-align: left; font-weight: 600;padding: 10px 5px; border-left: 1px solid #bdbdbd;">Full Name</td>
+                                                                                <td style="text-align: center;font-weight: 600; padding: 10px 5px; border-left: 1px solid #bdbdbd;" width="120px">Review</td>
+                                                                                <td style="text-align: center;font-weight: 600;padding: 10px 5px; border-left: 1px solid #bdbdbd;" width="120px">Feedback</td>
+                                                                            </tr>
+                                                                            <#list IDEASubmissions as submission>
+                                                                                <tr>
+                                                                                    <td style="text-align: center; padding: 10px 5px;border-top: 1px solid #bdbdbd;" width="30px">${submission_index + 1}</td>
+                                                                                    <td style="padding: 10px 5px; border-left: 1px solid #bdbdbd;border-top: 1px solid #bdbdbd;">${submission.registrantName}</td>
+                                                                                    <td style="text-align: center;padding: 10px 5px; border-left: 1px solid #bdbdbd;border-top: 1px solid #bdbdbd;" width="120px">
+                                                                                        <a href="${webBaseUrl}#/?action=redirectJA&utm_source=dailysummary&utm_medium=review&utm_campaign=onlinecontest&targetUrl=${submission.submissionURL}" style="color: #277cbd; text-decoration: none;" target="_blank" >Review</a></td>
+                                                                                    <td style="text-align: center;padding: 10px 5px; border-left: 1px solid #bdbdbd;border-top: 1px solid #bdbdbd;" width="120px">
+                                                                                        <a href="${webBaseUrl}#/employer-dashboard?a=feedback-registrant&challengeId=${challengeId}&registrantId=${submission.registrantId?c}&utm_source=dailysummary&utm_medium=feedback&utm_campaign=onlinecontest" style="color: #277cbd; text-decoration: none;" target="_blank" >Feedback</a>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </#list>
+                                                                        </table>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td style="height:15px; line-height: 5px;" width="100%">
+                                                                        <img height="15px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="height:15px; line-height: 5px;" width="100%">
+                                                            <img height="15px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
+                                                        </td>
+                                                    </tr>
+                                                </#if>
+                                                <#if UIUXSubmissions?has_content>
+                                                    <#assign numberOfSubmissions = UIUXSubmissions?size />
+                                                    <tr>
+                                                        <td style="text-align: left;">
+                                                            You have received <strong>${numberOfSubmissions}</strong> new submissions to <a href="${webBaseUrl}#/challenge-detail/${challengeNameAlias}-${challengeId}-id?action=employerLogin&toPhase=UIUX&utm_source=dailysummary&utm_medium=phasename&utm_campaign=onlinecontest" style="color: #277cbd; text-decoration: none; font-weight: 600;text-transform: uppercase;">UI/UX</a> phase since yesterday.
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="height:5px; line-height: 5px;" width="100%">
+                                                            <img height="5px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="padding:5px 0;text-align: left;">
+                                                            <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="float:left;" class="fullWidth">
+                                                                <tr>
+                                                                    <td width="100%">
+                                                                        <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="float:left;border: 1px solid #bdbdbd;">
+                                                                            <tr style="background-color: #f7f7f7; color:#000;">
+                                                                                <td style="text-align: center; font-weight: 600;padding: 10px 5px;" width="30px">#</td>
+                                                                                <td style="text-align: left; font-weight: 600;padding: 10px 5px; border-left: 1px solid #bdbdbd;">Full Name</td>
+                                                                                <td style="text-align: center;font-weight: 600; padding: 10px 5px; border-left: 1px solid #bdbdbd;" width="120px">Review</td>
+                                                                                <td style="text-align: center;font-weight: 600;padding: 10px 5px; border-left: 1px solid #bdbdbd;" width="120px">Feedback</td>
+                                                                            </tr>
+                                                                            <#list UIUXSubmissions as submission>
+                                                                                <tr>
+                                                                                    <td style="text-align: center; padding: 10px 5px;border-top: 1px solid #bdbdbd;" width="30px">${submission_index + 1}</td>
+                                                                                    <td style="padding: 10px 5px; border-left: 1px solid #bdbdbd;border-top: 1px solid #bdbdbd;">${submission.registrantName}</td>
+                                                                                    <td style="text-align: center;padding: 10px 5px; border-left: 1px solid #bdbdbd;border-top: 1px solid #bdbdbd;" width="120px">
+                                                                                        <a href="${webBaseUrl}#/?action=redirectJA&utm_source=dailysummary&utm_medium=review&utm_campaign=onlinecontest&targetUrl=${submission.submissionURL}" style="color: #277cbd; text-decoration: none;" target="_blank" >Review</a></td>
+                                                                                    <td style="text-align: center;padding: 10px 5px; border-left: 1px solid #bdbdbd;border-top: 1px solid #bdbdbd;" width="120px">
+                                                                                        <a href="${webBaseUrl}#/employer-dashboard?a=feedback-registrant&challengeId=${challengeId}&registrantId=${submission.registrantId?c}&utm_source=dailysummary&utm_medium=feedback&utm_campaign=onlinecontest" style="color: #277cbd; text-decoration: none;" target="_blank" >Feedback</a>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </#list>
+                                                                        </table>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td style="height:15px; line-height: 5px;" width="100%">
+                                                                        <img height="15px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="height:15px; line-height: 5px;" width="100%">
+                                                            <img height="15px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
+                                                        </td>
+                                                    </tr>
+                                                </#if>
+                                                <#if PROTOTYPESubmissions?has_content>
+                                                    <#assign numberOfSubmissions = PROTOTYPESubmissions?size />
+                                                    <tr>
+                                                        <td style="text-align: left;">
+                                                            You have received <strong>${numberOfSubmissions}</strong> new submissions to <a href="${webBaseUrl}#/challenge-detail/${challengeNameAlias}-${challengeId}-id?action=employerLogin&toPhase=PROTOTYPE&utm_source=dailysummary&utm_medium=phasename&utm_campaign=onlinecontest" style="color: #277cbd; text-decoration: none; font-weight: 600;text-transform: uppercase;">Prototype</a> phase since yesterday.
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="height:5px; line-height: 5px;" width="100%">
+                                                            <img height="5px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="padding:5px 0;text-align: left;">
+                                                            <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="float:left;" class="fullWidth">
+                                                                <tr>
+                                                                    <td width="100%">
+                                                                        <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="float:left;border: 1px solid #bdbdbd;">
+                                                                            <tr style="background-color: #f7f7f7; color:#000;">
+                                                                                <td style="text-align: center; font-weight: 600;padding: 10px 5px;" width="30px">#</td>
+                                                                                <td style="text-align: left; font-weight: 600;padding: 10px 5px; border-left: 1px solid #bdbdbd;">Full Name</td>
+                                                                                <td style="text-align: center;font-weight: 600; padding: 10px 5px; border-left: 1px solid #bdbdbd;" width="120px">Review</td>
+                                                                                <td style="text-align: center;font-weight: 600;padding: 10px 5px; border-left: 1px solid #bdbdbd;" width="120px">Feedback</td>
+                                                                            </tr>
+                                                                            <#list PROTOTYPESubmissions as submission>
+                                                                                <tr>
+                                                                                    <td style="text-align: center; padding: 10px 5px;border-top: 1px solid #bdbdbd;" width="30px">${submission_index + 1}</td>
+                                                                                    <td style="padding: 10px 5px; border-left: 1px solid #bdbdbd;border-top: 1px solid #bdbdbd;">${submission.registrantName}</td>
+                                                                                    <td style="text-align: center;padding: 10px 5px; border-left: 1px solid #bdbdbd;border-top: 1px solid #bdbdbd;" width="120px">
+                                                                                        <a href="${webBaseUrl}#/?action=redirectJA&utm_source=dailysummary&utm_medium=review&utm_campaign=onlinecontest&targetUrl=${submission.submissionURL}" style="color: #277cbd; text-decoration: none;" target="_blank" >Review</a></td>
+                                                                                    <td style="text-align: center;padding: 10px 5px; border-left: 1px solid #bdbdbd;border-top: 1px solid #bdbdbd;" width="120px">
+                                                                                        <a href="${webBaseUrl}#/employer-dashboard?a=feedback-registrant&challengeId=${challengeId}&registrantId=${submission.registrantId?c}&utm_source=dailysummary&utm_medium=feedback&utm_campaign=onlinecontest" style="color: #277cbd; text-decoration: none;" target="_blank" >Feedback</a>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </#list>
+                                                                        </table>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td style="height:15px; line-height: 5px;" width="100%">
+                                                                        <img height="15px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="height:15px; line-height: 5px;" width="100%">
+                                                            <img height="15px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
+                                                        </td>
+                                                    </tr>
+                                                </#if>
+                                                <#if FINALSubmissions?has_content>
+                                                    <#assign numberOfSubmissions = FINALSubmissions?size />
+                                                    <tr>
+                                                        <td style="text-align: left;">
+                                                            You have received <strong>${numberOfSubmissions}</strong> new submissions to <a href="${webBaseUrl}#/challenge-detail/${challengeNameAlias}-${challengeId}-id?action=employerLogin&toPhase=FINAL&utm_source=dailysummary&utm_medium=phasename&utm_campaign=onlinecontest" style="color: #277cbd; text-decoration: none; font-weight: 600;text-transform: uppercase;">Final App</a> phase since yesterday.
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="height:5px; line-height: 5px;" width="100%">
+                                                            <img height="5px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="padding:5px 0;text-align: left;">
+                                                            <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="float:left;" class="fullWidth">
+                                                                <tr>
+                                                                    <td width="100%">
+                                                                        <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="float:left;border: 1px solid #bdbdbd;">
+                                                                            <tr style="background-color: #f7f7f7; color:#000;">
+                                                                                <td style="text-align: center; font-weight: 600;padding: 10px 5px;" width="30px">#</td>
+                                                                                <td style="text-align: left; font-weight: 600;padding: 10px 5px; border-left: 1px solid #bdbdbd;">Full Name</td>
+                                                                                <td style="text-align: center;font-weight: 600; padding: 10px 5px; border-left: 1px solid #bdbdbd;" width="120px">Review</td>
+                                                                                <td style="text-align: center;font-weight: 600;padding: 10px 5px; border-left: 1px solid #bdbdbd;" width="120px">Feedback</td>
+                                                                            </tr>
+                                                                            <#list FINALSubmissions as submission>
+                                                                                <tr>
+                                                                                    <td style="text-align: center; padding: 10px 5px;border-top: 1px solid #bdbdbd;" width="30px">${submission_index + 1}</td>
+                                                                                    <td style="padding: 10px 5px; border-left: 1px solid #bdbdbd;border-top: 1px solid #bdbdbd;">${submission.registrantName}</td>
+                                                                                    <td style="text-align: center;padding: 10px 5px; border-left: 1px solid #bdbdbd;border-top: 1px solid #bdbdbd;" width="120px">
+                                                                                        <a href="${webBaseUrl}#/?action=redirectJA&utm_source=dailysummary&utm_medium=review&utm_campaign=onlinecontest&targetUrl=${submission.submissionURL}" style="color: #277cbd; text-decoration: none;" target="_blank" >Review</a></td>
+                                                                                    <td style="text-align: center;padding: 10px 5px; border-left: 1px solid #bdbdbd;border-top: 1px solid #bdbdbd;" width="120px">
+                                                                                        <a href="${webBaseUrl}#/employer-dashboard?a=feedback-registrant&challengeId=${challengeId}&registrantId=${submission.registrantId?c}&utm_source=dailysummary&utm_medium=feedback&utm_campaign=onlinecontest" style="color: #277cbd; text-decoration: none;" target="_blank" >Feedback</a>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </#list>
+                                                                        </table>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td style="height:15px; line-height: 5px;" width="100%">
+                                                                        <img height="15px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td style="text-align: center; padding: 10px 0">
+                                                                        <table border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto; width: auto" class="fullWidth">
+                                                                            <tbody><tr>
+                                                                                <td bgcolor="#277cbd" width="100%" style="padding: 7px 20px; font-weight: 700; -webkit-border-radius:3px; border-radius:3px; text-align: center">
+                                                                                    <a href="" target="_blank" style="font-family: Arial, sans-serif; font-size: 14px; color: #ffffff; text-decoration: none; display: block; width: 100%">Accept Submissions</a>
+                                                                                </td>
+                                                                            </tr>
+                                                                            </tbody></table>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="height:15px; line-height: 5px;" width="100%">
+                                                            <img height="15px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
+                                                        </td>
+                                                    </tr>
+                                                </#if>
                                                 </table>
                                             </td>
                                         </tr>

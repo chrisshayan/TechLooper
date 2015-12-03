@@ -336,4 +336,24 @@ public class ChallengeEntity {
     }
     return true;
   }
+
+  public String phaseStartDate(ChallengePhaseEnum phase) {
+    switch (phase) {
+      case REGISTRATION:
+        return startDateTime;
+
+      case IDEA:
+        return registrationDateTime;
+
+      case UIUX:
+        return hasPhase(ChallengePhaseEnum.IDEA) ? ideaSubmissionDateTime : phaseStartDate(ChallengePhaseEnum.IDEA);
+
+      case PROTOTYPE:
+        return hasPhase(ChallengePhaseEnum.UIUX) ? uxSubmissionDateTime : phaseStartDate(ChallengePhaseEnum.UIUX);
+
+      case FINAL:
+        return hasPhase(ChallengePhaseEnum.PROTOTYPE) ? prototypeSubmissionDateTime : phaseStartDate(ChallengePhaseEnum.PROTOTYPE);
+    }
+    return submissionDateTime;
+  }
 }
