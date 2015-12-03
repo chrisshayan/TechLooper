@@ -18,9 +18,11 @@
       <table width="100%" cellpadding="0" cellspacing="0">
         <tr>
           <th align="left">
-            <h2 style="font-size: 18px; font-weight: normal; text-transform: capitalize;color: #898989;"">${challengeName} <span
-              style="font-size: 12px; font-weight: normal;color: #898989;">$${totalPlaceReward?string["0.####"]}</span></h2>
-          ${challengeOverview}
+            <h2 style="font-size: 18px; font-weight: normal; text-transform: capitalize;color: #898989;">
+          ${challengeName}
+            <span style="font-size: 12px; font-weight: normal;color: #898989;">$${totalPlaceReward?string["0.####"]}</span>
+            </h2>
+          <span style="font-size: 12px; font-weight: normal;color: #898989;">${challengeOverview}</span>
           </th>
         </tr>
         <tr>
@@ -51,7 +53,10 @@
           </td>
         </tr>
         <tr>
+          <td>
+            <br/>
         <#include "FINAL_CHALLENGE_REPORT_${phaseEntries?size}_PHASES_EN.ftl" encoding="UTF-8">
+          </td>
         </tr>
         <tr>
           <td align="left" style="height: 30px;"></td>
