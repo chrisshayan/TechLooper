@@ -46,7 +46,7 @@
           <td height="10px"></td>
         </tr>
         <tr>
-          <td style="text-align: left;height: 20px; font-size: 12px"><span style="font-size: 26px; font-weight: 500; color:#0f775d;">${phaseEntries[0].date}</span> Registrant(s)</td>
+          <td style="text-align: left;height: 20px; font-size: 12px"><span style="font-size: 26px; font-weight: 500; color:#0f775d;">${phaseEntries[0].countMembers}</span> Registrant(s)</td>
         </tr>
       </table>
     </td>
