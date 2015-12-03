@@ -3,7 +3,10 @@ techlooper.directive("onFinishRender", function ($timeout, jsonValue, utils) {
     restrict: "A",
     link: function (scope, element, attr) {
       if (scope.$last === true) {
-        scope.$emit(attr.onFinishRender);
+        $timeout(function () {
+          scope.$emit(attr.onFinishRender);
+        });
+        utils.sendNotification(jsonValue.notifications.loaded, $(window).height());
       }
     }
   }
