@@ -104,6 +104,11 @@ public class SharingController {
   @RequestMapping(value = "report/challenge/final/{challengeId}")
   public void renderFinalChallengeReport(@PathVariable Long challengeId, HttpServletRequest request, HttpServletResponse response) throws IOException {
     ByteArrayOutputStream os = reportService.generateFinalChallengeReport(request.getRemoteUser(), challengeId);
+    if (os == null) {
+      response.setStatus(HttpServletResponse.SC_EXPECTATION_FAILED);
+      return;
+    }
+    
     byte[] data = os.toByteArray();
     response.setContentType("application/pdf");
     response.setHeader("Content-disposition", "attachment;filename=report.pdf");
