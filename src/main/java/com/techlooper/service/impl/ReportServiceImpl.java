@@ -1,6 +1,6 @@
 package com.techlooper.service.impl;
 
-import com.itextpdf.text.pdf.BaseFont;
+import com.lowagie.text.PageSize;
 import com.techlooper.dto.FinalChallengeReportDto;
 import com.techlooper.dto.PhaseEntry;
 import com.techlooper.dto.PhaseEntry.PhaseEntryBuilder;
@@ -60,8 +60,8 @@ public class ReportServiceImpl implements ReportService {
   @Value("${web.baseUrl}")
   private String baseUrl;
 
-//  @Resource
-//  private ITextRenderer reportRender;
+  @Resource
+  private ITextRenderer reportRender;
 
   public ByteArrayOutputStream generateFinalChallengeReport(String challengeAuthorEmail, Long challengeId) {
     ChallengeEntity challenge = challengeRepository.findOne(challengeId);
@@ -111,12 +111,15 @@ public class ReportServiceImpl implements ReportService {
 
       ByteArrayOutputStream os = new ByteArrayOutputStream();
 
-      ITextRenderer reportRender = new ITextRenderer();
-      reportRender.getFontResolver().addFont("font/verdana.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+//      ITextRenderer reportRender = new ITextRenderer();
+//      reportRender.getFontResolver().addFont("font/verdana.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
       reportRender.setDocumentFromString(stringWriter.toString());
       reportRender.layout();
       reportRender.createPDF(os);
-      reportRender.finishPDF();
+//      reportRender.getWriter().setMarginMirroring(true);
+//      reportRender.getWriter().setMargins(0, 0, 0, 0);
+//      reportRender.getWriter().setPageSize(PageSize.A4);
+//      reportRender.finishPDF();
       stringWriter.flush();
       return os;
     }

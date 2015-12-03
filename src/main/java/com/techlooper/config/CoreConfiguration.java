@@ -8,6 +8,8 @@ import com.google.api.client.http.HttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.calendar.Calendar;
 import com.google.api.services.calendar.CalendarScopes;
+import com.lowagie.text.DocumentException;
+import com.lowagie.text.pdf.BaseFont;
 import com.techlooper.converter.ListCSVStringConverter;
 import com.techlooper.converter.LocaleConverter;
 import com.techlooper.converter.ProfileNameConverter;
@@ -47,6 +49,7 @@ import org.springframework.social.google.api.plus.Person;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+import org.xhtmlrenderer.pdf.ITextRenderer;
 
 import javax.annotation.Resource;
 import javax.mail.internet.MimeMessage;
@@ -366,10 +369,10 @@ public class CoreConfiguration implements ApplicationContextAware {
     return freemakerConfig.getTemplate("FINAL_CHALLENGE_REPORT_VI.ftl");
   }
 
-//  @Bean
-//  public ITextRenderer reportRender() throws IOException, DocumentException {
-//    ITextRenderer renderer = new ITextRenderer();
-//    renderer.getFontResolver().addFont("font/verdana.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
-//    return renderer;
-//  }
+  @Bean
+  public ITextRenderer reportRender() throws IOException, DocumentException {
+    ITextRenderer renderer = new ITextRenderer();
+    renderer.getFontResolver().addFont("font/verdana.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+    return renderer;
+  }
 }

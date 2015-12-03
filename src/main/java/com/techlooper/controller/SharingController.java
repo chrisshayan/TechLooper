@@ -1,11 +1,15 @@
 package com.techlooper.controller;
 
 import com.techlooper.dto.ResourceDto;
+import com.techlooper.entity.ChallengeEntity;
+import com.techlooper.repository.elasticsearch.ChallengeRepository;
 import com.techlooper.repository.elasticsearch.ProjectRepository;
 import com.techlooper.repository.elasticsearch.SalaryReviewRepository;
 import com.techlooper.service.ChallengeService;
 import com.techlooper.service.ReportService;
 import com.techlooper.service.WebinarService;
+import com.techlooper.util.DateTimeUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,6 +25,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by phuonghqh on 5/11/15.
@@ -49,7 +56,7 @@ public class SharingController {
   private ReportService reportService;
 
   @Resource
-  private ViewResolver viewResolver;
+  private ChallengeRepository challengeRepository;
 
   @RequestMapping(value = "renderSalaryReport/{language}/{salaryReviewId}")
   public String renderReport(@PathVariable String language, @PathVariable Long salaryReviewId, ModelMap model) {
@@ -109,7 +116,12 @@ public class SharingController {
 
     byte[] data = os.toByteArray();
     response.setContentType("application/pdf");
-    response.setHeader("Content-disposition", "attachment;filename=report.pdf");
+
+    ChallengeEntity challenge = challengeRepository.findOne(challengeId);
+    String reportName = String.format("attachment;filename=%s-%s.pdf",
+      StringUtils.stripAccents(challenge.getChallengeName()).replaceAll("\\W", "-"),
+      DateTimeUtils.currentDate());
+    response.setHeader("Content-disposition", reportName);
     response.setContentLength(data.length);
     response.getOutputStream().write(data);
     response.getOutputStream().flush();
