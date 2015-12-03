@@ -17,8 +17,8 @@
       <table width="100%" cellpadding="0" cellspacing="0">
         <tr>
           <th align="left">
-            <h2 style="font-size: 22px; font-weight: 500; text-transform: capitalize;">${challengeName} <span
-              style="font-size: 30px; font-weight: 500;">$${totalPlaceReward?string["0.####"]}</span></h2>
+            <h2 style="font-size: 18px; font-weight: normal; text-transform: capitalize;color: #898989;"">${challengeName} <span
+              style="font-size: 12px; font-weight: normal;color: #898989;">$${totalPlaceReward?string["0.####"]}</span></h2>
           ${challengeOverview}
           </th>
         </tr>
@@ -27,9 +27,9 @@
             <br/>
             <table cellpadding="0" cellspacing="0" width="100%">
               <tr>
-                <td height="3px" style="background-color: #337ab7;" width="34%"></td>
-                <td height="3px" style="background-color: #8a2890" width="33%"></td>
-                <td height="3px" style="background-color: #8d8d8d" width="33%"></td>
+                <td height="1px" style="background-color: #337ab7;" width="34%"></td>
+                <td height="1px" style="background-color: #8a2890" width="33%"></td>
+                <td height="1px" style="background-color: #8d8d8d" width="33%"></td>
               </tr>
             </table>
           </td>
@@ -38,9 +38,9 @@
           <td align="center">
             <br/>
             <#if winnersInfo?size != 0>
-              <span style="font-size: 18px;"><strong style="font-size: 25px; color:#bf3a2f">${winnersInfo?size}</strong> winner(s)</span>
+              <span style="font-size: 12px; font-weight: normal"><strong style="font-size: 25px; color:#bf3a2f">${winnersInfo?size}</strong> winner(s)</span>
               <#list winnersInfo as winnerInfo>
-                <p style="1font-family:Times New Roman,serif">${winnerInfo.registrantFirstName?capitalize} ${winnerInfo.registrantLastName?capitalize}</p>
+              <br/><span style="font-size: 14px; color: #bf3a2f; font-weight: normal">${winnerInfo.registrantFirstName?capitalize} ${winnerInfo.registrantLastName?capitalize}</span>
               </#list>
             </#if>
           </td>
@@ -62,11 +62,11 @@
             <table width="100%" style="background-color:#fff">
               <tr>
                 <td align="left" width="70%">
-                  <h3 style="font-size: 18px; font-weight: 700;">Challenge Online</h3>
-                  Build And Grow Your Developer Community Base With Online Contests.
+                  <h3 style="font-size: 14px; color: #898989; font-weight: 300; margin:0 0 5px 0">Challenge Online</h3>
+                  <span style="font-size: 10px;  color: #898989;">Build And Grow Your Developer Community Base With Online Contests.</span>
                 </td>
                 <td align="right" width="30%">
-                  <img src="${baseUrl}images/logo.png" alt="" style="margin: auto"/>
+                  <img src="${baseUrl}images/logo.png" alt="" style="margin: auto; width: 150px"/>
                 </td>
               </tr>
             </table>
