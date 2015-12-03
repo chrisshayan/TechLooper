@@ -5,8 +5,9 @@
   <meta content="telephone=no" name="format-detection"/>
   <meta content="width=device-width, initial-scale=1.0;" name="viewport"/>
   <style>
-    * {
-      font-family: "Arial";
+    body {
+      font-family: Verdana;
+      font-size: 12px;
     }
   </style>
 </head>
@@ -41,10 +42,10 @@
               <span style="font-size: 12px; font-weight: normal"><strong style="font-size: 25px; color:#bf3a2f">${winnersInfo?size}</strong> winner(s)</span>
               <#list winnersInfo as winnerInfo>
                 <br/>
-                <span style="font-size: 14px; color: #bf3a2f; font-weight: normal">
-                  <#if winnerInfo.registrantFirstName?has_content>${winnerInfo.registrantFirstName?capitalize} </#if>
-                  <#if winnerInfo.registrantLastName?has_content>${winnerInfo.registrantLastName?capitalize}</#if>
-                </span>
+                  <span style="font-size: 14px; color: #bf3a2f; font-weight: normal">
+                      <#if winnerInfo.registrantFirstName?has_content>${winnerInfo.registrantFirstName?capitalize}</#if>
+                      <#if winnerInfo.registrantLastName?has_content>${winnerInfo.registrantLastName?capitalize}</#if>
+                  </span>
               </#list>
             </#if>
           </td>
