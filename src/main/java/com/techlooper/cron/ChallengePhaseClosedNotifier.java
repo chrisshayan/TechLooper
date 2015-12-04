@@ -6,6 +6,7 @@ import com.techlooper.model.EmailSentResultEnum;
 import com.techlooper.repository.elasticsearch.ChallengeRepository;
 import com.techlooper.service.ChallengeEmailService;
 import com.techlooper.service.ChallengeService;
+import com.techlooper.util.DataUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,7 +46,7 @@ public class ChallengePhaseClosedNotifier {
             for (ChallengePhaseEnum currentPhase : challengePhases) {
                 List<ChallengeEntity> challengeEntities = challengeService.findChallengeByPhase(currentPhase);
 
-                //Thread.sleep(DataUtils.getRandomNumberInRange(300000, 600000));
+                Thread.sleep(DataUtils.getRandomNumberInRange(300000, 600000));
                 for (ChallengeEntity challengeEntity : challengeEntities) {
                     challengeEntity = challengeRepository.findOne(challengeEntity.getChallengeId());
                     ChallengePhaseEnum oldPhase = getPreviousPhase(challengeEntity, currentPhase);
