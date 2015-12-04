@@ -361,12 +361,12 @@ public class CoreConfiguration implements ApplicationContextAware {
 
   @Bean
   public Template finalChallengeReportEn(freemarker.template.Configuration freemakerConfig) throws IOException {
-    return freemakerConfig.getTemplate("FINAL_CHALLENGE_REPORT_EN.ftl");
+    return freemakerConfig.getTemplate("final-report/FINAL_CHALLENGE_REPORT_EN.ftl");
   }
 
   @Bean
   public Template finalChallengeReportVi(freemarker.template.Configuration freemakerConfig) throws IOException {
-    return freemakerConfig.getTemplate("FINAL_CHALLENGE_REPORT_VI.ftl");
+    return freemakerConfig.getTemplate("final-report/FINAL_CHALLENGE_REPORT_VI.ftl");
   }
 
   @Bean
