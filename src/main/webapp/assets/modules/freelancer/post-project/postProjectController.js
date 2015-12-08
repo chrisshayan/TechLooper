@@ -1,5 +1,6 @@
 techlooper.controller('freelancerPostProjectController', function ($scope, jsonValue, resourcesService, $rootScope,
                                                                    apiService, $location, utils, $translate, localStorageService) {
+  utils.sendNotification(jsonValue.notifications.loading, $(window).height());
   $scope.status = function (type) {
     switch (type) {
       case "ex-today":
@@ -103,7 +104,7 @@ techlooper.controller('freelancerPostProjectController', function ($scope, jsonV
     if ($scope.state && !$scope.status("is-form-valid")) {
       return false;
     }
-    utils.sendNotification(jsonValue.notifications.loading);
+    utils.sendNotification(jsonValue.notifications.loading, $(window).height());
     var postProject = $.extend(true, {}, $scope.hourly, $scope.fixedPrice, $scope.postProject);
     postProject.lang = $translate.use();
     apiService.postFreelancerProject(postProject)
@@ -111,12 +112,13 @@ techlooper.controller('freelancerPostProjectController', function ($scope, jsonV
         localStorageService.set("postProject", true);
         var title =  utils.toAscii($scope.postProject.projectTitle);
         return $location.url(sprintf("/freelancer/project-detail/%s-%s-id", title, projectResponse.projectId));
+      }).finally(function(){
+          utils.sendNotification(jsonValue.notifications.loaded);
       });
-    utils.sendNotification(jsonValue.notifications.loaded);
   }
 
   $scope.changeState('default');
-
+  utils.sendNotification(jsonValue.notifications.loaded);
   //console.log(resourcesService.paymentConfig);
   //$scope.paymentConfig = resourcesService.paymentConfig;
 });
