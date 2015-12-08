@@ -1,9 +1,8 @@
 package com.techlooper.service.impl;
 
-import com.techlooper.config.ConfigurationTest;
-import com.techlooper.config.ElasticsearchConfiguration;
-import com.techlooper.config.ElasticsearchUserImportConfiguration;
-import com.techlooper.entity.SalaryReviewEntity;
+import com.techlooper.config.*;
+import com.techlooper.model.SalaryReviewDto;
+import com.techlooper.model.SalaryReviewResultDto;
 import com.techlooper.model.SimilarSalaryReview;
 import com.techlooper.model.SimilarSalaryReviewRequest;
 import com.techlooper.service.SalaryReviewService;
@@ -19,7 +18,7 @@ import java.util.List;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {ConfigurationTest.class, ElasticsearchConfiguration.class, ElasticsearchUserImportConfiguration.class})
+@ContextConfiguration(classes = {SalaryReviewServiceConfigurationTest.class, ElasticsearchConfiguration.class})
 public class SalaryReviewServiceImplTest {
 
     @Resource
@@ -27,14 +26,14 @@ public class SalaryReviewServiceImplTest {
 
     @Test
     public void testSearchSalaryReview() throws Exception {
-        SalaryReviewEntity salaryReviewEntity = new SalaryReviewEntity();
-        salaryReviewEntity.setJobTitle("Java Developer");
-        salaryReviewEntity.setJobCategories(Arrays.asList(35L, 55L, 57L));
-        List<SalaryReviewEntity> salaryReviewEntities = salaryReviewService.searchSalaryReview(salaryReviewEntity);
-        assertTrue(salaryReviewEntities.size() > 0);
+        SalaryReviewDto salaryReviewDto = new SalaryReviewDto();
+        salaryReviewDto.setJobTitle("Java Developer");
+        salaryReviewDto.setJobCategories(Arrays.asList(35L));
+        salaryReviewDto.setNetSalary(1000);
+        SalaryReviewResultDto salaryReviewResult = salaryReviewService.reviewSalary(salaryReviewDto);
+        assertTrue(salaryReviewResult.getSalaryReport().getPercentRank() > 0);
     }
 
-    @Test
     public void testGetSimilarSalaryReview() throws Exception {
         SimilarSalaryReviewRequest request = new SimilarSalaryReviewRequest();
         request.setJobTitle("Java Developer");

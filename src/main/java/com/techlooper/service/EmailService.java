@@ -19,4 +19,5 @@ public interface EmailService {
 
     EmailTemplateDto getTemplateByName(String templateName, Language language);
 
+    String getCitiBankPromotionTitle(String lang);
 }

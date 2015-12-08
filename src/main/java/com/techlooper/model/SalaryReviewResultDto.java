@@ -2,10 +2,7 @@ package com.techlooper.model;
 
 import java.util.List;
 
-/**
- * Created by phuonghqh on 5/28/15.
- */
-public class SalaryReviewDto {
+public class SalaryReviewResultDto {
 
     private Long createdDateTime;
 
@@ -39,9 +36,11 @@ public class SalaryReviewDto {
 
     private Long usdToVndRate;
 
-    private String techlooperJobId;
-
     private List<SimilarSalaryReview> similarSalaryReviews;
+
+    private String email;
+
+    private String jobAlertEmail;
 
     public Long getCreatedDateTime() {
         return createdDateTime;
@@ -179,11 +178,19 @@ public class SalaryReviewDto {
         this.similarSalaryReviews = similarSalaryReviews;
     }
 
-    public String getTechlooperJobId() {
-        return techlooperJobId;
+    public String getEmail() {
+        return email;
     }
 
-    public void setTechlooperJobId(String techlooperJobId) {
-        this.techlooperJobId = techlooperJobId;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getJobAlertEmail() {
+        return jobAlertEmail;
+    }
+
+    public void setJobAlertEmail(String jobAlertEmail) {
+        this.jobAlertEmail = jobAlertEmail;
     }
 }

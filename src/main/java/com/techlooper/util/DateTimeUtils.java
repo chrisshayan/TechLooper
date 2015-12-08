@@ -7,6 +7,10 @@ import org.slf4j.LoggerFactory;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
 /**
@@ -59,6 +63,12 @@ public class DateTimeUtils {
 
     public static Long currentDateTime() {
         return new Date().getTime();
+    }
+
+    public static Long minusPeriod(long amountToSubtract, ChronoUnit periodUnit) {
+        LocalDateTime pastTime = LocalDateTime.now().minus(amountToSubtract, periodUnit);
+        ZonedDateTime zonedPastTime = pastTime.atZone(ZoneId.systemDefault());
+        return zonedPastTime.toInstant().toEpochMilli();
     }
 
     public static int daysBetween(Date firstDate, Date secondDate) {
