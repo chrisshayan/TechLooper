@@ -44,7 +44,7 @@ public class UserEvaluationServiceImplTest {
         assertTrue(salaryReport.getNumberOfSurveys() > 0);
         assertTrue(salaryReport.getPercentRank() > 0);
         // delete data after test
-        salaryReviewService.deleteSalaryReview(salaryReviewEntity);
+//        salaryReviewService.deleteSalaryReview(salaryReviewEntity);
     }
 
     @Test
@@ -61,7 +61,7 @@ public class UserEvaluationServiceImplTest {
         assertTrue(salaryReport.getNumberOfSurveys() > 0);
         assertTrue(salaryReport.getPercentRank() > 0);
         // delete data after test
-        salaryReviewService.deleteSalaryReview(salaryReviewEntity);
+//        salaryReviewService.deleteSalaryReview(salaryReviewEntity);
     }
 
     @Test
@@ -75,7 +75,7 @@ public class UserEvaluationServiceImplTest {
         SalaryReport salaryReport = salaryReviewEntity.getSalaryReport();
         assertTrue(salaryReport.getPercentRank() > 0);
         // delete data after test
-        salaryReviewService.deleteSalaryReview(salaryReviewEntity);
+//        salaryReviewService.deleteSalaryReview(salaryReviewEntity);
     }
 
     @Test
@@ -92,7 +92,7 @@ public class UserEvaluationServiceImplTest {
         int numberOfSkills = salaryReviewEntity.getTopPaidJobs().get(0).getSkills().size();
         assertTrue(numberOfSkills > 0 && numberOfSkills <= 3);
         // delete data after test
-        salaryReviewService.deleteSalaryReview(salaryReviewEntity);
+//        salaryReviewService.deleteSalaryReview(salaryReviewEntity);
     }
 
     @Test
@@ -107,7 +107,7 @@ public class UserEvaluationServiceImplTest {
         assertTrue(salaryReport.getPercentRank().isNaN());
         assertTrue(salaryReport.getNumberOfJobs() + salaryReport.getNumberOfSurveys() < 10);
         // delete data after test
-        salaryReviewService.deleteSalaryReview(salaryReviewEntity);
+//        salaryReviewService.deleteSalaryReview(salaryReviewEntity);
     }
 
     @Test
@@ -122,7 +122,7 @@ public class UserEvaluationServiceImplTest {
         SalaryReport salaryReport = salaryReviewEntity.getSalaryReport();
         assertTrue(salaryReport.getPercentRank() > 0);
         // delete data after test
-        salaryReviewService.deleteSalaryReview(salaryReviewEntity);
+//        salaryReviewService.deleteSalaryReview(salaryReviewEntity);
     }
 
     @Test
@@ -137,7 +137,7 @@ public class UserEvaluationServiceImplTest {
         SalaryReport salaryReport = salaryReviewEntity.getSalaryReport();
         assertTrue(salaryReport.getPercentRank() > 0);
         // delete data after test
-        salaryReviewService.deleteSalaryReview(salaryReviewEntity);
+//        salaryReviewService.deleteSalaryReview(salaryReviewEntity);
     }
 
     @Test
