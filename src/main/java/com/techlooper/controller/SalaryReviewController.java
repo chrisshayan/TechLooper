@@ -87,6 +87,7 @@ public class SalaryReviewController {
         salaryReviewDto.setNetSalary(salary);
         List<Long> jobCategories = job.getIndustries().stream().map(jobIndustry -> jobIndustry.getIndustryId()).collect(Collectors.toList());
         salaryReviewDto.setJobCategories(jobCategories);
+        salaryReviewDto.setIsSalaryVisible(job.getIsSalaryVisible());
         return salaryReviewDto;
     }
 

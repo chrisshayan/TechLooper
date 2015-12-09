@@ -42,6 +42,8 @@ public class SalaryReviewResultDto {
 
     private String jobAlertEmail;
 
+    private Boolean isSalaryVisible;
+
     public Long getCreatedDateTime() {
         return createdDateTime;
     }
@@ -192,5 +194,13 @@ public class SalaryReviewResultDto {
 
     public void setJobAlertEmail(String jobAlertEmail) {
         this.jobAlertEmail = jobAlertEmail;
+    }
+
+    public Boolean getIsSalaryVisible() {
+        return isSalaryVisible;
+    }
+
+    public void setIsSalaryVisible(Boolean isSalaryVisible) {
+        this.isSalaryVisible = isSalaryVisible;
     }
 }

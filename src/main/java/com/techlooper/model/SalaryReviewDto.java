@@ -45,6 +45,8 @@ public class SalaryReviewDto implements Serializable {
 
     private String techlooperJobId;
 
+    private Boolean isSalaryVisible;
+
     private List<SimilarSalaryReview> similarSalaryReviews;
 
     public Long getCreatedDateTime() {
@@ -189,5 +191,13 @@ public class SalaryReviewDto implements Serializable {
 
     public void setTechlooperJobId(String techlooperJobId) {
         this.techlooperJobId = techlooperJobId;
+    }
+
+    public Boolean getIsSalaryVisible() {
+        return isSalaryVisible;
+    }
+
+    public void setIsSalaryVisible(Boolean isSalaryVisible) {
+        this.isSalaryVisible = isSalaryVisible;
     }
 }

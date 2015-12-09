@@ -46,6 +46,9 @@ public class JobEntity {
     @Field(type = Nested)
     private List<JobIndustry> industries;
 
+    @Field(type = Boolean)
+    private Boolean isSalaryVisible;
+
     public String getId() {
         return id;
     }
@@ -116,6 +119,14 @@ public class JobEntity {
 
     public void setIndustries(List<JobIndustry> industries) {
         this.industries = industries;
+    }
+
+    public Boolean getIsSalaryVisible() {
+        return isSalaryVisible;
+    }
+
+    public void setIsSalaryVisible(Boolean isSalaryVisible) {
+        this.isSalaryVisible = isSalaryVisible;
     }
 
     @Override

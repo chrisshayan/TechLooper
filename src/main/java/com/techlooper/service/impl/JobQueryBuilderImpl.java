@@ -1,10 +1,10 @@
 package com.techlooper.service.impl;
 
 import com.techlooper.entity.PriceJobEntity;
-import com.techlooper.entity.SalaryReviewEntity;
 import com.techlooper.model.*;
 import com.techlooper.repository.JsonConfigRepository;
 import com.techlooper.service.JobQueryBuilder;
+import com.techlooper.util.DataUtils;
 import com.techlooper.util.EncryptionUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -23,12 +23,9 @@ import javax.annotation.Resource;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-import static com.techlooper.service.impl.SalaryReviewServiceImpl.MAX_SALARY_ACCEPTABLE;
-import static com.techlooper.service.impl.SalaryReviewServiceImpl.MIN_SALARY_ACCEPTABLE;
 import static java.util.stream.Collectors.toList;
 import static org.elasticsearch.index.query.FilterBuilders.*;
 import static org.elasticsearch.index.query.MatchQueryBuilder.Operator;
@@ -40,6 +37,10 @@ import static org.elasticsearch.search.aggregations.AggregationBuilders.*;
  */
 @Component
 public class JobQueryBuilderImpl implements JobQueryBuilder {
+
+    private static final Long MIN_SALARY_ACCEPTABLE = 500L;
+
+    private static final Long MAX_SALARY_ACCEPTABLE = 5000L;
 
     @Value("${elasticsearch.index.name}")
     private String elasticSearchIndexName;
@@ -240,7 +241,7 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
         NativeSearchQueryBuilder queryBuilder = getVietnamworksJobCountQuery();
 
         //pre-process job title in case user enters multiple roles of his job
-        List<String> jobTitleTokens = preprocessJobTitle(salaryReviewDto.getJobTitle());
+        List<String> jobTitleTokens = DataUtils.preprocessJobTitle(salaryReviewDto.getJobTitle());
 
         BoolQueryBuilder jobTitleQueryBuilder = boolQuery();
         jobTitleTokens.forEach(jobTitleToken -> jobTitleQueryBuilder.should(jobTitleQueryBuilder(jobTitleToken.trim())));
@@ -322,7 +323,7 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
         NativeSearchQueryBuilder queryBuilder = getVietnamworksJobCountQuery();
 
         //pre-process job title in case user enters multiple roles of his job
-        List<String> jobTitleTokens = preprocessJobTitle(jobTitle);
+        List<String> jobTitleTokens = DataUtils.preprocessJobTitle(jobTitle);
 
         BoolQueryBuilder jobTitleQueryBuilder = boolQuery();
         jobTitleTokens.forEach(jobTitleToken -> jobTitleQueryBuilder.should(jobTitleQueryBuilder(jobTitleToken.trim())));
@@ -388,29 +389,4 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
         return queryBuilder;
     }
 
-    /*
-     TODO : This is not a completely sustainable solution, first we should change to see whether the total number of
-     no data report would decrease or not. If yes, we will improve it more better later
-     */
-    private List<String> preprocessJobTitle(String jobTitle) {
-        String[] tokens;
-        if (jobTitle.contains("&")) {
-            tokens = jobTitle.split("&");
-        } else if (jobTitle.contains("/")) {
-            tokens = jobTitle.split("/");
-        } else if (jobTitle.contains(",")) {
-            tokens = jobTitle.split(",");
-        } else if (jobTitle.contains("và")) {
-            tokens = jobTitle.split("và");
-        } else if (jobTitle.contains("and")) {
-            tokens = jobTitle.split("and");
-        } else if (jobTitle.contains("or")) {
-            tokens = jobTitle.split("or");
-        } else if (jobTitle.contains("hoặc")) {
-            tokens = jobTitle.split("hoặc");
-        } else {
-            tokens = new String[]{jobTitle};
-        }
-        return Arrays.asList(tokens);
-    }
 }

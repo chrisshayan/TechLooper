@@ -1,37 +1,39 @@
 package com.techlooper.model;
 
 import com.techlooper.entity.JobEntity;
-import com.techlooper.repository.elasticsearch.VietnamworksJobRepository;
-import com.techlooper.service.JobQueryBuilder;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
+
+import static org.elasticsearch.index.query.FilterBuilders.boolFilter;
+import static org.elasticsearch.index.query.QueryBuilders.filteredQuery;
 
 /**
  * Created by NguyenDangKhoa on 12/7/15.
  */
 public class JobSearchByTitleStrategy extends JobSearchStrategy {
 
-    private JobQueryBuilder jobQueryBuilder;
-
     private String jobTitle;
 
-    private VietnamworksJobRepository vietnamworksJobRepository;
+    private ElasticsearchRepository<JobEntity, ?> repository;
 
-    public JobSearchByTitleStrategy(VietnamworksJobRepository vietnamworksJobRepository, JobQueryBuilder jobQueryBuilder,
-                                    String jobTitle) {
-        this.jobQueryBuilder = jobQueryBuilder;
+    public JobSearchByTitleStrategy(ElasticsearchRepository repository, String jobTitle) {
         this.jobTitle = jobTitle;
-        this.vietnamworksJobRepository = vietnamworksJobRepository;
+        this.repository = repository;
     }
 
     @Override
     protected NativeSearchQueryBuilder getSearchQueryBuilder() {
-        return jobQueryBuilder.getJobSearchQueryByJobTitle(jobTitle);
+        NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder().withTypes("job");
+
+        queryBuilder.withQuery(filteredQuery(jobTitleQueryBuilder(jobTitle),
+                boolFilter().must(getRangeFilterBuilder("approvedDate", "now-6M/M", null))
+                        .must(getSalaryRangeFilterBuilder(MIN_SALARY_ACCEPTABLE, MAX_SALARY_ACCEPTABLE))));
+        return queryBuilder;
     }
 
     @Override
     protected ElasticsearchRepository<JobEntity, ?> getJobRepository() {
-        return vietnamworksJobRepository;
+        return repository;
     }
 
 }

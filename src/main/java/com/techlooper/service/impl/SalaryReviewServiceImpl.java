@@ -7,13 +7,19 @@ import com.techlooper.model.*;
 import com.techlooper.repository.elasticsearch.SalaryReviewRepository;
 import com.techlooper.repository.elasticsearch.VietnamworksJobRepository;
 import com.techlooper.service.EmailService;
-import com.techlooper.service.JobQueryBuilder;
 import com.techlooper.service.JobSearchService;
 import com.techlooper.service.SalaryReviewService;
 import com.techlooper.util.DateTimeUtils;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.math3.stat.descriptive.rank.Percentile;
 import org.dozer.Mapper;
+import org.elasticsearch.index.query.BoolFilterBuilder;
+import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.FilterBuilders;
+import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.stereotype.Service;
 
@@ -24,16 +30,15 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
+import static org.elasticsearch.index.query.FilterBuilders.*;
+import static org.elasticsearch.index.query.QueryBuilders.filteredQuery;
+import static org.elasticsearch.index.query.QueryBuilders.matchQuery;
 
 /**
  * Created by NguyenDangKhoa on 5/18/15.
  */
 @Service
 public class SalaryReviewServiceImpl implements SalaryReviewService {
-
-    public static final long MIN_SALARY_ACCEPTABLE = 250L;
-
-    public static final long MAX_SALARY_ACCEPTABLE = 5000L;
 
     private static final int TWO_PERCENTILES = 2;
 
@@ -61,9 +66,6 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
     private SalaryReviewRepository salaryReviewRepository;
 
     @Resource
-    private JobQueryBuilder jobQueryBuilder;
-
-    @Resource
     private VietnamworksJobRepository vietnamworksJobRepository;
 
     @Override
@@ -75,7 +77,6 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
             salaryReviewEntity.setEmail(salaryReviewEmailRequest.getEmail());
             salaryReviewRepository.save(salaryReviewEntity);
 
-            // Send email if the salary review report has result
             boolean hasSalaryReport = !salaryReviewEntity.getSalaryReport().getPercentRank().isNaN();
             if (hasSalaryReport) {
                 List<String> subjectVariableValues = Arrays.asList(salaryReviewEntity.getJobTitle());
@@ -93,7 +94,7 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
 
     @Override
     public List<SimilarSalaryReview> getSimilarSalaryReview(SimilarSalaryReviewRequest request) {
-        NativeSearchQueryBuilder searchQueryBuilder = jobQueryBuilder.getSimilarSalaryReview(request);
+        NativeSearchQueryBuilder searchQueryBuilder = getSimilarSalaryReviewQueryBuilder(request);
         List<SalaryReviewEntity> similarSalaryReviewEntities = salaryReviewRepository.search(searchQueryBuilder.build()).getContent();
 
         List<SimilarSalaryReview> similarSalaryReviews = new ArrayList<>();
@@ -116,23 +117,23 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
     public SalaryReviewResultDto reviewSalary(SalaryReviewDto salaryReviewDto) {
         SalaryReviewJobRepository jobRepository = new SalaryReviewJobRepository();
 
-        JobSearchStrategy searchBySalaryStrategy = new JobSearchBySalaryStrategy(
-                salaryReviewDto, jobQueryBuilder, vietnamworksJobRepository);
+        JobSearchStrategy searchBySalaryStrategy = new JobSearchBySalaryStrategy(salaryReviewDto, vietnamworksJobRepository);
         jobRepository.addStrategy(searchBySalaryStrategy);
 
         JobSearchStrategy searchBySimilarSalaryReviewStrategy = new SimilarSalaryReviewSearchStrategy(
-                salaryReviewRepository, salaryReviewDto);
+                salaryReviewDto, salaryReviewRepository);
         jobRepository.addStrategy(searchBySimilarSalaryReviewStrategy);
 
         if (jobRepository.isNotEmpty() && jobRepository.isNotEnough()) {
-            JobSearchStrategy searchBySkillStrategy = new JobSearchBySkillStrategy(
-                    vietnamworksJobRepository, jobQueryBuilder, salaryReviewDto.getSkills(), salaryReviewDto.getJobCategories());
+            List<String> skills = salaryReviewDto.getSkills();
+            List<Long> jobCategories = salaryReviewDto.getJobCategories();
+            JobSearchStrategy searchBySkillStrategy = new JobSearchBySkillStrategy(vietnamworksJobRepository, skills, jobCategories);
             jobRepository.addStrategy(searchBySkillStrategy);
         }
 
         if (jobRepository.isNotEmpty() && jobRepository.isNotEnough()) {
-            JobSearchStrategy searchByTitleStrategy = new JobSearchByTitleStrategy(
-                    vietnamworksJobRepository, jobQueryBuilder, salaryReviewDto.getJobTitle());
+            String jobTitle = salaryReviewDto.getJobTitle();
+            JobSearchStrategy searchByTitleStrategy = new JobSearchByTitleStrategy(vietnamworksJobRepository, jobTitle);
             jobRepository.addStrategy(searchByTitleStrategy);
         }
 
@@ -291,6 +292,40 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
         templateModel.put("moreSalaryRanges", moreSalaryRanges);
 
         return templateModel;
+    }
+
+    private NativeSearchQueryBuilder getSimilarSalaryReviewQueryBuilder(SimilarSalaryReviewRequest request) {
+        NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder();
+
+        BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
+        if (CollectionUtils.isNotEmpty(request.getSkills())) {
+            request.getSkills().stream().forEach(skill -> boolQueryBuilder.should(matchQuery("skills", skill).minimumShouldMatch("100%")));
+        }
+        if (StringUtils.isNotEmpty(request.getJobTitle())) {
+            boolQueryBuilder.must(matchQuery("jobTitle", request.getJobTitle()).minimumShouldMatch("100%"));
+        }
+
+        BoolFilterBuilder boolFilterBuilder = FilterBuilders.boolFilter();
+        if (CollectionUtils.isNotEmpty(request.getJobLevelIds())) {
+            boolFilterBuilder.should(termsFilter("jobLevelIds", request.getJobLevelIds()));
+        }
+        if (request.getLocationId() != null) {
+            boolFilterBuilder.should(termFilter("locationId", request.getLocationId()));
+        }
+        if (request.getCompanySizeId() != null) {
+            boolFilterBuilder.should(termFilter("companySizeId", request.getCompanySizeId()));
+        }
+        if (CollectionUtils.isNotEmpty(request.getJobCategories())) {
+            boolFilterBuilder.must(termsFilter("jobCategories", request.getJobCategories()));
+        }
+        // ES Range Query From Clause (i.e greater or equal), we just want greater, not equal. So plus 1 to criterion
+        if (request.getNetSalary() != null && request.getNetSalary() > 0) {
+            boolFilterBuilder.must(rangeFilter("netSalary").from(request.getNetSalary() + 1));
+        }
+
+        queryBuilder.withQuery(filteredQuery(boolQueryBuilder, boolFilterBuilder));
+        queryBuilder.withPageable(new PageRequest(0, 3));
+        return queryBuilder;
     }
 
 }

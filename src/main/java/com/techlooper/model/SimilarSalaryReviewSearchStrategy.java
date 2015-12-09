@@ -2,7 +2,6 @@ package com.techlooper.model;
 
 import com.techlooper.entity.JobEntity;
 import com.techlooper.entity.SalaryReviewEntity;
-import com.techlooper.repository.elasticsearch.SalaryReviewRepository;
 import com.techlooper.util.DateTimeUtils;
 import org.elasticsearch.index.query.MatchQueryBuilder;
 import org.elasticsearch.index.query.RangeFilterBuilder;
@@ -23,17 +22,13 @@ import static org.elasticsearch.index.query.QueryBuilders.matchQuery;
  */
 public class SimilarSalaryReviewSearchStrategy extends JobSearchStrategy {
 
-    public static final long MIN_SALARY_ACCEPTABLE = 250L;
-
-    public static final long MAX_SALARY_ACCEPTABLE = 5000L;
-
     private SalaryReviewDto salaryReviewDto;
 
-    private SalaryReviewRepository salaryReviewRepository;
+    private ElasticsearchRepository<SalaryReviewEntity, ?> salaryReviewRepository;
 
-    public SimilarSalaryReviewSearchStrategy(SalaryReviewRepository salaryReviewRepository, SalaryReviewDto salaryReviewDto) {
-        this.salaryReviewRepository = salaryReviewRepository;
+    public SimilarSalaryReviewSearchStrategy(SalaryReviewDto salaryReviewDto, ElasticsearchRepository salaryReviewRepository) {
         this.salaryReviewDto = salaryReviewDto;
+        this.salaryReviewRepository = salaryReviewRepository;
     }
 
     @Override
