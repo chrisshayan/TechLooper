@@ -235,15 +235,15 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
     }
 
     @Override
-    public NativeSearchQueryBuilder getJobSearchQueryForSalaryReview(SalaryReviewEntity salaryReviewEntity) {
+    public NativeSearchQueryBuilder getJobSearchQueryForSalaryReview(SalaryReviewDto salaryReviewDto) {
         NativeSearchQueryBuilder queryBuilder = getVietnamworksJobCountQuery();
 
         //pre-process job title in case user enters multiple roles of his job
-        List<String> jobTitleTokens = preprocessJobTitle(salaryReviewEntity.getJobTitle());
+        List<String> jobTitleTokens = preprocessJobTitle(salaryReviewDto.getJobTitle());
 
         BoolQueryBuilder jobTitleQueryBuilder = boolQuery();
         jobTitleTokens.forEach(jobTitleToken -> jobTitleQueryBuilder.should(jobTitleQueryBuilder(jobTitleToken.trim())));
-        FilterBuilder jobIndustriesFilterBuilder = getJobIndustriesFilterBuilder(salaryReviewEntity.getJobCategories());
+        FilterBuilder jobIndustriesFilterBuilder = getJobIndustriesFilterBuilder(salaryReviewDto.getJobCategories());
         FilterBuilder approvedDateRangeFilterBuilder = getRangeFilterBuilder("approvedDate", "now-6M/M", null);
         FilterBuilder salaryRangeFilterBuilder = getSalaryRangeFilterBuilder(MIN_SALARY_ACCEPTABLE, MAX_SALARY_ACCEPTABLE);
 

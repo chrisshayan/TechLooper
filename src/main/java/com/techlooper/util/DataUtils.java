@@ -9,12 +9,9 @@ import org.springframework.data.elasticsearch.repository.ElasticsearchRepository
 
 import java.util.*;
 
-/**
- * Created by NguyenDangKhoa on 10/9/15.
- */
 public class DataUtils {
 
-    public static <T> List<T> getAllEntities(ElasticsearchRepository<T, Long> repository, NativeSearchQueryBuilder searchQueryBuilder) {
+    public static <T> List<T> getAllEntities(ElasticsearchRepository<T, ?> repository, NativeSearchQueryBuilder searchQueryBuilder) {
         List<T> result = new ArrayList<>();
 
         FacetedPage<T> facetedPage = repository.search(searchQueryBuilder.build());

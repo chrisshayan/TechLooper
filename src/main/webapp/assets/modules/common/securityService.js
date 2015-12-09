@@ -121,9 +121,9 @@ techlooper.factory("securityService", function (apiService, $route, $rootScope, 
 
       $rootScope.$on("$routeChangeStart", function (event, next, current) {
         var uiView = utils.getUiView();
-        //if (uiView.isRequireLogin == true) {
-        //
-        //}
+        if (uiView.cancelIfAlreadyLogin == true && $rootScope.userInfo) {
+          return event.preventDefault();
+        }
 
         var roles = uiView.roles || [];
         if ($rootScope.userInfo) {

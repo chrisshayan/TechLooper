@@ -4,10 +4,12 @@ import com.techlooper.entity.JobAlertRegistrationEntity;
 import com.techlooper.model.JobAlertRegistration;
 import com.techlooper.model.JobSearchCriteria;
 import com.techlooper.model.JobSearchResponse;
+import com.techlooper.model.VnwJobAlertRequest;
 import com.techlooper.service.JobAggregatorService;
 import org.dozer.Mapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -74,6 +76,11 @@ public class JobAlertController {
         }
 
         return jobAlertRegistrationEntity;
+    }
+
+    @MessageMapping("/jobs/createJobAlert")
+    public void createJobAlert(VnwJobAlertRequest vnwJobAlertRequest) {
+        jobAggregatorService.createVnwJobAlert(vnwJobAlertRequest);
     }
 
 }

@@ -43,6 +43,9 @@ public class JobEntity {
     @Field(type = Date, format = DateFormat.date_optional_time)
     private String approvedDate;
 
+    @Field(type = Nested)
+    private List<JobIndustry> industries;
+
     public String getId() {
         return id;
     }
@@ -105,6 +108,14 @@ public class JobEntity {
 
     public void setApprovedDate(String approvedDate) {
         this.approvedDate = approvedDate;
+    }
+
+    public List<JobIndustry> getIndustries() {
+        return industries;
+    }
+
+    public void setIndustries(List<JobIndustry> industries) {
+        this.industries = industries;
     }
 
     @Override
