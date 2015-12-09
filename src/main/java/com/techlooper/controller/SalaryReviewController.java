@@ -30,6 +30,7 @@ public class SalaryReviewController {
     @Resource
     private JobSearchService jobSearchService;
 
+    @CrossOrigin
     @RequestMapping(value = "/salaryReview", method = RequestMethod.POST)
     public SalaryReviewResultDto reviewSalary(@RequestBody SalaryReviewDto salaryReviewDto) {
         boolean isSaveSalaryReviewResult = true;

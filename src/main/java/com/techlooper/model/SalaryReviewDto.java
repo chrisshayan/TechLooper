@@ -1,11 +1,15 @@
 package com.techlooper.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by phuonghqh on 5/28/15.
  */
-public class SalaryReviewDto {
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class SalaryReviewDto implements Serializable {
 
     private Long createdDateTime;
 
