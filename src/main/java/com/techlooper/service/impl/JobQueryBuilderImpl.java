@@ -6,6 +6,7 @@ import com.techlooper.model.*;
 import com.techlooper.repository.JsonConfigRepository;
 import com.techlooper.service.JobQueryBuilder;
 import com.techlooper.util.EncryptionUtils;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.elasticsearch.action.search.SearchType;
 import org.elasticsearch.index.query.*;
@@ -357,7 +358,7 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
         NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder();
 
         BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
-        if (!request.getSkills().isEmpty()) {
+        if (CollectionUtils.isNotEmpty(request.getSkills())) {
             request.getSkills().stream().forEach(skill -> boolQueryBuilder.should(matchQuery("skills", skill).minimumShouldMatch("100%")));
         }
         if (StringUtils.isNotEmpty(request.getJobTitle())) {
@@ -365,7 +366,7 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
         }
 
         BoolFilterBuilder boolFilterBuilder = FilterBuilders.boolFilter();
-        if (!request.getJobLevelIds().isEmpty()) {
+        if (CollectionUtils.isNotEmpty(request.getJobLevelIds())) {
             boolFilterBuilder.should(termsFilter("jobLevelIds", request.getJobLevelIds()));
         }
         if (request.getLocationId() != null) {
@@ -374,7 +375,7 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
         if (request.getCompanySizeId() != null) {
             boolFilterBuilder.should(termFilter("companySizeId", request.getCompanySizeId()));
         }
-        if (!request.getJobCategories().isEmpty()) {
+        if (CollectionUtils.isNotEmpty(request.getJobCategories())) {
             boolFilterBuilder.must(termsFilter("jobCategories", request.getJobCategories()));
         }
         // ES Range Query From Clause (i.e greater or equal), we just want greater, not equal. So plus 1 to criterion

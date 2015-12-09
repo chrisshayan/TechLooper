@@ -33,29 +33,20 @@ public class SalaryReviewController {
     @CrossOrigin
     @RequestMapping(value = "/salaryReview", method = RequestMethod.POST)
     public SalaryReviewResultDto reviewSalary(@RequestBody SalaryReviewDto salaryReviewDto) {
-        boolean isSaveSalaryReviewResult = true;
-
-        // Check if this call comes from widget or not. If yes, we don't save salary review result
-        if (StringUtils.isNotEmpty(salaryReviewDto.getTechlooperJobId())) {
-            JobEntity job = jobSearchService.findJobById(salaryReviewDto.getTechlooperJobId());
-            if (job != null) {
-                salaryReviewDto = getSalaryReviewInfoByJob(job);
-                isSaveSalaryReviewResult = false;
-            }
-        }
+        boolean isRequestedFromWidget = StringUtils.isNotEmpty(salaryReviewDto.getTechlooperJobId());
+        salaryReviewDto = getSalaryReviewCondition(salaryReviewDto, isRequestedFromWidget);
         SalaryReviewResultDto salaryReviewResult = salaryReviewService.reviewSalary(salaryReviewDto);
 
-        if (isSaveSalaryReviewResult) {
+        if (!isRequestedFromWidget) {
             salaryReviewService.saveSalaryReviewResult(salaryReviewResult);
+            // get top 3 higher salary jobs
+            List<TopPaidJob> topPaidJobs = salaryReviewService.findTopPaidJob(salaryReviewDto);
+            salaryReviewResult.setTopPaidJobs(topPaidJobs);
+
+            SimilarSalaryReviewRequest request = dozerMapper.map(salaryReviewResult, SimilarSalaryReviewRequest.class);
+            List<SimilarSalaryReview> similarSalaryReviews = salaryReviewService.getSimilarSalaryReview(request);
+            salaryReviewResult.setSimilarSalaryReviews(similarSalaryReviews);
         }
-
-        // get top 3 higher salary jobs
-        List<TopPaidJob> topPaidJobs = salaryReviewService.findTopPaidJob(salaryReviewDto);
-        salaryReviewResult.setTopPaidJobs(topPaidJobs);
-
-        SimilarSalaryReviewRequest request = dozerMapper.map(salaryReviewResult, SimilarSalaryReviewRequest.class);
-        List<SimilarSalaryReview> similarSalaryReviews = salaryReviewService.getSimilarSalaryReview(request);
-        salaryReviewResult.setSimilarSalaryReviews(similarSalaryReviews);
         return salaryReviewResult;
     }
 
@@ -77,6 +68,16 @@ public class SalaryReviewController {
     @RequestMapping(value = "salaryReview/placeSalaryReviewReport", method = RequestMethod.POST)
     public void placeSalaryReviewReport(@Valid @RequestBody SalaryReviewEmailRequest emailRequest) {
         salaryReviewService.sendSalaryReviewReportEmail(emailRequest);
+    }
+
+    private SalaryReviewDto getSalaryReviewCondition(SalaryReviewDto salaryReviewDto, boolean isRequestedFromWidget) {
+        if (isRequestedFromWidget) {
+            JobEntity job = jobSearchService.findJobById(salaryReviewDto.getTechlooperJobId());
+            if (job != null) {
+                salaryReviewDto = getSalaryReviewInfoByJob(job);
+            }
+        }
+        return salaryReviewDto;
     }
 
     private SalaryReviewDto getSalaryReviewInfoByJob(JobEntity job) {
