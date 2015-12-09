@@ -76,7 +76,8 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
             salaryReviewRepository.save(salaryReviewEntity);
 
             // Send email if the salary review report has result
-            if (!salaryReviewEntity.getSalaryReport().getPercentRank().isNaN()) {
+            boolean hasSalaryReport = !salaryReviewEntity.getSalaryReport().getPercentRank().isNaN();
+            if (hasSalaryReport) {
                 List<String> subjectVariableValues = Arrays.asList(salaryReviewEntity.getJobTitle());
                 EmailRequestModel emailRequestModel = new EmailRequestModel.Builder()
                         .withTemplateName(EmailTemplateNameEnum.SALARY_REVIEW.name())

@@ -114,11 +114,6 @@ public class UserController {
         promotionService.placePromotion(citibankCreditCardPromotion);
     }
 
-    @MessageMapping("/jobs/createJobAlert")
-    public void createJobAlert(VnwJobAlertRequest vnwJobAlertRequest) {
-        salaryReviewService.createVnwJobAlert(vnwJobAlertRequest);
-    }
-
     @RequestMapping(value = "/promotion/citibank/title/{lang}", method = RequestMethod.GET)
     public String getCitiBankPromotionTitle(@PathVariable String lang) {
         return emailService.getCitiBankPromotionTitle(lang);
