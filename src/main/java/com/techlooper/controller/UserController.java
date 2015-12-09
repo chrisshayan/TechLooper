@@ -1,7 +1,10 @@
 package com.techlooper.controller;
 
 import com.techlooper.dto.*;
-import com.techlooper.entity.*;
+import com.techlooper.entity.ChallengeRegistrantDto;
+import com.techlooper.entity.ChallengeRegistrantEntity;
+import com.techlooper.entity.GetPromotedEntity;
+import com.techlooper.entity.PriceJobEntity;
 import com.techlooper.entity.vnw.dto.VnwUserDto;
 import com.techlooper.model.*;
 import com.techlooper.service.*;
@@ -42,16 +45,13 @@ public class UserController {
     private TextEncryptor textEncryptor;
 
     @Resource
-    private UserEvaluationService userEvaluationService;
-
-    @Resource
     private PromotionService promotionService;
 
     @Resource
-    private CurrencyService currencyService;
+    private Mapper dozerMapper;
 
     @Resource
-    private Mapper dozerMapper;
+    private JobPricingService jobPricingService;
 
     @Resource
     private SalaryReviewService salaryReviewService;
@@ -93,41 +93,15 @@ public class UserController {
         }
     }
 
-    @RequestMapping(value = "/salaryReview", method = RequestMethod.POST)
-    public SalaryReviewDto reviewSalary(@RequestBody SalaryReviewEntity salaryReviewEntity) {
-        userEvaluationService.reviewSalary(salaryReviewEntity);
-        SalaryReviewDto salaryReviewDto = dozerMapper.map(salaryReviewEntity, SalaryReviewDto.class);
-        salaryReviewDto.setUsdToVndRate(currencyService.usdToVndRate());
-        SimilarSalaryReviewRequest request = dozerMapper.map(salaryReviewDto, SimilarSalaryReviewRequest.class);
-        List<SimilarSalaryReview> similarSalaryReviews = salaryReviewService.getSimilarSalaryReview(request);
-        salaryReviewDto.setSimilarSalaryReviews(similarSalaryReviews);
-        return salaryReviewDto;
-    }
-
-    @RequestMapping(value = "/salaryReview/{id}", method = RequestMethod.GET)
-    public SalaryReviewDto getReviewSalary(@PathVariable("id") String id) {
-        return userService.findSalaryReviewById(id);
-    }
-
-    @RequestMapping(value = "/saveSalaryReviewSurvey", method = RequestMethod.POST)
-    public void saveSurvey(@RequestBody SalaryReviewSurvey salaryReviewSurvey, HttpServletResponse httpServletResponse) {
-        boolean isSaved = userEvaluationService.saveSalaryReviewSurvey(salaryReviewSurvey);
-        if (isSaved) {
-            httpServletResponse.setStatus(HttpServletResponse.SC_OK);
-        } else {
-            httpServletResponse.setStatus(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
-        }
-    }
-
     @RequestMapping(value = "/priceJob", method = RequestMethod.POST)
     public PriceJobEntity priceJob(@RequestBody PriceJobEntity priceJobEntity) {
-        userEvaluationService.priceJob(priceJobEntity);
+        jobPricingService.priceJob(priceJobEntity);
         return priceJobEntity;
     }
 
     @RequestMapping(value = "/savePriceJobSurvey", method = RequestMethod.POST)
     public void savePriceJobSurvey(@RequestBody PriceJobSurvey priceJobSurvey, HttpServletResponse httpServletResponse) {
-        boolean isSaved = userEvaluationService.savePriceJobSurvey(priceJobSurvey);
+        boolean isSaved = jobPricingService.savePriceJobSurvey(priceJobSurvey);
         if (isSaved) {
             httpServletResponse.setStatus(HttpServletResponse.SC_OK);
         } else {
@@ -140,28 +114,17 @@ public class UserController {
         promotionService.placePromotion(citibankCreditCardPromotion);
     }
 
-    @RequestMapping(value = "salaryReview/placeSalaryReviewReport", method = RequestMethod.POST)
-    public void placeSalaryReviewReport(@Valid @RequestBody EmailRequest emailRequest) {
-        salaryReviewService.sendSalaryReviewReportEmail(emailRequest);
-    }
-
-    @MessageMapping("/jobs/createJobAlert")
-    public void createJobAlert(VnwJobAlertRequest vnwJobAlertRequest) {
-        salaryReviewService.createVnwJobAlert(vnwJobAlertRequest);
-    }
-
     @RequestMapping(value = "/promotion/citibank/title/{lang}", method = RequestMethod.GET)
     public String getCitiBankPromotionTitle(@PathVariable String lang) {
-        EmailTemplateDto emailTemplateDto = emailService.getTemplateById(5L, null);
-        return Language.en.name().equalsIgnoreCase(lang) ? emailTemplateDto.getTitleEN() : emailTemplateDto.getTitleVI();
+        return emailService.getCitiBankPromotionTitle(lang);
     }
 
     @RequestMapping(value = "/getPromoted/email", method = RequestMethod.POST)
     public long sendTopDemandedSkillsEmail(@Valid @RequestBody GetPromotedEmailRequest emailRequest) {
-        long getPromotedId = salaryReviewService.saveGetPromotedInformation(emailRequest);
+        long getPromotedId = jobPricingService.saveGetPromotedInformation(emailRequest);
 
         if (getPromotedId != -1L && emailRequest.getHasResult()) {
-            salaryReviewService.sendTopDemandedSkillsEmail(getPromotedId, emailRequest);
+            jobPricingService.sendTopDemandedSkillsEmail(getPromotedId, emailRequest);
         }
 
         return getPromotedId;
@@ -169,12 +132,12 @@ public class UserController {
 
     @RequestMapping(value = "/getPromoted/survey", method = RequestMethod.POST)
     public long saveGetPromotedSurvey(@RequestBody GetPromotedSurveyRequest getPromotedSurveyRequest, HttpServletResponse httpServletResponse) {
-        return salaryReviewService.saveGetPromotedSurvey(getPromotedSurveyRequest);
+        return jobPricingService.saveGetPromotedSurvey(getPromotedSurveyRequest);
     }
 
     @RequestMapping(value = "/getPromotedResult/{id}", method = RequestMethod.GET)
     public GetPromotedEntity getPromotedResult(@PathVariable Long id) {
-        return salaryReviewService.getPromotedEntity(id);
+        return jobPricingService.getPromotedEntity(id);
     }
 
     @PreAuthorize("hasAnyAuthority('EMPLOYER')")

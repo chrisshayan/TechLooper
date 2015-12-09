@@ -27,4 +27,6 @@ public interface JobAggregatorService {
 
     JobAlertRegistrationEntity getJobAlertRegistrationById(Long id);
 
+    void createVnwJobAlert(VnwJobAlertRequest vnwJobAlertRequest);
+
 }

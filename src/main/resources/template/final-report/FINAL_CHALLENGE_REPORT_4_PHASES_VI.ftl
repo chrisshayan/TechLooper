@@ -29,7 +29,7 @@
       </table>
     </td>
     <td align="center" width="60%" valign="top">
-      <img src="${baseUrl}images/${phaseOptions}-phase.png" alt="" />
+      <img src="${baseUrl}images/final-report/${phaseOptions}-phase-vi.png" alt="" />
     </td>
     <td align="left" width="20%" valign="top">
       <table cellpadding="0" cellspacing="0" width="100%">

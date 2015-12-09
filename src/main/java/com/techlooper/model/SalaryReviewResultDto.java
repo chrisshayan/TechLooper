@@ -1,15 +1,8 @@
 package com.techlooper.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-import java.io.Serializable;
 import java.util.List;
 
-/**
- * Created by phuonghqh on 5/28/15.
- */
-@JsonIgnoreProperties(ignoreUnknown = true)
-public class SalaryReviewDto implements Serializable {
+public class SalaryReviewResultDto {
 
     private Long createdDateTime;
 
@@ -43,11 +36,13 @@ public class SalaryReviewDto implements Serializable {
 
     private Long usdToVndRate;
 
-    private String techlooperJobId;
+    private List<SimilarSalaryReview> similarSalaryReviews;
+
+    private String email;
+
+    private String jobAlertEmail;
 
     private Boolean isSalaryVisible;
-
-    private List<SimilarSalaryReview> similarSalaryReviews;
 
     public Long getCreatedDateTime() {
         return createdDateTime;
@@ -185,12 +180,20 @@ public class SalaryReviewDto implements Serializable {
         this.similarSalaryReviews = similarSalaryReviews;
     }
 
-    public String getTechlooperJobId() {
-        return techlooperJobId;
+    public String getEmail() {
+        return email;
     }
 
-    public void setTechlooperJobId(String techlooperJobId) {
-        this.techlooperJobId = techlooperJobId;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getJobAlertEmail() {
+        return jobAlertEmail;
+    }
+
+    public void setJobAlertEmail(String jobAlertEmail) {
+        this.jobAlertEmail = jobAlertEmail;
     }
 
     public Boolean getIsSalaryVisible() {

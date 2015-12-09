@@ -154,6 +154,12 @@ public class EmailServiceImpl implements EmailService {
         return templates.isEmpty() ? null : dozerMapper.map(templates.get(0), EmailTemplateDto.class);
     }
 
+    @Override
+    public String getCitiBankPromotionTitle(String lang) {
+        EmailTemplateEntity emailTemplateEntity = emailTemplateRepository.findOne(5L);
+        return Language.en.getValue().equalsIgnoreCase(lang) ? emailTemplateEntity.getTitleEN() : emailTemplateEntity.getTitleVI();
+    }
+
     private void processWinnerAnnouncementEmailContent(Long challengeId, EmailTemplateEntity emailTemplateEntity) {
         Set<ChallengeRegistrantDto> winners = challengeRegistrantService.
                 findWinnerRegistrantsByChallengeId(challengeId);
