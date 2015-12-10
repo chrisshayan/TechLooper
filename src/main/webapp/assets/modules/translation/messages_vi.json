@@ -861,5 +861,6 @@
   "updateEvaluationCriteria2": "để thiết lập tiêu chí đánh giá cho thử thách.",
   "here": "ở đây",
   "getFinalReport": "Xem báo cáo",
-  "thisMustBeBw5And100": "Giá trị trọng số phải nằm giữa 5% và 100%"
+  "thisMustBeBw5And100": "Giá trị trọng số phải nằm giữa 5% và 100%",
+  "technologiesLabel": "Công nghệ:"
 }

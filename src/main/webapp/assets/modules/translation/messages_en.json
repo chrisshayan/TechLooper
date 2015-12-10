@@ -857,5 +857,6 @@
   "updateEvaluationCriteria2": "to set up your own judging criteria for it.",
   "here": "here",
   "getFinalReport": "Get final report",
-  "thisMustBeBw5And100": "This must be between 5% and 100%"
+  "thisMustBeBw5And100": "This must be between 5% and 100%",
+  "technologiesLabel": "Technologies:"
 }
