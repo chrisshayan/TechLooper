@@ -1,5 +1,7 @@
 package com.techlooper.service;
 
+import com.techlooper.model.Language;
+
 import java.io.ByteArrayOutputStream;
 
 /**
@@ -7,5 +9,5 @@ import java.io.ByteArrayOutputStream;
  */
 public interface ReportService {
 
-  ByteArrayOutputStream generateFinalChallengeReport(String challengeAuthorEmail, Long challengeId);
+  ByteArrayOutputStream generateFinalChallengeReport(String challengeAuthorEmail, Long challengeId, Language language);
 }

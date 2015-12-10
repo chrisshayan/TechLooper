@@ -2,6 +2,7 @@ package com.techlooper.controller;
 
 import com.techlooper.dto.ResourceDto;
 import com.techlooper.entity.ChallengeEntity;
+import com.techlooper.model.Language;
 import com.techlooper.repository.elasticsearch.ChallengeRepository;
 import com.techlooper.repository.elasticsearch.ProjectRepository;
 import com.techlooper.repository.elasticsearch.SalaryReviewRepository;
@@ -106,9 +107,9 @@ public class SharingController {
     return 404L;
   }
 
-  @RequestMapping(value = "report/challenge/final/{challengeId}")
-  public void renderFinalChallengeReport(@PathVariable Long challengeId, HttpServletRequest request, HttpServletResponse response) throws IOException {
-    ByteArrayOutputStream os = reportService.generateFinalChallengeReport(request.getRemoteUser(), challengeId);
+  @RequestMapping(value = "report/challenge/final/{language}/{challengeId}")
+  public void renderFinalChallengeReport(@PathVariable Language language, @PathVariable Long challengeId, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    ByteArrayOutputStream os = reportService.generateFinalChallengeReport(request.getRemoteUser(), challengeId, language);
     if (os == null) {
       response.setStatus(HttpServletResponse.SC_EXPECTATION_FAILED);
       return;
