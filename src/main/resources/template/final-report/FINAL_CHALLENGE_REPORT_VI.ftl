@@ -38,10 +38,13 @@
           </td>
         </tr>
         <tr>
+          <td align="left" style="height: 50px;"></td>
+        </tr>
+        <tr>
           <td align="center">
             <br/>
             <#if winnersInfo?size != 0>
-              <span style="font-size: 12px; font-weight: normal"><strong style="font-size: 25px; color:#bf3a2f">${winnersInfo?size}</strong> Trao giải</span>
+              <span style="font-size: 12px; font-weight: normal"><strong style="font-size: 25px; color:#bf3a2f">${winnersInfo?size}</strong> Người chiến thắng</span>
               <#list winnersInfo as winnerInfo>
                 <br/>
                   <span style="font-size: 14px; color: #bf3a2f; font-weight: normal">
@@ -65,15 +68,15 @@
           <td align="left" style="height: 1px; background-color: #8d8d8d;"></td>
         </tr>
         <tr>
-          <td align="left" style="height: 30px;"></td>
+          <td align="left" style="height: 5px;"></td>
         </tr>
         <tr>
           <td align="left" width="100%">
             <table width="100%" style="background-color:#fff">
               <tr>
                 <td align="left" width="70%">
-                  <h3 style="font-size: 14px; color: #898989; font-weight: 300; margin:0 0 5px 0">Challenge Online</h3>
-                  <span style="font-size: 10px;  color: #898989;">Build And Grow Your Developer Community Base With Online Contests.</span>
+                  <h3 style="font-size: 14px; color: #898989; font-weight: 300; margin:0 0 5px 0">Thử Thách Trực Tuyến</h3>
+                  <span style="font-size: 10px;  color: #898989;">Xây Dựng Đội Ngũ Phát Triển Sản Phẩm Của Chính Bạn Thông Qua Các Cuộc Thi Trực Tuyến.</span>
                 </td>
                 <td align="right" width="30%">
                   <img src="${baseUrl}images/logo.png" alt="" style="margin: auto; width: 150px"/>
