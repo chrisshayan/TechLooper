@@ -187,7 +187,10 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
         salaryReport.setSalaryRanges(salaryRanges);
 
         // Calculate salary percentile rank for user based on list of salary percentiles from above result
-        double percentRank = calculatePercentPosition(salaryReport);
+        double percentRank = Double.NaN;
+        if (salaryReport.getNetSalary() != null) {
+            calculatePercentPosition(salaryReport);
+        }
         salaryReport.setPercentRank(Math.floor(percentRank));
         salaryReport.setNumberOfJobs(jobs.size());
 

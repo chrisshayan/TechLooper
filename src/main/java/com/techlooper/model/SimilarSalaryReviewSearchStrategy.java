@@ -4,8 +4,9 @@ import com.techlooper.entity.JobEntity;
 import com.techlooper.entity.SalaryReviewEntity;
 import com.techlooper.util.DateTimeUtils;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.elasticsearch.index.query.BoolFilterBuilder;
-import org.elasticsearch.index.query.MatchQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.RangeFilterBuilder;
 import org.elasticsearch.index.query.TermsFilterBuilder;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
@@ -16,8 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.elasticsearch.index.query.FilterBuilders.*;
-import static org.elasticsearch.index.query.QueryBuilders.filteredQuery;
-import static org.elasticsearch.index.query.QueryBuilders.matchQuery;
+import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * Created by NguyenDangKhoa on 12/7/15.
@@ -36,7 +36,11 @@ public class SimilarSalaryReviewSearchStrategy extends JobSearchStrategy {
     @Override
     protected NativeSearchQueryBuilder getSearchQueryBuilder() {
         NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withTypes("salaryReview");
-        MatchQueryBuilder jobTitleQuery = matchQuery("jobTitle", salaryReviewDto.getJobTitle()).minimumShouldMatch("100%");
+
+        QueryBuilder queryBuilder = matchAllQuery();
+        if (StringUtils.isNotEmpty(salaryReviewDto.getJobTitle())) {
+            queryBuilder = matchQuery("jobTitle", salaryReviewDto.getJobTitle()).minimumShouldMatch("100%");
+        }
 
         BoolFilterBuilder boolFilterBuilder = boolFilter();
         if (CollectionUtils.isNotEmpty(salaryReviewDto.getJobCategories())) {
@@ -48,7 +52,7 @@ public class SimilarSalaryReviewSearchStrategy extends JobSearchStrategy {
         Long sixMonthsAgo = DateTimeUtils.minusPeriod(6, ChronoUnit.MONTHS);
         RangeFilterBuilder sixMonthsAgoFilter = rangeFilter("createdDateTime").from(sixMonthsAgo);
 
-        searchQueryBuilder.withQuery(filteredQuery(jobTitleQuery, boolFilterBuilder.must(netSalaryFilter)
+        searchQueryBuilder.withQuery(filteredQuery(queryBuilder, boolFilterBuilder.must(netSalaryFilter)
                 .must(sixMonthsAgoFilter)));
         return searchQueryBuilder;
     }

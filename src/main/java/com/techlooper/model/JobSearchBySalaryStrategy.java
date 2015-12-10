@@ -2,13 +2,17 @@ package com.techlooper.model;
 
 import com.techlooper.entity.JobEntity;
 import com.techlooper.util.DataUtils;
-import org.elasticsearch.index.query.*;
+import org.apache.commons.collections.CollectionUtils;
+import org.elasticsearch.index.query.BoolFilterBuilder;
+import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.FilterBuilder;
+import org.elasticsearch.index.query.QueryBuilder;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 
 import java.util.List;
 
-import static org.elasticsearch.index.query.FilterBuilders.*;
+import static org.elasticsearch.index.query.FilterBuilders.boolFilter;
 import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
@@ -33,15 +37,23 @@ public class JobSearchBySalaryStrategy extends JobSearchStrategy {
         List<String> jobTitleTokens = DataUtils.preprocessJobTitle(salaryReviewDto.getJobTitle());
 
         BoolQueryBuilder boolQueryBuilder = boolQuery();
+        BoolFilterBuilder boolFilterBuilder = boolFilter();
         jobTitleTokens.forEach(jobTitleToken -> boolQueryBuilder.should(jobTitleQueryBuilder(jobTitleToken.trim())));
-        FilterBuilder jobIndustriesFilterBuilder = getJobIndustriesFilterBuilder(salaryReviewDto.getJobCategories());
-        FilterBuilder approvedDateRangeFilterBuilder = getRangeFilterBuilder("approvedDate", "now-6M/M", null);
-        FilterBuilder salaryRangeFilterBuilder = getSalaryRangeFilterBuilder(MIN_SALARY_ACCEPTABLE, MAX_SALARY_ACCEPTABLE);
 
-        queryBuilder.withQuery(filteredQuery(boolQueryBuilder,
-                boolFilter().must(approvedDateRangeFilterBuilder)
-                        .must(jobIndustriesFilterBuilder)
-                        .must(salaryRangeFilterBuilder)));
+        if (CollectionUtils.isNotEmpty(salaryReviewDto.getJobCategories())) {
+            FilterBuilder jobIndustriesFilterBuilder = getJobIndustriesFilterBuilder(salaryReviewDto.getJobCategories());
+            boolFilterBuilder.must(jobIndustriesFilterBuilder);
+        }
+        FilterBuilder approvedDateRangeFilterBuilder = getRangeFilterBuilder("approvedDate", "now-6M/M", "now");
+        boolFilterBuilder.must(approvedDateRangeFilterBuilder);
+        FilterBuilder salaryRangeFilterBuilder = getSalaryRangeFilterBuilder(MIN_SALARY_ACCEPTABLE, MAX_SALARY_ACCEPTABLE);
+        boolFilterBuilder.must(salaryRangeFilterBuilder);
+
+        QueryBuilder matchQueryBuilder = matchAllQuery();
+        if (CollectionUtils.isNotEmpty(jobTitleTokens)) {
+            matchQueryBuilder = boolQueryBuilder;
+        }
+        queryBuilder.withQuery(filteredQuery(matchQueryBuilder, boolFilterBuilder));
         return queryBuilder;
     }
 

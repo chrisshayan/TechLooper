@@ -1,7 +1,9 @@
 package com.techlooper.model;
 
 import com.techlooper.entity.JobEntity;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.elasticsearch.index.query.BoolFilterBuilder;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
@@ -35,11 +37,19 @@ public class JobSearchBySkillStrategy extends JobSearchStrategy {
     protected NativeSearchQueryBuilder getSearchQueryBuilder() {
         NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder().withTypes("job");
 
-        QueryBuilder skillQueryBuilder = skillQueryBuilder(skills);
-        queryBuilder.withQuery(filteredQuery(skillQueryBuilder,
-                boolFilter().must(getRangeFilterBuilder("approvedDate", "now-6M/M", "now"))
-                        .must(getJobIndustriesFilterBuilder(jobCategories))
-                        .must(getSalaryRangeFilterBuilder(MIN_SALARY_ACCEPTABLE, MAX_SALARY_ACCEPTABLE))));
+        QueryBuilder skillQueryBuilder = matchAllQuery();
+        if (CollectionUtils.isNotEmpty(skills)) {
+            skillQueryBuilder = skillQueryBuilder(skills);
+        }
+
+        BoolFilterBuilder boolFilterBuilder = boolFilter();
+        if (CollectionUtils.isNotEmpty(jobCategories)) {
+            boolFilterBuilder.must(getJobIndustriesFilterBuilder(jobCategories));
+        }
+        boolFilterBuilder.must(getRangeFilterBuilder("approvedDate", "now-6M/M", "now"));
+        boolFilterBuilder.must(getSalaryRangeFilterBuilder(MIN_SALARY_ACCEPTABLE, MAX_SALARY_ACCEPTABLE));
+
+        queryBuilder.withQuery(filteredQuery(skillQueryBuilder, boolFilterBuilder));
         return queryBuilder;
     }
 
