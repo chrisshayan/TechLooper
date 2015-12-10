@@ -155,7 +155,9 @@
     </div>
 
     <div class="field-content submit">
-      <button type="button" translate="postProjectNow" class="btn btn-primary btn-flat" ng-click="createProject()"></button>
+      <button type="button" translate="postProjectNow" class="btn btn-primary btn-flat" 
+      ng-click="createProject()" ng-class="{disabled: showPostSuccessfulMessage}"
+      ng-disabled="showPostSuccessfulMessage"></button>
       <a translate="preview" ng-click="changeState('review')" />
     </div>
   </ng-form>
