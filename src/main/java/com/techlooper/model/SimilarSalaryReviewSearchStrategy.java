@@ -3,6 +3,8 @@ package com.techlooper.model;
 import com.techlooper.entity.JobEntity;
 import com.techlooper.entity.SalaryReviewEntity;
 import com.techlooper.util.DateTimeUtils;
+import org.apache.commons.collections.CollectionUtils;
+import org.elasticsearch.index.query.BoolFilterBuilder;
 import org.elasticsearch.index.query.MatchQueryBuilder;
 import org.elasticsearch.index.query.RangeFilterBuilder;
 import org.elasticsearch.index.query.TermsFilterBuilder;
@@ -35,14 +37,18 @@ public class SimilarSalaryReviewSearchStrategy extends JobSearchStrategy {
     protected NativeSearchQueryBuilder getSearchQueryBuilder() {
         NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withTypes("salaryReview");
         MatchQueryBuilder jobTitleQuery = matchQuery("jobTitle", salaryReviewDto.getJobTitle()).minimumShouldMatch("100%");
-        TermsFilterBuilder jobCategoriesFilter = termsFilter("jobCategories", salaryReviewDto.getJobCategories());
+
+        BoolFilterBuilder boolFilterBuilder = boolFilter();
+        if (CollectionUtils.isNotEmpty(salaryReviewDto.getJobCategories())) {
+            TermsFilterBuilder jobCategoriesFilter = termsFilter("jobCategories", salaryReviewDto.getJobCategories());
+            boolFilterBuilder.must(jobCategoriesFilter);
+        }
         RangeFilterBuilder netSalaryFilter = rangeFilter("netSalary").from(MIN_SALARY_ACCEPTABLE).to(MAX_SALARY_ACCEPTABLE);
 
         Long sixMonthsAgo = DateTimeUtils.minusPeriod(6, ChronoUnit.MONTHS);
         RangeFilterBuilder sixMonthsAgoFilter = rangeFilter("createdDateTime").from(sixMonthsAgo);
 
-        searchQueryBuilder.withQuery(filteredQuery(jobTitleQuery, boolFilter().must(jobCategoriesFilter)
-                .must(netSalaryFilter)
+        searchQueryBuilder.withQuery(filteredQuery(jobTitleQuery, boolFilterBuilder.must(netSalaryFilter)
                 .must(sixMonthsAgoFilter)));
         return searchQueryBuilder;
     }

@@ -127,8 +127,10 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
         if (jobRepository.isNotEmpty() && jobRepository.isNotEnough()) {
             List<String> skills = salaryReviewDto.getSkills();
             List<Long> jobCategories = salaryReviewDto.getJobCategories();
-            JobSearchStrategy searchBySkillStrategy = new JobSearchBySkillStrategy(vietnamworksJobRepository, skills, jobCategories);
-            jobRepository.addStrategy(searchBySkillStrategy);
+            if (CollectionUtils.isNotEmpty(skills) && CollectionUtils.isNotEmpty(jobCategories)) {
+                JobSearchStrategy searchBySkillStrategy = new JobSearchBySkillStrategy(vietnamworksJobRepository, skills, jobCategories);
+                jobRepository.addStrategy(searchBySkillStrategy);
+            }
         }
 
         if (jobRepository.isNotEmpty() && jobRepository.isNotEnough()) {

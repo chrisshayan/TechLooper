@@ -2,6 +2,7 @@ package com.techlooper.model;
 
 import com.techlooper.entity.JobEntity;
 import com.techlooper.util.DataUtils;
+import org.apache.commons.collections.CollectionUtils;
 import org.elasticsearch.index.query.BoolFilterBuilder;
 import org.elasticsearch.index.query.FilterBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
@@ -44,7 +45,7 @@ public abstract class JobSearchStrategy {
 
     protected FilterBuilder getJobIndustriesFilterBuilder(List<Long> jobCategories) {
         BoolFilterBuilder jobIndustriesFilterBuilder = boolFilter();
-        if (!jobCategories.isEmpty()) {
+        if (CollectionUtils.isNotEmpty(jobCategories)) {
             jobCategories.forEach(industryId -> jobIndustriesFilterBuilder.should(termFilter("industries.industryId", industryId)));
         }
         return nestedFilter("industries", jobIndustriesFilterBuilder);
