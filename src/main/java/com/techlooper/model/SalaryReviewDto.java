@@ -47,6 +47,10 @@ public class SalaryReviewDto implements Serializable {
 
     private Boolean isSalaryVisible;
 
+    private Long salaryMin;
+
+    private Long salaryMax;
+
     private List<SimilarSalaryReview> similarSalaryReviews;
 
     public Long getCreatedDateTime() {
@@ -199,5 +203,21 @@ public class SalaryReviewDto implements Serializable {
 
     public void setIsSalaryVisible(Boolean isSalaryVisible) {
         this.isSalaryVisible = isSalaryVisible;
+    }
+
+    public Long getSalaryMin() {
+        return salaryMin;
+    }
+
+    public void setSalaryMin(Long salaryMin) {
+        this.salaryMin = salaryMin;
+    }
+
+    public Long getSalaryMax() {
+        return salaryMax;
+    }
+
+    public void setSalaryMax(Long salaryMax) {
+        this.salaryMax = salaryMax;
     }
 }

@@ -44,6 +44,10 @@ public class SalaryReviewResultDto {
 
     private Boolean isSalaryVisible;
 
+    private Long salaryMin;
+
+    private Long salaryMax;
+
     public Long getCreatedDateTime() {
         return createdDateTime;
     }
@@ -202,5 +206,21 @@ public class SalaryReviewResultDto {
 
     public void setIsSalaryVisible(Boolean isSalaryVisible) {
         this.isSalaryVisible = isSalaryVisible;
+    }
+
+    public Long getSalaryMin() {
+        return salaryMin;
+    }
+
+    public void setSalaryMin(Long salaryMin) {
+        this.salaryMin = salaryMin;
+    }
+
+    public Long getSalaryMax() {
+        return salaryMax;
+    }
+
+    public void setSalaryMax(Long salaryMax) {
+        this.salaryMax = salaryMax;
     }
 }
