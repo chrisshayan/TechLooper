@@ -2,6 +2,7 @@ package com.techlooper.util;
 
 import com.techlooper.entity.ChallengeCriteria;
 import com.techlooper.model.Language;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.elasticsearch.core.FacetedPage;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
@@ -66,6 +67,10 @@ public class DataUtils {
     }
 
     public static List<String> preprocessJobTitle(String jobTitle) {
+        if (StringUtils.isEmpty(jobTitle)) {
+            return Collections.emptyList();
+        }
+
         String[] tokens;
         if (jobTitle.contains("&")) {
             tokens = jobTitle.split("&");

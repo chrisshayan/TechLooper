@@ -1,4 +1,4 @@
-techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue, $filter, $q, localStorageService) {
+techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue, $filter, $q, $translate) {
   return function (input, type) {
     if (!input || input.$isRich) return input;
 
@@ -390,6 +390,7 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
 
     challengeDetail.recalculate();
 
+    challengeDetail.$browserLang = $translate.use();
     challengeDetail.$isRich = true;
     return challengeDetail;
   }

@@ -1,11 +1,14 @@
 package com.techlooper.model;
 
 import com.techlooper.entity.JobEntity;
+import org.apache.commons.lang3.StringUtils;
+import org.elasticsearch.index.query.QueryBuilder;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 
 import static org.elasticsearch.index.query.FilterBuilders.boolFilter;
 import static org.elasticsearch.index.query.QueryBuilders.filteredQuery;
+import static org.elasticsearch.index.query.QueryBuilders.matchAllQuery;
 
 /**
  * Created by NguyenDangKhoa on 12/7/15.
@@ -25,7 +28,11 @@ public class JobSearchByTitleStrategy extends JobSearchStrategy {
     protected NativeSearchQueryBuilder getSearchQueryBuilder() {
         NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder().withTypes("job");
 
-        queryBuilder.withQuery(filteredQuery(jobTitleQueryBuilder(jobTitle),
+        QueryBuilder matchQueryBuilder = matchAllQuery();
+        if (StringUtils.isNotEmpty(jobTitle)) {
+            matchQueryBuilder = jobTitleQueryBuilder(jobTitle);
+        }
+        queryBuilder.withQuery(filteredQuery(matchQueryBuilder,
                 boolFilter().must(getRangeFilterBuilder("approvedDate", "now-6M/M", null))
                         .must(getSalaryRangeFilterBuilder(MIN_SALARY_ACCEPTABLE, MAX_SALARY_ACCEPTABLE))));
         return queryBuilder;

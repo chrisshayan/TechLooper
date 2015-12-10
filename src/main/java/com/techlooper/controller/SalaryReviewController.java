@@ -37,7 +37,7 @@ public class SalaryReviewController {
         salaryReviewDto = getSalaryReviewCondition(salaryReviewDto, isRequestedFromWidget);
         SalaryReviewResultDto salaryReviewResult = salaryReviewService.reviewSalary(salaryReviewDto);
 
-        if (!isRequestedFromWidget) {
+        if (!isRequestedFromWidget && salaryReviewDto.getNetSalary() != null) {
             salaryReviewService.saveSalaryReviewResult(salaryReviewResult);
             // get top 3 higher salary jobs
             List<TopPaidJob> topPaidJobs = salaryReviewService.findTopPaidJob(salaryReviewDto);
@@ -46,6 +46,11 @@ public class SalaryReviewController {
             SimilarSalaryReviewRequest request = dozerMapper.map(salaryReviewResult, SimilarSalaryReviewRequest.class);
             List<SimilarSalaryReview> similarSalaryReviews = salaryReviewService.getSimilarSalaryReview(request);
             salaryReviewResult.setSimilarSalaryReviews(similarSalaryReviews);
+        }
+
+        boolean hideSalary = salaryReviewDto.getIsSalaryVisible() != null && !salaryReviewDto.getIsSalaryVisible();
+        if (hideSalary) {
+            hideSalaryInformation(salaryReviewResult);
         }
         return salaryReviewResult;
     }
@@ -89,6 +94,14 @@ public class SalaryReviewController {
         salaryReviewDto.setJobCategories(jobCategories);
         salaryReviewDto.setIsSalaryVisible(job.getIsSalaryVisible());
         return salaryReviewDto;
+    }
+
+    private void hideSalaryInformation(SalaryReviewResultDto salaryReviewResult) {
+        salaryReviewResult.setNetSalary(null);
+        SalaryReport salaryReport = salaryReviewResult.getSalaryReport();
+        if (salaryReport != null) {
+            salaryReport.setNetSalary(null);
+        }
     }
 
 }
