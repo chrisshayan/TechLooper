@@ -1,6 +1,5 @@
 package com.techlooper.service.impl;
 
-import com.lowagie.text.PageSize;
 import com.techlooper.dto.FinalChallengeReportDto;
 import com.techlooper.dto.PhaseEntry;
 import com.techlooper.dto.PhaseEntry.PhaseEntryBuilder;
@@ -63,7 +62,7 @@ public class ReportServiceImpl implements ReportService {
   @Resource
   private ITextRenderer reportRender;
 
-  public ByteArrayOutputStream generateFinalChallengeReport(String challengeAuthorEmail, Long challengeId) {
+  public ByteArrayOutputStream generateFinalChallengeReport(String challengeAuthorEmail, Long challengeId, Language language) {
     ChallengeEntity challenge = challengeRepository.findOne(challengeId);
     if (challenge == null || !challenge.getAuthorEmail().equalsIgnoreCase(challengeAuthorEmail)) {
       return null;
@@ -105,7 +104,7 @@ public class ReportServiceImpl implements ReportService {
     finalChallengeReportDto.calculateRemainingFields();
 
     try {
-      Template template = challenge.getLang() == Language.en ? finalChallengeReportEn : finalChallengeReportVi;
+      Template template = language == Language.en ? finalChallengeReportEn : finalChallengeReportVi;
       StringWriter stringWriter = new StringWriter();
       template.process(finalChallengeReportDto, stringWriter);
 

@@ -5,7 +5,7 @@
             ng-class="{disabled: !contestDetail.winners.length}"
             ng-disabled="!contestDetail.winners.length" ng-click="announcementWinner()"
             data-toggle="modal" data-target="#emailCompose"></button>
-    <a href="report/challenge/final/{{contestDetail.challengeId}}" class="export-pdf" title="{{'getFinalReport' | translate}}"></a>
+    <a href="report/challenge/final/{{contestDetail.$browserLang}}/{{contestDetail.challengeId}}" class="export-pdf" title="{{'getFinalReport' | translate}}"></a>
   </div>
 </div>
 <div class="participant-list">
