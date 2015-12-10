@@ -179,17 +179,24 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
         salaryReport.setNetSalary(salaryReviewDto.getNetSalary());
 
         double[] salaries = extractSalariesFromJob(jobs);
-        List<SalaryRange> salaryRanges = new ArrayList<>();
+        Map<Double, Double> salaryPercentileMap = new HashMap<>();
         Percentile percentile = new Percentile();
         for (double percent : percents) {
-            salaryRanges.add(new SalaryRange(percent, Math.floor(percentile.evaluate(salaries, percent))));
+            salaryPercentileMap.put(Math.floor(percentile.evaluate(salaries, percent)), percent);
         }
+
+        List<SalaryRange> salaryRanges = new ArrayList<>();
+        for (Map.Entry<Double, Double> entry : salaryPercentileMap.entrySet()) {
+            salaryRanges.add(new SalaryRange(entry.getValue(), entry.getKey()));
+        }
+        salaryRanges = salaryRanges.stream().sorted((source, destination) ->
+                Double.valueOf(source.getPercent() - destination.getPercent()).intValue()).collect(Collectors.toList());
         salaryReport.setSalaryRanges(salaryRanges);
 
         // Calculate salary percentile rank for user based on list of salary percentiles from above result
         double percentRank = Double.NaN;
         if (salaryReport.getNetSalary() != null) {
-            calculatePercentPosition(salaryReport);
+            percentRank = calculatePercentPosition(salaryReport);
         }
         salaryReport.setPercentRank(Math.floor(percentRank));
         salaryReport.setNumberOfJobs(jobs.size());
@@ -215,7 +222,7 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
 
     private double calculatePercentPosition(SalaryReport salaryReport) {
         //Remove duplicated percentiles if any
-        List<SalaryRange> noDuplicatedSalaryRanges = salaryReport.getSalaryRanges().stream().distinct().collect(toList());
+        List<SalaryRange> noDuplicatedSalaryRanges = salaryReport.getSalaryRanges();
         if (noDuplicatedSalaryRanges.size() >= TWO_PERCENTILES) {
             int size = noDuplicatedSalaryRanges.size();
             int i = 0;

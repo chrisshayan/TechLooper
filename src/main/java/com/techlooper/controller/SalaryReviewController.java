@@ -48,8 +48,8 @@ public class SalaryReviewController {
             salaryReviewResult.setSimilarSalaryReviews(similarSalaryReviews);
         }
 
-        boolean isVisibleSalary = salaryReviewDto.getIsSalaryVisible() != null && !salaryReviewDto.getIsSalaryVisible();
-        if (isVisibleSalary) {
+        boolean hideSalary = salaryReviewDto.getIsSalaryVisible() != null && !salaryReviewDto.getIsSalaryVisible();
+        if (hideSalary) {
             hideSalaryInformation(salaryReviewResult);
         }
         return salaryReviewResult;
