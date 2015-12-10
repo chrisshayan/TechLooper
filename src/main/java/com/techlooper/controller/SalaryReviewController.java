@@ -88,6 +88,8 @@ public class SalaryReviewController {
     private SalaryReviewDto getSalaryReviewInfoByJob(JobEntity job) {
         SalaryReviewDto salaryReviewDto = new SalaryReviewDto();
         salaryReviewDto.setJobTitle(job.getJobTitle());
+        salaryReviewDto.setSalaryMin(job.getSalaryMin());
+        salaryReviewDto.setSalaryMax(job.getSalaryMax());
         Integer salary = jobSearchService.getAverageSalary(job.getSalaryMin(), job.getSalaryMax()).intValue();
         salaryReviewDto.setNetSalary(salary);
         List<Long> jobCategories = job.getIndustries().stream().map(jobIndustry -> jobIndustry.getIndustryId()).collect(Collectors.toList());
@@ -98,6 +100,8 @@ public class SalaryReviewController {
 
     private void hideSalaryInformation(SalaryReviewResultDto salaryReviewResult) {
         salaryReviewResult.setNetSalary(null);
+        salaryReviewResult.setSalaryMin(null);
+        salaryReviewResult.setSalaryMax(null);
         SalaryReport salaryReport = salaryReviewResult.getSalaryReport();
         if (salaryReport != null) {
             salaryReport.setNetSalary(null);
