@@ -22,18 +22,38 @@
     position: relative
     width: 100%
     display: inline-block
-    height: 291px
+    height: 285px
+    text-align: center
+    margin: -25px 0 0
     .hiring-banner-content
       position: absolute
       left: 0
       right: 0
-      top: 33%
+      top: 25%
       text-align: center
       z-index: 88
       color: #ffffff
       h2
         font-size: 40px
         font-weight: 100
+    .btn-learn-more
+      position: absolute
+      left: 0
+      right: 0
+      top: 55%
+      text-align: center
+      z-index: 88
+      width: 200px
+      margin: auto
+      a
+        display: inline-block
+        padding: 10px 45px
+        border-radius: 3px
+        font-size: 18px
+        color: #fff
+        background-color: #337ab7
+      a:hover
+        background-color: #226ca5
     .hiring-banner-bg
       background: #000000 none repeat scroll 0 0
       height: 291px
@@ -47,7 +67,6 @@
         background: url(../images/hiring-banner.jpg) center top no-repeat
         opacity: 0.3
         width: 100%
-        height: auto
         height: 291px
   .hiring-body-block
     display: inline-block
@@ -169,6 +188,10 @@
             text-align: center
           h4
             padding: 15px 0
+          a
+            text-align: right
+            display: inline-block
+            width: 100%
           .ic-how-does-it-work
             background: url(../images/feature-icon.png) center top no-repeat
             height: 50px
