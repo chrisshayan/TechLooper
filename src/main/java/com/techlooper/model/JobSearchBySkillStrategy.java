@@ -21,15 +21,12 @@ import static org.elasticsearch.index.query.QueryBuilders.*;
  */
 public class JobSearchBySkillStrategy extends JobSearchStrategy {
 
-    private List<String> skills;
-
-    private List<Long> jobCategories;
+    private SalaryReviewCondition salaryReviewCondition;
 
     private ElasticsearchRepository<JobEntity, ?> repository;
 
-    public JobSearchBySkillStrategy(ElasticsearchRepository repository, List<String> skills, List<Long> jobCategories) {
-        this.skills = skills;
-        this.jobCategories = jobCategories;
+    public JobSearchBySkillStrategy(ElasticsearchRepository repository, SalaryReviewCondition salaryReviewCondition) {
+        this.salaryReviewCondition = salaryReviewCondition;
         this.repository = repository;
     }
 
@@ -38,13 +35,13 @@ public class JobSearchBySkillStrategy extends JobSearchStrategy {
         NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder().withTypes("job");
 
         QueryBuilder skillQueryBuilder = matchAllQuery();
-        if (CollectionUtils.isNotEmpty(skills)) {
-            skillQueryBuilder = skillQueryBuilder(skills);
+        if (CollectionUtils.isNotEmpty(salaryReviewCondition.getSkills())) {
+            skillQueryBuilder = skillQueryBuilder(salaryReviewCondition.getSkills());
         }
 
         BoolFilterBuilder boolFilterBuilder = boolFilter();
-        if (CollectionUtils.isNotEmpty(jobCategories)) {
-            boolFilterBuilder.must(getJobIndustriesFilterBuilder(jobCategories));
+        if (CollectionUtils.isNotEmpty(salaryReviewCondition.getJobCategories())) {
+            boolFilterBuilder.must(getJobIndustriesFilterBuilder(salaryReviewCondition.getJobCategories()));
         }
         boolFilterBuilder.must(getRangeFilterBuilder("approvedDate", "now-6M/M", "now"));
         boolFilterBuilder.must(getSalaryRangeFilterBuilder(MIN_SALARY_ACCEPTABLE, MAX_SALARY_ACCEPTABLE));

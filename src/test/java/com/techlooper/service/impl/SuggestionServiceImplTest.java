@@ -30,8 +30,15 @@ public class SuggestionServiceImplTest {
 
     @Test
     public void testSuggestSkillsNoSkill() throws Exception {
-        String query = "ABC XYZ";
-        List<String> skills = suggestionService.suggestSkills(query);
-        assertTrue(skills.isEmpty());
+        String query = "Senior Java Developer";
+        List<String> jobTitles = suggestionService.suggestJobTitles(query);
+        assertTrue(jobTitles.isEmpty());
+    }
+
+    @Test
+    public void testTheBestMatchJobTitle() throws Exception {
+        String query = "Senior Java Developer ( High Salary And Good Working Environment)";
+        List<String> jobTitles = suggestionService.searchJobTitles(query);
+        assertTrue(!jobTitles.isEmpty());
     }
 }

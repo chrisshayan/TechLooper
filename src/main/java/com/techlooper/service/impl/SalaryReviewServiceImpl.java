@@ -9,6 +9,7 @@ import com.techlooper.repository.elasticsearch.VietnamworksJobRepository;
 import com.techlooper.service.EmailService;
 import com.techlooper.service.JobSearchService;
 import com.techlooper.service.SalaryReviewService;
+import com.techlooper.service.SuggestionService;
 import com.techlooper.util.DateTimeUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -68,6 +69,9 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
     @Resource
     private VietnamworksJobRepository vietnamworksJobRepository;
 
+    @Resource
+    private SuggestionService suggestionService;
+
     @Override
     public void sendSalaryReviewReportEmail(SalaryReviewEmailRequest salaryReviewEmailRequest) {
         Optional<SalaryReviewEntity> salaryReviewEntityOptional = Optional.ofNullable(
@@ -116,26 +120,33 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
     @Override
     public SalaryReviewResultDto reviewSalary(SalaryReviewDto salaryReviewDto) {
         SalaryReviewJobRepository jobRepository = new SalaryReviewJobRepository();
+        SalaryReviewCondition salaryReviewCondition = dozerMapper.map(salaryReviewDto, SalaryReviewCondition.class);
 
-        JobSearchStrategy searchBySalaryStrategy = new JobSearchBySalaryStrategy(salaryReviewDto, vietnamworksJobRepository);
+        List<String> normalizedJobTitleCandidates = suggestionService.searchJobTitles(salaryReviewCondition.getJobTitle());
+        String standardJobTitle = chooseTheBestJobTitle(normalizedJobTitleCandidates);
+        if (StringUtils.isNotEmpty(standardJobTitle)) {
+            salaryReviewCondition.setJobTitle(standardJobTitle);
+        }
+
+        JobSearchStrategy searchBySalaryStrategy = new JobSearchBySalaryStrategy(salaryReviewCondition, vietnamworksJobRepository);
         jobRepository.addStrategy(searchBySalaryStrategy);
 
         JobSearchStrategy searchBySimilarSalaryReviewStrategy = new SimilarSalaryReviewSearchStrategy(
-                salaryReviewDto, salaryReviewRepository);
+                salaryReviewCondition, salaryReviewRepository);
         jobRepository.addStrategy(searchBySimilarSalaryReviewStrategy);
 
         if (jobRepository.isNotEmpty() && jobRepository.isNotEnough()) {
             List<String> skills = salaryReviewDto.getSkills();
             List<Long> jobCategories = salaryReviewDto.getJobCategories();
             if (CollectionUtils.isNotEmpty(skills) && CollectionUtils.isNotEmpty(jobCategories)) {
-                JobSearchStrategy searchBySkillStrategy = new JobSearchBySkillStrategy(vietnamworksJobRepository, skills, jobCategories);
+                JobSearchStrategy searchBySkillStrategy = new JobSearchBySkillStrategy(vietnamworksJobRepository, salaryReviewCondition);
                 jobRepository.addStrategy(searchBySkillStrategy);
             }
         }
 
         if (jobRepository.isNotEmpty() && jobRepository.isNotEnough()) {
             String jobTitle = salaryReviewDto.getJobTitle();
-            JobSearchStrategy searchByTitleStrategy = new JobSearchByTitleStrategy(vietnamworksJobRepository, jobTitle);
+            JobSearchStrategy searchByTitleStrategy = new JobSearchByTitleStrategy(vietnamworksJobRepository, salaryReviewCondition);
             jobRepository.addStrategy(searchByTitleStrategy);
         }
 
@@ -172,6 +183,20 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
                     jobEntity.getCompanyDesc(), Math.ceil(addedPercent), skills));
         }
         return topPaidJobs;
+    }
+
+
+    private String chooseTheBestJobTitle(List<String> normalizedJobTitleCandidates) {
+        List<String> result = new ArrayList<>();
+        for (String normalizedJobTitleCandidate : normalizedJobTitleCandidates) {
+            result.add(StringUtils.trim(normalizedJobTitleCandidate.replaceAll("\\d+.*", " ")));
+        }
+        Optional<String> jobTitleOptional = result.stream().distinct().sorted(
+                (source, destination) -> source.length() - destination.length()).findFirst();
+        if (jobTitleOptional.isPresent()) {
+            return jobTitleOptional.get();
+        }
+        return null;
     }
 
     private SalaryReviewResultDto generateSalaryReport(SalaryReviewDto salaryReviewDto, Set<JobEntity> jobs) {

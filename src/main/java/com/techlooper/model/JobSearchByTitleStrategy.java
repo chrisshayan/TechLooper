@@ -15,12 +15,12 @@ import static org.elasticsearch.index.query.QueryBuilders.matchAllQuery;
  */
 public class JobSearchByTitleStrategy extends JobSearchStrategy {
 
-    private String jobTitle;
+    private SalaryReviewCondition salaryReviewCondition;
 
     private ElasticsearchRepository<JobEntity, ?> repository;
 
-    public JobSearchByTitleStrategy(ElasticsearchRepository repository, String jobTitle) {
-        this.jobTitle = jobTitle;
+    public JobSearchByTitleStrategy(ElasticsearchRepository repository, SalaryReviewCondition salaryReviewCondition) {
+        this.salaryReviewCondition = salaryReviewCondition;
         this.repository = repository;
     }
 
@@ -29,8 +29,8 @@ public class JobSearchByTitleStrategy extends JobSearchStrategy {
         NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder().withTypes("job");
 
         QueryBuilder matchQueryBuilder = matchAllQuery();
-        if (StringUtils.isNotEmpty(jobTitle)) {
-            matchQueryBuilder = jobTitleQueryBuilder(jobTitle);
+        if (StringUtils.isNotEmpty(salaryReviewCondition.getJobTitle())) {
+            matchQueryBuilder = jobTitleQueryBuilder(salaryReviewCondition.getJobTitle());
         }
         queryBuilder.withQuery(filteredQuery(matchQueryBuilder,
                 boolFilter().must(getRangeFilterBuilder("approvedDate", "now-6M/M", null))

@@ -24,12 +24,12 @@ import static org.elasticsearch.index.query.QueryBuilders.*;
  */
 public class SimilarSalaryReviewSearchStrategy extends JobSearchStrategy {
 
-    private SalaryReviewDto salaryReviewDto;
+    private SalaryReviewCondition salaryReviewCondition;
 
     private ElasticsearchRepository<SalaryReviewEntity, ?> salaryReviewRepository;
 
-    public SimilarSalaryReviewSearchStrategy(SalaryReviewDto salaryReviewDto, ElasticsearchRepository salaryReviewRepository) {
-        this.salaryReviewDto = salaryReviewDto;
+    public SimilarSalaryReviewSearchStrategy(SalaryReviewCondition salaryReviewCondition, ElasticsearchRepository salaryReviewRepository) {
+        this.salaryReviewCondition = salaryReviewCondition;
         this.salaryReviewRepository = salaryReviewRepository;
     }
 
@@ -38,13 +38,13 @@ public class SimilarSalaryReviewSearchStrategy extends JobSearchStrategy {
         NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withTypes("salaryReview");
 
         QueryBuilder queryBuilder = matchAllQuery();
-        if (StringUtils.isNotEmpty(salaryReviewDto.getJobTitle())) {
-            queryBuilder = matchQuery("jobTitle", salaryReviewDto.getJobTitle()).minimumShouldMatch("100%");
+        if (StringUtils.isNotEmpty(salaryReviewCondition.getJobTitle())) {
+            queryBuilder = matchQuery("jobTitle", salaryReviewCondition.getJobTitle()).minimumShouldMatch("100%");
         }
 
         BoolFilterBuilder boolFilterBuilder = boolFilter();
-        if (CollectionUtils.isNotEmpty(salaryReviewDto.getJobCategories())) {
-            TermsFilterBuilder jobCategoriesFilter = termsFilter("jobCategories", salaryReviewDto.getJobCategories());
+        if (CollectionUtils.isNotEmpty(salaryReviewCondition.getJobCategories())) {
+            TermsFilterBuilder jobCategoriesFilter = termsFilter("jobCategories", salaryReviewCondition.getJobCategories());
             boolFilterBuilder.must(jobCategoriesFilter);
         }
         RangeFilterBuilder netSalaryFilter = rangeFilter("netSalary").from(MIN_SALARY_ACCEPTABLE).to(MAX_SALARY_ACCEPTABLE);

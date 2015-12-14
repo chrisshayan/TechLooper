@@ -1,9 +1,11 @@
 package com.techlooper.service.impl;
 
 import com.techlooper.service.SuggestionService;
+import org.apache.commons.lang3.StringUtils;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.suggest.completion.CompletionSuggestion;
 import org.elasticsearch.search.suggest.completion.CompletionSuggestionBuilder;
 import org.springframework.stereotype.Service;
@@ -65,6 +67,42 @@ public class SuggestionServiceImpl implements SuggestionService {
             jobTitles = entry.getOptions().stream().map(processString()).distinct().collect(Collectors.toList());
         }
 
+        return jobTitles;
+    }
+
+    @Override
+    public List<String> searchJobTitles(String query) {
+        List<String> jobTitles = new ArrayList<>();
+
+        SearchResponse searchResponse = transportClient.prepareSearch("suggester").setTypes("jobTitle")
+                .setQuery(QueryBuilders.matchQuery("jobTitleName", query))
+                .setFrom(0).setSize(5).setExplain(true)
+                .execute().actionGet();
+
+        if (searchResponse != null && searchResponse.getHits() != null) {
+            SearchHit[] hits = searchResponse.getHits().getHits();
+            if (hits != null && hits.length > 0) {
+                return getTheBestMatchJobTitle(hits);
+            }
+        }
+
+        return jobTitles;
+    }
+
+    private List<String> getTheBestMatchJobTitle(SearchHit[] hits) {
+        List<String> jobTitles = new ArrayList<>();
+        float maxScore = 0;
+        for (SearchHit hit : hits) {
+            if (hit.getScore() >= maxScore) {
+                maxScore = hit.getScore();
+                String jobTitle = hit.getId();
+                if (StringUtils.isNotEmpty(jobTitle)) {
+                    jobTitles.add(jobTitle);
+                }
+            } else {
+                break;
+            }
+        }
         return jobTitles;
     }
 
