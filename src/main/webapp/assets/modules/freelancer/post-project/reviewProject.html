@@ -40,7 +40,9 @@
       </div>
     </div>
     <div class="post-now-or-done-review-block">
-      <button translate="postNow" class="btn btn-primary btn-flat" ng-click="createProject()"></button>
+      <button translate="postNow" class="btn btn-primary btn-flat" ng-click="createProject()"
+              ng-class="{disabled: showPostSuccessfulMessage}"
+              ng-disabled="showPostSuccessfulMessage"></button>
       <a translate="donePreview" ng-click="changeState('default')"></a>
     </div>
   </div>
