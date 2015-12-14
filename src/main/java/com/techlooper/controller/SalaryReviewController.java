@@ -5,7 +5,6 @@ import com.techlooper.model.*;
 import com.techlooper.service.JobSearchService;
 import com.techlooper.service.SalaryReviewService;
 import com.techlooper.service.UserService;
-import org.apache.commons.lang3.StringUtils;
 import org.dozer.Mapper;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,27 +30,30 @@ public class SalaryReviewController {
     private JobSearchService jobSearchService;
 
     @CrossOrigin
-    @RequestMapping(value = "/salaryReview", method = RequestMethod.POST)
-    public SalaryReviewResultDto reviewSalary(@RequestBody SalaryReviewDto salaryReviewDto) {
-        boolean isRequestedFromWidget = StringUtils.isNotEmpty(salaryReviewDto.getTechlooperJobId());
-        salaryReviewDto = getSalaryReviewCondition(salaryReviewDto, isRequestedFromWidget);
+    @RequestMapping(value = "/widget/salaryReview", method = RequestMethod.POST)
+    public SalaryReviewResultDto reviewSalaryFromWidget(@RequestBody SalaryReviewDto salaryReviewDto) {
+        salaryReviewDto = getSalaryReviewCondition(salaryReviewDto);
         SalaryReviewResultDto salaryReviewResult = salaryReviewService.reviewSalary(salaryReviewDto);
-
-        if (!isRequestedFromWidget && salaryReviewDto.getNetSalary() != null) {
-            salaryReviewService.saveSalaryReviewResult(salaryReviewResult);
-            // get top 3 higher salary jobs
-            List<TopPaidJob> topPaidJobs = salaryReviewService.findTopPaidJob(salaryReviewDto);
-            salaryReviewResult.setTopPaidJobs(topPaidJobs);
-
-            SimilarSalaryReviewRequest request = dozerMapper.map(salaryReviewResult, SimilarSalaryReviewRequest.class);
-            List<SimilarSalaryReview> similarSalaryReviews = salaryReviewService.getSimilarSalaryReview(request);
-            salaryReviewResult.setSimilarSalaryReviews(similarSalaryReviews);
-        }
-
         boolean hideSalary = salaryReviewDto.getIsSalaryVisible() != null && !salaryReviewDto.getIsSalaryVisible();
         if (hideSalary) {
             hideSalaryInformation(salaryReviewResult);
         }
+        return salaryReviewResult;
+    }
+
+    @RequestMapping(value = "/salaryReview", method = RequestMethod.POST)
+    public SalaryReviewResultDto reviewSalary(@RequestBody SalaryReviewDto salaryReviewDto) {
+        SalaryReviewResultDto salaryReviewResult = salaryReviewService.reviewSalary(salaryReviewDto);
+
+        salaryReviewService.saveSalaryReviewResult(salaryReviewResult);
+        // get top 3 higher salary jobs
+        List<TopPaidJob> topPaidJobs = salaryReviewService.findTopPaidJob(salaryReviewDto);
+        salaryReviewResult.setTopPaidJobs(topPaidJobs);
+
+        SimilarSalaryReviewRequest request = dozerMapper.map(salaryReviewResult, SimilarSalaryReviewRequest.class);
+        List<SimilarSalaryReview> similarSalaryReviews = salaryReviewService.getSimilarSalaryReview(request);
+        salaryReviewResult.setSimilarSalaryReviews(similarSalaryReviews);
+
         return salaryReviewResult;
     }
 
@@ -75,12 +77,10 @@ public class SalaryReviewController {
         salaryReviewService.sendSalaryReviewReportEmail(emailRequest);
     }
 
-    private SalaryReviewDto getSalaryReviewCondition(SalaryReviewDto salaryReviewDto, boolean isRequestedFromWidget) {
-        if (isRequestedFromWidget) {
-            JobEntity job = jobSearchService.findJobById(salaryReviewDto.getTechlooperJobId());
-            if (job != null) {
-                salaryReviewDto = getSalaryReviewInfoByJob(job);
-            }
+    private SalaryReviewDto getSalaryReviewCondition(SalaryReviewDto salaryReviewDto) {
+        JobEntity job = jobSearchService.findJobById(salaryReviewDto.getTechlooperJobId());
+        if (job != null) {
+            salaryReviewDto = getSalaryReviewInfoByJob(job);
         }
         return salaryReviewDto;
     }
