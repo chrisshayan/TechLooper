@@ -53,9 +53,6 @@ public class UserController {
     private JobPricingService jobPricingService;
 
     @Resource
-    private SalaryReviewService salaryReviewService;
-
-    @Resource
     private JobStatisticService jobStatisticService;
 
     @Resource
