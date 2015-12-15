@@ -5,8 +5,7 @@ import com.techlooper.entity.PriceJobEntity;
 import com.techlooper.entity.SalaryReviewEntity;
 import com.techlooper.model.PriceJobSurvey;
 import com.techlooper.model.SalaryReport;
-import com.techlooper.service.JobSearchService;
-import com.techlooper.service.SalaryReviewService;
+import com.techlooper.service.JobPricingService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -15,6 +14,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import javax.annotation.Resource;
 import java.util.Arrays;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -22,10 +22,7 @@ import static org.junit.Assert.assertTrue;
 public class UserEvaluationServiceImplTest {
 
     @Resource
-    private SalaryReviewService salaryReviewService;
-
-    @Resource
-    private JobSearchService jobSearchService;
+    private JobPricingService jobPricingService;
 
     @Test
     public void testEvaluateJobOffer() throws Exception {
@@ -204,7 +201,7 @@ public class UserEvaluationServiceImplTest {
         priceJobSurvey.setIsAccurate(true);
         priceJobSurvey.setIsUnderstandable(true);
         priceJobSurvey.setFeedback("Bad Report");
-//        boolean isSaved = salaryReviewService.savePriceJobSurvey(priceJobSurvey);
-//        assertFalse(isSaved);
+        boolean isSaved = jobPricingService.savePriceJobSurvey(priceJobSurvey);
+        assertFalse(isSaved);
     }
 }
