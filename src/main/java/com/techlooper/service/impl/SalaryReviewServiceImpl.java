@@ -27,8 +27,8 @@ import javax.annotation.Resource;
 import javax.mail.internet.MimeMessage;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.stream.Collectors;
 
+import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toList;
 import static org.elasticsearch.index.query.FilterBuilders.*;
 import static org.elasticsearch.index.query.QueryBuilders.filteredQuery;
@@ -112,7 +112,7 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
         }
 
         similarSalaryReviews = similarSalaryReviews.stream().sorted((similarSalaryReview1, similarSalaryReview2) ->
-                similarSalaryReview2.getNetSalary() - similarSalaryReview1.getNetSalary()).collect(Collectors.toList());
+                similarSalaryReview2.getNetSalary() - similarSalaryReview1.getNetSalary()).collect(toList());
         return similarSalaryReviews;
     }
 
@@ -208,7 +208,7 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
             salaryRanges.add(new SalaryRange(entry.getValue(), entry.getKey()));
         }
         salaryRanges = salaryRanges.stream().sorted((source, destination) ->
-                Double.valueOf(source.getPercent() - destination.getPercent()).intValue()).collect(Collectors.toList());
+                Double.valueOf(source.getPercent() - destination.getPercent()).intValue()).collect(toList());
         salaryReport.setSalaryRanges(salaryRanges);
 
         // Calculate salary percentile rank for user based on list of salary percentiles from above result
@@ -288,7 +288,7 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
             configLang = "lang_vn";
         }
         templateModel.put("jobLevel", vietnamworksConfiguration.findPath(salaryReviewEntity.getJobLevelIds().toString()).get(configLang).asText());
-        templateModel.put("jobSkills", salaryReviewEntity.getSkills().stream().collect(Collectors.joining(" | ")));
+        templateModel.put("jobSkills", salaryReviewEntity.getSkills().stream().collect(joining(" | ")));
         JsonNode categories = vietnamworksConfiguration.findPath("categories");
         List<String> categoryIds = categories.findValuesAsText("category_id");
         List<String> list = new ArrayList<>();
@@ -296,7 +296,7 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
         salaryReviewEntity.getJobCategories().stream()
                 .map(aLong -> aLong.toString())
                 .forEach(jobCategory -> list.add(categories.get(categoryIds.indexOf(jobCategory)).get(language).asText()));
-        templateModel.put("jobCategories", list.stream().collect(Collectors.joining(" | ")));
+        templateModel.put("jobCategories", list.stream().collect(joining(" | ")));
 
         JsonNode locations = vietnamworksConfiguration.findPath("locations");
         List<String> locationIds = vietnamworksConfiguration.findValuesAsText("location_id");
