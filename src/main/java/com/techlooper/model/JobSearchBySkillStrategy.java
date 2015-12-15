@@ -6,7 +6,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.elasticsearch.index.query.BoolFilterBuilder;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
-import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 
@@ -61,7 +60,7 @@ public class JobSearchBySkillStrategy extends JobSearchStrategy {
         for (String skill : analyzedSkills) {
             skillQueryBuilder.should(matchQuery("skills.skillName", skill).minimumShouldMatch("100%"));
         }
-        return QueryBuilders.nestedQuery("skills", skillQueryBuilder);
+        return nestedQuery("skills", skillQueryBuilder);
     }
 
     private List<String> processSkillsBeforeSearch(List<String> skills) {
