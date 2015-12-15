@@ -41,4 +41,16 @@ techlooper.controller("navigationController", function ($scope, securityService,
     localStorage.NG_TRANSLATE_LANG_KEY = key;
     $window.location.reload();
   }
+  //$rootScope.$watch(function () {
+  //  var pathURL = $location.path();
+  //  var detailsPage = -1;
+  //  if(pathURL.indexOf('challenge-detail') > -1 || pathURL.indexOf('project-detail') > -1){
+  //    detailsPage = 1;
+  //  }
+  //  if(detailsPage == 1){
+  //    $('.homepage-link').addClass('detail-page');
+  //  }else{
+  //    $('.homepage-link').removeClass('detail-page');
+  //  }
+  //});
 });
