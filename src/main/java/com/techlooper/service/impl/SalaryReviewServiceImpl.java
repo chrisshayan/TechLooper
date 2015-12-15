@@ -136,16 +136,11 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
         jobRepository.addStrategy(searchBySimilarSalaryReviewStrategy);
 
         if (jobRepository.isNotEmpty() && jobRepository.isNotEnough()) {
-            List<String> skills = salaryReviewDto.getSkills();
-            List<Long> jobCategories = salaryReviewDto.getJobCategories();
-            if (CollectionUtils.isNotEmpty(skills) && CollectionUtils.isNotEmpty(jobCategories)) {
-                JobSearchStrategy searchBySkillStrategy = new JobSearchBySkillStrategy(vietnamworksJobRepository, salaryReviewCondition);
-                jobRepository.addStrategy(searchBySkillStrategy);
-            }
+            JobSearchStrategy searchBySkillStrategy = new JobSearchBySkillStrategy(vietnamworksJobRepository, salaryReviewCondition);
+            jobRepository.addStrategy(searchBySkillStrategy);
         }
 
         if (jobRepository.isNotEmpty() && jobRepository.isNotEnough()) {
-            String jobTitle = salaryReviewDto.getJobTitle();
             JobSearchStrategy searchByTitleStrategy = new JobSearchByTitleStrategy(vietnamworksJobRepository, salaryReviewCondition);
             jobRepository.addStrategy(searchByTitleStrategy);
         }
@@ -184,7 +179,6 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
         }
         return topPaidJobs;
     }
-
 
     private String chooseTheBestJobTitle(List<String> normalizedJobTitleCandidates) {
         List<String> result = new ArrayList<>();
