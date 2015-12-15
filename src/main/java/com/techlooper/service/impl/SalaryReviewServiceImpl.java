@@ -17,7 +17,6 @@ import org.apache.commons.math3.stat.descriptive.rank.Percentile;
 import org.dozer.Mapper;
 import org.elasticsearch.index.query.BoolFilterBuilder;
 import org.elasticsearch.index.query.BoolQueryBuilder;
-import org.elasticsearch.index.query.FilterBuilders;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
