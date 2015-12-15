@@ -50,9 +50,6 @@ public class JobPricingServiceImpl implements JobPricingService {
     @Resource
     private JsonNode vietnamworksConfiguration;
 
-    @Value("${vnw.api.users.createJobAlert.url}")
-    private String vnwCreateJobAlertUrl;
-
     @Resource
     private EmailService emailService;
 
