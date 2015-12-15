@@ -1,7 +1,6 @@
 package com.techlooper.service.impl;
 
 import com.techlooper.config.ElasticsearchConfiguration;
-import com.techlooper.entity.JobEntity;
 import com.techlooper.entity.PriceJobEntity;
 import com.techlooper.entity.SalaryReviewEntity;
 import com.techlooper.model.PriceJobSurvey;
@@ -15,9 +14,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.annotation.Resource;
 import java.util.Arrays;
-import java.util.List;
 
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
