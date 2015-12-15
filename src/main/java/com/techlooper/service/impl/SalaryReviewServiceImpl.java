@@ -336,7 +336,7 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
             boolQueryBuilder.must(matchQuery("jobTitle", request.getJobTitle()).minimumShouldMatch("100%"));
         }
 
-        BoolFilterBuilder boolFilterBuilder = FilterBuilders.boolFilter();
+        BoolFilterBuilder boolFilterBuilder = boolFilter();
         if (CollectionUtils.isNotEmpty(request.getJobLevelIds())) {
             boolFilterBuilder.should(termsFilter("jobLevelIds", request.getJobLevelIds()));
         }
