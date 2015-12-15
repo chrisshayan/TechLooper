@@ -4,44 +4,26 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.techlooper.entity.GetPromotedEntity;
 import com.techlooper.entity.JobEntity;
 import com.techlooper.entity.PriceJobEntity;
-import com.techlooper.entity.SalaryReviewEntity;
 import com.techlooper.model.*;
-import com.techlooper.repository.JobSearchAPIConfigurationRepository;
 import com.techlooper.repository.elasticsearch.GetPromotedRepository;
 import com.techlooper.repository.elasticsearch.PriceJobReportRepository;
-import com.techlooper.repository.elasticsearch.SalaryReviewRepository;
 import com.techlooper.service.*;
-import com.techlooper.util.*;
 import org.apache.commons.math3.stat.descriptive.rank.Percentile;
-import org.dozer.Mapper;
 import org.elasticsearch.action.search.SearchType;
-import org.elasticsearch.index.query.MatchQueryBuilder;
-import org.elasticsearch.index.query.RangeFilterBuilder;
-import org.elasticsearch.index.query.TermsFilterBuilder;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.env.Environment;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
 import javax.mail.internet.MimeMessage;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
-import static org.apache.commons.lang3.StringUtils.EMPTY;
-import static org.elasticsearch.index.query.FilterBuilders.*;
-import static org.elasticsearch.index.query.QueryBuilders.filteredQuery;
-import static org.elasticsearch.index.query.QueryBuilders.matchQuery;
 
 /**
  * Created by NguyenDangKhoa on 5/18/15.
