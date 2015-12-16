@@ -16,4 +16,9 @@ techlooper.controller('hiringController', function ($scope, $timeout) {
     });
     $('.hiring-main-feature-item').height(tallest + $('.cta-button').height() + 10);
   }, 100);
+  if(localStorage.NG_TRANSLATE_LANG_KEY == 'vi'){
+    $('.hiring-how-does-work-content').find('.hiring').addClass('vi');
+  }else{
+    $('.hiring-how-does-work-content').find('.hiring').removeClass('vi');
+  }
 });
