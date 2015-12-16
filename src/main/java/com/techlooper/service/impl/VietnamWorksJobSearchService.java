@@ -1,8 +1,10 @@
 package com.techlooper.service.impl;
 
 import com.techlooper.entity.JobEntity;
-import com.techlooper.entity.SalaryReviewEntity;
-import com.techlooper.model.*;
+import com.techlooper.model.SalaryReviewDto;
+import com.techlooper.model.VNWConfigurationResponse;
+import com.techlooper.model.VNWJobSearchRequest;
+import com.techlooper.model.VNWJobSearchResponse;
 import com.techlooper.repository.JobSearchAPIConfigurationRepository;
 import com.techlooper.repository.elasticsearch.VietnamworksJobRepository;
 import com.techlooper.service.JobQueryBuilder;

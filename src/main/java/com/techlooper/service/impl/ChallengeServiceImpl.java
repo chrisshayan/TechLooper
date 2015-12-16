@@ -29,8 +29,6 @@ import org.elasticsearch.search.aggregations.metrics.sum.Sum;
 import org.elasticsearch.search.aggregations.metrics.sum.SumBuilder;
 import org.elasticsearch.search.sort.SortBuilders;
 import org.elasticsearch.search.sort.SortOrder;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.stereotype.Service;
@@ -53,8 +51,6 @@ import static org.elasticsearch.search.aggregations.AggregationBuilders.sum;
  */
 @Service
 public class ChallengeServiceImpl implements ChallengeService {
-
-    private final static Logger LOGGER = LoggerFactory.getLogger(ChallengeServiceImpl.class);
 
     private final static ChallengePhaseEnum CHALLENGE_PHASES[] = {FINAL, PROTOTYPE, UIUX, IDEA, REGISTRATION};
 

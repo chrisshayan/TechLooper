@@ -4,19 +4,17 @@ techlooper.filter("progress", function (jsonValue, resourcesService, localStorag
     switch (type) {
       case "challenge":
         var contestDetail = input;
+        var joinContests = localStorageService.get("joinContests") || "";
+        var email = localStorageService.get("email") || "";
+        var isJoined = (joinContests.indexOf(contestDetail.challengeId) >= 0) && (email.length > 0);
+
         if (contestDetail.progress) {
           if (contestDetail.progress.id != "closed" && contestDetail.progress.id != "notStarted") {
-            var joinContests = localStorageService.get("joinContests") || "";
-            var email = localStorageService.get("email") || "";
-            var isJoined = (joinContests.indexOf(contestDetail.challengeId) >= 0) && (email.length > 0);
             contestDetail.currentUserJoined = isJoined;
           }
           return contestDetail.progress.translate;
         }
 
-        var joinContests = localStorageService.get("joinContests") || "";
-        var email = localStorageService.get("email") || "";
-        var isJoined = (joinContests.indexOf(contestDetail.challengeId) >= 0) && (email.length > 0);
         contestDetail.currentUserJoined = isJoined;
 
         //if current date < start date
@@ -64,22 +62,6 @@ techlooper.filter("progress", function (jsonValue, resourcesService, localStorag
           if (!challenge.progress) progressFn(challenge, "challenge");
           return progressIds.indexOf(challenge.progress.id) >= 0;
         });
-
-      //case "registrantActivePhase":
-      //  var registrant = input;
-      //  if (!registrant.activePhase) return jsonValue.challengePhase.getRegistration().enum;
-      //  return registrant.activePhase;
-      //
-      //case "registrantActivePhaseTitle":
-      //  var registrant = input;
-      //  if (!registrant.activePhase) input = jsonValue.challengePhase.getRegistration();
-      //  if (!input.title) return jsonValue.challengePhase.getEnum(registrant.activePhase).title;
-      //  return input.title;
-      //
-      //case "challengePhaseTitle":
-      //  var phase = input ? input : jsonValue.challengePhase.getRegistration().enum;
-      //  if (!phase.title) return jsonValue.challengePhase.getEnum(phase).title;
-      //  return phase.title;
 
       case "freelancer-review-project-payment-method":
         var payMethod = input;

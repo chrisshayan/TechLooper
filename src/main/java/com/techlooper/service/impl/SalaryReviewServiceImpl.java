@@ -9,6 +9,7 @@ import com.techlooper.repository.elasticsearch.VietnamworksJobRepository;
 import com.techlooper.service.EmailService;
 import com.techlooper.service.JobSearchService;
 import com.techlooper.service.SalaryReviewService;
+import com.techlooper.service.SuggestionService;
 import com.techlooper.util.DateTimeUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -16,7 +17,6 @@ import org.apache.commons.math3.stat.descriptive.rank.Percentile;
 import org.dozer.Mapper;
 import org.elasticsearch.index.query.BoolFilterBuilder;
 import org.elasticsearch.index.query.BoolQueryBuilder;
-import org.elasticsearch.index.query.FilterBuilders;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
@@ -27,8 +27,8 @@ import javax.annotation.Resource;
 import javax.mail.internet.MimeMessage;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.stream.Collectors;
 
+import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toList;
 import static org.elasticsearch.index.query.FilterBuilders.*;
 import static org.elasticsearch.index.query.QueryBuilders.filteredQuery;
@@ -67,6 +67,9 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
 
     @Resource
     private VietnamworksJobRepository vietnamworksJobRepository;
+
+    @Resource
+    private SuggestionService suggestionService;
 
     @Override
     public void sendSalaryReviewReportEmail(SalaryReviewEmailRequest salaryReviewEmailRequest) {
@@ -109,33 +112,35 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
         }
 
         similarSalaryReviews = similarSalaryReviews.stream().sorted((similarSalaryReview1, similarSalaryReview2) ->
-                similarSalaryReview2.getNetSalary() - similarSalaryReview1.getNetSalary()).collect(Collectors.toList());
+                similarSalaryReview2.getNetSalary() - similarSalaryReview1.getNetSalary()).collect(toList());
         return similarSalaryReviews;
     }
 
     @Override
     public SalaryReviewResultDto reviewSalary(SalaryReviewDto salaryReviewDto) {
         SalaryReviewJobRepository jobRepository = new SalaryReviewJobRepository();
+        SalaryReviewCondition salaryReviewCondition = dozerMapper.map(salaryReviewDto, SalaryReviewCondition.class);
 
-        JobSearchStrategy searchBySalaryStrategy = new JobSearchBySalaryStrategy(salaryReviewDto, vietnamworksJobRepository);
+        List<String> normalizedJobTitleCandidates = suggestionService.searchJobTitles(salaryReviewCondition.getJobTitle());
+        String standardJobTitle = chooseTheBestJobTitle(normalizedJobTitleCandidates);
+        if (StringUtils.isNotEmpty(standardJobTitle)) {
+            salaryReviewCondition.setJobTitle(standardJobTitle);
+        }
+
+        JobSearchStrategy searchBySalaryStrategy = new JobSearchBySalaryStrategy(salaryReviewCondition, vietnamworksJobRepository);
         jobRepository.addStrategy(searchBySalaryStrategy);
 
         JobSearchStrategy searchBySimilarSalaryReviewStrategy = new SimilarSalaryReviewSearchStrategy(
-                salaryReviewDto, salaryReviewRepository);
+                salaryReviewCondition, salaryReviewRepository);
         jobRepository.addStrategy(searchBySimilarSalaryReviewStrategy);
 
         if (jobRepository.isNotEmpty() && jobRepository.isNotEnough()) {
-            List<String> skills = salaryReviewDto.getSkills();
-            List<Long> jobCategories = salaryReviewDto.getJobCategories();
-            if (CollectionUtils.isNotEmpty(skills) && CollectionUtils.isNotEmpty(jobCategories)) {
-                JobSearchStrategy searchBySkillStrategy = new JobSearchBySkillStrategy(vietnamworksJobRepository, skills, jobCategories);
-                jobRepository.addStrategy(searchBySkillStrategy);
-            }
+            JobSearchStrategy searchBySkillStrategy = new JobSearchBySkillStrategy(vietnamworksJobRepository, salaryReviewCondition);
+            jobRepository.addStrategy(searchBySkillStrategy);
         }
 
         if (jobRepository.isNotEmpty() && jobRepository.isNotEnough()) {
-            String jobTitle = salaryReviewDto.getJobTitle();
-            JobSearchStrategy searchByTitleStrategy = new JobSearchByTitleStrategy(vietnamworksJobRepository, jobTitle);
+            JobSearchStrategy searchByTitleStrategy = new JobSearchByTitleStrategy(vietnamworksJobRepository, salaryReviewCondition);
             jobRepository.addStrategy(searchByTitleStrategy);
         }
 
@@ -174,6 +179,19 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
         return topPaidJobs;
     }
 
+    private String chooseTheBestJobTitle(List<String> normalizedJobTitleCandidates) {
+        List<String> result = new ArrayList<>();
+        for (String normalizedJobTitleCandidate : normalizedJobTitleCandidates) {
+            result.add(StringUtils.trim(normalizedJobTitleCandidate.replaceAll("\\d+.*", " ")));
+        }
+        Optional<String> jobTitleOptional = result.stream().distinct().sorted(
+                (source, destination) -> source.length() - destination.length()).findFirst();
+        if (jobTitleOptional.isPresent()) {
+            return jobTitleOptional.get();
+        }
+        return null;
+    }
+
     private SalaryReviewResultDto generateSalaryReport(SalaryReviewDto salaryReviewDto, Set<JobEntity> jobs) {
         SalaryReport salaryReport = new SalaryReport();
         salaryReport.setNetSalary(salaryReviewDto.getNetSalary());
@@ -190,7 +208,7 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
             salaryRanges.add(new SalaryRange(entry.getValue(), entry.getKey()));
         }
         salaryRanges = salaryRanges.stream().sorted((source, destination) ->
-                Double.valueOf(source.getPercent() - destination.getPercent()).intValue()).collect(Collectors.toList());
+                Double.valueOf(source.getPercent() - destination.getPercent()).intValue()).collect(toList());
         salaryReport.setSalaryRanges(salaryRanges);
 
         // Calculate salary percentile rank for user based on list of salary percentiles from above result
@@ -270,7 +288,7 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
             configLang = "lang_vn";
         }
         templateModel.put("jobLevel", vietnamworksConfiguration.findPath(salaryReviewEntity.getJobLevelIds().toString()).get(configLang).asText());
-        templateModel.put("jobSkills", salaryReviewEntity.getSkills().stream().collect(Collectors.joining(" | ")));
+        templateModel.put("jobSkills", salaryReviewEntity.getSkills().stream().collect(joining(" | ")));
         JsonNode categories = vietnamworksConfiguration.findPath("categories");
         List<String> categoryIds = categories.findValuesAsText("category_id");
         List<String> list = new ArrayList<>();
@@ -278,7 +296,7 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
         salaryReviewEntity.getJobCategories().stream()
                 .map(aLong -> aLong.toString())
                 .forEach(jobCategory -> list.add(categories.get(categoryIds.indexOf(jobCategory)).get(language).asText()));
-        templateModel.put("jobCategories", list.stream().collect(Collectors.joining(" | ")));
+        templateModel.put("jobCategories", list.stream().collect(joining(" | ")));
 
         JsonNode locations = vietnamworksConfiguration.findPath("locations");
         List<String> locationIds = vietnamworksConfiguration.findValuesAsText("location_id");
@@ -317,7 +335,7 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
             boolQueryBuilder.must(matchQuery("jobTitle", request.getJobTitle()).minimumShouldMatch("100%"));
         }
 
-        BoolFilterBuilder boolFilterBuilder = FilterBuilders.boolFilter();
+        BoolFilterBuilder boolFilterBuilder = boolFilter();
         if (CollectionUtils.isNotEmpty(request.getJobLevelIds())) {
             boolFilterBuilder.should(termsFilter("jobLevelIds", request.getJobLevelIds()));
         }

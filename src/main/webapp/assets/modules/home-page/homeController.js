@@ -16,27 +16,24 @@ techlooper.controller("homeController", function ($scope, securityService, apiSe
   });
 
   $scope.status = function (type) {
-    switch (type) {
-      case "show-fixed-price-fields":
-        var project = arguments[1];
-        if (!project) return false;
-        var option = resourcesService.getOption(project.payMethod, resourcesService.paymentConfig);
-        if (!option) return false;
-        return option.id == "fixedPrice";
+    if (arguments.length > 1) {
+      var project = arguments[1];
+      if (!project) return false;
+      var option = resourcesService.getOption(project.payMethod, resourcesService.paymentConfig);
 
-      case "show-hourly-price-fields":
-        var project = arguments[1];
-        if (!project) return false;
-        var option = resourcesService.getOption(project.payMethod, resourcesService.paymentConfig);
-        if (!option) return false;
-        return option.id == "hourly";
+      switch (type) {
+        case "show-fixed-price-fields":
+          if (!option) return false;
+          return option.id == "fixedPrice";
 
-      case "get-payment-method-translate":
-        var project = arguments[1];
-        if (!project) return false;
-        var option = resourcesService.getOption(project.payMethod, resourcesService.paymentConfig);
-        if (!option) return false;
-        return option.reviewTranslate;
+        case "show-hourly-price-fields":
+          if (!option) return false;
+          return option.id == "hourly";
+
+        case "get-payment-method-translate":
+          if (!option) return false;
+          return option.reviewTranslate;
+      }
     }
     return false;
   }
@@ -75,19 +72,19 @@ techlooper.controller("homeController", function ($scope, securityService, apiSe
         //$scope.jobAlertForm.$submitted = false;
         $scope.jobAlert = {};
       })
-      .error(function(data, status) {
-         if (status == "405") {
-           $scope.sendMailFailMessage = true;
-           $scope.sendMailSuccessfulMessage = false;
-           $scope.jobAlertForm.$setPristine();
-           $scope.jobAlert = {};
-         }
+      .error(function (data, status) {
+        if (status == "405") {
+          $scope.sendMailFailMessage = true;
+          $scope.sendMailSuccessfulMessage = false;
+          $scope.jobAlertForm.$setPristine();
+          $scope.jobAlert = {};
+        }
       }).finally(function () {
-        utils.sendNotification(jsonValue.notifications.loaded);
-      });
+      utils.sendNotification(jsonValue.notifications.loaded);
+    });
   }
 
-  $scope.goToJobListing = function(){
+  $scope.goToJobListing = function () {
     ga("send", {
       hitType: "event",
       eventCategory: "techlooperjobhub",
@@ -97,10 +94,10 @@ techlooper.controller("homeController", function ($scope, securityService, apiSe
     window.location.href = "#/job-listing";
   }
 
-  $scope.dateFormation = function(date){
+  $scope.dateFormation = function (date) {
     return moment(date).format('LL');
   }
-  $scope.gotoTopics  = function(){
+  $scope.gotoTopics = function () {
     ga("send", {
       hitType: "event",
       eventCategory: "forum",

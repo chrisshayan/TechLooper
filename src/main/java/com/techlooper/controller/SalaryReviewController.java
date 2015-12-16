@@ -32,7 +32,7 @@ public class SalaryReviewController {
     @CrossOrigin
     @RequestMapping(value = "/widget/salaryReview", method = RequestMethod.POST)
     public SalaryReviewResultDto reviewSalaryFromWidget(@RequestBody SalaryReviewDto salaryReviewDto) {
-        salaryReviewDto = getSalaryReviewCondition(salaryReviewDto);
+        setSalaryReviewConditionFromJobId(salaryReviewDto);
         SalaryReviewResultDto salaryReviewResult = salaryReviewService.reviewSalary(salaryReviewDto);
         boolean hideSalary = salaryReviewDto.getIsSalaryVisible() != null && !salaryReviewDto.getIsSalaryVisible();
         if (hideSalary) {
@@ -77,25 +77,18 @@ public class SalaryReviewController {
         salaryReviewService.sendSalaryReviewReportEmail(emailRequest);
     }
 
-    private SalaryReviewDto getSalaryReviewCondition(SalaryReviewDto salaryReviewDto) {
+    private void setSalaryReviewConditionFromJobId(SalaryReviewDto salaryReviewDto) {
         JobEntity job = jobSearchService.findJobById(salaryReviewDto.getTechlooperJobId());
         if (job != null) {
-            salaryReviewDto = getSalaryReviewInfoByJob(job);
+            salaryReviewDto.setJobTitle(job.getJobTitle());
+            salaryReviewDto.setSalaryMin(job.getSalaryMin());
+            salaryReviewDto.setSalaryMax(job.getSalaryMax());
+            Integer salary = jobSearchService.getAverageSalary(job.getSalaryMin(), job.getSalaryMax()).intValue();
+            salaryReviewDto.setNetSalary(salary);
+            List<Long> jobCategories = job.getIndustries().stream().map(jobIndustry -> jobIndustry.getIndustryId()).collect(Collectors.toList());
+            salaryReviewDto.setJobCategories(jobCategories);
+            salaryReviewDto.setIsSalaryVisible(job.getIsSalaryVisible());
         }
-        return salaryReviewDto;
-    }
-
-    private SalaryReviewDto getSalaryReviewInfoByJob(JobEntity job) {
-        SalaryReviewDto salaryReviewDto = new SalaryReviewDto();
-        salaryReviewDto.setJobTitle(job.getJobTitle());
-        salaryReviewDto.setSalaryMin(job.getSalaryMin());
-        salaryReviewDto.setSalaryMax(job.getSalaryMax());
-        Integer salary = jobSearchService.getAverageSalary(job.getSalaryMin(), job.getSalaryMax()).intValue();
-        salaryReviewDto.setNetSalary(salary);
-        List<Long> jobCategories = job.getIndustries().stream().map(jobIndustry -> jobIndustry.getIndustryId()).collect(Collectors.toList());
-        salaryReviewDto.setJobCategories(jobCategories);
-        salaryReviewDto.setIsSalaryVisible(job.getIsSalaryVisible());
-        return salaryReviewDto;
     }
 
     private void hideSalaryInformation(SalaryReviewResultDto salaryReviewResult) {

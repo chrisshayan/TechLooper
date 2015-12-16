@@ -11,4 +11,6 @@ public interface SuggestionService {
 
     List<String> suggestJobTitles(String query);
 
+    List<String> searchJobTitles(String query);
+
 }
