@@ -17,7 +17,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ViewResolver;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -26,9 +25,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 
 /**
  * Created by phuonghqh on 5/11/15.
@@ -36,95 +32,94 @@ import java.util.Date;
 @Controller
 public class SharingController {
 
-  private final Logger LOGGER = LoggerFactory.getLogger(SharingController.class);
+    private final Logger LOGGER = LoggerFactory.getLogger(SharingController.class);
 
-  @Resource
-  private SalaryReviewRepository salaryReviewRepository;
+    @Resource
+    private SalaryReviewRepository salaryReviewRepository;
 
-  @Resource
-  private ChallengeService challengeService;
+    @Resource
+    private ChallengeService challengeService;
 
-  @Value("${web.baseUrl}")
-  private String baseUrl;
+    @Value("${web.baseUrl}")
+    private String baseUrl;
 
-  @Resource
-  private WebinarService webinarService;
+    @Resource
+    private WebinarService webinarService;
 
-  @Resource
-  private ProjectRepository projectRepository;
+    @Resource
+    private ProjectRepository projectRepository;
 
-  @Resource
-  private ReportService reportService;
+    @Resource
+    private ReportService reportService;
 
-  @Resource
-  private ChallengeRepository challengeRepository;
+    @Resource
+    private ChallengeRepository challengeRepository;
 
-  @RequestMapping(value = "renderSalaryReport/{language}/{salaryReviewId}")
-  public String renderReport(@PathVariable String language, @PathVariable Long salaryReviewId, ModelMap model) {
-    model.put("report", salaryReviewRepository.findOne(salaryReviewId).getSalaryReport());
-    return "/jsp/salary-sharing." + language + ".jsp";
-  }
-
-  @RequestMapping(value = "shareChallenge/{language}/{id}")
-  public String renderChallenge(@PathVariable String language, @PathVariable Long id, ModelMap model) {
-    model.put("challenge", challengeService.getChallengeDetail(id, ""));
-    model.put("lang", language);
-    model.put("baseUrl", baseUrl);
-    return "/jsp/challenge-sharing.jsp";
-  }
-
-  @RequestMapping(value = "shareWebinar/{language}/{id}")
-  public String renderWebinar(@PathVariable String language, @PathVariable Long id, ModelMap model) {
-    model.put("webinar", webinarService.findWebinarById(id));
-    model.put("lang", language);
-    model.put("baseUrl", baseUrl);
-    return "/jsp/webinar-sharing.jsp";
-  }
-
-  @RequestMapping(value = "shareFreelancerProject/{language}/{id}")
-  public String renderFreelancerProject(@PathVariable String language, @PathVariable Long id, ModelMap model) {
-    model.put("freelancerProject", projectRepository.findOne(id));
-    model.put("lang", language);
-    model.put("baseUrl", baseUrl);
-    return "/jsp/freelancer-sharing.jsp";
-  }
-
-  @ResponseBody
-  @RequestMapping(value = "resource/getUrlResponseCode", method = RequestMethod.POST)
-  public Long getUrlResponseCode(@RequestBody ResourceDto resourceDto) {
-    try {
-      HttpURLConnection.setFollowRedirects(false);
-      String url = resourceDto.getUrl().trim();
-      url = (url.startsWith("https://") || url.startsWith("http://")) ? url : "http://" + url;
-      HttpURLConnection con = (HttpURLConnection) new URL(url).openConnection();
-      con.setRequestMethod("HEAD");
-      int responseCode = con.getResponseCode();
-      return Long.valueOf(responseCode);
-    }
-    catch (Exception e) {
-      LOGGER.debug("Url not exist", e);
-    }
-    return 404L;
-  }
-
-  @RequestMapping(value = "report/challenge/final/{language}/{challengeId}")
-  public void renderFinalChallengeReport(@PathVariable Language language, @PathVariable Long challengeId, HttpServletRequest request, HttpServletResponse response) throws IOException {
-    ByteArrayOutputStream os = reportService.generateFinalChallengeReport(request.getRemoteUser(), challengeId, language);
-    if (os == null) {
-      response.setStatus(HttpServletResponse.SC_EXPECTATION_FAILED);
-      return;
+    @RequestMapping(value = "renderSalaryReport/{language}/{salaryReviewId}")
+    public String renderReport(@PathVariable String language, @PathVariable Long salaryReviewId, ModelMap model) {
+        model.put("report", salaryReviewRepository.findOne(salaryReviewId).getSalaryReport());
+        return "/jsp/salary-sharing." + language + ".jsp";
     }
 
-    byte[] data = os.toByteArray();
-    response.setContentType("application/pdf");
+    @RequestMapping(value = "shareChallenge/{language}/{id}")
+    public String renderChallenge(@PathVariable String language, @PathVariable Long id, ModelMap model) {
+        model.put("challenge", challengeService.getChallengeDetail(id, ""));
+        model.put("lang", language);
+        model.put("baseUrl", baseUrl);
+        return "/jsp/challenge-sharing.jsp";
+    }
 
-    ChallengeEntity challenge = challengeRepository.findOne(challengeId);
-    String reportName = String.format("attachment;filename=%s-%s.pdf",
-      StringUtils.stripAccents(challenge.getChallengeName()).replaceAll("\\W", "-"),
-      DateTimeUtils.currentDate());
-    response.setHeader("Content-disposition", reportName);
-    response.setContentLength(data.length);
-    response.getOutputStream().write(data);
-    response.getOutputStream().flush();
-  }
+    @RequestMapping(value = "shareWebinar/{language}/{id}")
+    public String renderWebinar(@PathVariable String language, @PathVariable Long id, ModelMap model) {
+        model.put("webinar", webinarService.findWebinarById(id));
+        model.put("lang", language);
+        model.put("baseUrl", baseUrl);
+        return "/jsp/webinar-sharing.jsp";
+    }
+
+    @RequestMapping(value = "shareFreelancerProject/{language}/{id}")
+    public String renderFreelancerProject(@PathVariable String language, @PathVariable Long id, ModelMap model) {
+        model.put("freelancerProject", projectRepository.findOne(id));
+        model.put("lang", language);
+        model.put("baseUrl", baseUrl);
+        return "/jsp/freelancer-sharing.jsp";
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "resource/getUrlResponseCode", method = RequestMethod.POST)
+    public Long getUrlResponseCode(@RequestBody ResourceDto resourceDto) {
+        try {
+            HttpURLConnection.setFollowRedirects(false);
+            String url = resourceDto.getUrl().trim();
+            url = (url.startsWith("https://") || url.startsWith("http://")) ? url : "http://" + url;
+            HttpURLConnection con = (HttpURLConnection) new URL(url).openConnection();
+            con.setRequestMethod("HEAD");
+            int responseCode = con.getResponseCode();
+            return Long.valueOf(responseCode);
+        } catch (Exception e) {
+            LOGGER.debug("Url not exist", e);
+        }
+        return 404L;
+    }
+
+    @RequestMapping(value = "report/challenge/final/{language}/{challengeId}")
+    public void renderFinalChallengeReport(@PathVariable Language language, @PathVariable Long challengeId, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        ByteArrayOutputStream os = reportService.generateFinalChallengeReport(request.getRemoteUser(), challengeId, language);
+        if (os == null) {
+            response.setStatus(HttpServletResponse.SC_EXPECTATION_FAILED);
+            return;
+        }
+
+        byte[] data = os.toByteArray();
+        response.setContentType("application/pdf");
+
+        ChallengeEntity challenge = challengeRepository.findOne(challengeId);
+        String reportName = String.format("attachment;filename=%s-%s.pdf",
+                StringUtils.stripAccents(challenge.getChallengeName()).replaceAll("\\W", "-"),
+                DateTimeUtils.currentDate());
+        response.setHeader("Content-disposition", reportName);
+        response.setContentLength(data.length);
+        response.getOutputStream().write(data);
+        response.getOutputStream().flush();
+    }
 }

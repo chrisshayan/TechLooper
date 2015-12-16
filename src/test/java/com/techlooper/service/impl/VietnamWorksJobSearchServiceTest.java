@@ -14,6 +14,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.Arrays;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 
@@ -58,6 +59,7 @@ public class VietnamWorksJobSearchServiceTest {
         // Then service should get response from cache instead of invoking rest template twice.
         // So the rest template should be invoked once at most
         verify(restTemplate, atMost(1)).exchange(configurationUrl, HttpMethod.GET, requestEntity, String.class);
+        assertTrue(true);
     }
 
     private HttpEntity<String> configureHttpRequestEntity(String requestBody) {
