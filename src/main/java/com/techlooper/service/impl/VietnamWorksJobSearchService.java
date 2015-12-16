@@ -2,9 +2,7 @@ package com.techlooper.service.impl;
 
 import com.techlooper.entity.JobEntity;
 import com.techlooper.entity.SalaryReviewEntity;
-import com.techlooper.model.VNWConfigurationResponse;
-import com.techlooper.model.VNWJobSearchRequest;
-import com.techlooper.model.VNWJobSearchResponse;
+import com.techlooper.model.*;
 import com.techlooper.repository.JobSearchAPIConfigurationRepository;
 import com.techlooper.repository.elasticsearch.VietnamworksJobRepository;
 import com.techlooper.service.JobQueryBuilder;
@@ -30,10 +28,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static com.techlooper.model.VNWConfigurationResponseData.ConfigurationDegree;
-import static com.techlooper.model.VNWConfigurationResponseData.ConfigurationLocation;
-import static com.techlooper.model.VNWJobSearchResponseDataItem.JOB_LEVEL;
-import static com.techlooper.model.VNWJobSearchResponseDataItem.JOB_LOCATION;
 import static org.apache.commons.lang3.StringUtils.EMPTY;
 import static org.elasticsearch.index.query.FilterBuilders.boolFilter;
 import static org.elasticsearch.index.query.FilterBuilders.termFilter;
@@ -116,46 +110,20 @@ public class VietnamWorksJobSearchService implements JobSearchService {
         return VNWJobSearchResponse.getDefaultObject();
     }
 
-    /**
-     * Merge the search result with configuration in order to get its meaningful name
-     *
-     * @param id            Unique ID value
-     * @param itemType      The kind of id such as location, level or category
-     * @param configuration The job configuration
-     * @return The unique item name value after merging
-     */
-    private String translateConfigurationId(String id, String itemType, VNWConfigurationResponse configuration) {
-        switch (itemType) {
-            case JOB_LOCATION:
-                Optional<ConfigurationLocation> locationOptional = configuration.getData().getLocations().stream()
-                        .filter(item -> item.getLocationId().equals(id))
-                        .findFirst();
-                return locationOptional.isPresent() ? locationOptional.get().getEnglish() : EMPTY;
-            case JOB_LEVEL:
-                Optional<ConfigurationDegree> degreeOptional =
-                        configuration.getData().getDegrees().stream()
-                                .filter(item -> item.getDegreeId().equals(id))
-                                .findFirst();
-                return degreeOptional.isPresent() ? degreeOptional.get().getEnglish() : EMPTY;
-            default:
-                return EMPTY;
-        }
-    }
-
-    public List<JobEntity> getHigherSalaryJobs(SalaryReviewEntity salaryReviewEntity) {
+    public List<JobEntity> getHigherSalaryJobs(SalaryReviewDto salaryReviewDto) {
         NativeSearchQueryBuilder queryBuilder = jobQueryBuilder.getVietnamworksJobSearchQuery();
 
-        QueryBuilder jobTitleQueryBuilder = jobQueryBuilder.jobTitleQueryBuilder(salaryReviewEntity.getJobTitle());
+        QueryBuilder jobTitleQueryBuilder = jobQueryBuilder.jobTitleQueryBuilder(salaryReviewDto.getJobTitle());
         FilterBuilder expiredDateFilterBuilder = jobQueryBuilder.getRangeFilterBuilder("expiredDate", "now/d", null);
 
         queryBuilder.withQuery(filteredQuery(jobTitleQueryBuilder, boolFilter()
                 .must(expiredDateFilterBuilder)
                 .must(termFilter("isActive", 1))
                 .must(termFilter("isApproved", 1))
-                .must(jobQueryBuilder.getJobIndustriesFilterBuilder(salaryReviewEntity.getJobCategories()))));
+                .must(jobQueryBuilder.getJobIndustriesFilterBuilder(salaryReviewDto.getJobCategories()))));
         List<JobEntity> higherSalaryJobs = getJobSearchResult(queryBuilder);
         return higherSalaryJobs.stream()
-                .filter(job -> getAverageSalary(job.getSalaryMin(), job.getSalaryMax()) > salaryReviewEntity.getNetSalary())
+                .filter(job -> getAverageSalary(job.getSalaryMin(), job.getSalaryMax()) > salaryReviewDto.getNetSalary())
                 .sorted((job1, job2) -> jobSalaryComparator(job1, job2, SORT_ORDER_DESC))
                 .limit(3).collect(Collectors.toList());
     }
@@ -208,6 +176,9 @@ public class VietnamWorksJobSearchService implements JobSearchService {
     }
 
     private Long convertVND2ToUSD(Long salary) {
+        if (salary == null) {
+            return 0L;
+        }
         return salary > VIETNAM_CURRENCY_SALARY_DETECTOR ? salary / VND_USD_RATE : salary;
     }
 }

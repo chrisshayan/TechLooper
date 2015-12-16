@@ -1,8 +1,10 @@
 package com.techlooper.entity;
 
+import com.techlooper.model.Language;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.FieldIndex;
 
 import java.util.List;
 
@@ -15,7 +17,7 @@ public class EmailTemplateEntity {
     @Id
     private Long templateId;
 
-    @Field(type = String)
+    @Field(type = String, index = FieldIndex.not_analyzed)
     private String templateName;
 
     @Field(type = String)
@@ -25,6 +27,15 @@ public class EmailTemplateEntity {
     private List<String> subjectVariables;
 
     @Field(type = String)
+    private List<String> replyToAddresses;
+
+    @Field(type = String)
+    private List<String> recipientAddresses;
+
+    @Field(type = String)
+    private String fromAddress;
+
+    @Field(type = String)
     private String body;
 
     @Field(type = String)
@@ -32,6 +43,15 @@ public class EmailTemplateEntity {
 
     @Field(type = Boolean)
     private Boolean isEnable;
+
+    @Field(type = String, index = FieldIndex.not_analyzed)
+    private Language language;
+
+    @Field(type = String)
+    private String titleEN;
+
+    @Field(type = String)
+    private String titleVI;
 
     public Long getTemplateId() {
         return templateId;
@@ -87,5 +107,53 @@ public class EmailTemplateEntity {
 
     public void setIsEnable(Boolean isEnable) {
         this.isEnable = isEnable;
+    }
+
+    public Language getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(Language language) {
+        this.language = language;
+    }
+
+    public List<String> getReplyToAddresses() {
+        return replyToAddresses;
+    }
+
+    public void setReplyToAddresses(List<String> replyToAddresses) {
+        this.replyToAddresses = replyToAddresses;
+    }
+
+    public List<String> getRecipientAddresses() {
+        return recipientAddresses;
+    }
+
+    public void setRecipientAddresses(List<String> recipientAddresses) {
+        this.recipientAddresses = recipientAddresses;
+    }
+
+    public String getFromAddress() {
+        return fromAddress;
+    }
+
+    public void setFromAddress(String fromAddress) {
+        this.fromAddress = fromAddress;
+    }
+
+    public String getTitleEN() {
+        return titleEN;
+    }
+
+    public void setTitleEN(String titleEN) {
+        this.titleEN = titleEN;
+    }
+
+    public String getTitleVI() {
+        return titleVI;
+    }
+
+    public void setTitleVI(String titleVI) {
+        this.titleVI = titleVI;
     }
 }

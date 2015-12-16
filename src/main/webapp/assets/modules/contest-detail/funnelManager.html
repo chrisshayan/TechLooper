@@ -1,0 +1,23 @@
+<div class="col-{{contestDetail.phaseItems.length}}">
+  <div ng-repeat="phaseItem in contestDetail.phaseItems"
+       class="challenge-phase-item" ng-class="{active: phaseItem.isSelected}">
+    <div class="current-phase" ng-class="{active: phaseItem.isCurrentPhase, noDaysLeft: contestDetail.currentPhaseDaysLeft <= 0}">
+      <div class="current-phase-text">
+        <span translate="currentPhase"></span>
+      </div>
+      <div class="time-left" translate="daysLeft"
+           ng-show="contestDetail.currentPhaseDaysLeft > 0"
+           translate-value-days="{{contestDetail.currentPhaseDaysLeft}}"></div>
+      <div class="arrow-current"></div>
+    </div>
+    <div class="phase-name {{phaseItem.phaseLowerCase}}" ng-click="contestDetail.setSelectedPhase(phaseItem)"
+         ng-class="{pass: phaseItem.isOver || contestDetail.isClosed, unclickable: phaseItem.unselectable}">
+      <i class="fa {{phaseItem.phaseLowerCase}}"></i>
+      <span translate="{{phaseItem.phaseLowerCase}}"></span>
+    </div>
+    <div class="registrants-phase">
+      <p translate="{{phaseItem.countJoinerTitle}}" ng-show="phaseItem.participant > 0"></p>
+      <p ng-show="phaseItem.submission > 0"><span translate="{{phaseItem.countUnreadTitle}}" ng-show="phaseItem.unreadSubmission > 0"></span><span translate="{{phaseItem.countSubmissionTitle}}"></span></p>
+    </div>
+  </div>
+</div>

@@ -2,14 +2,19 @@ package com.techlooper.service.impl;
 
 import com.techlooper.entity.JobAlertRegistrationEntity;
 import com.techlooper.entity.JobEntity;
+import com.techlooper.entity.SalaryReviewEntity;
 import com.techlooper.entity.ScrapeJobEntity;
 import com.techlooper.model.*;
+import com.techlooper.repository.JobSearchAPIConfigurationRepository;
+import com.techlooper.repository.elasticsearch.SalaryReviewRepository;
 import com.techlooper.repository.userimport.JobAlertRegistrationRepository;
 import com.techlooper.repository.userimport.ScrapeJobRepository;
+import com.techlooper.service.EmailService;
 import com.techlooper.service.ForumService;
 import com.techlooper.service.JobAggregatorService;
 import com.techlooper.service.JobSearchService;
-import freemarker.template.Template;
+import com.techlooper.util.JsonUtils;
+import com.techlooper.util.RestTemplateUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.dozer.Mapper;
 import org.elasticsearch.common.joda.time.DateTime;
@@ -25,20 +30,19 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.elasticsearch.core.FacetedPage;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
-import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
-import javax.mail.Address;
-import javax.mail.Message;
-import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeUtility;
-import java.io.StringWriter;
 import java.util.*;
 
 import static com.techlooper.util.DateTimeUtils.*;
 import static java.util.stream.Collectors.toList;
+import static org.apache.commons.lang3.StringUtils.EMPTY;
 import static org.elasticsearch.index.query.FilterBuilders.rangeFilter;
 import static org.elasticsearch.index.query.FilterBuilders.termFilter;
 import static org.elasticsearch.index.query.MatchQueryBuilder.Operator;
@@ -65,18 +69,6 @@ public class JobAggregatorServiceImpl implements JobAggregatorService {
     @Resource
     private Mapper dozerMapper;
 
-    @Value("${jobAlert.subject.en}")
-    private String jobAlertMailSubjectEn;
-
-    @Value("${jobAlert.subject.vi}")
-    private String jobAlertMailSubjectVn;
-
-    @Resource
-    private Template jobAlertMailTemplateEn;
-
-    @Resource
-    private Template jobAlertMailTemplateVi;
-
     @Resource
     private MimeMessage jobAlertMailMessage;
 
@@ -84,7 +76,19 @@ public class JobAggregatorServiceImpl implements JobAggregatorService {
     private String webBaseUrl;
 
     @Resource
-    private JavaMailSender mailSender;
+    private EmailService emailService;
+
+    @Resource
+    private JobSearchAPIConfigurationRepository apiConfiguration;
+
+    @Resource
+    private RestTemplate restTemplate;
+
+    @Value("${vnw.api.users.createJobAlert.url}")
+    private String vnwCreateJobAlertUrl;
+
+    @Resource
+    private SalaryReviewRepository salaryReviewRepository;
 
     @Override
     public JobAlertRegistrationEntity registerJobAlert(JobAlertRegistration jobAlertRegistration) throws Exception {
@@ -117,14 +121,20 @@ public class JobAggregatorServiceImpl implements JobAggregatorService {
     }
 
     @Override
-    public void sendEmail(JobAlertRegistrationEntity jobAlertRegistrationEntity, JobSearchResponse jobSearchResponse) throws Exception {
-        String mailSubject = jobAlertRegistrationEntity.getLang() == Language.vi ? jobAlertMailSubjectVn : jobAlertMailSubjectEn;
-        Address[] recipientAddresses = InternetAddress.parse(jobAlertRegistrationEntity.getEmail());
-        Template template = jobAlertRegistrationEntity.getLang() == Language.vi ? jobAlertMailTemplateVi : jobAlertMailTemplateEn;
+    public void sendEmail(JobAlertRegistrationEntity jobAlertRegistrationEntity, JobSearchResponse jobSearchResponse) {
+        String recipientAddress = jobAlertRegistrationEntity.getEmail();
 
-        jobAlertMailMessage.setRecipients(Message.RecipientType.TO, recipientAddresses);
-        StringWriter stringWriter = new StringWriter();
+        EmailRequestModel emailRequestModel = new EmailRequestModel.Builder()
+                .withTemplateName(EmailTemplateNameEnum.JOB_ALERT.name())
+                .withLanguage(jobAlertRegistrationEntity.getLang())
+                .withTemplateModel(buildJobAlertEmailTemplateModel(jobAlertRegistrationEntity, jobSearchResponse))
+                .withMailMessage(jobAlertMailMessage)
+                .withRecipientAddresses(recipientAddress).build();
+        emailService.sendMail(emailRequestModel);
+    }
 
+    private Map<String, Object> buildJobAlertEmailTemplateModel(JobAlertRegistrationEntity jobAlertRegistrationEntity,
+                                                                JobSearchResponse jobSearchResponse) {
         Map<String, Object> templateModel = new HashMap<>();
         templateModel.put("webBaseUrl", webBaseUrl);
         templateModel.put("email", jobAlertRegistrationEntity.getEmail());
@@ -143,17 +153,7 @@ public class JobAggregatorServiceImpl implements JobAggregatorService {
             topics = latestTopicList.getTopics().stream().limit(3).collect(toList());
         }
         templateModel.put("topics", topics);
-
-        template.process(templateModel, stringWriter);
-        jobAlertMailMessage.setSubject(MimeUtility.encodeText(mailSubject, "UTF-8", null));
-        jobAlertMailMessage.setText(stringWriter.toString(), "UTF-8", "html");
-
-        stringWriter.flush();
-        jobAlertMailMessage.saveChanges();
-        mailSender.send(jobAlertMailMessage);
-
-        jobAlertRegistrationEntity.setLastEmailSentDateTime(currentDate(BASIC_DATE_TIME_PATTERN));
-        jobAlertRegistrationRepository.save(jobAlertRegistrationEntity);
+        return templateModel;
     }
 
     @Override
@@ -258,6 +258,28 @@ public class JobAggregatorServiceImpl implements JobAggregatorService {
             criteria.setLocationId(registrationEntity.getLocationId());
         }
         return criteria;
+    }
+
+    @Override
+    public JobAlertRegistrationEntity getJobAlertRegistrationById(Long id) {
+        return jobAlertRegistrationRepository.findOne(id);
+    }
+
+    @Override
+    public void createVnwJobAlert(VnwJobAlertRequest vnwJobAlertRequest) {
+        // Save job alert email
+        SalaryReviewEntity salaryReviewEntity = salaryReviewRepository.findOne(vnwJobAlertRequest.getSalaryReviewId());
+        if (salaryReviewEntity != null) {
+            salaryReviewEntity.setJobAlertEmail(vnwJobAlertRequest.getEmail());
+            salaryReviewRepository.save(salaryReviewEntity);
+        }
+
+        // Call Vietnamworks api to register job alert
+        VnwJobAlert jobAlert = dozerMapper.map(vnwJobAlertRequest, VnwJobAlert.class);
+        String params = JsonUtils.toJSON(jobAlert).orElse(EMPTY);
+        HttpEntity<String> requestEntity = RestTemplateUtils.configureHttpRequestEntity(
+                MediaType.APPLICATION_JSON, apiConfiguration.getApiKeyName(), apiConfiguration.getApiKeyValue(), params);
+        restTemplate.exchange(vnwCreateJobAlertUrl, HttpMethod.POST, requestEntity, String.class);
     }
 
     private ScrapeJobEntity convertToJobEntity(VNWJobSearchResponseDataItem job, Boolean isTopPriority) {

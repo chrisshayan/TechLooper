@@ -1,32 +1,27 @@
 package com.techlooper.controller;
 
 import com.techlooper.dto.*;
-import com.techlooper.entity.*;
-import com.techlooper.entity.userimport.UserImportEntity;
+import com.techlooper.entity.ChallengeRegistrantDto;
+import com.techlooper.entity.ChallengeRegistrantEntity;
+import com.techlooper.entity.GetPromotedEntity;
+import com.techlooper.entity.PriceJobEntity;
 import com.techlooper.entity.vnw.dto.VnwUserDto;
 import com.techlooper.model.*;
 import com.techlooper.service.*;
-import freemarker.template.TemplateException;
-import org.apache.commons.io.IOUtils;
 import org.dozer.Mapper;
 import org.jasypt.util.text.TextEncryptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.ApplicationContext;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.IOException;
-import java.security.Principal;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -41,8 +36,7 @@ public class UserController {
 
     private final int MAX_NUMBER_OF_ITEMS_DISPLAY = 3;
 
-    @Resource
-    private ApplicationContext applicationContext;
+    private final static Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
     @Resource
     private UserService userService;
@@ -51,16 +45,13 @@ public class UserController {
     private TextEncryptor textEncryptor;
 
     @Resource
-    private UserEvaluationService userEvaluationService;
-
-    @Resource
     private PromotionService promotionService;
 
     @Resource
-    private CurrencyService currencyService;
+    private Mapper dozerMapper;
 
     @Resource
-    private Mapper dozerMapper;
+    private JobPricingService jobPricingService;
 
     @Resource
     private SalaryReviewService salaryReviewService;
@@ -70,15 +61,6 @@ public class UserController {
 
     @Resource
     private ChallengeService challengeService;
-
-    @Value("${mail.citibank.title.vn}")
-    private String citibankTitleVn;
-
-    @Value("${mail.citibank.title.en}")
-    private String citibankTitleEn;
-
-    @Value("classpath:braille.txt")
-    private org.springframework.core.io.Resource brailleTextFile;
 
     @Resource
     private EmployerService employerService;
@@ -93,68 +75,16 @@ public class UserController {
     private JobAggregatorService jobAggregatorService;
 
     @Resource
+    private ChallengeEmailService challengeEmailService;
+
+    @Resource
+    private ChallengeRegistrantService challengeRegistrantService;
+
+    @Resource
     private EmailService emailService;
 
-    private final static Logger LOGGER = LoggerFactory.getLogger(UserController.class);
-
-    @RequestMapping(value = "/api/users/add", method = RequestMethod.POST)
-    public void save(@RequestBody UserImportData userImportData, HttpServletResponse httpServletResponse) {
-        SocialProvider provider = userImportData.getCrawlerSource();
-        UserImportDataProcessor dataProcessor = applicationContext.getBean(provider + "UserImportDataProcessor", UserImportDataProcessor.class);
-        // process raw user data before import into ElasticSearch
-        List<UserImportEntity> userImportEntities = dataProcessor.process(Arrays.asList(userImportData));
-        httpServletResponse.setStatus(userService.addCrawledUser(userImportEntities.get(0), provider) ?
-                HttpServletResponse.SC_NO_CONTENT : HttpServletResponse.SC_NOT_ACCEPTABLE);
-    }
-
-    @RequestMapping(value = "/api/users/addAll", method = RequestMethod.POST)
-    public void saveAll(@RequestBody List<UserImportData> users, HttpServletResponse httpServletResponse) {
-        if (!users.isEmpty()) {
-            SocialProvider provider = users.get(0).getCrawlerSource();
-            UserImportDataProcessor dataProcessor = applicationContext.getBean(provider + "UserImportDataProcessor", UserImportDataProcessor.class);
-            // process raw user data before import into ElasticSearch
-            List<UserImportEntity> userImportEntities = dataProcessor.process(users);
-            httpServletResponse.setStatus(userService.addCrawledUserAll(userImportEntities, provider, UpdateModeEnum.MERGE) == users.size() ?
-                    HttpServletResponse.SC_NO_CONTENT : HttpServletResponse.SC_NOT_ACCEPTABLE);
-        } else {
-            httpServletResponse.setStatus(HttpServletResponse.SC_NOT_ACCEPTABLE);
-        }
-    }
-
-//    @RequestMapping(value = "/user/save", method = RequestMethod.POST)
-//    public List<FieldError> save(@RequestBody @Valid UserInfo userInfo, BindingResult result, HttpServletResponse httpServletResponse) {
-//        if (result.getFieldErrorCount() > 0) {
-//            httpServletResponse.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-//        } else {
-//            userService.registerVietnamworksAccount(userInfo);
-//            userService.save(userInfo);
-//        }
-//        return result.getFieldErrors();
-//    }
-
-    @RequestMapping(value = "/api/user/findTalent", method = RequestMethod.POST)
-    public TalentSearchResponse findTalent(@RequestBody(required = false) TalentSearchRequest param, HttpServletResponse httpServletResponse) {
-        return userService.findTalent(param);
-    }
-
-//    @RequestMapping(value = "/api/user/register", method = RequestMethod.POST)
-//    public List<FieldError> registerUser(@RequestBody @Valid UserInfo userInfo, BindingResult result, HttpServletResponse httpServletResponse) {
-//        if (result.getFieldErrorCount() > 0) {
-//            httpServletResponse.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-//        } else {
-//            userService.registerUser(userInfo);
-//        }
-//        return result.getFieldErrors();
-//    }
-
-//    @SendToUser("/queue/info")
-//    @MessageMapping("/user/findByKey")
-//    @RequestMapping(value = "/user/findByKey", method = RequestMethod.POST)
-//    public UserInfo getUserInfo(@CookieValue("techlooper.key") String techlooperKey/*, @DestinationVariable String username */) {
-//        UserInfo userInfo = userService.findUserInfoByKey(techlooperKey);
-//        userInfo.getLoginSource();
-//        return userInfo;
-//    }
+    @Resource
+    private ForumService forumService;
 
     @RequestMapping(value = "/user/verifyUserLogin", method = RequestMethod.POST)
     public void verifyUserLogin(@RequestBody SocialRequest searchRequest, @CookieValue("techlooper.key") String techlooperKey, HttpServletResponse httpServletResponse) {
@@ -163,42 +93,15 @@ public class UserController {
         }
     }
 
-    @RequestMapping(value = "/salaryReview", method = RequestMethod.POST)
-    public SalaryReviewDto reviewSalary(@RequestBody SalaryReviewEntity salaryReviewEntity) {
-        userEvaluationService.reviewSalary(salaryReviewEntity);
-        SalaryReviewDto salaryReviewDto = dozerMapper.map(salaryReviewEntity, SalaryReviewDto.class);
-        salaryReviewDto.setUsdToVndRate(currencyService.usdToVndRate());
-//        get top 3 similar salary reviews
-        SimilarSalaryReviewRequest request = dozerMapper.map(salaryReviewDto, SimilarSalaryReviewRequest.class);
-        List<SimilarSalaryReview> similarSalaryReviews = salaryReviewService.getSimilarSalaryReview(request);
-        salaryReviewDto.setSimilarSalaryReviews(similarSalaryReviews);
-        return salaryReviewDto;
-    }
-
-    @RequestMapping(value = "/salaryReview/{id}", method = RequestMethod.GET)
-    public SalaryReviewDto getReviewSalary(@PathVariable("id") String id) {
-        return userService.findSalaryReviewById(id);
-    }
-
-    @RequestMapping(value = "/saveSalaryReviewSurvey", method = RequestMethod.POST)
-    public void saveSurvey(@RequestBody SalaryReviewSurvey salaryReviewSurvey, HttpServletResponse httpServletResponse) {
-        boolean isSaved = userEvaluationService.saveSalaryReviewSurvey(salaryReviewSurvey);
-        if (isSaved) {
-            httpServletResponse.setStatus(HttpServletResponse.SC_OK);
-        } else {
-            httpServletResponse.setStatus(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
-        }
-    }
-
     @RequestMapping(value = "/priceJob", method = RequestMethod.POST)
     public PriceJobEntity priceJob(@RequestBody PriceJobEntity priceJobEntity) {
-        userEvaluationService.priceJob(priceJobEntity);
+        jobPricingService.priceJob(priceJobEntity);
         return priceJobEntity;
     }
 
     @RequestMapping(value = "/savePriceJobSurvey", method = RequestMethod.POST)
     public void savePriceJobSurvey(@RequestBody PriceJobSurvey priceJobSurvey, HttpServletResponse httpServletResponse) {
-        boolean isSaved = userEvaluationService.savePriceJobSurvey(priceJobSurvey);
+        boolean isSaved = jobPricingService.savePriceJobSurvey(priceJobSurvey);
         if (isSaved) {
             httpServletResponse.setStatus(HttpServletResponse.SC_OK);
         } else {
@@ -207,31 +110,21 @@ public class UserController {
     }
 
     @RequestMapping("promotion/citibank/creditCard")
-    public void placeCitibankCreditCardPromotion(@Valid @RequestBody CitibankCreditCardPromotion citibankCreditCardPromotion) throws IOException, TemplateException {
+    public void placeCitibankCreditCardPromotion(@Valid @RequestBody CitibankCreditCardPromotion citibankCreditCardPromotion) {
         promotionService.placePromotion(citibankCreditCardPromotion);
-    }
-
-    @RequestMapping(value = "salaryReview/placeSalaryReviewReport", method = RequestMethod.POST)
-    public void placeSalaryReviewReport(@Valid @RequestBody EmailRequest emailRequest) throws TemplateException, IOException, MessagingException {
-        salaryReviewService.sendSalaryReviewReportEmail(emailRequest);
-    }
-
-    @MessageMapping("/jobs/createJobAlert")
-    public void createJobAlert(VnwJobAlertRequest vnwJobAlertRequest) {
-        salaryReviewService.createVnwJobAlert(vnwJobAlertRequest);
     }
 
     @RequestMapping(value = "/promotion/citibank/title/{lang}", method = RequestMethod.GET)
     public String getCitiBankPromotionTitle(@PathVariable String lang) {
-        return "vn".equalsIgnoreCase(lang) ? citibankTitleVn : citibankTitleEn;
+        return emailService.getCitiBankPromotionTitle(lang);
     }
 
     @RequestMapping(value = "/getPromoted/email", method = RequestMethod.POST)
-    public long sendTopDemandedSkillsEmail(@Valid @RequestBody GetPromotedEmailRequest emailRequest) throws MessagingException, IOException, TemplateException {
-        long getPromotedId = salaryReviewService.saveGetPromotedInformation(emailRequest);
+    public long sendTopDemandedSkillsEmail(@Valid @RequestBody GetPromotedEmailRequest emailRequest) {
+        long getPromotedId = jobPricingService.saveGetPromotedInformation(emailRequest);
 
         if (getPromotedId != -1L && emailRequest.getHasResult()) {
-            salaryReviewService.sendTopDemandedSkillsEmail(getPromotedId, emailRequest);
+            jobPricingService.sendTopDemandedSkillsEmail(getPromotedId, emailRequest);
         }
 
         return getPromotedId;
@@ -239,25 +132,12 @@ public class UserController {
 
     @RequestMapping(value = "/getPromoted/survey", method = RequestMethod.POST)
     public long saveGetPromotedSurvey(@RequestBody GetPromotedSurveyRequest getPromotedSurveyRequest, HttpServletResponse httpServletResponse) {
-        return salaryReviewService.saveGetPromotedSurvey(getPromotedSurveyRequest);
+        return jobPricingService.saveGetPromotedSurvey(getPromotedSurveyRequest);
     }
 
     @RequestMapping(value = "/getPromotedResult/{id}", method = RequestMethod.GET)
     public GetPromotedEntity getPromotedResult(@PathVariable Long id) {
-        return salaryReviewService.getPromotedEntity(id);
-    }
-
-    @RequestMapping(value = "/download/braille", method = RequestMethod.GET)
-    public void getFile(HttpServletResponse response) throws IOException {
-        try {
-            response.setContentType("text/plain");
-            response.setHeader("Content-Disposition", "attachment;filename=braille.txt");
-            IOUtils.copy(brailleTextFile.getInputStream(), response.getOutputStream());
-            response.flushBuffer();
-        } catch (IOException ex) {
-            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            throw ex;
-        }
+        return jobPricingService.getPromotedEntity(id);
     }
 
     @PreAuthorize("hasAnyAuthority('EMPLOYER')")
@@ -282,7 +162,7 @@ public class UserController {
 
         try {
             ChallengeDetailDto latestChallenge = challengeService.getTheLatestChallenge();
-            latestChallenge.setNumberOfRegistrants(challengeService.getNumberOfRegistrants(latestChallenge.getChallengeId()));
+            latestChallenge.setNumberOfRegistrants(challengeRegistrantService.getNumberOfRegistrants(latestChallenge.getChallengeId()));
             personalHomepage.setLatestChallenge(latestChallenge);
         } catch (Exception ex) {
             LOGGER.error(ex.getMessage(), ex);
@@ -317,6 +197,13 @@ public class UserController {
             LOGGER.error(ex.getMessage(), ex);
         }
 
+        try {
+            TopicList topicList = forumService.getLatestTopics();
+            personalHomepage.setLatestTopics(topicList.getTopics().stream().limit(5).collect(toList()));
+        } catch (Exception ex) {
+            LOGGER.error(ex.getMessage(), ex);
+        }
+
         return personalHomepage;
     }
 
@@ -324,8 +211,8 @@ public class UserController {
     @RequestMapping(value = "/user/current", method = RequestMethod.GET)
     public UserProfileDto getUserProfile(HttpServletRequest request) {
         LOGGER.debug("Reading current user profile info");
-        Principal userPrincipal = request.getUserPrincipal();
-        Object principal = ((UsernamePasswordAuthenticationToken) userPrincipal).getPrincipal();
+        org.springframework.security.core.Authentication authentication = (org.springframework.security.core.Authentication) request.getUserPrincipal();
+        Object principal = authentication.getPrincipal();
         if (!(principal instanceof UserProfileDto)) {
             return dozerMapper.map(userService.findVnwUserByUsername(request.getRemoteUser()), UserProfileDto.class);
         }
@@ -341,8 +228,8 @@ public class UserController {
     @PreAuthorize("hasAnyAuthority('EMPLOYER', 'JOB_SEEKER')")
     @RequestMapping(value = "/user/employer/webinar", method = RequestMethod.POST)
     public WebinarInfoDto createWebinar(@RequestBody WebinarInfoDto webinarInfoDto, HttpServletRequest request) throws IOException {
-        Principal userPrincipal = request.getUserPrincipal();
-        Object principal = ((UsernamePasswordAuthenticationToken) userPrincipal).getPrincipal();
+        org.springframework.security.core.Authentication authentication = (org.springframework.security.core.Authentication) request.getUserPrincipal();
+        Object principal = authentication.getPrincipal();
         UserProfileDto organiser = (principal instanceof UserProfileDto) ? ((UserProfileDto) principal) :
                 dozerMapper.map(getVnwCurrentUser(request), UserProfileDto.class);
         return webinarService.createWebinarInfo(webinarInfoDto, organiser);
@@ -367,8 +254,8 @@ public class UserController {
     @RequestMapping(value = "user/challengeRegistrantNames/{challengeId}/{now}", method = RequestMethod.GET)
     public List<String> getDailyChallengeRegistrantNames(HttpServletRequest request, HttpServletResponse response,
                                                          @PathVariable Long challengeId, @PathVariable Long now) {
-        if (challengeService.isOwnerOfChallenge(request.getRemoteUser(), challengeId)) {
-            List<ChallengeRegistrantEntity> registrants = challengeService.findChallengeRegistrantWithinPeriod(challengeId, now, TimePeriodEnum.TWENTY_FOUR_HOURS);
+        if (challengeService.isChallengeOwner(request.getRemoteUser(), challengeId)) {
+            List<ChallengeRegistrantEntity> registrants = challengeRegistrantService.findChallengeRegistrantWithinPeriod(challengeId, now, TimePeriodEnum.TWENTY_FOUR_HOURS);
             return registrants.stream()
                     .map(registrant -> registrant.getRegistrantFirstName() + " " + registrant.getRegistrantLastName())
                     .collect(toList());
@@ -381,24 +268,59 @@ public class UserController {
     @RequestMapping(value = "user/challenge/sendMailToDaily/{challengeId}/{now}", method = RequestMethod.POST)
     public void sendEmailToDailyChallengeRegistrants(HttpServletRequest request, HttpServletResponse response,
                                                      @PathVariable Long challengeId, @PathVariable Long now, @RequestBody EmailContent emailContent) {
-        if (!challengeService.sendEmailToDailyChallengeRegistrants(request.getRemoteUser(), challengeId, now, emailContent)) {
+        if (!challengeEmailService.sendEmailToDailyChallengeRegistrants(request.getRemoteUser(), challengeId, now, emailContent)) {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         }
     }
 
     @PreAuthorize("hasAuthority('EMPLOYER')")
-    @RequestMapping(value = "user/challenge/feedback/{challengeId}/{registrantId}", method = RequestMethod.POST)
+    @RequestMapping(value = "user/challenge/feedback/{registrantId}", method = RequestMethod.POST)
     public void sendFeedbackToRegistrant(HttpServletRequest request, HttpServletResponse response,
-                                         @PathVariable Long challengeId, @PathVariable Long registrantId, @RequestBody EmailContent emailContent) {
-        if (!challengeService.sendEmailToRegistrant(request.getRemoteUser(), challengeId, registrantId, emailContent)) {
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                                         @PathVariable Long registrantId, @RequestBody EmailContent emailContent) {
+        ChallengeRegistrantEntity registrant = challengeRegistrantService.findRegistrantById(registrantId);
+        if (registrant != null) {
+            String ownerEmail = request.getRemoteUser();
+            Long challengeId = registrant.getChallengeId();
+            if (challengeService.isChallengeOwner(ownerEmail, challengeId)) {
+                boolean success = challengeEmailService.sendEmailToRegistrant(request.getRemoteUser(), registrantId, emailContent);
+                if (!success) {
+                    response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                }
+            } else {
+                response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            }
+        } else {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
     }
 
     @PreAuthorize("hasAuthority('EMPLOYER')")
-    @RequestMapping(value = "user/challenge/accept/{registrantId}", method = RequestMethod.GET)
-    public ChallengeRegistrantDto acceptChallengeRegistrant(HttpServletRequest request, @PathVariable Long registrantId) {
-        return challengeService.acceptRegistrant(request.getRemoteUser(), registrantId);
+    @RequestMapping(value = "user/challenge/accept/{registrantId}/{phase}", method = RequestMethod.GET)
+    public ChallengeRegistrantDto acceptChallengeRegistrant(HttpServletRequest request, HttpServletResponse response,
+                                                            @PathVariable Long registrantId, @PathVariable ChallengePhaseEnum phase) {
+        String ownerEmail = request.getRemoteUser();
+        ChallengeRegistrantDto challengeRegistrantDto = new ChallengeRegistrantDto();
+        ChallengeRegistrantEntity registrant = challengeRegistrantService.findRegistrantById(registrantId);
+        if (registrant != null) {
+            if (challengeService.isChallengeOwner(ownerEmail, registrant.getChallengeId())) {
+                challengeRegistrantDto = challengeRegistrantService.acceptRegistrant(registrantId, phase);
+            } else {
+                response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            }
+        } else {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        }
+        return challengeRegistrantDto;
+    }
+
+    @PreAuthorize("hasAuthority('EMPLOYER')")
+    @RequestMapping(value = "user/challenge/reject", method = RequestMethod.POST)
+    public ChallengeRegistrantDto rejectChallengeRegistrant(HttpServletRequest request, HttpServletResponse response, @RequestBody RejectRegistrantDto rejectRegistrantDto) {
+        ChallengeRegistrantDto registrantDto = challengeRegistrantService.rejectRegistrant(request.getRemoteUser(), rejectRegistrantDto);
+        if (registrantDto == null) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        }
+        return registrantDto;
     }
 
     @PreAuthorize("hasAnyAuthority('EMPLOYER')")
@@ -414,13 +336,28 @@ public class UserController {
         return employerService.findEmployerEmailSetting(request.getRemoteUser());
     }
 
-    @RequestMapping(value = "/emailTemplates", method = RequestMethod.GET)
-    public List<EmailTemplateDto> getAvailableEmailTemplates() {
-        return emailService.getAvailableEmailTemplates();
+    @RequestMapping(value = "/emailTemplates/{language}", method = RequestMethod.GET)
+    public List<EmailTemplateDto> getAvailableEmailTemplates(@PathVariable Language language) {
+        return emailService.getAvailableEmailTemplates(language);
     }
 
-    @RequestMapping(value = "/emailTemplates/{templateId}", method = RequestMethod.GET)
-    public EmailTemplateDto getTemplateById(@PathVariable Long templateId) {
-        return emailService.getTemplateById(templateId);
+    @RequestMapping(value = "/emailTemplate/{templateId}/{challengeId}", method = RequestMethod.GET)
+    public EmailTemplateDto getTemplateById(@PathVariable Long templateId, @PathVariable Long challengeId) {
+        return emailService.getTemplateById(templateId, challengeId);
     }
+
+    @PreAuthorize("hasAuthority('EMPLOYER')")
+    @RequestMapping(value = "user/challenge/qualifyAllRegistrants", method = RequestMethod.POST)
+    public List<ChallengeRegistrantDto> qualifyAllRegistrants(@RequestBody ChallengeQualificationDto challengeQualificationDto,
+                                                              HttpServletRequest request, HttpServletResponse response) {
+        String ownerEmail = request.getRemoteUser();
+        List<ChallengeRegistrantDto> qualifiedRegistrants = new ArrayList<>();
+        if (challengeService.isChallengeOwner(ownerEmail, challengeQualificationDto.getChallengeId())) {
+            qualifiedRegistrants = challengeRegistrantService.qualifyAllRegistrants(ownerEmail, challengeQualificationDto);
+        } else {
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+        }
+        return qualifiedRegistrants;
+    }
+
 }

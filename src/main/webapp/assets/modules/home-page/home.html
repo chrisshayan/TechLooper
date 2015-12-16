@@ -98,7 +98,7 @@
         <h3 translate="whatCurrentTrend"></h3>
         <div class="box-content">
           <div class="box-header">
-            <h4>{{homePage.termStatistic.term}}</h4>
+            <h4>{{homePage.termStatistic.label}}</h4>
             <a href="#/analytics/skill/{{homePage.termStatistic.term}}" translate="viewDetails"></a>
           </div>
           <div class="box-content-detail">
@@ -205,46 +205,72 @@
           <a href="#/challenges" translate="viewMoreChallenges"></a>
         </div>
       </div>
+      <!--<div class="box-container-block right">-->
+        <!--<h3 translate="latestTopics"></h3>-->
+        <!--<div class="box-content">-->
+          <!--<div class="box-content-detail" ng-show="homePage.latestEvents.length">-->
+            <!--<div class="upcoming-events-list">-->
+              <!--<div class="upcoming-events-by-time" ng-repeat="event in homePage.latestEvents">-->
+                <!--<h4>{{event.startDate | timestamp: 'longDate'}}</h4>-->
+                <!--<div class="upcoming-event-item">-->
+                  <!--<div class="left-content">-->
+                    <!--<p>-->
+                      <!--{{(event.organiser.name | limitTo: 10) || (event.organiser.email | textTruncate: 'email')}}-->
+                    <!--</p>-->
+                    <!--<img ng-show="event.organiser.profileImageUrl.length" ng-src="{{event.organiser.profileImageUrl}}" alt="">-->
+                    <!--<img ng-show="!event.organiser.profileImageUrl.length" ng-src="images/no-avatar.png" alt="">-->
+                  <!--</div>-->
+                  <!--<div class="right-content">-->
+                    <!--<ul>-->
+                      <!--<li class="name" ng-show="event.name.length">-->
+                        <!--<a  href="#/event-detail/{{event.name | nonAscii}}-{{event.createdDateTime}}-id" title="{{event.name}}">-->
+                          <!--{{event.name | limitTo: 50}}</a>-->
+                        <!--<span ng-show="event.name.length > 50">...</span>-->
+                      <!--</li>-->
+                      <!--<li><strong>{{event.attendees.length}}</strong> <span translate="attendantsLabel"></span> - {{event.startDate | timestamp: 'hour'}}</li>-->
+                    <!--</ul>-->
+                  <!--</div>-->
+                  <!--<div class="registration-link">-->
+                    <!--<a href="#/event-detail/{{event.name | nonAscii}}-{{event.createdDateTime}}-id" translate="register"></a>-->
+                  <!--</div>-->
+                <!--</div>-->
+              <!--</div>-->
+            <!--</div>-->
+          <!--</div>-->
+          <!--<div class="box-content-detail" ng-show="!homePage.latestEvents.length">-->
+            <!--<div class="freelancer-banner">-->
+              <!--<img alt="" ng-src="images/events.jpg" src="images/freelancers.jpg">-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
+        <!--<div class="view-more-items" class="hide">-->
+          <!--<a href="#/topics" translate="viewMoreTopics"></a>-->
+        <!--</div>-->
+      <!--</div>-->
       <div class="box-container-block right">
-        <h3 translate="upcomingEvents"></h3>
+        <h3 translate="latestTopics"></h3>
         <div class="box-content">
-          <div class="box-content-detail" ng-show="homePage.latestEvents.length">
-            <div class="upcoming-events-list">
-              <div class="upcoming-events-by-time" ng-repeat="event in homePage.latestEvents">
-                <h4>{{event.startDate | timestamp: 'longDate'}}</h4>
-                <div class="upcoming-event-item">
-                  <div class="left-content">
-                    <p>
-                      {{(event.organiser.name | limitTo: 10) || (event.organiser.email | textTruncate: 'email')}}
-                    </p>
-                    <img ng-show="event.organiser.profileImageUrl.length" ng-src="{{event.organiser.profileImageUrl}}" alt="">
-                    <img ng-show="!event.organiser.profileImageUrl.length" ng-src="images/no-avatar.png" alt="">
-                  </div>
-                  <div class="right-content">
-                    <ul>
-                      <li class="name" ng-show="event.name.length">
-                        <a  href="#/event-detail/{{event.name | nonAscii}}-{{event.createdDateTime}}-id" title="{{event.name}}">
-                          {{event.name | limitTo: 50}}</a>
-                        <span ng-show="event.name.length > 50">...</span>
-                      </li>
-                      <li><strong>{{event.attendees.length}}</strong> <span translate="attendantsLabel"></span> - {{event.startDate | timestamp: 'hour'}}</li>
-                    </ul>
-                  </div>
-                  <div class="registration-link">
-                    <a href="#/event-detail/{{event.name | nonAscii}}-{{event.createdDateTime}}-id" translate="register"></a>
-                  </div>
-                </div>
+          <div class="box-content-detail" ng-show="homePage.latestTopics.length">
+            <div class="latest-topics">
+              <div class="topic-item" ng-repeat="topic in homePage.latestTopics">
+                <h3><a ng-href="/#/?action=redirectJA&targetUrl={{topic.url}}" target="_blank">{{topic.title | limitTo: 65}}</a></h3>
+                <p ng-show="topic.excerpt.length">{{topic.excerpt | limitTo: 65}}<span ng-show="topic.excerpt.length > 65">...</span></p>
+                <ul ng-show="topic.tags.length">
+                  <li ng-repeat="tag in topic.tags">
+                    <span>{{tag}}</span>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
-          <div class="box-content-detail" ng-show="!homePage.latestEvents.length">
+          <div class="box-content-detail" ng-show="!homePage.latestTopics.length">
             <div class="freelancer-banner">
               <img alt="" ng-src="images/events.jpg" src="images/freelancers.jpg">
             </div>
           </div>
         </div>
         <div class="view-more-items" class="hide">
-          <a href="#/events" translate="viewMoreEvents"></a>
+          <a ng-click="gotoTopics()" translate="viewMoreTopics"></a>
         </div>
       </div>
     </div>

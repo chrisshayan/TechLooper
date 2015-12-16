@@ -137,11 +137,6 @@ public class ConfigurationTest implements ApplicationContextAware {
     }
 
     @Bean
-    public UserEvaluationService userEvaluationService() {
-        return new UserEvaluationServiceImpl();
-    }
-
-    @Bean
     public JobStatisticService jobStatisticService() {
         return new VietnamWorksJobStatisticService();
     }

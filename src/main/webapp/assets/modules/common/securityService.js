@@ -47,7 +47,8 @@ techlooper.factory("securityService", function (apiService, $route, $rootScope, 
     login: function (username, password, type) {
       var auth = type ? {us: username, pwd: password} : {
         us: $.base64.encode(username),
-        pwd: $.base64.encode(password)
+        pwd: $.base64.encode(password),
+        rm: true
       };
       localStorageService.remove("logout");
       return apiService.login(auth)
@@ -96,7 +97,7 @@ techlooper.factory("securityService", function (apiService, $route, $rootScope, 
         var param = $location.search();
         var notHasParam = !$.isEmptyObject(param);
 
-        var isSignInView = uiView.type == "LOGIN";
+        var isSignInView = uiView.type == "LOGIN";//  || (uiView.requireLogin == true);
         var notSignedIn = !$rootScope.userInfo && isSignInView;
         if (notSignedIn && notHasParam) {// should keep last print
           localStorageService.set("lastFoot", $location.url());
@@ -107,7 +108,8 @@ techlooper.factory("securityService", function (apiService, $route, $rootScope, 
 
       $rootScope.$on("$routeChangeSuccess", function (event, next, current) {
         $rootScope.currentUiView = utils.getUiView();
-        var isSignInView = $rootScope.currentUiView.type == "LOGIN";
+
+        var isSignInView = $rootScope.currentUiView.type == "LOGIN";// || ($rootScope.currentUiView.requireLogin == true);
         var priorFoot = localStorageService.get("priorFoot");
         if (isSignInView) {
           return localStorageService.set("lastFoot", priorFoot);
@@ -119,6 +121,10 @@ techlooper.factory("securityService", function (apiService, $route, $rootScope, 
 
       $rootScope.$on("$routeChangeStart", function (event, next, current) {
         var uiView = utils.getUiView();
+        if (uiView.cancelIfAlreadyLogin == true && $rootScope.userInfo) {
+          return event.preventDefault();
+        }
+
         var roles = uiView.roles || [];
         if ($rootScope.userInfo) {
           var noPermission = roles.length > 0 && roles.indexOf($rootScope.userInfo.roleName) < 0;
@@ -131,12 +137,13 @@ techlooper.factory("securityService", function (apiService, $route, $rootScope, 
 
         //$rootScope.currentUiView = utils.getUiView();
         if (roles.length > 0) {//is protected pages
-          instance.getCurrentUser().error(function (userInfo) {
-            $location.path(uiView.loginUrl);
-            utils.sendNotification(jsonValue.notifications.loaded, $(window).height());
-          });
+          //localStorageService.set("params", $location.search($location.search()));
+          instance.getCurrentUser()
+            .error(function (userInfo) {
+              $location.path(uiView.loginUrl);
+              utils.sendNotification(jsonValue.notifications.loaded, $(window).height());
+            });
         }
-
       });
 
       if (!$rootScope.userInfo) instance.getCurrentUser();

@@ -3,31 +3,32 @@ techlooper.directive("submissionChallenge", function (localStorageService, apiSe
     restrict: "E",
     replace: true,
     scope: {
-      challenge: "="
+      challenge: "=",
+      form: "="
     },
     templateUrl: "modules/common/challenge/submissionChallenge.html",
     link: function (scope, el, attrs) {
+      scope.form = {};
 
-      var activePhase;
-
-      var mixChallenge = function () {
-        scope.challenge.hideSubmitForm = function () {
-          if (scope.submissionForm) {
-            scope.submissionForm.$setPristine();
-            scope.submissionForm.$setUntouched();
-          }
-          delete scope.challenge.visibleSubmitForm;
-          delete scope.submission.submissionURL;
-          delete scope.submission.submissionDescription;
+      scope.form.hideSubmitForm = function () {
+        if (scope.submissionForm) {
+          scope.submissionForm.$setPristine();
+          scope.submissionForm.$setUntouched();
         }
+        delete scope.visibleSubmitForm;
+        delete scope.submission.submissionURL;
+        delete scope.submission.submissionDescription;
+      }
 
-        scope.challenge.showSubmitForm = function () {
-          localStorageService.set("submitNow", scope.challenge.challengeId);
-          apiService.joinNowByFB();
-        }
+      scope.form.showSubmitForm = function () {
+        localStorageService.set("submitNow", scope.challenge.challengeId);
+        apiService.joinNowByFB();
+      }
 
+
+      scope.$watch("challenge", function() {
         var challengeId = localStorageService.get("submitNow");
-        if (challengeId == scope.challenge.challengeId) {
+        if (scope.challenge && (challengeId == scope.challenge.challengeId)) {
           localStorageService.remove("submitNow");
           localStorageService.remove("joinNow");
 
@@ -40,31 +41,16 @@ techlooper.directive("submissionChallenge", function (localStorageService, apiSe
               scope.submission.submissionPhase = phase;
             })
 
-          //apiService.joinContest(challengeId, firstName, lastName, email, $translate.use())
-          //  .success(function() {
-          scope.challenge.visibleSubmitForm = true;
-          //});
-          //scope.challenge.mixed = true;
+          scope.visibleSubmitForm = true;
         }
-      }
 
-      if (scope.challenge) {
-        mixChallenge();
-      }
-      else {
-        scope.$watch("challenge", function () {
-          if (!scope.challenge) return;
-          mixChallenge();
-        });
-      }
-
-
-      scope.submission = {
-        name: localStorageService.get("firstName") + " " + localStorageService.get("lastName"),
-        registrantEmail: localStorageService.get("email"),
-        registrantFirstName: localStorageService.get("firstName"),
-        registrantLastName: localStorageService.get("lastName")
-      }
+        scope.submission = {
+          name: localStorageService.get("firstName") + " " + localStorageService.get("lastName"),
+          registrantEmail: localStorageService.get("email"),
+          registrantFirstName: localStorageService.get("firstName"),
+          registrantLastName: localStorageService.get("lastName")
+        }
+      });
 
       scope.pushChallengePhase = function () {
         scope.submissionForm.$setSubmitted();
@@ -82,12 +68,12 @@ techlooper.directive("submissionChallenge", function (localStorageService, apiSe
               apiService.submitMyResult(scope.submission)
                 .success(function (data) {
                   var submission = data;
-                  $rootScope.$broadcast("success-submission-challenge", submission);
+                  $rootScope.$broadcast("submission-accepted", submission);
                 })
                 .finally(function () {
                   $timeout(function () {
                     $('.feedback-loading').css('visibility', 'hidden');
-                    scope.challenge.hideSubmitForm();
+                    scope.form.hideSubmitForm();
                   }, 500);
                 });
             }

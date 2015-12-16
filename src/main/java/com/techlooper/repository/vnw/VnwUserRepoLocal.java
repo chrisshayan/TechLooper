@@ -35,7 +35,7 @@ public class VnwUserRepoLocal implements VnwUserRepo {
   }
 
   private static VnwUser userThuHoang() {
-    return VnwUser.VnwUserBuilder.vnwUser()
+    return VnwUser.VnwUserBuilder.vnwUser().withUserPass("secret")
       .withRoleName(RoleName.EMPLOYER).withUsername("thu.hoang@navigosgroup.com").withEmail("thu.hoang@navigosgroup.com").build();
   }
 }

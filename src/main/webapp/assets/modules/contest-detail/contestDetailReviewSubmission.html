@@ -1,19 +1,20 @@
 <div class="review-block">
-  <div class="submitted-histories" ng-show="!registrant.phaseSubmissions.length">
+  <div class="submitted-histories" ng-show="!registrant.submissions.length">
     <p translate="noDataSubmission" class="no-submission"></p>
     <span class="close-box" ng-click="registrant.hide()" title="{{'closed' | translate}}">x</span>
   </div>
-  <div class="submitted-histories" ng-show="registrant.phaseSubmissions.length" >
+  <div class="submitted-histories" ng-show="registrant.submissions.length" >
     <div class="header-row">
       <div class="subject-col" translate="descriptionCol"></div>
       <div class="submission-link-col" translate="submissionLink"></div>
       <div class="date-col" translate="date"></div>
+      <div class="unread-col" translate="markedAsUnread"></div>
       <div class="close-col" ng-click="registrant.hide()" title="{{'closed' | translate}}">
         x
       </div>
     </div>
     <div class="body-row">
-      <div class="submitted-row" ng-repeat="submission in registrant.phaseSubmissions | orderBy: '-challengeSubmissionId'">
+      <div class="submitted-row" ng-repeat="submission in registrant.submissions | orderBy: '-challengeSubmissionId'">
         <div class="subject-col">
           <label translate="descriptionCol"></label>
           {{submission.submissionDescription}}
@@ -27,6 +28,17 @@
         <div class="date-col">
           <label translate="date"></label>
           {{submission.submissionDateTime}}
+        </div>
+        <div class="unread-col">
+          <label translate="markedAsUnread"></label>
+          <a title="{{(submission.isRead ? 'markedAsUnread' : 'read') | translate}}"
+             ng-click="registrant.toggleReadSubmission(submission)">
+            <i class="fa fa-check-square-o"
+               ng-class="{'fa-square-o': submission.isRead}"></i>
+          </a>
+          <!--<a ng-show="submission.isRead" title="{{'markedAsUnread' | translate}}" ng-click="saveReadSubmission(submission)">-->
+            <!--<i class="fa "></i>-->
+          <!--</a>-->
         </div>
         <div class="close-col"></div>
       </div>

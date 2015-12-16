@@ -8,15 +8,25 @@ import java.io.Serializable;
  */
 public class EmailContent implements Serializable {
 
+    private Long templateId;
+
     private String subject;
 
     private String content;
 
-    private Address[] recipients;
+    private String recipients;
 
     private Language language;
 
     private Address[] replyTo;
+
+    public Long getTemplateId() {
+        return templateId;
+    }
+
+    public void setTemplateId(Long templateId) {
+        this.templateId = templateId;
+    }
 
     public Language getLanguage() {
         return language;
@@ -26,11 +36,11 @@ public class EmailContent implements Serializable {
         this.language = language;
     }
 
-    public Address[] getRecipients() {
+    public String getRecipients() {
         return recipients;
     }
 
-    public void setRecipients(Address[] recipients) {
+    public void setRecipients(String recipients) {
         this.recipients = recipients;
     }
 

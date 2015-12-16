@@ -1,5 +1,6 @@
 package com.techlooper.controller;
 
+import com.techlooper.dto.ChallengeWinnerDto;
 import com.techlooper.entity.ChallengeEntity;
 import com.techlooper.entity.ChallengeRegistrantDto;
 import com.techlooper.entity.ChallengeRegistrantEntity;
@@ -7,11 +8,9 @@ import com.techlooper.entity.vnw.VnwCompany;
 import com.techlooper.entity.vnw.VnwUser;
 import com.techlooper.model.*;
 import com.techlooper.repository.elasticsearch.ChallengeRegistrantRepository;
-import com.techlooper.service.ChallengeRegistrantService;
-import com.techlooper.service.ChallengeService;
-import com.techlooper.service.EmployerService;
-import com.techlooper.service.LeadAPIService;
+import com.techlooper.service.*;
 import com.techlooper.util.EmailValidator;
+import org.dozer.Mapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -20,7 +19,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -45,20 +43,27 @@ public class ChallengeController {
     @Resource
     private ChallengeRegistrantService challengeRegistrantService;
 
+    @Resource
+    private ChallengeEmailService challengeEmailService;
+
+    @Resource
+    private Mapper dozerMapper;
+
     @PreAuthorize("hasAuthority('EMPLOYER')")
     @RequestMapping(value = "/challenge/publish", method = RequestMethod.POST)
     public ChallengeResponse publishChallenge(@RequestBody ChallengeDto challengeDto, HttpServletRequest servletRequest) throws Exception {
         int responseCode = 0;
         String employerEmail = servletRequest.getRemoteUser();
         challengeDto.setAuthorEmail(employerEmail);
-        ChallengeEntity challengeEntity = challengeService.savePostChallenge(challengeDto);
+        ChallengeEntity challengeEntity = challengeService.postChallenge(challengeDto);
         boolean newEntity = challengeDto.getChallengeId() == null;
         if (newEntity) {
             if (challengeEntity != null) {
                 if (EmailValidator.validate(challengeEntity.getAuthorEmail())) {
-                    challengeService.sendPostChallengeEmailToEmployer(challengeEntity);
+                    challengeEmailService.sendPostChallengeEmailToEmployer(challengeEntity);
+                    challengeEmailService.sendEmailNotifyEmployerUpdateCriteria(challengeEntity);
                 }
-                challengeService.sendPostChallengeEmailToTechloopies(challengeEntity, Boolean.TRUE);
+                challengeEmailService.sendPostChallengeEmailToTechloopies(challengeEntity, Boolean.TRUE);
             }
 
             // Call Lead Management API to create new lead on CRM system
@@ -76,7 +81,7 @@ public class ChallengeController {
                 LOGGER.error(ex.getMessage(), ex);
             }
         } else {
-            challengeService.sendPostChallengeEmailToTechloopies(challengeEntity, Boolean.FALSE);
+            challengeEmailService.sendPostChallengeEmailToTechloopies(challengeEntity, Boolean.FALSE);
         }
 
         return new ChallengeResponse(challengeEntity.getChallengeId(), responseCode);
@@ -90,24 +95,24 @@ public class ChallengeController {
     }
 
     @RequestMapping(value = "/challenge/join", method = RequestMethod.POST)
-    public long joinChallenge(@RequestBody ChallengeRegistrantDto joinChallenge, HttpServletResponse response) throws Exception {
-        if (!EmailValidator.validate(joinChallenge.getRegistrantEmail())) {
+    public long joinChallenge(@RequestBody ChallengeRegistrantDto challengeRegistrantDto, HttpServletResponse response) throws Exception {
+        if (!EmailValidator.validate(challengeRegistrantDto.getRegistrantEmail())) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             return 0L;
         }
-        return challengeService.joinChallenge(joinChallenge);
+        return challengeService.joinChallenge(challengeRegistrantDto);
     }
 
     @RequestMapping(value = "/challenge/list", method = RequestMethod.GET)
     public List<ChallengeDetailDto> listChallenges() throws Exception {
-        return challengeService.listChallenges();
+        return challengeService.findChallenges();
     }
 
     @RequestMapping(value = "/challenge/stats", method = RequestMethod.GET)
     public ChallengeStatsDto getChallengeStatistics() throws Exception {
         ChallengeStatsDto challengeStatsDto = new ChallengeStatsDto();
-        challengeStatsDto.setNumberOfChallenges(challengeService.getTotalNumberOfChallenges());
-        challengeStatsDto.setNumberOfRegistrants(challengeService.getTotalNumberOfRegistrants());
+        challengeStatsDto.setNumberOfChallenges(challengeService.getNumberOfChallenges());
+        challengeStatsDto.setNumberOfRegistrants(challengeRegistrantService.getTotalNumberOfRegistrants());
         challengeStatsDto.setTotalPrizeAmount(challengeService.getTotalAmountOfPrizeValues());
         return challengeStatsDto;
     }
@@ -115,39 +120,26 @@ public class ChallengeController {
     @PreAuthorize("hasAuthority('EMPLOYER')")
     @RequestMapping(value = "/challenge/{id}", method = RequestMethod.DELETE)
     public void deleteChallengeById(@PathVariable Long id, HttpServletRequest request, HttpServletResponse response) {
-        if (!challengeService.delete(id, request.getRemoteUser())) {
+        if (!challengeService.deleteChallenge(id, request.getRemoteUser())) {
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
         }
     }
 
     @RequestMapping(value = "/challenges/{challengeId}", method = RequestMethod.GET)
     public ChallengeDto findChallengeById(@PathVariable Long challengeId, HttpServletRequest request) throws Exception {
-        return challengeService.findChallengeById(challengeId, request.getRemoteUser());
+        ChallengeDto challengeDto = dozerMapper.map(challengeService.findChallengeById(challengeId), ChallengeDto.class);
+        return challengeDto;
     }
-
-    @PreAuthorize("hasAuthority('EMPLOYER')")
-    @RequestMapping(value = "/challenges/{challengeId}/registrants", method = RequestMethod.POST)
-    public Set<ChallengeRegistrantDto> getRegistrantsById(@PathVariable Long challengeId, @RequestBody RegistrantFilterCondition condition,
-                                                          HttpServletRequest request, HttpServletResponse response) throws ParseException {
-        String owner = request.getRemoteUser();
-        if (!challengeService.isOwnerOfChallenge(owner, challengeId)) {
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            return null;
-        }
-        condition.setAuthorEmail(owner);
-        return challengeService.findRegistrantsByOwner(condition);
-    }
-
 
     @PreAuthorize("hasAuthority('EMPLOYER')")
     @RequestMapping(value = "/challengeDetail/registrant", method = RequestMethod.POST)
     public ChallengeRegistrantDto saveRegistrant(@RequestBody ChallengeRegistrantDto dto, HttpServletRequest request) {
-        return challengeService.saveRegistrant(request.getRemoteUser(), dto);
+        return challengeRegistrantService.saveRegistrant(request.getRemoteUser(), dto);
     }
 
     @PreAuthorize("hasAuthority('EMPLOYER')")
     @RequestMapping(value = "challengeRegistrant/fullName/{registrantId}", method = RequestMethod.GET)
-    public String getChallengeRegistrant(@PathVariable Long registrantId) {
+    public String getChallengeRegistrantFullName(@PathVariable Long registrantId) {
         ChallengeRegistrantEntity registrantEntity = challengeRegistrantRepository.findOne(registrantId);
         return registrantEntity.getRegistrantFirstName() + " " + registrantEntity.getRegistrantLastName();
     }
@@ -158,8 +150,8 @@ public class ChallengeController {
                                                                             HttpServletRequest request, HttpServletResponse response) {
         List<ChallengeRegistrantFunnelItem> funnel = new ArrayList<>();
         String ownerEmail = request.getRemoteUser();
-        if (challengeService.isOwnerOfChallenge(ownerEmail, challengeId)) {
-            funnel = challengeService.getChallengeRegistrantFunnel(challengeId, ownerEmail);
+        if (challengeService.isChallengeOwner(ownerEmail, challengeId)) {
+            funnel = challengeRegistrantService.getChallengeRegistrantFunnel(challengeId, ownerEmail);
         } else {
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
         }
@@ -175,5 +167,15 @@ public class ChallengeController {
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
         }
         return registrants;
+    }
+
+    @PreAuthorize("hasAuthority('EMPLOYER')")
+    @RequestMapping(value = "challenge/registrant/winner", method = RequestMethod.POST)
+    public Set<ChallengeWinner> saveWinner(@RequestBody ChallengeWinnerDto challengeWinner, HttpServletRequest request, HttpServletResponse response) {
+        Set<ChallengeWinner> winners = challengeRegistrantService.saveWinner(challengeWinner, request.getRemoteUser());
+        if (winners == null) {
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+        }
+        return winners;
     }
 }

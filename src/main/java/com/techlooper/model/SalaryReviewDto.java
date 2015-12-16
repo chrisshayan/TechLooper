@@ -1,11 +1,15 @@
 package com.techlooper.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by phuonghqh on 5/28/15.
  */
-public class SalaryReviewDto {
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class SalaryReviewDto implements Serializable {
 
     private Long createdDateTime;
 
@@ -38,6 +42,14 @@ public class SalaryReviewDto {
     private String campaign;
 
     private Long usdToVndRate;
+
+    private String techlooperJobId;
+
+    private Boolean isSalaryVisible;
+
+    private Long salaryMin;
+
+    private Long salaryMax;
 
     private List<SimilarSalaryReview> similarSalaryReviews;
 
@@ -175,5 +187,37 @@ public class SalaryReviewDto {
 
     public void setSimilarSalaryReviews(List<SimilarSalaryReview> similarSalaryReviews) {
         this.similarSalaryReviews = similarSalaryReviews;
+    }
+
+    public String getTechlooperJobId() {
+        return techlooperJobId;
+    }
+
+    public void setTechlooperJobId(String techlooperJobId) {
+        this.techlooperJobId = techlooperJobId;
+    }
+
+    public Boolean getIsSalaryVisible() {
+        return isSalaryVisible;
+    }
+
+    public void setIsSalaryVisible(Boolean isSalaryVisible) {
+        this.isSalaryVisible = isSalaryVisible;
+    }
+
+    public Long getSalaryMin() {
+        return salaryMin;
+    }
+
+    public void setSalaryMin(Long salaryMin) {
+        this.salaryMin = salaryMin;
+    }
+
+    public Long getSalaryMax() {
+        return salaryMax;
+    }
+
+    public void setSalaryMax(Long salaryMax) {
+        this.salaryMax = salaryMax;
     }
 }

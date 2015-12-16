@@ -4,9 +4,6 @@
   <div class="alert alert-success" ng-show="contestDetail.$savedCriteria">
     <p translate="updateEvaluationCriteria"></p>
   </div>
-  <!--<div class="alert alert-danger" ng-show="!contestDetail.$savedCriteria">-->
-  <!--<p translate="errorSystem"></p>-->
-  <!--</div>-->
   <div class="evaluation-criteria-head">
     <div class="evaluation-criteria-name">
       <p translate="criteriaName"></p>
@@ -35,7 +32,7 @@
           <p class="note" translate="makeSure100Percent"></p>
         </div>
         <div class="save-evaluation">
-          <a class="btn btn-primary btn-flat" translate="save" ng-click="saveChallengeCriteria()"></a><a
+          <a class="btn btn-primary btn-flat" translate="save" ng-click="contestDetail.saveCriteria()"></a><a
           class="btn btn-primary btn-flat gray" translate="cancel" ng-click="contestDetail.refreshCriteria()"></a>
         </div>
       </div>

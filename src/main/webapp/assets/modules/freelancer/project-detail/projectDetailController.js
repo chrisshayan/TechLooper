@@ -28,16 +28,21 @@ techlooper.controller('freelancerProjectDetailController', function ($scope, uti
   });
 
   $scope.status = function (type) {
+    var option = undefined;
+    var expired = undefined;
+    var joinProjects = undefined;
+    var hasJoined = undefined;
+    var email = undefined;
     switch (type) {
       case "show-fixed-price-fields":
         if (!$scope.project) return false;
-        var option = resourcesService.getOption($scope.project.payMethod, resourcesService.paymentConfig);
+        option = resourcesService.getOption($scope.project.payMethod, resourcesService.paymentConfig);
         if (!option) return false;
         return option.id == "fixedPrice";
 
       case "show-hourly-price-fields":
         if (!$scope.project) return false;
-        var option = resourcesService.getOption($scope.project.payMethod, resourcesService.paymentConfig);
+        option = resourcesService.getOption($scope.project.payMethod, resourcesService.paymentConfig);
         if (!option) return false;
         return option.id == "hourly";
 
@@ -49,15 +54,15 @@ techlooper.controller('freelancerProjectDetailController', function ($scope, uti
 
       case "expired-project":
         if (!$scope.project) return false;
-        var expired = $scope.status("show-fixed-price-fields") && $scope.status("show-fixed-price-fields") && moment().isAfter(moment($scope.project.estimatedEndDate, jsonValue.dateFormat), "day");
+        expired = $scope.status("show-fixed-price-fields") && $scope.status("show-fixed-price-fields") && moment().isAfter(moment($scope.project.estimatedEndDate, jsonValue.dateFormat), "day");
         return expired;
 
       case "able-to-join":
         if (!$scope.project) return false;
-        var joinProjects = localStorageService.get("joinProjects") || "";
-        var email = localStorageService.get("email") || "";
-        var hasJoined = (joinProjects.indexOf(projectId) >= 0) && (email.length > 0);
-        var expired = $scope.status("expired-project");
+        joinProjects = localStorageService.get("joinProjects") || "";
+        email = localStorageService.get("email") || "";
+        hasJoined = (joinProjects.indexOf(projectId) >= 0) && (email.length > 0);
+        expired = $scope.status("expired-project");
         return !expired && !hasJoined;
 
       case "apply-button-title":
@@ -66,9 +71,9 @@ techlooper.controller('freelancerProjectDetailController', function ($scope, uti
 
       case "already-join":
         if (!$scope.project) return false;
-        var joinProjects = localStorageService.get("joinProjects") || "";
-        var email = localStorageService.get("email") || "";
-        var hasJoined = (joinProjects.indexOf(projectId) >= 0) && (email.length > 0);
+        joinProjects = localStorageService.get("joinProjects") || "";
+        email = localStorageService.get("email") || "";
+        hasJoined = (joinProjects.indexOf(projectId) >= 0) && (email.length > 0);
         return expired || hasJoined;
 
       case "disable-apply-button":

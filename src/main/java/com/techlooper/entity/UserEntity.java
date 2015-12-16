@@ -1,20 +1,13 @@
 package com.techlooper.entity;
 
 import com.techlooper.model.SocialProvider;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.couchbase.core.mapping.Document;
 import org.springframework.util.StringUtils;
 
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by NguyenDangKhoa on 12/10/14.
- */
-@Document
 public class UserEntity {
 
-    @Id
     private String id;
 
     private String emailAddress;

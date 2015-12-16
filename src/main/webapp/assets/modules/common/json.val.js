@@ -294,11 +294,13 @@ techlooper.factory("jsonValue", function () {
       {
         name: "login",
         url: "/login",
+        cancelIfAlreadyLogin: true,
         type: "LOGIN"
       },
       {
         name: "userType",
         url: "/user-type",
+        cancelIfAlreadyLogin: true,
         type: "LOGIN"
       },
       {
@@ -316,6 +318,8 @@ techlooper.factory("jsonValue", function () {
         name: "challengeDetail",
         url: "/challenge-detail",
         regex: /\/challenge-detail\//i,
+        requireEmployerByParams: ["toPhase", "a"],
+        loginUrl: "/login",
         type: "SEO"
       },
       {
@@ -1010,6 +1014,10 @@ techlooper.factory("jsonValue", function () {
       closed: {id: "closed", translate: "closed", timeLeftTranslate: "moreDayToClosed"}
     },
 
+    feedbackStatus: {
+      cannotSendMail: {id: "cannotSendMail", translate: "cannotSendMail"},
+      errorSystem: {id: "errorSystem", translate: "errorSystem"}
+    },
     "crawlSources": [
       {id: "vietnamworks", name: "VIETNAMWORKS"},
       {id: "careerbuilder-jobs-api-pagination", name: "CAREERBUILDER"},
@@ -1029,24 +1037,49 @@ techlooper.factory("jsonValue", function () {
     //@see com.techlooper.model.ChallengePhaseEnum
     challengePhase: {
       values: [
-        {enum: "REGISTRATION", title: "Registration"},
-        {enum: "IDEA", title: "Idea"},
-        {enum: "UIUX", title: "UI/UX"},
-        {enum: "PROTOTYPE", title: "Prototype"},
-        {enum: "FINAL", title: "Final App"},
-        {enum: "WINNER", title: "Winner"}
-      ],
-
-      getRegistration: function () {return instance.challengePhase.values[0]},
-
-      getEnum: function (name) {
-        var found = undefined;
-        $.each(instance.challengePhase.values, function (i, value) {
-          found = (value.enum == name) ? value : undefined;
-          return !found;
-        });
-        return found;
-      }
+        {
+          enum: "REGISTRATION",
+          challengeProp: "registrationDateTime",
+          phaseItem: {translate: {countJoiner: "registrantsNumberPhase", countSubmission: "submissionsNumber", countUnread: "unReadNumber"}},
+          registrantTable: {templateUrl: "modules/contest-detail/registrants/phaseRegistrationTable.html"},
+          isRegistration: true
+        },
+        {
+          enum: "IDEA",
+          challengeProp: "ideaSubmissionDateTime",
+          phaseItem: {translate: {countJoiner: "participantsNumber", countSubmission: "submissionsNumber", countUnread: "unReadNumber"}},
+          registrantTable: {templateUrl: "modules/contest-detail/registrants/phaseIdeaTable.html"},
+          isIdea: true
+        },
+        {
+          enum: "UIUX",
+          challengeProp: "uxSubmissionDateTime",
+          phaseItem: {translate: {countJoiner: "participantsNumber", countSubmission: "submissionsNumber", countUnread: "unReadNumber"}},
+          registrantTable: {templateUrl: "modules/contest-detail/registrants/phaseIdeaTable.html"},
+          isUiux: true
+        },
+        {
+          enum: "PROTOTYPE",
+          challengeProp: "prototypeSubmissionDateTime",
+          phaseItem: {translate: {countJoiner: "participantsNumber", countSubmission: "submissionsNumber", countUnread: "unReadNumber"}},
+          registrantTable: {templateUrl: "modules/contest-detail/registrants/phaseIdeaTable.html"},
+          isPrototype: true
+        },
+        {
+          enum: "FINAL",
+          challengeProp: "submissionDateTime",
+          phaseItem: {translate: {countJoiner: "participantsNumber", countSubmission: "submissionsNumber", countUnread: "unReadNumber"}},
+          registrantTable: {templateUrl: "modules/contest-detail/registrants/phaseFinalTable.html"},
+          isFinal: true
+        },
+        {
+          enum: "WINNER",
+          phaseItem: {translate: {countJoiner: "finalistNumber", countSubmission: "winnersNumber", countUnread: "unReadNumber"}},
+          registrantTable: {templateUrl: "modules/contest-detail/registrants/phaseWinnerTable.html"},
+          isSpecial: true,
+          isWinner: true
+        }
+      ]
     },
 
     summerNoteConfig: {
@@ -1062,8 +1095,33 @@ techlooper.factory("jsonValue", function () {
         ['insert', ['link', 'hr']],
         ['view', ['fullscreen']]
       ]
+    },
+
+    /**
+     * @see com.techlooper.model.RewardEnum
+     * */
+    rewards: {
+      values: [
+        {enum: "FIRST_PLACE"},
+        {enum: "SECOND_PLACE"},
+        {enum: "THIRD_PLACE"}
+      ],
+
+      firstPlaceEnum: function () {
+        return instance.rewards.values[0].enum;
+      },
+
+      secondPlaceEnum: function () {
+        return instance.rewards.values[1].enum;
+      },
+
+      thirdPlaceEnum: function () {
+        return instance.rewards.values[2].enum;
+      }
     }
   }
+
+  $.each(instance.challengePhase.values, function (i, r) {instance.challengePhase[r.enum] = r;});
 
   instance.companySizesArray = $.map(instance.companySizes, function (value, key) {
     return {id: parseInt(key), size: value.value}

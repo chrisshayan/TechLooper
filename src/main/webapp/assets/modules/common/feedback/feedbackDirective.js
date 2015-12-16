@@ -1,60 +1,88 @@
-techlooper.directive("feedbackForm", function (apiService, $timeout) {
+techlooper.directive("feedbackForm", function (apiService, $timeout, resourcesService) {
   return {
     restrict: "E",
     replace: true,
     templateUrl: "modules/common/feedback/feedback.html",
     scope: {
-      composeEmail: "="
+      registrants: "=",
+      hide: "=",
+      announceWinner: "="
     },
-    link: function (scope, element, attr, ctrl, composeEmail) {
-      if (scope.composeEmail.registrantLastName) {
-        scope.composeEmail.names = scope.composeEmail.registrantFirstName + ' ' + scope.composeEmail.registrantLastName;
+    link: function (scope, element, attr, ctrl) {
+      resourcesService.getEmailTemplates().then(function (eTemplates) {
+        var templates = eTemplates;
+        if (scope.announceWinner != true) {
+          templates = _.filter(templates, function (tpl) {return tpl.templateId != 104;});
+          templates = _.filter(templates, function (tpl) {return tpl.templateId != 4;});
+        }
+        scope.emailTemplates = templates;
+        scope.setDefaultValue();
+      });
+
+      scope.setDefaultValue = function () {
+        if (scope.announceWinner == true) {
+          var template = _.findWhere(scope.emailTemplates, {templateId: 104});
+          if (!template) template = _.findWhere(scope.emailTemplates, {templateId: 4});
+          scope.composeEmail.templateId = template.templateId;
+          scope.loadEmailTemplate();
+        }
       }
-      else {
-        scope.composeEmail.names = scope.composeEmail.registrantFirstName;
+
+      scope.composeEmail = {};
+      if (scope.announceWinner != true) {
+        scope.$watch("registrants", function () {
+          scope.composeEmail.names = _.reduce(scope.registrants, function (fullName, registrant) {
+            return registrant.registrantFirstName + " " + registrant.registrantLastName + ", " + fullName;
+          }, "");
+
+          scope.composeEmail.names = scope.composeEmail.names.slice(0, -2);
+        });
       }
 
       scope.send = function () {
-        if (scope.feedbackContent == undefined || scope.feedbackContent == '') {
-          return;
-        }
-        else {
-          scope.composeEmail.content = scope.feedbackContent;
-        }
-        $('.feedback-loading').css('visibility', 'inherit');
-
-        apiService.sendFeedbackToRegistrant(scope.composeEmail.challengeId, scope.composeEmail.registrantId, scope.composeEmail)
-          .success(function(){
-            $timeout(function () {
-              $('.feedback-loading').css('visibility', 'hidden');
-              scope.cancel();
-            }, 1200);
-          })
-          .error(function(){
-            scope.composeEmail.error = false;
-            $timeout(function () {
-              $('.feedback-loading').css('visibility', 'hidden');
-            }, 1200);
+        if (scope.feedbackForm.$invalid) return;
+        var registrant = scope.registrants[0];
+        apiService.sendFeedbackToRegistrant(registrant.registrantId, scope.composeEmail)
+          .success(function () {
+            scope.cancel();
           });
       }
 
       scope.cancel = function () {
-        if (!scope.composeEmail.visible) return;
+        //if (!scope.composeEmail.visible) return;
         scope.composeEmail.subject = '';
-        scope.feedbackContent = '';
-        scope.composeEmail.error = true;
-        scope.composeEmail.emailTemplate = 0;
-        delete scope.composeEmail.visible;
+        scope.composeEmail.content = '';
+        ////scope.feedbackContent = '';
+        //scope.composeEmail.error = true;
+        //scope.composeEmail = {names: scope.composeEmail.names};
+        scope.composeEmail.templateId = 0;
+        scope.setDefaultValue();
+        scope.hide();
+        //delete scope.composeEmail.visible;
         $('.feedback-loading').css('visibility', 'hidden');
       }
 
-      scope.loadEmailTemplate = function (templateId) {
-        apiService.getTemplateById(templateId)
-          .success(function (template) {
-            scope.composeEmail.subject = template.subject;
-            scope.feedbackContent = template.body;
-          })
+      scope.loadEmailTemplate = function () {
+        if (scope.announceWinner == true) {
+          if (!_.isEmpty(scope.registrants)) {
+            var registrant = scope.registrants[0];
+            apiService.getTemplateById(scope.composeEmail.templateId, registrant.challengeId)
+              .success(function (template) {
+                scope.composeEmail.subject = template.subject;
+                scope.composeEmail.content = template.body;
+              });
+          }
+        }
+        else {
+          var template = _.findWhere(scope.emailTemplates, {templateId: parseInt(scope.composeEmail.templateId)});
+          scope.composeEmail.subject = template.subject;
+          scope.composeEmail.content = template.body;
+        }
       }
+
+      scope.$on("reload-default-email-template", function () {
+        scope.setDefaultValue();
+      });
     }
   }
 });

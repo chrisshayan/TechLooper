@@ -4,6 +4,24 @@
   width: 100%
   text-align: center
   padding-bottom: 20px
+  .post-challenge-success
+    width: 100%
+    max-width: 1000px
+    display: inline-block
+    margin: auto auto 20px auto
+    clear: both
+  .modal-dialog
+    top: 10%
+  .modal-body
+    padding: 10px
+  .note-editor
+    min-height: inherit
+  .note-editable
+    text-align: left
+    ul
+      list-style: inherit !important
+      padding: inherit !important
+      margin: 0 0 0 10px !important
   .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus
     border-color: #dddddd #dddddd #fff
   .nav-tabs > li > a
@@ -355,12 +373,43 @@
               text-align: center
               padding: 10px 0
             .registration-submission
-              width: 14%
+              width: 15%
               float: left
               text-align: center
               padding: 10px 0
+              cursor: pointer
+              span
+                display: inline-block
+                clear: both
+                width: 100%
+              span.unreadFilter
+                background-color: #333
+                padding: 5px 10px
+                width: auto
+                color: #fff
+                border-radius: 3px
+                cursor: pointer
+                i.fa-square-o
+                  display: inline-block
+                i.fa-check-square-o
+                  display: none
+              span.unreadFilter.checked
+                background-color: red
+                i.fa-square-o
+                  display: none
+                i.fa-check-square-o
+                  display: inline-block
               a
                 color: #2e6da4
+                cursor: pointer
+                display: inline-block
+                width: auto
+                padding: 2px 10px
+                background-color: #dfdede
+                border-radius: 3px
+              a.unread
+                background-color: red
+                color: #fff
             .registration-review
               width: 15%
               float: left
@@ -378,13 +427,13 @@
                 clear: both
                 display: inline-block
             .registrant-name
-              width: 41%
+              width: 39%
               float: left
               text-align: left
               padding: 10px
               i
                 padding-right: 5px
-                color: #930909
+                color: #333
               i.not-started,
               i.closed,
               i.registration,
@@ -410,11 +459,57 @@
                 background-color: #257abb
               i.closed
                 background-color: #e6e6e6
+              .contestant-name
+                clear: both
+                display: inline-block
+                width: 100%
+                cursor: pointer
+              .search-by-name
+                clear: both
+                display: inline-block
+                width: 100%
+                font-weight: 300
+                input
+                  height: 30px
+                  line-height: 30px
+                  background: url(../images/search-icon.png) right 3px no-repeat
+                  border: 1px solid #9a9a9a !important
+            .prize-col
+              width: 16%
+              float: left
+              text-align: center
+              padding: 10px 5px
+              .prize
+                width: 33.33339%
+                float: left
+                font-weight: 400
+                text-align: center
+                span
+                  width: 100%
+                  text-align: center
+                  height: 30px
+                  line-height: 30px
+                  display: inline-block
+                  color: #fff
+                  padding: 0 2px
+                  margin: auto
+                span.col-mobile
+                  display: none
+                span.gold
+                  background-color: #FFAA00
+                span.silver
+                  background-color: #C0C0C0
+                span.bronze
+                  background-color: #6E3A07
+              .prize.one
+                width: 100%
+              .prize.two
+                width: 50%
             .registration-date
               width: 15%
               float: left
               text-align: center
-              padding: 10px
+              padding: 10px 5px
               cursor: pointer
             .registration-score
               width: 14%
@@ -439,7 +534,7 @@
               width: 10%
               float: left
               text-align: right
-              padding: 10px
+              padding: 10px 0 10px 10px
               a
                 margin: auto
                 width: auto
@@ -507,10 +602,11 @@
               width: 35%
               float: left
               text-align: left
-              word-break: break-all
+              //word-break: break-word
               padding-right: 15px
+
             .submission-link-col
-              width: 50%
+              width: 37%
               float: left
               text-align: left
               word-break: break-all
@@ -518,12 +614,28 @@
               a
                 text-align: left
                 color: #337ab7
+            .marked-read-col
+              width: 20%
+              float: left
+              text-align: left
+              padding-right: 5px
+              a
+                text-align: left
+                color: #337ab7
             .date-col
+              width: 15%
+              float: left
+              text-align: center
+            .unread-col
               width: 10%
               float: left
-              text-align: right
+              text-align: center
+              i.fa-check-square-o
+                color: red
+              i.fa-check-square-o.fa-square-o
+                color: #333
             .close-col
-              width: 5%
+              width: 3%
               float: left
               text-align: right
               cursor: pointer
@@ -585,6 +697,22 @@
                 width: 120px
                 display: inline-block
                 color: #fff
+              .selection-next-phase
+                width: 100%
+                clear: both
+                padding: 5px 0
+                text-align: center
+                display: inline-block
+              ul
+                padding: 0
+                width: 50%
+                margin: auto
+                display: inline-block
+                li
+                  display: inline-block
+                  text-align: left
+                  width: auto
+                  padding: 0 10px
           .disqualify-block
             width: 100%
             clear: both
@@ -985,11 +1113,11 @@
 
           .phase-box.two-cols
             width: 50%
-          .phase-box.three-cols
+          .phase-box.col-3
             width: 33.33%
-          .phase-box.four-cols
+          .phase-box.col-4
             width: 25%
-          .phase-box.five-cols
+          .phase-box.col-5
             width: 20%
         .timeLine-milestone.mobile
           display: none
@@ -1028,6 +1156,7 @@
         color: #333
         border: 1px solid #ddd
         text-align: center
+        width: 280px
         textarea.textarea-style
           width: 100%
           height: 70px
@@ -1038,13 +1167,12 @@
         a.btn
           padding: 6px 20px !important
           height: auto !important
-          color: #fff
+          color: #fff !important
           display: inline-block
           text-shadow: none
+          font-size: 14px !important
         a.gray
-          color: #333
-        a.gray:hover
-          color: #fff
+          color: #333 !important
         p.note
           text-align: right !important
           font-size: 12px
@@ -1061,11 +1189,11 @@
             width: 100%
             clear: both
             padding-top: 5px
-            cursor: pointer
+            min-height: 40px
             p
               margin: 0
               padding: 0
-              font-size: 12px
+              font-size: 11px
               text-align: right
               strong
                 font-weight: 500
@@ -1082,6 +1210,18 @@
             border: 1px solid #dfdede
             i
               cursor: pointer
+            i.registration:before
+              content: "\f084"
+            i.idea:before
+              content: "\f0eb"
+            i.uiux:before
+              content: "\f1fc"
+            i.prototype:before
+              content: "\f1b3"
+            i.final:before
+              content: "\f05d"
+            i.winner:before
+              content: "\f091"
             span
               cursor: pointer
           .phase-name.pass
@@ -1091,29 +1231,42 @@
             text-align: center
             width: 100%
             clear: both
-            height: 45px
+            height: 55px
             padding: 0 5px 0 0
             display: block
-            i
-              font-size: 22px
-              margin: auto
-              font-weight: 300
-              cursor: pointer
-              width: 100%
-              clear: both
+            font-size: 12px
+            .arrow-current
+              background: url("../images/arrow-current.gif") left top no-repeat
+              width: 20px
+              height: 25px
+            div
               display: none
-            span
+            .current-phase-text
               font-size: 14px
-              width: 100%
               clear: both
               text-align: center
               float: left
-              display: none
+              width: 100%
+            .time-left
+              font-size: 12px
+              color: red
+              width: 100%
+              clear: both
+              text-align: center
           .current-phase.active
-            span
+            div
               display: inline-block
             i
               display: inline-block
+          .current-phase.noDaysLeft
+            height: 38px
+          .current-phase.activeWinner
+            height: 38px
+            display: inline-block
+            div
+              display: inline-block
+            .arrow-current
+              height: 18px
         .challenge-phase-item.active
           .registrants-phase
             color: #fff
@@ -1133,7 +1286,7 @@
           .phase-name.prototype
             background-color: #bd392f
             border: 1px solid #bd392f
-          .phase-name.app
+          .phase-name.final
             background-color: #257abb
             border: 1px solid #257abb
           .phase-name.winner
@@ -1147,25 +1300,100 @@
             color: #9F472B
           .current-phase.prototype
             color: #bd392f
-          .current-phase.app
+          .current-phase.final
             color: #257abb
           .current-phase.winner
             color: #FFAA00
-        .challenge-phase-item.col2
+        .col-2 .challenge-phase-item
           width: 50%
-        .challenge-phase-item.col3
+        .col-3 .challenge-phase-item
           width: 33.3339%
-        .challenge-phase-item.col4
+        .col-4 .challenge-phase-item
           width: 25%
-        .challenge-phase-item.col5
+        .col-5 .challenge-phase-item
           width: 20%
-        .challenge-phase-item.col6
+        .col-6 .challenge-phase-item
           width: 16.66667%
       .phase-content-block
         width: 100%
         clear: both
         padding: 10px 0 0 0
         position: relative
+        .phase-content-details
+          width: 100%
+          display: inline-block
+          clear: both
+          .registration-list-block
+            position: relative
+            width: 100%
+            clear: both
+            display: inline-block
+          .phase-description
+            width: 100%
+            display: inline-block
+            clear: both
+            padding-top: 10px
+            p
+              width: 50%
+              margin: 0
+              padding: 15px 0 0 0
+              float: left
+            .announcement-winner
+              width: 50%
+              float: right
+              text-align: right
+              button
+                cursor: pointer
+              button.disabled
+                background-color: gray !important
+                cursor: not-allowed
+              a.export-pdf
+                display: inline-block
+                background: url(../images/pdf.png) left top no-repeat
+                width: 35px
+                height: 35px
+                line-height: 35px
+                cursor: pointer
+                text-indent: -99999px
+                font-size: 0
+                float: right
+                margin-left: 5px
+          .search-contestant-name
+            display: none
+            width: 100%
+            clear: both
+          .qualify-all-to-next-phase
+            clear: both
+            display: inline-block
+            width: 100%
+            text-align: center
+            background-color: #f3fafe
+            border-radius: 5px
+            padding: 15px 20px
+            label
+              font-weight: 500
+              cursor: pointer
+            p
+              margin: 0
+              padding: 0 0 10px 0
+            ul
+              padding: 0
+              margin: auto
+              width: 40%
+              text-align: left
+              li
+                padding: 5px 0 0
+                clear: both
+                width: 100%
+            .submission-qualify-all-to-next-phase
+              clear: both
+              display: inline-block
+              padding: 15px 0 0
+              width: 100%
+              a.btn-flat
+                padding: 6px 40px
+                height: auto
+                margin-left: 5px
     .alert
       margin-top: 20px
     .evaluation-criteria

@@ -1,0 +1,112 @@
+<qualify-all-to-next-phase ng-show="showQualifyAllRegistrantsForm"></qualify-all-to-next-phase>
+<div class="phase-description">
+  <p translate="PhaseDes"></p>
+  <div class="announcement-winner">
+    <button class="btn btn-primary btn-flat" ng-model="showQualifyAllRegistrantsForm"
+            ng-click="showQualifyAllRegistrantsForm=!showQualifyAllRegistrantsForm">
+      <i class="fa fa-thumbs-up"></i> {{'qualifyAllToNextPhase' | translate}}</button>
+  </div>
+</div>
+<div class="search-contestant-name">
+  <input ng-model="search.fullName" class="form-control text-search-name" placeholder="{{'searchContestantName' | translate}}">
+</div>
+<div class="participant-list">
+  <table class="contests-table">
+  <thead>
+  <tr>
+    <th>
+      <div class="registrants-challenge-list">
+        <div class="registrant-order">#</div>
+        <div class="registrant-name">
+          <div class="contestant-name">
+            {{'fullNameField' | translate}}
+          </div>
+          <div class="search-by-name">
+            <input ng-model="search.fullName" class="form-control text-search-name" placeholder="{{'searchContestantName' | translate}}">
+          </div>
+        </div>
+        <div class="registration-submission" ng-click="contestDetail.$sort.byLastSubmission()">
+          {{'lastSubmissionDate' | translate}}
+          <i class="fa fa-chevron-circle-up" ng-show="contestDetail.$sort.type.isLastSubmissionTypeAsc == true"></i>
+          <i class="fa fa-chevron-circle-down" ng-show="contestDetail.$sort.type.isLastSubmissionTypeAsc == false"></i>
+        </div>
+        <div class="registration-submission">
+          <span class="name-col" ng-click="contestDetail.$sort.bySubmissionCount()">
+            {{'submissions' | translate}}
+            <i class="fa fa-chevron-circle-up" ng-show="contestDetail.$sort.type.isSubmissionCountTypeAsc == true"></i>
+            <i class="fa fa-chevron-circle-down" ng-show="contestDetail.$sort.type.isSubmissionCountTypeAsc == false"></i>
+          </span>
+          <span class="unreadFilter" ng-model="unreadSubmission"
+                ng-click="unreadSubmission=!unreadSubmission; contestDetail.$filter.byReadOrUnreadSubmission(unreadSubmission)"
+                ng-class="{checked: unreadSubmission}" title="{{(unreadSubmission ? 'readTip': 'unreadTip') | translate}}">
+            <i class="fa fa-check-square-o"></i>
+            <i class="fa fa-square-o"></i>
+              {{'unread' | translate}}
+            </span>
+        </div>
+        <div class="registration-review" translate="qualifiedNextPhase"></div>
+        <div class="registration-action" translate="feedback"></div>
+      </div>
+    </th>
+  </tr>
+  </thead>
+  <tbody data-ng-init="currentPage = 1">
+  <tr ng-show="filtered.length == 0" class="no-data-found">
+    <td>
+      <p translate="noData"></p>
+    </td>
+  </tr>
+  <tr dir-paginate="registrant in filtered = (contestDetail.$filter.registrants | filter: search) | itemsPerPage:10"
+      pagination-id="contestDetail.selectedPhaseItem.phase" current-page="currentPage" on-finish-render="scrollTop">
+      <td>
+        <div class="registrants-challenge-list">
+          <div class="registrant-order">
+            <div class="label-col">#</div>
+            {{($index + 1) + (currentPage - 1) * 10}}
+          </div>
+          <div class="registrant-name">
+            <div class="label-col" translate="fullNameField"></div>
+            {{registrant.fullName}}</div>
+          <div class="registration-submission">
+            <div class="label-col" ng-click="contestDetail.$sort.byLastSubmission()">
+              {{'lastSubmissionDate' | translate}}
+              <i class="fa fa-chevron-circle-up" ng-show="contestDetail.$sort.type.isLastSubmissionTypeAsc == true"></i>
+              <i class="fa fa-chevron-circle-down" ng-show="contestDetail.$sort.type.isLastSubmissionTypeAsc == false"></i>
+            </div>
+            {{registrant.lastSubmission.submissionDateTime || '-'}}</div>
+          <div class="registration-submission">
+            <div class="label-col" ng-click="contestDetail.$sort.bySubmissionCount()">
+            {{'submissions' | translate}}
+            <i class="fa fa-chevron-circle-up" ng-show="contestDetail.$sort.type.isSubmissionCountTypeAsc == true"></i>
+            <i class="fa fa-chevron-circle-down" ng-show="contestDetail.$sort.type.isSubmissionCountTypeAsc == false"></i>
+          </div>
+            <a ng-click="registrant.showReviewSubmission()"
+               ng-class="{unread: registrant.$unreadSubmissions.length > 0}"
+               title="{{'submissionsReviewTip' | translate}}">{{registrant.submissions.length || 0}}</a></div>
+          <div class="registration-review">
+            <div ng-show="registrant.disqualified == undefined">
+              <a title="{{'qualifyNextPhase' | translate}}" ng-click="registrant.showQualification()"><i class="fa fa-thumbs-up"></i></a>
+              <a title="{{'disqualifyNextPhase' | translate}}"><i class="fa fa-thumbs-down" ng-click="registrant.showDisqualification()"></i></a>
+            </div>
+            <span translate="qualified" ng-show="registrant.disqualified == false"></span>
+            <span translate="disqualified" ng-show="registrant.disqualified == true"></span>
+          </div>
+          <div class="registration-action">
+            <a ng-click="registrant.showFeedback()">{{'feedback' | translate}}</a>
+          </div>
+        </div>
+        <contest-detail-action registrant="registrant" challenge="contestDetail"></contest-detail-action>
+      </td>
+    </tr>
+  </tbody>
+</table>
+  <div class="registrants-paging">
+    <span translate="contestantsReturned" translate-value-number="{{filtered.length}}" ng-show="filtered.length > 0"></span>
+    <dir-pagination-controls
+       pagination-id="contestDetail.selectedPhaseItem.phase"
+       max-size="10"
+       direction-links="true"
+       boundary-links="true">
+    </dir-pagination-controls>
+  </div>
+</div>

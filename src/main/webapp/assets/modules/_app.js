@@ -86,21 +86,9 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
         templateUrl: "modules/hiring/hiring.tem.html",
         controller: "hiringController"
       })
-      .when("/talent-profile/:text", {
-        templateUrl: "modules/talent-search/home.tem.html",
-        controller: "talentProfileController"
-      })
-      .when("/talent-search-result/:text?", {
-        templateUrl: "modules/talent-search/home.tem.html",
-        controller: "tsSearchResultController"
-      })
       .when("/analytics/skill/:term", {
         templateUrl: "modules/technical-detail/technical-detail.tem.html",
         controller: "technicalDetailController"
-      })
-      .when("/companies/:companyName", {//vietnamworks
-        templateUrl: "modules/talent-search/home.tem.html",
-        controller: "companyProfileController"
       })
       .when("/pie-chart", {
         templateUrl: "modules/it-professional/main.tem.html",
@@ -135,11 +123,11 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
         controller: "loginController"
       })
       .when("/contest-detail/:id", {
-        templateUrl: "modules/contest-detail/contestDetail.html",
+        templateUrl: "modules/contest-detail/challengeDetails.html",
         controller: "contestDetailController"
       })
       .when("/challenge-detail/:id", {
-        templateUrl: "modules/contest-detail/contestDetail.html",
+        templateUrl: "modules/contest-detail/challengeDetails.html",
         controller: "contestDetailController"
       })
       .when("/challenges", {

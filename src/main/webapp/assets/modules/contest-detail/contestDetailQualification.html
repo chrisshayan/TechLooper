@@ -1,8 +1,34 @@
 <div class="qualify-block">
   <div class="qualify-form">
-    <p translate="acceptDescription" translate-value-current="{{registrant | progress: 'registrantActivePhaseTitle'}}"
-       translate-value-next="{{challenge.nextPhase | progress: 'challengePhaseTitle'}}"></p>
-    <a ng-click="registrant.qualify()" translate="yes" class="btn btn-primary btn-flat"></a>
-    <a ng-click="registrant.hide()" translate="no" class="btn btn-primary btn-flat gray"></a>
+    <p translate="acceptDescription" ng-show="registrant.remainingPhaseItems.length == 1"
+       translate-value-next="{{registrant.remainingPhaseItems[0].phaseLowerCase | translate}}"></p>
+
+    <p translate="qualifyToNextPhaseConfirm"
+       translate-value-current-phase="{{registrant.activePhaseLowerCase | translate}}"
+       ng-show="registrant.remainingPhaseItems.length > 1"></p>
+
+    <p translate="cannotQualifyNextPhase"
+       translate-value-next-phase="{{challenge.$afterNextPhaseItem.phaseLowerCase | translate}}"
+       translate-value-end-date-phase="{{challenge.$currentPhaseEndDay}}"
+       ng-show="registrant.remainingPhaseItems.length == 0"></p>
+
+    <div class="selection-next-phase" ng-show="registrant.remainingPhaseItems.length > 1">
+      <ul>
+        <li ng-repeat="phaseItem in registrant.remainingPhaseItems">
+          <label>
+            <input type="radio" ng-value="phaseItem" ng-model="registrant.selectedPhaseItem">
+            <span>{{phaseItem.phaseLowerCase | translate}}</span>
+          </label>
+        </li>
+      </ul>
+    </div>
+    <div ng-show="registrant.remainingPhaseItems.length > 0">
+      <a ng-click="registrant.qualify()" translate="yes" class="btn btn-primary btn-flat"></a>
+      <a ng-click="registrant.hide()" translate="no" class="btn btn-primary btn-flat gray"></a>
+    </div>
+    <div ng-show="registrant.remainingPhaseItems.length == 0">
+      <a ng-click="registrant.hide()" translate="gotIt" class="btn btn-primary btn-flat"></a>
+    </div>
+
   </div>
 </div>

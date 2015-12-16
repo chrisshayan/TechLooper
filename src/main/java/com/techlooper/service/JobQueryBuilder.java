@@ -108,7 +108,7 @@ public interface JobQueryBuilder {
 
     NativeSearchQueryBuilder getVietnamworksJobSearchQuery();
 
-    NativeSearchQueryBuilder getJobSearchQueryForSalaryReview(SalaryReviewEntity salaryReviewEntity);
+    NativeSearchQueryBuilder getJobSearchQueryForSalaryReview(SalaryReviewDto salaryReviewDto);
 
     NativeSearchQueryBuilder getJobSearchQueryBySkill(List<String> skills, List<Long> jobCategories);
 

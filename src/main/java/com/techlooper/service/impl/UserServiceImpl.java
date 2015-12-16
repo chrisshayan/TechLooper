@@ -7,11 +7,7 @@ import com.techlooper.repository.elasticsearch.SalaryReviewRepository;
 import com.techlooper.repository.talentsearch.query.TalentSearchQuery;
 import com.techlooper.repository.userimport.UserImportRepository;
 import com.techlooper.repository.vnw.VnwUserRepo;
-import com.techlooper.service.JobAggregatorService;
-import com.techlooper.service.TalentSearchDataProcessor;
-import com.techlooper.service.UserService;
-import com.techlooper.service.VietnamWorksUserService;
-import freemarker.template.Template;
+import com.techlooper.service.*;
 import org.dozer.Mapper;
 import org.elasticsearch.common.collect.Lists;
 import org.elasticsearch.index.query.FilterBuilders;
@@ -28,14 +24,10 @@ import org.springframework.data.elasticsearch.core.FacetedPage;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import javax.mail.Message;
-import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
-import java.io.StringWriter;
 import java.util.*;
 
 import static org.elasticsearch.index.query.QueryBuilders.boolQuery;
@@ -68,28 +60,16 @@ public class UserServiceImpl implements UserService {
     private VnwUserRepo vnwUserRepo;
 
     @Resource
-    private Template onBoardingMailTemplateEn;
-
-    @Resource
-    private Template onBoardingMailTemplateVi;
-
-    @Resource
-    private JavaMailSender mailSender;
-
-    @Resource
     private MimeMessage fromTechlooperMailMessage;
 
     @Resource
     private JobAggregatorService jobAggregatorService;
 
-    @Value("${mail.onBoarding.subject.vi}")
-    private String onBoardingEmailSubjectVi;
-
-    @Value("${mail.onBoarding.subject.en}")
-    private String onBoardingEmailSubjectEn;
-
     @Value("${web.baseUrl}")
     private String baseUrl;
+
+    @Resource
+    private EmailService emailService;
 
     public boolean addCrawledUser(UserImportEntity userImportData, SocialProvider socialProvider) {
         UserImportEntity userImportEntity = findUserImportByEmail(userImportData.getEmail());
@@ -212,33 +192,22 @@ public class UserServiceImpl implements UserService {
         return dozerMapper.map(vnwUserRepo.findByUsernameIgnoreCase(username), VnwUserDto.class);
     }
 
-    public boolean sendOnBoardingEmail(String email, Language language) throws MessagingException {
+    public boolean sendOnBoardingEmail(String email, Language language) {
         boolean existUser = vietnamworksUserService.existUser(email);
 
         if (!existUser) {
-            try {
-                StringWriter stringWriter = new StringWriter();
+            Map<String, Object> templateModel = new HashMap<>();
+            templateModel.put("webBaseUrl", baseUrl);
+            templateModel.put("totalOfItJobs", jobAggregatorService.findJob(new JobSearchCriteria()).getJobs().size());
 
-                Map<String, Object> templateModel = new HashMap<>();
-                templateModel.put("webBaseUrl", baseUrl);
-                templateModel.put("totalOfItJobs", jobAggregatorService.findJob(new JobSearchCriteria()).getJobs().size());
-
-                Template template = language == Language.vi ? onBoardingMailTemplateVi : onBoardingMailTemplateEn;
-                template.process(templateModel, stringWriter);
-
-                fromTechlooperMailMessage.setSubject(language == Language.vi ? onBoardingEmailSubjectVi : onBoardingEmailSubjectEn);
-                fromTechlooperMailMessage.setRecipients(Message.RecipientType.TO, email);
-                fromTechlooperMailMessage.setText(stringWriter.toString(), "UTF-8", "html");
-                fromTechlooperMailMessage.saveChanges();
-                mailSender.send(fromTechlooperMailMessage);
-
-                stringWriter.flush();
-            } catch (Exception e) {
-                LOGGER.error("Can not send on boarding email", e);
-                return false;
-            }
+            EmailRequestModel emailRequestModel = new EmailRequestModel.Builder()
+                    .withTemplateName(EmailTemplateNameEnum.ONBOARDING.name())
+                    .withLanguage(language)
+                    .withTemplateModel(templateModel)
+                    .withMailMessage(fromTechlooperMailMessage)
+                    .withRecipientAddresses(email).build();
+            emailService.sendMail(emailRequestModel);
         }
-
         return true;
     }
 

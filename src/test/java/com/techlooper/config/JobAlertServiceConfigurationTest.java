@@ -34,11 +34,11 @@ import java.util.Set;
 @PropertySources({@PropertySource("classpath:techlooper.properties")})
 public class JobAlertServiceConfigurationTest {
 
-    @Value("${mail.techlooper.form}")
-    private String mailTechlooperForm;
+    @Value("${mail.techlooper.services}")
+    private String serviceMailAddress;
 
-    @Value("${mail.techlooper.reply_to}")
-    private String mailTechlooperReplyTo;
+    @Value("${mail.techlooper.replyTo}")
+    private String replyToMailAddress;
 
     @Value("classpath:template/jobAlert.en.ftl")
     private Resource jobAlertEmailTemplate;
@@ -85,8 +85,8 @@ public class JobAlertServiceConfigurationTest {
     @Bean
     public MimeMessage jobAlertMailMessage(JavaMailSender mailSender) throws MessagingException, UnsupportedEncodingException {
         MimeMessage mailMessage = mailSender.createMimeMessage();
-        mailMessage.setReplyTo(InternetAddress.parse(mailTechlooperReplyTo));
-        mailMessage.setFrom(new InternetAddress(mailTechlooperForm, "TechLooper", "UTF-8"));
+        mailMessage.setReplyTo(InternetAddress.parse(replyToMailAddress));
+        mailMessage.setFrom(new InternetAddress(serviceMailAddress, "TechLooper", "UTF-8"));
         return mailMessage;
     }
 

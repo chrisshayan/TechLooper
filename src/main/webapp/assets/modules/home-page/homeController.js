@@ -6,6 +6,11 @@ techlooper.controller("homeController", function ($scope, securityService, apiSe
     $scope.homePage.termStatistic.logo = "images/" + $.grep(jsonValue.technicalSkill, function (skill) {
         return skill.term == $scope.homePage.termStatistic.term;
       })[0].logo;
+    $.each(jsonValue.viewTerms.listedItems, function (j, viewTerm) {
+      if (viewTerm.term === $scope.homePage.termStatistic.term) {
+        $scope.homePage.termStatistic = $.extend({}, viewTerm, $scope.homePage.termStatistic);
+      }
+    });
   }).finally(function () {
     utils.sendNotification(jsonValue.notifications.loaded);
   });
@@ -94,5 +99,14 @@ techlooper.controller("homeController", function ($scope, securityService, apiSe
 
   $scope.dateFormation = function(date){
     return moment(date).format('LL');
+  }
+  $scope.gotoTopics  = function(){
+    ga("send", {
+      hitType: "event",
+      eventCategory: "forum",
+      eventAction: "click",
+      eventLabel: "moretopics"
+    });
+    window.location.href = "#/topics";
   }
 });

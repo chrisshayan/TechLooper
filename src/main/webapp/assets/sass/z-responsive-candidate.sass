@@ -4,10 +4,15 @@
     border: 0
     a
       border: 0 !important
+      border-radius: 0
   .nav-tabs > li.active
     background-color: #337ab7
     a
       color: #fff
+      background-color: #337ab7
+    a:hover
+      color: #fff
+      background-color: #337ab7
   .body-content
     padding-bottom: 0
   .navbar
@@ -1349,6 +1354,7 @@
               .registration-score,
               .registration-action,
               .registrant-name,
+              .prize-col,
               .registration-submission,
               .registration-review
                 width: 100%
@@ -1374,6 +1380,10 @@
                 a.dis
                   clear: none
                   width: auto
+              .prize-col
+                .prize
+                  span.col-mobile
+                    display: inline-block
             .disqualify-block
               padding: 0
               a.btn
@@ -1458,10 +1468,13 @@
             p
               text-align: left !important
         .challenge-phase-item
-          width: 100%
+          width: 100% !important
+          p
+            text-align: center !important
           .current-phase
             height: auto !important
             padding: 5px 0
+
             span
               width: auto
               float: left
@@ -1479,6 +1492,19 @@
         .challenge-phase-item.col6
           width: 100% !important
           clear: both
+        .phase-description
+          p
+            width: 100% !important
+            clear: both
+            text-align: center !important
+          .announcement-winner
+            width: 100% !important
+            clear: both
+            text-align: center !important
+            padding-top: 5px
+        .search-contestant-name
+          display: inline-block !important
+          padding-top: 10px
       .evaluation-criteria
         padding: 0 5px
         .evaluation-criteria-name
@@ -1602,6 +1628,12 @@
         div.error-messages
           text-align: left
           padding-left: 0
+      .prize-col
+        span.label-col
+          display: block
+        .prize
+          span.col-mobile
+            display: inline-block
   .warning-alert-block
     .alert-warning
       top: auto
@@ -2211,6 +2243,15 @@
     .email-setting-form
       width: 100%
       padding: 20px 10px
+  .contest-detail-page
+    .contest-detail-content
+      .contest-content-detail
+        .phase-content-block
+          .phase-content-details
+            .qualify-all-to-next-phase
+              padding: 15px 0
+              ul
+                width: 100%
 @media (max-width: 460px)
   .rwd-table
     margin: auto
