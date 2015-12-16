@@ -692,6 +692,12 @@
       <groupId>org.springframework.social</groupId>
       <artifactId>spring-social-linkedin</artifactId>
       <version>${spring-social-linkedin.version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>org.springframework.social</groupId>
+          <artifactId>spring-social-core</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
     <dependency>
@@ -947,15 +953,6 @@
     <repository>
       <id>clojars.org</id>
       <url>http://clojars.org/repo</url>
-    </repository>
-
-    <repository>
-      <id>spring-snapshot</id>
-      <name>Spring Snapshot Repository</name>
-      <url>https://repo.spring.io/snapshot</url>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
     </repository>
   </repositories>
 </project>
