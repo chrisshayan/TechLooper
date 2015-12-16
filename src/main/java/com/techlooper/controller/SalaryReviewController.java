@@ -5,6 +5,7 @@ import com.techlooper.model.*;
 import com.techlooper.service.JobSearchService;
 import com.techlooper.service.SalaryReviewService;
 import com.techlooper.service.UserService;
+import org.apache.commons.lang3.StringUtils;
 import org.dozer.Mapper;
 import org.springframework.web.bind.annotation.*;
 
@@ -78,16 +79,18 @@ public class SalaryReviewController {
     }
 
     private void setSalaryReviewConditionFromJobId(SalaryReviewDto salaryReviewDto) {
-        JobEntity job = jobSearchService.findJobById(salaryReviewDto.getTechlooperJobId());
-        if (job != null) {
-            salaryReviewDto.setJobTitle(job.getJobTitle());
-            salaryReviewDto.setSalaryMin(job.getSalaryMin());
-            salaryReviewDto.setSalaryMax(job.getSalaryMax());
-            Integer salary = jobSearchService.getAverageSalary(job.getSalaryMin(), job.getSalaryMax()).intValue();
-            salaryReviewDto.setNetSalary(salary);
-            List<Long> jobCategories = job.getIndustries().stream().map(jobIndustry -> jobIndustry.getIndustryId()).collect(Collectors.toList());
-            salaryReviewDto.setJobCategories(jobCategories);
-            salaryReviewDto.setIsSalaryVisible(job.getIsSalaryVisible());
+        if (StringUtils.isNotEmpty(salaryReviewDto.getTechlooperJobId())) {
+            JobEntity job = jobSearchService.findJobById(salaryReviewDto.getTechlooperJobId());
+            if (job != null) {
+                salaryReviewDto.setJobTitle(job.getJobTitle());
+                salaryReviewDto.setSalaryMin(job.getSalaryMin());
+                salaryReviewDto.setSalaryMax(job.getSalaryMax());
+                Integer salary = jobSearchService.getAverageSalary(job.getSalaryMin(), job.getSalaryMax()).intValue();
+                salaryReviewDto.setNetSalary(salary);
+                List<Long> jobCategories = job.getIndustries().stream().map(jobIndustry -> jobIndustry.getIndustryId()).collect(Collectors.toList());
+                salaryReviewDto.setJobCategories(jobCategories);
+                salaryReviewDto.setIsSalaryVisible(job.getIsSalaryVisible());
+            }
         }
     }
 
