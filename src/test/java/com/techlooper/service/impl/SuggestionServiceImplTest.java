@@ -11,6 +11,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import javax.annotation.Resource;
 import java.util.List;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -30,8 +31,15 @@ public class SuggestionServiceImplTest {
 
     @Test
     public void testSuggestSkillsNoSkill() throws Exception {
-        String query = "ABC XYZ";
-        List<String> skills = suggestionService.suggestSkills(query);
-        assertTrue(skills.isEmpty());
+        String query = "Senior Java Developer";
+        List<String> jobTitles = suggestionService.suggestJobTitles(query);
+        assertTrue(jobTitles.isEmpty());
+    }
+
+    @Test
+    public void testTheBestMatchJobTitle() throws Exception {
+        String query = "Senior Java Developer ( High Salary And Good Working Environment)";
+        List<String> jobTitles = suggestionService.searchJobTitles(query);
+        assertFalse(jobTitles.isEmpty());
     }
 }

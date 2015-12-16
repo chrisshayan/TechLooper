@@ -44,8 +44,8 @@ techlooper.controller("technicalDetailController", function (utils, connectionFa
       return;
     }
 
+    var translate = $rootScope.translate;
     if ($scope.termRequestShadow.skills.length === 5) {
-      var translate = $rootScope.translate;
       $scope.error.newSkillName = translate.maximum5;
       return;
     }
@@ -53,7 +53,6 @@ techlooper.controller("technicalDetailController", function (utils, connectionFa
 
     var skillLowerCases = $scope.termRequestShadow.skills.map(function (skill) {return skill.toLowerCase();});
     if (skillLowerCases.indexOf(newSkillName.toLowerCase()) >= 0) {
-      var translate = $rootScope.translate;
       $scope.error.existSkillName = translate.hasExist;
       return;
     }

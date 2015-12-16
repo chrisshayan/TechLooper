@@ -6,7 +6,7 @@ techlooper.directive("dailySummeryEmail", function (apiService, resourcesService
     scope: {
       composeEmail: "="
     },
-    link: function (scope, element, attr, ctrl) {
+    link: function (scope) {
 
       resourcesService.getEmailTemplates().then(function (eTemplates) {
         var templates = eTemplates;

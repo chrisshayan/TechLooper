@@ -200,7 +200,7 @@
   "hiringValue1": "Mức lương chính xác cho vị trí đăng tuyển là bao nhiêu?",
   "hiringValue2": "Mức lương hiện tại có thể giữ chân nhân tài hay không?",
   "hiringValue3": "Tối ưu tin đăng tuyển nhằm tăng lượt ứng tuyển.",
-  "evaluateJobPost": "Đánh giá Ngay",
+  "evaluateJobPost": "Đánh Giá Ngay",
   "tellAboutYourJob": "Mô tả Công Việc Của Bạn",
   "desAboutYourJob": "<strong>Chỉ với một khảo sát đơn giản</strong>, bạn sẽ xác đinh được nhu cầu và vị trí tuyển dụng bạn đang có. ",
   "getInsights": "Hiểu Sâu Thị Trường",
@@ -561,8 +561,8 @@
   "projectValue2": "Thuê đội ngũ phát triển nhanh chóng",
   "projectValue3": "Làm việc trực tiếp với nhiều chuyên gia trên những kỹ thuật mà bạn mong muốn",
   "desPostFreelancerProject": "Triển khai công việc của bạn chỉ trong vài giờ. Nhận ngay kết quả công việc đáng kinh ngạc từ các chuyên viên phát triển phần mềm, chuyên viên thiết kế, và đội ngũ làm việc trực tuyến hàng đầu.",
-  "whyChallengeHeader": "Xây Dựng Cộng Đồng Phát Triển Phần Mềm Cho Doanh Nghiệp. Thuê Đội Ngũ Phát Triển Tốt Hơn, Nhanh Hơn.",
-  "whyChallengeSubHeader": "Thông qua các Thử Thách để tìm ra người xuất sắc nhất trong các nhân tài công nghệ.",
+  "whyChallengeHeader": "Tìm ứng viên xuất sắc. Tuyển dụng nhanh hơn. Đãi ngộ tốt hơn.",
+  "whyChallengeSubHeader": "Thử thách để tìm ra nhân tài công nghệ",
   "whyChallengeDescription": "Đưa ra thử thách để thu hút các chuyên viên thiết kế, các Lập trình viên Front-end, các Quản lý Dự án, các Chuyên viên Phân tích Dữ liệu và các Kỹ sư Phần mềm tham gia. TechLooper sẽ giúp những thử thách này diễn ra dễ dàng và thành công nhằm giúp các doanh nghiệp:",
   "whyChallengeFeature1": "Nuôi dưỡng và sử dụng hiệu quả các nhân tài về công nghệ.",
   "whyChallengeFeature2": "Xây dựng thương hiệu và nhận diện thương hiệu cho doanh nghiệp.",
@@ -861,5 +861,17 @@
   "updateEvaluationCriteria2": "để thiết lập tiêu chí đánh giá cho thử thách.",
   "here": "ở đây",
   "getFinalReport": "Xem báo cáo",
-  "thisMustBeBw5And100": "Giá trị trọng số phải nằm giữa 5% và 100%"
+  "thisMustBeBw5And100": "Giá trị trọng số phải nằm giữa 5% và 100%",
+  "technologiesLabel": "Công nghệ:",
+  "learnMore": "Tìm Hiểu Thêm",
+  "howToRecruitBetter": "Tuyển Dụng Tốt Hơn",
+  "publicChallenge": "Thử Thách Cộng Đồng",
+  "internalChallenge": "Thử Thách Nội Bộ",
+  "publicChallengeDis": "Xây dựng thương hiệu thành công và phát triển đội ngũ lập trình viên cho doanh nghiệp.",
+  "internalChallengeDis": "Đãi ngộ bền vững và khuyến khích đổi mới trong doanh nghiệp để",
+  "internalChallengeContent1": "Nâng cao năng suất và lợi nhuận",
+  "internalChallengeContent2": "Chất lượng công việc tốt hơn",
+  "internalChallengeContent3": "Hoàn thành công việc đúng hạn",
+  "internalChallengeContent4": "Đội ngũ nhân viên tâm huyết"
+
 }

@@ -13,6 +13,7 @@
             </div>
             <div class="user-info-basic-block">
                 <a ng-click="logout()" ng-show="$root.userInfo" translate="signOut"></a>
+                <a href="#/hiring" translate="business" class="homepage-link"></a>
                 <p>{{$root.userInfo.name}}</p>
                 <div class="user-avatar" ng-show="$root.userInfo">
                     <img ng-src="{{$root.userInfo.profileImageUrl}}" alt="">
@@ -42,6 +43,9 @@
                 </li>
                 <li ng-class="{ here: isActive('/get-promoted') }" ng-click="hideMenu()">
                     <a href="#/get-promoted" translate="subMenuGetPromoted" class="promoted"></a>
+                </li>
+                <li class="mobile" ng-class="{ here: isActive('#/hiring') }" ng-click="hideMenu()">
+                    <a href="#/hiring" translate="business" class="business-owner"></a>
                 </li>
             </ul>
         </div>

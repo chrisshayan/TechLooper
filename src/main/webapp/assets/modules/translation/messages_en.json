@@ -555,7 +555,7 @@
   "projectValue2": "Hire teams quickly",
   "projectValue3": "Work with real experts on the skills you need",
   "desPostFreelancerProject": "Start your job in hours. Get amazing results working with the best programmers, designers, and other top online professionals.",
-  "whyChallengeHeader": "Build Your Developer Community. Hire Better. Hire Faster.",
+  "whyChallengeHeader": "Hire Better. Hire Faster. Drive Engagement.",
   "whyChallengeSubHeader": "Challenge and find the best of the best",
   "whyChallengeDescription": "Propose a software challenge and get involved UX Designers, Front-end developers, Product Managers, Data Scientists and/or Software Developers to participate. Our platform makes running software contests easy, beautiful, and secured.",
   "whyChallengeFeature1": "Nurture a talent pool with best IT professionals",
@@ -857,5 +857,16 @@
   "updateEvaluationCriteria2": "to set up your own judging criteria for it.",
   "here": "here",
   "getFinalReport": "Get final report",
-  "thisMustBeBw5And100": "This must be between 5% and 100%"
+  "thisMustBeBw5And100": "This must be between 5% and 100%",
+  "technologiesLabel": "Technologies:",
+  "learnMore": "Learn More",
+  "howToRecruitBetter": "How To Recruit Better",
+  "publicChallenge": "Public Challenge",
+  "internalChallenge": "Internal Challenge",
+  "publicChallengeDis": "Build a compelling brand and your developer pool to hire better and faster",
+  "internalChallengeDis": "Drive sustainability engagement and innovation across your own workforce",
+  "internalChallengeContent1": "Greater productivity and higher profits",
+  "internalChallengeContent2": "Better qualify of work",
+  "internalChallengeContent3": "Delivery of work on time",
+  "internalChallengeContent4": "A work-oriented staff"
 }
