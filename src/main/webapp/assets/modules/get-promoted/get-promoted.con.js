@@ -25,20 +25,21 @@ techlooper.controller('getPromotedController', function ($scope, utils, vnwConfi
         var hasPromotionResult = promotionResult && $.type(promotionResult.salaryMin) === "number" && $.type(promotionResult.salaryMax) === "number";
         var surveyFormHasSubmitted = utils.isFormSubmitted($scope.promotionSurveyForm, "isUnderstandable");
 
+        var errorRequired, sentSurvey, sentEmail;
         switch (viewName) {
           case "error-email-is-submitted":
             return utils.isFormSubmitted($scope.promotionEmailForm, "promotionEmail");
 
           case "error-required-survey-is-understandable":
-            var errorRequired = $scope.promotionSurveyForm.isUnderstandable.$error.required;
+            errorRequired = $scope.promotionSurveyForm.isUnderstandable.$error.required;
             return errorRequired && surveyFormHasSubmitted;
 
           case "error-required-survey-is-accurate":
-            var errorRequired = $scope.promotionSurveyForm.isAccurate.$error.required;
+            errorRequired = $scope.promotionSurveyForm.isAccurate.$error.required;
             return errorRequired && surveyFormHasSubmitted;
 
           case "error-required-survey-is-learn-more":
-            var errorRequired = $scope.promotionSurveyForm.wantToLearnMore.$error.required;
+            errorRequired = $scope.promotionSurveyForm.wantToLearnMore.$error.required;
             return errorRequired && surveyFormHasSubmitted;
 
           case "no-promotion-result":
@@ -48,23 +49,23 @@ techlooper.controller('getPromotedController', function ($scope, utils, vnwConfi
             return hasPromotionResult;
 
           case "sent-promotion-email-no-result":
-            var sentEmail = promotionEmailForm && promotionEmailForm.$sentEmail;
+            sentEmail = promotionEmailForm && promotionEmailForm.$sentEmail;
             return !hasPromotionResult && sentEmail;
 
           case "sent-promotion-email-has-result":
-            var sentEmail = promotionEmailForm && promotionEmailForm.$sentEmail;
+            sentEmail = promotionEmailForm && promotionEmailForm.$sentEmail;
             return hasPromotionResult && sentEmail;
 
           case "not-sent-promotion-email":
-            var sentEmail = promotionEmailForm && promotionEmailForm.$sentEmail;
+            sentEmail = promotionEmailForm && promotionEmailForm.$sentEmail;
             return !sentEmail;
 
           case "sent-promotion-survey":
-            var sentSurvey = promotionSurveyForm && promotionSurveyForm.$sentSurvey;
+            sentSurvey = promotionSurveyForm && promotionSurveyForm.$sentSurvey;
             return sentSurvey;
 
           case "not-sent-promotion-survey":
-            var sentSurvey = promotionSurveyForm && promotionSurveyForm.$sentSurvey;
+            sentSurvey = promotionSurveyForm && promotionSurveyForm.$sentSurvey;
             return !sentSurvey;
 
           case "user-promotion-survey-form":

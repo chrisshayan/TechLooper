@@ -16,9 +16,9 @@ techlooper.controller("salaryReviewController", function ($location, $scope, vnw
       order: 1,
 
       tabs: [
-        {title: "aboutYourJob", class: "active showNavi", onClick: function (tab) {$scope.changeState(state.default);}},
-        {title: "aboutYourCompany", onClick: function (tab) {$scope.changeState(state.company);}},
-        {title: "yourSalaryReport", onClick: function (tab) {$scope.changeState(state.report);}}
+        {title: "aboutYourJob", class: "active showNavi", onClick: function () {$scope.changeState(state.default);}},
+        {title: "aboutYourCompany", onClick: function () {$scope.changeState(state.company);}},
+        {title: "yourSalaryReport", onClick: function () {$scope.changeState(state.report);}}
       ],
 
       rootClass: "jobRoot"
@@ -29,13 +29,13 @@ techlooper.controller("salaryReviewController", function ($location, $scope, vnw
       order: 2,
 
       tabs: [
-        {title: "aboutYourJob", class: "active", onClick: function (tab) {$scope.changeState(state.default);}},
+        {title: "aboutYourJob", class: "active", onClick: function () {$scope.changeState(state.default);}},
         {
           title: "aboutYourCompany",
           class: "active showNavi",
-          onClick: function (tab) {$scope.changeState(state.company);}
+          onClick: function () {$scope.changeState(state.company);}
         },
-        {title: "yourSalaryReport", onClick: function (tab) {$scope.changeState(state.report);}}
+        {title: "yourSalaryReport", onClick: function () {$scope.changeState(state.report);}}
       ],
 
       rootClass: "companyRoot"
@@ -51,8 +51,8 @@ techlooper.controller("salaryReviewController", function ($location, $scope, vnw
       order: 3,
 
       tabs: [
-        {title: "aboutYourJob", class: "active", onClick: function (tab) {$scope.changeState(state.default);}},
-        {title: "aboutYourCompany", class: "active", onClick: function (tab) {$scope.changeState(state.company);}},
+        {title: "aboutYourJob", class: "active", onClick: function () {$scope.changeState(state.default);}},
+        {title: "aboutYourCompany", class: "active", onClick: function () {$scope.changeState(state.company);}},
         {
           title: "yourSalaryReport",
           class: "active showNavi",

@@ -11,27 +11,22 @@ techlooper.controller('freelancerProjectsController', function ($scope, apiServi
   });
 
   $scope.status = function (type) {
-    switch (type) {
-      case "show-fixed-price-fields":
-        var project = arguments[1];
-        if (!project) return false;
-        var option = resourcesService.getOption(project.payMethod, resourcesService.paymentConfig);
-        if (!option) return false;
-        return option.id == "fixedPrice";
+    if (arguments.length > 1) {
+      var project = arguments[1];
+      if (!project) return false;
+      var option = resourcesService.getOption(project.payMethod, resourcesService.paymentConfig);
+      if (!option) return false;
 
-      case "show-hourly-price-fields":
-        var project = arguments[1];
-        if (!project) return false;
-        var option = resourcesService.getOption(project.payMethod, resourcesService.paymentConfig);
-        if (!option) return false;
-        return option.id == "hourly";
+      switch (type) {
+        case "show-fixed-price-fields":
+          return option.id == "fixedPrice";
 
-      case "get-payment-method-translate":
-        var project = arguments[1];
-        if (!project) return false;
-        var option = resourcesService.getOption(project.payMethod, resourcesService.paymentConfig);
-        if (!option) return false;
-        return option.reviewTranslate;
+        case "show-hourly-price-fields":
+          return option.id == "hourly";
+
+        case "get-payment-method-translate":
+          return option.reviewTranslate;
+      }
     }
     return false;
   }
