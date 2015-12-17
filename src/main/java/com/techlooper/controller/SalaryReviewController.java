@@ -91,6 +91,8 @@ public class SalaryReviewController {
                 salaryReviewDto.setJobCategories(jobCategories);
                 salaryReviewDto.setIsSalaryVisible(job.getIsSalaryVisible());
             }
+        } else {
+            salaryReviewDto.setSalaryMax(salaryReviewDto.getNetSalary().longValue());
         }
     }
 
