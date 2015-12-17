@@ -4,7 +4,7 @@
   </div>
   <div class="content-page-detail">
     <div class="job-listing-search-bar">
-      <ng-form autocomplete="off" name="jobListingSearch">
+      <form autocomplete="off" name="jobListingSearch">
 
         <div class="keyword-block">
           <div auto-suggestion text="searchJob.keyword" items="jobTitles"
@@ -23,9 +23,9 @@
           </selectize>
         </div>
         <div class="submit-search-block">
-          <button translate="search" class="btn btn-primary btn-flat" ng-click="filterJob()"></button>
+          <input type="submit" translate="search" class="btn btn-primary btn-flat" ng-click="filterJob()"></input>
         </div>
-      </ng-form>
+      </form>
     </div>
     <div class="job-listing-result">
       <div class="paging-block" ng-show="jobs.length > 0">
