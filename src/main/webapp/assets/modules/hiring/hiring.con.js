@@ -21,4 +21,13 @@ techlooper.controller('hiringController', function ($scope, $timeout) {
   }else{
     $('.hiring-how-does-work-content').find('.hiring').removeClass('vi');
   }
+  $scope.gotoOtherPage  = function(eventCategory, eventLabel, url){
+    ga("send", {
+      hitType: "event",
+      eventCategory: eventCategory,
+      eventAction: "click",
+      eventLabel: eventLabel
+    });
+    window.location.href = url;
+  }
 });
