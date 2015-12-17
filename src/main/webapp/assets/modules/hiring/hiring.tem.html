@@ -7,7 +7,7 @@
       <div class="banner-images"></div>
     </div>
     <div class="btn-learn-more">
-      <a href="#/why-challenge?utm_source=employerhomepage&utm_medium=whychallenge&utm_campaign=employerhomepage" translate="learnMore"></a>
+      <a ng-click="gotoOtherPage('whychallenge', 'employerhomepage' ,'#/why-challenge')" translate="learnMore"></a>
     </div>
   </div>
   <div class="hiring-body-block">
@@ -19,19 +19,19 @@
             <h4 translate="postAChallenge" class="ng-scope"></h4>
             <div class="ic-how-does-it-work your-job"></div>
             <p translate="desPostAChallenge" class="ng-scope"></p>
-            <a href="#/why-challenge?utm_source=employerhomepage&utm_medium=whychallenge&utm_campaign=employerhomepage"><i class="fa fa-forward"></i> <span translate="learnMore"></span></a>
+            <a ng-click="gotoOtherPage('whychallenge', 'employerhomepage' ,'#/freelancer/why-freelancer')"><i class="fa fa-forward"></i> <span translate="learnMore"></span></a>
           </li>
           <li>
             <h4 translate="desSubProjectTagLine" class="ng-scope"></h4>
             <div class="ic-how-does-it-work project"></div>
             <p translate="desPostFreelancerProject" class="ng-scope"></p>
-            <a href="#/freelancer/why-freelancer?utm_source=employerhomepage&utm_medium=whyfreelancer&utm_campaign=employerhomepage"><i class="fa fa-forward"></i> <span translate="learnMore"></span></a>
+            <a ng-click="gotoOtherPage('whyfreelancer', 'employerhomepage' ,'#/freelancer/why-freelancer')"><i class="fa fa-forward"></i> <span translate="learnMore"></span></a>
           </li>
           <li class="right">
             <h4 translate="getInsights" class="ng-scope"></h4>
             <div class="ic-how-does-it-work insights"></div>
             <p translate="desGetInsights" class="ng-scope"></p>
-            <a href="#/price-job?utm_source=employerhomepage&utm_medium=pricejob&utm_campaign=employerhomepage"><i class="fa fa-forward"></i> <span translate="evaluateJobPost"></span></a>
+            <a ng-click="gotoOtherPage('pricejob', 'employerhomepage' ,'#/freelancer/why-freelancer')"><i class="fa fa-forward"></i> <span translate="evaluateJobPost"></span></a>
           </li>
         </ul>
       </div>
