@@ -69,12 +69,17 @@
                 ng-class="{disabled: !status('able-to-join')}">
           <i class="fa fa-facebook-square"></i> <span translate="joinNow"></span></button>
 
+        <button class="btn btn-primary btn-flat" ng-click="showJoinInternalForm()">
+          <i class="fa fa-user-plus"></i> <span translate="joinNow"></span>
+        </button>
         <button ng-show="contestDetail.currentUserJoined == true" ng-click="submissionForm.showSubmitForm()"
                 class="btn btn-primary btn-flat">
           <i class="fa fa-paper-plane-o"></i> <span translate="submitPhase"></span></button>
+        <p class="note align-text-right">Join with your email from: <strong>abc@xyz.com</strong>, <strong>abc@def.com.vn</strong>, <strong>abc@navigosgroup.com</strong></p>
       </div>
     </div>
   </div>
+  <join-internal-challenge challenge="contestDetail" form="joinInternalForm"></join-internal-challenge>
   <submission-challenge challenge="contestDetail" form="submissionForm"></submission-challenge>
   <div class="alert alert-success" data-ng-init="submittedPhase = false" ng-model="submittedPhase"
        ng-show="submittedPhase">

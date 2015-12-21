@@ -6,7 +6,7 @@
   </div>
   <div class="content-page-block contest-detail-content">
     <div class="header-page">
-      <h2 class="text-left">{{contestDetail.challengeName}}
+      <h2 class="text-left"><span class="challenge-type"></span>{{contestDetail.challengeName}}
       <span ng-show="contestDetail.progress.translate != 'closed' &&  contestDetail.progress.translate != 'notStart'"
             ng-class="contestDetail.currentPhase | textTruncate: 'lowercase'"
             translate="{{contestDetail.currentPhase | textTruncate: 'lowercase'}}"
