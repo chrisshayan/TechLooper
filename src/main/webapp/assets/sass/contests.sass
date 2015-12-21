@@ -124,7 +124,10 @@
     clear: both
     width: 100%
     background-color: #fff
-    padding: 20px 0
+    padding: 0
+    .challenge-search
+      background-color: #f0f3f4
+      padding: 15px
     .challenge-name-col
       width: 35%
       float: left
@@ -164,7 +167,7 @@
       clear: both
       display: inline-block
       border-bottom: 2px solid #337ab7
-      padding: 0 20px
+      padding: 20px 20px 0 20px
     .contest-list-management-body
       display: inline-block
       clear: both
@@ -175,6 +178,7 @@
         width: 100%
         border-bottom: 1px solid #ddd
         padding: 25px 20px 10px 20px
+        float: left
         .label-col
           display: none
         .challenge-name-col
@@ -183,6 +187,8 @@
             display: block
             clear: both
             width: 100%
+            background: url("../images/ic-challenge-mini.png") 0px 2px no-repeat
+            padding: 0  0 5px 20px
           span
             display: inline-block
             width: auto
@@ -247,10 +253,11 @@
             clear: both
             background-color: #337ab7
             border-radius: 4px
-            padding: 2px 8px
-            margin-bottom: 5px
+            padding: 5px 8px
             color: #fff
             text-align: center
+      .contest-item-row.internal
+        background-color: #fffef5
   .submit-phase-contest
     height: 0px
     transition: height 1s
@@ -322,4 +329,3 @@
       button
         margin: auto
         padding: 6px 30px
-
