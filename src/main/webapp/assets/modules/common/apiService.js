@@ -61,12 +61,12 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
     },
 
     searchContests: function () {
-      return $http.get("challenge/list");
-      //.success(function (contests) {
-      //  $.each(contests, function (i, contest) {
-      //    $filter("progress")(contest, "challenge");
-      //  });
-      //});
+      return $http.get("challenge/list")
+        .success(function (contests) {
+          $.each(contests, function (i, contest) {
+            $filter("challengeDetail")(contest);
+          });
+        });
     },
 
     getSuggestSkills: function (text) {

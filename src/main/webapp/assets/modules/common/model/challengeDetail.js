@@ -207,16 +207,18 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
     challengeDetail.recalculate = function (registrants) {
 
       //see jsonValue.challengePhase
-      var dtProp = jsonValue.challengePhase[challengeDetail.currentPhase].challengeProp;
-      if (dtProp) {
-        var date = moment(challengeDetail[dtProp], jsonValue.dateFormat);
-        challengeDetail.currentPhaseDaysLeft = date.diff(moment(0, "HH"), "days") + 1;
+      if (challengeDetail.currentPhase) {
+        var dtProp = jsonValue.challengePhase[challengeDetail.currentPhase].challengeProp;
+        if (dtProp) {
+          var date = moment(challengeDetail[dtProp], jsonValue.dateFormat);
+          challengeDetail.currentPhaseDaysLeft = date.diff(moment(0, "HH"), "days") + 1;
+        }
       }
 
-      dtProp = jsonValue.challengePhase[challengeDetail.currentPhase].challengeProp;
-      if (dtProp) {
-        challengeDetail.$currentPhaseEndDay = challengeDetail[dtProp];
-      }
+      //dtProp = jsonValue.challengePhase[challengeDetail.currentPhase].challengeProp;
+      //if (dtProp) {
+      //  challengeDetail.$currentPhaseEndDay = challengeDetail[dtProp];
+      //}
 
       var isOver = true;
       _.each(challengeDetail.phaseItems, function (item, index) {
@@ -240,27 +242,25 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
 
       // make un-selectable phase from current-phase + 2
       var current = _.findWhere(challengeDetail.phaseItems, {isCurrentPhase: true});
-      if (challengeDetail.isClosed) {
-        current.isCurrentPhase = false;
-        _.last(challengeDetail.phaseItems).isCurrentPhase = true;//auto select winner if challenge is closed
-      }
-      for (var i = current.$index + 2; i < challengeDetail.phaseItems.length - 1; i++) {// winner tab is selectable
-        challengeDetail.phaseItems[i].unselectable = true;
+      if (current) {
+        if (challengeDetail.isClosed) {
+          current.isCurrentPhase = false;
+          _.last(challengeDetail.phaseItems).isCurrentPhase = true;//auto select winner if challenge is closed
+        }
+
+        for (var i = current.$index + 2; i < challengeDetail.phaseItems.length - 1; i++) {// winner tab is selectable
+          challengeDetail.phaseItems[i].unselectable = true;
+        }
       }
 
       var next = _.findWhere(challengeDetail.phaseItems, {isNextPhase: true});
-      var index = _.min([next.$index + 1, challengeDetail.phaseItems.length - 1])
-      challengeDetail.$afterNextPhaseItem = challengeDetail.phaseItems[index];
+      if (next) {
+        var index = _.min([next.$index + 1, challengeDetail.phaseItems.length - 1])
+        challengeDetail.$afterNextPhaseItem = challengeDetail.phaseItems[index];
+      }
 
       challengeDetail.totalWeight = _.reduceRight(challengeDetail.criteria, function (sum, cri) { return sum + cri.weight; }, 0);
-
-      //var phaseName = localStorageService.get("toPhase");
-      //phaseName && challengeDetail.setSelectedPhase(phaseName);
-      //localStorageService.remove("toPhase");
-      //
-      //if (!challengeDetail.selectedPhaseItem) {
-      //  challengeDetail.setSelectedPhase(challengeDetail.isClosed ? "WINNER" : challengeDetail.currentPhase)
-      //}
+      challengeDetail.$isPublic = jsonValue.challengeType.isPublic(challengeDetail.challengeType);
 
       if (_.isArray(registrants)) {
         challengeDetail.recalculateRegistrants(registrants);
