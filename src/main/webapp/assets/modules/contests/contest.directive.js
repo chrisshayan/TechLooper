@@ -4,16 +4,23 @@ techlooper.directive('contestList', function () {
     replace: true,
     templateUrl: "modules/contests/contest-list.html",
     link: function (scope, el, attrs) {
-      //scope.showSubmitForm = function(id){
-      //  $('.submit-phase-contest').removeClass('show');
-      //  var parent = $('#id-'+id);
-      //  var div = parent.find('.submit-phase-contest');
-      //  if(div.hasClass('show')){
-      //    div.removeClass('show');
-      //  }else{
-      //    div.addClass('show');
-      //  }
-      //}
+    }
+  };
+}).directive('challengeSearchForm', function () {
+  return {
+    restrict: "E",
+    replace: true,
+    templateUrl: "modules/contests/challenge-search-form.html",
+    link: function (scope, el, attrs) {
+      $(document).ready(function(e){
+        $('.search-panel .dropdown-menu').find('a').click(function(e) {
+          e.preventDefault();
+          var param = $(this).attr("href").replace("#","");
+          var concept = $(this).text();
+          $('.search-panel span#search_concept').text(concept);
+          $('.input-group #search_param').val(param);
+        });
+      });
     }
   };
 });
