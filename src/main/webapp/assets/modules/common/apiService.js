@@ -111,7 +111,9 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
           }
         });
     },
-
+    joinInternalChallenge: function(){
+      
+    },
     /**
      * @see com.techlooper.controller.ProjectController.getProjectStatistic
      * */
