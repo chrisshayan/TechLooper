@@ -204,45 +204,37 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
       challengeDetail.refreshFunnelItems();
     }
 
-    challengeDetail.recalculate = function (registrants) {
-
+    challengeDetail.recalculatePhaseItems = function () {
       //see jsonValue.challengePhase
-      if (challengeDetail.currentPhase) {
+      if (challengeDetail.currentPhase) {//if challenge has current phase
         var dtProp = jsonValue.challengePhase[challengeDetail.currentPhase].challengeProp;
         if (dtProp) {
           var date = moment(challengeDetail[dtProp], jsonValue.dateFormat);
           challengeDetail.currentPhaseDaysLeft = date.diff(moment(0, "HH"), "days") + 1;
         }
-      }
 
-      //dtProp = jsonValue.challengePhase[challengeDetail.currentPhase].challengeProp;
-      //if (dtProp) {
-      //  challengeDetail.$currentPhaseEndDay = challengeDetail[dtProp];
-      //}
+        var isOver = true;
+        _.each(challengeDetail.phaseItems, function (item, index) {
+          item.$index = index;
+          item.isOver = isOver;
+          item.phaseLowerCase = item.phase.toLowerCase();//$filter("translate")(item.phase.toLowerCase());
+          item.phaseTitleLowerCase = $filter("translate")(item.phase.toLowerCase());
 
-      var isOver = true;
-      _.each(challengeDetail.phaseItems, function (item, index) {
-        item.$index = index;
-        item.isOver = isOver;
-        item.phaseLowerCase = item.phase.toLowerCase();//$filter("translate")(item.phase.toLowerCase());
-        item.phaseTitleLowerCase = $filter("translate")(item.phase.toLowerCase());
+          var cp = _.findWhere(jsonValue.challengePhase.values, {enum: item.phase});
+          item.$phaseConfig = cp;
+          challengeDetail.recalculatePhaseItem(item);
 
-        var cp = _.findWhere(jsonValue.challengePhase.values, {enum: item.phase});
-        item.$phaseConfig = cp;
-        challengeDetail.recalculatePhaseItem(item);
+          if (item.phase == challengeDetail.currentPhase) {
+            item.isCurrentPhase = true;
+            isOver = false;
+          }
+          if (item.phase == challengeDetail.nextPhase) {
+            item.isNextPhase = true;
+          }
+        });
 
-        if (item.phase == challengeDetail.currentPhase) {
-          item.isCurrentPhase = true;
-          isOver = false;
-        }
-        if (item.phase == challengeDetail.nextPhase) {
-          item.isNextPhase = true;
-        }
-      });
-
-      // make un-selectable phase from current-phase + 2
-      var current = _.findWhere(challengeDetail.phaseItems, {isCurrentPhase: true});
-      if (current) {
+        // make un-selectable phase from current-phase + 2
+        var current = _.findWhere(challengeDetail.phaseItems, {isCurrentPhase: true});
         if (challengeDetail.isClosed) {
           current.isCurrentPhase = false;
           _.last(challengeDetail.phaseItems).isCurrentPhase = true;//auto select winner if challenge is closed
@@ -251,38 +243,30 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
         for (var i = current.$index + 2; i < challengeDetail.phaseItems.length - 1; i++) {// winner tab is selectable
           challengeDetail.phaseItems[i].unselectable = true;
         }
-      }
 
-      var next = _.findWhere(challengeDetail.phaseItems, {isNextPhase: true});
-      if (next) {
+        var next = _.findWhere(challengeDetail.phaseItems, {isNextPhase: true});
         var index = _.min([next.$index + 1, challengeDetail.phaseItems.length - 1])
         challengeDetail.$afterNextPhaseItem = challengeDetail.phaseItems[index];
       }
+    }
 
+    challengeDetail.recalculate = function (registrants) {
+      challengeDetail.recalculatePhaseItems();
       challengeDetail.totalWeight = _.reduceRight(challengeDetail.criteria, function (sum, cri) { return sum + cri.weight; }, 0);
       challengeDetail.$isPublic = jsonValue.challengeType.isPublic(challengeDetail.challengeType);
-
-      if (_.isArray(registrants)) {
-        challengeDetail.recalculateRegistrants(registrants);
-      }
+      challengeDetail.$isInternal = jsonValue.challengeType.isInternal(challengeDetail.challengeType);
+      challengeDetail.recalculateRegistrants(registrants);
     }
 
     challengeDetail.recalculateRegistrants = function (registrants) {
-      if (registrants) challengeDetail.$registrants = registrants;
+      if (_.isArray(registrants)) challengeDetail.$registrants = registrants;
       _.each(challengeDetail.$registrants, function (rgt, index) {
         rgt.$index = index;
         rgt.recalculate(challengeDetail);
       });
-
-      //winner phase
-      //var winnerPi = _.last(challengeDetail.phaseItems);
-      //challengeDetail.recalculatePhaseItem(winnerPi);
-      //
-      //challengeDetail.recalculateHadRegistrant();
     }
 
     //set $hadRegistrant to true if not found any registrant that unknown disqualified-status
-    //console.log(challengeDetail.$registrants);
     challengeDetail.recalculateHadRegistrant = function () {
       var er = _.findWhere(challengeDetail.$registrants, {disqualified: undefined});
       challengeDetail.$hadRegistrant = (er == undefined);

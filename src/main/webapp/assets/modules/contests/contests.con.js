@@ -54,7 +54,12 @@ techlooper.controller('contestsController', function (apiService, $scope, jsonVa
   });
 
   $scope.joinNowByFB = function (challenge) {
-    localStorageService.set("joiningChallengeId", challenge.challengeId);
-    apiService.joinNowByFB();
+    if (challenge.$isPublic) {
+      localStorageService.set("joiningChallengeId", challenge.challengeId);
+      apiService.joinNowByFB();
+    }
+    else if (challenge.$isInternal) {
+
+    }
   }
 });
