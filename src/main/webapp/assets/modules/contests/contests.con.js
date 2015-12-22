@@ -31,7 +31,6 @@ techlooper.controller('contestsController', function (apiService, $scope, jsonVa
 
   joinChallenge();
 
-
   $scope.contestTimeLeft = function (contest) {
     if (!contest.progress) return "";
     switch (contest.progress.translate) {
