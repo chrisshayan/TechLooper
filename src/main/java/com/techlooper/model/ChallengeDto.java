@@ -56,6 +56,8 @@ public class ChallengeDto {
 
     private ChallengeTypeEnum challengeType;
 
+    private String companyDomain;
+
     public Long getChallengeId() {
         return challengeId;
     }
@@ -246,5 +248,13 @@ public class ChallengeDto {
 
     public void setChallengeType(ChallengeTypeEnum challengeType) {
         this.challengeType = challengeType;
+    }
+
+    public String getCompanyDomain() {
+        return companyDomain;
+    }
+
+    public void setCompanyDomain(String companyDomain) {
+        this.companyDomain = companyDomain;
     }
 }

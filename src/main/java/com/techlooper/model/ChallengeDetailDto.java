@@ -70,6 +70,8 @@ public class ChallengeDetailDto {
 
     private ChallengeTypeEnum challengeType;
 
+    private String companyDomain;
+
     public List<ChallengeRegistrantFunnelItem> getPhaseItems() {
         return phaseItems;
     }
@@ -316,5 +318,13 @@ public class ChallengeDetailDto {
 
     public void setChallengeType(ChallengeTypeEnum challengeType) {
         this.challengeType = challengeType;
+    }
+
+    public String getCompanyDomain() {
+        return companyDomain;
+    }
+
+    public void setCompanyDomain(String companyDomain) {
+        this.companyDomain = companyDomain;
     }
 }
