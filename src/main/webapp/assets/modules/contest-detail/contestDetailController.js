@@ -122,17 +122,4 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
     }
     $('.feedback-loading').css('visibility', 'hidden');
   });
-  $scope.$on('scrollTop', function() {
-    $("html, body").animate({ scrollTop: 0 }, 0);
-    $('input.text-search-name').focus();
-  });
-
-  $(document).keydown(function(e) {
-    if (e.keyCode == 8 && $(".text-search-name").is(":focus")){
-      $timeout(function(){
-        $("html, body").animate({ scrollTop: 0 }, 0);
-        $('input.text-search-name').focus();
-      },5);
-    }
-  });
 });

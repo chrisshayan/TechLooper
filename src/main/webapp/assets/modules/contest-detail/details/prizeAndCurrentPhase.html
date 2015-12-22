@@ -66,12 +66,12 @@
          translate-value-register-number="<strong>{{contestDetail.numberOfRegistrants}}</strong>"></p>
       <div class="join-now">
         <button ng-disabled="!status('able-to-join')"
-                ng-if="contestDetail.$isInternal"
+                ng-if="contestDetail.$isPublic"
                 ng-click="joinNowByFB()" class="btn btn-primary btn-flat"
                 ng-class="{disabled: !status('able-to-join')}">
           <i class="fa fa-facebook-square"></i> <span translate="joinNow"></span></button>
 
-        <button class="btn btn-primary btn-flat" ng-click="showJoinInternalForm()" >
+        <button class="btn btn-primary btn-flat" ng-click="showJoinInternalForm()" ng-if="contestDetail.$isInternal">
           <i class="fa fa-user-plus"></i> <span translate="joinNow"></span>
         </button>
         <button ng-show="contestDetail.currentUserJoined == true" ng-click="submissionForm.showSubmitForm()"
@@ -81,7 +81,7 @@
       </div>
     </div>
   </div>
-  <join-internal-challenge challenge="contestDetail" form="joinInternalForm"></join-internal-challenge>
+  <join-internal-challenge challenge="contestDetail" form="joinInternalForm" ng-if="contestDetail.$isInternal"></join-internal-challenge>
   <submission-challenge challenge="contestDetail" form="submissionForm"></submission-challenge>
   <div class="alert alert-success" data-ng-init="submittedPhase = false" ng-model="submittedPhase"
        ng-show="submittedPhase">
