@@ -4,10 +4,7 @@ import com.techlooper.entity.ChallengeEntity;
 import com.techlooper.entity.ChallengeRegistrantCriteria;
 import com.techlooper.entity.ChallengeRegistrantDto;
 import com.techlooper.entity.ChallengeRegistrantEntity;
-import com.techlooper.model.ChallengeDetailDto;
-import com.techlooper.model.ChallengeDto;
-import com.techlooper.model.ChallengeFilterCondition;
-import com.techlooper.model.ChallengePhaseEnum;
+import com.techlooper.model.*;
 import com.techlooper.repository.elasticsearch.ChallengeRegistrantRepository;
 import com.techlooper.repository.elasticsearch.ChallengeRepository;
 import com.techlooper.service.ChallengeEmailService;
@@ -15,6 +12,7 @@ import com.techlooper.service.ChallengeRegistrantService;
 import com.techlooper.service.ChallengeService;
 import com.techlooper.util.DataUtils;
 import com.techlooper.util.DateTimeUtils;
+import com.techlooper.util.EmailValidator;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.dozer.Mapper;
@@ -85,15 +83,22 @@ public class ChallengeServiceImpl implements ChallengeService {
 
     @Override
     public Long joinChallenge(ChallengeRegistrantDto challengeRegistrantDto) {
+        final long INVALID_REGISTRANT = 0L;
         Long challengeId = challengeRegistrantDto.getChallengeId();
-        boolean isExistRegistrant = checkIfRegistrantAlreadyExist(challengeId, challengeRegistrantDto.getRegistrantEmail());
+        ChallengeEntity challengeEntity = challengeRepository.findOne(challengeId);
+        String registrantEmail = challengeRegistrantDto.getRegistrantEmail();
 
+        boolean isValidEmail = checkValidEmailCompareToChallengeType(challengeEntity, registrantEmail);
+        if (!isValidEmail) {
+            return INVALID_REGISTRANT;
+        }
+
+        boolean isExistRegistrant = checkIfRegistrantAlreadyExist(challengeId, registrantEmail);
         if (isExistRegistrant) {
-            return 0L;
+            return INVALID_REGISTRANT;
         }
 
         ChallengeRegistrantEntity challengeRegistrantEntity = dozerMapper.map(challengeRegistrantDto, ChallengeRegistrantEntity.class);
-        ChallengeEntity challengeEntity = challengeRepository.findOne(challengeId);
         challengeRegistrantEntity.setRegistrantId(DateTimeUtils.currentDateTime());
         if (challengeEntity.getCriteria().size() > 0) {
             final Set<ChallengeRegistrantCriteria> criteria = new HashSet<>();
@@ -300,6 +305,13 @@ public class ChallengeServiceImpl implements ChallengeService {
         searchQueryBuilder.withQuery(filteredQuery(boolQueryBuilder, boolFilterBuilder));
         searchQueryBuilder.withSort(SortBuilders.fieldSort("startDateTime").order(SortOrder.DESC));
         return searchQueryBuilder;
+    }
+
+    private boolean checkValidEmailCompareToChallengeType(ChallengeEntity challengeEntity, String email) {
+        if (challengeEntity.getChallengeType() == ChallengeTypeEnum.INTERNAL) {
+            return StringUtils.isNotEmpty(email) && email.contains(challengeEntity.getCompanyDomain());
+        }
+        return EmailValidator.validate(email);
     }
 
     private boolean checkIfRegistrantAlreadyExist(Long challengeId, String email) {

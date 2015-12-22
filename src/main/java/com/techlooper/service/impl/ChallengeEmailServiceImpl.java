@@ -372,9 +372,12 @@ public class ChallengeEmailServiceImpl implements ChallengeEmailService {
         templateModel.put("challengeId", String.valueOf(challengeEntity.getChallengeId()));
         templateModel.put("challengeNameAlias", challengeEntity.getChallengeName().replaceAll("\\W", "-"));
 
-        final int MIN_RANDOM_SEED_NUMBER = 1000;
-        final int MAX_RANDOM_SEED_NUMBER = 9999;
-        templateModel.put("passCode", DataUtils.getRandomNumberInRange(MIN_RANDOM_SEED_NUMBER, MAX_RANDOM_SEED_NUMBER));
+        if (challengeEntity.getChallengeType() == ChallengeTypeEnum.INTERNAL) {
+            final int MIN_RANDOM_SEED_NUMBER = 1000;
+            final int MAX_RANDOM_SEED_NUMBER = 9999;
+            templateModel.put("passCode", DataUtils.getRandomNumberInRange(MIN_RANDOM_SEED_NUMBER, MAX_RANDOM_SEED_NUMBER));
+        }
+
         return templateModel;
     }
 
