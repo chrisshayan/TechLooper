@@ -1,4 +1,4 @@
-<div class="contest-item-row" ng-repeat="contest in contestsList" id="id-{{contest.challengeId}}" ng-class="{'internal'}">
+<div class="contest-item-row" ng-repeat="contest in contestsList" id="id-{{contest.challengeId}}" ng-class="{'internal': contest.challengeType == 'INTERNAL'}">
   <div class="contest-item-content">
     <div class="challenge-name-col">
       <div translate="challengeName" class="label-col"></div>
@@ -31,10 +31,14 @@
       <a title="{{'submitPhase' | translate}}" ng-click="submissionForm.showSubmitForm()" ng-show="contest.currentUserJoined == true">
         <i class="fa fa-paper-plane-o"></i>  |  <span translate="submitPhase"></span>
       </a>
-      <a title="{{'join' | translate}}" ng-show="contest.currentUserJoined == false" ng-click="joinNowByFB(contest)">
+      <a title="{{'join' | translate}}" ng-show="contest.currentUserJoined == false"  ng-if="contest.challengeType != 'INTERNAL'" ng-click="joinNowByFB(contest)">
         <i class="fa fa-facebook"></i>  |  <span translate="join"></span>
+      </a>
+      <a title="{{'join' | translate}}" ng-click="joinNowByFB(contest)" ng-if="contest.challengeType == 'INTERNAL'">
+        <i class="fa fa-user-plus"></i>  |  <span translate="join"></span>
       </a>
     </div>
   </div>
+  <join-internal-challenge challenge="contest" form="joinInternalForm" ng-if="contest.challengeType == 'INTERNAL'"></join-internal-challenge>
   <submission-challenge challenge="contest" form="submissionForm"></submission-challenge>
 </div>
