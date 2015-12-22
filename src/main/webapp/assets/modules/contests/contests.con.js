@@ -1,31 +1,36 @@
 techlooper.controller('contestsController', function (apiService, $scope, jsonValue, $window, $translate, $filter,
-                                                      utils, localStorageService) {
+                                                      utils, localStorageService, $location) {
   utils.sendNotification(jsonValue.notifications.loading);
 
-  if (localStorageService.get("joinNow")) {
-    localStorageService.remove("joinNow");
-    var firstName = localStorageService.get("firstName");
-    var lastName = localStorageService.get("lastName");
-    var email = localStorageService.get("email");//submitNow
-    var contestId = localStorageService.get("joiningChallengeId") || localStorageService.get("submitNow");
-    if (contestId) {
-      apiService.joinContest(contestId, firstName, lastName, email, $translate.use())
-        .success(function (numberOfRegistrants) {
-          if ($scope.contestDetail) {
-            $scope.contestDetail.numberOfRegistrants = numberOfRegistrants;
-          }
+  var joinChallenge = function() {
+    if (localStorageService.get("joinNow")) {
+      localStorageService.remove("joinNow");
+      var firstName = localStorageService.get("firstName");
+      var lastName = localStorageService.get("lastName");
+      var email = localStorageService.get("email");//submitNow
+      var contestId = localStorageService.get("joiningChallengeId") || localStorageService.get("submitNow");
+      if (contestId) {
+        apiService.joinContest(contestId, firstName, lastName, email, $translate.use())
+          .success(function (numberOfRegistrants) {
+            if ($scope.contestDetail) {
+              $scope.contestDetail.numberOfRegistrants = numberOfRegistrants;
+            }
 
-          var joinContests = localStorageService.get("joinContests") || "";
-          joinContests = joinContests.length > 0 ? joinContests.split(",") : [];
-          if ($.inArray(contestId, joinContests) < 0) {
-            joinContests.push(contestId);
-          }
+            var joinContests = localStorageService.get("joinContests") || "";
+            joinContests = joinContests.length > 0 ? joinContests.split(",") : [];
+            if ($.inArray(contestId, joinContests) < 0) {
+              joinContests.push(contestId);
+            }
 
-          localStorageService.set("joinContests", joinContests.join(","));
-        });
-      localStorageService.remove("joiningChallengeId");
+            localStorageService.set("joinContests", joinContests.join(","));
+          });
+        localStorageService.remove("joiningChallengeId");
+      }
     }
   }
+
+  joinChallenge();
+
 
   $scope.contestTimeLeft = function (contest) {
     if (!contest.progress) return "";
@@ -54,12 +59,15 @@ techlooper.controller('contestsController', function (apiService, $scope, jsonVa
   });
 
   $scope.joinNow = function (challenge) {
+    localStorageService.set("joiningChallengeId", challenge.challengeId);
     if (challenge.$isPublic) {
-      localStorageService.set("joiningChallengeId", challenge.challengeId);
       apiService.joinNowByFB();
     }
     else if (challenge.$isInternal) {
-
+      localStorageService.set("priorFoot", $location.url());
+      localStorageService.set("lastFoot", $location.url());
+      localStorageService.set("joinNow", true);
+      joinChallenge();
     }
   }
 });

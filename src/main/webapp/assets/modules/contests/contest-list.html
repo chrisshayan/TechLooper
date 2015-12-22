@@ -31,11 +31,10 @@
       <a title="{{'submitPhase' | translate}}" ng-click="submissionForm.showSubmitForm()" ng-show="contest.currentUserJoined == true">
         <i class="fa fa-paper-plane-o"></i>  |  <span translate="submitPhase"></span>
       </a>
-      <a title="{{'join' | translate}}" ng-show="contest.currentUserJoined == false"  ng-if="contest.$isPublic" ng-click="joinNow(contest)">
-        <i class="fa fa-facebook"></i>  |  <span translate="join"></span>
-      </a>
-      <a title="{{'join' | translate}}" ng-click="joinNow(contest)" ng-if="contest.$isInternal">
-        <i class="fa fa-user-plus"></i>  |  <span translate="join"></span>
+      <a title="{{'join' | translate}}" ng-show="contest.currentUserJoined == false" ng-click="joinNow(contest)">
+        <i class="fa fa-facebook" ng-if="contest.$isPublic"></i>
+        <i class="fa fa-user-plus" ng-if="contest.$isInternal"></i>
+        |  <span translate="join"></span>
       </a>
     </div>
   </div>
