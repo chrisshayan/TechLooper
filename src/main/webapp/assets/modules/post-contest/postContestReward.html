@@ -70,7 +70,6 @@
                    required-expr="state.status('compare-3reward-2reward')"
                    required-expr2="state.status('optional-place-reward-range', contest.thirdPlaceReward)"
                    placeholder="{{'thirdPrize' | translate}}" only-digits maxlength="4" touchable/>
-
             <div ng-show="rewardForm.thirdPlaceReward.$edited || rewardForm.$submitted">
               <div class="error-messages"
                    ng-show="rewardForm.thirdPlaceReward.$error.requiredExpr"
@@ -79,8 +78,20 @@
                    ng-show="rewardForm.thirdPlaceReward.$error.requiredExpr2"
                    translate="rewardShouldFrom100To5000"/>
             </div>
-
           </div>
+        </div>
+      </div>
+      <div class="box-content challenge-type">
+        <h3 class="none-capitalize" translate="rewardTheWinner"></h3>
+        <div class="post-contest-field">
+          <label><input type="radio" name="challengeType"/> <span translate="public"></span></label>
+          <p translate="publicDes"></p>
+        </div>
+        <div class="post-contest-field">
+          <label><input type="radio" name="challengeType"/> <span translate="internal"></span></label>
+          <p translate="internalDes"></p>
+          <p translate="companyDomain"></p>
+          <input type="text" class="input-style"/>
         </div>
       </div>
       <div class="box-content">
