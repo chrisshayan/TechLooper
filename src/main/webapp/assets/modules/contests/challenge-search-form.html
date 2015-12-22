@@ -4,18 +4,18 @@
       <div class="input-group">
         <div class="input-group-btn search-panel">
           <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-            <span id="search_concept">All Challenges</span> <span class="caret"></span>
+            <span id="search_concept" translate="allChallengesSearch"></span> <span class="caret"></span>
           </button>
           <ul class="dropdown-menu" role="menu">
-            <li><a href="#all">All Challenges</a></li>
+            <li><a href="#all" translate="allChallengesSearch"></a></li>
             <li class="divider"></li>
-            <li><a href="#public">Public</a></li>
-            <li><a href="#internal">Internal</a></li>
+            <li><a href="#public" translate="publicChallenge"></a></li>
+            <li><a href="#internal" translate="internalChallenge"></a></li>
 
           </ul>
         </div>
         <input type="hidden" name="search_param" value="all" id="search_param">
-        <input type="text" class="form-control" name="x" placeholder="Search term...">
+        <input type="text" class="form-control" name="x" placeholder="{{'SearchChallengePlaceholder' | translate}}">
       <span class="input-group-btn">
           <button class="btn btn-default btn-primary" type="button"><span class="glyphicon glyphicon-search"></span></button>
       </span>

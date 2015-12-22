@@ -82,16 +82,26 @@
         </div>
       </div>
       <div class="box-content challenge-type">
-        <h3 class="none-capitalize" translate="rewardTheWinner"></h3>
+        <h3 class="none-capitalize" translate="challengeTypeSelection"></h3>
         <div class="post-contest-field">
-          <label><input type="radio" name="challengeType"/> <span translate="public"></span></label>
+          <label><input type="radio" ng-model="contest.challengeType" ng-init="contest.challengeType = 'PUBLIC'"
+                        value="PUBLIC" name="challengeType" checked/> <span translate="public"></span></label>
           <p translate="publicDes"></p>
         </div>
         <div class="post-contest-field">
-          <label><input type="radio" name="challengeType"/> <span translate="internal"></span></label>
+          <label><input type="radio" name="challengeType"
+                        ng-model="contest.challengeType" value="INTERNAL"/> <span translate="internal"></span></label>
           <p translate="internalDes"></p>
-          <p translate="companyDomain"></p>
-          <input type="text" class="input-style"/>
+          <p ng-if="contest.challengeType == 'INTERNAL'"><span translate="companyDomain"></span> <strong>*</strong></p>
+          <div ng-if="contest.challengeType == 'INTERNAL'">
+            <tagbox name="companyDomain" tags="contest.companyDomain"
+                    type="email" placeholder="companyDomainEx" list-max-length="3"
+                    ng-model="contest.companyDomain" array-model touchable></tagbox>
+
+            <div class="error-messages"
+                 ng-show="challengeForm.companyDomain.$error.required && (challengeForm.companyDomain.$edited || challengeForm.$submitted)"
+                 translate="listRequire1Item"></div>
+          </div>
         </div>
       </div>
       <div class="box-content">
