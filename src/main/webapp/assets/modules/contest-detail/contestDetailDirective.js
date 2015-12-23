@@ -1,16 +1,4 @@
 techlooper
-  .directive('contentDetailsTab', function () {
-    return {
-      restrict: "E",
-      replace: true,
-      templateUrl: "modules/contest-detail/details/contentTab.html",
-      link: function (scope, element, attr, ctrl) {
-        scope.$on("challenge-criteria-saved", function (e, criteria) {
-          scope.$eventName = "challenge-criteria-saved";
-        });
-      }
-    };
-  })
   .directive('contentRegistrantsTab', function () {
     return {
       restrict: "E",
