@@ -147,12 +147,12 @@
                   <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0 auto;">
                     <tr>
                       <td align="center" style="padding: 10px 0 5px 0">
-                        <h2 style="font-size: 30px; font-weight: 500; padding:0; margin: 0;">Online Challenge</h2>
+                        <h2 style="font-size: 30px; font-weight: 500; padding:0; margin: 0;">Thử Thách Trực Tuyến</h2>
                       </td>
                     </tr>
                     <tr>
                       <td align="center" style="margin: 0; padding: 0">
-                        <p style="font-size: 12px; font-style: italic; line-height: 18px; margin: 0; padding: 0">Build And Grow Your Developer Community Base With Online Contests.</p>
+                        <p style="font-size: 12px; font-style: italic; line-height: 18px; margin: 0; padding: 0">Xây Dựng Đội Ngũ Phát Triển Sản Phẩm Của Chính Bạn Thông Qua Các Cuộc Thi Trực Tuyến</p>
                       </td>
                     </tr>
                     <tr>
@@ -162,7 +162,7 @@
                     </tr>
                     <tr>
                       <td align="left" style="margin: 0; padding: 0">
-                        <p style="font-size: 14px; line-height: 18px; margin: 0; padding: 0">Hello,</p>
+                        <p style="font-size: 14px; line-height: 18px; margin: 0; padding: 0">Xin chào,</p>
                       </td>
                     </tr>
                     <tr>
@@ -173,8 +173,8 @@
                     <tr>
                       <td align="left" style="margin: 0; padding: 0">
                         <p style="font-size: 14px; line-height: 18px; margin: 0; padding: 0">
-                          Congratulations! You have been enrolled successfully to
-                          <a href="${webBaseUrl}#/challenge-detail/${challengeNameAlias}-${challengeId}-id?utm_source=internalapplication&utm_medium=clickchallenge&utm_campaign=onlinecontest" style="font-size: 14px; font-weight: 600; color: #277cbd; text-decoration: none" target="_blank">${challenge.challengeName}</a>. Here are the details of your account:</p>
+                            Xin chúc mừng! Bạn vừa tham gia thành công thử thách
+                          <a href="${webBaseUrl}#/challenge-detail/${challengeNameAlias}-${challengeId}-id?utm_source=internalapplication&utm_medium=clickchallenge&utm_campaign=onlinecontest" style="font-size: 14px; font-weight: 600; color: #277cbd; text-decoration: none" target="_blank">${challenge.challengeName}</a>. Sau đây là thông tin chi tiết tài khoản của bạn trong cuộc thi:</p>
                       </td>
                     </tr>
                     <tr>
@@ -203,7 +203,7 @@
                                           <table cellspacing="0" cellpadding="0" width="100%" style="background-color: #e7f5ff">
                                             <tr>
                                               <td width="30%" align="left" style="padding-right: 5px">
-                                                Full Name:
+                                                  Họ Tên:
                                               </td>
                                               <td width="70%" align="left">
                                                 <strong>${challengeRegistrant.registrantFirstName} ${challengeRegistrant.registrantLastName}</strong>
@@ -219,7 +219,7 @@
                                             </tr>
                                             <tr>
                                               <td width="30%" align="left" style="padding-right: 5px">
-                                                Login Email:
+                                                  Email Đăng Nhập:
                                               </td>
                                               <td width="70%" align="left">
                                                 <strong>${challengeRegistrant.registrantEmail}</strong>
@@ -235,7 +235,7 @@
                                             </tr>
                                             <tr>
                                               <td width="30%" align="left" style="padding-right: 5px">
-                                                Password:
+                                                  Mật Khẩu:
                                               </td>
                                               <td width="70%" align="left">
                                                 <strong>${passCode}</strong>
@@ -286,7 +286,7 @@
                                           <table cellspacing="0" cellpadding="0" width="100%">
                                             <tr>
                                               <td align="center">
-                                                <strong style="color:#277cbd; font-size: 18px">How-To-Submit Instruction</strong>
+                                                <strong style="color:#277cbd; font-size: 18px">Hướng Dẫn Gửi Bài</strong>
                                               </td>
                                             </tr>
                                             <tr>
@@ -296,12 +296,12 @@
                                             </tr>
                                             <tr>
                                               <td align="left">
-                                                <strong>1. Click on Submit button</strong>
+                                                <strong>1. Nhấp chuột trên nút Gửi Bài</strong>
                                               </td>
                                             </tr>
                                             <tr>
                                               <td align="left">
-                                                Use your email and password to let us know who you are
+                                                  Sử dụng email và mật khẩu đăng nhập ở trên để định danh tài khoản
                                               </td>
                                             </tr>
                                             <tr>
@@ -331,12 +331,12 @@
                                             </tr>
                                             <tr>
                                               <td align="left">
-                                                <strong>2. Submit to challenge</strong>
+                                                <strong>2. Gửi bài vào cuộc thi</strong>
                                               </td>
                                             </tr>
                                             <tr>
                                               <td align="left">
-                                                Submit to each challenge phase to be able qualified to go to next phase
+                                                  Gửi bài tuỳ theo yêu cầu mỗi giai đoạn cuộc thi để có đủ điều kiện đi tiếp vào vòng tiếp theo
                                               </td>
                                             </tr>
                                             <tr>
@@ -389,7 +389,7 @@
                         <table align="center" cellspacing="0" cellpadding="2" class="deviceWidth" width="100%" style="margin:0 auto; padding:10px 0">
                           <tr>
                             <td style="text-align: center; margin-top:0px">
-                              <p style="font-family: Arial, sans-serif; font-size: 12px; line-height: 20px; color: #555;text-align: center; vertical-align: middle" class="subscription">FOLLOW US</p>
+                              <p style="font-family: Arial, sans-serif; font-size: 12px; line-height: 20px; color: #555;text-align: center; vertical-align: middle" class="subscription">KẾT NỐI VỚI TECHLOOPER</p>
                             </td>
                           </tr>
                           <tr>
@@ -404,7 +404,7 @@
                         <table width="100%" align="center" class="deviceWidth" style="padding:10px 0">
                           <tr>
                             <td class="copyright" style="font-size:11px;font-family:Arial,sans-serif;color:#999;text-align:center;">
-                              Copyright © Navigos Group Vietnam Joint Stock Company.
+                              Copyright © Công Ty Cổ Phần Navigos Group Việt Nam.
                             </td>
                           </tr>
                         </table>
