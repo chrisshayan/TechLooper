@@ -190,8 +190,13 @@
             display: block
             clear: both
             width: 100%
-            background: url("../images/ic-challenge-mini.png") 0px 2px no-repeat
-            padding: 0  0 5px 20px
+            padding: 0  0 5px 0
+            i
+              width: 20px
+              height: 20px
+              display: inline-block
+              float: left
+              background: url("../images/ic-challenge-mini.png") 0px 2px no-repeat
           span
             display: inline-block
             width: auto
@@ -283,7 +288,10 @@
           font-style: italic
       .contest-item-row.internal
         background-color: #fffef5
-
+        .challenge-name-col
+          a
+            i
+              background-position: 0px -103px
   .submit-phase-contest
     height: 0px
     transition: height 1s
