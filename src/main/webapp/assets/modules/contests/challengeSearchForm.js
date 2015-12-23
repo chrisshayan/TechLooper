@@ -1,16 +1,8 @@
-techlooper.directive('contestList', function () {
+techlooper.directive('challengeSearchForm', function () {
   return {
     restrict: "E",
     replace: true,
-    templateUrl: "modules/contests/contest-list.html",
-    link: function (scope, el, attrs) {
-    }
-  };
-}).directive('challengeSearchForm', function () {
-  return {
-    restrict: "E",
-    replace: true,
-    templateUrl: "modules/contests/challenge-search-form.html",
+    templateUrl: "modules/contests/challengeSearchForm.html",
     link: function (scope, el, attrs) {
       $(document).ready(function(e){
         $('.search-panel .dropdown-menu').find('a').click(function(e) {

@@ -1,4 +1,4 @@
-techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue, $filter, $q, $translate) {
+techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue, $filter, $q, $translate, localStorageService) {
   return function (input, type) {
     if (!input || input.$isRich) return input;
 
@@ -251,11 +251,68 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
     }
 
     challengeDetail.recalculate = function (registrants) {
-      challengeDetail.recalculatePhaseItems();
       challengeDetail.totalWeight = _.reduceRight(challengeDetail.criteria, function (sum, cri) { return sum + cri.weight; }, 0);
       challengeDetail.$isPublic = jsonValue.challengeType.isPublic(challengeDetail.challengeType);
       challengeDetail.$isInternal = jsonValue.challengeType.isInternal(challengeDetail.challengeType);
+
+      challengeDetail.recalculateCurrentState();
+      challengeDetail.recalculateCurrentUserJoined();
+      challengeDetail.recalculatePhaseItems();
       challengeDetail.recalculateRegistrants(registrants);
+
+    }
+
+    challengeDetail.recalculateCurrentUserJoined = function () {
+      var joinContests = localStorageService.get("joinContests") || "";
+      var email = localStorageService.get("email") || "";
+      challengeDetail.$currentUserJoined = (joinContests.indexOf(challengeDetail.challengeId) >= 0) && (email.length > 0);
+    }
+
+    challengeDetail.recalculateCurrentState = function () {
+      challengeDetail.$stateMilestones = [
+        {
+          id: "not-started",
+          title: $filter("translate")("notStart"),
+          getChallengeDate: function () {return moment(challengeDetail.startDateTime, jsonValue.dateFormat);},
+          date: moment(challengeDetail.startDateTime, jsonValue.dateFormat).subtract({days: 1}),
+          timeLeftTitleTranslate: "moreDayToNotStarted"
+        },
+        {
+          id: "registration",
+          title: $filter("translate")("registration"),
+          date: moment(challengeDetail.registrationDateTime, jsonValue.dateFormat),
+          timeLeftTitleTranslate: "moreDayToRegistration"
+        },
+        {
+          id: "in-progress",
+          title: $filter("translate")("inProgress"),
+          date: moment(challengeDetail.submissionDateTime, jsonValue.dateFormat),
+          timeLeftTitleTranslate: "moreDayToSubmit"
+        },
+        {
+          id: "closed",
+          title: $filter("translate")("closed"),
+          getChallengeDate: function () {return moment(challengeDetail.submissionDateTime, jsonValue.dateFormat);},
+          date: moment(challengeDetail.submissionDateTime, jsonValue.dateFormat).add({days: 1}),
+          timeLeftTitleTranslate: "moreDayToClosed",
+          dayLeft: challengeDetail.submissionDateTime
+        }
+      ];
+
+      $.each(challengeDetail.$stateMilestones, function (i, milestone) {
+        if (moment().isBefore(milestone.date, 'day') || moment().isSame(milestone.date, 'day')) {
+          challengeDetail.$currentState = milestone;
+          return false;
+        }
+      });
+
+      //if not found, then set current state to the last one
+      !challengeDetail.$currentState && (challengeDetail.$currentState = challengeDetail.$stateMilestones[challengeDetail.$stateMilestones.length - 1]);
+
+      var challengeDate = _.isFunction(challengeDetail.$currentState.getChallengeDate) ? challengeDetail.$currentState.getChallengeDate() : challengeDetail.$currentState.date;
+      var toNow = challengeDate.isSame(moment(), "day") ? 1 : challengeDate.diff(moment(), "days") + 2;
+      challengeDetail.$currentState.timeLeftTitle = $filter("translate")(challengeDetail.$currentState.timeLeftTitleTranslate,
+        {dayLeft: challengeDetail.$currentState.dayLeft || toNow});
     }
 
     challengeDetail.recalculateRegistrants = function (registrants) {
