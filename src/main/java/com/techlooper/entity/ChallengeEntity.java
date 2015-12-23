@@ -111,7 +111,7 @@ public class ChallengeEntity {
     private ChallengeTypeEnum challengeType;
 
     @Field(type = String)
-    private String companyDomain;
+    private List<String> companyDomains;
 
     public Set<ChallengeWinner> getWinners() {
         if (winners == null) winners = new HashSet<>();
@@ -339,12 +339,12 @@ public class ChallengeEntity {
         this.challengeType = challengeType;
     }
 
-    public String getCompanyDomain() {
-        return companyDomain;
+    public List<String> getCompanyDomains() {
+        return companyDomains;
     }
 
-    public void setCompanyDomain(String companyDomain) {
-        this.companyDomain = companyDomain;
+    public void setCompanyDomains(List<String> companyDomains) {
+        this.companyDomains = companyDomains;
     }
 
     public boolean hasPhase(ChallengePhaseEnum phase) {

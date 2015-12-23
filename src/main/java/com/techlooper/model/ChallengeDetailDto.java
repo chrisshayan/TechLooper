@@ -70,7 +70,7 @@ public class ChallengeDetailDto {
 
     private ChallengeTypeEnum challengeType;
 
-    private String companyDomain;
+    private List<String> companyDomains;
 
     public List<ChallengeRegistrantFunnelItem> getPhaseItems() {
         return phaseItems;
@@ -320,11 +320,11 @@ public class ChallengeDetailDto {
         this.challengeType = challengeType;
     }
 
-    public String getCompanyDomain() {
-        return companyDomain;
+    public List<String> getCompanyDomains() {
+        return companyDomains;
     }
 
-    public void setCompanyDomain(String companyDomain) {
-        this.companyDomain = companyDomain;
+    public void setCompanyDomains(List<String> companyDomains) {
+        this.companyDomains = companyDomains;
     }
 }
