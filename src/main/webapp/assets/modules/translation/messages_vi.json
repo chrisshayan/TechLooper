@@ -882,5 +882,6 @@
   "companyDomainEx": "Ex: navigosgroup.com",
   "SearchChallengePlaceholder": "Điền tên thử thách hay tên miền để tìm kiếm",
   "allChallengesSearch": "Mọi Thử Thách",
-  "invalidDomainName": "Tên miền không đúng định dạng"
+  "invalidDomainName": "Tên miền không đúng định dạng",
+  "joinInternalChallengeWith": "Tham gia với email với tên miền:"
 }
