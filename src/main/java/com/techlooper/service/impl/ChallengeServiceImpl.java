@@ -309,7 +309,15 @@ public class ChallengeServiceImpl implements ChallengeService {
 
     private boolean checkValidEmailCompareToChallengeType(ChallengeEntity challengeEntity, String email) {
         if (challengeEntity.getChallengeType() == ChallengeTypeEnum.INTERNAL) {
-            return StringUtils.isNotEmpty(email) && email.contains(challengeEntity.getCompanyDomain());
+            if (StringUtils.isEmpty(email)) {
+                return false;
+            }
+            for (String domain : challengeEntity.getCompanyDomains()) {
+                if (email.contains(domain)) {
+                    return true;
+                }
+            }
+            return false;
         }
         return EmailValidator.validate(email);
     }
