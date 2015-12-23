@@ -12,13 +12,13 @@
       </ul>
     </div>
 
-    <div class="error-messages" ng-show="status('show-errors')">
-      <div translate="requiredThisField" ng-show="status('show-error', 'required')"/>
-      <div translate="exceedCharacterWithParam" translate-value-number="{{maxTagLength}}" ng-show="status('show-error', 'maxlength')"/>
-      <div translate="emailInvalid" ng-show="status('show-error', 'email')"/>
-      <div translate="alreadyExistValue" ng-show="status('show-error', 'unique')"/>
-      <div translate="limitItemWithParam" ng-show="status('show-error', 'listMaxLength')"
-           translate-value-number="{{listMaxLength}}" />
+    <div class="error-messages" ng-if="status('show-errors')">
+      <div translate="requiredThisField" ng-if="status('show-error', 'required')"/>
+      <div translate="exceedCharacterWithParam" translate-value-number="{{maxTagLength}}" ng-if="status('show-error', 'maxlength')"/>
+      <div translate="emailInvalid" ng-if="status('show-error', 'email')"/>
+      <div translate="alreadyExistValue" ng-if="status('show-error', 'unique')"/>
+      <div translate="limitItemWithParam" ng-if="status('show-error', 'listMaxLength')" translate-value-number="{{listMaxLength}}" />
+      <div translate="invalidDomainName" ng-if="status('show-error', 'domainName')" />
     </div>
 
     <input type="hidden" name="tags" ng-model="tags" array-required>

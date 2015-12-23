@@ -881,6 +881,6 @@
   "companyDomain": "Vui lòng nhập các tên miền. Chỉ những thí sinh sử dụng email với một trong những tên miền này mới có thể đăng ký thành công vào cuộc thi: (Tối đa 3 tên miền)",
   "companyDomainEx": "Ex: navigosgroup.com",
   "SearchChallengePlaceholder": "Điền tên thử thách hay tên miền để tìm kiếm",
-  "allChallengesSearch": "Mọi Thử Thách"
-
+  "allChallengesSearch": "Mọi Thử Thách",
+  "invalidDomainName": "Tên miền không đúng định dạng"
 }
