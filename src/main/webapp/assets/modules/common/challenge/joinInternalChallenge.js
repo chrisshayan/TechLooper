@@ -3,8 +3,8 @@ techlooper.directive("joinInternalChallenge", function (apiService) {
     restrict: "E",
     replace: true,
     scope: {
-      challenge: "="
-      //form: "="
+      challenge: "=",
+      cancel: "="
     },
     templateUrl: "modules/common/challenge/joinInternalChallenge.html",
     link: function (scope, el, attrs) {

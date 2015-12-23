@@ -87,7 +87,8 @@
       </div>
     </div>
   </div>
-  <join-internal-challenge challenge="contestDetail" ng-show="$internalForm.visible" ng-if="contestDetail.$isInternal"></join-internal-challenge>
+  <join-internal-challenge challenge="contestDetail" cancel="toggleJoinInternalForm"
+                           ng-show="$internalForm.visible" ng-if="contestDetail.$isInternal"></join-internal-challenge>
   <submission-challenge challenge="contestDetail" form="submissionForm"></submission-challenge>
   <div class="alert alert-success" data-ng-init="submittedPhase = false" ng-model="submittedPhase"
        ng-show="submittedPhase">
