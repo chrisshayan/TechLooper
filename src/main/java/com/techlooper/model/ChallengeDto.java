@@ -56,7 +56,7 @@ public class ChallengeDto {
 
     private ChallengeTypeEnum challengeType;
 
-    private String companyDomain;
+    private List<String> companyDomains;
 
     public Long getChallengeId() {
         return challengeId;
@@ -250,11 +250,11 @@ public class ChallengeDto {
         this.challengeType = challengeType;
     }
 
-    public String getCompanyDomain() {
-        return companyDomain;
+    public List<String> getCompanyDomains() {
+        return companyDomains;
     }
 
-    public void setCompanyDomain(String companyDomain) {
-        this.companyDomain = companyDomain;
+    public void setCompanyDomains(List<String> companyDomains) {
+        this.companyDomains = companyDomains;
     }
 }
