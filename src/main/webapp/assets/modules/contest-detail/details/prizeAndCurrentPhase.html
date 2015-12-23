@@ -77,7 +77,12 @@
         <button ng-show="contestDetail.currentUserJoined == true" ng-click="submissionForm.showSubmitForm()"
                 class="btn btn-primary btn-flat">
           <i class="fa fa-paper-plane-o"></i> <span translate="submitPhase"></span></button>
-        <p class="note align-text-right"ng-if="contestDetail.$isInternal">Join with your email from: <strong>abc@xyz.com</strong>, <strong>abc@def.com.vn</strong>, <strong>abc@navigosgroup.com</strong></p>
+        <p class="note align-text-right">
+          {{'joinInternalChallengeWith' | translate}}
+          <strong>navigosgroup.com</strong> {{'or' | translate}}
+          <strong>vietnamworks.com</strong> {{'or' | translate}} 
+          <strong>techlooper.com</strong>
+        </p>
       </div>
     </div>
   </div>

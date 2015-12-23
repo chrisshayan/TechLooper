@@ -878,5 +878,6 @@
   "companyDomainEx": "Ví dụ: navigosgroup.com",
   "SearchChallengePlaceholder": "Enter challenge name or company domain to search challenge",
   "allChallengesSearch": "All challenges",
-  "invalidDomainName": "Invalid domain name format"
+  "invalidDomainName": "Invalid domain name format",
+  "joinInternalChallengeWith": "Join with your email from:"
 }
