@@ -94,9 +94,9 @@
           <p translate="internalDes"></p>
           <p ng-if="contest.challengeType == 'INTERNAL'"><span translate="companyDomain"></span> <strong>*</strong></p>
           <div ng-if="contest.challengeType == 'INTERNAL'">
-            <tagbox name="companyDomain" tags="contest.companyDomain"
-                    type="email" placeholder="companyDomainEx" list-max-length="3"
-                    ng-model="contest.companyDomain" array-model touchable></tagbox>
+            <tagbox name="companyDomains" tags="contest.companyDomains"
+                    type="text" placeholder="companyDomainEx" list-max-length="3"
+                    ng-model="contest.companyDomain" array-model touchable enable-validators="domainName"></tagbox>
 
             <div class="error-messages"
                  ng-show="challengeForm.companyDomain.$error.required && (challengeForm.companyDomain.$edited || challengeForm.$submitted)"
