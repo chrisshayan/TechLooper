@@ -115,12 +115,12 @@
               <table style="border-collapse: collapse; background:#eee; margin:0 auto" cellpadding="0" cellspacing="0" align="center" border="0" class="deviceWidth" width="100%">
                 <tr>
                   <td align="left" style="padding:10px" class="logo">
-                    <a href="${webBaseUrl}#/home?utm_source=dailysummary&utm_medium=techlooperlogo&utm_campaign=onlinecontest" style="border:none; outline:none" target="_blank">
+                    <a href="${webBaseUrl}#/home?utm_source=internalapplication&utm_medium=techlooperlogo&utm_campaign=onlinecontest" style="border:none; outline:none" target="_blank">
                       <img alt="TechLooper Logo" class="logo" src="${webBaseUrl}images/logo.png" style="border:none; outline:none" width="150" />
                     </a>
                   </td>
                   <td style="padding:10px" align="right" class="logo">
-                    <a href="http://www.vietnamworks.com/?utm_source=dailysummary&utm_medium=vietnamworkslogo&utm_campaign=onlinecontest" style="border:none; outline:none" target="_blank">
+                    <a href="http://www.vietnamworks.com/?utm_source=internalapplication&utm_medium=vietnamworkslogo&utm_campaign=onlinecontest" style="border:none; outline:none" target="_blank">
                       <img alt="VietnamWorks Logo" class="logo" src="http://images.vietnamworks.com/img/jobseekers/logo.png" style="border:none; outline:none" width="150" />
                     </a>
                   </td>
@@ -174,9 +174,9 @@
                       <td align="left" style="margin: 0; padding: 0">
                         <p style="font-size: 14px; line-height: 18px; margin: 0; padding: 0">
                           Congratulations! You have been enrolled successfully to
-                          <a href="${webBaseUrl}#/challenge-detail/${challenge.challengeName}-${challenge.challengeId}-id?utm_source=internalapplication&utm_medium=clickchallenge&utm_campaign=onlinecontest" style="font-size: 14px; font-weight: 600; color: #277cbd; text-decoration: none" target="_blank">${challenge.challengeName}</a>. Here are the details of your account:</p>
+                          <a href="${webBaseUrl}#/challenge-detail/${challengeNameAlias}-${challengeId}-id?utm_source=internalapplication&utm_medium=clickchallenge&utm_campaign=onlinecontest" style="font-size: 14px; font-weight: 600; color: #277cbd; text-decoration: none" target="_blank">${challenge.challengeName}</a>. Here are the details of your account:</p>
                       </td>
-                    </tr>
+                    </tr>challenge
                     <tr>
                       <td style="height:30px; line-height: 30px;" width="100%">
                         <img height="30px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />

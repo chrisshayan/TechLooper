@@ -77,11 +77,11 @@
         <button ng-show="contestDetail.currentUserJoined == true" ng-click="submissionForm.showSubmitForm()"
                 class="btn btn-primary btn-flat">
           <i class="fa fa-paper-plane-o"></i> <span translate="submitPhase"></span></button>
-        <p class="note align-text-right">
+        <p class="note align-text-right" ng-if="contestDetail.$isInternal">
           {{'joinInternalChallengeWith' | translate}}
-          <strong>navigosgroup.com</strong> {{'or' | translate}}
-          <strong>vietnamworks.com</strong> {{'or' | translate}}
-          <strong>techlooper.com</strong>
+          <span ng-repeat="domain in contestDetail.companyDomains">
+            <strong >{{domain}}</strong>&nbsp;<span ng-if="!$last" translate="or"></span>&nbsp;
+          </span>
         </p>
       </div>
     </div>
