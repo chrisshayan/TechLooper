@@ -284,14 +284,16 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
           title: $filter("translate")("registration"),
           date: moment(challengeDetail.registrationDateTime, jsonValue.dateFormat),
           timeLeftTitleTranslate: "moreDayToRegistration",
-          isRegistration: true
+          isRegistration: true,
+          isJoinable: true
         },
         {
           id: "in-progress",
           title: $filter("translate")("inProgress"),
           date: moment(challengeDetail.submissionDateTime, jsonValue.dateFormat),
           timeLeftTitleTranslate: "moreDayToSubmit",
-          isInProgress: true
+          isInProgress: true,
+          isJoinable: true
         },
         {
           id: "closed",
@@ -318,8 +320,6 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
       var toNow = challengeDate.isSame(moment(), "day") ? 1 : challengeDate.diff(moment(), "days") + 2;
       challengeDetail.$currentState.timeLeftTitle = $filter("translate")(challengeDetail.$currentState.timeLeftTitleTranslate,
         {dayLeft: challengeDetail.$currentState.dayLeft || toNow});
-
-      challengeDetail.$currentState.isJoinable = (challengeDetail.$currentState.isRegistration || challengeDetail.$currentState.isInProgress);
     }
 
     challengeDetail.recalculateRegistrants = function (registrants) {
