@@ -66,18 +66,30 @@
       <p translate="registerNumber"
          translate-value-register-number="<strong>{{contestDetail.numberOfRegistrants}}</strong>"></p>
       <div class="join-now">
-        <button ng-disabled="!status('able-to-join')"
+        <button ng-disabled="contestDetail.$currentUserJoined"
                 ng-if="contestDetail.$isPublic"
                 ng-click="joinNowByFB()" class="btn btn-primary btn-flat"
                 ng-class="{disabled: !status('able-to-join')}">
-          <i class="fa fa-facebook-square"></i> <span translate="joinNow"></span></button>
+          <i class="fa fa-facebook-square"></i> <span translate="joinNow"></span>
+        </button>
 
-        <button class="btn btn-primary btn-flat" ng-click="toggleJoinInternalForm()" ng-if="contestDetail.$isInternal">
+        <button class="btn btn-primary btn-flat"
+                ng-click="toggleJoinInternalForm()" ng-disabled="contestDetail.$currentUserJoined"
+                ng-if="contestDetail.$isInternal">
           <i class="fa fa-user-plus"></i> <span translate="joinNow"></span>
         </button>
-        <button ng-show="contestDetail.currentUserJoined == true" ng-click="submissionForm.showSubmitForm()"
+
+        <button ng-if="contestDetail.$isPublic && contestDetail.$currentUserJoined"
+                ng-click="submissionForm.showSubmitForm()"
                 class="btn btn-primary btn-flat">
-          <i class="fa fa-paper-plane-o"></i> <span translate="submitPhase"></span></button>
+          <i class="fa fa-paper-plane-o"></i> <span translate="submitPhase"></span>
+        </button>
+
+        <button ng-if="contestDetail.$isInternal && contestDetail.$currentUserJoined"
+                class="btn btn-primary btn-flat">
+          <i class="fa fa-paper-plane-o"></i> <span translate="submitPhase"></span>
+        </button>
+
         <p class="note align-text-right" ng-if="contestDetail.$isInternal">
           {{'joinInternalChallengeWith' | translate}}
           <span ng-repeat="domain in contestDetail.companyDomains">

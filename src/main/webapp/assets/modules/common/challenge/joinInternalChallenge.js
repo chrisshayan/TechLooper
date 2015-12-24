@@ -23,6 +23,10 @@ techlooper.directive("joinInternalChallenge", function (apiService, $translate, 
       scope.joinChallenge = function () {
         scope.joinInternalForm.$setSubmitted();
         if (scope.joinInternalForm.$invalid) return;
+        localStorageService.set("lastName", scope.registrant.lastName);
+        localStorageService.set("firstName", scope.registrant.firstName);
+        localStorageService.set("email", scope.registrant.email);
+        localStorageService.set("joiningChallengeId", scope.challenge.challengeId);
         localStorageService.set("priorFoot", $location.url());
         localStorageService.set("lastFoot", $location.url());
         localStorageService.set("joinNow", true);
