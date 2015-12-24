@@ -1,4 +1,4 @@
-techlooper.directive("joinInternalChallenge", function (apiService, $translate) {
+techlooper.directive("joinInternalChallenge", function (apiService, $translate, $location, $route, localStorageService) {
   return {
     restrict: "E",
     replace: true,
@@ -23,8 +23,13 @@ techlooper.directive("joinInternalChallenge", function (apiService, $translate) 
       scope.joinChallenge = function () {
         scope.joinInternalForm.$setSubmitted();
         if (scope.joinInternalForm.$invalid) return;
-        apiService.joinContest(scope.challenge.challengeId, scope.registrant.firstName,
-          scope.registrant.lastName, $translate.use());
+        localStorageService.set("priorFoot", $location.url());
+        localStorageService.set("lastFoot", $location.url());
+        localStorageService.set("joinNow", true);
+        $route.reload();
+        //joinChallenge();
+        //apiService.joinContest(scope.challenge.challengeId, scope.registrant.firstName,
+        //  scope.registrant.lastName, $translate.use());
       }
     }
   }
