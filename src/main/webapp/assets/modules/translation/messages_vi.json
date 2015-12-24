@@ -883,5 +883,6 @@
   "SearchChallengePlaceholder": "Điền tên thử thách hay tên miền để tìm kiếm",
   "allChallengesSearch": "Mọi Thử Thách",
   "invalidDomainName": "Tên miền không đúng định dạng",
+  "emailDomainNotMatch": "Email domain không phù hợp",
   "joinInternalChallengeWith": "Tham gia với email với tên miền:"
 }

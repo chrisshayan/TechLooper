@@ -63,7 +63,7 @@ techlooper.controller('contestsController', function (apiService, $scope, jsonVa
       apiService.joinNowByFB();
     }
     else if (challenge.$isInternal) {
-      $scope.toggleJoinInternalForm();//TODO join internal challenge
+      $scope.toggleJoinInternalForm(challenge);//TODO join internal challenge
       //localStorageService.set("priorFoot", $location.url());
       //localStorageService.set("lastFoot", $location.url());
       //localStorageService.set("joinNow", true);

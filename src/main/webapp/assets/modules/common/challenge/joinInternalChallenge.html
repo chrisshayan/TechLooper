@@ -3,26 +3,41 @@
     <div class="form-group">
       <div class="col-sm-6">
         <label for="ic-firstName"><span translate="firstName"></span>: <strong>*</strong></label>
-        <input type="text" class="form-control" id="ic-firstName" placeholder="{{'firstNameEx' | translate}}">
-        <span class="error-messages">abc</span>
+        <input type="text" class="form-control" id="ic-firstName" ng-model="registrant.firstName"
+               placeholder="{{'firstNameEx' | translate}}" name="firstName" ng-required="true">
+        <span class="error-messages"
+              ng-show="joinInternalForm.firstName.$error.required && (joinInternalForm.firstName.$dirty || joinInternalForm.$submitted)"
+              translate="requiredThisField"/>
       </div>
       <div class="col-sm-6">
         <label for="ic-lastName"><span translate="lastName"></span>: <strong>*</strong></label>
-        <input type="text" class="form-control" id="ic-lastName" placeholder="{{'lastNameEx' | translate}}">
-        <span class="error-messages">abc</span>
+        <input type="text" class="form-control" id="ic-lastName" name="lastName"
+               placeholder="{{'lastNameEx' | translate}}" ng-required="true" ng-model="registrant.lastName"/>
+        <span class="error-messages"
+              ng-show="joinInternalForm.lastName.$error.required && (joinInternalForm.lastName.$dirty || joinInternalForm.$submitted)"
+              translate="requiredThisField"/>
       </div>
     </div>
     <div class="form-group">
       <div class="col-sm-12">
         <label for="ic-email"><span translate="email"></span>: <strong>*</strong></label>
-        <input type="email" class="form-control" id="ic-email" placeholder="{{'emailAddressEx' | translate}}">
-        <span class="error-messages">abc</span>
+        <input type="email" class="form-control" id="ic-email" placeholder="{{'emailAddressEx' | translate}}"
+               name="email" ng-model="registrant.email" ng-required="true"/>
+        <span class="error-messages"
+              ng-show="joinInternalForm.email.$error.required && (joinInternalForm.email.$dirty || joinInternalForm.$submitted)"
+              translate="requiredThisField"/>
+        <span class="error-messages"
+              ng-show="joinInternalForm.email.$error.email && (joinInternalForm.email.$dirty || joinInternalForm.$submitted)"
+              translate="emailInvalid"/>
+        <span class="error-messages"
+              ng-show="joinInternalForm.email.$error.domainMatch && (joinInternalForm.email.$dirty || joinInternalForm.$submitted)"
+              translate="emailDomainNotMatch"/>
       </div>
     </div>
     <div class="form-group">
       <div class="col-sm-12 text-center">
-        <button type="submit" class="btn btn-primary btn-flat" translate="join"></button>
-        <button type="cancel" class="btn btn-primary btn-flat" translate="cancel" ng-click="cancel()"></button>
+        <button type="submit" class="btn btn-primary btn-flat" translate="join" ng-click="joinChallenge()"></button>
+        <button type="cancel" class="btn btn-primary btn-flat" translate="cancel" ng-click="cancel(challenge)"></button>
       </div>
     </div>
   </ng-form>

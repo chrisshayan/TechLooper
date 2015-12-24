@@ -377,10 +377,6 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
         nextPhase: nextPhase,
         registrantIds: registrantIds
       });
-    },
-
-    joinInternalChallenge: function() {
-
     }
   };
 

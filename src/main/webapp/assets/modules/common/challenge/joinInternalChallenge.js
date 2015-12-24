@@ -1,4 +1,4 @@
-techlooper.directive("joinInternalChallenge", function (apiService) {
+techlooper.directive("joinInternalChallenge", function (apiService, $translate) {
   return {
     restrict: "E",
     replace: true,
@@ -8,16 +8,24 @@ techlooper.directive("joinInternalChallenge", function (apiService) {
     },
     templateUrl: "modules/common/challenge/joinInternalChallenge.html",
     link: function (scope, el, attrs) {
-      //scope.form = {};
-      //scope.form.showJoinInternalForm = function () {
-      //  scope.visibleJoinInternalForm = true;
-      //  apiService.joinInternalChallenge();
-      //}
-      //scope.form.hideJoinInternalForm = function () {
-      //  delete scope.visibleJoinInternalForm;
-      //  delete scope.submission.submissionURL;
-      //  delete scope.submission.submissionDescription;
-      //}
+      scope.joinInternalForm.email.$validators.domainMatch = function (modelValue, viewValue) {
+        if (!modelValue) return true;
+        if (modelValue.length == 0) return true;
+        if (scope.joinInternalForm.email.$error.email) return true;
+
+        var valid = false;
+        $.each(scope.challenge.companyDomains, function (i, companyDomain) {
+          return !(valid = new RegExp("( |^)[^ ]*@[a-zA-Z0-9.]*" + companyDomain + "( |$)").test(modelValue));
+        });
+        return valid;
+      };
+
+      scope.joinChallenge = function () {
+        scope.joinInternalForm.$setSubmitted();
+        if (scope.joinInternalForm.$invalid) return;
+        apiService.joinContest(scope.challenge.challengeId, scope.registrant.firstName,
+          scope.registrant.lastName, $translate.use());
+      }
     }
   }
 });

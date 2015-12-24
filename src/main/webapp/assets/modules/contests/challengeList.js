@@ -4,10 +4,9 @@ techlooper.directive('challengeList', function () {
     replace: true,
     templateUrl: "modules/contests/challengeList.html",
     link: function (scope, element, attr, ctrl) {
-      scope.$internalForm = {visible: false};
-
-      scope.toggleJoinInternalForm = function () {
-        scope.$internalForm.visible = !scope.$internalForm.visible;
+      scope.toggleJoinInternalForm = function (challenge) {
+        if (!challenge.$internalForm) challenge.$internalForm = {};
+        challenge.$internalForm.visible = !challenge.$internalForm.visible;
       }
     }
   };
