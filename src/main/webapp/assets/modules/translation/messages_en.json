@@ -868,5 +868,17 @@
   "internalChallengeContent1": "Greater productivity and higher profits",
   "internalChallengeContent2": "Better qualify of work",
   "internalChallengeContent3": "Delivery of work on time",
-  "internalChallengeContent4": "A work-oriented staff"
+  "internalChallengeContent4": "A work-oriented staff",
+  "challengeTypeSelection": "Select the type of Challenge and Publish it:",
+  "public": "Public",
+  "publicDes": "Choose 'Public' if your challenge are open for all tech professionals",
+  "internal": "Internal",
+  "internalDes": "Choose 'Internal' if your challenge is only for your employees",
+  "companyDomain": "Enter your company domain(s). Only contestants registered with such domains will be accepted in this challenge: (Limited to 3)",
+  "companyDomainEx": "Ví dụ: navigosgroup.com",
+  "SearchChallengePlaceholder": "Enter challenge name or company domain to search challenge",
+  "allChallengesSearch": "All challenges",
+  "invalidDomainName": "Invalid domain name format",
+  "emailDomainNotMatch": "Email domain not match",
+  "joinInternalChallengeWith": "Join with your email from:"
 }

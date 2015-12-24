@@ -1,4 +1,4 @@
-techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue, $filter, $q, $translate) {
+techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue, $filter, $q, $translate, localStorageService) {
   return function (input, type) {
     if (!input || input.$isRich) return input;
 
@@ -204,85 +204,133 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
       challengeDetail.refreshFunnelItems();
     }
 
-    challengeDetail.recalculate = function (registrants) {
-
+    challengeDetail.recalculatePhaseItems = function () {
       //see jsonValue.challengePhase
-      var dtProp = jsonValue.challengePhase[challengeDetail.currentPhase].challengeProp;
-      if (dtProp) {
-        var date = moment(challengeDetail[dtProp], jsonValue.dateFormat);
-        challengeDetail.currentPhaseDaysLeft = date.diff(moment(0, "HH"), "days") + 1;
-      }
-
-      dtProp = jsonValue.challengePhase[challengeDetail.currentPhase].challengeProp;
-      if (dtProp) {
-        challengeDetail.$currentPhaseEndDay = challengeDetail[dtProp];
-      }
-
-      var isOver = true;
-      _.each(challengeDetail.phaseItems, function (item, index) {
-        item.$index = index;
-        item.isOver = isOver;
-        item.phaseLowerCase = item.phase.toLowerCase();//$filter("translate")(item.phase.toLowerCase());
-        item.phaseTitleLowerCase = $filter("translate")(item.phase.toLowerCase());
-
-        var cp = _.findWhere(jsonValue.challengePhase.values, {enum: item.phase});
-        item.$phaseConfig = cp;
-        challengeDetail.recalculatePhaseItem(item);
-
-        if (item.phase == challengeDetail.currentPhase) {
-          item.isCurrentPhase = true;
-          isOver = false;
+      if (challengeDetail.currentPhase) {//if challenge has current phase
+        challengeDetail.currentPhaseLowerCase = challengeDetail.currentPhase.toLowerCase();
+        var dtProp = jsonValue.challengePhase[challengeDetail.currentPhase].challengeProp;
+        if (dtProp) {
+          var date = moment(challengeDetail[dtProp], jsonValue.dateFormat);
+          challengeDetail.currentPhaseDaysLeft = date.diff(moment(0, "HH"), "days") + 1;
         }
-        if (item.phase == challengeDetail.nextPhase) {
-          item.isNextPhase = true;
+
+        var isOver = true;
+        _.each(challengeDetail.phaseItems, function (item, index) {
+          item.$index = index;
+          item.isOver = isOver;
+          item.phaseLowerCase = item.phase.toLowerCase();//$filter("translate")(item.phase.toLowerCase());
+          item.phaseTitleLowerCase = $filter("translate")(item.phase.toLowerCase());
+
+          var cp = _.findWhere(jsonValue.challengePhase.values, {enum: item.phase});
+          item.$phaseConfig = cp;
+          challengeDetail.recalculatePhaseItem(item);
+
+          if (item.phase == challengeDetail.currentPhase) {
+            item.isCurrentPhase = true;
+            isOver = false;
+          }
+          if (item.phase == challengeDetail.nextPhase) {
+            item.isNextPhase = true;
+          }
+        });
+
+        // make un-selectable phase from current-phase + 2
+        var current = _.findWhere(challengeDetail.phaseItems, {isCurrentPhase: true});
+        if (challengeDetail.isClosed) {
+          current.isCurrentPhase = false;
+          _.last(challengeDetail.phaseItems).isCurrentPhase = true;//auto select winner if challenge is closed
         }
-      });
 
-      // make un-selectable phase from current-phase + 2
-      var current = _.findWhere(challengeDetail.phaseItems, {isCurrentPhase: true});
-      if (challengeDetail.isClosed) {
-        current.isCurrentPhase = false;
-        _.last(challengeDetail.phaseItems).isCurrentPhase = true;//auto select winner if challenge is closed
-      }
-      for (var i = current.$index + 2; i < challengeDetail.phaseItems.length - 1; i++) {// winner tab is selectable
-        challengeDetail.phaseItems[i].unselectable = true;
-      }
+        for (var i = current.$index + 2; i < challengeDetail.phaseItems.length - 1; i++) {// winner tab is selectable
+          challengeDetail.phaseItems[i].unselectable = true;
+        }
 
-      var next = _.findWhere(challengeDetail.phaseItems, {isNextPhase: true});
-      var index = _.min([next.$index + 1, challengeDetail.phaseItems.length - 1])
-      challengeDetail.$afterNextPhaseItem = challengeDetail.phaseItems[index];
-
-      challengeDetail.totalWeight = _.reduceRight(challengeDetail.criteria, function (sum, cri) { return sum + cri.weight; }, 0);
-
-      //var phaseName = localStorageService.get("toPhase");
-      //phaseName && challengeDetail.setSelectedPhase(phaseName);
-      //localStorageService.remove("toPhase");
-      //
-      //if (!challengeDetail.selectedPhaseItem) {
-      //  challengeDetail.setSelectedPhase(challengeDetail.isClosed ? "WINNER" : challengeDetail.currentPhase)
-      //}
-
-      if (_.isArray(registrants)) {
-        challengeDetail.recalculateRegistrants(registrants);
+        var next = _.findWhere(challengeDetail.phaseItems, {isNextPhase: true});
+        var index = _.min([next.$index + 1, challengeDetail.phaseItems.length - 1])
+        challengeDetail.$afterNextPhaseItem = challengeDetail.phaseItems[index];
       }
     }
 
+    challengeDetail.recalculate = function (registrants) {
+      challengeDetail.totalWeight = _.reduceRight(challengeDetail.criteria, function (sum, cri) { return sum + cri.weight; }, 0);
+      challengeDetail.$isPublic = jsonValue.challengeType.isPublic(challengeDetail.challengeType);
+      challengeDetail.$isInternal = jsonValue.challengeType.isInternal(challengeDetail.challengeType);
+
+      challengeDetail.recalculateCurrentState();
+      challengeDetail.recalculateCurrentUserJoined();
+      challengeDetail.recalculatePhaseItems();
+      challengeDetail.recalculateRegistrants(registrants);
+
+    }
+
+    challengeDetail.recalculateCurrentUserJoined = function () {
+      var joinContests = localStorageService.get("joinContests") || "";
+      var email = localStorageService.get("email") || "";
+      challengeDetail.$currentUserJoined = (joinContests.indexOf(challengeDetail.challengeId) >= 0) && (email.length > 0);
+    }
+
+    challengeDetail.recalculateCurrentState = function () {
+      challengeDetail.$stateMilestones = [
+        {
+          id: "not-started",
+          title: $filter("translate")("notStart"),
+          getChallengeDate: function () {return moment(challengeDetail.startDateTime, jsonValue.dateFormat);},
+          date: moment(challengeDetail.startDateTime, jsonValue.dateFormat).subtract({days: 1}),
+          timeLeftTitleTranslate: "moreDayToNotStarted",
+          isNotStart: true
+        },
+        {
+          id: "registration",
+          title: $filter("translate")("registration"),
+          date: moment(challengeDetail.registrationDateTime, jsonValue.dateFormat),
+          timeLeftTitleTranslate: "moreDayToRegistration",
+          isRegistration: true
+        },
+        {
+          id: "in-progress",
+          title: $filter("translate")("inProgress"),
+          date: moment(challengeDetail.submissionDateTime, jsonValue.dateFormat),
+          timeLeftTitleTranslate: "moreDayToSubmit",
+          isInProgress: true
+        },
+        {
+          id: "closed",
+          title: $filter("translate")("closed"),
+          getChallengeDate: function () {return moment(challengeDetail.submissionDateTime, jsonValue.dateFormat);},
+          date: moment(challengeDetail.submissionDateTime, jsonValue.dateFormat).add({days: 1}),
+          timeLeftTitleTranslate: "moreDayToClosed",
+          dayLeft: challengeDetail.submissionDateTime,
+          isClosed: true
+        }
+      ];
+
+      $.each(challengeDetail.$stateMilestones, function (i, milestone) {
+        if (moment().isBefore(milestone.date, 'day') || moment().isSame(milestone.date, 'day')) {
+          challengeDetail.$currentState = milestone;
+          return false;
+        }
+      });
+
+      //if not found, then set current state to the last one
+      !challengeDetail.$currentState && (challengeDetail.$currentState = challengeDetail.$stateMilestones[challengeDetail.$stateMilestones.length - 1]);
+
+      var challengeDate = _.isFunction(challengeDetail.$currentState.getChallengeDate) ? challengeDetail.$currentState.getChallengeDate() : challengeDetail.$currentState.date;
+      var toNow = challengeDate.isSame(moment(), "day") ? 1 : challengeDate.diff(moment(), "days") + 2;
+      challengeDetail.$currentState.timeLeftTitle = $filter("translate")(challengeDetail.$currentState.timeLeftTitleTranslate,
+        {dayLeft: challengeDetail.$currentState.dayLeft || toNow});
+
+      challengeDetail.$currentState.isJoinable = (challengeDetail.$currentState.isRegistration || challengeDetail.$currentState.isInProgress);
+    }
+
     challengeDetail.recalculateRegistrants = function (registrants) {
-      if (registrants) challengeDetail.$registrants = registrants;
+      if (_.isArray(registrants)) challengeDetail.$registrants = registrants;
       _.each(challengeDetail.$registrants, function (rgt, index) {
         rgt.$index = index;
         rgt.recalculate(challengeDetail);
       });
-
-      //winner phase
-      //var winnerPi = _.last(challengeDetail.phaseItems);
-      //challengeDetail.recalculatePhaseItem(winnerPi);
-      //
-      //challengeDetail.recalculateHadRegistrant();
     }
 
     //set $hadRegistrant to true if not found any registrant that unknown disqualified-status
-    //console.log(challengeDetail.$registrants);
     challengeDetail.recalculateHadRegistrant = function () {
       var er = _.findWhere(challengeDetail.$registrants, {disqualified: undefined});
       challengeDetail.$hadRegistrant = (er == undefined);

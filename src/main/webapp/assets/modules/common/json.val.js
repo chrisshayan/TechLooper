@@ -1040,41 +1040,77 @@ techlooper.factory("jsonValue", function () {
         {
           enum: "REGISTRATION",
           challengeProp: "registrationDateTime",
-          phaseItem: {translate: {countJoiner: "registrantsNumberPhase", countSubmission: "submissionsNumber", countUnread: "unReadNumber"}},
+          phaseItem: {
+            translate: {
+              countJoiner: "registrantsNumberPhase",
+              countSubmission: "submissionsNumber",
+              countUnread: "unReadNumber"
+            }
+          },
           registrantTable: {templateUrl: "modules/contest-detail/registrants/phaseRegistrationTable.html"},
           isRegistration: true
         },
         {
           enum: "IDEA",
           challengeProp: "ideaSubmissionDateTime",
-          phaseItem: {translate: {countJoiner: "participantsNumber", countSubmission: "submissionsNumber", countUnread: "unReadNumber"}},
+          phaseItem: {
+            translate: {
+              countJoiner: "participantsNumber",
+              countSubmission: "submissionsNumber",
+              countUnread: "unReadNumber"
+            }
+          },
           registrantTable: {templateUrl: "modules/contest-detail/registrants/phaseIdeaTable.html"},
           isIdea: true
         },
         {
           enum: "UIUX",
           challengeProp: "uxSubmissionDateTime",
-          phaseItem: {translate: {countJoiner: "participantsNumber", countSubmission: "submissionsNumber", countUnread: "unReadNumber"}},
+          phaseItem: {
+            translate: {
+              countJoiner: "participantsNumber",
+              countSubmission: "submissionsNumber",
+              countUnread: "unReadNumber"
+            }
+          },
           registrantTable: {templateUrl: "modules/contest-detail/registrants/phaseIdeaTable.html"},
           isUiux: true
         },
         {
           enum: "PROTOTYPE",
           challengeProp: "prototypeSubmissionDateTime",
-          phaseItem: {translate: {countJoiner: "participantsNumber", countSubmission: "submissionsNumber", countUnread: "unReadNumber"}},
+          phaseItem: {
+            translate: {
+              countJoiner: "participantsNumber",
+              countSubmission: "submissionsNumber",
+              countUnread: "unReadNumber"
+            }
+          },
           registrantTable: {templateUrl: "modules/contest-detail/registrants/phaseIdeaTable.html"},
           isPrototype: true
         },
         {
           enum: "FINAL",
           challengeProp: "submissionDateTime",
-          phaseItem: {translate: {countJoiner: "participantsNumber", countSubmission: "submissionsNumber", countUnread: "unReadNumber"}},
+          phaseItem: {
+            translate: {
+              countJoiner: "participantsNumber",
+              countSubmission: "submissionsNumber",
+              countUnread: "unReadNumber"
+            }
+          },
           registrantTable: {templateUrl: "modules/contest-detail/registrants/phaseFinalTable.html"},
           isFinal: true
         },
         {
           enum: "WINNER",
-          phaseItem: {translate: {countJoiner: "finalistNumber", countSubmission: "winnersNumber", countUnread: "unReadNumber"}},
+          phaseItem: {
+            translate: {
+              countJoiner: "finalistNumber",
+              countSubmission: "winnersNumber",
+              countUnread: "unReadNumber"
+            }
+          },
           registrantTable: {templateUrl: "modules/contest-detail/registrants/phaseWinnerTable.html"},
           isSpecial: true,
           isWinner: true
@@ -1117,6 +1153,24 @@ techlooper.factory("jsonValue", function () {
 
       thirdPlaceEnum: function () {
         return instance.rewards.values[2].enum;
+      }
+    },
+
+    /**
+     * @see com.techlooper.model.ChallengeTypeEnum
+     * */
+    challengeType: {
+      values: [
+        {enum: "PUBLIC"},
+        {enum: "INTERNAL"}
+      ],
+
+      isPublic: function(value) {
+        return !value || "PUBLIC" == value;
+      },
+
+      isInternal: function(value) {
+        return "INTERNAL" == value;
       }
     }
   }

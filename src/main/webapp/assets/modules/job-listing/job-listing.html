@@ -2,31 +2,33 @@
   <div class="header-page">
     <h2 translate="ItJobHub"></h2>
   </div>
-  <div class="content-page-detail">
-    <div class="job-listing-search-bar">
-      <form autocomplete="off" name="jobListingSearch">
-
-        <div class="keyword-block">
-          <div auto-suggestion text="searchJob.keyword" items="jobTitles"
-               get-url="suggestion/jobTitle/" input-model="searchJob.keyword">
+  <div class=".container-fluid content-page-detail">
+    <div class="row">
+      <div class="col-sm-12 job-listing-search-bar">
+        <form autocomplete="off" name="jobListingSearch">
+          <div class="keyword-block">
+            <div auto-suggestion text="searchJob.keyword" items="jobTitles"
+                 get-url="suggestion/jobTitle/" input-model="searchJob.keyword">
+            </div>
+            <autocomplete name="keyword" id="keyword" ng-model="searchJob.keyword" data="jobTitles" ng-required="true"
+                          attr-placeholder="{{'searchJobKeyword1' | translate}}" touchable>
+            </autocomplete>
           </div>
-          <autocomplete name="keyword" id="keyword" ng-model="searchJob.keyword" data="jobTitles" ng-required="true"
-                        attr-placeholder="{{'searchJobKeyword1' | translate}}" touchable>
-          </autocomplete>
-        </div>
-        <div class="location-block">
-          <label translate="withIn"></label>
-          <selectize config="locationsConfig.config"
-                     options="locationsConfig.items"
-                     ng-model="searchJob.locationId"
-                     name="location" class="locationSelectbox">
-          </selectize>
-        </div>
-        <div class="submit-search-block">
-          <input type="submit" translate="search" class="btn btn-primary btn-flat" ng-click="filterJob()"></input>
-        </div>
-      </form>
+          <div class="location-block">
+            <label translate="withIn"></label>
+            <selectize config="locationsConfig.config"
+                       options="locationsConfig.items"
+                       ng-model="searchJob.locationId"
+                       name="location" class="locationSelectbox">
+            </selectize>
+          </div>
+          <div class="submit-search-block">
+            <input type="submit" value="{{'search' | translate}}" class="btn btn-primary btn-flat" ng-click="filterJob()">
+          </div>
+        </form>
+      </div>
     </div>
+
     <div class="job-listing-result">
       <div class="paging-block" ng-show="jobs.length > 0">
         <div class="total-items" translate="totalJobs" translate-value-number="{{totalJob}}"></div>
@@ -110,7 +112,7 @@
           <div class="job-item" ng-repeat="job in jobs | filter:{ topPriority : false }" ng-class="{highlight: job.crawlSource == 'VIETNAMWORKS'}">
             <div class="left-content">
               <h4><a href="/#/?action=redirectJA&targetUrl={{job.url}}" target="_blank">{{job.title}}</a></h4>
-              <ul>
+              <ul class="info">
                 <li class="date"><i class="fa fa-calendar"></i>{{job.postedOn}}</li>
                 <li class="location"><i class="fa fa-map-marker"></i>{{job.locationText}}</li>
               </ul>

@@ -15,7 +15,7 @@ module.exports = function (grunt) {
     },
 
     clean: {
-      build: ["<%=pkg.public%>"],
+      build: ["<%=pkg.public%>", "<%=pkg.assets%>bower_components"],
       release: [
         "<%=pkg.public%>index.tem.html",
         "<%=pkg.public%>sass",
@@ -94,7 +94,10 @@ module.exports = function (grunt) {
       build: {
         options: {
           production: true,
-          forceLatest: true
+          forceLatest: true,
+          cleanup: true,
+          verbose: true,
+          install: true
         }
       }
     },

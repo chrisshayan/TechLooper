@@ -41,6 +41,13 @@
     p
       margin: 0
       padding: 0
+    p.align-text-right
+      text-align: right
+      font-size: 12px !important
+      padding-right: 0
+      width: 100% !important
+      strong
+        font-size: 12px !important
     ul
       margin: 0
       padding: 0
@@ -72,7 +79,15 @@
           background-color: #257abb
         span.closed
           background-color: #555555
-
+        span.challenge-type
+          background: url("../images/ic-challenge-medium.png") left 1px no-repeat
+          width: 25px
+          height: 21px
+          display: inline-block
+        span.challenge-type.public
+          background-position: 0px 4px
+        span.challenge-type.internal
+          background-position: 0px -76px
     .contest-name
       width: 100%
       display: inline-block
@@ -215,7 +230,7 @@
           font-size: 18px
           float: left
           font-weight: 300
-          width: 60%
+          width: 40%
           float: left
           strong
             font-size: 25px
@@ -224,18 +239,19 @@
           padding: 0 35px
           line-height: 34px
         .join-now
-          width: 40%
+          width: 60%
           float: right
           button
             float: right
             margin-left: 10px
+            color: #fff
           button.disabled
             background-color: gray !important
             cursor: not-allowed
           span
             display: inline-block
             text-align: right
-            color: #fff
+            text-transform: lowercase
     .tell-your-friends
       display: inline-block
       clear: both
@@ -969,6 +985,28 @@
           padding: 10px 20px
           margin-top: 10px
           float: left
+        .join-internal-challenge
+          background-color: #f1f2f7
+          padding: 15px 20px 5px 20px
+          margin-top: 10px
+          float: left
+          border-radius: 5px
+          width: 100%
+          label
+            font-weight: 400
+            text-transform: capitalize
+            strong
+              font-weight: 500
+              color: red
+          button
+            padding: 8px 20px
+            height: auto
+            width: 100px
+            line-height: inherit
+          span.error-messages
+            color: red
+            font-size: 12px
+            font-style: italic
       .col-md-12
         padding: 0
       .contest-content-item

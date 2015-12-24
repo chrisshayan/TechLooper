@@ -61,12 +61,12 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
     },
 
     searchContests: function () {
-      return $http.get("challenge/list");
-      //.success(function (contests) {
-      //  $.each(contests, function (i, contest) {
-      //    $filter("progress")(contest, "challenge");
-      //  });
-      //});
+      return $http.get("challenge/list")
+        .success(function (contests) {
+          $.each(contests, function (i, contest) {
+            $filter("challengeDetail")(contest);
+          });
+        });
     },
 
     getSuggestSkills: function (text) {
@@ -100,16 +100,12 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
       if (!resumeLink.startsWith("http")) {
         resumeLink = "http://" + resumeLink;
       }
-      return $http.post("project/join",
-        {
-          projectId: projectId, registrantFirstName: firstName, registrantLastName: lastName, registrantEmail: email,
-          registrantPhoneNumber: phoneNumber, resumeLink: resumeLink, lang: lang
-        },
-        {
-          transformResponse: function (d, h) {
-            return d;
-          }
-        });
+
+      var projectInfo = {
+        projectId: projectId, registrantFirstName: firstName, registrantLastName: lastName, registrantEmail: email,
+        registrantPhoneNumber: phoneNumber, resumeLink: resumeLink, lang: lang
+      };
+      return $http.post("project/join", projectInfo, {transformResponse: function (d, h) {return d;}});
     },
 
     /**

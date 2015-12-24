@@ -9,7 +9,8 @@ techlooper.directive('tagbox', function ($http) {
       placeholder: "@",
       listMaxLength: "@",
       maxTagLength: "@",
-      getTags: "="
+      getTags: "=",
+      enableValidators: "@"
     },
 
     /**
@@ -111,8 +112,7 @@ techlooper.directive('tagbox', function ($http) {
       var limitValidator = function (modelValue, viewValue) {
         if (!modelValue) return true;
         if (modelValue.length == 0) return true;
-        var invalid = scope.tags.length < scope.listMaxLength;
-        return invalid;
+        return scope.tags.length < scope.listMaxLength;
       }
 
       scope.tagForm.tag.$validators.unique = uniqueValidator;
@@ -132,6 +132,21 @@ techlooper.directive('tagbox', function ($http) {
         if (tag.length == 0) scope.tagList.length = 0;
         scope.tagForm.$setPristine();
         getTags();
+      }
+
+      if (scope.enableValidators) {
+        var supportValidator = {
+          domainName: function (modelValue, viewValue) {
+            if (!modelValue) return true;
+            if (modelValue.length == 0) return true;
+            return /^[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,6}$/.test(modelValue);
+          }
+        }
+
+        var validators = scope.enableValidators.split(",");
+        _.each(validators, function(validatorName) {
+          scope.tagForm.tag.$validators[validatorName] = supportValidator[validatorName];
+        });
       }
     }
   }

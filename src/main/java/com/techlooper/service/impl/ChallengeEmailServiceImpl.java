@@ -9,6 +9,7 @@ import com.techlooper.model.*;
 import com.techlooper.repository.elasticsearch.ChallengeRegistrantRepository;
 import com.techlooper.repository.elasticsearch.ChallengeRepository;
 import com.techlooper.service.*;
+import com.techlooper.util.DataUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.dozer.Mapper;
 import org.slf4j.Logger;
@@ -175,9 +176,13 @@ public class ChallengeEmailServiceImpl implements ChallengeEmailService {
     public void sendApplicationEmailToContestant(ChallengeEntity challengeEntity, ChallengeRegistrantEntity challengeRegistrantEntity) {
         List<String> subjectVariableValues = Arrays.asList(challengeEntity.getChallengeName());
         String recipientAddresses = challengeRegistrantEntity.getRegistrantEmail();
+        String templateName = EmailTemplateNameEnum.CHALLENGE_CONFIRM_ON_JOIN_INTERNAL_CHALLENGE.name();
+        if (challengeEntity.getChallengeType() == ChallengeTypeEnum.INTERNAL) {
+            templateName = EmailTemplateNameEnum.CHALLENGE_CONFIRM_ON_JOIN_INTERNAL_CHALLENGE.name();
+        }
 
         EmailRequestModel emailRequestModel = new EmailRequestModel.Builder()
-                .withTemplateName(EmailTemplateNameEnum.CHALLENGE_CONFIRM_USER_ON_JOIN_CHALLENGE.name())
+                .withTemplateName(templateName)
                 .withLanguage(challengeRegistrantEntity.getLang())
                 .withTemplateModel(buildConfirmUserJoinChallengeEmailTemplateModel(challengeEntity, challengeRegistrantEntity))
                 .withMailMessage(postChallengeMailMessage)
@@ -366,6 +371,16 @@ public class ChallengeEmailServiceImpl implements ChallengeEmailService {
         templateModel.put("thirdPlaceReward", challengeEntity.getThirdPlaceReward() != null ? challengeEntity.getThirdPlaceReward() : 0);
         templateModel.put("challengeId", String.valueOf(challengeEntity.getChallengeId()));
         templateModel.put("challengeNameAlias", challengeEntity.getChallengeName().replaceAll("\\W", "-"));
+
+//        if (challengeEntity.getChallengeType() == ChallengeTypeEnum.INTERNAL) {
+//            final int MIN_RANDOM_SEED_NUMBER = 1000;
+//            final int MAX_RANDOM_SEED_NUMBER = 9999;
+//            templateModel.put("passCode", DataUtils.getRandomNumberInRange(MIN_RANDOM_SEED_NUMBER, MAX_RANDOM_SEED_NUMBER));
+//        }
+
+        final int MIN_RANDOM_SEED_NUMBER = 1000;
+        final int MAX_RANDOM_SEED_NUMBER = 9999;
+        templateModel.put("passCode", String.valueOf(DataUtils.getRandomNumberInRange(MIN_RANDOM_SEED_NUMBER, MAX_RANDOM_SEED_NUMBER)));
         return templateModel;
     }
 

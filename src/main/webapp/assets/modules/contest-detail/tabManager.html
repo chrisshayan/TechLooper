@@ -3,7 +3,7 @@
     <li class="active">
       <a data-toggle="tab" href=".detail" translate="detail" ng-click="submissionForm.hideSubmitForm()"></a>
     </li>
-    <li ng-show="contestDetail.isAuthor && contestDetail.progress.translate != 'notStart' && contestDetail.numberOfRegistrants > 0">
+    <li ng-show="contestDetail.isAuthor && !contestDetail.$currentState.isNotStart && contestDetail.numberOfRegistrants > 0">
       <a data-toggle="tab" href=".registrants" ng-click="refreshChallengeDetail()">{{'registrants' | translate}}
       ({{contestDetail.numberOfRegistrants}})</a></li>
     <li ng-show="contestDetail.isAuthor">

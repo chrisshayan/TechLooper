@@ -1,26 +1,6 @@
 techlooper.controller("priceJobController", function ($scope, $rootScope, jsonValue, $http, utils, $translate, $route, validatorService, vnwConfigService) {
 
-  //var jobLevels = $.extend(true, [], jsonValue.jobLevels.filter(function (value) {return value.id > 0;}));
-  //
-  //$scope.$watch("translate", function () {
-  //  if ($rootScope.translate === undefined) {
-  //    return;
-  //  }
-  //
-  //  var translate = $rootScope.translate;
-  //  $.each(jobLevels, function (i, jobLevel) {jobLevel.translate = translate[jobLevel.translate];});
-  //
-  //  $.each([
-  //    {item: "jobLevels", translate: "exManager"}
-  //  ], function (i, select) {
-  //    if (!$scope.selectize[select.item].$elem) {
-  //      return true;
-  //    }
-  //    $scope.selectize[select.item].$elem.settings.placeholder = translate[select.translate];
-  //    $scope.selectize[select.item].$elem.updatePlaceholder();
-  //  });
-  //});
-
+  utils.sendNotification(jsonValue.notifications.loading);
   $scope.locationsConfig = vnwConfigService.locationsSelectize;
   $scope.industriesConfig = vnwConfigService.industriesSelectize;
   $scope.educationLevelConfig = vnwConfigService.educationLevel;
@@ -29,22 +9,6 @@ techlooper.controller("priceJobController", function ($scope, $rootScope, jsonVa
   $scope.languagesConfig = vnwConfigService.languagesSelectize;
   //console.log($scope.languagesConfig);
   $scope.jobLevelsConfig = vnwConfigService.jobLevelsSelectize;
-  //$scope.selectize = {
-  //  jobLevels: {
-  //    items: jobLevels,
-  //    config: {
-  //      valueField: 'id',
-  //      labelField: 'translate',
-  //      delimiter: '|',
-  //      maxItems: 1,
-  //      searchField: ['translate'],
-  //      placeholder: $translate.instant("exManager"),
-  //      onInitialize: function (selectize) {
-  //        $scope.selectize.jobLevels.$elem = selectize;
-  //      }
-  //    }
-  //  }
-  //}
 
   $scope.selectedTime = $translate.instant("day");
   $scope.error = {};
@@ -175,4 +139,5 @@ techlooper.controller("priceJobController", function ($scope, $rootScope, jsonVa
     //$scope.survey = {closed: true};
     $('.' + cls).slideUp("normal", function () { $(this).remove(); });
   }
+  utils.sendNotification(jsonValue.notifications.hideLoadingBox);
 });
