@@ -34,12 +34,13 @@
       <div translate="registrants" class="label-col"></div>
       {{contest.numberOfRegistrants}}
     </div>
-    <div class="challenge-actions-col">
+    <div class="challenge-actions-col" ng-if="contest.$currentState.isJoinable">
       <div translate="action" class="label-col"></div>
       <a title="{{'submitPhase' | translate}}" ng-click="submissionForm.showSubmitForm()"
          ng-if="contest.$isPublic && contest.$currentUserJoined">
         <i class="fa fa-paper-plane-o"></i> | <span translate="submitPhase"></span>
       </a>
+
       <a ng-if="contest.$isInternal && contest.$currentUserJoined">Joined</a>
       <!--<a title="{{'submitPhase' | translate}}" ng-click="submissionForm.showSubmitForm()" ng-show="contest.currentUserJoined == true">-->
       <!--<i class="fa fa-paper-plane-o"></i>  |  <span translate="submitPhase"></span>-->
