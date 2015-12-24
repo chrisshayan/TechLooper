@@ -212,44 +212,6 @@ techlooper.controller("postContestController", function ($scope, $http, jsonValu
     ];
   }, function () {
 
-    //if (!$scope.timelineForm) return;
-    //if (!$scope.contest) return;
-
-    //if (!$scope.ideaChecked) delete $scope.contest.ideaSubmissionDate;
-    //if (!$scope.uiuxChecked) delete $scope.contest.uxSubmissionDate;
-    //if (!$scope.prototypeChecked) delete $scope.contest.prototypeSubmissionDate;
-    //
-    //var timeline = [
-    //  {name: "startDate", value: moment().add(4, 'weeks'), validatorName: "in4w"},
-    //  {name: "startDate", value: moment($scope.contest.startDate, jsonValue.dateFormat)},
-    //  {name: "registrationDate", value: moment($scope.contest.registrationDate, jsonValue.dateFormat)},
-    //  {name: "ideaSubmissionDate", value: moment($scope.contest.ideaSubmissionDate, jsonValue.dateFormat)},
-    //  {name: "uxSubmissionDate", value: moment($scope.contest.uxSubmissionDate, jsonValue.dateFormat), dependFrom: "registrationDate"},
-    //  {name: "prototypeSubmissionDate", value: moment($scope.contest.prototypeSubmissionDate, jsonValue.dateFormat), dependFrom: "registrationDate"},
-    //  {name: "submissionDate", value: moment($scope.contest.submissionDate, jsonValue.dateFormat), dependFrom: "registrationDate"}
-    //];
-    //
-    ////var last = timeline[0];
-    //var validators = [];
-    //for (var i = 1; i < timeline.length; ++i) {
-    //  var current = timeline[i];
-    //
-    //  $.each(validators, function(i, validator) {//reset all validators
-    //    $scope.timelineForm[current.name].$setValidity(validator, true);
-    //  });
-    //
-    //  if (!current.value.isValid()) continue;
-    //
-    //  var before = timeline[i-1];
-    //  var validatorName = before.validatorName || ("gt" + before.name.charAt(0).toUpperCase() + before.name.substr(1));
-    //  validators.push(validatorName);
-    //  var valid = before.value.isValid() ? current.value.isAfter(before.value) : false;
-    //  console.log(valid);
-    //  $scope.timelineForm[current.name].$setValidity(validatorName, valid);
-    //  console.log($scope.timelineForm[current.name]);
-    //}
-
-
     if (!$scope.contest) return;
 
     var currentDate = undefined;
