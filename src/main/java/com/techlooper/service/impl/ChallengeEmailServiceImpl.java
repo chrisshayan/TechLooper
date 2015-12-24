@@ -176,7 +176,7 @@ public class ChallengeEmailServiceImpl implements ChallengeEmailService {
     public void sendApplicationEmailToContestant(ChallengeEntity challengeEntity, ChallengeRegistrantEntity challengeRegistrantEntity) {
         List<String> subjectVariableValues = Arrays.asList(challengeEntity.getChallengeName());
         String recipientAddresses = challengeRegistrantEntity.getRegistrantEmail();
-        String templateName = EmailTemplateNameEnum.CHALLENGE_CONFIRM_ON_JOIN_INTERNAL_CHALLENGE.name();
+        String templateName = EmailTemplateNameEnum.CHALLENGE_CONFIRM_USER_ON_JOIN_CHALLENGE.name();
         if (challengeEntity.getChallengeType() == ChallengeTypeEnum.INTERNAL) {
             templateName = EmailTemplateNameEnum.CHALLENGE_CONFIRM_ON_JOIN_INTERNAL_CHALLENGE.name();
         }
@@ -372,15 +372,12 @@ public class ChallengeEmailServiceImpl implements ChallengeEmailService {
         templateModel.put("challengeId", String.valueOf(challengeEntity.getChallengeId()));
         templateModel.put("challengeNameAlias", challengeEntity.getChallengeName().replaceAll("\\W", "-"));
 
-//        if (challengeEntity.getChallengeType() == ChallengeTypeEnum.INTERNAL) {
-//            final int MIN_RANDOM_SEED_NUMBER = 1000;
-//            final int MAX_RANDOM_SEED_NUMBER = 9999;
-//            templateModel.put("passCode", DataUtils.getRandomNumberInRange(MIN_RANDOM_SEED_NUMBER, MAX_RANDOM_SEED_NUMBER));
-//        }
-
-        final int MIN_RANDOM_SEED_NUMBER = 1000;
-        final int MAX_RANDOM_SEED_NUMBER = 9999;
-        templateModel.put("passCode", String.valueOf(DataUtils.getRandomNumberInRange(MIN_RANDOM_SEED_NUMBER, MAX_RANDOM_SEED_NUMBER)));
+        if (challengeEntity.getChallengeType() == ChallengeTypeEnum.INTERNAL) {
+            final int MIN_RANDOM_SEED_NUMBER = 1000;
+            final int MAX_RANDOM_SEED_NUMBER = 9999;
+            templateModel.put("passCode", DataUtils.getRandomNumberInRange(MIN_RANDOM_SEED_NUMBER, MAX_RANDOM_SEED_NUMBER));
+        }
+      
         return templateModel;
     }
 
