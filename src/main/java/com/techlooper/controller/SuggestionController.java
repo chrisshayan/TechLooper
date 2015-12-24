@@ -3,10 +3,7 @@ package com.techlooper.controller;
 import com.techlooper.model.SuggestionItem;
 import com.techlooper.model.SuggestionResponse;
 import com.techlooper.service.SuggestionService;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -20,6 +17,7 @@ public class SuggestionController {
     @Resource
     private SuggestionService suggestionService;
 
+//    @CrossOrigin
     @RequestMapping(value = "/suggestion/skill/{query}", method = RequestMethod.GET)
     public SuggestionResponse suggestSkill(@PathVariable String query) {
         SuggestionResponse response = new SuggestionResponse();
@@ -29,6 +27,7 @@ public class SuggestionController {
         return response;
     }
 
+    @CrossOrigin
     @RequestMapping(value = "/suggestion/skills/{query}", method = RequestMethod.GET)
     public List<String> suggestSkills(@PathVariable String query) {
         return suggestionService.suggestSkills(trim(query));
@@ -41,5 +40,11 @@ public class SuggestionController {
                 .map(SuggestionItem::new).collect(Collectors.toList());
         response.setItems(items);
         return response;
+    }
+
+    @CrossOrigin
+    @RequestMapping(value = "/widget/suggestion/jobTitle/{query}", method = RequestMethod.GET)
+    public List<String> suggestWidgetJobTitle(@PathVariable String query) {
+        return suggestionService.suggestJobTitles(trim(query));
     }
 }

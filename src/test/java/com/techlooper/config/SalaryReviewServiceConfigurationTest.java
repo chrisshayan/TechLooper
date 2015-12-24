@@ -4,10 +4,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.techlooper.converter.LocaleConverter;
 import com.techlooper.repository.JobSearchAPIConfigurationRepository;
-import com.techlooper.repository.JsonConfigRepository;
-import com.techlooper.service.*;
-import com.techlooper.service.impl.*;
-import freemarker.template.Template;
+import com.techlooper.service.SalaryReviewService;
+import com.techlooper.service.impl.SalaryReviewServiceImpl;
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
 import org.dozer.loader.api.BeanMappingBuilder;
@@ -87,7 +85,7 @@ public class SalaryReviewServiceConfigurationTest {
     }
 
     @Bean
-    public RestTemplate restTemplate(){
+    public RestTemplate restTemplate() {
         return null;
     }
 }

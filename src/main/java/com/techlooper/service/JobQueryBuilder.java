@@ -5,7 +5,6 @@ package com.techlooper.service;
  */
 
 import com.techlooper.entity.PriceJobEntity;
-import com.techlooper.entity.SalaryReviewEntity;
 import com.techlooper.model.*;
 import org.elasticsearch.index.query.FilterBuilder;
 import org.elasticsearch.index.query.QueryBuilder;

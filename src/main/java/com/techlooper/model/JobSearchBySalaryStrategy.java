@@ -1,47 +1,40 @@
 package com.techlooper.model;
 
 import com.techlooper.entity.JobEntity;
-import com.techlooper.util.DataUtils;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.elasticsearch.index.query.BoolFilterBuilder;
-import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.FilterBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 
-import java.util.List;
-
 import static org.elasticsearch.index.query.FilterBuilders.boolFilter;
-import static org.elasticsearch.index.query.QueryBuilders.*;
+import static org.elasticsearch.index.query.QueryBuilders.filteredQuery;
+import static org.elasticsearch.index.query.QueryBuilders.matchAllQuery;
 
 /**
  * Created by NguyenDangKhoa on 12/7/15.
  */
 public class JobSearchBySalaryStrategy extends JobSearchStrategy {
 
-    private SalaryReviewDto salaryReviewDto;
+    private SalaryReviewCondition salaryReviewCondition;
 
     private ElasticsearchRepository<JobEntity, ?> repository;
 
-    public JobSearchBySalaryStrategy(SalaryReviewDto salaryReviewDto, ElasticsearchRepository elasticsearchRepository) {
-        this.salaryReviewDto = salaryReviewDto;
+    public JobSearchBySalaryStrategy(SalaryReviewCondition salaryReviewCondition, ElasticsearchRepository elasticsearchRepository) {
+        this.salaryReviewCondition = salaryReviewCondition;
         this.repository = elasticsearchRepository;
     }
 
     @Override
     protected NativeSearchQueryBuilder getSearchQueryBuilder() {
+        String jobTitle = salaryReviewCondition.getJobTitle();
         NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder().withTypes("job");
-
-        //pre-process job title in case user enters multiple roles of his job
-        List<String> jobTitleTokens = DataUtils.preprocessJobTitle(salaryReviewDto.getJobTitle());
-
-        BoolQueryBuilder boolQueryBuilder = boolQuery();
         BoolFilterBuilder boolFilterBuilder = boolFilter();
-        jobTitleTokens.forEach(jobTitleToken -> boolQueryBuilder.should(jobTitleQueryBuilder(jobTitleToken.trim())));
 
-        if (CollectionUtils.isNotEmpty(salaryReviewDto.getJobCategories())) {
-            FilterBuilder jobIndustriesFilterBuilder = getJobIndustriesFilterBuilder(salaryReviewDto.getJobCategories());
+        if (CollectionUtils.isNotEmpty(salaryReviewCondition.getJobCategories())) {
+            FilterBuilder jobIndustriesFilterBuilder = getJobIndustriesFilterBuilder(salaryReviewCondition.getJobCategories());
             boolFilterBuilder.must(jobIndustriesFilterBuilder);
         }
         FilterBuilder approvedDateRangeFilterBuilder = getRangeFilterBuilder("approvedDate", "now-6M/M", "now");
@@ -50,8 +43,8 @@ public class JobSearchBySalaryStrategy extends JobSearchStrategy {
         boolFilterBuilder.must(salaryRangeFilterBuilder);
 
         QueryBuilder matchQueryBuilder = matchAllQuery();
-        if (CollectionUtils.isNotEmpty(jobTitleTokens)) {
-            matchQueryBuilder = boolQueryBuilder;
+        if (StringUtils.isNotEmpty(jobTitle)) {
+            matchQueryBuilder = jobTitleQueryBuilder(jobTitle);
         }
         queryBuilder.withQuery(filteredQuery(matchQueryBuilder, boolFilterBuilder));
         return queryBuilder;

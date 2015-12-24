@@ -20,28 +20,24 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
   }
 
   $scope.status = function (type, id) {
+    var joinContests = localStorageService.get("joinContests") || "";
+    var email = localStorageService.get("email") || "";
+    var hasJoined = (joinContests.indexOf(contestId) >= 0) && (email.length > 0);
+
     switch (type) {
       case "able-to-join":
         if (!$scope.contestDetail) return false;
-        var joinContests = localStorageService.get("joinContests") || "";
-        var email = localStorageService.get("email") || "";
         var contestInProgress = ($scope.contestDetail.progress.translate == jsonValue.status.registration.translate) ||
           ($scope.contestDetail.progress.translate == jsonValue.status.progress.translate);
-        var hasJoined = (joinContests.indexOf(contestId) >= 0) && (email.length > 0);
         return contestInProgress && !hasJoined;
 
       case "already-join":
         if (!$scope.contestDetail) return false;
-        var joinContests = localStorageService.get("joinContests") || "";
-        var email = localStorageService.get("email") || "";
-        var hasJoined = (joinContests.indexOf(contestId) >= 0) && (email.length > 0);
-        //failJoin = false;
         return !hasJoined;
 
       case "contest-in-progress":
         if (!$scope.contestDetail) return false;
         return ($scope.contestDetail.progress.translate == jsonValue.status.progress.translate);
-
     }
   }
 

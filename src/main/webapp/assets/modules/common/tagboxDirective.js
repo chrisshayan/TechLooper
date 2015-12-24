@@ -34,10 +34,10 @@ techlooper.directive('tagbox', function ($http) {
         resetForm();
       }
 
-      scope.addTag = function (tag, $event) {
+      scope.addTag = function (tag) {
         scope.tagForm.$submitted = true;
 
-        var tag = tag || scope.tag || scope.autoTag || "";
+        tag = tag || scope.tag || scope.autoTag || "";
         if (tag.length == 0) return false;
 
         if (!scope.tagForm.$valid) {

@@ -180,21 +180,7 @@
                                                     to thousands of new jobs available from job sites around you</p>
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <td style="height:20px; line-height: 20px;" width="100%">
-                                                <img height="20px" width="1" src="http://images.vietnamworks.com/x.gif"
-                                                     style="display:block; border: 0px"/>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td align="center">
-                                                <a href="${webBaseUrl}#/challenge-detail/job-search-innovation-hackathon-1439866071515-id?utm_source=jobalertemail&utm_medium=hackathon&utm_campaign=techlooperjobhub"
-                                                   target="_blank">
-                                                    <img src="${webBaseUrl}images/hackathon-job-search.png"
-                                                         style="boder: 0; width: 100%"
-                                                         alt="Job Search Innovation Hackathon"></a>
-                                            </td>
-                                        </tr>
+
                                         <tr>
                                             <td style="height:20px; line-height: 20px;" width="100%">
                                                 <img height="20px" width="1" src="http://images.vietnamworks.com/x.gif"
