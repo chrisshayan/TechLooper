@@ -1,5 +1,5 @@
 techlooper.controller('contestsController', function (apiService, $scope, jsonValue, $window, $translate, $filter,
-                                                      utils, localStorageService, $location) {
+                                                      utils, localStorageService, $route) {
   utils.sendNotification(jsonValue.notifications.loading);
 
   var joinChallenge = function() {
@@ -10,12 +10,8 @@ techlooper.controller('contestsController', function (apiService, $scope, jsonVa
       var email = localStorageService.get("email");//submitNow
       var contestId = localStorageService.get("joiningChallengeId") || localStorageService.get("submitNow");
       if (contestId) {
-        apiService.joinContest(contestId, firstName, lastName, email, $translate.use())
+        email && apiService.joinContest(contestId, firstName, lastName, email, $translate.use())
           .success(function (numberOfRegistrants) {
-            if ($scope.contestDetail) {
-              $scope.contestDetail.numberOfRegistrants = numberOfRegistrants;
-            }
-
             var joinContests = localStorageService.get("joinContests") || "";
             joinContests = joinContests.length > 0 ? joinContests.split(",") : [];
             if ($.inArray(contestId, joinContests) < 0) {
@@ -23,6 +19,14 @@ techlooper.controller('contestsController', function (apiService, $scope, jsonVa
             }
 
             localStorageService.set("joinContests", joinContests.join(","));
+
+            if ($scope.contestDetail) {
+              $scope.contestDetail.numberOfRegistrants = numberOfRegistrants;
+              $scope.contestDetail.recalculateCurrentUserJoined();
+            }
+            else {
+              $route.reload();
+            }
           });
         localStorageService.remove("joiningChallengeId");
       }

@@ -72,9 +72,8 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
     var firstName = localStorageService.get("firstName");
     var lastName = localStorageService.get("lastName");
     var email = localStorageService.get("email");
-    apiService.joinContest(contestId, firstName, lastName, email, $translate.use())
+    email && apiService.joinContest(contestId, firstName, lastName, email, $translate.use())
       .success(function (numberOfRegistrants) {
-
         var joinContests = localStorageService.get("joinContests") || "";
         joinContests = joinContests.length > 0 ? joinContests.split(",") : [];
         if ($.inArray(contestId, joinContests) < 0) {

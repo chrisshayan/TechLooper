@@ -378,6 +378,10 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
         registrantIds: registrantIds
       });
     }
+
+    //checkRegistrantJoinedChallenge: function (challengeId, emails) {
+    //  return $http.post("challenge/" + challengeId + "/registrants/joined", emails, {transformResponse: function (d, h) {return d;}})
+    //}
   };
 
   return instance;

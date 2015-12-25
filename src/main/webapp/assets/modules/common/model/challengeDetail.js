@@ -265,8 +265,12 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
 
     challengeDetail.recalculateCurrentUserJoined = function () {
       var joinContests = localStorageService.get("joinContests") || "";
-      var email = localStorageService.get("email") || "";
-      challengeDetail.$currentUserJoined = (joinContests.indexOf(challengeDetail.challengeId) >= 0) && (email.length > 0);
+      //var email = localStorageService.get("email") || {};
+      challengeDetail.$currentUserJoined = (joinContests.indexOf(challengeDetail.challengeId) >= 0);// && (email.length > 0);
+      //apiService.checkRegistrantJoinedChallenge(challengeDetail.challengeId, emails)
+      //  .success(function(joined) {
+      //    challengeDetail.$currentUserJoined = joined;
+      //  });
     }
 
     challengeDetail.recalculateCurrentState = function () {
