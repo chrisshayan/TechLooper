@@ -11,6 +11,10 @@ public class ChallengeFilterCondition {
 
     private String authorEmail;
 
+    private ChallengeTypeEnum challengeType;
+
+    private String challengeSearchText;
+
     public boolean isNotExpired() {
         return notExpired;
     }
@@ -33,5 +37,21 @@ public class ChallengeFilterCondition {
 
     public void setAuthorEmail(String authorEmail) {
         this.authorEmail = authorEmail;
+    }
+
+    public ChallengeTypeEnum getChallengeType() {
+        return challengeType;
+    }
+
+    public void setChallengeType(ChallengeTypeEnum challengeType) {
+        this.challengeType = challengeType;
+    }
+
+    public String getChallengeSearchText() {
+        return challengeSearchText;
+    }
+
+    public void setChallengeSearchText(String challengeSearchText) {
+        this.challengeSearchText = challengeSearchText;
     }
 }

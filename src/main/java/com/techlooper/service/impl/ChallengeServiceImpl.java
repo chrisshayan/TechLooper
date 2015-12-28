@@ -113,8 +113,7 @@ public class ChallengeServiceImpl implements ChallengeService {
     }
 
     @Override
-    public List<ChallengeDetailDto> findChallenges() {
-        ChallengeFilterCondition allChallengeFilterCondition = new ChallengeFilterCondition();
+    public List<ChallengeDetailDto> findChallenges(ChallengeFilterCondition allChallengeFilterCondition) {
         NativeSearchQueryBuilder allChallengeQueryBuilder = getChallengeSearchQueryBuilder(allChallengeFilterCondition);
         List<ChallengeEntity> challenges = DataUtils.getAllEntities(challengeRepository, allChallengeQueryBuilder);
 
@@ -149,7 +148,8 @@ public class ChallengeServiceImpl implements ChallengeService {
     @Override
     public ChallengeDetailDto getTheLatestChallenge() {
         ChallengeDetailDto challengeDetailDto = new ChallengeDetailDto();
-        List<ChallengeDetailDto> challenges = findChallenges();
+        ChallengeFilterCondition allChallengeFilterCondition = new ChallengeFilterCondition();
+        List<ChallengeDetailDto> challenges = findChallenges(allChallengeFilterCondition);
         if (CollectionUtils.isNotEmpty(challenges)) {
             return challenges.get(0);
         }
@@ -285,6 +285,12 @@ public class ChallengeServiceImpl implements ChallengeService {
             boolQueryBuilder.must(matchQuery("authorEmail", ownerEmail).minimumShouldMatch("100%"));
         }
 
+        String challengeSearchText = challengeFilterCondition.getChallengeSearchText();
+        if (StringUtils.isNotEmpty(challengeSearchText)) {
+            boolQueryBuilder.should(matchQuery("challengeName", challengeSearchText).minimumShouldMatch("100%"));
+            boolQueryBuilder.should(matchQuery("companyDomains", challengeSearchText).minimumShouldMatch("100%"));
+        }
+
         BoolFilterBuilder boolFilterBuilder = boolFilter();
         if (challengeFilterCondition.isNotExpired()) {
             boolFilterBuilder.mustNot(termFilter("expired", Boolean.TRUE));
@@ -300,6 +306,11 @@ public class ChallengeServiceImpl implements ChallengeService {
                 RangeFilterBuilder toFilter = rangeFilter(phase.getToDateTimeField()).gte("now/d");
                 boolFilterBuilder.must(toFilter);
             }
+        }
+
+        ChallengeTypeEnum challengeType = challengeFilterCondition.getChallengeType();
+        if (challengeType != null) {
+            boolFilterBuilder.must(termFilter("challengeType", challengeType));
         }
 
         searchQueryBuilder.withQuery(filteredQuery(boolQueryBuilder, boolFilterBuilder));
