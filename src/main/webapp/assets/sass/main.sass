@@ -1080,7 +1080,7 @@ footer
   bottom: 0
   display: none
 .loading-data
-  position: absolute
+  position: fixed
   z-index: 999
   width: 100%
   top: 0
@@ -1090,6 +1090,8 @@ footer
   background-color: #201d1e
   opacity: 0.8
   display: none
+  height: 100%
+  line-height: 100%
 
 
 .bootstrap-checkbox > button.btn
@@ -2042,3 +2044,6 @@ a.salary-report-share:hover
   white-space: nowrap
   overflow: hidden
   text-overflow: ellipsis
+.noscroll
+  overflow-y: hidden
+  position: relative

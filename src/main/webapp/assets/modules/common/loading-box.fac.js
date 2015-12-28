@@ -4,8 +4,7 @@ angular.module("Common").factory("loadingBoxFactory", function (jsonValue, utils
     $('body').addClass('noscroll');
     $('.loading-data').show();
   });
-  utils.registerNotification(jsonValue.notifications.loading, function (h) {
-    (typeof h === "number") && $('.loading-data').height(h);
+  utils.registerNotification(jsonValue.notifications.loading, function () {
     $('body').addClass('noscroll');
     $('.loading-data').show();
 
