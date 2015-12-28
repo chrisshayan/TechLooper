@@ -40,11 +40,9 @@
          ng-if="contest.$isPublic && contest.$currentUserJoined">
         <i class="fa fa-paper-plane-o"></i> | <span translate="submitPhase"></span>
       </a>
-
-      <a ng-if="contest.$isInternal && contest.$currentUserJoined">Joined</a>
-      <!--<a title="{{'submitPhase' | translate}}" ng-click="submissionForm.showSubmitForm()" ng-show="contest.currentUserJoined == true">-->
-      <!--<i class="fa fa-paper-plane-o"></i>  |  <span translate="submitPhase"></span>-->
-      <!--</a>-->
+      <a title="{{'submitPhase' | translate}}" ng-click="signInInternalForm()" ng-if="contest.$isInternal && contest.$currentUserJoined">
+      <i class="fa fa-paper-plane-o"></i>  |  <span translate="submitPhase"></span>
+      </a>
       <a title="{{'join' | translate}}" ng-show="contest.$currentUserJoined == false" ng-click="joinNow(contest)">
         <i class="fa fa-facebook" ng-if="contest.$isPublic"></i>
         <i class="fa fa-user-plus" ng-if="contest.$isInternal"></i>

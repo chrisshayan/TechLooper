@@ -880,5 +880,8 @@
   "allChallengesSearch": "All challenges",
   "invalidDomainName": "Invalid domain name format",
   "emailDomainNotMatch": "Email domain not match",
-  "joinInternalChallengeWith": "Join with your email from:"
+  "joinInternalChallengeWith": "Join with your email from:",
+  "enterYourPassword": "Enter your password",
+  "enterYourEmail": "Enter your email",
+  "signInInternalChallengeTitle": "First, Let Us Know Who You Are"
 }

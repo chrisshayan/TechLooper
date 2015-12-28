@@ -1,7 +1,6 @@
 techlooper.controller('contestsController', function (apiService, $scope, jsonValue, $window, $translate, $filter,
                                                       utils, localStorageService, $route) {
   utils.sendNotification(jsonValue.notifications.loading);
-
   var joinChallenge = function() {
     if (localStorageService.get("joinNow")) {
       localStorageService.remove("joinNow");

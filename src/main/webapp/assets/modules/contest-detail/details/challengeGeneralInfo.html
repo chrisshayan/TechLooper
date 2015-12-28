@@ -84,6 +84,7 @@
         </button>
 
         <button ng-if="contestDetail.$isInternal && contestDetail.$currentUserJoined"
+                ng-click="signInInternalForm()"
                 class="btn btn-primary btn-flat">
           <i class="fa fa-paper-plane-o"></i> <span translate="submitPhase"></span>
         </button>
@@ -104,4 +105,5 @@
        ng-show="submittedPhase">
     <p translate="submissionPhaseSuccessful"></p>
   </div>
+  <sign-in-internal-challenge ng-if="contestDetail.$isInternal && contestDetail.$currentUserJoined"></sign-in-internal-challenge>
 </div>
