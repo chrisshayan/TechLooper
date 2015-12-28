@@ -1,18 +1,13 @@
 angular.module("Common").factory("loadingBoxFactory", function (jsonValue, utils) {
   utils.registerNotification(jsonValue.notifications.switchScope, function () {
-    $('.loading-data').css("height", "auto");
-    $('body').addClass('noscroll');
-    $('.loading-data').show();
+    $('body').addClass('loading');
   });
   utils.registerNotification(jsonValue.notifications.loading, function () {
-    $('body').addClass('noscroll');
-    $('.loading-data').show();
-
+    $('body').addClass('loading');
   });
 
   var hide = function () {
-    $('.loading-data').fadeOut(500);
-    $('body').removeClass('noscroll');
+    $('body').removeClass('loading');
   };
 
   utils.registerNotification(jsonValue.notifications.loaded, hide);

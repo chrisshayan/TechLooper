@@ -2044,6 +2044,18 @@ a.salary-report-share:hover
   white-space: nowrap
   overflow: hidden
   text-overflow: ellipsis
-.noscroll
-  overflow-y: hidden
-  position: relative
+
+.modal-loading
+  display: none
+  position: fixed
+  z-index: 1000
+  top: 0
+  left: 0
+  height: 100%
+  width: 100%
+  background: rgba( 0,0, 0, .8 ) url('../images/loading_apple.gif') 50% 50% no-repeat
+  background-size: 50px
+body.loading
+  overflow: hidden
+body.loading .modal-loading
+  display: block
