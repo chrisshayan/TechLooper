@@ -35,6 +35,12 @@ techlooper.directive("joinInternalChallenge", function (apiService, $translate, 
         //apiService.joinContest(scope.challenge.challengeId, scope.registrant.firstName,
         //  scope.registrant.lastName, $translate.use());
       }
+
+      scope.doCancel = function () {
+        scope.registrant = {firstName: "", lastName: "", email: ""};
+        scope.joinInternalForm.$setPristine();
+        _.isFunction(scope.cancel) && scope.cancel(scope.challenge);
+      }
     }
   }
 });

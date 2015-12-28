@@ -29,10 +29,18 @@ techlooper.run(function (connectionFactory, loadingBoxFactory, cleanupFactory, u
   var param = $location.search();
   if (!$.isEmptyObject(param)) {
     switch (param.action) {
+      case "cancel-social-register":
       case "registerVnwUser":
-        localStorageService.set("lastName", param.lastName);
-        localStorageService.set("firstName", param.firstName);
-        localStorageService.set("email", param.email);
+        if (/^.+@\w+(\.\w+)+$/.test(param.email)) {
+          localStorageService.set("lastName", param.lastName);
+          localStorageService.set("firstName", param.firstName);
+          localStorageService.set("email", param.email);
+        }
+        else {
+          localStorageService.remove("lastName");
+          localStorageService.remove("firstName");
+          localStorageService.remove("email");
+        }
         break;
 
       case "loginBySocial":
@@ -48,9 +56,9 @@ techlooper.run(function (connectionFactory, loadingBoxFactory, cleanupFactory, u
         window.location.href = (param.targetUrl.startsWith("http://") || param.targetUrl.startsWith("https://")) ? param.targetUrl : "http://" + param.targetUrl;
         break;
 
-      case "cancel":
-        $location.url("/");
-        break;
+      //case "cancel":
+      //  $location.url("/");
+      //  break;
     }
   }
 

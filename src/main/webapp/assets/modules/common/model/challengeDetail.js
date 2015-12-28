@@ -207,6 +207,7 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
     challengeDetail.recalculatePhaseItems = function () {
       //see jsonValue.challengePhase
       if (challengeDetail.currentPhase) {//if challenge has current phase
+        challengeDetail.currentPhaseLowerCase = challengeDetail.currentPhase.toLowerCase();
         var dtProp = jsonValue.challengePhase[challengeDetail.currentPhase].challengeProp;
         if (dtProp) {
           var date = moment(challengeDetail[dtProp], jsonValue.dateFormat);
@@ -264,8 +265,12 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
 
     challengeDetail.recalculateCurrentUserJoined = function () {
       var joinContests = localStorageService.get("joinContests") || "";
-      var email = localStorageService.get("email") || "";
-      challengeDetail.$currentUserJoined = (joinContests.indexOf(challengeDetail.challengeId) >= 0) && (email.length > 0);
+      //var email = localStorageService.get("email") || {};
+      challengeDetail.$currentUserJoined = (joinContests.indexOf(challengeDetail.challengeId) >= 0);// && (email.length > 0);
+      //apiService.checkRegistrantJoinedChallenge(challengeDetail.challengeId, emails)
+      //  .success(function(joined) {
+      //    challengeDetail.$currentUserJoined = joined;
+      //  });
     }
 
     challengeDetail.recalculateCurrentState = function () {
@@ -275,19 +280,24 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
           title: $filter("translate")("notStart"),
           getChallengeDate: function () {return moment(challengeDetail.startDateTime, jsonValue.dateFormat);},
           date: moment(challengeDetail.startDateTime, jsonValue.dateFormat).subtract({days: 1}),
-          timeLeftTitleTranslate: "moreDayToNotStarted"
+          timeLeftTitleTranslate: "moreDayToNotStarted",
+          isNotStart: true
         },
         {
           id: "registration",
           title: $filter("translate")("registration"),
           date: moment(challengeDetail.registrationDateTime, jsonValue.dateFormat),
-          timeLeftTitleTranslate: "moreDayToRegistration"
+          timeLeftTitleTranslate: "moreDayToRegistration",
+          isRegistration: true,
+          isJoinable: true
         },
         {
           id: "in-progress",
           title: $filter("translate")("inProgress"),
           date: moment(challengeDetail.submissionDateTime, jsonValue.dateFormat),
-          timeLeftTitleTranslate: "moreDayToSubmit"
+          timeLeftTitleTranslate: "moreDayToSubmit",
+          isInProgress: true,
+          isJoinable: true
         },
         {
           id: "closed",
@@ -295,7 +305,8 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
           getChallengeDate: function () {return moment(challengeDetail.submissionDateTime, jsonValue.dateFormat);},
           date: moment(challengeDetail.submissionDateTime, jsonValue.dateFormat).add({days: 1}),
           timeLeftTitleTranslate: "moreDayToClosed",
-          dayLeft: challengeDetail.submissionDateTime
+          dayLeft: challengeDetail.submissionDateTime,
+          isClosed: true
         }
       ];
 
