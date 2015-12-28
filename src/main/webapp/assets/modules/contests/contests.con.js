@@ -75,9 +75,10 @@ techlooper.controller('contestsController', function (apiService, $scope, jsonVa
   }
 
   $scope.filterContests = function(type, keyword){
+    utils.sendNotification(jsonValue.notifications.loading);
     apiService.filterContests(type, keyword).success(function (contests){
-      utils.sendNotification(jsonValue.notifications.loading);
       $scope.contestsList = contests;
+      console.log($scope.contestsList);
     }).finally(function () {
       utils.sendNotification(jsonValue.notifications.loaded);
     });
