@@ -60,7 +60,7 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
         });
     },
 
-    searchContests: function () {
+    getContestList: function () {
       return $http.get("challenge/list")
         .success(function (contests) {
           $.each(contests, function (i, contest) {
@@ -68,7 +68,16 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
           });
         });
     },
-
+    filterContests: function(type, keyword){
+      return $http.post("challenge/search", {
+        challengeType : type,
+        challengeSearchText :keyword
+    }).success(function (contests) {
+      $.each(contests, function (i, contest) {
+        $filter("challengeDetail")(contest);
+      });
+    });
+    },
     getSuggestSkills: function (text) {
       return $http.get("suggestion/skills/" + text);
     },

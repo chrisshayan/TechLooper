@@ -53,7 +53,7 @@ techlooper.controller('contestsController', function (apiService, $scope, jsonVa
     return "";
   }
 
-  apiService.searchContests().success(function (contests) {
+  apiService.getContestList().success(function (contests) {
     utils.sortByDate(contests, "startDateTime");
     $scope.contestsList = contests;
   }).finally(function () {
@@ -73,4 +73,13 @@ techlooper.controller('contestsController', function (apiService, $scope, jsonVa
       //joinChallenge();
     }
   }
+
+  $scope.filterContests = function(type, keyword){
+    apiService.filterContests(type, keyword).success(function (contests){
+      utils.sendNotification(jsonValue.notifications.loading);
+      $scope.contestsList = contests;
+    }).finally(function () {
+      utils.sendNotification(jsonValue.notifications.loaded);
+    });
+  };
 });

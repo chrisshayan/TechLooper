@@ -1,25 +1,26 @@
 <div class="container-fluid challenge-search">
   <div class="row">
     <div class="col-xs-12 col-md-12">
+      <ng-form name="challengeSearch" autocomplete="off" role="form" class="form-horizontal">
       <div class="input-group">
         <div class="input-group-btn search-panel">
           <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
             <span id="search_concept" translate="allChallengesSearch"></span> <span class="caret"></span>
           </button>
-          <ul class="dropdown-menu" role="menu">
-            <li><a href="#all" translate="allChallengesSearch"></a></li>
+          <ul class="dropdown-menu" role="menu" ng-modal="challengeSearch.type">
+            <li><a href="#all" ng-click="challengeSearch.type = 'ALL'" translate="allChallengesSearch"></a></li>
             <li class="divider"></li>
-            <li><a href="#public" translate="publicChallenge"></a></li>
-            <li><a href="#internal" translate="internalChallenge"></a></li>
-
+            <li><a href="#public" ng-click="challengeSearch.type = 'PUBLIC'" translate="publicChallenge"></a></li>
+            <li><a href="#internal" ng-click="challengeSearch.type = 'INTERNAL'" translate="internalChallenge"></a></li>
           </ul>
         </div>
         <input type="hidden" name="search_param" value="all" id="search_param">
-        <input type="text" class="form-control" name="x" placeholder="{{'SearchChallengePlaceholder' | translate}}">
+        <input type="text" class="form-control" name="x" ng-modal="challengeSearch.keyword" placeholder="{{'SearchChallengePlaceholder' | translate}}">
       <span class="input-group-btn">
-          <button class="btn btn-default btn-primary" type="button"><span class="glyphicon glyphicon-search"></span></button>
+          <button class="btn btn-default btn-primary" type="button" ng-click="filterContests(challengeSearch.type, challengeSearch.keyword)"><span class="glyphicon glyphicon-search"></span></button>
       </span>
       </div>
+      </ng-form>
     </div>
   </div>
 </div>
