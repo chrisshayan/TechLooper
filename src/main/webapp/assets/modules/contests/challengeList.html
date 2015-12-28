@@ -56,7 +56,40 @@
       <!--</a>-->
     </div>
   </div>
-  <join-internal-challenge challenge="contest" cancel="toggleJoinInternalForm" ng-show="contest.$internalForm.visible"
-                           ng-if="contest.$isInternal"></join-internal-challenge>
+  <div class="row" ng-show="contest.$internalForm.visible" ng-if="contest.$isInternal">
+    <div class="col-sm-12 join-sign-in-internal-challenge">
+      <div class="col-sm-6">
+        <join-internal-challenge challenge="contest" cancel="toggleJoinInternalForm"></join-internal-challenge>
+      </div>
+      <div class="col-sm-6">
+        <div class="row">
+          <ng-form name="signInInternalForm" autocomplete="off" role="form" class="form-horizontal">
+            <div class="form-group">
+              <div class="col-sm-12">
+                <label for="ic-email-signin"><span translate="email"></span>: <strong>*</strong></label>
+                <input type="email" class="form-control" id="ic-email-signin" placeholder="{{'emailAddressEx' | translate}}"
+                       name="email" ng-model="registrant.email" ng-required="true"/>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-12">
+                <label for="ic-pass-signin"><span translate="password"></span>: <strong>*</strong></label>
+                <input type="password" class="form-control" id="ic-pass-signin" placeholder="{{'password' | translate}}"
+                       name="password" ng-model="registrant.password" ng-required="true"/>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-12 text-center">
+                <button type="submit" class="btn btn-primary btn-flat" translate="signIn" ng-click="joinChallenge()"></button>
+                <button type="cancel" class="btn btn-primary btn-flat" translate="cancel" ng-click="cancel(challenge)"></button>
+              </div>
+            </div>
+          </ng-form>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
   <submission-challenge challenge="contest" form="submissionForm"></submission-challenge>
 </div>
