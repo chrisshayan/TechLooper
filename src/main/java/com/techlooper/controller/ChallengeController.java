@@ -110,7 +110,7 @@ public class ChallengeController {
     }
 
     @RequestMapping(value = "/challenge/search", method = RequestMethod.POST)
-    public List<ChallengeDetailDto> searchChallenges(ChallengeFilterCondition challengeFilterCondition) throws Exception {
+    public List<ChallengeDetailDto> searchChallenges(@RequestBody ChallengeFilterCondition challengeFilterCondition) throws Exception {
         return challengeService.findChallenges(challengeFilterCondition);
     }
 
