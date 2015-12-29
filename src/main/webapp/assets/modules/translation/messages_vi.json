@@ -867,6 +867,8 @@
   "howToRecruitBetter": "Tuyển Dụng Tốt Hơn",
   "publicChallenge": "Thử Thách Cộng Đồng",
   "internalChallenge": "Thử Thách Nội Bộ",
+  "publicChallenges": "Thử Thách Cộng Đồng",
+  "internalChallenges": "Thử Thách Nội Bộ",
   "publicChallengeDis": "Xây dựng thương hiệu thành công và phát triển đội ngũ lập trình viên cho doanh nghiệp.",
   "internalChallengeDis": "Đãi ngộ bền vững và khuyến khích đổi mới trong doanh nghiệp để",
   "internalChallengeContent1": "Nâng cao năng suất và lợi nhuận",
@@ -879,10 +881,14 @@
   "internal": "Thử Thách Nội Bộ",
   "internalDes": "Chọn 'Thử Thách Nội Bộ' nếu cuộc thi của bạn chỉ dành cho nhân viên công ty",
   "companyDomain": "Vui lòng nhập các tên miền. Chỉ những thí sinh sử dụng email với một trong những tên miền này mới có thể đăng ký thành công vào cuộc thi: (Tối đa 3 tên miền)",
-  "companyDomainEx": "Ex: navigosgroup.com",
+  "companyDomainEx": "Ví dụ: navigosgroup.com",
   "SearchChallengePlaceholder": "Điền tên thử thách hay tên miền để tìm kiếm",
   "allChallengesSearch": "Mọi Thử Thách",
   "invalidDomainName": "Tên miền không đúng định dạng",
   "emailDomainNotMatch": "Email domain không phù hợp",
-  "joinInternalChallengeWith": "Tham gia với email với tên miền:"
+  "joinInternalChallengeWith": "Tham gia với email với tên miền:",
+  "enterYourPassword": "Nhập mật khẩu",
+  "enterYourEmail": "Nhập email",
+  "signInInternalChallengeTitle": "Trước tiên, Giúp Chúng Tôi Biết Bạn Là Ai",
+  "emailChallengeFormat": "Định danh bằng email và mật khẩu bạn đã được cấp cho cuộc thi."
 }

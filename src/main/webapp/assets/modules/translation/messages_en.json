@@ -863,6 +863,8 @@
   "howToRecruitBetter": "How To Recruit Better",
   "publicChallenge": "Public Challenge",
   "internalChallenge": "Internal Challenge",
+  "publicChallenges": "Public Challenges",
+  "internalChallenges": "Internal Challenges",
   "publicChallengeDis": "Build a compelling brand and your developer pool to hire better and faster",
   "internalChallengeDis": "Drive sustainability engagement and innovation across your own workforce",
   "internalChallengeContent1": "Greater productivity and higher profits",
@@ -875,13 +877,16 @@
   "internal": "Internal",
   "internalDes": "Choose 'Internal' if your challenge is only for your employees",
   "companyDomain": "Enter your company domain(s). Only contestants registered with such domains will be accepted in this challenge: (Limited to 3)",
-  "companyDomainEx": "Ví dụ: navigosgroup.com",
+  "companyDomainEx": "Ex: navigosgroup.com",
   "SearchChallengePlaceholder": "Enter challenge name or company domain to search challenge",
-  "allChallengesSearch": "All challenges",
+  "allChallengesSearch": "All Challenges",
   "invalidDomainName": "Invalid domain name format",
   "emailDomainNotMatch": "Email domain not match",
   "joinInternalChallengeWith": "Join with your email from:",
   "enterYourPassword": "Enter your password",
   "enterYourEmail": "Enter your email",
-  "signInInternalChallengeTitle": "First, Let Us Know Who You Are"
+  "signInInternalChallengeTitle": "First, Let Us Know Who You Are",
+  "emailChallengeFormat": "Sign in using your registered email address and password for this challenge.",
+  "passCode": "Pass Code: <strong>*</strong>",
+  "enterYourPassCode": "Enter your pass code"
 }
