@@ -310,7 +310,11 @@ public class ChallengeServiceImpl implements ChallengeService {
 
         ChallengeTypeEnum challengeType = challengeFilterCondition.getChallengeType();
         if (challengeType != null) {
-            boolFilterBuilder.must(termFilter("challengeType", challengeType));
+            if (challengeType == ChallengeTypeEnum.INTERNAL) {
+                boolFilterBuilder.must(termFilter("challengeType", ChallengeTypeEnum.INTERNAL));
+            } else if (challengeType == ChallengeTypeEnum.PUBLIC) {
+                boolFilterBuilder.mustNot(termFilter("challengeType", ChallengeTypeEnum.INTERNAL));
+            }
         }
 
         searchQueryBuilder.withQuery(filteredQuery(boolQueryBuilder, boolFilterBuilder));
