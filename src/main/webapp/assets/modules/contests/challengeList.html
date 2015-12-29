@@ -9,7 +9,8 @@
         <i title="{{'internalChallenge' | translate}}" ng-if="contest.$isInternal"></i>
         {{contest.challengeName}}
       </a>
-      <span class="tag" ng-repeat="skill in contest.technologies">{{skill}}</span>
+      <span class="tag" ng-repeat="domain in contest.companyDomains">{{domain}}</span>
+      <span class="tag" ng-repeat="skill in contest.technologies"><i class="fa fa-tag"></i> {{skill}}</span>
     </div>
     <div class="challenge-timeline-col">
       <div translate="timeline.schedule" class="label-col"></div>
