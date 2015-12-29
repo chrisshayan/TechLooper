@@ -19,28 +19,6 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
     return $location.url(sprintf("/challenge-detail/%s-%s-id", title, contestId));
   }
 
-  //$scope.status = function (type, id) {
-  //  var joinContests = localStorageService.get("joinContests") || "";
-  //  var email = localStorageService.get("email") || "";
-  //  var hasJoined = (joinContests.indexOf(contestId) >= 0) && (email.length > 0);
-  //
-  //  switch (type) {
-  //    case "able-to-join":
-  //      if (!$scope.contestDetail) return false;
-  //      var contestInProgress = ($scope.contestDetail.progress.translate == jsonValue.status.registration.translate) ||
-  //        ($scope.contestDetail.progress.translate == jsonValue.status.progress.translate);
-  //      return contestInProgress && !hasJoined;
-  //
-  //    //case "already-join":
-  //    //  if (!$scope.contestDetail) return false;
-  //    //  return !hasJoined;
-  //
-  //    case "contest-in-progress":
-  //      if (!$scope.contestDetail) return false;
-  //      return ($scope.contestDetail.progress.translate == jsonValue.status.progress.translate);
-  //  }
-  //}
-
   $scope.contestTimeLeft = function (contest) {
     if (contest) {
       switch (contest.progress.translate) {
@@ -93,7 +71,6 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
     apiService.getContestDetail(contestId)
       .success(function (data) {
         $scope.contestDetail = data;
-        //$filter("progress")($scope.contestDetail, "challenge");
         $scope.contestDetail.setSelectedPhase($location.search().toPhase);
         $scope.$emit("challenge-detail-ready");
       })

@@ -39,7 +39,7 @@ techlooper.directive("submissionChallenge", function (localStorageService, apiSe
           apiService.findRegistrantActivePhase(challengeId, email)
             .success(function (phase) {
               scope.submission.submissionPhase = phase;
-            })
+            });
 
           scope.visibleSubmitForm = true;
         }
@@ -49,6 +49,20 @@ techlooper.directive("submissionChallenge", function (localStorageService, apiSe
           registrantEmail: localStorageService.get("email"),
           registrantFirstName: localStorageService.get("firstName"),
           registrantLastName: localStorageService.get("lastName")
+        }
+
+        if (scope.challenge.$isInternal && scope.submissionForm && scope.submissionForm.internalEmail) {
+          scope.submissionForm.internalEmail.$validators.domainMatch = function (modelValue, viewValue) {
+            if (!modelValue) return true;
+            if (modelValue.length == 0) return true;
+            if (scope.submissionForm.internalEmail.$error.email) return true;
+
+            var valid = false;
+            $.each(scope.challenge.companyDomains, function (i, companyDomain) {
+              return !(valid = new RegExp("( |^)[^ ]*@[a-zA-Z0-9.]*" + companyDomain + "( |$)").test(modelValue));
+            });
+            return valid;
+          };
         }
       });
 
