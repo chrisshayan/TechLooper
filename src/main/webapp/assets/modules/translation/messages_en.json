@@ -888,5 +888,6 @@
   "signInInternalChallengeTitle": "First, Let Us Know Who You Are",
   "emailChallengeFormat": "Sign in using your registered email address and password for this challenge.",
   "passCode": "Pass Code: <strong>*</strong>",
-  "enterYourPassCode": "Enter your pass code"
+  "enterYourPassCode": "Enter your pass code",
+  "domainLabel": "Domain:"
 }

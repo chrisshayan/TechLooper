@@ -890,5 +890,6 @@
   "enterYourPassword": "Nhập mật khẩu",
   "enterYourEmail": "Nhập email",
   "signInInternalChallengeTitle": "Trước tiên, Giúp Chúng Tôi Biết Bạn Là Ai",
-  "emailChallengeFormat": "Định danh bằng email và mật khẩu bạn đã được cấp cho cuộc thi."
+  "emailChallengeFormat": "Định danh bằng email và mật khẩu bạn đã được cấp cho cuộc thi.",
+  "domainLabel": "Tên miền:"
 }

@@ -152,7 +152,7 @@
                     </tr>
                     <tr>
                       <td align="center" style="margin: 0; padding: 0">
-                        <p style="font-size: 12px; font-style: italic; line-height: 18px; margin: 0; padding: 0">Xây Dựng Đội Ngũ Phát Triển Sản Phẩm Của Chính Bạn Thông Qua Các Cuộc Thi Trực Tuyến</p>
+                        <p style="font-size: 12px; font-style: italic; line-height: 18px; margin: 0; padding: 0">Sử dụng Thử Thách Nội Bộ Để Đãi Ngộ Bền Vững Và Khuyến Khích Đổi Mới Trong Doanh Nghiệp</p>
                       </td>
                     </tr>
                     <tr>
@@ -301,7 +301,7 @@
                                             </tr>
                                             <tr>
                                               <td align="left">
-                                                  Sử dụng email và mật khẩu đăng nhập ở trên để định danh tài khoản
+                                                Nhấp chuột trên nút Gửi Bài của Thử Thách Nội Bộ bạn đã tham gia thành công trước đó.
                                               </td>
                                             </tr>
                                             <tr>
@@ -320,23 +320,13 @@
                                               </td>
                                             </tr>
                                             <tr>
-                                              <td>
-                                                <img src="${webBaseUrl}images/join-internal-form.png" alt="" style="width:100%">
-                                              </td>
-                                            </tr>
-                                            <tr>
-                                              <td height="30px" >
-                                                <img height="30px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                                              </td>
-                                            </tr>
-                                            <tr>
                                               <td align="left">
                                                 <strong>2. Gửi bài vào cuộc thi</strong>
                                               </td>
                                             </tr>
                                             <tr>
                                               <td align="left">
-                                                  Gửi bài tuỳ theo yêu cầu mỗi giai đoạn cuộc thi để có đủ điều kiện đi tiếp vào vòng tiếp theo
+                                                Sử dụng email và mật khẩu đăng nhập ở trên để gửi bài tuỳ theo yêu cầu mỗi giai đoạn cuộc thi, giúp bạn đủ điều kiện đi tiếp vào vòng tiếp theo
                                               </td>
                                             </tr>
                                             <tr>

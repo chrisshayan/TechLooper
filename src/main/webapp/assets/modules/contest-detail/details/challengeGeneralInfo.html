@@ -90,7 +90,7 @@
         <!--</button>-->
 
         <p class="note align-text-right" ng-if="contestDetail.$isInternal">
-          {{'joinInternalChallengeWith' | translate}}
+          {{'joinInternalChallengeWith' | translate}}<br/>
           <span ng-repeat="domain in contestDetail.companyDomains">
             <strong>{{domain}}</strong>&nbsp;<span ng-if="!$last" translate="or"></span>&nbsp;
           </span>
