@@ -1,5 +1,11 @@
 <div class="submit-phase-contest show" ng-show="visibleSubmitForm">
   <ng-form name="submissionForm" autocomplete="off">
+    <p ng-if="challenge.$isInternal && challenge.companyDomains.length" class="text-center">
+      {{'joinInternalChallengeWith' | translate}}
+      <span ng-repeat="domain in challenge.companyDomains">
+        <strong>{{domain}}</strong>&nbsp;<span ng-if="!$last" translate="or"></span>&nbsp;
+      </span>
+    </p>
     <div class="form-group" ng-if="challenge.$isPublic">
       <div class="col-sm-12">
         <label>
