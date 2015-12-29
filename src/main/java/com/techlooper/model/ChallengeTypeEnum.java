@@ -2,7 +2,8 @@ package com.techlooper.model;
 
 public enum ChallengeTypeEnum {
 
-    PUBLIC("PUBLIC"),//~ null value
+    ALL("ALL"),
+    PUBLIC("PUBLIC"),
     INTERNAL("INTERNAL");
 
     private String value;
