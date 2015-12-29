@@ -889,5 +889,7 @@
   "emailChallengeFormat": "Sign in using your registered email address and password for this challenge.",
   "passCode": "Pass Code: <strong>*</strong>",
   "enterYourPassCode": "Enter your pass code",
-  "domainLabel": "Domain:"
+  "domainLabel": "Domain:",
+  "invalidCredential": "Invalid credential",
+  "invalidMinlengthDigits": "This field can not less than {{length}} digits"
 }
