@@ -26,7 +26,7 @@
         <label>
           <span>{{'emailAddressField' | translate}} <strong>*</strong></span>
           <input type="email" class="form-control" id="ic-email" placeholder="{{'emailAddressEx' | translate}}"
-                 name="internalEmail" ng-model="internal.email" ng-required="true"/>
+                 name="internalEmail" ng-model="submission.email" ng-required="true"/>
         </label>
         <span class="error-messages"
               ng-show="submissionForm.internalEmail.$error.required && (submissionForm.internalEmail.$dirty || submissionForm.$submitted)"
