@@ -279,16 +279,17 @@ public class ChallengeServiceImpl implements ChallengeService {
         NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withTypes("challenge");
 
         BoolQueryBuilder boolQueryBuilder = boolQuery();
-        boolQueryBuilder.should(matchAllQuery());
+        String challengeSearchText = challengeFilterCondition.getChallengeSearchText();
+        if (StringUtils.isNotEmpty(challengeSearchText)) {
+            boolQueryBuilder.should(matchQuery("challengeName", challengeSearchText));
+            boolQueryBuilder.should(matchQuery("companyDomains", challengeSearchText));
+        } else {
+            boolQueryBuilder.should(matchAllQuery());
+        }
+
         String ownerEmail = challengeFilterCondition.getAuthorEmail();
         if (StringUtils.isNotEmpty(ownerEmail)) {
             boolQueryBuilder.must(matchQuery("authorEmail", ownerEmail).minimumShouldMatch("100%"));
-        }
-
-        String challengeSearchText = challengeFilterCondition.getChallengeSearchText();
-        if (StringUtils.isNotEmpty(challengeSearchText)) {
-            boolQueryBuilder.should(matchQuery("challengeName", challengeSearchText).minimumShouldMatch("100%"));
-            boolQueryBuilder.should(matchQuery("companyDomains", challengeSearchText).minimumShouldMatch("100%"));
         }
 
         BoolFilterBuilder boolFilterBuilder = boolFilter();
