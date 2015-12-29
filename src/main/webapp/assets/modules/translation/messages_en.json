@@ -883,5 +883,6 @@
   "joinInternalChallengeWith": "Join with your email from:",
   "enterYourPassword": "Enter your password",
   "enterYourEmail": "Enter your email",
-  "signInInternalChallengeTitle": "First, Let Us Know Who You Are"
+  "signInInternalChallengeTitle": "First, Let Us Know Who You Are",
+  "emailChallengeFormat": "Sign in using your registered email address and password for this challenge."
 }

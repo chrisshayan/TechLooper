@@ -884,5 +884,9 @@
   "allChallengesSearch": "Mọi Thử Thách",
   "invalidDomainName": "Tên miền không đúng định dạng",
   "emailDomainNotMatch": "Email domain không phù hợp",
-  "joinInternalChallengeWith": "Tham gia với email với tên miền:"
+  "joinInternalChallengeWith": "Tham gia với email với tên miền:",
+  "enterYourPassword": "Nhập mật khẩu",
+  "enterYourEmail": "Nhập email",
+  "signInInternalChallengeTitle": "Trước tiên, Giúp Chúng Tôi Biết Bạn Là Ai",
+  "emailChallengeFormat": "Định danh bằng email và mật khẩu bạn đã được cấp cho cuộc thi."
 }
