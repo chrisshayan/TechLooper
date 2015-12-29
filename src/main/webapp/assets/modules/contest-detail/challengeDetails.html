@@ -7,8 +7,12 @@
   <div class="content-page-block contest-detail-content">
     <div class="header-page">
       <h2 class="text-left">
-        <span class="challenge-type"
-              ng-class="{'internal': contestDetail.$isInternal, 'public': contestDetail.$isPublic}"/>
+        <span class="challenge-type public" ng-if="contestDetail.$isPublic"
+              title="{{'publicChallenge' | translate}}"
+            />
+        <span class="challenge-type internal" ng-if="contestDetail.$isInternal"
+              title="{{'internalChallenge' | translate}}"
+            />
         {{contestDetail.challengeName}}
         <span ng-if="contestDetail.$currentState.isInProgress || contestDetail.$currentState.isRegistration"
               ng-class="contestDetail.currentPhaseLowerCase" translate="{{contestDetail.currentPhaseLowerCase}}" />
