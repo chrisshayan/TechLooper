@@ -152,7 +152,7 @@
                     </tr>
                     <tr>
                       <td align="center" style="margin: 0; padding: 0">
-                        <p style="font-size: 12px; font-style: italic; line-height: 18px; margin: 0; padding: 0">Build And Grow Your Developer Community Base With Online Contests.</p>
+                        <p style="font-size: 12px; font-style: italic; line-height: 18px; margin: 0; padding: 0">Use Internal Challenge To Drive Sustainability Engagement And Innovation Across Your Company</p>
                       </td>
                     </tr>
                     <tr>
