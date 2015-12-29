@@ -301,7 +301,7 @@
                                             </tr>
                                             <tr>
                                               <td align="left">
-                                                Use your email and password to let us know who you are
+                                                Click Submit button on the internal challenge you already joined.
                                               </td>
                                             </tr>
                                             <tr>
@@ -336,7 +336,7 @@
                                             </tr>
                                             <tr>
                                               <td align="left">
-                                                Submit to each challenge phase to be able qualified to go to next phase
+                                                Submit to each challenge phase with your email and password to be qualified to next phase.
                                               </td>
                                             </tr>
                                             <tr>

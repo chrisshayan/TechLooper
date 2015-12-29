@@ -301,7 +301,7 @@
                                             </tr>
                                             <tr>
                                               <td align="left">
-                                                  Sử dụng email và mật khẩu đăng nhập ở trên để định danh tài khoản
+                                                Nhấp chuột trên nút Gửi Bài của Thử Thách Nội Bộ bạn đã tham gia thành công trước đó.
                                               </td>
                                             </tr>
                                             <tr>
@@ -336,7 +336,7 @@
                                             </tr>
                                             <tr>
                                               <td align="left">
-                                                  Gửi bài tuỳ theo yêu cầu mỗi giai đoạn cuộc thi để có đủ điều kiện đi tiếp vào vòng tiếp theo
+                                                Sử dụng email và mật khẩu đăng nhập ở trên để gửi bài tuỳ theo yêu cầu mỗi giai đoạn cuộc thi, giúp bạn đủ điều kiện đi tiếp vào vòng tiếp theo
                                               </td>
                                             </tr>
                                             <tr>
