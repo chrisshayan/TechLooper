@@ -881,12 +881,13 @@
   "SearchChallengePlaceholder": "Enter challenge name or company domain to search challenge",
   "allChallengesSearch": "All Challenges",
   "invalidDomainName": "Invalid domain name format",
-  "emailDomainNotMatch": "Email domain not match",
+  "emailDomainNotMatch": "Email domain invalid",
   "joinInternalChallengeWith": "Join with your email from:",
   "enterYourPassword": "Enter your password",
   "enterYourEmail": "Enter your email",
   "signInInternalChallengeTitle": "First, Let Us Know Who You Are",
   "emailChallengeFormat": "Sign in using your registered email address and password for this challenge.",
   "passCode": "Pass Code: <strong>*</strong>",
-  "enterYourPassCode": "Enter your pass code"
+  "enterYourPassCode": "Enter your pass code",
+  "domainLabel": "Domain:"
 }

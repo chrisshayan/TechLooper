@@ -155,12 +155,12 @@
       height: 30px
       text-align: center
     .challenge-registrants-col
-      width: 10%
+      width: 8%
       float: left
       height: 30px
       text-align: center
     .challenge-actions-col
-      width: 10%
+      width: 12%
       float: left
       height: 30px
       text-align: right
@@ -197,7 +197,8 @@
               height: 20px
               display: inline-block
               float: left
-              background: url("../images/ic-challenge-mini.png") 0px 2px no-repeat
+              background: url("../images/ic-challenge.png") 0px 2px no-repeat
+              background-size: 15px
           span
             display: inline-block
             width: auto
@@ -207,7 +208,6 @@
             color: #7b7b7b
             font-size: 12px
             padding: 1px 5px
-            text-transform: capitalize
             margin-right: 4px
             margin-bottom: 4px
         .challenge-timeline-col
@@ -258,7 +258,6 @@
           height: auto
           a
             display: inline-block
-            width: 95px
             clear: both
             background-color: #337ab7
             border-radius: 4px
@@ -309,7 +308,7 @@
         .challenge-name-col
           a
             i
-              background-position: 0px -103px
+              background-position: 0px -62px
   .submit-phase-contest
     transition: background-color 1s
     overflow: hidden
@@ -320,9 +319,37 @@
     position: relative
   .submit-phase-contest.show
     background-color: #f1f2f7
-    padding: 10px 20px
+    padding: 20px
     margin-top: 10px
     float: left
+    p
+      font-size: 16px
+      span
+        text-transform: lowercase
+    .form-group
+      width: 100%
+      padding: 5px 0
+      clear: both
+      display: block
+      .col-sm-12
+        width: 100%
+      label
+        width: 100%
+        clear: both
+        display: block
+        font-weight: 500
+        span
+          min-width: 145px
+          display: inline-block
+        span.normal
+          font-weight: normal
+        strong
+          font-weight: 500
+          color: red
+        input
+          font-weight: 300
+        textarea
+          font-weight: 300
     .registrant-name
       display: inline-block
       clear: both

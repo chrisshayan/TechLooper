@@ -885,10 +885,11 @@
   "SearchChallengePlaceholder": "Điền tên thử thách hay tên miền để tìm kiếm",
   "allChallengesSearch": "Mọi Thử Thách",
   "invalidDomainName": "Tên miền không đúng định dạng",
-  "emailDomainNotMatch": "Email domain không phù hợp",
-  "joinInternalChallengeWith": "Tham gia với email với tên miền:",
+  "emailDomainNotMatch": "Tên miền mail không hợp lệ",
+  "joinInternalChallengeWith": "Tham gia bằng email với tên miền:",
   "enterYourPassword": "Nhập mật khẩu",
   "enterYourEmail": "Nhập email",
   "signInInternalChallengeTitle": "Trước tiên, Giúp Chúng Tôi Biết Bạn Là Ai",
-  "emailChallengeFormat": "Định danh bằng email và mật khẩu bạn đã được cấp cho cuộc thi."
+  "emailChallengeFormat": "Định danh bằng email và mật khẩu bạn đã được cấp cho cuộc thi.",
+  "domainLabel": "Tên miền:"
 }
