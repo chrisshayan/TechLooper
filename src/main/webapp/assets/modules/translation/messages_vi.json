@@ -891,5 +891,7 @@
   "enterYourEmail": "Nhập email",
   "signInInternalChallengeTitle": "Trước tiên, Giúp Chúng Tôi Biết Bạn Là Ai",
   "emailChallengeFormat": "Định danh bằng email và mật khẩu bạn đã được cấp cho cuộc thi.",
-  "domainLabel": "Tên miền:"
+  "domainLabel": "Tên miền:",
+  "invalidCredential": "Tài khoản không hợp lệ",
+  "invalidMinlengthDigits": "Trường này không được nhỏ hơn 4 ký số"
 }

@@ -30,8 +30,12 @@ public class ChallengeSubmissionController {
     private ChallengeRegistrantService challengeRegistrantService;
 
     @RequestMapping(value = "user/challengeSubmission", method = RequestMethod.POST)
-    public ChallengeSubmissionEntity submitMyResult(@RequestBody ChallengeSubmissionDto challengeSubmissionDto) {
-        return challengeSubmissionService.submitMyResult(challengeSubmissionDto);
+    public ChallengeSubmissionEntity submitMyResult(@RequestBody ChallengeSubmissionDto challengeSubmissionDto, HttpServletResponse response) {
+        ChallengeSubmissionEntity submission = challengeSubmissionService.submitMyResult(challengeSubmissionDto);
+        if (submission == null) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        }
+        return submission;
     }
 
     @RequestMapping(value = "user/challengeSubmissionPhase/{registrantEmail}/{challengeId}", method = RequestMethod.GET)

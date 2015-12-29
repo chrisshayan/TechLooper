@@ -79,6 +79,13 @@ public class ChallengeSubmissionServiceImpl implements ChallengeSubmissionServic
         final String registrantEmail = challengeSubmissionDto.getRegistrantEmail();
         ChallengeEntity challenge = challengeService.findChallengeById(challengeId);
         ChallengeRegistrantEntity registrant = challengeRegistrantService.findRegistrantByChallengeIdAndEmail(challengeId, registrantEmail);
+
+        if (challenge.getChallengeType() == ChallengeTypeEnum.INTERNAL) {
+            if (!challengeSubmissionDto.getPassCode().equals(registrant.getPassCode())) {
+                return null;
+            }
+        }
+
         final Long registrantId = registrant.getRegistrantId();
         ChallengePhaseEnum activePhase = registrant.getActivePhase() == null ? ChallengePhaseEnum.REGISTRATION : registrant.getActivePhase();
 
