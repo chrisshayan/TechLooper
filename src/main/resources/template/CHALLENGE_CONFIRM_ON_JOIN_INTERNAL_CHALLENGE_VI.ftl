@@ -320,16 +320,6 @@
                                               </td>
                                             </tr>
                                             <tr>
-                                              <td>
-                                                <img src="${webBaseUrl}images/join-internal-form.png" alt="" style="width:100%">
-                                              </td>
-                                            </tr>
-                                            <tr>
-                                              <td height="30px" >
-                                                <img height="30px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                                              </td>
-                                            </tr>
-                                            <tr>
                                               <td align="left">
                                                 <strong>2. Gửi bài vào cuộc thi</strong>
                                               </td>
