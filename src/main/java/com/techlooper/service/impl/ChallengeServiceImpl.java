@@ -84,6 +84,8 @@ public class ChallengeServiceImpl implements ChallengeService {
     @Override
     public Long joinChallenge(ChallengeRegistrantDto challengeRegistrantDto) {
         final long INVALID_REGISTRANT = 0L;
+        final int MIN_RANDOM_SEED_NUMBER = 1000;
+        final int MAX_RANDOM_SEED_NUMBER = 9999;
         Long challengeId = challengeRegistrantDto.getChallengeId();
         ChallengeEntity challengeEntity = challengeRepository.findOne(challengeId);
         String registrantEmail = challengeRegistrantDto.getRegistrantEmail();
@@ -106,15 +108,17 @@ public class ChallengeServiceImpl implements ChallengeService {
             challengeRegistrantEntity.setCriteria(criteria);
         }
 
+        challengeRegistrantEntity.setMailSent(Boolean.TRUE);
+        Integer passCode = DataUtils.getRandomNumberInRange(MIN_RANDOM_SEED_NUMBER, MAX_RANDOM_SEED_NUMBER);
+        challengeRegistrantEntity.setPassCode(passCode);
         challengeRegistrantEntity = challengeRegistrantRepository.save(challengeRegistrantEntity);
         challengeEmailService.sendApplicationEmailToContestant(challengeEntity, challengeRegistrantEntity);
-        challengeRegistrantEntity.setMailSent(Boolean.TRUE);
+
         return challengeRegistrantService.getNumberOfRegistrants(challengeId);
     }
 
     @Override
-    public List<ChallengeDetailDto> findChallenges() {
-        ChallengeFilterCondition allChallengeFilterCondition = new ChallengeFilterCondition();
+    public List<ChallengeDetailDto> findChallenges(ChallengeFilterCondition allChallengeFilterCondition) {
         NativeSearchQueryBuilder allChallengeQueryBuilder = getChallengeSearchQueryBuilder(allChallengeFilterCondition);
         List<ChallengeEntity> challenges = DataUtils.getAllEntities(challengeRepository, allChallengeQueryBuilder);
 
@@ -149,7 +153,8 @@ public class ChallengeServiceImpl implements ChallengeService {
     @Override
     public ChallengeDetailDto getTheLatestChallenge() {
         ChallengeDetailDto challengeDetailDto = new ChallengeDetailDto();
-        List<ChallengeDetailDto> challenges = findChallenges();
+        ChallengeFilterCondition allChallengeFilterCondition = new ChallengeFilterCondition();
+        List<ChallengeDetailDto> challenges = findChallenges(allChallengeFilterCondition);
         if (CollectionUtils.isNotEmpty(challenges)) {
             return challenges.get(0);
         }
@@ -279,7 +284,14 @@ public class ChallengeServiceImpl implements ChallengeService {
         NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withTypes("challenge");
 
         BoolQueryBuilder boolQueryBuilder = boolQuery();
-        boolQueryBuilder.should(matchAllQuery());
+        String challengeSearchText = challengeFilterCondition.getChallengeSearchText();
+        if (StringUtils.isNotEmpty(challengeSearchText)) {
+            boolQueryBuilder.should(matchQuery("challengeName", challengeSearchText));
+            boolQueryBuilder.should(matchQuery("companyDomains", challengeSearchText));
+        } else {
+            boolQueryBuilder.should(matchAllQuery());
+        }
+
         String ownerEmail = challengeFilterCondition.getAuthorEmail();
         if (StringUtils.isNotEmpty(ownerEmail)) {
             boolQueryBuilder.must(matchQuery("authorEmail", ownerEmail).minimumShouldMatch("100%"));
@@ -299,6 +311,15 @@ public class ChallengeServiceImpl implements ChallengeService {
             if (StringUtils.isNotEmpty(phase.getToDateTimeField())) {
                 RangeFilterBuilder toFilter = rangeFilter(phase.getToDateTimeField()).gte("now/d");
                 boolFilterBuilder.must(toFilter);
+            }
+        }
+
+        ChallengeTypeEnum challengeType = challengeFilterCondition.getChallengeType();
+        if (challengeType != null) {
+            if (challengeType == ChallengeTypeEnum.INTERNAL) {
+                boolFilterBuilder.must(termFilter("challengeType", ChallengeTypeEnum.INTERNAL));
+            } else if (challengeType == ChallengeTypeEnum.PUBLIC) {
+                boolFilterBuilder.mustNot(termFilter("challengeType", ChallengeTypeEnum.INTERNAL));
             }
         }
 

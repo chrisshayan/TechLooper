@@ -80,14 +80,16 @@
         span.closed
           background-color: #555555
         span.challenge-type
-          background: url("../images/ic-challenge-medium.png") left 1px no-repeat
+          background: url("../images/ic-challenge.png") left 1px no-repeat
           width: 25px
           height: 21px
           display: inline-block
+          background-size: 22px
         span.challenge-type.public
-          background-position: 0px 4px
+          background-position: 0px 0px
         span.challenge-type.internal
-          background-position: 0px -76px
+          background-position: 2px -75px
+          background-size: 18px
     .contest-name
       width: 100%
       display: inline-block
@@ -245,6 +247,8 @@
             float: right
             margin-left: 10px
             color: #fff
+            span
+              text-transform: capitalize
           button.disabled
             background-color: gray !important
             cursor: not-allowed
@@ -920,7 +924,7 @@
                     margin: auto
                     display: inline-block
                     color: #fff
-                    padding: 8px 35px 4px 35px
+                    padding: 8px 35px 6px 35px
                 li.header
                   font-weight: 400
                   border-bottom: 1px solid #fff
@@ -979,12 +983,12 @@
                       a
                         margin: auto auto auto 5px
         .submit-phase-contest.show
-          height: 310px
           background-color: #f1f2f7
-          transition: height 1s
           padding: 10px 20px
           margin-top: 10px
           float: left
+          width: 100%
+
         .join-internal-challenge
           background-color: #f1f2f7
           padding: 15px 20px 5px 20px

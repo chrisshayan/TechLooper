@@ -9,7 +9,16 @@
         <i title="{{'internalChallenge' | translate}}" ng-if="contest.$isInternal"></i>
         {{contest.challengeName}}
       </a>
-      <span class="tag" ng-repeat="skill in contest.technologies">{{skill}}</span>
+      <div class="row" ng-if="contest.companyDomains.length">
+        <div class="col-sm-12">
+          {{'domainLabel' | translate}} <span class="tag" ng-repeat="domain in contest.companyDomains"><i class="fa fa-globe"></i> {{domain}}</span>
+        </div>
+      </div>
+      <div class="row" ng-if="contest.technologies.length">
+        <div class="col-sm-12">
+          {{'technologiesLabel' | translate}} <span class="tag" ng-repeat="skill in contest.technologies"><i class="fa fa-tag"></i> {{skill}}</span>
+        </div>
+      </div>
     </div>
     <div class="challenge-timeline-col">
       <div translate="timeline.schedule" class="label-col"></div>
@@ -37,12 +46,10 @@
     <div class="challenge-actions-col" ng-if="contest.$currentState.isJoinable">
       <div translate="action" class="label-col"></div>
       <a title="{{'submitPhase' | translate}}" ng-click="submissionForm.showSubmitForm()"
-         ng-if="contest.$isPublic && contest.$currentUserJoined">
+         ng-if="contest.$currentUserJoined">
         <i class="fa fa-paper-plane-o"></i> | <span translate="submitPhase"></span>
       </a>
-
-      <a ng-if="contest.$isInternal && contest.$currentUserJoined">Joined</a>
-      <!--<a title="{{'submitPhase' | translate}}" ng-click="submissionForm.showSubmitForm()" ng-show="contest.currentUserJoined == true">-->
+      <!--<a title="{{'submitPhase' | translate}}" ng-click="signInInternalForm()" ng-if="contest.$isInternal && contest.$currentUserJoined">-->
       <!--<i class="fa fa-paper-plane-o"></i>  |  <span translate="submitPhase"></span>-->
       <!--</a>-->
       <a title="{{'join' | translate}}" ng-show="contest.$currentUserJoined == false" ng-click="joinNow(contest)">
@@ -57,7 +64,6 @@
       <!--</a>-->
     </div>
   </div>
-  <join-internal-challenge challenge="contest" cancel="toggleJoinInternalForm" ng-show="contest.$internalForm.visible"
-                           ng-if="contest.$isInternal"></join-internal-challenge>
+  <join-internal-challenge challenge="contest" cancel="toggleJoinInternalForm" ng-show="contest.$internalForm.visible" ng-if="contest.$isInternal"></join-internal-challenge>
   <submission-challenge challenge="contest" form="submissionForm"></submission-challenge>
 </div>

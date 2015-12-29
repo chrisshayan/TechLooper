@@ -61,4 +61,6 @@ public interface ChallengeEmailService {
     boolean sendEmailToDailyChallengeRegistrants(String challengeOwner, Long challengeId, Long now, EmailContent emailContent);
 
     boolean sendEmailToRegistrant(String challengeOwner, Long registrantId, EmailContent emailContent);
+
+    void sendEmailNotifyRegistrantWhenQualified(ChallengeRegistrantEntity challengeRegistrantEntity);
 }

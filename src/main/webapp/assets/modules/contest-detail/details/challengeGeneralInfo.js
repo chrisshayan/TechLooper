@@ -1,4 +1,4 @@
-techlooper.directive('challengeGeneralInfo', function () {
+techlooper.directive('challengeGeneralInfo', function (localStorageService) {
   return {
     restrict: "E",
     replace: true,
@@ -8,6 +8,9 @@ techlooper.directive('challengeGeneralInfo', function () {
 
       scope.toggleJoinInternalForm = function () {
         scope.$internalForm.visible = !scope.$internalForm.visible;
+      }
+      scope.signInInternalForm =function(){
+        $('.sign-internal').modal('show');
       }
     }
   };

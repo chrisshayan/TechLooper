@@ -108,7 +108,7 @@ techlooper.controller('freelancerProjectDetailController', function ($scope, uti
     }
 
     localStorageService.set("email", $scope.freelancer.email);
-    apiService.joinProject(projectId, $scope.freelancer.firstName, $scope.freelancer.lastName,
+    $scope.freelancer.email && apiService.joinProject(projectId, $scope.freelancer.firstName, $scope.freelancer.lastName,
       $scope.freelancer.email, $scope.freelancer.phoneNumber, $scope.freelancer.resumeLink, $translate.use())
       .success(function (numberFBJoins) {
         //$scope.numberFBJoins = numberFBJoins;

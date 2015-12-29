@@ -125,6 +125,7 @@
     width: 100%
     background-color: #fff
     padding: 0
+    margin-bottom: 20px
     .challenge-search
       background-color: #f0f3f4
       padding: 15px
@@ -154,12 +155,12 @@
       height: 30px
       text-align: center
     .challenge-registrants-col
-      width: 10%
+      width: 8%
       float: left
       height: 30px
       text-align: center
     .challenge-actions-col
-      width: 10%
+      width: 12%
       float: left
       height: 30px
       text-align: right
@@ -196,7 +197,8 @@
               height: 20px
               display: inline-block
               float: left
-              background: url("../images/ic-challenge-mini.png") 0px 2px no-repeat
+              background: url("../images/ic-challenge.png") 0px 2px no-repeat
+              background-size: 15px
           span
             display: inline-block
             width: auto
@@ -206,7 +208,6 @@
             color: #7b7b7b
             font-size: 12px
             padding: 1px 5px
-            text-transform: capitalize
             margin-right: 4px
             margin-bottom: 4px
         .challenge-timeline-col
@@ -257,18 +258,34 @@
           height: auto
           a
             display: inline-block
-            width: 95px
             clear: both
             background-color: #337ab7
             border-radius: 4px
             padding: 5px 8px
             color: #fff
             text-align: center
+      .join-sign-in-internal-challenge
+        background-color: #f1f2f7
+        padding: 20px
+        border-radius: 3px
+        margin-top: 20px
+        .sign-in-join
+          width: 100%
+          ul
+            margin: 0
+            padding: 0
+            width: 100%
+            li
+              width: 50%
+              float: left
+              text-align: center
+              font-weight: 500
+
       .join-internal-challenge
         background-color: #f1f2f7
-        padding: 15px 20px 5px 20px
         margin-top: 10px
         float: left
+        padding: 20px 20px 10px 20px
         border-radius: 5px
         width: 100%
         label
@@ -291,10 +308,8 @@
         .challenge-name-col
           a
             i
-              background-position: 0px -103px
+              background-position: 0px -62px
   .submit-phase-contest
-    height: 0px
-    transition: height 1s
     transition: background-color 1s
     overflow: hidden
     width: 100%
@@ -303,12 +318,38 @@
     margin-top: 10px
     position: relative
   .submit-phase-contest.show
-    height: 310px
     background-color: #f1f2f7
-    transition: height 1s
-    padding: 10px 20px
+    padding: 20px
     margin-top: 10px
     float: left
+    p
+      font-size: 16px
+      span
+        text-transform: lowercase
+    .form-group
+      width: 100%
+      padding: 5px 0
+      clear: both
+      display: block
+      .col-sm-12
+        width: 100%
+      label
+        width: 100%
+        clear: both
+        display: block
+        font-weight: 500
+        span
+          min-width: 145px
+          display: inline-block
+        span.normal
+          font-weight: normal
+        strong
+          font-weight: 500
+          color: red
+        input
+          font-weight: 300
+        textarea
+          font-weight: 300
     .registrant-name
       display: inline-block
       clear: both
@@ -348,6 +389,8 @@
         float: left
         width: 82%
         clear: none
+      input.passcode
+        width: 180px
       textarea
         height: 80px
         float: left

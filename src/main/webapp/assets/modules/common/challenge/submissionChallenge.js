@@ -22,11 +22,16 @@ techlooper.directive("submissionChallenge", function (localStorageService, apiSe
 
       scope.form.showSubmitForm = function () {
         localStorageService.set("submitNow", scope.challenge.challengeId);
-        apiService.joinNowByFB();
+        if (scope.challenge.$isPublic) {
+          apiService.joinNowByFB();
+        }
+        else {
+          handleChallengeChanged();
+        }
       }
 
 
-      scope.$watch("challenge", function() {
+      var handleChallengeChanged = function () {
         var challengeId = localStorageService.get("submitNow");
         if (scope.challenge && (challengeId == scope.challenge.challengeId)) {
           localStorageService.remove("submitNow");
@@ -39,17 +44,39 @@ techlooper.directive("submissionChallenge", function (localStorageService, apiSe
           apiService.findRegistrantActivePhase(challengeId, email)
             .success(function (phase) {
               scope.submission.submissionPhase = phase;
-            })
+            });
 
           scope.visibleSubmitForm = true;
         }
 
-        scope.submission = {
-          name: localStorageService.get("firstName") + " " + localStorageService.get("lastName"),
-          registrantEmail: localStorageService.get("email"),
-          registrantFirstName: localStorageService.get("firstName"),
-          registrantLastName: localStorageService.get("lastName")
+        if (scope.challenge.$isPublic) {
+          scope.submission = {
+            name: localStorageService.get("firstName") + " " + localStorageService.get("lastName"),
+            registrantEmail: localStorageService.get("email"),
+            registrantFirstName: localStorageService.get("firstName"),
+            registrantLastName: localStorageService.get("lastName")
+          }
         }
+        else {
+          scope.submission = {};
+        }
+
+        if (scope.challenge.$isInternal && scope.submissionForm && scope.submissionForm.internalEmail) {
+          scope.submissionForm.internalEmail.$validators.domainMatch = function (modelValue, viewValue) {
+            if (!modelValue) return true;
+            if (modelValue.length == 0) return true;
+            if (scope.submissionForm.internalEmail.$error.email) return true;
+
+            var valid = false;
+            $.each(scope.challenge.companyDomains, function (i, companyDomain) {
+              return !(valid = new RegExp("( |^)[^ ]*@[a-zA-Z0-9.]*" + companyDomain + "( |$)").test(modelValue));
+            });
+            return valid;
+          };
+        }
+      }
+      scope.$watch("challenge", function () {
+        handleChallengeChanged();
       });
 
       scope.pushChallengePhase = function () {
@@ -65,16 +92,18 @@ techlooper.directive("submissionChallenge", function (localStorageService, apiSe
             if (!inValid) {
               scope.submission.challengeId = scope.challenge.challengeId;
               $('.feedback-loading').css('visibility', 'inherit');
+
               apiService.submitMyResult(scope.submission)
                 .success(function (data) {
                   var submission = data;
                   $rootScope.$broadcast("submission-accepted", submission);
-                })
-                .finally(function () {
                   $timeout(function () {
                     $('.feedback-loading').css('visibility', 'hidden');
                     scope.form.hideSubmitForm();
                   }, 500);
+                })
+                .error(function () {
+                  scope.submissionForm.submissionPassCode.$setValidity("credential", false);
                 });
             }
             scope.submissionForm && scope.submissionForm.submissionURL.$setValidity("invalidUrl", !inValid);

@@ -9,7 +9,6 @@ import com.techlooper.model.*;
 import com.techlooper.repository.elasticsearch.ChallengeRegistrantRepository;
 import com.techlooper.repository.elasticsearch.ChallengeRepository;
 import com.techlooper.service.*;
-import com.techlooper.util.DataUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.dozer.Mapper;
 import org.slf4j.Logger;
@@ -255,6 +254,35 @@ public class ChallengeEmailServiceImpl implements ChallengeEmailService {
         return sendFeedbackEmail(emailContent);
     }
 
+    @Override
+    public void sendEmailNotifyRegistrantWhenQualified(ChallengeRegistrantEntity challengeRegistrantEntity) {
+        ChallengeEntity challengeEntity = challengeService.findChallengeById(challengeRegistrantEntity.getChallengeId());
+        List<String> subjectVariableValues = Arrays.asList(challengeEntity.getChallengeName());
+        String recipientAddress = challengeRegistrantEntity.getRegistrantEmail();
+
+        EmailRequestModel emailRequestModel = new EmailRequestModel.Builder()
+                .withTemplateName(EmailTemplateNameEnum.CHALLENGE_NOTIFY_REGISTRANT_QUALIFIED.name())
+                .withLanguage(challengeRegistrantEntity.getLang())
+                .withTemplateModel(buildNotifyRegistrantWhenQualifiedEmailTemplateModel(challengeRegistrantEntity))
+                .withMailMessage(postChallengeMailMessage)
+                .withRecipientAddresses(recipientAddress)
+                .withSubjectVariableValues(subjectVariableValues).build();
+        emailService.sendMail(emailRequestModel);
+    }
+
+    private Map<String, Object> buildNotifyRegistrantWhenQualifiedEmailTemplateModel(ChallengeRegistrantEntity challengeRegistrantEntity) {
+        Map<String, Object> templateModel = new HashMap<>();
+        templateModel.put("webBaseUrl", webBaseUrl);
+        templateModel.put("challengeRegistrant", challengeRegistrantEntity);
+
+        Long challengeId = challengeRegistrantEntity.getChallengeId();
+        templateModel.put("challengeId", String.valueOf(challengeId));
+        ChallengeEntity challengeEntity = challengeService.findChallengeById(challengeId);
+        templateModel.put("challengeName", challengeEntity.getChallengeName());
+        templateModel.put("challengeNameAlias", challengeEntity.getChallengeName().replaceAll("\\W", "-"));
+        return templateModel;
+    }
+
     private Map<String, Object> buildPostChallengeEmailTemplateModel(ChallengeEntity challengeEntity) {
         Map<String, Object> templateModel = new HashMap<>();
         templateModel.put("webBaseUrl", webBaseUrl);
@@ -373,11 +401,9 @@ public class ChallengeEmailServiceImpl implements ChallengeEmailService {
         templateModel.put("challengeNameAlias", challengeEntity.getChallengeName().replaceAll("\\W", "-"));
 
         if (challengeEntity.getChallengeType() == ChallengeTypeEnum.INTERNAL) {
-            final int MIN_RANDOM_SEED_NUMBER = 1000;
-            final int MAX_RANDOM_SEED_NUMBER = 9999;
-            templateModel.put("passCode", DataUtils.getRandomNumberInRange(MIN_RANDOM_SEED_NUMBER, MAX_RANDOM_SEED_NUMBER));
+            templateModel.put("passCode", String.valueOf(challengeRegistrantEntity.getPassCode()));
         }
-      
+
         return templateModel;
     }
 

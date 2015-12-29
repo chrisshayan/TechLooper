@@ -152,7 +152,7 @@
                     </tr>
                     <tr>
                       <td align="center" style="margin: 0; padding: 0">
-                        <p style="font-size: 12px; font-style: italic; line-height: 18px; margin: 0; padding: 0">Build And Grow Your Developer Community Base With Online Contests.</p>
+                        <p style="font-size: 12px; font-style: italic; line-height: 18px; margin: 0; padding: 0">Use Internal Challenge To Drive Sustainability Engagement And Innovation Across Your Company</p>
                       </td>
                     </tr>
                     <tr>
@@ -301,7 +301,7 @@
                                             </tr>
                                             <tr>
                                               <td align="left">
-                                                Use your email and password to let us know who you are
+                                                Click Submit button on the internal challenge you already joined.
                                               </td>
                                             </tr>
                                             <tr>
@@ -320,23 +320,13 @@
                                               </td>
                                             </tr>
                                             <tr>
-                                              <td>
-                                                <img src="${webBaseUrl}images/join-internal-form.png" alt="" style="width:100%">
-                                              </td>
-                                            </tr>
-                                            <tr>
-                                              <td height="30px" >
-                                                <img height="30px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                                              </td>
-                                            </tr>
-                                            <tr>
                                               <td align="left">
                                                 <strong>2. Submit to challenge</strong>
                                               </td>
                                             </tr>
                                             <tr>
                                               <td align="left">
-                                                Submit to each challenge phase to be able qualified to go to next phase
+                                                Submit to each challenge phase with your email and password to be qualified to next phase.
                                               </td>
                                             </tr>
                                             <tr>

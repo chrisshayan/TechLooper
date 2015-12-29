@@ -8,6 +8,9 @@ techlooper.directive('challengeList', function () {
         if (!challenge.$internalForm) challenge.$internalForm = {};
         challenge.$internalForm.visible = !challenge.$internalForm.visible;
       }
+      scope.signInInternalForm =function(){
+        $('.sign-internal').modal('show');
+      }
     }
   };
 })
