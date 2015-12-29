@@ -77,17 +77,17 @@
           <i class="fa fa-user-plus"></i> <span translate="joinNow"></span>
         </button>
 
-        <button ng-if="contestDetail.$isPublic && contestDetail.$currentUserJoined"
+        <button ng-if="contestDetail.$currentUserJoined"
                 ng-click="submissionForm.showSubmitForm()"
                 class="btn btn-primary btn-flat">
           <i class="fa fa-paper-plane-o"></i> <span translate="submitPhase"></span>
         </button>
 
-        <button ng-if="contestDetail.$isInternal && contestDetail.$currentUserJoined"
-                ng-click="signInInternalForm()"
-                class="btn btn-primary btn-flat">
-          <i class="fa fa-paper-plane-o"></i> <span translate="submitPhase"></span>
-        </button>
+        <!--<button ng-if="contestDetail.$isInternal && contestDetail.$currentUserJoined"-->
+                <!--ng-click="signInInternalForm()"-->
+                <!--class="btn btn-primary btn-flat">-->
+          <!--<i class="fa fa-paper-plane-o"></i> <span translate="submitPhase"></span>-->
+        <!--</button>-->
 
         <p class="note align-text-right" ng-if="contestDetail.$isInternal">
           {{'joinInternalChallengeWith' | translate}}
@@ -105,5 +105,4 @@
        ng-show="submittedPhase">
     <p translate="submissionPhaseSuccessful"></p>
   </div>
-  <sign-in-internal-challenge ng-if="contestDetail.$isInternal && contestDetail.$currentUserJoined"></sign-in-internal-challenge>
 </div>

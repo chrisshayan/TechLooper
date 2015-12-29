@@ -125,6 +125,7 @@
     width: 100%
     background-color: #fff
     padding: 0
+    margin-bottom: 20px
     .challenge-search
       background-color: #f0f3f4
       padding: 15px
@@ -310,8 +311,6 @@
             i
               background-position: 0px -103px
   .submit-phase-contest
-    height: 0px
-    transition: height 1s
     transition: background-color 1s
     overflow: hidden
     width: 100%
@@ -320,9 +319,7 @@
     margin-top: 10px
     position: relative
   .submit-phase-contest.show
-    height: 310px
     background-color: #f1f2f7
-    transition: height 1s
     padding: 10px 20px
     margin-top: 10px
     float: left
@@ -365,6 +362,8 @@
         float: left
         width: 82%
         clear: none
+      input.passcode
+        width: 180px
       textarea
         height: 80px
         float: left
