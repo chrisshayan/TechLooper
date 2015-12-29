@@ -9,7 +9,6 @@ import com.techlooper.model.*;
 import com.techlooper.repository.elasticsearch.ChallengeRegistrantRepository;
 import com.techlooper.repository.elasticsearch.ChallengeRepository;
 import com.techlooper.service.*;
-import com.techlooper.util.DataUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.dozer.Mapper;
 import org.slf4j.Logger;
@@ -402,7 +401,7 @@ public class ChallengeEmailServiceImpl implements ChallengeEmailService {
         templateModel.put("challengeNameAlias", challengeEntity.getChallengeName().replaceAll("\\W", "-"));
 
         if (challengeEntity.getChallengeType() == ChallengeTypeEnum.INTERNAL) {
-            templateModel.put("passCode", challengeRegistrantEntity.getPassCode());
+            templateModel.put("passCode", String.valueOf(challengeRegistrantEntity.getPassCode()));
         }
 
         return templateModel;
