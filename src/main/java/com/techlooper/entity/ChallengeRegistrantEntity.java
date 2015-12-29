@@ -20,158 +20,169 @@ import static org.springframework.data.elasticsearch.annotations.FieldType.Strin
 @Document(indexName = "techlooper", type = "challengeRegistrant")
 public class ChallengeRegistrantEntity {
 
-  @Id
-  private Long registrantId;
+    @Id
+    private Long registrantId;
 
-  @Field(type = String, index = FieldIndex.not_analyzed)
-  private String registrantEmail;
+    @Field(type = String, index = FieldIndex.not_analyzed)
+    private String registrantEmail;
 
-  @Field(type = Long)
-  private Long challengeId;
+    @Field(type = Long)
+    private Long challengeId;
 
-  @Field(type = String)
-  private String registrantFirstName;
+    @Field(type = String)
+    private String registrantFirstName;
 
-  @Field(type = String)
-  private String registrantLastName;
+    @Field(type = String)
+    private String registrantLastName;
 
-  @Field(type = Boolean)
-  private Boolean mailSent;
+    @Field(type = Boolean)
+    private Boolean mailSent;
 
-  @Field(type = String, index = FieldIndex.not_analyzed)
-  private Language lang;
+    @Field(type = String, index = FieldIndex.not_analyzed)
+    private Language lang;
 
-  @Field(type = Double)
-  private Double score;
+    @Field(type = Double)
+    private Double score;
 
-  @Field(type = Boolean)
-  private Boolean disqualified;
+    @Field(type = Boolean)
+    private Boolean disqualified;
 
-  @Field(type = String, index = FieldIndex.not_analyzed)
-  private String disqualifiedReason;
+    @Field(type = String, index = FieldIndex.not_analyzed)
+    private String disqualifiedReason;
 
-  @Field(type = FieldType.Date, format = DateFormat.custom, pattern = "dd/MM/yyyy HH:mm")
-  private String lastEmailSentDateTime;
+    @Field(type = FieldType.Date, format = DateFormat.custom, pattern = "dd/MM/yyyy HH:mm")
+    private String lastEmailSentDateTime;
 
-  @Field(type = Integer)
-  private int lastEmailSentResultCode;
+    @Field(type = Integer)
+    private int lastEmailSentResultCode;
 
-  @Field(type = String, index = FieldIndex.not_analyzed)
-  private ChallengePhaseEnum activePhase;
+    @Field(type = String, index = FieldIndex.not_analyzed)
+    private ChallengePhaseEnum activePhase;
 
-  @Field(type = FieldType.Nested)
-  private Set<ChallengeRegistrantCriteria> criteria;
+    @Field(type = FieldType.Nested)
+    private Set<ChallengeRegistrantCriteria> criteria;
 
-  public Set<ChallengeRegistrantCriteria> getCriteria() {
-    if (criteria == null) criteria = new HashSet<>();
-    return criteria;
-  }
+    @Field(type = FieldType.Integer)
+    private Integer passCode;
 
-  public void setCriteria(Set<ChallengeRegistrantCriteria> criteria) {
-    this.criteria = criteria;
-  }
+    public Set<ChallengeRegistrantCriteria> getCriteria() {
+        if (criteria == null) criteria = new HashSet<>();
+        return criteria;
+    }
 
-  public java.lang.String getDisqualifiedReason() {
-    return disqualifiedReason;
-  }
+    public void setCriteria(Set<ChallengeRegistrantCriteria> criteria) {
+        this.criteria = criteria;
+    }
 
-  public void setDisqualifiedReason(java.lang.String disqualifiedReason) {
-    this.disqualifiedReason = disqualifiedReason;
-  }
+    public java.lang.String getDisqualifiedReason() {
+        return disqualifiedReason;
+    }
 
-  public java.lang.Boolean getDisqualified() {
-    return disqualified;
-  }
+    public void setDisqualifiedReason(java.lang.String disqualifiedReason) {
+        this.disqualifiedReason = disqualifiedReason;
+    }
 
-  public void setDisqualified(java.lang.Boolean disqualified) {
-    this.disqualified = disqualified;
-  }
+    public java.lang.Boolean getDisqualified() {
+        return disqualified;
+    }
 
-  public Double getScore() {
-    return score;
-  }
+    public void setDisqualified(java.lang.Boolean disqualified) {
+        this.disqualified = disqualified;
+    }
 
-  public void setScore(Double score) {
-    this.score = score;
-  }
+    public Double getScore() {
+        return score;
+    }
 
-  public Long getRegistrantId() {
-    return registrantId;
-  }
+    public void setScore(Double score) {
+        this.score = score;
+    }
 
-  public void setRegistrantId(Long registrantId) {
-    this.registrantId = registrantId;
-  }
+    public Long getRegistrantId() {
+        return registrantId;
+    }
 
-  public Long getChallengeId() {
-    return challengeId;
-  }
+    public void setRegistrantId(Long registrantId) {
+        this.registrantId = registrantId;
+    }
 
-  public void setChallengeId(Long challengeId) {
-    this.challengeId = challengeId;
-  }
+    public Long getChallengeId() {
+        return challengeId;
+    }
 
-  public String getRegistrantEmail() {
-    return registrantEmail;
-  }
+    public void setChallengeId(Long challengeId) {
+        this.challengeId = challengeId;
+    }
 
-  public void setRegistrantEmail(String registrantEmail) {
-    this.registrantEmail = registrantEmail;
-  }
+    public String getRegistrantEmail() {
+        return registrantEmail;
+    }
 
-  public String getRegistrantFirstName() {
-    return registrantFirstName;
-  }
+    public void setRegistrantEmail(String registrantEmail) {
+        this.registrantEmail = registrantEmail;
+    }
 
-  public void setRegistrantFirstName(String registrantFirstName) {
-    this.registrantFirstName = registrantFirstName;
-  }
+    public String getRegistrantFirstName() {
+        return registrantFirstName;
+    }
 
-  public String getRegistrantLastName() {
-    return registrantLastName;
-  }
+    public void setRegistrantFirstName(String registrantFirstName) {
+        this.registrantFirstName = registrantFirstName;
+    }
 
-  public void setRegistrantLastName(String registrantLastName) {
-    this.registrantLastName = registrantLastName;
-  }
+    public String getRegistrantLastName() {
+        return registrantLastName;
+    }
 
-  public Boolean getMailSent() {
-    return mailSent;
-  }
+    public void setRegistrantLastName(String registrantLastName) {
+        this.registrantLastName = registrantLastName;
+    }
 
-  public void setMailSent(Boolean mailSent) {
-    this.mailSent = mailSent;
-  }
+    public Boolean getMailSent() {
+        return mailSent;
+    }
 
-  public Language getLang() {
-    return lang;
-  }
+    public void setMailSent(Boolean mailSent) {
+        this.mailSent = mailSent;
+    }
 
-  public void setLang(Language lang) {
-    this.lang = lang;
-  }
+    public Language getLang() {
+        return lang;
+    }
 
-  public String getLastEmailSentDateTime() {
-    return lastEmailSentDateTime;
-  }
+    public void setLang(Language lang) {
+        this.lang = lang;
+    }
 
-  public void setLastEmailSentDateTime(String lastEmailSentDateTime) {
-    this.lastEmailSentDateTime = lastEmailSentDateTime;
-  }
+    public String getLastEmailSentDateTime() {
+        return lastEmailSentDateTime;
+    }
 
-  public int getLastEmailSentResultCode() {
-    return lastEmailSentResultCode;
-  }
+    public void setLastEmailSentDateTime(String lastEmailSentDateTime) {
+        this.lastEmailSentDateTime = lastEmailSentDateTime;
+    }
 
-  public void setLastEmailSentResultCode(int lastEmailSentResultCode) {
-    this.lastEmailSentResultCode = lastEmailSentResultCode;
-  }
+    public int getLastEmailSentResultCode() {
+        return lastEmailSentResultCode;
+    }
 
-  public ChallengePhaseEnum getActivePhase() {
-    return activePhase;
-  }
+    public void setLastEmailSentResultCode(int lastEmailSentResultCode) {
+        this.lastEmailSentResultCode = lastEmailSentResultCode;
+    }
 
-  public void setActivePhase(ChallengePhaseEnum activePhase) {
-    this.activePhase = activePhase;
-  }
+    public ChallengePhaseEnum getActivePhase() {
+        return activePhase;
+    }
+
+    public void setActivePhase(ChallengePhaseEnum activePhase) {
+        this.activePhase = activePhase;
+    }
+
+    public Integer getPassCode() {
+        return passCode;
+    }
+
+    public void setPassCode(Integer passCode) {
+        this.passCode = passCode;
+    }
 }
