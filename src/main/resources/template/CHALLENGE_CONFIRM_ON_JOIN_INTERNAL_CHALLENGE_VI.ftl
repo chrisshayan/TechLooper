@@ -152,7 +152,7 @@
                     </tr>
                     <tr>
                       <td align="center" style="margin: 0; padding: 0">
-                        <p style="font-size: 12px; font-style: italic; line-height: 18px; margin: 0; padding: 0">Xây Dựng Đội Ngũ Phát Triển Sản Phẩm Của Chính Bạn Thông Qua Các Cuộc Thi Trực Tuyến</p>
+                        <p style="font-size: 12px; font-style: italic; line-height: 18px; margin: 0; padding: 0">Sử dụng Thử Thách Nội Bộ Để Đãi Ngộ Bền Vững Và Khuyến Khích Đổi Mới Trong Doanh Nghiệp</p>
                       </td>
                     </tr>
                     <tr>
