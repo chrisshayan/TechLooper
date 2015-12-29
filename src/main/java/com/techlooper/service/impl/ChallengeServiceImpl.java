@@ -84,6 +84,8 @@ public class ChallengeServiceImpl implements ChallengeService {
     @Override
     public Long joinChallenge(ChallengeRegistrantDto challengeRegistrantDto) {
         final long INVALID_REGISTRANT = 0L;
+        final int MIN_RANDOM_SEED_NUMBER = 1000;
+        final int MAX_RANDOM_SEED_NUMBER = 9999;
         Long challengeId = challengeRegistrantDto.getChallengeId();
         ChallengeEntity challengeEntity = challengeRepository.findOne(challengeId);
         String registrantEmail = challengeRegistrantDto.getRegistrantEmail();
@@ -106,9 +108,12 @@ public class ChallengeServiceImpl implements ChallengeService {
             challengeRegistrantEntity.setCriteria(criteria);
         }
 
+        challengeRegistrantEntity.setMailSent(Boolean.TRUE);
+        Integer passCode = DataUtils.getRandomNumberInRange(MIN_RANDOM_SEED_NUMBER, MAX_RANDOM_SEED_NUMBER);
+        challengeRegistrantEntity.setPassCode(passCode);
         challengeRegistrantEntity = challengeRegistrantRepository.save(challengeRegistrantEntity);
         challengeEmailService.sendApplicationEmailToContestant(challengeEntity, challengeRegistrantEntity);
-        challengeRegistrantEntity.setMailSent(Boolean.TRUE);
+
         return challengeRegistrantService.getNumberOfRegistrants(challengeId);
     }
 
