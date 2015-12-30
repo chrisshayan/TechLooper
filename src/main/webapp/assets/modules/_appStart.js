@@ -55,14 +55,12 @@ techlooper.run(function (connectionFactory, loadingBoxFactory, cleanupFactory, u
       case "redirectJA":
         window.location.href = (param.targetUrl.startsWith("http://") || param.targetUrl.startsWith("https://")) ? param.targetUrl : "http://" + param.targetUrl;
         break;
-
-      default:
-        if (localStorageService.get("joinNow") || localStorageService.get("submitNow")) {
-          localStorageService.remove("joinNow");
-          localStorageService.remove("submitNow");
-        }
-        break;
     }
+  }
+  else {//remove all operation flags
+    localStorageService.remove("joiningChallengeId");
+    localStorageService.remove("joinNow");
+    localStorageService.remove("submitNow");
   }
 
   //$rootScope.$watchCollection([
