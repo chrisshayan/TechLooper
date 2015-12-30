@@ -30,7 +30,7 @@ techlooper.controller('contestsController', function (apiService, $scope, jsonVa
         localStorageService.remove("joiningChallengeId");
       }
     }
-  }
+  };
 
   joinChallenge();
 

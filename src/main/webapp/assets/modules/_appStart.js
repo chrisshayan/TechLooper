@@ -56,9 +56,12 @@ techlooper.run(function (connectionFactory, loadingBoxFactory, cleanupFactory, u
         window.location.href = (param.targetUrl.startsWith("http://") || param.targetUrl.startsWith("https://")) ? param.targetUrl : "http://" + param.targetUrl;
         break;
 
-      //case "cancel":
-      //  $location.url("/");
-      //  break;
+      default:
+        if (localStorageService.get("joinNow") || localStorageService.get("submitNow")) {
+          localStorageService.remove("joinNow");
+          localStorageService.remove("submitNow");
+        }
+        break;
     }
   }
 
