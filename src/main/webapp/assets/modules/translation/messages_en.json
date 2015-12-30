@@ -883,6 +883,8 @@
   "invalidDomainName": "Invalid domain name format",
   "emailDomainNotMatch": "Email domain is invalid",
   "joinInternalChallengeWith": "Join with your email from:",
+  "useYourEmailDomain": "This is an internal challenge. Use your",
+  "toRegister": "email to join",
   "enterYourPassword": "Enter your password",
   "enterYourEmail": "Enter your email",
   "signInInternalChallengeTitle": "First, Let Us Know Who You Are",

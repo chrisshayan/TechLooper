@@ -1,6 +1,6 @@
 <div class="row join-internal-challenge">
   <ng-form name="joinInternalForm" autocomplete="off" role="form" class="form-horizontal">
-    <p ng-if="challenge.$isInternal && challenge.companyDomains.length" class="text-center">
+    <p class="title-head" ng-if="challenge.$isInternal && challenge.companyDomains.length" class="text-center">
       {{'joinInternalChallengeWith' | translate}}
       <span ng-repeat="domain in challenge.companyDomains">
         <strong>{{domain}}</strong>&nbsp;<span ng-if="!$last" translate="or"></span>&nbsp;
