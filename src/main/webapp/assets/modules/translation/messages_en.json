@@ -881,7 +881,7 @@
   "SearchChallengePlaceholder": "Enter challenge name or company domain to search challenge",
   "allChallengesSearch": "All Challenges",
   "invalidDomainName": "Invalid domain name format",
-  "emailDomainNotMatch": "Email domain invalid",
+  "emailDomainNotMatch": "Email domain is invalid",
   "joinInternalChallengeWith": "Join with your email from:",
   "enterYourPassword": "Enter your password",
   "enterYourEmail": "Enter your email",

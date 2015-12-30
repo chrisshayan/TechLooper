@@ -885,7 +885,7 @@
   "SearchChallengePlaceholder": "Điền tên thử thách hay tên miền để tìm kiếm",
   "allChallengesSearch": "Mọi Thử Thách",
   "invalidDomainName": "Tên miền không đúng định dạng",
-  "emailDomainNotMatch": "Tên miền mail không hợp lệ",
+  "emailDomainNotMatch": "Tên miền email không hợp lệ",
   "joinInternalChallengeWith": "Tham gia bằng email với tên miền:",
   "enterYourPassword": "Nhập mật khẩu",
   "enterYourEmail": "Nhập email",
