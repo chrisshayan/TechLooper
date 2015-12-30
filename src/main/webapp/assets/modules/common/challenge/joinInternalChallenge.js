@@ -8,8 +8,6 @@ techlooper.directive("joinInternalChallenge", function (apiService, $translate, 
     },
     templateUrl: "modules/common/challenge/joinInternalChallenge.html",
     link: function (scope, el, attrs) {
-      delete scope.submission.registrantEmail;
-      delete scope.submission.passCode;
       scope.joinInternalForm.email.$validators.domainMatch = function (modelValue, viewValue) {
         if (!modelValue) return true;
         if (modelValue.length == 0) return true;
