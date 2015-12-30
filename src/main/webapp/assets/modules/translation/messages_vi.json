@@ -887,6 +887,8 @@
   "invalidDomainName": "Tên miền không đúng định dạng",
   "emailDomainNotMatch": "Tên miền email không hợp lệ",
   "joinInternalChallengeWith": "Tham gia bằng email với tên miền:",
+  "useYourEmailDomain": "Đây là thử thách nội bộ. Sử dụng email",
+  "toRegister": "để đăng ký.",
   "enterYourPassword": "Nhập mật khẩu",
   "enterYourEmail": "Nhập email",
   "signInInternalChallengeTitle": "Trước tiên, Giúp Chúng Tôi Biết Bạn Là Ai",
