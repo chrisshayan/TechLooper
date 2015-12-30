@@ -96,10 +96,10 @@
           <div ng-if="contest.challengeType == 'INTERNAL'">
             <tagbox name="companyDomains" tags="contest.companyDomains"
                     type="text" placeholder="{{'companyDomainEx' | translate}}" list-max-length="3"
-                    ng-model="contest.companyDomain" array-model touchable enable-validators="domainName"></tagbox>
+                    ng-model="contest.companyDomains" array-model touchable enable-validators="domainName"></tagbox>
 
             <div class="error-messages"
-                 ng-show="challengeForm.companyDomain.$error.required && (challengeForm.companyDomain.$edited || challengeForm.$submitted)"
+                 ng-show="rewardForm.companyDomains.$error.required && (rewardForm.companyDomains.$edited || rewardForm.$submitted)"
                  translate="listRequire1Item"></div>
           </div>
         </div>

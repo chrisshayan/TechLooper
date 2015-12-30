@@ -166,7 +166,7 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
       if (!criteria) return [];
       challengeDetail.totalWeight = 0;
       return criteria.map(function (cri) {
-        var weight = _.isNumber(cri.weight) ? cri.weight : 0;
+        var weight = $.isNumeric(cri.weight) ? parseInt(cri.weight) : 0;
         challengeDetail.totalWeight += weight;
         return cri;
       });
@@ -356,7 +356,7 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
       _.each(finalRegistrants, function (registrant) {
         if (registrant.disqualified == true) return;
         var count = _.countBy(registrant.criteria, function (cri) {
-          return _.isNumber(cri.score) ? "hasScore" : "notHasScore";
+          return $.isNumeric(cri.score) ? "hasScore" : "notHasScore";
         });
         countWinnerPaticipants += (count.hasScore > 0) ? 1 : 0;
       });

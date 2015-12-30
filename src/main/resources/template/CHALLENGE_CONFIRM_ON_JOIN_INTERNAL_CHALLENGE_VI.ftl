@@ -311,7 +311,7 @@
                                             </tr>
                                             <tr>
                                               <td>
-                                                <img src="${webBaseUrl}images/join-internal-challenge.png" alt="" style="width:100%">
+                                                <img src="${webBaseUrl}images/join-internal-challenge-vi.png" alt="" style="width:100%">
                                               </td>
                                             </tr>
                                             <tr>
@@ -336,7 +336,7 @@
                                             </tr>
                                             <tr>
                                               <td>
-                                                <img src="${webBaseUrl}images/submission-form.png" alt="" style="width:100%">
+                                                <img src="${webBaseUrl}images/submission-form-vi.png" alt="" style="width:100%">
                                               </td>
                                             </tr>
                                           </table>
