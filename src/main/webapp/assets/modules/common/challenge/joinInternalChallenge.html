@@ -1,10 +1,11 @@
 <div class="row join-internal-challenge">
   <ng-form name="joinInternalForm" autocomplete="off" role="form" class="form-horizontal">
-    <p class="title-head" ng-if="challenge.$isInternal && challenge.companyDomains.length" class="text-center">
-      {{'joinInternalChallengeWith' | translate}}
+    <p ng-if="challenge.$isInternal && challenge.companyDomains.length" class="title-head text-center">
+      {{'useYourEmailDomain' | translate}}
       <span ng-repeat="domain in challenge.companyDomains">
-        <strong>{{domain}}</strong>&nbsp;<span ng-if="!$last" translate="or"></span>&nbsp;
+        <strong>{{domain}}</strong>&nbsp;<span ng-if="!$last" translate="or"></span>
       </span>
+      {{'toRegister' | translate}}
     </p>
     <div class="form-group">
       <div class="col-sm-6">

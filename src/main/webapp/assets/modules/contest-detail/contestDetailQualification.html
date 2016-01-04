@@ -16,7 +16,7 @@
       <ul>
         <li ng-repeat="phaseItem in registrant.remainingPhaseItems">
           <label>
-            <input type="radio" ng-value="phaseItem" ng-model="registrant.selectedPhaseItem">
+            <input type="radio" ng-value="phaseItem" ng-model="registrant.selectedPhaseItem" ng-cheked="$index == 0">
             <span>{{phaseItem.phaseLowerCase | translate}}</span>
           </label>
         </li>
