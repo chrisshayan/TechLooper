@@ -2,16 +2,17 @@ techlooper.controller("navigationController", function ($scope, securityService,
                                                         jsonValue, utils, $timeout, $rootScope, $window) {
   $scope.state = function (type) {
     var isEmployer = undefined;
+    var currentViewIsLogin = $rootScope.currentUiView &&  $rootScope.currentUiView.isLoginPage;
     switch (type) {
       case "show-employer-header":
         var isEmployerView = $rootScope.currentUiView && $rootScope.currentUiView.header === "EMPLOYER";
         isEmployer = $rootScope.userInfo && $rootScope.userInfo.roleName === "EMPLOYER";
-        return isEmployer;
+        return !currentViewIsLogin && isEmployer;
 
       case "show-job-seeker-header":
         var employerHeaderNotShown = !$scope.state("show-employer-header");
         var isJobSeekerView = $rootScope.currentUiView && $rootScope.currentUiView.type != "LOGIN";
-        return employerHeaderNotShown && isJobSeekerView;
+        return !currentViewIsLogin && employerHeaderNotShown && isJobSeekerView;
 
       case "home-url":
         isEmployer = $rootScope.userInfo && $rootScope.userInfo.roleName === "EMPLOYER";

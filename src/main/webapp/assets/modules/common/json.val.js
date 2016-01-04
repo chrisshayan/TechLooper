@@ -295,18 +295,21 @@ techlooper.factory("jsonValue", function () {
         name: "login",
         url: "/login",
         cancelIfAlreadyLogin: true,
-        type: "LOGIN"
+        type: "LOGIN",
+        isLoginPage: true
       },
       {
         name: "userType",
         url: "/user-type",
         cancelIfAlreadyLogin: true,
-        type: "LOGIN"
+        type: "LOGIN",
+        isLoginPage: true
       },
       {
         name: "loading",
         url: "/loading",
-        type: "LOGIN"
+        type: "LOGIN",
+        isLoginPage: true
       },
       {
         name: "eventDetails",
