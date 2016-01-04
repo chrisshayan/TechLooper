@@ -109,8 +109,10 @@ public class ChallengeServiceImpl implements ChallengeService {
         }
 
         challengeRegistrantEntity.setMailSent(Boolean.TRUE);
-        Integer passCode = DataUtils.getRandomNumberInRange(MIN_RANDOM_SEED_NUMBER, MAX_RANDOM_SEED_NUMBER);
-        challengeRegistrantEntity.setPassCode(passCode);
+        if (challengeEntity.getChallengeType() == ChallengeTypeEnum.INTERNAL) {
+            Integer passCode = DataUtils.getRandomNumberInRange(MIN_RANDOM_SEED_NUMBER, MAX_RANDOM_SEED_NUMBER);
+            challengeRegistrantEntity.setPassCode(passCode);
+        }
         challengeRegistrantEntity = challengeRegistrantRepository.save(challengeRegistrantEntity);
         challengeEmailService.sendApplicationEmailToContestant(challengeEntity, challengeRegistrantEntity);
 
