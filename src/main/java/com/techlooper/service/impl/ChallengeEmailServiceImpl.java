@@ -305,6 +305,8 @@ public class ChallengeEmailServiceImpl implements ChallengeEmailService {
         templateModel.put("authorEmail", challengeEntity.getAuthorEmail());
         templateModel.put("challengeOverview", challengeEntity.getChallengeOverview());
         templateModel.put("challengeNameAlias", challengeEntity.getChallengeName().replaceAll("\\W", "-"));
+        templateModel.put("challengeType", challengeEntity.getChallengeType().getValue());
+        templateModel.put("companyDomains", StringUtils.join(challengeEntity.getCompanyDomains(), "<br/>"));
         return templateModel;
     }
 
