@@ -148,7 +148,7 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonV
           break;
         }
       }
-      //console.log(registrant);
+      registrant.remainingPhaseItems.length && (registrant.selectedPhaseItem = registrant.remainingPhaseItems[0]);
     }
 
     registrant.recalculateWinner = function () {
