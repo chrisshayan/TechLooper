@@ -161,7 +161,12 @@
                     </tr>
                     <tr>
                       <td align="left" style="font-size: 14px;">
-                        This person <strong>${authorEmail}</strong> has just created successfully a challenge as follows
+                      <#if challengeType == "PUBLIC">
+                          <#assign localizedChallengeType = "a public">
+                      <#elseif challengeType == "INTERNAL">
+                          <#assign localizedChallengeType = "an internal">
+                      </#if>
+                        This person <strong>${authorEmail}</strong> has just created successfully <#if localizedChallengeType??>${localizedChallengeType}</#if> challenge as follows
                       </td>
                     </tr>
                     <tr>
@@ -201,6 +206,24 @@
                                     <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
                                   </td>
                                 </tr>
+                                <#if companyDomains??>
+                                  <tr>
+                                      <td align="left" width="45%" style="font-size: 14px; padding-left: 15px" valign="top">
+                                          Internal domain(s):
+                                      </td>
+                                      <td align="left" width="55%" style="color: #000000; font-size: 14px;">
+                                        ${companyDomains}
+                                      </td>
+                                  </tr>
+                                  <tr>
+                                      <td style="height:5px; line-height: 5px;">
+                                          <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
+                                      </td>
+                                      <td style="height:5px; line-height: 5px;">
+                                          <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
+                                      </td>
+                                  </tr>
+                                </#if>
                                 <tr>
                                   <td align="left" width="45%" style="font-size: 14px; padding-left: 15px" valign="top">
                                     Challenge Overview:

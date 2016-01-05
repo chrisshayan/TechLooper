@@ -48,11 +48,19 @@ techlooper.directive("feedbackForm", function (apiService, $timeout, resourcesSe
 
       scope.send = function () {
         if (scope.feedbackForm.$invalid) return;
+        scope.loadingData = true;
         var registrant = scope.registrants[0];
         apiService.sendFeedbackToRegistrant(registrant.registrantId, scope.composeEmail)
           .success(function () {
-            scope.cancel();
-          });
+            scope.postFeedbackSuccess = true;
+          }).finally(function(){
+            delete scope.loadingData;
+            $timeout(function(){
+              delete scope.postFeedbackSuccess;
+              scope.cancel();
+            }, 2000);
+          }
+        );
       }
 
       scope.cancel = function () {

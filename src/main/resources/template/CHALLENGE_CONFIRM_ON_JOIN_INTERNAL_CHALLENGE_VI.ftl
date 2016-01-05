@@ -233,14 +233,16 @@
                                                 <img height="10px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
                                               </td>
                                             </tr>
-                                            <tr>
-                                              <td width="30%" align="left" style="padding-right: 5px">
-                                                  Mật Khẩu:
-                                              </td>
-                                              <td width="70%" align="left">
-                                                <strong>${passCode}</strong>
-                                              </td>
-                                            </tr>
+                                            <#if passCode??>
+                                                <tr>
+                                                  <td width="30%" align="left" style="padding-right: 5px">
+                                                      Mật Khẩu:
+                                                  </td>
+                                                  <td width="70%" align="left">
+                                                    <strong>${passCode}</strong>
+                                                  </td>
+                                                </tr>
+                                            </#if>
                                           </table>
                                         </td>
                                         <td width="30px">

@@ -34,10 +34,6 @@
       <div class="mail-text h-200">
         <summernote name="content" ng-model="composeEmail.content" config="$root.jsonValue.summerNoteConfig"
                     ng-required="true"></summernote>
-        <!--<div class="summernote"></div>-->
-        <!--<div class="send-mail-error" ng-show="!composeEmail.error" data-ng-init="composeEmail.error = true">-->
-          <!--<p translate="cannotSendMail"></p>-->
-        <!--</div>-->
       </div>
       <div class="mail-body text-right tooltip-demo email-footer">
         <a class="btn btn-sm btn-primary" title="{{'mailSend' | translate}}" ng-click="send()"><i
@@ -47,7 +43,10 @@
           class="fa fa-times"></i>
           <span translate="cancel"></span></a>
       </div>
-      <div class="feedback-loading"></div>
+      <div class="loading-data-server" ng-show="loadingData"></div>
+      <div class="alert-post-successes" ng-show="postFeedbackSuccess">
+        <p translate="emailSentSuccessfully"></p>
+      </div>
     </div>
   </ng-form>
 </div>

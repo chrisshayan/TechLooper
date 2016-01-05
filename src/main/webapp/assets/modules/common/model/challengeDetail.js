@@ -4,7 +4,6 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
 
     var challengeDetail = input;
 
-
     challengeDetail.$filter = {
 
       //filter all registrants not qualified and having all submissions read
@@ -35,7 +34,7 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
         challengeDetail.$filter.registrantsType = {isUnread: isUnread};
         challengeDetail.$filter.registrants = isUnread ? _.filter(challengeDetail.$registrants, function (r) {return r.$unreadSubmissions.length > 0;}) : challengeDetail.$registrants;
       }
-    }
+    };
 
     challengeDetail.$sort = {
       type: {},
@@ -103,14 +102,14 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
 
         challengeDetail.$filter.byReadOrUnreadSubmission();
       }
-    }
+    };
 
     challengeDetail.refreshCriteria = function () {
       apiService.getContestDetail(challengeDetail.challengeId)
         .success(function (data) {
           challengeDetail.criteria = data.criteria;
         });
-    }
+    };
 
     challengeDetail.refreshRegistrants = function () {
       var defer = $q.defer();
@@ -128,7 +127,7 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
           $rootScope.$broadcast("after-getting-registrants", challengeDetail);
         });
       return defer.promise;
-    }
+    };
 
     challengeDetail.saveCriteria = function () {
       challengeDetail.validateCriteria();
@@ -137,7 +136,7 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
       var criteria = {
         challengeId: challengeDetail.challengeId,
         challengeCriteria: challengeDetail.criteria
-      }
+      };
 
       apiService.saveChallengeCriteria(criteria)
         .success(function (criteria) {
@@ -147,19 +146,19 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
       //.error(function () {
       //  challengeDetail.$savedCriteria = false;
       //});
-    }
+    };
 
     challengeDetail.addCriteria = function () {
       challengeDetail.criteria = challengeDetail.criteria || [];
       challengeDetail.criteria.push({index: challengeDetail.criteria.length + 1});
-    }
+    };
 
     challengeDetail.removeCriteria = function (cri) {
       challengeDetail.criteria = _.reject(challengeDetail.criteria, function (criteria) {
         if (cri.criteriaId) return criteria.criteriaId == cri.criteriaId;
         return criteria.index == cri.index;
       });
-    }
+    };
 
     challengeDetail.criteriaLoop = function () {
       var criteria = challengeDetail.criteria;
@@ -180,29 +179,29 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
         challengeDetail.$invalidCriteria = challengeDetail.$invalidCriteria || (!cri.name);
         return !challengeDetail.$invalidCriteria;
       });
-    }
+    };
 
     //@see jsonValue.rewards
     challengeDetail.save1stWinner = function (registrant) {
       apiService.saveWinner(registrant.registrantId, jsonValue.rewards.firstPlaceEnum(), !registrant.firstAwarded)
         .success(challengeDetail.updateWinners);
-    }
+    };
 
     challengeDetail.save2ndWinner = function (registrant) {
       apiService.saveWinner(registrant.registrantId, jsonValue.rewards.secondPlaceEnum(), !registrant.secondAwarded)
         .success(challengeDetail.updateWinners);
-    }
+    };
 
     challengeDetail.save3rdWinner = function (registrant) {
       apiService.saveWinner(registrant.registrantId, jsonValue.rewards.thirdPlaceEnum(), !registrant.thirdAwarded)
         .success(challengeDetail.updateWinners);
-    }
+    };
 
     challengeDetail.updateWinners = function (winners) {
       challengeDetail.winners = winners;
       challengeDetail.recalculateRegistrants();
       challengeDetail.refreshFunnelItems();
-    }
+    };
 
     challengeDetail.recalculatePhaseItems = function () {
       //see jsonValue.challengePhase
@@ -249,7 +248,7 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
         var index = _.min([next.$index + 1, challengeDetail.phaseItems.length - 1])
         challengeDetail.$afterNextPhaseItem = challengeDetail.phaseItems[index];
       }
-    }
+    };
 
     challengeDetail.recalculate = function (registrants) {
       challengeDetail.totalWeight = _.reduceRight(challengeDetail.criteria, function (sum, cri) { return sum + cri.weight; }, 0);
@@ -261,7 +260,7 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
       challengeDetail.recalculatePhaseItems();
       challengeDetail.recalculateRegistrants(registrants);
 
-    }
+    };
 
     challengeDetail.recalculateCurrentUserJoined = function () {
       var joinContests = localStorageService.get("joinContests") || "";
@@ -271,7 +270,7 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
       //  .success(function(joined) {
       //    challengeDetail.$currentUserJoined = joined;
       //  });
-    }
+    };
 
     challengeDetail.recalculateCurrentState = function () {
       challengeDetail.$stateMilestones = [
@@ -324,7 +323,7 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
       var toNow = challengeDate.isSame(moment(), "day") ? 1 : challengeDate.diff(moment(), "days") + 2;
       challengeDetail.$currentState.timeLeftTitle = $filter("translate")(challengeDetail.$currentState.timeLeftTitleTranslate,
         {dayLeft: challengeDetail.$currentState.dayLeft || toNow});
-    }
+    };
 
     challengeDetail.recalculateRegistrants = function (registrants) {
       if (_.isArray(registrants)) challengeDetail.$registrants = registrants;
@@ -332,21 +331,21 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
         rgt.$index = index;
         rgt.recalculate(challengeDetail);
       });
-    }
+    };
 
     //set $hadRegistrant to true if not found any registrant that unknown disqualified-status
     challengeDetail.recalculateHadRegistrant = function () {
       var er = _.findWhere(challengeDetail.$registrants, {disqualified: undefined});
       challengeDetail.$hadRegistrant = (er == undefined);
       challengeDetail.$filter.byReadOrUnreadSubmission();
-    }
+    };
 
     challengeDetail.recalculatePhaseItem = function (phaseItem) {
       var piTranslate = phaseItem.$phaseConfig.phaseItem.translate;
       phaseItem.countJoinerTitle = $filter("translate")(piTranslate.countJoiner, {number: phaseItem.participant});
       phaseItem.countSubmissionTitle = $filter("translate")(piTranslate.countSubmission, {number: phaseItem.submission});
       phaseItem.countUnreadTitle = $filter("translate")(piTranslate.countUnread, {number: phaseItem.unreadSubmission});
-    }
+    };
 
     challengeDetail.recalculateWinner = function (registrant) {
       if (!_.findWhere(challengeDetail.phaseItems, {phase: registrant.activePhase}).$phaseConfig.isFinal) return;
@@ -364,7 +363,7 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
       var winnerPi = _.last(challengeDetail.phaseItems);
       winnerPi.participant = countWinnerPaticipants;
       challengeDetail.recalculatePhaseItem(winnerPi);
-    }
+    };
 
     challengeDetail.refreshFunnelItems = function () {
       apiService.getRegistrantFunnel(challengeDetail.challengeId)
@@ -375,13 +374,13 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
           }
           challengeDetail.recalculateHadRegistrant();
         });
-    }
+    };
 
     challengeDetail.incUnreadSubmissionCount = function (submission) {
       var pi = _.findWhere(challengeDetail.phaseItems, {phase: submission.submissionPhase});
       submission.isRead ? pi.unreadSubmission-- : pi.unreadSubmission++;
       challengeDetail.recalculatePhaseItem(pi);
-    }
+    };
 
 
     // see com.techlooper.model.ChallengeRegistrantFunnelItem
@@ -418,7 +417,7 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
           }
         });
       challengeDetail.refreshFunnelItems();
-    }
+    };
 
     challengeDetail.acceptRegistrants = function () {
       var registrantIds = _.map(challengeDetail.$filter.qualifyRegistrants, function (rgt) {return rgt.registrantId;});
@@ -438,7 +437,7 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
           });
           challengeDetail.refreshFunnelItems();
         });
-    }
+    };
 
     challengeDetail.recalculate();
 

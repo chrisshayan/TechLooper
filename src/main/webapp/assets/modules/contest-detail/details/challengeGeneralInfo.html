@@ -59,7 +59,7 @@
   <div class="alert alert-danger" ng-show="failJoin == true">
     <p translate="errorSystem"></p>
   </div>
-  <div class="row registration-count" ng-if="contestDetail.$currentState.isJoinable">
+  <div class="row registration-count">
     <div class="col-md-12">
       <p translate="registerNumber"
          translate-value-register-number="<strong>{{contestDetail.numberOfRegistrants}}</strong>"></p>
@@ -73,6 +73,7 @@
 
         <button class="btn btn-primary btn-flat"
                 ng-click="toggleJoinInternalForm()" ng-disabled="contestDetail.$currentUserJoined"
+                ng-class="{disabled: !contestDetail.$currentState.isJoinable}"
                 ng-if="contestDetail.$isInternal">
           <i class="fa fa-user-plus"></i> <span translate="joinNow"></span>
         </button>

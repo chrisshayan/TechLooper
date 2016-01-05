@@ -109,8 +109,10 @@ public class ChallengeServiceImpl implements ChallengeService {
         }
 
         challengeRegistrantEntity.setMailSent(Boolean.TRUE);
-        Integer passCode = DataUtils.getRandomNumberInRange(MIN_RANDOM_SEED_NUMBER, MAX_RANDOM_SEED_NUMBER);
-        challengeRegistrantEntity.setPassCode(passCode);
+        if (challengeEntity.getChallengeType() == ChallengeTypeEnum.INTERNAL) {
+            Integer passCode = DataUtils.getRandomNumberInRange(MIN_RANDOM_SEED_NUMBER, MAX_RANDOM_SEED_NUMBER);
+            challengeRegistrantEntity.setPassCode(passCode);
+        }
         challengeRegistrantEntity = challengeRegistrantRepository.save(challengeRegistrantEntity);
         challengeEmailService.sendApplicationEmailToContestant(challengeEntity, challengeRegistrantEntity);
 
@@ -287,7 +289,10 @@ public class ChallengeServiceImpl implements ChallengeService {
         String challengeSearchText = challengeFilterCondition.getChallengeSearchText();
         if (StringUtils.isNotEmpty(challengeSearchText)) {
             boolQueryBuilder.should(matchQuery("challengeName", challengeSearchText));
-            boolQueryBuilder.should(matchQuery("companyDomains", challengeSearchText));
+
+            StringBuilder domainNameQueryStringBuilder = new StringBuilder();
+            domainNameQueryStringBuilder.append("*").append(challengeSearchText).append("*");
+            boolQueryBuilder.should(wildcardQuery("companyDomains", domainNameQueryStringBuilder.toString()));
         } else {
             boolQueryBuilder.should(matchAllQuery());
         }

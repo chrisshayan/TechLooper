@@ -893,5 +893,6 @@
   "enterYourPassCode": "Enter your pass code",
   "domainLabel": "Domains:",
   "invalidCredential": "Invalid credential",
-  "invalidMinlengthDigits": "This field can not less than {{length}} digits"
+  "invalidMinlengthDigits": "This field can not less than {{length}} digits",
+  "emailSentSuccessfully": "The email is sent successfully."
 }
