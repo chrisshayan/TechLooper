@@ -74,7 +74,6 @@ techlooper.directive("feedbackForm", function (apiService, $timeout, resourcesSe
         scope.setDefaultValue();
         scope.hide();
         //delete scope.composeEmail.visible;
-        $('.feedback-loading').css('visibility', 'hidden');
       }
 
       scope.loadEmailTemplate = function () {
