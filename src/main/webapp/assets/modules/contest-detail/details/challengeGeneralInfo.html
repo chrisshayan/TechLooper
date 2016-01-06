@@ -80,6 +80,8 @@
 
         <button ng-if="contestDetail.$currentUserJoined"
                 ng-click="submissionForm.showSubmitForm()"
+                ng-disabled="contestDetail.$currentState.isClosed"
+                ng-class="{disabled:contestDetail.$currentState.isClosed}"
                 class="btn btn-primary btn-flat">
           <i class="fa fa-paper-plane-o"></i> <span translate="submitPhase"></span>
         </button>
