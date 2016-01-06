@@ -166,7 +166,7 @@
                       <#elseif challengeType == "INTERNAL">
                           <#assign localizedChallengeType = "an internal">
                       </#if>
-                        This person <strong>${authorEmail}</strong> has just created successfully <#if localizedChallengeType??>${localizedChallengeType}</#if> challenge as follows
+                        This person <strong>${authorEmail}</strong> has just created successfully <#if localizedChallengeType??><strong>${localizedChallengeType}</strong></#if> challenge as follows
                       </td>
                     </tr>
                     <tr>
@@ -209,7 +209,7 @@
                                 <#if companyDomains??>
                                   <tr>
                                       <td align="left" width="45%" style="font-size: 14px; padding-left: 15px" valign="top">
-                                          Internal domain(s):
+                                          Internal Domain(s):
                                       </td>
                                       <td align="left" width="55%" style="color: #000000; font-size: 14px;">
                                         ${companyDomains}

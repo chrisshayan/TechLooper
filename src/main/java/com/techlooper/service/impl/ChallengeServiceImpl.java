@@ -289,7 +289,10 @@ public class ChallengeServiceImpl implements ChallengeService {
         String challengeSearchText = challengeFilterCondition.getChallengeSearchText();
         if (StringUtils.isNotEmpty(challengeSearchText)) {
             boolQueryBuilder.should(matchQuery("challengeName", challengeSearchText));
-            boolQueryBuilder.should(matchQuery("companyDomains", challengeSearchText));
+
+            StringBuilder domainNameQueryStringBuilder = new StringBuilder();
+            domainNameQueryStringBuilder.append("*").append(challengeSearchText).append("*");
+            boolQueryBuilder.should(wildcardQuery("companyDomains", domainNameQueryStringBuilder.toString()));
         } else {
             boolQueryBuilder.should(matchAllQuery());
         }
