@@ -84,7 +84,7 @@ techlooper.directive("submissionChallenge", function (localStorageService, apiSe
         if (scope.submissionForm.$invalid) {
           return false;
         }
-        $('.feedback-loading').css('visibility', 'inherit');
+        scope.loadingData = true;
         $location.search({});
         apiService.getUrlResponseCode(scope.submission.submissionURL)
           .success(function (code) {
@@ -97,10 +97,6 @@ techlooper.directive("submissionChallenge", function (localStorageService, apiSe
                 .success(function (data) {
                   var submission = data;
                   $rootScope.$broadcast("submission-accepted", submission);
-                  $timeout(function () {
-                    $('.feedback-loading').css('visibility', 'hidden');
-                    scope.form.hideSubmitForm();
-                  }, 500);
                 })
                 .error(function () {
                   scope.submissionForm.submissionPassCode.$setValidity("credential", false);
@@ -108,12 +104,10 @@ techlooper.directive("submissionChallenge", function (localStorageService, apiSe
             }
             scope.submissionForm && scope.submissionForm.submissionURL.$setValidity("invalidUrl", !inValid);
           })
-          .finally(function () {
-            $timeout(function () {
-              $('.feedback-loading').css('visibility', 'hidden');
-            }, 500);
+          .finally(function() {
+            delete scope.loadingData;
+              scope.form.hideSubmitForm();
           });
-        $('.push-submission').prop('disabled', true);
       }
     }
   }
