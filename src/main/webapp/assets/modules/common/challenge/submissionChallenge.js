@@ -113,6 +113,7 @@ techlooper.directive("submissionChallenge", function (localStorageService, apiSe
               $('.feedback-loading').css('visibility', 'hidden');
             }, 500);
           });
+        $('.push-submission').prop('disabled', true);
       }
     }
   }
