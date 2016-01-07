@@ -166,7 +166,7 @@
                       <#elseif challengeType == "INTERNAL">
                           <#assign localizedChallengeType = "an internal">
                       </#if>
-                        This person <strong>${authorEmail}</strong> has just created successfully <#if localizedChallengeType??><strong>${localizedChallengeType}</strong></#if> challenge as follows
+                        This person <strong>${authorEmail}</strong> has just created successfully <#if localizedChallengeType??><strong>${localizedChallengeType} challenge</strong></#if> as follows
                       </td>
                     </tr>
                     <tr>

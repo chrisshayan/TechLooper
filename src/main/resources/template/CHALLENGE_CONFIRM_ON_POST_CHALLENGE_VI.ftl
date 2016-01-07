@@ -166,7 +166,7 @@
                         <#assign localizedChallengeType = "nội bộ">
                     </#if>
                       <td align="left" style="font-size: 14px;">
-                        <strong>${authorEmail}</strong> vừa đăng thử thách <#if localizedChallengeType??><strong>${localizedChallengeType}</strong></#if> với thông tin như sau:
+                        <strong>${authorEmail}</strong> vừa đăng <#if localizedChallengeType??><strong>thử thách ${localizedChallengeType}</strong></#if> với thông tin như sau:
                       </td>
                     </tr>
                     <tr>
