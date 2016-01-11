@@ -1,8 +1,11 @@
 package com.techlooper.controller;
 
+import com.techlooper.entity.JobEntity;
 import com.techlooper.model.*;
 import com.techlooper.repository.JsonConfigRepository;
+import com.techlooper.service.JobSearchService;
 import com.techlooper.service.JobStatisticService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -13,10 +16,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
+import static java.util.stream.Collectors.toList;
 
 @RestController
 public class JobStatisticController {
@@ -32,6 +34,9 @@ public class JobStatisticController {
 
     @Resource
     private JobStatisticService jobStatisticService;
+
+    @Resource
+    private JobSearchService jobSearchService;
 
     private final static List<Integer> JOB_LEVEL_ALL = Collections.EMPTY_LIST;
 
@@ -89,6 +94,23 @@ public class JobStatisticController {
     @RequestMapping(value = "/getPromoted", method = RequestMethod.POST)
     public GetPromotedResponse getTopDemandedSkills(@RequestBody GetPromotedRequest getPromotedRequest) {
         return jobStatisticService.getTopDemandedSkillsByJobTitle(getPromotedRequest);
+    }
+
+    @RequestMapping(value = "/getPromotedWidget", method = RequestMethod.POST)
+    public GetPromotedResponse getTopDemandedSkillsWidget(@RequestBody GetPromotedRequest getPromotedRequest) {
+        setPriceJobConditionFromJobId(getPromotedRequest);
+        return jobStatisticService.getTopDemandedSkillsByJobTitle(getPromotedRequest);
+    }
+
+    private void setPriceJobConditionFromJobId(GetPromotedRequest getPromotedRequest) {
+        if (StringUtils.isNotEmpty(getPromotedRequest.getTechlooperJobId())) {
+            JobEntity job = jobSearchService.findJobById(getPromotedRequest.getTechlooperJobId());
+            if (job != null) {
+                getPromotedRequest.setJobTitle(job.getJobTitle());
+                getPromotedRequest.setJobCategoryIds(job.getIndustries().stream().map(industry -> industry.getIndustryId()).collect(toList()));
+                getPromotedRequest.setJobLevelIds(Arrays.asList(job.getJobLevelId().intValue()));
+            }
+        }
     }
 
 }

@@ -50,6 +50,9 @@ public class JobEntity {
     @Field(type = Boolean)
     private Boolean isSalaryVisible;
 
+    @Field(type = Long)
+    private Long jobLevelId;
+
     public String getId() {
         return id;
     }
@@ -128,6 +131,14 @@ public class JobEntity {
 
     public void setIsSalaryVisible(Boolean isSalaryVisible) {
         this.isSalaryVisible = isSalaryVisible;
+    }
+
+    public Long getJobLevelId() {
+        return jobLevelId;
+    }
+
+    public void setJobLevelId(Long jobLevelId) {
+        this.jobLevelId = jobLevelId;
     }
 
     @Override
