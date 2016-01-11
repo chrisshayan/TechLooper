@@ -10,10 +10,7 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.*;
@@ -96,6 +93,7 @@ public class JobStatisticController {
         return jobStatisticService.getTopDemandedSkillsByJobTitle(getPromotedRequest);
     }
 
+    @CrossOrigin
     @RequestMapping(value = "/getPromotedWidget", method = RequestMethod.POST)
     public GetPromotedResponse getTopDemandedSkillsWidget(@RequestBody GetPromotedRequest getPromotedRequest) {
         setPriceJobConditionFromJobId(getPromotedRequest);
