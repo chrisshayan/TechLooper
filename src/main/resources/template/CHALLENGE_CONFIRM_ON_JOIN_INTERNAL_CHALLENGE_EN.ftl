@@ -338,7 +338,7 @@
                                             </tr>
                                             <tr>
                                               <td>
-                                                <img src="${webBaseUrl}images/submission-form.png" alt="" style="width:100%">
+                                                <img src="${webBaseUrl}images/submission-internal-form.png" alt="" style="width:100%">
                                               </td>
                                             </tr>
                                           </table>
