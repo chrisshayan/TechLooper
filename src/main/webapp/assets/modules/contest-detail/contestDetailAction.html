@@ -1,8 +1,8 @@
 <div class="contest-detail-action">
-  <contest-detail-disqualification ng-show="registrant.visible.disqualification"></contest-detail-disqualification>
-  <contest-detail-qualification ng-show="registrant.visible.qualification"></contest-detail-qualification>
-  <contest-detail-score ng-show="registrant.visible.score"></contest-detail-score>
-  <contest-detail-review-submission ng-show="registrant.visible.reviewSubmission"></contest-detail-review-submission>
-  <feedback-form ng-show="registrant.visible.feedbackForm" registrants="[registrant]" hide="registrant.hide"></feedback-form>
-  <acceptance ng-show="registrant.visible.acceptance" registrant="registrant"></acceptance>
+  <contest-detail-disqualification ng-if="registrant.visible.disqualification"></contest-detail-disqualification>
+  <contest-detail-qualification ng-if="registrant.visible.qualification"></contest-detail-qualification>
+  <contest-detail-score ng-if="registrant.visible.score"></contest-detail-score>
+  <contest-detail-review-submission ng-if="registrant.visible.reviewSubmission"></contest-detail-review-submission>
+  <feedback-form ng-if="registrant.visible.feedbackForm" registrants="[registrant]" hide="registrant.hide"></feedback-form>
+  <acceptance ng-if="registrant.visible.acceptance" registrant="registrant"></acceptance>
 </div>

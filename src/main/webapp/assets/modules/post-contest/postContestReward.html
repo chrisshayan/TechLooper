@@ -70,7 +70,6 @@
                    required-expr="state.status('compare-3reward-2reward')"
                    required-expr2="state.status('optional-place-reward-range', contest.thirdPlaceReward)"
                    placeholder="{{'thirdPrize' | translate}}" only-digits maxlength="4" touchable/>
-
             <div ng-show="rewardForm.thirdPlaceReward.$edited || rewardForm.$submitted">
               <div class="error-messages"
                    ng-show="rewardForm.thirdPlaceReward.$error.requiredExpr"
@@ -79,7 +78,29 @@
                    ng-show="rewardForm.thirdPlaceReward.$error.requiredExpr2"
                    translate="rewardShouldFrom100To5000"/>
             </div>
+          </div>
+        </div>
+      </div>
+      <div class="box-content challenge-type">
+        <h3 class="none-capitalize" translate="challengeTypeSelection"></h3>
+        <div class="post-contest-field">
+          <label><input type="radio" ng-model="contest.challengeType" ng-init="contest.challengeType = 'PUBLIC'"
+                        value="PUBLIC" name="challengeType" checked/> <span translate="public"></span></label>
+          <p translate="publicDes"></p>
+        </div>
+        <div class="post-contest-field">
+          <label><input type="radio" name="challengeType"
+                        ng-model="contest.challengeType" value="INTERNAL"/> <span translate="internal"></span></label>
+          <p translate="internalDes"></p>
+          <p ng-if="contest.challengeType == 'INTERNAL'"><span translate="companyDomain"></span> <strong>*</strong></p>
+          <div ng-if="contest.challengeType == 'INTERNAL'">
+            <tagbox name="companyDomains" tags="contest.companyDomains"
+                    type="text" placeholder="{{'companyDomainEx' | translate}}" list-max-length="3"
+                    ng-model="contest.companyDomains" array-model touchable enable-validators="domainName"></tagbox>
 
+            <div class="error-messages"
+                 ng-show="rewardForm.companyDomains.$error.required && (rewardForm.companyDomains.$edited || rewardForm.$submitted)"
+                 translate="listRequire1Item"></div>
           </div>
         </div>
       </div>

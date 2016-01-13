@@ -19,28 +19,6 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
     return $location.url(sprintf("/challenge-detail/%s-%s-id", title, contestId));
   }
 
-  $scope.status = function (type, id) {
-    var joinContests = localStorageService.get("joinContests") || "";
-    var email = localStorageService.get("email") || "";
-    var hasJoined = (joinContests.indexOf(contestId) >= 0) && (email.length > 0);
-
-    switch (type) {
-      case "able-to-join":
-        if (!$scope.contestDetail) return false;
-        var contestInProgress = ($scope.contestDetail.progress.translate == jsonValue.status.registration.translate) ||
-          ($scope.contestDetail.progress.translate == jsonValue.status.progress.translate);
-        return contestInProgress && !hasJoined;
-
-      case "already-join":
-        if (!$scope.contestDetail) return false;
-        return !hasJoined;
-
-      case "contest-in-progress":
-        if (!$scope.contestDetail) return false;
-        return ($scope.contestDetail.progress.translate == jsonValue.status.progress.translate);
-    }
-  }
-
   $scope.contestTimeLeft = function (contest) {
     if (contest) {
       switch (contest.progress.translate) {
@@ -61,7 +39,7 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
   }
 
   $scope.joinNowByFB = function () {
-    if (!$scope.status('able-to-join')) {
+    if (!$scope.contestDetail.$currentState.isJoinable) {
       return false;
     }
     apiService.joinNowByFB();
@@ -72,9 +50,8 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
     var firstName = localStorageService.get("firstName");
     var lastName = localStorageService.get("lastName");
     var email = localStorageService.get("email");
-    apiService.joinContest(contestId, firstName, lastName, email, $translate.use())
+    email && apiService.joinContest(contestId, firstName, lastName, email, $translate.use())
       .success(function (numberOfRegistrants) {
-
         var joinContests = localStorageService.get("joinContests") || "";
         joinContests = joinContests.length > 0 ? joinContests.split(",") : [];
         if ($.inArray(contestId, joinContests) < 0) {
@@ -94,7 +71,6 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
     apiService.getContestDetail(contestId)
       .success(function (data) {
         $scope.contestDetail = data;
-        $filter("progress")($scope.contestDetail, "challenge");
         $scope.contestDetail.setSelectedPhase($location.search().toPhase);
         $scope.$emit("challenge-detail-ready");
       })
@@ -121,18 +97,5 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
       return $location.search({});
     }
     $('.feedback-loading').css('visibility', 'hidden');
-  });
-  $scope.$on('scrollTop', function() {
-    $("html, body").animate({ scrollTop: 0 }, 0);
-    $('input.text-search-name').focus();
-  });
-
-  $(document).keydown(function(e) {
-    if (e.keyCode == 8 && $(".text-search-name").is(":focus")){
-      $timeout(function(){
-        $("html, body").animate({ scrollTop: 0 }, 0);
-        $('input.text-search-name').focus();
-      },5);
-    }
   });
 });

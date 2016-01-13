@@ -60,15 +60,24 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
         });
     },
 
-    searchContests: function () {
-      return $http.get("challenge/list");
-      //.success(function (contests) {
-      //  $.each(contests, function (i, contest) {
-      //    $filter("progress")(contest, "challenge");
-      //  });
-      //});
+    getContestList: function () {
+      return $http.get("challenge/list")
+        .success(function (contests) {
+          $.each(contests, function (i, contest) {
+            $filter("challengeDetail")(contest);
+          });
+        });
     },
-
+    filterContests: function(type, keyword){
+      return $http.post("challenge/search", {
+        challengeType : type,
+        challengeSearchText :keyword
+    }).success(function (contests) {
+      $.each(contests, function (i, contest) {
+        $filter("challengeDetail")(contest);
+      });
+    });
+    },
     getSuggestSkills: function (text) {
       return $http.get("suggestion/skills/" + text);
     },
@@ -100,16 +109,12 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
       if (!resumeLink.startsWith("http")) {
         resumeLink = "http://" + resumeLink;
       }
-      return $http.post("project/join",
-        {
-          projectId: projectId, registrantFirstName: firstName, registrantLastName: lastName, registrantEmail: email,
-          registrantPhoneNumber: phoneNumber, resumeLink: resumeLink, lang: lang
-        },
-        {
-          transformResponse: function (d, h) {
-            return d;
-          }
-        });
+
+      var projectInfo = {
+        projectId: projectId, registrantFirstName: firstName, registrantLastName: lastName, registrantEmail: email,
+        registrantPhoneNumber: phoneNumber, resumeLink: resumeLink, lang: lang
+      };
+      return $http.post("project/join", projectInfo, {transformResponse: function (d, h) {return d;}});
     },
 
     /**
@@ -382,6 +387,10 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
         registrantIds: registrantIds
       });
     }
+
+    //checkRegistrantJoinedChallenge: function (challengeId, emails) {
+    //  return $http.post("challenge/" + challengeId + "/registrants/joined", emails, {transformResponse: function (d, h) {return d;}})
+    //}
   };
 
   return instance;

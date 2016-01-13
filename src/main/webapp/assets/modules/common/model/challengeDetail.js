@@ -1,9 +1,8 @@
-techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue, $filter, $q, $translate) {
+techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue, $filter, $q, $translate, localStorageService) {
   return function (input, type) {
     if (!input || input.$isRich) return input;
 
     var challengeDetail = input;
-
 
     challengeDetail.$filter = {
 
@@ -35,7 +34,7 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
         challengeDetail.$filter.registrantsType = {isUnread: isUnread};
         challengeDetail.$filter.registrants = isUnread ? _.filter(challengeDetail.$registrants, function (r) {return r.$unreadSubmissions.length > 0;}) : challengeDetail.$registrants;
       }
-    }
+    };
 
     challengeDetail.$sort = {
       type: {},
@@ -103,14 +102,14 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
 
         challengeDetail.$filter.byReadOrUnreadSubmission();
       }
-    }
+    };
 
     challengeDetail.refreshCriteria = function () {
       apiService.getContestDetail(challengeDetail.challengeId)
         .success(function (data) {
           challengeDetail.criteria = data.criteria;
         });
-    }
+    };
 
     challengeDetail.refreshRegistrants = function () {
       var defer = $q.defer();
@@ -128,7 +127,7 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
           $rootScope.$broadcast("after-getting-registrants", challengeDetail);
         });
       return defer.promise;
-    }
+    };
 
     challengeDetail.saveCriteria = function () {
       challengeDetail.validateCriteria();
@@ -137,7 +136,7 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
       var criteria = {
         challengeId: challengeDetail.challengeId,
         challengeCriteria: challengeDetail.criteria
-      }
+      };
 
       apiService.saveChallengeCriteria(criteria)
         .success(function (criteria) {
@@ -147,26 +146,26 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
       //.error(function () {
       //  challengeDetail.$savedCriteria = false;
       //});
-    }
+    };
 
     challengeDetail.addCriteria = function () {
       challengeDetail.criteria = challengeDetail.criteria || [];
       challengeDetail.criteria.push({index: challengeDetail.criteria.length + 1});
-    }
+    };
 
     challengeDetail.removeCriteria = function (cri) {
       challengeDetail.criteria = _.reject(challengeDetail.criteria, function (criteria) {
         if (cri.criteriaId) return criteria.criteriaId == cri.criteriaId;
         return criteria.index == cri.index;
       });
-    }
+    };
 
     challengeDetail.criteriaLoop = function () {
       var criteria = challengeDetail.criteria;
       if (!criteria) return [];
       challengeDetail.totalWeight = 0;
       return criteria.map(function (cri) {
-        var weight = _.isNumber(cri.weight) ? cri.weight : 0;
+        var weight = $.isNumeric(cri.weight) ? parseInt(cri.weight) : 0;
         challengeDetail.totalWeight += weight;
         return cri;
       });
@@ -180,121 +179,173 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
         challengeDetail.$invalidCriteria = challengeDetail.$invalidCriteria || (!cri.name);
         return !challengeDetail.$invalidCriteria;
       });
-    }
+    };
 
     //@see jsonValue.rewards
     challengeDetail.save1stWinner = function (registrant) {
       apiService.saveWinner(registrant.registrantId, jsonValue.rewards.firstPlaceEnum(), !registrant.firstAwarded)
         .success(challengeDetail.updateWinners);
-    }
+    };
 
     challengeDetail.save2ndWinner = function (registrant) {
       apiService.saveWinner(registrant.registrantId, jsonValue.rewards.secondPlaceEnum(), !registrant.secondAwarded)
         .success(challengeDetail.updateWinners);
-    }
+    };
 
     challengeDetail.save3rdWinner = function (registrant) {
       apiService.saveWinner(registrant.registrantId, jsonValue.rewards.thirdPlaceEnum(), !registrant.thirdAwarded)
         .success(challengeDetail.updateWinners);
-    }
+    };
 
     challengeDetail.updateWinners = function (winners) {
       challengeDetail.winners = winners;
       challengeDetail.recalculateRegistrants();
       challengeDetail.refreshFunnelItems();
-    }
+    };
+
+    challengeDetail.recalculatePhaseItems = function () {
+      //see jsonValue.challengePhase
+      if (challengeDetail.currentPhase) {//if challenge has current phase
+        challengeDetail.currentPhaseLowerCase = challengeDetail.currentPhase.toLowerCase();
+        var dtProp = jsonValue.challengePhase[challengeDetail.currentPhase].challengeProp;
+        if (dtProp) {
+          var date = moment(challengeDetail[dtProp], jsonValue.dateFormat);
+          challengeDetail.currentPhaseDaysLeft = date.diff(moment(0, "HH"), "days") + 1;
+        }
+
+        var isOver = true;
+        _.each(challengeDetail.phaseItems, function (item, index) {
+          item.$index = index;
+          item.isOver = isOver;
+          item.phaseLowerCase = item.phase.toLowerCase();//$filter("translate")(item.phase.toLowerCase());
+          item.phaseTitleLowerCase = $filter("translate")(item.phase.toLowerCase());
+
+          var cp = _.findWhere(jsonValue.challengePhase.values, {enum: item.phase});
+          item.$phaseConfig = cp;
+          challengeDetail.recalculatePhaseItem(item);
+
+          if (item.phase == challengeDetail.currentPhase) {
+            item.isCurrentPhase = true;
+            isOver = false;
+          }
+          if (item.phase == challengeDetail.nextPhase) {
+            item.isNextPhase = true;
+          }
+        });
+
+        // make un-selectable phase from current-phase + 2
+        var current = _.findWhere(challengeDetail.phaseItems, {isCurrentPhase: true});
+        if (challengeDetail.isClosed) {
+          current.isCurrentPhase = false;
+          _.last(challengeDetail.phaseItems).isCurrentPhase = true;//auto select winner if challenge is closed
+        }
+
+        for (var i = current.$index + 2; i < challengeDetail.phaseItems.length - 1; i++) {// winner tab is selectable
+          challengeDetail.phaseItems[i].unselectable = true;
+        }
+
+        var next = _.findWhere(challengeDetail.phaseItems, {isNextPhase: true});
+        var index = _.min([next.$index + 1, challengeDetail.phaseItems.length - 1])
+        challengeDetail.$afterNextPhaseItem = challengeDetail.phaseItems[index];
+      }
+    };
 
     challengeDetail.recalculate = function (registrants) {
+      challengeDetail.totalWeight = _.reduceRight(challengeDetail.criteria, function (sum, cri) { return sum + cri.weight; }, 0);
+      challengeDetail.$isPublic = jsonValue.challengeType.isPublic(challengeDetail.challengeType);
+      challengeDetail.$isInternal = jsonValue.challengeType.isInternal(challengeDetail.challengeType);
 
-      //see jsonValue.challengePhase
-      var dtProp = jsonValue.challengePhase[challengeDetail.currentPhase].challengeProp;
-      if (dtProp) {
-        var date = moment(challengeDetail[dtProp], jsonValue.dateFormat);
-        challengeDetail.currentPhaseDaysLeft = date.diff(moment(0, "HH"), "days") + 1;
-      }
+      challengeDetail.recalculateCurrentState();
+      challengeDetail.recalculateCurrentUserJoined();
+      challengeDetail.recalculatePhaseItems();
+      challengeDetail.recalculateRegistrants(registrants);
 
-      dtProp = jsonValue.challengePhase[challengeDetail.currentPhase].challengeProp;
-      if (dtProp) {
-        challengeDetail.$currentPhaseEndDay = challengeDetail[dtProp];
-      }
+    };
 
-      var isOver = true;
-      _.each(challengeDetail.phaseItems, function (item, index) {
-        item.$index = index;
-        item.isOver = isOver;
-        item.phaseLowerCase = item.phase.toLowerCase();//$filter("translate")(item.phase.toLowerCase());
-        item.phaseTitleLowerCase = $filter("translate")(item.phase.toLowerCase());
+    challengeDetail.recalculateCurrentUserJoined = function () {
+      var joinContests = localStorageService.get("joinContests") || "";
+      //var email = localStorageService.get("email") || {};
+      challengeDetail.$currentUserJoined = (joinContests.indexOf(challengeDetail.challengeId) >= 0);// && (email.length > 0);
+      //apiService.checkRegistrantJoinedChallenge(challengeDetail.challengeId, emails)
+      //  .success(function(joined) {
+      //    challengeDetail.$currentUserJoined = joined;
+      //  });
+    };
 
-        var cp = _.findWhere(jsonValue.challengePhase.values, {enum: item.phase});
-        item.$phaseConfig = cp;
-        challengeDetail.recalculatePhaseItem(item);
-
-        if (item.phase == challengeDetail.currentPhase) {
-          item.isCurrentPhase = true;
-          isOver = false;
+    challengeDetail.recalculateCurrentState = function () {
+      challengeDetail.$stateMilestones = [
+        {
+          id: "not-started",
+          title: $filter("translate")("notStart"),
+          getChallengeDate: function () {return moment(challengeDetail.startDateTime, jsonValue.dateFormat);},
+          date: moment(challengeDetail.startDateTime, jsonValue.dateFormat).subtract({days: 1}),
+          timeLeftTitleTranslate: "moreDayToNotStarted",
+          isNotStart: true
+        },
+        {
+          id: "registration",
+          title: $filter("translate")("registration"),
+          date: moment(challengeDetail.registrationDateTime, jsonValue.dateFormat),
+          timeLeftTitleTranslate: "moreDayToRegistration",
+          isRegistration: true,
+          isJoinable: true
+        },
+        {
+          id: "in-progress",
+          title: $filter("translate")("inProgress"),
+          date: moment(challengeDetail.submissionDateTime, jsonValue.dateFormat),
+          timeLeftTitleTranslate: "moreDayToSubmit",
+          isInProgress: true,
+          isJoinable: true
+        },
+        {
+          id: "closed",
+          title: $filter("translate")("closed"),
+          getChallengeDate: function () {return moment(challengeDetail.submissionDateTime, jsonValue.dateFormat);},
+          date: moment(challengeDetail.submissionDateTime, jsonValue.dateFormat).add({days: 1}),
+          timeLeftTitleTranslate: "moreDayToClosed",
+          dayLeft: challengeDetail.submissionDateTime,
+          isClosed: true
         }
-        if (item.phase == challengeDetail.nextPhase) {
-          item.isNextPhase = true;
+      ];
+
+      $.each(challengeDetail.$stateMilestones, function (i, milestone) {
+        if (moment().isBefore(milestone.date, 'day') || moment().isSame(milestone.date, 'day')) {
+          challengeDetail.$currentState = milestone;
+          return false;
         }
       });
 
-      // make un-selectable phase from current-phase + 2
-      var current = _.findWhere(challengeDetail.phaseItems, {isCurrentPhase: true});
-      if (challengeDetail.isClosed) {
-        current.isCurrentPhase = false;
-        _.last(challengeDetail.phaseItems).isCurrentPhase = true;//auto select winner if challenge is closed
-      }
-      for (var i = current.$index + 2; i < challengeDetail.phaseItems.length - 1; i++) {// winner tab is selectable
-        challengeDetail.phaseItems[i].unselectable = true;
-      }
+      //if not found, then set current state to the last one
+      !challengeDetail.$currentState && (challengeDetail.$currentState = challengeDetail.$stateMilestones[challengeDetail.$stateMilestones.length - 1]);
 
-      var next = _.findWhere(challengeDetail.phaseItems, {isNextPhase: true});
-      var index = _.min([next.$index + 1, challengeDetail.phaseItems.length - 1])
-      challengeDetail.$afterNextPhaseItem = challengeDetail.phaseItems[index];
-
-      challengeDetail.totalWeight = _.reduceRight(challengeDetail.criteria, function (sum, cri) { return sum + cri.weight; }, 0);
-
-      //var phaseName = localStorageService.get("toPhase");
-      //phaseName && challengeDetail.setSelectedPhase(phaseName);
-      //localStorageService.remove("toPhase");
-      //
-      //if (!challengeDetail.selectedPhaseItem) {
-      //  challengeDetail.setSelectedPhase(challengeDetail.isClosed ? "WINNER" : challengeDetail.currentPhase)
-      //}
-
-      if (_.isArray(registrants)) {
-        challengeDetail.recalculateRegistrants(registrants);
-      }
-    }
+      var challengeDate = _.isFunction(challengeDetail.$currentState.getChallengeDate) ? challengeDetail.$currentState.getChallengeDate() : challengeDetail.$currentState.date;
+      var toNow = challengeDate.isSame(moment(), "day") ? 1 : challengeDate.diff(moment(), "days") + 2;
+      challengeDetail.$currentState.timeLeftTitle = $filter("translate")(challengeDetail.$currentState.timeLeftTitleTranslate,
+        {dayLeft: challengeDetail.$currentState.dayLeft || toNow});
+    };
 
     challengeDetail.recalculateRegistrants = function (registrants) {
-      if (registrants) challengeDetail.$registrants = registrants;
+      if (_.isArray(registrants)) challengeDetail.$registrants = registrants;
       _.each(challengeDetail.$registrants, function (rgt, index) {
         rgt.$index = index;
         rgt.recalculate(challengeDetail);
       });
-
-      //winner phase
-      //var winnerPi = _.last(challengeDetail.phaseItems);
-      //challengeDetail.recalculatePhaseItem(winnerPi);
-      //
-      //challengeDetail.recalculateHadRegistrant();
-    }
+    };
 
     //set $hadRegistrant to true if not found any registrant that unknown disqualified-status
-    //console.log(challengeDetail.$registrants);
     challengeDetail.recalculateHadRegistrant = function () {
       var er = _.findWhere(challengeDetail.$registrants, {disqualified: undefined});
       challengeDetail.$hadRegistrant = (er == undefined);
       challengeDetail.$filter.byReadOrUnreadSubmission();
-    }
+    };
 
     challengeDetail.recalculatePhaseItem = function (phaseItem) {
       var piTranslate = phaseItem.$phaseConfig.phaseItem.translate;
       phaseItem.countJoinerTitle = $filter("translate")(piTranslate.countJoiner, {number: phaseItem.participant});
       phaseItem.countSubmissionTitle = $filter("translate")(piTranslate.countSubmission, {number: phaseItem.submission});
       phaseItem.countUnreadTitle = $filter("translate")(piTranslate.countUnread, {number: phaseItem.unreadSubmission});
-    }
+    };
 
     challengeDetail.recalculateWinner = function (registrant) {
       if (!_.findWhere(challengeDetail.phaseItems, {phase: registrant.activePhase}).$phaseConfig.isFinal) return;
@@ -304,7 +355,7 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
       _.each(finalRegistrants, function (registrant) {
         if (registrant.disqualified == true) return;
         var count = _.countBy(registrant.criteria, function (cri) {
-          return _.isNumber(cri.score) ? "hasScore" : "notHasScore";
+          return $.isNumeric(cri.score) ? "hasScore" : "notHasScore";
         });
         countWinnerPaticipants += (count.hasScore > 0) ? 1 : 0;
       });
@@ -312,7 +363,7 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
       var winnerPi = _.last(challengeDetail.phaseItems);
       winnerPi.participant = countWinnerPaticipants;
       challengeDetail.recalculatePhaseItem(winnerPi);
-    }
+    };
 
     challengeDetail.refreshFunnelItems = function () {
       apiService.getRegistrantFunnel(challengeDetail.challengeId)
@@ -323,13 +374,13 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
           }
           challengeDetail.recalculateHadRegistrant();
         });
-    }
+    };
 
     challengeDetail.incUnreadSubmissionCount = function (submission) {
       var pi = _.findWhere(challengeDetail.phaseItems, {phase: submission.submissionPhase});
       submission.isRead ? pi.unreadSubmission-- : pi.unreadSubmission++;
       challengeDetail.recalculatePhaseItem(pi);
-    }
+    };
 
 
     // see com.techlooper.model.ChallengeRegistrantFunnelItem
@@ -366,7 +417,7 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
           }
         });
       challengeDetail.refreshFunnelItems();
-    }
+    };
 
     challengeDetail.acceptRegistrants = function () {
       var registrantIds = _.map(challengeDetail.$filter.qualifyRegistrants, function (rgt) {return rgt.registrantId;});
@@ -386,7 +437,7 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
           });
           challengeDetail.refreshFunnelItems();
         });
-    }
+    };
 
     challengeDetail.recalculate();
 

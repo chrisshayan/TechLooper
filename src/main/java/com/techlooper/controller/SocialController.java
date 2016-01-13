@@ -53,14 +53,17 @@ public class SocialController {
   private UserService userService;
 
   @RequestMapping(value = "login/social/{social}", method = RequestMethod.GET)
-  public void loginBySocial(@PathVariable SocialProvider social, @RequestParam(required = false) String code, HttpServletResponse response) throws IOException {
-    response.sendRedirect(code == null ? "/#/?action=cancel" : String.format("/#/?action=loginBySocial&social=%s&code=%s", social, code));
+  public void loginBySocial(@PathVariable SocialProvider social, @RequestParam(required = false) String code,
+                            HttpServletResponse response) throws IOException {
+    response.sendRedirect(code == null ? "/#/?action=cancel-social-register" :
+      String.format("/#/?action=loginBySocial&social=%s&code=%s", social, code));
   }
 
   @RequestMapping(value = "register/vnw/google", method = RequestMethod.GET)
-  public void registerVnwUserFromGoogle(@RequestParam(required = false) String state, @RequestParam(required = false) String code, HttpServletResponse response) throws IOException {
+  public void registerVnwUserFromGoogle(@RequestParam(required = false) String state, @RequestParam(required = false) String code,
+                                        HttpServletResponse response) throws IOException {
     if (code == null) {
-      response.sendRedirect("/#/?action=cancel");
+      response.sendRedirect("/#/?action=cancel-social-register");
       return;
     }
 
@@ -101,21 +104,23 @@ public class SocialController {
       }
     }
 
-    if (StringUtils.hasText(email)) {
-      response.sendRedirect(String.format("/#/?action=registerVnwUser&firstName=%s&lastName=%s&email=%s",
-        URLEncoder.encode(firstName, "UTF-8"), URLEncoder.encode(lastName, "UTF-8"), email));
-    }
-    else {
-      response.sendRedirect(String.format("/#/?action=registerVnwUser&firstName=%s&lastName=%s",
-        URLEncoder.encode(firstName, "UTF-8"), URLEncoder.encode(lastName, "UTF-8")));
-    }
+    response.sendRedirect(String.format("/#/?action=registerVnwUser&firstName=%s&lastName=%s&email=%s",
+      URLEncoder.encode(firstName, "UTF-8"), URLEncoder.encode(lastName, "UTF-8"), email));
+//    if (StringUtils.hasText(email)) {
+//      response.sendRedirect(String.format("/#/?action=registerVnwUser&firstName=%s&lastName=%s&email=%s",
+//        URLEncoder.encode(firstName, "UTF-8"), URLEncoder.encode(lastName, "UTF-8"), email));
+//    }
+//    else {
+//      response.sendRedirect(String.format("/#/?action=registerVnwUser&firstName=%s&lastName=%s",
+//        URLEncoder.encode(firstName, "UTF-8"), URLEncoder.encode(lastName, "UTF-8")));
+//    }
   }
 
 
   @RequestMapping(value = "register/vnw/fb", method = RequestMethod.GET)
   public void registerVnwUserFromFB(@RequestParam(required = false) String state, @RequestParam(required = false) String code, HttpServletResponse response) throws IOException {
     if (code == null) {
-      response.sendRedirect("/#/?action=cancel");
+      response.sendRedirect("/#/?action=cancel-social-register");
       return;
     }
 
@@ -149,8 +154,8 @@ public class SocialController {
   public List<SocialConfig> getSocialConfig(@RequestParam("providers[]") List<SocialProvider> providers) {
     List<SocialConfig> configs = new ArrayList<>();
     providers.forEach(prov ->
-        configs.add(jsonConfigRepository.getSocialConfig().stream()
-          .filter(config -> prov == config.getProvider()).findFirst().get())
+      configs.add(jsonConfigRepository.getSocialConfig().stream()
+        .filter(config -> prov == config.getProvider()).findFirst().get())
     );
     return configs;
   }

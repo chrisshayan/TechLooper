@@ -20,6 +20,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
+import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
@@ -112,7 +113,7 @@ public class EmailServiceImpl implements EmailService {
             stringWriter.flush();
             mailMessage.saveChanges();
             mailSender.send(mailMessage);
-        } catch (MessagingException | IOException | TemplateException ex) {
+        } catch (MessagingException | IOException | TemplateException | MailException ex) {
             LOGGER.error(ex.getMessage(), ex);
         }
     }

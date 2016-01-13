@@ -30,11 +30,7 @@ techlooper.controller("jobListingController", function (apiService, $scope, vnwC
             job.locationText = job.locationText + ', ' + vnwConfigService.getLocationText(id);
           }
         }else{
-          if(j == 0){
-            job.locationText = id;
-          }else{
-            job.locationText = job.locationText + ', ' + job.locationText+ id;
-          }
+          job.locationText = job.location;
         }
       });
     });

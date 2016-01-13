@@ -56,7 +56,7 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonV
       }
       //delete registrant.$savedCriteria;
 
-      _.each(registrant.criteria, function (cri) {(!_.isNumber(cri.score)) && (cri.score = 0);});
+      _.each(registrant.criteria, function (cri) {(!$.isNumeric(cri.score)) && (cri.score = 0);});
 
       apiService.saveChallengeRegistrantCriteria(criteria)
         .success(function (data) {
@@ -148,7 +148,7 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonV
           break;
         }
       }
-      //console.log(registrant);
+      registrant.remainingPhaseItems.length && (registrant.selectedPhaseItem = registrant.remainingPhaseItems[0]);
     }
 
     registrant.recalculateWinner = function () {

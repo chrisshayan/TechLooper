@@ -1,12 +1,14 @@
 package com.techlooper.entity;
 
 import com.techlooper.model.ChallengePhaseEnum;
+import com.techlooper.model.ChallengeTypeEnum;
 import com.techlooper.model.ChallengeWinner;
 import com.techlooper.model.Language;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.DateFormat;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.FieldIndex;
 import org.springframework.util.StringUtils;
 
 import java.util.HashSet;
@@ -104,6 +106,12 @@ public class ChallengeEntity {
 
     @Field(type = Nested)
     private Set<ChallengeWinner> winners;
+
+    @Field(type = String, index = FieldIndex.not_analyzed)
+    private ChallengeTypeEnum challengeType;
+
+    @Field(type = String)
+    private List<String> companyDomains;
 
     public Set<ChallengeWinner> getWinners() {
         if (winners == null) winners = new HashSet<>();
@@ -321,6 +329,22 @@ public class ChallengeEntity {
 
     public void setLastEmailSentResultCode(int lastEmailSentResultCode) {
         this.lastEmailSentResultCode = lastEmailSentResultCode;
+    }
+
+    public ChallengeTypeEnum getChallengeType() {
+        return challengeType;
+    }
+
+    public void setChallengeType(ChallengeTypeEnum challengeType) {
+        this.challengeType = challengeType;
+    }
+
+    public List<String> getCompanyDomains() {
+        return companyDomains;
+    }
+
+    public void setCompanyDomains(List<String> companyDomains) {
+        this.companyDomains = companyDomains;
     }
 
     public boolean hasPhase(ChallengePhaseEnum phase) {

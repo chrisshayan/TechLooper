@@ -4,10 +4,7 @@ import com.techlooper.entity.ChallengeEntity;
 import com.techlooper.entity.ChallengeRegistrantCriteria;
 import com.techlooper.entity.ChallengeRegistrantDto;
 import com.techlooper.entity.ChallengeRegistrantEntity;
-import com.techlooper.model.ChallengeDetailDto;
-import com.techlooper.model.ChallengeDto;
-import com.techlooper.model.ChallengeFilterCondition;
-import com.techlooper.model.ChallengePhaseEnum;
+import com.techlooper.model.*;
 import com.techlooper.repository.elasticsearch.ChallengeRegistrantRepository;
 import com.techlooper.repository.elasticsearch.ChallengeRepository;
 import com.techlooper.service.ChallengeEmailService;
@@ -15,6 +12,7 @@ import com.techlooper.service.ChallengeRegistrantService;
 import com.techlooper.service.ChallengeService;
 import com.techlooper.util.DataUtils;
 import com.techlooper.util.DateTimeUtils;
+import com.techlooper.util.EmailValidator;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.dozer.Mapper;
@@ -85,15 +83,24 @@ public class ChallengeServiceImpl implements ChallengeService {
 
     @Override
     public Long joinChallenge(ChallengeRegistrantDto challengeRegistrantDto) {
+        final long INVALID_REGISTRANT = 0L;
+        final int MIN_RANDOM_SEED_NUMBER = 1000;
+        final int MAX_RANDOM_SEED_NUMBER = 9999;
         Long challengeId = challengeRegistrantDto.getChallengeId();
-        boolean isExistRegistrant = checkIfRegistrantAlreadyExist(challengeId, challengeRegistrantDto.getRegistrantEmail());
+        ChallengeEntity challengeEntity = challengeRepository.findOne(challengeId);
+        String registrantEmail = challengeRegistrantDto.getRegistrantEmail();
 
+        boolean isValidEmail = checkValidEmailCompareToChallengeType(challengeEntity, registrantEmail);
+        if (!isValidEmail) {
+            return INVALID_REGISTRANT;
+        }
+
+        boolean isExistRegistrant = checkIfRegistrantAlreadyExist(challengeId, registrantEmail);
         if (isExistRegistrant) {
-            return 0L;
+            return INVALID_REGISTRANT;
         }
 
         ChallengeRegistrantEntity challengeRegistrantEntity = dozerMapper.map(challengeRegistrantDto, ChallengeRegistrantEntity.class);
-        ChallengeEntity challengeEntity = challengeRepository.findOne(challengeId);
         challengeRegistrantEntity.setRegistrantId(DateTimeUtils.currentDateTime());
         if (challengeEntity.getCriteria().size() > 0) {
             final Set<ChallengeRegistrantCriteria> criteria = new HashSet<>();
@@ -101,15 +108,19 @@ public class ChallengeServiceImpl implements ChallengeService {
             challengeRegistrantEntity.setCriteria(criteria);
         }
 
+        challengeRegistrantEntity.setMailSent(Boolean.TRUE);
+        if (challengeEntity.getChallengeType() == ChallengeTypeEnum.INTERNAL) {
+            Integer passCode = DataUtils.getRandomNumberInRange(MIN_RANDOM_SEED_NUMBER, MAX_RANDOM_SEED_NUMBER);
+            challengeRegistrantEntity.setPassCode(passCode);
+        }
         challengeRegistrantEntity = challengeRegistrantRepository.save(challengeRegistrantEntity);
         challengeEmailService.sendApplicationEmailToContestant(challengeEntity, challengeRegistrantEntity);
-        challengeRegistrantEntity.setMailSent(Boolean.TRUE);
+
         return challengeRegistrantService.getNumberOfRegistrants(challengeId);
     }
 
     @Override
-    public List<ChallengeDetailDto> findChallenges() {
-        ChallengeFilterCondition allChallengeFilterCondition = new ChallengeFilterCondition();
+    public List<ChallengeDetailDto> findChallenges(ChallengeFilterCondition allChallengeFilterCondition) {
         NativeSearchQueryBuilder allChallengeQueryBuilder = getChallengeSearchQueryBuilder(allChallengeFilterCondition);
         List<ChallengeEntity> challenges = DataUtils.getAllEntities(challengeRepository, allChallengeQueryBuilder);
 
@@ -144,7 +155,8 @@ public class ChallengeServiceImpl implements ChallengeService {
     @Override
     public ChallengeDetailDto getTheLatestChallenge() {
         ChallengeDetailDto challengeDetailDto = new ChallengeDetailDto();
-        List<ChallengeDetailDto> challenges = findChallenges();
+        ChallengeFilterCondition allChallengeFilterCondition = new ChallengeFilterCondition();
+        List<ChallengeDetailDto> challenges = findChallenges(allChallengeFilterCondition);
         if (CollectionUtils.isNotEmpty(challenges)) {
             return challenges.get(0);
         }
@@ -274,7 +286,17 @@ public class ChallengeServiceImpl implements ChallengeService {
         NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withTypes("challenge");
 
         BoolQueryBuilder boolQueryBuilder = boolQuery();
-        boolQueryBuilder.should(matchAllQuery());
+        String challengeSearchText = challengeFilterCondition.getChallengeSearchText();
+        if (StringUtils.isNotEmpty(challengeSearchText)) {
+            boolQueryBuilder.should(matchQuery("challengeName", challengeSearchText));
+
+            StringBuilder domainNameQueryStringBuilder = new StringBuilder();
+            domainNameQueryStringBuilder.append("*").append(challengeSearchText).append("*");
+            boolQueryBuilder.should(wildcardQuery("companyDomains", domainNameQueryStringBuilder.toString()));
+        } else {
+            boolQueryBuilder.should(matchAllQuery());
+        }
+
         String ownerEmail = challengeFilterCondition.getAuthorEmail();
         if (StringUtils.isNotEmpty(ownerEmail)) {
             boolQueryBuilder.must(matchQuery("authorEmail", ownerEmail).minimumShouldMatch("100%"));
@@ -297,9 +319,33 @@ public class ChallengeServiceImpl implements ChallengeService {
             }
         }
 
+        ChallengeTypeEnum challengeType = challengeFilterCondition.getChallengeType();
+        if (challengeType != null) {
+            if (challengeType == ChallengeTypeEnum.INTERNAL) {
+                boolFilterBuilder.must(termFilter("challengeType", ChallengeTypeEnum.INTERNAL));
+            } else if (challengeType == ChallengeTypeEnum.PUBLIC) {
+                boolFilterBuilder.mustNot(termFilter("challengeType", ChallengeTypeEnum.INTERNAL));
+            }
+        }
+
         searchQueryBuilder.withQuery(filteredQuery(boolQueryBuilder, boolFilterBuilder));
         searchQueryBuilder.withSort(SortBuilders.fieldSort("startDateTime").order(SortOrder.DESC));
         return searchQueryBuilder;
+    }
+
+    private boolean checkValidEmailCompareToChallengeType(ChallengeEntity challengeEntity, String email) {
+        if (challengeEntity.getChallengeType() == ChallengeTypeEnum.INTERNAL) {
+            if (StringUtils.isEmpty(email)) {
+                return false;
+            }
+            for (String domain : challengeEntity.getCompanyDomains()) {
+                if (email.contains(domain)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+        return EmailValidator.validate(email);
     }
 
     private boolean checkIfRegistrantAlreadyExist(Long challengeId, String email) {

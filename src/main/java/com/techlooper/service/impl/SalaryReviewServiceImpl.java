@@ -30,6 +30,7 @@ import java.util.*;
 
 import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.toSet;
 import static org.elasticsearch.index.query.FilterBuilders.*;
 import static org.elasticsearch.index.query.QueryBuilders.filteredQuery;
 import static org.elasticsearch.index.query.QueryBuilders.matchQuery;
@@ -41,6 +42,8 @@ import static org.elasticsearch.index.query.QueryBuilders.matchQuery;
 public class SalaryReviewServiceImpl implements SalaryReviewService {
 
     private static final int TWO_PERCENTILES = 2;
+
+    private static final int LIMIT_NUMBER_OF_JOBS_FOR_SALARY_REVIEW = 1000;
 
     private static final double[] percents = new double[]{10D, 25D, 50D, 75D, 90D};
 
@@ -144,7 +147,9 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
             jobRepository.addStrategy(searchByTitleStrategy);
         }
 
-        SalaryReviewResultDto salaryReviewResult = generateSalaryReport(salaryReviewDto, jobRepository.getJobs());
+        Set<JobEntity> jobForReview = jobRepository.getJobs().stream().limit(LIMIT_NUMBER_OF_JOBS_FOR_SALARY_REVIEW).collect(toSet());
+
+        SalaryReviewResultDto salaryReviewResult = generateSalaryReport(salaryReviewDto, jobForReview);
         return salaryReviewResult;
     }
 

@@ -175,9 +175,13 @@ public class ChallengeEmailServiceImpl implements ChallengeEmailService {
     public void sendApplicationEmailToContestant(ChallengeEntity challengeEntity, ChallengeRegistrantEntity challengeRegistrantEntity) {
         List<String> subjectVariableValues = Arrays.asList(challengeEntity.getChallengeName());
         String recipientAddresses = challengeRegistrantEntity.getRegistrantEmail();
+        String templateName = EmailTemplateNameEnum.CHALLENGE_CONFIRM_USER_ON_JOIN_CHALLENGE.name();
+        if (challengeEntity.getChallengeType() == ChallengeTypeEnum.INTERNAL) {
+            templateName = EmailTemplateNameEnum.CHALLENGE_CONFIRM_ON_JOIN_INTERNAL_CHALLENGE.name();
+        }
 
         EmailRequestModel emailRequestModel = new EmailRequestModel.Builder()
-                .withTemplateName(EmailTemplateNameEnum.CHALLENGE_CONFIRM_USER_ON_JOIN_CHALLENGE.name())
+                .withTemplateName(templateName)
                 .withLanguage(challengeRegistrantEntity.getLang())
                 .withTemplateModel(buildConfirmUserJoinChallengeEmailTemplateModel(challengeEntity, challengeRegistrantEntity))
                 .withMailMessage(postChallengeMailMessage)
@@ -250,6 +254,35 @@ public class ChallengeEmailServiceImpl implements ChallengeEmailService {
         return sendFeedbackEmail(emailContent);
     }
 
+    @Override
+    public void sendEmailNotifyRegistrantWhenQualified(ChallengeRegistrantEntity challengeRegistrantEntity) {
+        ChallengeEntity challengeEntity = challengeService.findChallengeById(challengeRegistrantEntity.getChallengeId());
+        List<String> subjectVariableValues = Arrays.asList(challengeEntity.getChallengeName());
+        String recipientAddress = challengeRegistrantEntity.getRegistrantEmail();
+
+        EmailRequestModel emailRequestModel = new EmailRequestModel.Builder()
+                .withTemplateName(EmailTemplateNameEnum.CHALLENGE_NOTIFY_REGISTRANT_QUALIFIED.name())
+                .withLanguage(challengeRegistrantEntity.getLang())
+                .withTemplateModel(buildNotifyRegistrantWhenQualifiedEmailTemplateModel(challengeRegistrantEntity))
+                .withMailMessage(postChallengeMailMessage)
+                .withRecipientAddresses(recipientAddress)
+                .withSubjectVariableValues(subjectVariableValues).build();
+        emailService.sendMail(emailRequestModel);
+    }
+
+    private Map<String, Object> buildNotifyRegistrantWhenQualifiedEmailTemplateModel(ChallengeRegistrantEntity challengeRegistrantEntity) {
+        Map<String, Object> templateModel = new HashMap<>();
+        templateModel.put("webBaseUrl", webBaseUrl);
+        templateModel.put("challengeRegistrant", challengeRegistrantEntity);
+
+        Long challengeId = challengeRegistrantEntity.getChallengeId();
+        templateModel.put("challengeId", String.valueOf(challengeId));
+        ChallengeEntity challengeEntity = challengeService.findChallengeById(challengeId);
+        templateModel.put("challengeName", challengeEntity.getChallengeName());
+        templateModel.put("challengeNameAlias", challengeEntity.getChallengeName().replaceAll("\\W", "-"));
+        return templateModel;
+    }
+
     private Map<String, Object> buildPostChallengeEmailTemplateModel(ChallengeEntity challengeEntity) {
         Map<String, Object> templateModel = new HashMap<>();
         templateModel.put("webBaseUrl", webBaseUrl);
@@ -272,6 +305,8 @@ public class ChallengeEmailServiceImpl implements ChallengeEmailService {
         templateModel.put("authorEmail", challengeEntity.getAuthorEmail());
         templateModel.put("challengeOverview", challengeEntity.getChallengeOverview());
         templateModel.put("challengeNameAlias", challengeEntity.getChallengeName().replaceAll("\\W", "-"));
+        templateModel.put("challengeType", challengeEntity.getChallengeType().getValue());
+        templateModel.put("companyDomains", StringUtils.join(challengeEntity.getCompanyDomains(), "<br/>"));
         return templateModel;
     }
 
@@ -366,6 +401,11 @@ public class ChallengeEmailServiceImpl implements ChallengeEmailService {
         templateModel.put("thirdPlaceReward", challengeEntity.getThirdPlaceReward() != null ? challengeEntity.getThirdPlaceReward() : 0);
         templateModel.put("challengeId", String.valueOf(challengeEntity.getChallengeId()));
         templateModel.put("challengeNameAlias", challengeEntity.getChallengeName().replaceAll("\\W", "-"));
+
+        if (challengeEntity.getChallengeType() == ChallengeTypeEnum.INTERNAL) {
+            templateModel.put("passCode", String.valueOf(challengeRegistrantEntity.getPassCode()));
+        }
+
         return templateModel;
     }
 

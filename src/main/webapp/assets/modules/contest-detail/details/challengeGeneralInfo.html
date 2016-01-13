@@ -2,7 +2,7 @@
   <div class="row tell-your-friends">
     <div class="col-md-12">
       <button class="btnz facebook" ng-click="fbShare()"><i class="fa fa-facebook"></i> <span
-          translate="tellYourFriends"></span></button>
+        translate="tellYourFriends"></span></button>
     </div>
   </div>
   <div class="row timeline-reward-block">
@@ -31,13 +31,12 @@
       <div class="time-block">
         <h3 translate="currentPhase"/>
         <p>
-          {{contestDetail.progress.translate | translate}}
-        <span ng-show="contestDetail.progress.translate != 'closed' &&  contestDetail.progress.translate != 'notStart' &&  contestDetail.progress.translate != 'registration'">
+          {{contestDetail.$currentState.title}}
+        <span ng-if="contestDetail.$currentState.isInProgress">
           (<span translate="{{contestDetail.currentPhase.toLowerCase()}}"></span>)
         </span>
         </p>
-        <p class="count-down-day" translate="{{contestDetail.progress.timeLeftTranslate}}"
-           translate-value-day-left="{{contestTimeLeft(contestDetail)}}"></p>
+        <p class="count-down-day" translate="{{contestDetail.$currentState.timeLeftTitle}}"></p>
 
       </div>
       <a ng-modal="dateInfo" ng-click="dateInfo = !dateInfo">
@@ -54,7 +53,7 @@
       </div>
     </div>
   </div>
-  <div class="alert alert-success" ng-show="!status('already-join')">
+  <div class="alert alert-success" ng-show="contestDetail.$currentUserJoined">
     <p translate="congratulationsForJoinContest"></p>
   </div>
   <div class="alert alert-danger" ng-show="failJoin == true">
@@ -65,16 +64,45 @@
       <p translate="registerNumber"
          translate-value-register-number="<strong>{{contestDetail.numberOfRegistrants}}</strong>"></p>
       <div class="join-now">
-        <button ng-disabled="!status('able-to-join')" ng-click="joinNowByFB()" class="btn btn-primary btn-flat"
-                ng-class="{disabled: !status('able-to-join')}">
-          <i class="fa fa-facebook-square"></i> <span translate="joinNow"></span></button>
+        <button ng-disabled="contestDetail.$currentUserJoined"
+                ng-if="contestDetail.$isPublic"
+                ng-click="joinNowByFB()" class="btn btn-primary btn-flat"
+                ng-class="{disabled: !contestDetail.$currentState.isJoinable}">
+          <i class="fa fa-facebook-square"></i> <span translate="joinNow"></span>
+        </button>
 
-        <button ng-show="contestDetail.currentUserJoined == true" ng-click="submissionForm.showSubmitForm()"
+        <button class="btn btn-primary btn-flat"
+                ng-click="toggleJoinInternalForm()" ng-disabled="contestDetail.$currentUserJoined"
+                ng-class="{disabled: !contestDetail.$currentState.isJoinable}"
+                ng-if="contestDetail.$isInternal">
+          <i class="fa fa-user-plus"></i> <span translate="joinNow"></span>
+        </button>
+
+        <button ng-if="contestDetail.$currentUserJoined"
+                ng-click="submissionForm.showSubmitForm()"
+                ng-disabled="contestDetail.$currentState.isClosed"
+                ng-class="{disabled:contestDetail.$currentState.isClosed}"
                 class="btn btn-primary btn-flat">
-          <i class="fa fa-paper-plane-o"></i> <span translate="submitPhase"></span></button>
+          <i class="fa fa-paper-plane-o"></i> <span translate="submitPhase"></span>
+        </button>
+
+        <!--<button ng-if="contestDetail.$isInternal && contestDetail.$currentUserJoined"-->
+                <!--ng-click="signInInternalForm()"-->
+                <!--class="btn btn-primary btn-flat">-->
+          <!--<i class="fa fa-paper-plane-o"></i> <span translate="submitPhase"></span>-->
+        <!--</button>-->
+
+        <p class="note align-text-right" ng-if="contestDetail.$isInternal">
+          {{'joinInternalChallengeWith' | translate}}<br/>
+          <span ng-repeat="domain in contestDetail.companyDomains">
+            <strong>{{domain}}</strong>&nbsp;<span ng-if="!$last" translate="or"></span>&nbsp;
+          </span>
+        </p>
       </div>
     </div>
   </div>
+  <join-internal-challenge challenge="contestDetail" cancel="toggleJoinInternalForm"
+                           ng-show="$internalForm.visible" ng-if="contestDetail.$isInternal"></join-internal-challenge>
   <submission-challenge challenge="contestDetail" form="submissionForm"></submission-challenge>
   <div class="alert alert-success" data-ng-init="submittedPhase = false" ng-model="submittedPhase"
        ng-show="submittedPhase">

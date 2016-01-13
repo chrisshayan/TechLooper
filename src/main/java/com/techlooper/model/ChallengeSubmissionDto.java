@@ -31,6 +31,24 @@ public class ChallengeSubmissionDto implements Serializable {
 
     private Boolean isRead;
 
+    private Integer passCode;
+
+    public Boolean getRead() {
+        return isRead;
+    }
+
+    public void setRead(Boolean read) {
+        isRead = read;
+    }
+
+    public Integer getPassCode() {
+        return passCode;
+    }
+
+    public void setPassCode(Integer passCode) {
+        this.passCode = passCode;
+    }
+
     public ChallengePhaseEnum getSubmissionPhase() {
         return submissionPhase;
     }

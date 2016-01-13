@@ -1,0 +1,26 @@
+<div class="container-fluid challenge-search">
+  <div class="row">
+    <div class="col-xs-12 col-md-12">
+      <ng-form name="challengeSearch" autocomplete="off" role="form" class="form-horizontal">
+      <div class="input-group">
+        <div class="input-group-btn search-panel">
+          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+            <span id="search_concept" translate="allChallengesSearch"></span> <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" role="menu" ng-model="challengeSearch.type" data-ng-init="challengeSearch.type = 'ALL'">
+            <li><a href="#all" ng-click="challengeSearch.type = 'ALL'" translate="allChallengesSearch"></a></li>
+            <li class="divider"></li>
+            <li><a href="#public" ng-click="challengeSearch.type = 'PUBLIC'" translate="publicChallenges"></a></li>
+            <li><a href="#internal" ng-click="challengeSearch.type = 'INTERNAL'" translate="internalChallenges"></a></li>
+          </ul>
+        </div>
+        <input type="hidden" name="search_param" value="all" id="search_param">
+        <input type="text" class="form-control" name="" ng-model="challengeSearch.keyword" placeholder="{{'SearchChallengePlaceholder' | translate}}">
+      <span class="input-group-btn">
+          <button class="btn btn-default btn-primary" type="button" ng-click="filterContests(challengeSearch.type, challengeSearch.keyword)"><i class="fa fa-search"></i></button>
+      </span>
+      </div>
+      </ng-form>
+    </div>
+  </div>
+</div>

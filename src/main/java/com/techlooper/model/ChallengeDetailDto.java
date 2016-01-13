@@ -68,6 +68,10 @@ public class ChallengeDetailDto {
 
     private List<ChallengeRegistrantFunnelItem> phaseItems;
 
+    private ChallengeTypeEnum challengeType;
+
+    private List<String> companyDomains;
+
     public List<ChallengeRegistrantFunnelItem> getPhaseItems() {
         return phaseItems;
     }
@@ -306,5 +310,21 @@ public class ChallengeDetailDto {
 
     public void setIsClosed(Boolean isClosed) {
         this.isClosed = isClosed;
+    }
+
+    public ChallengeTypeEnum getChallengeType() {
+        return challengeType;
+    }
+
+    public void setChallengeType(ChallengeTypeEnum challengeType) {
+        this.challengeType = challengeType;
+    }
+
+    public List<String> getCompanyDomains() {
+        return companyDomains;
+    }
+
+    public void setCompanyDomains(List<String> companyDomains) {
+        this.companyDomains = companyDomains;
     }
 }

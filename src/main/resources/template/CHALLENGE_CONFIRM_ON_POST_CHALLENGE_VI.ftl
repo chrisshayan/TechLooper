@@ -160,8 +160,13 @@
                       </td>
                     </tr>
                     <tr>
+                    <#if challengeType == "PUBLIC">
+                        <#assign localizedChallengeType = "công cộng">
+                    <#elseif challengeType == "INTERNAL">
+                        <#assign localizedChallengeType = "nội bộ">
+                    </#if>
                       <td align="left" style="font-size: 14px;">
-                        <strong>${authorEmail}</strong> vừa đăng thử thách với thông tin như sau:
+                        <strong>${authorEmail}</strong> vừa đăng <#if localizedChallengeType??><strong>thử thách ${localizedChallengeType}</strong></#if> với thông tin như sau:
                       </td>
                     </tr>
                     <tr>
@@ -201,6 +206,24 @@
                                     <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
                                   </td>
                                 </tr>
+                                  <#if companyDomains??>
+                                      <tr>
+                                          <td align="left" width="45%" style="font-size: 14px; padding-left: 15px" valign="top">
+                                              Tên Miền Nội Bộ:
+                                          </td>
+                                          <td align="left" width="55%" style="color: #000000; font-size: 14px;">
+                                          ${companyDomains}
+                                          </td>
+                                      </tr>
+                                      <tr>
+                                          <td style="height:5px; line-height: 5px;">
+                                              <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
+                                          </td>
+                                          <td style="height:5px; line-height: 5px;">
+                                              <img height="1" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
+                                          </td>
+                                      </tr>
+                                  </#if>
                                 <tr>
                                   <td align="left" width="45%" style="font-size: 14px; padding-left: 15px" valign="top">
                                     Tổng Quan Thử Thách:

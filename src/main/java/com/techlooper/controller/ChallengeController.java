@@ -105,7 +105,13 @@ public class ChallengeController {
 
     @RequestMapping(value = "/challenge/list", method = RequestMethod.GET)
     public List<ChallengeDetailDto> listChallenges() throws Exception {
-        return challengeService.findChallenges();
+        ChallengeFilterCondition allChallengeFilterCondition = new ChallengeFilterCondition();
+        return challengeService.findChallenges(allChallengeFilterCondition);
+    }
+
+    @RequestMapping(value = "/challenge/search", method = RequestMethod.POST)
+    public List<ChallengeDetailDto> searchChallenges(@RequestBody ChallengeFilterCondition challengeFilterCondition) throws Exception {
+        return challengeService.findChallenges(challengeFilterCondition);
     }
 
     @RequestMapping(value = "/challenge/stats", method = RequestMethod.GET)

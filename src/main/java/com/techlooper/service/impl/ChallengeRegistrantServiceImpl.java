@@ -10,6 +10,7 @@ import com.techlooper.model.*;
 import com.techlooper.repository.elasticsearch.ChallengeRegistrantRepository;
 import com.techlooper.repository.elasticsearch.ChallengeRepository;
 import com.techlooper.repository.elasticsearch.ChallengeSubmissionRepository;
+import com.techlooper.service.ChallengeEmailService;
 import com.techlooper.service.ChallengeRegistrantService;
 import com.techlooper.service.ChallengeService;
 import com.techlooper.service.ChallengeSubmissionService;
@@ -63,6 +64,9 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
 
     @Resource
     private ChallengeRepository challengeRepository;
+
+    @Resource
+    private ChallengeEmailService challengeEmailService;
 
     public Map<ChallengePhaseEnum, ChallengeRegistrantPhaseItem> countNumberOfRegistrantsByPhase(Long challengeId) {
         Map<ChallengePhaseEnum, ChallengeRegistrantPhaseItem> numberOfRegistrantsByPhase = new HashMap<>();
@@ -245,6 +249,8 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
             registrant.setDisqualified(null);
             registrant.setDisqualifiedReason(null);
             registrant = challengeRegistrantRepository.save(registrant);
+
+            challengeEmailService.sendEmailNotifyRegistrantWhenQualified(registrant);
         }
 
         return dozerMapper.map(registrant, ChallengeRegistrantDto.class);

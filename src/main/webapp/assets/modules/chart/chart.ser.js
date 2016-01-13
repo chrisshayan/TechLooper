@@ -1,12 +1,9 @@
-angular.module("Chart").factory("chartService", function (utils, jsonValue, pieFactory, bubbleFactory) {
+angular.module("Chart").factory("chartService", function (utils, jsonValue, pieFactory) {
   var instance = {
     getChartFactory: function () {
       switch (utils.getView()) {
         case jsonValue.views.pieChart:
           return pieFactory;
-
-        case jsonValue.views.bubbleChart:
-          return bubbleFactory;
       }
     }
   }

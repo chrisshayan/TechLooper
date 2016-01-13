@@ -9,6 +9,13 @@ techlooper.directive("feedbackForm", function (apiService, $timeout, resourcesSe
       announceWinner: "="
     },
     link: function (scope, element, attr, ctrl) {
+      //$('.summernote').summernote({
+      //  height: 300,                 // set editor height
+      //  minHeight: null,             // set minimum height of editor
+      //  maxHeight: null,             // set maximum height of editor
+      //  focus: true                  // set focus to editable area after initializing summernote
+      //});
+
       resourcesService.getEmailTemplates().then(function (eTemplates) {
         var templates = eTemplates;
         if (scope.announceWinner != true) {
@@ -41,11 +48,19 @@ techlooper.directive("feedbackForm", function (apiService, $timeout, resourcesSe
 
       scope.send = function () {
         if (scope.feedbackForm.$invalid) return;
+        scope.loadingData = true;
         var registrant = scope.registrants[0];
         apiService.sendFeedbackToRegistrant(registrant.registrantId, scope.composeEmail)
           .success(function () {
-            scope.cancel();
-          });
+            scope.postFeedbackSuccess = true;
+          }).finally(function(){
+            delete scope.loadingData;
+            $timeout(function(){
+              delete scope.postFeedbackSuccess;
+              scope.cancel();
+            }, 2000);
+          }
+        );
       }
 
       scope.cancel = function () {
@@ -59,7 +74,6 @@ techlooper.directive("feedbackForm", function (apiService, $timeout, resourcesSe
         scope.setDefaultValue();
         scope.hide();
         //delete scope.composeEmail.visible;
-        $('.feedback-loading').css('visibility', 'hidden');
       }
 
       scope.loadEmailTemplate = function () {
