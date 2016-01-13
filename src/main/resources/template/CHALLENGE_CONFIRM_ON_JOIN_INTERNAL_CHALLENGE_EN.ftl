@@ -236,7 +236,7 @@
                                             <#if passCode??>
                                                 <tr>
                                                   <td width="30%" align="left" style="padding-right: 5px">
-                                                    Password:
+                                                    Passcode:
                                                   </td>
                                                   <td width="70%" align="left">
                                                     <strong>${passCode}</strong>

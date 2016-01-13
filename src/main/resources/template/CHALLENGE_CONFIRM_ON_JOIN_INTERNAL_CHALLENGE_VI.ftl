@@ -236,7 +236,7 @@
                                             <#if passCode??>
                                                 <tr>
                                                   <td width="30%" align="left" style="padding-right: 5px">
-                                                      Mật Khẩu:
+                                                      Mã xác nhận:
                                                   </td>
                                                   <td width="70%" align="left">
                                                     <strong>${passCode}</strong>
