@@ -440,6 +440,7 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
                 (skill1, skill2) -> (int) skill2.getCount() - (int) skill1.getCount()
         ).filter(skill -> skill.getSkillName().length() <= 40).limit(limit).collect(toList()));
 
+        response.setJobTitle(request.getJobTitle());
         return response;
     }
 
