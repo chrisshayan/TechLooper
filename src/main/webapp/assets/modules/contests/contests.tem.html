@@ -19,7 +19,7 @@
         <div class="contest-item-row no-data-found" ng-if="!contestsList.length">
           <p translate="noData"></p>
         </div>
-        <challenge-list ng-if="contestsList.length"></challenge-list>
+        <challenge-list ng-show="contestsList.length"></challenge-list>
         <sign-in-internal-challenge></sign-in-internal-challenge>
       </div>
     </div>
