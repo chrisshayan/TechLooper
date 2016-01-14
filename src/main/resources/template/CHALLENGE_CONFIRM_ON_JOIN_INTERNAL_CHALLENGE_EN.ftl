@@ -236,7 +236,7 @@
                                             <#if passCode??>
                                                 <tr>
                                                   <td width="30%" align="left" style="padding-right: 5px">
-                                                    Password:
+                                                    Passcode:
                                                   </td>
                                                   <td width="70%" align="left">
                                                     <strong>${passCode}</strong>
@@ -338,7 +338,7 @@
                                             </tr>
                                             <tr>
                                               <td>
-                                                <img src="${webBaseUrl}images/submission-form.png" alt="" style="width:100%">
+                                                <img src="${webBaseUrl}images/submission-internal-form.png" alt="" style="width:100%">
                                               </td>
                                             </tr>
                                           </table>

@@ -145,22 +145,7 @@ techlooper.controller("jobListingController", function (apiService, $scope, vnwC
     $scope.searchJob = {keyword : keyword, locationId : locationId, location : location};
   }
 
-  //$scope.buildSearchPath = function(keyword, locationId, location, page) {
-  //  var result = "/job-listing/";
-  //  if (keyword) {
-  //    result += utils.toAscii(keyword);
-  //  }
-  //  if (locationId) {
-  //    result += "+" + locationId;
-  //  }
-  //  if (location) {
-  //    result += "+" + utils.toAscii(location);
-  //  }
-  //  if (page && page > 1) {
-  //    result += "/" + page;
-  //  }
-  //  return result;
-  //}
+  $('.submit-search-block').find('button').focus();
 
 
   $timeout(function () {

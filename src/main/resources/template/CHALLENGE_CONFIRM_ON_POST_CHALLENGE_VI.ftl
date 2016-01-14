@@ -161,7 +161,7 @@
                     </tr>
                     <tr>
                     <#if challengeType == "PUBLIC">
-                        <#assign localizedChallengeType = "công cộng">
+                        <#assign localizedChallengeType = "cộng đồng">
                     <#elseif challengeType == "INTERNAL">
                         <#assign localizedChallengeType = "nội bộ">
                     </#if>

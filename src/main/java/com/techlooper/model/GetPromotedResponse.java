@@ -7,6 +7,8 @@ import java.util.List;
  */
 public class GetPromotedResponse {
 
+    private String jobTitle;
+
     private Long totalJob;
 
     private Double salaryMin;
@@ -45,5 +47,13 @@ public class GetPromotedResponse {
 
     public void setTopDemandedSkills(List<TopDemandedSkillResponse> topDemandedSkills) {
         this.topDemandedSkills = topDemandedSkills;
+    }
+
+    public String getJobTitle() {
+        return jobTitle;
+    }
+
+    public void setJobTitle(String jobTitle) {
+        this.jobTitle = jobTitle;
     }
 }
