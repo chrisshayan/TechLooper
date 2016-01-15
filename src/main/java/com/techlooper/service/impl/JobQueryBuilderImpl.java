@@ -322,11 +322,10 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
     public NativeSearchQueryBuilder getTopDemandedSkillQueryByJobTitle(String jobTitle, List<Long> jobCategories, List<Integer> jobLevelIds) {
         NativeSearchQueryBuilder queryBuilder = getVietnamworksJobCountQuery();
 
-        //pre-process job title in case user enters multiple roles of his job
-        List<String> jobTitleTokens = DataUtils.preprocessJobTitle(jobTitle);
-
-        BoolQueryBuilder jobTitleQueryBuilder = boolQuery();
-        jobTitleTokens.forEach(jobTitleToken -> jobTitleQueryBuilder.should(jobTitleQueryBuilder(jobTitleToken.trim())));
+        QueryBuilder matchQueryBuilder = matchAllQuery();
+        if (StringUtils.isNotEmpty(jobTitle)) {
+            matchQueryBuilder = jobTitleQueryBuilder(jobTitle);
+        }
 
         BoolFilterBuilder boolFilterBuilder = boolFilter();
         boolFilterBuilder.must(getRangeFilterBuilder("approvedDate", "now-6M/M", null));
@@ -339,7 +338,7 @@ public class JobQueryBuilderImpl implements JobQueryBuilder {
             boolFilterBuilder.must(getJobLevelFilterBuilder(jobLevelIds));
         }
 
-        queryBuilder.withQuery(filteredQuery(jobTitleQueryBuilder, boolFilterBuilder));
+        queryBuilder.withQuery(filteredQuery(matchQueryBuilder, boolFilterBuilder));
         return queryBuilder;
     }
 
