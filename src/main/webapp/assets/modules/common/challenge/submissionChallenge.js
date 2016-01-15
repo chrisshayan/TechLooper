@@ -9,7 +9,7 @@ techlooper.directive("submissionChallenge", function (localStorageService, apiSe
     templateUrl: "modules/common/challenge/submissionChallenge.html",
     link: function (scope, el, attrs) {
       scope.form = {};
-
+      delete scope.loadingData;
       scope.form.hideSubmitForm = function () {
         if (scope.submissionForm) {
           scope.submissionForm.$setPristine();
@@ -96,14 +96,12 @@ techlooper.directive("submissionChallenge", function (localStorageService, apiSe
                   var submission = data;
                   $rootScope.$broadcast("submission-accepted", submission);
                   scope.form.hideSubmitForm();
-                  delete scope.loadingData;
                 })
                 .error(function () {
                   scope.submissionForm.submissionPassCode.$setValidity("credential", false);
                 });
             }
             scope.submissionForm && scope.submissionForm.submissionURL.$setValidity("invalidUrl", !inValid);
-              delete scope.loadingData;
           });
       }
     }
