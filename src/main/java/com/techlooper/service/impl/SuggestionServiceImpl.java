@@ -91,7 +91,7 @@ public class SuggestionServiceImpl implements SuggestionService {
 
     private List<String> getTheBestMatchJobTitle(SearchHit[] hits) {
         List<String> jobTitles = new ArrayList<>();
-        float maxScore = 0;
+        float maxScore = 5;
         for (SearchHit hit : hits) {
             if (hit.getScore() >= maxScore) {
                 maxScore = hit.getScore();

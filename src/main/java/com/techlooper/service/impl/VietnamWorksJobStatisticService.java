@@ -4,9 +4,7 @@ import com.techlooper.entity.Company;
 import com.techlooper.entity.EmployerEntity;
 import com.techlooper.model.*;
 import com.techlooper.repository.JsonConfigRepository;
-import com.techlooper.service.CompanyService;
-import com.techlooper.service.JobQueryBuilder;
-import com.techlooper.service.JobStatisticService;
+import com.techlooper.service.*;
 import com.techlooper.util.EncryptionUtils;
 import no.priv.garshol.duke.comparators.JaroWinkler;
 import org.apache.commons.lang3.StringUtils;
@@ -77,6 +75,12 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
 
     @Resource
     private CompanyService companyService;
+
+    @Resource
+    private SuggestionService suggestionService;
+
+    @Resource
+    private SalaryReviewService salaryReviewService;
 
     public Long count(final TechnicalTerm term) {
         final SearchQuery searchQuery = jobQueryBuilder.getVietnamworksJobCountQuery()
@@ -412,6 +416,14 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
     @Override
     public GetPromotedResponse getTopDemandedSkillsByJobTitle(GetPromotedRequest request) {
         GetPromotedResponse response = new GetPromotedResponse();
+
+        String originalJobTitle = request.getJobTitle();
+        List<String> normalizedJobTitleCandidates = suggestionService.searchJobTitles(originalJobTitle);
+        String standardJobTitle = salaryReviewService.chooseTheMostRelevantTitle(normalizedJobTitleCandidates);
+        if (StringUtils.isNotEmpty(standardJobTitle)) {
+            request.setJobTitle(standardJobTitle);
+        }
+
         NativeSearchQueryBuilder queryBuilder = jobQueryBuilder.getTopDemandedSkillQueryByJobTitle(
                 request.getJobTitle(), request.getJobCategoryIds(), request.getJobLevelIds());
         queryBuilder.addAggregation(jobQueryBuilder.getTopDemandedSkillsAggregation());
@@ -440,7 +452,7 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
                 (skill1, skill2) -> (int) skill2.getCount() - (int) skill1.getCount()
         ).filter(skill -> skill.getSkillName().length() <= 40).limit(limit).collect(toList()));
 
-        response.setJobTitle(request.getJobTitle());
+        response.setJobTitle(originalJobTitle);
         return response;
     }
 
