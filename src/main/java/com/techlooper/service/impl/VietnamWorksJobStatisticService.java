@@ -438,6 +438,12 @@ public class VietnamWorksJobStatisticService implements JobStatisticService {
                 .getAggregations().get("salaryMin_avg")).getValue();
         Double salaryMax = ((InternalAvg) ((InternalFilter) aggregations.get("salaryMax_avg"))
                 .getAggregations().get("salaryMax_avg")).getValue();
+        if (salaryMax < salaryMin) {
+            Double temp = salaryMax;
+            salaryMax = salaryMin;
+            salaryMin = temp;
+        }
+
         response.setSalaryMin(salaryMin);
         response.setSalaryMax(salaryMax);
 
