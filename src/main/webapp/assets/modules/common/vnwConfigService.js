@@ -388,6 +388,11 @@ techlooper.factory("vnwConfigService", function (jsonValue, $translate, $rootSco
       "lang_en": "Other"
     },
     {
+      "location_id": "70",
+      "lang_vn": "Quốc Tế",
+      "lang_en": "International"
+    },
+    {
       "location_id": "72",
       "lang_vn": "Hậu Giang",
       "lang_en": "Hau Giang"
