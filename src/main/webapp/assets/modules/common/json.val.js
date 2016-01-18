@@ -354,6 +354,7 @@ techlooper.factory("jsonValue", function () {
       whyFreelancer: "whyFreelancer",
       whyChallenge: "whyChallenge",
       employerDashboard: "employerDashboard",
+      jobseekerDashboard: "jobseekerDashboard",
       userType: "userType",
       howItWorks: "howItWorks",
       jobListing: "jobListing",
