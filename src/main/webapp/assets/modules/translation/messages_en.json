@@ -895,5 +895,6 @@
   "invalidCredential": "Invalid credential",
   "invalidMinlengthDigits": "This field can not less than {{length}} digits",
   "emailSentSuccessfully": "The email is sent successfully.",
-  "winnerBoard": "Winner Board"
+  "winnerBoard": "Winner Board",
+  "finalSubmissionDate": "Final Submission Date"
 }

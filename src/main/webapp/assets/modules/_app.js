@@ -158,6 +158,10 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
         templateUrl: "modules/employer-dashboard/employer-dashboard.html",
         controller: "employerDashboardController"
       })
+      .when("/jobseeker-dashboard", {
+        templateUrl: "modules/jobseeker-dashboard/jobseeker-dashboard.html",
+        controller: "jobseekerDashboardController"
+      })
       .when("/user-type", {
         templateUrl: "modules/user-type/user-type.html",
         controller: "userTypeController"

@@ -207,11 +207,11 @@ techlooper
       }
     };
   })
-  .directive('winnerBoard', function () {
+  .directive('winnerBoardTab', function () {
     return {
       restrict: "E",
       replace: true,
-      templateUrl: "modules/winner-board/winnerBoard.html",
+      templateUrl: "modules/contest-detail/winner-board/winnerBoard.html",
       link: function (scope, element, attr, ctrl) {
       }
     };
