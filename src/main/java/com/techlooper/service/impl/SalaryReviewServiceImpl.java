@@ -28,9 +28,7 @@ import javax.mail.internet.MimeMessage;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-import static java.util.stream.Collectors.joining;
-import static java.util.stream.Collectors.toList;
-import static java.util.stream.Collectors.toSet;
+import static java.util.stream.Collectors.*;
 import static org.elasticsearch.index.query.FilterBuilders.*;
 import static org.elasticsearch.index.query.QueryBuilders.filteredQuery;
 import static org.elasticsearch.index.query.QueryBuilders.matchQuery;
@@ -125,7 +123,7 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
         SalaryReviewCondition salaryReviewCondition = dozerMapper.map(salaryReviewDto, SalaryReviewCondition.class);
 
         List<String> normalizedJobTitleCandidates = suggestionService.searchJobTitles(salaryReviewCondition.getJobTitle());
-        String standardJobTitle = chooseTheBestJobTitle(normalizedJobTitleCandidates);
+        String standardJobTitle = chooseTheMostRelevantTitle(normalizedJobTitleCandidates);
         if (StringUtils.isNotEmpty(standardJobTitle)) {
             salaryReviewCondition.setJobTitle(standardJobTitle);
         }
@@ -185,7 +183,8 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
         return topPaidJobs;
     }
 
-    private String chooseTheBestJobTitle(List<String> normalizedJobTitleCandidates) {
+    @Override
+    public String chooseTheMostRelevantTitle(List<String> normalizedJobTitleCandidates) {
         List<String> result = new ArrayList<>();
         for (String normalizedJobTitleCandidate : normalizedJobTitleCandidates) {
             result.add(StringUtils.trim(normalizedJobTitleCandidate.replaceAll("\\d+.*", " ")));
