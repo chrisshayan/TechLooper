@@ -896,5 +896,9 @@
   "invalidMinlengthDigits": "This field can not less than {{length}} digits",
   "emailSentSuccessfully": "The email is sent successfully.",
   "winnerBoard": "Winner Board",
-  "finalSubmissionDate": "Final Submission Date"
+  "finalSubmissionDate": "Final Submission Date",
+  "myProfile" :"My Profile",
+  "myCurrentPhase": "My Current Phase",
+  "submission": "Submission",
+  "challenge": "Challenge"
 }

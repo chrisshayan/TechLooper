@@ -84,7 +84,7 @@
         a
           width: auto
           float: right
-          padding: 7px 12px 0px 12px
+          padding: 7px 12px
       .dashboard-content
         display: inline-block
         clear: both
@@ -224,3 +224,92 @@
         padding: 10px
         button
           padding: 6px 25px
+  .my-profile-info
+    display: inline-block
+    clear: both
+    width: 100%
+    padding: 20px
+    .my-avatar
+      max-width: 50px
+      padding-left: 0
+      padding-right: 10px
+    .my-info ul
+      margin: 0
+      padding: 0
+      text-align: left
+      li
+        clear: both
+        display: block
+        padding: 0 0 5px 0
+        span
+          display: inline-block
+          width: 100px
+          font-weight: 500
+  .my-challenge-list
+    display: inline-block
+    clear: both
+    width: 100%
+    td
+      i.challenge-type
+        width: 20px
+        height: 20px
+        display: inline-block
+        float: left
+        background: url("../images/ic-challenge.png") 0px 2px no-repeat
+        background-size: 15px
+      a
+        text-align: left
+        font-weight: 500
+      span.note
+        font-weight: 400
+        font-style: italic
+        clear: both
+        display: inline-block
+        width: 100%
+        text-align: center
+        padding-top: 5px
+      span.challenge-status
+        display: inline-block
+        width: auto
+        font-size: 12px
+        border-radius: 4px
+        padding: 0px 4px
+        color: #fff
+      span.challenge-status.registration
+        background-color: #1ea185
+      span.challenge-status.idea
+        background-color: #9bba5c
+      span.challenge-status.uiux
+        background-color: #f29b27
+      span.challenge-status.prototype
+        background-color: #bd392f
+      span.challenge-status.final
+        background-color: #257abb
+      span.challenge-status.closed
+        background-color: #555555
+      span.winner
+        display: block
+        clear: both
+        height: 30px
+        width: 100%
+    td:first-child
+      a
+        float: left
+        text-align: left
+      span.note
+        text-align: left
+    tr.the-first-prize
+      background-color: #ffe7b7 !important
+      span.winner
+        background: url(../images/medal.png) 25px 7px no-repeat
+        background-size: 20px
+    tr.the-second-prize
+      background-color: #eaeaea !important
+      span.winner
+        background: url(../images/medal.png) 25px -33px no-repeat
+        background-size: 20px
+    tr.the-three-prize
+      background-color: #efe6dc !important
+      span.winner
+        background: url(../images/medal.png) 25px -77px no-repeat
+        background-size: 20px

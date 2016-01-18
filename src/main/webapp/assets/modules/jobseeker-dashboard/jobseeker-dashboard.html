@@ -1,5 +1,286 @@
 <div class="content-page-block">
   <div class="content-page-detail dashboard">
-   c c df dfbd
+    <div class="row">
+      <div class="col-md-12 dashboard-box">
+        <div class="sub-header-dashboard">
+          <h3 translate="myProfile"></h3>
+        </div>
+        <div class="row my-profile-info">
+          <div class="col-sm-2 my-avatar">
+            <img src="{{$root.userInfo.profileImageUrl}}" alt=""/>
+          </div>
+          <div class="col-sm-6 my-info">
+            <ul>
+              <li>
+                <span translate="fullName"></span>{{$root.userInfo.name}}
+              </li>
+              <li>
+                <span translate="emailAddress"></span>{{$root.userInfo.email}}
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <!--<div class="active-challenges-list contestant-page">-->
+        <!--<div class="filter-item">-->
+          <!--<span>AAA</span>-->
+          <!--<span>AAA</span>-->
+          <!--<span>AAA</span>-->
+        <!--</div>-->
+      <!--</div>-->
+    </div>
+    <div class="row">
+      <div class="my-challenge-list">
+        <table class="table contests-table table-bordered table-hover">
+          <thead>
+          <tr>
+            <th translate="challenge"></th>
+            <th translate="myCurrentPhase" class="text-center"></th>
+            <th translate="submission" class="text-center"></th>
+            <th translate="score" class="text-center"></th>
+            <th translate="prize" class="text-center"></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td data-label="{{'fullname' | translate}}">
+              <a href="" target="_blank">
+                <i class="challenge-type" title="Public Challenge"></i>
+                Test Add field challenge type into email
+              </a>
+              <span class="note">12 day(s) left</span>
+            </td>
+            <td data-label="{{'registrationDate' | translate}}" class="text-center">
+              <span class="challenge-status idea">{{'idea' | translate}}</span>
+              <span class="note">0 day(s) left to submission</span>
+            </td>
+            <td data-label="{{'finalSubmissionDate' | translate}}" class="text-center">
+              <a href="">2</a>
+            </td>
+            <td data-label="{{'score' | translate}}" class="text-center">
+              <a href="">3.5</a>
+            </td>
+            <td data-label="{{'prize' | translate}}" class="text-center">
+              $4,500
+              <span class="winner"></span>
+            </td>
+          </tr>
+          <tr class="the-first-prize">
+            <td data-label="{{'fullname' | translate}}">
+              <a href="" target="_blank">
+                <i class="challenge-type" title="Public Challenge"></i>
+                Test Add field challenge type into email
+              </a>
+              <span class="note">12 day(s) left</span>
+            </td>
+            <td data-label="{{'registrationDate' | translate}}" class="text-center">
+              <span class="challenge-status final">{{'final' | translate}}</span>
+              <span class="note">0 day(s) left to submission</span>
+            </td>
+            <td data-label="{{'finalSubmissionDate' | translate}}" class="text-center">
+              <a href="">2</a>
+            </td>
+            <td data-label="{{'score' | translate}}" class="text-center">
+              <a href="">3.5</a>
+            </td>
+            <td data-label="{{'prize' | translate}}" class="text-center">
+              $4,500
+              <span class="winner"></span>
+            </td>
+          </tr>
+          <tr class="the-second-prize">
+            <td data-label="{{'fullname' | translate}}">
+              <a href="" target="_blank">
+                <i class="challenge-type" title="Public Challenge"></i>
+                Test Add field challenge type into email
+              </a>
+              <span class="note">12 day(s) left</span>
+            </td>
+            <td data-label="{{'registrationDate' | translate}}" class="text-center">
+              <span class="challenge-status prototype">{{'prototype' | translate}}</span>
+              <span class="note">0 day(s) left to submission</span>
+            </td>
+            <td data-label="{{'finalSubmissionDate' | translate}}" class="text-center">
+              <a href="">2</a>
+            </td>
+            <td data-label="{{'score' | translate}}" class="text-center">
+              <a href="">3.5</a>
+            </td>
+            <td data-label="{{'prize' | translate}}" class="text-center">
+              $4,500
+              <span class="winner"></span>
+            </td>
+          </tr>
+          <tr>
+            <td data-label="{{'fullname' | translate}}">
+              <a href="" target="_blank">
+                <i class="challenge-type" title="Public Challenge"></i>
+                Test Add field challenge type into email
+              </a>
+              <span class="note">12 day(s) left</span>
+            </td>
+            <td data-label="{{'registrationDate' | translate}}" class="text-center">
+              <span class="challenge-status uiux">{{'uiux' | translate}}</span>
+              <span class="note">0 day(s) left to submission</span>
+            </td>
+            <td data-label="{{'finalSubmissionDate' | translate}}" class="text-center">
+              <a href="">2</a>
+            </td>
+            <td data-label="{{'score' | translate}}" class="text-center">
+              <a href="">3.5</a>
+            </td>
+            <td data-label="{{'prize' | translate}}" class="text-center">
+              $4,500
+              <span class="winner"></span>
+            </td>
+          </tr>
+          <tr class="the-three-prize">
+            <td data-label="{{'fullname' | translate}}">
+              <a href="" target="_blank">
+                <i class="challenge-type" title="Public Challenge"></i>
+                Test Add field challenge type into email
+              </a>
+            </td>
+            <td data-label="{{'registrationDate' | translate}}" class="text-center">
+              <span class="challenge-status closed">{{'idea' | translate}}</span>
+            </td>
+            <td data-label="{{'finalSubmissionDate' | translate}}" class="text-center">
+              <a href="">2</a>
+            </td>
+            <td data-label="{{'score' | translate}}" class="text-center">
+              <a href="">3.5</a>
+            </td>
+            <td data-label="{{'prize' | translate}}" class="text-center">
+              $4,500
+              <span class="winner"></span>
+            </td>
+          </tr>
+          <tr>
+            <td data-label="{{'fullname' | translate}}">
+              <a href="" target="_blank">
+                <i class="challenge-type" title="Public Challenge"></i>
+                Test Add field challenge type into email
+              </a>
+            </td>
+            <td data-label="{{'registrationDate' | translate}}" class="text-center">
+              <span class="challenge-status closed">{{'idea' | translate}}</span>
+            </td>
+            <td data-label="{{'finalSubmissionDate' | translate}}" class="text-center">
+              <a href="">2</a>
+            </td>
+            <td data-label="{{'score' | translate}}" class="text-center">
+              <a href="">3.5</a>
+            </td>
+            <td data-label="{{'prize' | translate}}" class="text-center">
+              $4,500
+            </td>
+          </tr>
+          <tr>
+            <td data-label="{{'fullname' | translate}}">
+              <a href="" target="_blank">
+                <i class="challenge-type" title="Public Challenge"></i>
+                Test Add field challenge type into email
+              </a>
+            </td>
+            <td data-label="{{'registrationDate' | translate}}" class="text-center">
+              <span class="challenge-status closed">{{'idea' | translate}}</span>
+            </td>
+            <td data-label="{{'finalSubmissionDate' | translate}}" class="text-center">
+              <a href="">2</a>
+            </td>
+            <td data-label="{{'score' | translate}}" class="text-center">
+              <a href="">3.5</a>
+            </td>
+            <td data-label="{{'prize' | translate}}" class="text-center">
+              $4,500
+            </td>
+          </tr>
+          <tr>
+            <td data-label="{{'fullname' | translate}}">
+              <a href="" target="_blank">
+                <i class="challenge-type" title="Public Challenge"></i>
+                Test Add field challenge type into email
+              </a>
+            </td>
+            <td data-label="{{'registrationDate' | translate}}" class="text-center">
+              <span class="challenge-status closed">{{'idea' | translate}}</span>
+            </td>
+            <td data-label="{{'finalSubmissionDate' | translate}}" class="text-center">
+              <a href="">2</a>
+            </td>
+            <td data-label="{{'score' | translate}}" class="text-center">
+              <a href="">3.5</a>
+            </td>
+            <td data-label="{{'prize' | translate}}" class="text-center">
+              $4,500
+            </td>
+          </tr>
+          <tr>
+            <td data-label="{{'fullname' | translate}}">
+              <a href="" target="_blank">
+                <i class="challenge-type" title="Public Challenge"></i>
+                Test Add field challenge type into email
+              </a>
+            </td>
+            <td data-label="{{'registrationDate' | translate}}" class="text-center">
+              <span class="challenge-status closed">{{'idea' | translate}}</span>
+            </td>
+            <td data-label="{{'finalSubmissionDate' | translate}}" class="text-center">
+              <a href="">2</a>
+            </td>
+            <td data-label="{{'score' | translate}}" class="text-center">
+              <a href="">3.5</a>
+            </td>
+            <td data-label="{{'prize' | translate}}" class="text-center">
+              $4,500
+            </td>
+          </tr>
+          <tr>
+            <td data-label="{{'fullname' | translate}}">
+              <a href="" target="_blank">
+                <i class="challenge-type" title="Public Challenge"></i>
+                Test Add field challenge type into email
+              </a>
+            </td>
+            <td data-label="{{'registrationDate' | translate}}" class="text-center">
+              <span class="challenge-status closed">{{'idea' | translate}}</span>
+            </td>
+            <td data-label="{{'finalSubmissionDate' | translate}}" class="text-center">
+              <a href="">2</a>
+            </td>
+            <td data-label="{{'score' | translate}}" class="text-center">
+              <a href="">3.5</a>
+            </td>
+            <td data-label="{{'prize' | translate}}" class="text-center">
+              $4,500
+            </td>
+          </tr>
+          <tr>
+            <td data-label="{{'fullname' | translate}}">
+              <a href="" target="_blank">
+                <i class="challenge-type" title="Public Challenge"></i>
+                Test Add field challenge type into email
+              </a>
+            </td>
+            <td data-label="{{'registrationDate' | translate}}" class="text-center">
+              <span class="challenge-status closed">{{'idea' | translate}}</span>
+            </td>
+            <td data-label="{{'finalSubmissionDate' | translate}}" class="text-center">
+              <a href="">2</a>
+            </td>
+            <td data-label="{{'score' | translate}}" class="text-center">
+              <a href="">3.5</a>
+            </td>
+            <td data-label="{{'prize' | translate}}" class="text-center">
+              $4,500
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
   </div>
 </div>
