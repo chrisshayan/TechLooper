@@ -27,6 +27,8 @@ public interface ChallengeRegistrantService {
 
     List<ChallengeRegistrantEntity> findRegistrantsByChallengeId(Long challengeId);
 
+    List<ChallengeRegistrantEntity> findRegistrantsByOwner(String ownerEmail);
+
     ChallengeRegistrantEntity findRegistrantById(Long registrantId);
 
     ChallengeRegistrantDto rejectRegistrant(String ownerEmail, RejectRegistrantDto rejectRegistrantDto);
@@ -46,4 +48,6 @@ public interface ChallengeRegistrantService {
     List<ChallengeRegistrantFunnelItem> getChallengeRegistrantFunnel(Long challengeId, String ownerEmail);
 
     Long getTotalNumberOfRegistrants();
+
+    List<ChallengeDashBoardInfo> getChallengeDashBoardInfo(String registrantEmail);
 }

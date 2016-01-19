@@ -22,5 +22,7 @@ public interface ChallengeSubmissionService {
 
     ChallengeSubmissionEntity findChallengeSubmissionByRegistrantPhase(Long registrantId, ChallengePhaseEnum phase);
 
+    List<ChallengeSubmissionEntity> findChallengeSubmissionByRegistrant(Long registrantId);
+
     List<ChallengeSubmissionEntity> findChallengeSubmissionWithinPeriod(Long challengeId, Long currentDateTime, TimePeriodEnum period);
 }

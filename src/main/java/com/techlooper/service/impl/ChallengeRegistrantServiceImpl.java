@@ -4,6 +4,7 @@ import com.techlooper.dto.ChallengeQualificationDto;
 import com.techlooper.dto.ChallengeWinnerDto;
 import com.techlooper.dto.RejectRegistrantDto;
 import com.techlooper.entity.ChallengeEntity;
+import com.techlooper.entity.ChallengeRegistrantCriteria;
 import com.techlooper.entity.ChallengeRegistrantDto;
 import com.techlooper.entity.ChallengeRegistrantEntity;
 import com.techlooper.model.*;
@@ -212,9 +213,17 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
         return challenge.getWinners();
     }
 
+    @Override
     public List<ChallengeRegistrantEntity> findRegistrantsByChallengeId(Long challengeId) {
         NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withTypes("challengeRegistrant");
         searchQueryBuilder.withQuery(filteredQuery(matchAllQuery(), termFilter("challengeId", challengeId)));
+        return DataUtils.getAllEntities(challengeRegistrantRepository, searchQueryBuilder);
+    }
+
+    @Override
+    public List<ChallengeRegistrantEntity> findRegistrantsByOwner(String ownerEmail) {
+        NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withTypes("challengeRegistrant");
+        searchQueryBuilder.withQuery(filteredQuery(matchAllQuery(), termFilter("registrantEmail", ownerEmail)));
         return DataUtils.getAllEntities(challengeRegistrantRepository, searchQueryBuilder);
     }
 
@@ -379,4 +388,94 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
         return challengeRegistrantRepository.count();
     }
 
+    @Override
+    public List<ChallengeDashBoardInfo> getChallengeDashBoardInfo(String registrantEmail) {
+        List<ChallengeDashBoardInfo> challengeDashBoardInfoList = new ArrayList<>();
+        List<ChallengeRegistrantEntity> registrantEntities = findRegistrantsByOwner(registrantEmail);
+
+        for (ChallengeRegistrantEntity registrantEntity : registrantEntities) {
+            Long challengeId = registrantEntity.getChallengeId();
+            Long registrantId = registrantEntity.getRegistrantId();
+            ChallengeEntity challengeEntity = challengeService.findChallengeById(challengeId);
+
+            if (challengeEntity != null) {
+                ChallengeDashBoardInfo.Builder challengeDashBoardInfoBuilder = new ChallengeDashBoardInfo.Builder();
+                challengeDashBoardInfoBuilder.withChallengeId(challengeId);
+                challengeDashBoardInfoBuilder.withChallengeName(challengeEntity.getChallengeName());
+                challengeDashBoardInfoBuilder.withSubmissionDate(challengeEntity.getSubmissionDateTime());
+                ChallengePhaseEnum currentPhase = registrantEntity.getActivePhase() != null ?
+                        registrantEntity.getActivePhase() : REGISTRATION;
+                challengeDashBoardInfoBuilder.withCurrentPhase(currentPhase);
+                challengeDashBoardInfoBuilder.withCurrentPhaseSubmissionDate(getCurrentPhaseSubmissionDate(challengeEntity, currentPhase));
+                challengeDashBoardInfoBuilder.withDisqualified(registrantEntity.getDisqualified());
+
+                Integer numberOfSubmissions = challengeSubmissionService.findChallengeSubmissionByRegistrant(registrantId).size();
+                challengeDashBoardInfoBuilder.withNumberOfSubmissions(numberOfSubmissions);
+
+                ChallengeWinner winner = getChallengeWinner(challengeEntity, registrantId);
+                if (winner != null) {
+                    challengeDashBoardInfoBuilder.withRank(winner.getReward().getOrder());
+                    challengeDashBoardInfoBuilder.withPrize(getWinnerPrize(challengeEntity, winner));
+                }
+
+                challengeDashBoardInfoBuilder.withScore(getRegistrantSubmissionScore(registrantEntity));
+                challengeDashBoardInfoList.add(challengeDashBoardInfoBuilder.build());
+            }
+        }
+        return challengeDashBoardInfoList;
+    }
+
+    private Double getRegistrantSubmissionScore(ChallengeRegistrantEntity registrantEntity) {
+        Set<ChallengeRegistrantCriteria> criteria = registrantEntity.getCriteria();
+
+        Double totalScore = 0D;
+        if (criteria != null) {
+            for (ChallengeRegistrantCriteria criterion : criteria) {
+                if (criterion.getScore() != null) {
+                    totalScore += criterion.getWeight() * criterion.getScore();
+                }
+            }
+        }
+        return totalScore;
+    }
+
+    private Integer getWinnerPrize(ChallengeEntity challengeEntity, ChallengeWinner winner) {
+        switch (winner.getReward()) {
+            case FIRST_PLACE:
+                return challengeEntity.getFirstPlaceReward();
+            case SECOND_PLACE:
+                return challengeEntity.getSecondPlaceReward();
+            case THIRD_PLACE:
+                return challengeEntity.getThirdPlaceReward();
+            default:
+                return null;
+        }
+    }
+
+    private ChallengeWinner getChallengeWinner(ChallengeEntity challengeEntity, Long registrantId) {
+        Set<ChallengeWinner> winners = challengeEntity.getWinners();
+        for (ChallengeWinner winner : winners) {
+            if (winner.getRegistrantId() == registrantId) {
+                return winner;
+            }
+        }
+        return null;
+    }
+
+    private String getCurrentPhaseSubmissionDate(ChallengeEntity challengeEntity, ChallengePhaseEnum currentPhase) {
+        switch (currentPhase) {
+            case REGISTRATION:
+                return challengeEntity.getRegistrationDateTime();
+            case IDEA:
+                return challengeEntity.getIdeaSubmissionDateTime();
+            case UIUX:
+                return challengeEntity.getUxSubmissionDateTime();
+            case PROTOTYPE:
+                return challengeEntity.getPrototypeSubmissionDateTime();
+            case FINAL:
+                return challengeEntity.getSubmissionDateTime();
+            default:
+                return "";
+        }
+    }
 }

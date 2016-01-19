@@ -104,4 +104,63 @@ public class ChallengeDashBoardInfo {
     public void setDisqualified(Boolean disqualified) {
         this.disqualified = disqualified;
     }
+
+    public static class Builder {
+
+        private ChallengeDashBoardInfo challengeDashBoardInfo = new ChallengeDashBoardInfo();
+
+        public Builder withChallengeId(Long challengeId) {
+            challengeDashBoardInfo.setChallengeId(challengeId);
+            return this;
+        }
+
+        public Builder withChallengeName(String challengeName) {
+            challengeDashBoardInfo.setChallengeName(challengeName);
+            return this;
+        }
+
+        public Builder withSubmissionDate(String submissionDate) {
+            challengeDashBoardInfo.setSubmissionDate(submissionDate);
+            return this;
+        }
+
+        public Builder withCurrentPhase(ChallengePhaseEnum currentPhase) {
+            challengeDashBoardInfo.setCurrentPhase(currentPhase);
+            return this;
+        }
+
+        public Builder withCurrentPhaseSubmissionDate(String currentPhaseSubmissionDate) {
+            challengeDashBoardInfo.setCurrentPhaseSubmissionDate(currentPhaseSubmissionDate);
+            return this;
+        }
+
+        public Builder withNumberOfSubmissions(Integer numberOfSubmissions) {
+            challengeDashBoardInfo.setNumberOfSubmissions(numberOfSubmissions);
+            return this;
+        }
+
+        public Builder withScore(Double score) {
+            challengeDashBoardInfo.setScore(score);
+            return this;
+        }
+
+        public Builder withRank(Integer rank) {
+            challengeDashBoardInfo.setRank(rank);
+            return this;
+        }
+
+        public Builder withPrize(Integer prize) {
+            challengeDashBoardInfo.setPrize(prize);
+            return this;
+        }
+
+        public Builder withDisqualified(Boolean disqualified) {
+            challengeDashBoardInfo.setDisqualified(disqualified);
+            return this;
+        }
+
+        public ChallengeDashBoardInfo build() {
+            return challengeDashBoardInfo;
+        }
+    }
 }
