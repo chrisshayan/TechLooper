@@ -439,28 +439,33 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
         });
     };
 
-    challengeDetail.updateVisibleWinner = function() {
+    challengeDetail.updateVisibleWinner = function () {
       var challenge = _.pick(challengeDetail, challengeDetailKeys);
       challengeDetail.$disableVisibleWinners = true;
       apiService.updateVisibleWinner(challenge)
-        .success(function(challenge) {
+        .success(function (challenge) {
           challengeDetail.visibleWinners = challenge.visibleWinners;
           //challengeDetail.reloadWinners();
         })
-        .finally(function() {
+        .finally(function () {
           challengeDetail.$disableVisibleWinners = false;
         });
     }
 
-    challengeDetail.reloadWinners = function() {
+    challengeDetail.reloadWinners = function () {
       if (challengeDetail.visibleWinners) {
         apiService.getWinners(challengeDetail.challengeId)
-          .success(function(winners) {
-            challengeDetail.$winners = winners;
-            $.each(challengeDetail.$winners, function (i, winner) {
+          .success(function (winners) {
+            var maxWinner = _.max(winners, function (winner) { return parseFloat(winner.totalPoint); });
+            $.each(winners, function (i, winner) {
               winner.recalculate(challengeDetail);
+              winner.$sortWeight = parseFloat(winner.totalPoint) * 100;
+              winner.firstAwarded && (winner.$sortWeight *= 1000);
+              winner.secondAwarded && (winner.$sortWeight *= 100);
+              winner.thirdAwarded && (winner.$sortWeight *= 10);
             });
-            //console.log(challengeDetail.$winners);
+            winners.sort(function (w1, w2) {return w2.$sortWeight - w1.$sortWeight;});
+            challengeDetail.$winners = winners;
           });
       }
       else {

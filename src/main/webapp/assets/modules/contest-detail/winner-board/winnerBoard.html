@@ -15,8 +15,8 @@
           class="{{winner.$award}}">
         <td data-label="#">{{$index}}</td>
         <td data-label="{{'fullname' | translate}}">{{winner.fullName}}</td>
-        <td data-label="{{'registrationDate' | translate}}">{{winner.$registrantDate}}</td>
-        <td data-label="{{'finalSubmissionDate' | translate}}">{{winner.$lastSubmissionDate}}</td>
+        <td data-label="{{'registrationDate' | translate}}">{{winner.registrantId | timestamp: 'number'}}</td>
+        <td data-label="{{'finalSubmissionDate' | translate}}">{{winner.lastSubmission.submissionDateTime}}</td>
         <td data-label="{{'score' | translate}}">{{winner.totalPoint}}</td>
         <td data-label="{{'prize' | translate}}">{{winner.$awardPrice}}</td>
       </tr>

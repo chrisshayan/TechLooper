@@ -88,13 +88,12 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonV
     registrant.recalculate = function (challengeDetail) {
       if (registrant.submissions) {
         registrant.lastSubmission = _.isEmpty(registrant.submissions) ? undefined : _.max(registrant.submissions, function (submission) {return submission.challengeSubmissionId;});
-        registrant.$lastSubmissionDate = moment(registrant.lastSubmission.challengeSubmissionId).format(jsonValue.dateFormat);
       }
 
       registrant.activePhase = registrant.activePhase ? registrant.activePhase : "REGISTRATION";
       registrant.activePhaseLowerCase = registrant.activePhase.toLowerCase();
       registrant.fullName = registrant.registrantFirstName + " " + registrant.registrantLastName;
-      registrant.$registrantDate = moment(registrant.registrantId).format(jsonValue.dateFormat);
+      //registrant.$registrantDate = moment(registrant.registrantId).format(jsonValue.dateFormat);
 
       //TODO refactor savedTotalPoint in order to keep the last total point of criteria
       registrant.savedTotalPoint = numeral(_.reduceRight(registrant.criteria, function (sum, cri) {
