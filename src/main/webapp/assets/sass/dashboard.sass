@@ -329,7 +329,7 @@
     background-color: #fff
     border-bottom: 1px solid #ddd
   .score-details-block
-    display: inline-block
+    display: none
     clear: both
     width: 100%
     padding-top: 10px
@@ -347,6 +347,7 @@
       tbody
         td
           text-align: left
+          background-color: #f3f7f9 !important
         td:nth-child(2),
         td:nth-child(3),
         td:nth-child(4)
@@ -359,3 +360,39 @@
           text-align: left
         td:first-child
           text-align: right
+  .score-details-block.show
+    display: inline-block
+  .submission-listing-block
+    display: none
+    clear: both
+    width: 100%
+    padding-top: 10px
+    .contests-table
+      th
+        background-color: #f3f7f9 !important
+        text-align: left
+
+      th:nth-child(2)
+        text-align: center
+      th:nth-child(3)
+        text-align: center
+      th:nth-child(4)
+        text-align: center
+      tbody
+        td
+          text-align: left
+          background-color: #f3f7f9 !important
+        td:nth-child(2),
+        td:nth-child(3),
+        td:nth-child(4)
+          text-align: center
+      tfoot
+        td
+          background-color: #efefef
+          font-weight: 400
+          font-size: 16px
+          text-align: left
+        td:first-child
+          text-align: right
+  .submission-listing-block.show
+    display: inline-block

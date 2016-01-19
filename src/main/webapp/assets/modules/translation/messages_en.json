@@ -899,5 +899,6 @@
   "myProfile" :"My Profile",
   "myCurrentPhase": "My Current Phase",
   "submission": "Submission",
-  "challenge": "Challenge"
+  "challenge": "Challenge",
+  "phase": "Phase"
 }
