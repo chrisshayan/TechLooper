@@ -167,6 +167,14 @@ public class JobAggregatorServiceImpl implements JobAggregatorService {
         List<ScrapeJobEntity> jobs = scrapeJobRepository.search(searchQueryBuilder.build()).getContent();
         List<JobResponse> result = getJobResponses(jobs);
 
+        if (criteria.getPage() == 1) {
+            searchQueryBuilder = getVietnamworksJobQueryBuilder(criteria);
+            List<ScrapeJobEntity> vietnamworksJobs = scrapeJobRepository.search(searchQueryBuilder.build()).getContent();
+            List<JobResponse> vietnamworksJobResult = getJobResponses(vietnamworksJobs);
+            result.addAll(0, vietnamworksJobResult);
+            totalJob += vietnamworksJobs.size();
+        }
+
         JobSearchResponse jobSearchResponse = new JobSearchResponse.Builder()
                 .withTotalJob(totalJob).withTotalPage(totalPage).withPage(criteria.getPage()).withJobs(result).build();
         return jobSearchResponse;
@@ -323,6 +331,36 @@ public class JobAggregatorServiceImpl implements JobAggregatorService {
         searchQueryBuilder.withSort(SortBuilders.scoreSort());
         searchQueryBuilder.withSort(SortBuilders.fieldSort("createdDateTime").order(SortOrder.DESC));
         searchQueryBuilder.withPageable(new PageRequest(criteria.getPage() - 1, NUMBER_OF_ITEMS_PER_PAGE));
+        return searchQueryBuilder;
+    }
+
+    private NativeSearchQueryBuilder getVietnamworksJobQueryBuilder(JobSearchCriteria criteria) {
+        final int NUMBER_OF_ITEMS_PER_PAGE = 4;
+        NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withTypes("job");
+
+        QueryBuilder queryBuilder = null;
+        if (StringUtils.isEmpty(criteria.getKeyword()) && StringUtils.isEmpty(criteria.getLocation())) {
+            queryBuilder = matchAllQuery();
+        } else {
+            queryBuilder = boolQuery();
+            if (StringUtils.isNotEmpty(criteria.getKeyword())) {
+                ((BoolQueryBuilder) queryBuilder).must(
+                        multiMatchQuery(criteria.getKeyword()).field("jobTitle", 8).field("company", 2));
+            }
+            if (StringUtils.isNotEmpty(criteria.getLocation())) {
+                ((BoolQueryBuilder) queryBuilder).must(matchQuery("location", criteria.getLocation()).operator(Operator.AND));
+            }
+        }
+
+        BoolFilterBuilder filterBuilder = new BoolFilterBuilder();
+        filterBuilder.mustNot(termFilter("isActive", 0));
+        filterBuilder.must(rangeFilter("createdDateTime").from("now-30d/d"));
+        filterBuilder.must(termFilter("crawlSource", JobCrawlerSourceEnum.VIETNAMWORKS.getValue()));
+
+        searchQueryBuilder.withQuery(filteredQuery(queryBuilder, filterBuilder));
+        searchQueryBuilder.withSort(SortBuilders.scoreSort());
+        searchQueryBuilder.withSort(SortBuilders.fieldSort("createdDateTime").order(SortOrder.DESC));
+        searchQueryBuilder.withPageable(new PageRequest(0, NUMBER_OF_ITEMS_PER_PAGE));
         return searchQueryBuilder;
     }
 
