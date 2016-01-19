@@ -260,7 +260,6 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
       challengeDetail.recalculateCurrentUserJoined();
       challengeDetail.recalculatePhaseItems();
       challengeDetail.recalculateRegistrants(registrants);
-
     };
 
     challengeDetail.recalculateCurrentUserJoined = function () {
@@ -440,21 +439,34 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
         });
     };
 
-    challengeDetail.updateChallenge = function() {
+    challengeDetail.updateVisibleWinner = function() {
       var challenge = _.pick(challengeDetail, challengeDetailKeys);
-      apiService.updateChallenge(challenge)
+      challengeDetail.$disableVisibleWinners = true;
+      apiService.updateVisibleWinner(challenge)
         .success(function(challenge) {
           challengeDetail.visibleWinners = challenge.visibleWinners;
+          //challengeDetail.reloadWinners();
+        })
+        .finally(function() {
+          challengeDetail.$disableVisibleWinners = false;
         });
     }
 
-    //challengeDetail.toPlainObject = function() {//TODO need to think an other way to implement this
-    //  //var challenge = angular.copy(challengeDetail);
-    //  //for (var prop in challenge) {
-    //  //  (prop.startsWith("$") || _.isFunction(challenge[prop])) && delete challenge[prop];
-    //  //}
-    //  return challenge;
-    //}
+    challengeDetail.reloadWinners = function() {
+      if (challengeDetail.visibleWinners) {
+        apiService.getWinners(challengeDetail.challengeId)
+          .success(function(winners) {
+            challengeDetail.$winners = winners;
+            $.each(challengeDetail.$winners, function (i, winner) {
+              winner.recalculate(challengeDetail);
+            });
+            //console.log(challengeDetail.$winners);
+          });
+      }
+      else {
+        challengeDetail.$winners = [];
+      }
+    }
 
     challengeDetail.recalculate();
 

@@ -2,7 +2,8 @@
   <p translate="winnerDes"></p>
   <div class="announcement-winner">
     <label>
-      public winner<input ng-model="contestDetail.visibleWinners" ng-change="contestDetail.updateChallenge()" type="checkbox">
+      public winner<input ng-model="contestDetail.visibleWinners" ng-change="contestDetail.updateVisibleWinner()"
+                          ng-disabled="contestDetail.$disableVisibleWinners" type="checkbox">
     </label>
     <button translate="announceWinnerToAllContestants" class="btn btn-primary btn-flat"
             ng-class="{disabled: !contestDetail.winners.length}"

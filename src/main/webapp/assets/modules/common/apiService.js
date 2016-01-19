@@ -394,15 +394,17 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
     getWinners: function (challengeId) {
       return $http.get("challenge/" + challengeId + "/winners")
         .success(function (registrants) {
-          console.log(registrants);
-          //$.each(registrants, function (i, registrant) {
-          //  $filter("challengeRegistrant")(registrant, phase);
-          //});
+          $.each(registrants, function (i, registrant) {
+            $filter("challengeRegistrant")(registrant, "WINNER");
+          });
         });
     },
 
-    updateChallenge: function(challenge) {
-      return $http.put("challenge", challenge);
+    /**
+     * @see com.techlooper.controller.ChallengeController.updateVisibleWinner
+     * */
+    updateVisibleWinner: function(challenge) {
+      return $http.put("challenge/updateVisibleWinner", challenge);
     }
   };
 

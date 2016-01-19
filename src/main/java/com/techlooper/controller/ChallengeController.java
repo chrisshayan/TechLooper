@@ -187,13 +187,13 @@ public class ChallengeController {
 
     @RequestMapping(value = "challenge/{challengeId}/winners", method = RequestMethod.GET)
     public Set<ChallengeRegistrantDto> getWinners(@PathVariable Long challengeId) {
-        return challengeRegistrantService.getWinners(challengeId);
+        return challengeRegistrantService.getChallengeWinners(challengeId);
     }
 
     @PreAuthorize("hasAuthority('EMPLOYER')")
-    @RequestMapping(value = "challenge", method = RequestMethod.PUT)
-    public ChallengeDetailDto updateChallenge(@RequestBody ChallengeDetailDto challengeDetailDto, HttpServletRequest request, HttpServletResponse response) {
-        challengeDetailDto = challengeService.update(challengeDetailDto, request.getRemoteUser());
+    @RequestMapping(value = "challenge/updateVisibleWinner", method = RequestMethod.PUT)
+    public ChallengeDetailDto updateVisibleWinner(@RequestBody ChallengeDetailDto challengeDetailDto, HttpServletRequest request, HttpServletResponse response) {
+        challengeDetailDto = challengeService.updateVisibleWinner(challengeDetailDto, request.getRemoteUser());
         if (challengeDetailDto == null) {
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
         }

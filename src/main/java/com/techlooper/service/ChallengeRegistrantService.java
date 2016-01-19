@@ -47,5 +47,5 @@ public interface ChallengeRegistrantService {
 
     Long getTotalNumberOfRegistrants();
 
-    Set<ChallengeRegistrantDto> getWinners(Long challengeId);
+    Set<ChallengeRegistrantDto> getChallengeWinners(Long challengeId);
 }
