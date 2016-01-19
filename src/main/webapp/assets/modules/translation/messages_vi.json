@@ -806,7 +806,6 @@
   "addCriteria": "Thêm Tiêu Chí",
   "makeSure100Percent": "Vui lòng đảm bảo tổng trọng số luôn bằng 100%",
   "givenPoints": "Điểm <br/> 0 - 100",
-  "totalPoints": "Tổng Điểm",
   "automaticallySumCriteria": "Tự động tính tổng từ điểm số chấm cho từng tiêu chí ở trên",
   "emailSettingSuccessfully": "Các thiết lập email mới đã được cập nhật.",
   "errorSystem": "Lỗi hệ thống. Xin vui lòng thử lại sau.",
