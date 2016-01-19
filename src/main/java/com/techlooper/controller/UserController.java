@@ -356,4 +356,41 @@ public class UserController {
         return qualifiedRegistrants;
     }
 
+//    @PreAuthorize("hasAnyAuthority('JOB_SEEKER')")
+    @RequestMapping(value = "/user/jobSeeker/dashboard-info", method = RequestMethod.GET)
+    public JobSeekerDashBoardInfo getJobSeekerDashboard(HttpServletRequest request) {
+        JobSeekerDashBoardInfo jobSeekerDashBoardInfo = new JobSeekerDashBoardInfo();
+        jobSeekerDashBoardInfo.setEmail(request.getRemoteUser());
+        List<ChallengeDashBoardInfo> challenges = new ArrayList<>();
+
+        ChallengeDashBoardInfo challengeDashBoardInfo = new ChallengeDashBoardInfo();
+        challengeDashBoardInfo.setChallengeId(1436349549515L);
+        challengeDashBoardInfo.setChallengeName("Make techlooper successful");
+        challengeDashBoardInfo.setCurrentPhase(ChallengePhaseEnum.IDEA);
+        challengeDashBoardInfo.setCurrentPhaseSubmissionDate("21/01/2016");
+        challengeDashBoardInfo.setNumberOfSubmissions(10);
+        challengeDashBoardInfo.setPrize(2000);
+        challengeDashBoardInfo.setRank(1);
+        challengeDashBoardInfo.setScore(78.9);
+        challengeDashBoardInfo.setSubmissionDate("31/01/2016");
+        challengeDashBoardInfo.setDisqualified(Boolean.TRUE);
+        challenges.add(challengeDashBoardInfo);
+
+        ChallengeDashBoardInfo challengeDashBoardInfo2 = new ChallengeDashBoardInfo();
+        challengeDashBoardInfo2.setChallengeId(1436354267734L);
+        challengeDashBoardInfo2.setChallengeName("Make techlooper successful 2");
+        challengeDashBoardInfo2.setCurrentPhase(ChallengePhaseEnum.FINAL);
+        challengeDashBoardInfo2.setCurrentPhaseSubmissionDate("22/01/2016");
+        challengeDashBoardInfo2.setNumberOfSubmissions(9);
+        challengeDashBoardInfo2.setPrize(1000);
+        challengeDashBoardInfo2.setRank(2);
+        challengeDashBoardInfo2.setScore(48.9);
+        challengeDashBoardInfo2.setSubmissionDate("29/01/2016");
+        challengeDashBoardInfo2.setDisqualified(Boolean.FALSE);
+
+        challenges.add(challengeDashBoardInfo2);
+        jobSeekerDashBoardInfo.setChallenges(challenges);
+        return jobSeekerDashBoardInfo;
+    }
+
 }

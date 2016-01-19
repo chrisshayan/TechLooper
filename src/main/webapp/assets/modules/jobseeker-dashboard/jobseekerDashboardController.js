@@ -1,3 +1,2 @@
 techlooper.controller('jobseekerDashboardController', function () {
-
 });
