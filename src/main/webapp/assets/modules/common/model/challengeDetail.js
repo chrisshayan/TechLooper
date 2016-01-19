@@ -3,6 +3,7 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
     if (!input || input.$isRich) return input;
 
     var challengeDetail = input;
+    var challengeDetailKeys = _.keys(input);
 
     challengeDetail.$filter = {
 
@@ -438,6 +439,22 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
           challengeDetail.refreshFunnelItems();
         });
     };
+
+    challengeDetail.updateChallenge = function() {
+      var challenge = _.pick(challengeDetail, challengeDetailKeys);
+      apiService.updateChallenge(challenge)
+        .success(function(challenge) {
+          challengeDetail.visibleWinners = challenge.visibleWinners;
+        });
+    }
+
+    //challengeDetail.toPlainObject = function() {//TODO need to think an other way to implement this
+    //  //var challenge = angular.copy(challengeDetail);
+    //  //for (var prop in challenge) {
+    //  //  (prop.startsWith("$") || _.isFunction(challenge[prop])) && delete challenge[prop];
+    //  //}
+    //  return challenge;
+    //}
 
     challengeDetail.recalculate();
 

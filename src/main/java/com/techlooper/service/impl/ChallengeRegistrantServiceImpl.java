@@ -425,6 +425,18 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
         return challengeDashBoardInfoList;
     }
 
+    @Override
+    public Set<ChallengeRegistrantDto> getWinners(Long challengeId) {
+        ChallengeEntity challenge = challengeRepository.findOne(challengeId);
+        Set<ChallengeRegistrantDto> winners = new HashSet<>();
+//        if (challenge != null && Boolean.TRUE.equals(challenge.getVisibleWinners())) {
+        challenge.getWinners().forEach(winner -> {
+            winners.add(dozerMapper.map(challengeRegistrantRepository.findOne(winner.getRegistrantId()), ChallengeRegistrantDto.class));
+        });
+//        }
+        return winners;
+    }
+
     private Double getRegistrantSubmissionScore(ChallengeRegistrantEntity registrantEntity) {
         Set<ChallengeRegistrantCriteria> criteria = registrantEntity.getCriteria();
 

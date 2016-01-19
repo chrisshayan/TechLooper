@@ -223,7 +223,6 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonV
     };
 
     registrant.criteriaLoop();//calc totalPoint
-    //console.log(registrant);
 
     registrant.$isRich = true;
     return registrant;

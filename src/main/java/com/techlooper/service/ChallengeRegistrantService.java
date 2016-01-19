@@ -50,4 +50,6 @@ public interface ChallengeRegistrantService {
     Long getTotalNumberOfRegistrants();
 
     List<ChallengeDashBoardInfo> getChallengeDashBoardInfo(String registrantEmail);
+
+    Set<ChallengeRegistrantDto> getWinners(Long challengeId);
 }
