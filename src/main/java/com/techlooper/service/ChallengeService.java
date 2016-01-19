@@ -42,4 +42,5 @@ public interface ChallengeService {
 
     void calculateChallengePhases(ChallengeDetailDto challengeDetailDto);
 
+    ChallengeDetailDto update(ChallengeDetailDto challengeDetailDto, String owner);
 }

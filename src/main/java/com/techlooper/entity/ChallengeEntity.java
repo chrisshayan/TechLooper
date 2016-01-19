@@ -113,6 +113,17 @@ public class ChallengeEntity {
     @Field(type = String)
     private List<String> companyDomains;
 
+    @Field(type = Boolean)
+    private Boolean visibleWinners;
+
+    public java.lang.Boolean getVisibleWinners() {
+        return visibleWinners;
+    }
+
+    public void setVisibleWinners(java.lang.Boolean visibleWinners) {
+        this.visibleWinners = visibleWinners;
+    }
+
     public Set<ChallengeWinner> getWinners() {
         if (winners == null) winners = new HashSet<>();
         return winners;

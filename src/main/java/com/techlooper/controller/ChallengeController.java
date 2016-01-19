@@ -184,4 +184,19 @@ public class ChallengeController {
         }
         return winners;
     }
+
+    @RequestMapping(value = "challenge/{challengeId}/winners", method = RequestMethod.GET)
+    public Set<ChallengeRegistrantDto> getWinners(@PathVariable Long challengeId) {
+        return challengeRegistrantService.getWinners(challengeId);
+    }
+
+    @PreAuthorize("hasAuthority('EMPLOYER')")
+    @RequestMapping(value = "challenge", method = RequestMethod.PUT)
+    public ChallengeDetailDto updateChallenge(@RequestBody ChallengeDetailDto challengeDetailDto, HttpServletRequest request, HttpServletResponse response) {
+        challengeDetailDto = challengeService.update(challengeDetailDto, request.getRemoteUser());
+        if (challengeDetailDto == null) {
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+        }
+        return challengeDetailDto;
+    }
 }

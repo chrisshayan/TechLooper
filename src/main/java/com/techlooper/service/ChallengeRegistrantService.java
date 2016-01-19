@@ -46,4 +46,6 @@ public interface ChallengeRegistrantService {
     List<ChallengeRegistrantFunnelItem> getChallengeRegistrantFunnel(Long challengeId, String ownerEmail);
 
     Long getTotalNumberOfRegistrants();
+
+    Set<ChallengeRegistrantDto> getWinners(Long challengeId);
 }

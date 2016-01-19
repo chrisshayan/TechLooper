@@ -68,15 +68,15 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
           });
         });
     },
-    filterContests: function(type, keyword){
+    filterContests: function (type, keyword) {
       return $http.post("challenge/search", {
-        challengeType : type,
-        challengeSearchText :keyword
-    }).success(function (contests) {
-      $.each(contests, function (i, contest) {
-        $filter("challengeDetail")(contest);
+        challengeType: type,
+        challengeSearchText: keyword
+      }).success(function (contests) {
+        $.each(contests, function (i, contest) {
+          $filter("challengeDetail")(contest);
+        });
       });
-    });
     },
     getSuggestSkills: function (text) {
       return $http.get("suggestion/skills/" + text);
@@ -386,11 +386,24 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
         nextPhase: nextPhase,
         registrantIds: registrantIds
       });
-    }
+    },
 
-    //checkRegistrantJoinedChallenge: function (challengeId, emails) {
-    //  return $http.post("challenge/" + challengeId + "/registrants/joined", emails, {transformResponse: function (d, h) {return d;}})
-    //}
+    /**
+     * @see com.techlooper.controller.ChallengeController.getWinners
+     * */
+    getWinners: function (challengeId) {
+      return $http.get("challenge/" + challengeId + "/winners")
+        .success(function (registrants) {
+          console.log(registrants);
+          //$.each(registrants, function (i, registrant) {
+          //  $filter("challengeRegistrant")(registrant, phase);
+          //});
+        });
+    },
+
+    updateChallenge: function(challenge) {
+      return $http.put("challenge", challenge);
+    }
   };
 
   return instance;
