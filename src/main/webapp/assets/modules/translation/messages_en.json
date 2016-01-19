@@ -788,7 +788,6 @@
   "exChooseATemplate": "Choose a template",
   "points": "Points",
   "comment": "Comment",
-  "totalPoints": "Total Points",
   "contestantsReturned": "<strong>{{number}}</strong> contestant(s) returned",
   "evaluationCriteria": "Evaluation Criteria",
   "criteriaName": "Criteria Name",
