@@ -14,7 +14,7 @@ techlooper.directive('confirmOnExit', function ($rootScope, $confirm, $window, $
       var e = undefined;
       scope.$on('$locationChangeStart', function (event, next, current) {
         if (processing) {
-          console.log(confirmed);
+          //console.log(confirmed);
           //if (!e) {
           return event.preventDefault();
           //}

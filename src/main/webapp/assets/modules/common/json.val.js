@@ -244,8 +244,15 @@ techlooper.factory("jsonValue", function () {
         name: "employerDashboard",
         url: "/employer-dashboard",
         roles: ["EMPLOYER"],
-        loginUrl: "/login",
-        ignoreIfLastFoot: true
+        loginUrl: "/login"
+        //ignoreIfLastFoot: true
+      },
+      {
+        name: "jobseekerDashboard",
+        url: "/jobseeker-dashboard",
+        roles: ["JOB_SEEKER"],
+        loginUrl: "/user-type"
+        //ignoreIfLastFoot: true
       },
       {
         name: "emailSetting",
