@@ -373,8 +373,8 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
             _.extendOwn(challengeDetail.phaseItems[i], items[i]);
             challengeDetail.recalculatePhaseItem(challengeDetail.phaseItems[i]);
           }
-
           challengeDetail.recalculateHadRegistrant();
+          challengeDetail.winnerBoardListing = challengeDetail.phaseItems[challengeDetail.phaseItems.length - 1].participant;
         });
     };
 
