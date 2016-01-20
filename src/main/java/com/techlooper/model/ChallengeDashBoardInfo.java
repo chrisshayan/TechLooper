@@ -1,5 +1,9 @@
 package com.techlooper.model;
 
+import com.techlooper.entity.ChallengeRegistrantCriteria;
+
+import java.util.Set;
+
 /**
  * Created by NguyenDangKhoa on 1/19/16.
  */
@@ -24,6 +28,8 @@ public class ChallengeDashBoardInfo {
     private Integer prize;
 
     private Boolean disqualified;
+
+    private Set<ChallengeRegistrantCriteria> criteria;
 
     public Long getChallengeId() {
         return challengeId;
@@ -105,6 +111,14 @@ public class ChallengeDashBoardInfo {
         this.disqualified = disqualified;
     }
 
+    public Set<ChallengeRegistrantCriteria> getCriteria() {
+        return criteria;
+    }
+
+    public void setCriteria(Set<ChallengeRegistrantCriteria> criteria) {
+        this.criteria = criteria;
+    }
+
     public static class Builder {
 
         private ChallengeDashBoardInfo challengeDashBoardInfo = new ChallengeDashBoardInfo();
@@ -156,6 +170,11 @@ public class ChallengeDashBoardInfo {
 
         public Builder withDisqualified(Boolean disqualified) {
             challengeDashBoardInfo.setDisqualified(disqualified);
+            return this;
+        }
+
+        public Builder withCriteria(Set<ChallengeRegistrantCriteria> criteria) {
+            challengeDashBoardInfo.setCriteria(criteria);
             return this;
         }
 
