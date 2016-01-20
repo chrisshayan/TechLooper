@@ -282,14 +282,14 @@ public class ChallengeServiceImpl implements ChallengeService {
         }
     }
 
-    public ChallengeDetailDto update(ChallengeDetailDto challengeDetailDto, String ownerEmail) {
+    public ChallengeDetailDto updateVisibleWinner(ChallengeDetailDto challengeDetailDto, String ownerEmail) {
         ChallengeEntity challenge = findChallengeById(challengeDetailDto.getChallengeId(), ownerEmail);
         if (challenge == null) {
             return null;
         }
-        dozerMapper.map(challengeDetailDto, challenge);
+        challenge.setVisibleWinners(challengeDetailDto.getVisibleWinners());
         challenge = challengeRepository.save(challenge);
-        dozerMapper.map(challenge, challengeDetailDto);
+        challengeDetailDto = dozerMapper.map(challenge, ChallengeDetailDto.class);
         return challengeDetailDto;
     }
 

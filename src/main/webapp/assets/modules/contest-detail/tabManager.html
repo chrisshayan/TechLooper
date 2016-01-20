@@ -9,8 +9,8 @@
     <li ng-show="contestDetail.isAuthor">
       <a data-toggle="tab" href=".evaluation-criteria" translate="evaluationCriteria"></a>
     </li>
-    <li ng-if="contestDetail.$isPublic">
-      <a data-toggle="tab" href=".winner-board" translate="winnerBoard"></a>
+    <li ng-if="contestDetail.visibleWinners">
+      <a data-toggle="tab" href=".winner-board" translate="winnerBoard" ng-click="contestDetail.reloadWinners()"></a>
     </li>
   </ul>
 </div>

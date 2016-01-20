@@ -1,4 +1,4 @@
-techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonValue) {
+techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonValue, $filter) {
   return function (input) {
     if (!input || input.$isRich) return input;
 
@@ -93,6 +93,7 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonV
       registrant.activePhase = registrant.activePhase ? registrant.activePhase : "REGISTRATION";
       registrant.activePhaseLowerCase = registrant.activePhase.toLowerCase();
       registrant.fullName = registrant.registrantFirstName + " " + registrant.registrantLastName;
+      //registrant.$registrantDate = moment(registrant.registrantId).format(jsonValue.dateFormat);
 
       //TODO refactor savedTotalPoint in order to keep the last total point of criteria
       registrant.savedTotalPoint = numeral(_.reduceRight(registrant.criteria, function (sum, cri) {
@@ -158,8 +159,16 @@ techlooper.filter("challengeRegistrant", function (apiService, $rootScope, jsonV
       if (!rgt) return;
 
       registrant.firstAwarded = (rgt.reward == jsonValue.rewards.firstPlaceEnum());
+      (registrant.firstAwarded) && (registrant.$awardPrice = "$" + $filter("number")(registrant.$challengeDetail.firstPlaceReward));
+      (registrant.firstAwarded) && (registrant.$award = "the-first-prize");
+
       registrant.secondAwarded = (rgt.reward == jsonValue.rewards.secondPlaceEnum());
+      (registrant.secondAwarded) && (registrant.$awardPrice = "$" + $filter("number")(registrant.$challengeDetail.secondPlaceReward));
+      (registrant.secondAwarded) && (registrant.$award = "the-second-prize");
+
       registrant.thirdAwarded = (rgt.reward == jsonValue.rewards.thirdPlaceEnum());
+      (registrant.thirdAwarded) && (registrant.$awardPrice = "$" + $filter("number")(registrant.$challengeDetail.thirdPlaceReward));
+      (registrant.thirdAwarded) && (registrant.$award = "the-third-prize");
     }
 
     registrant.acceptSubmission = function (submission) {

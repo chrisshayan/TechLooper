@@ -1,7 +1,9 @@
 <div class="phase-description">
   <p translate="winnerDes"></p>
   <div class="announcement-winner">
-    <label><input ng-model="contestDetail.visibleWinners" ng-change="contestDetail.updateChallenge()" type="checkbox"><span translate="showWinnerBoard"></span></label>
+    <label><input ng-model="contestDetail.visibleWinners" ng-change="contestDetail.updateVisibleWinner()"
+                  ng-disabled="contestDetail.$disableVisibleWinners" type="checkbox"><span translate="showWinnerBoard"></span></label>
+
     <button class="btn btn-primary btn-flat" title="{{'announceWinnerToAllContestants' | translate}}"
             ng-class="{disabled: !contestDetail.winners.length}"
             ng-disabled="!contestDetail.winners.length" ng-click="announcementWinner()"
