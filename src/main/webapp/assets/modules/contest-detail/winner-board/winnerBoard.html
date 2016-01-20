@@ -13,12 +13,20 @@
     <tbody>
       <tr ng-repeat="winner in contestDetail.$winners track by $index"
           class="{{winner.$award}}">
-        <td data-label="#">{{$index}}</td>
-        <td data-label="{{'fullname' | translate}}">{{winner.fullName}}</td>
-        <td data-label="{{'registrationDate' | translate}}">{{winner.registrantId | timestamp: 'number'}}</td>
-        <td data-label="{{'finalSubmissionDate' | translate}}">{{winner.lastSubmission.submissionDateTime}}</td>
+        <td data-label="#">{{$index + 1}}</td>
+        <td data-label="{{'fullNameField' | translate}}">{{winner.fullName}}</td>
+        <td data-label="{{'registrationDate' | translate}}">
+          {{winner.registrantId | timestamp: 'number'}}
+        </td>
+        <td data-label="{{'finalSubmissionDate' | translate}}">
+          {{winner.lastSubmission.submissionDateTime}}
+          <span ng-if="winner.lastSubmission.submissionDateTime == null">-</span>
+        </td>
         <td data-label="{{'score' | translate}}">{{winner.totalPoint}}</td>
-        <td data-label="{{'prize' | translate}}">{{winner.$awardPrice}}</td>
+        <td data-label="{{'prize' | translate}}">
+          {{winner.$awardPrice}}
+          <span ng-if="winner.$awardPrice == null">-</span>
+        </td>
       </tr>
     </tbody>
   </table>

@@ -1578,14 +1578,15 @@
     table
       margin-bottom: 0
       th
-        text-align: left !important
         padding: 8px 10px !important
-      th:last-child
-        text-align: center !important
+      th:nth-child(1),
+      th:nth-child(2)
+        text-align: left !important
     td
       padding: 8px 10px !important
+    td:nth-child(1),
+    td:nth-child(2)
       text-align: left
-
     tr.the-first-prize
       background-color: #fff7e7
       td:first-child
