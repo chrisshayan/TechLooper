@@ -232,6 +232,7 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
           if (item.phase == challengeDetail.nextPhase) {
             item.isNextPhase = true;
           }
+
         });
 
         // make un-selectable phase from current-phase + 2
@@ -372,6 +373,7 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
             _.extendOwn(challengeDetail.phaseItems[i], items[i]);
             challengeDetail.recalculatePhaseItem(challengeDetail.phaseItems[i]);
           }
+
           challengeDetail.recalculateHadRegistrant();
         });
     };

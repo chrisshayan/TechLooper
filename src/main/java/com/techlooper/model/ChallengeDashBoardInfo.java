@@ -1,7 +1,9 @@
 package com.techlooper.model;
 
 import com.techlooper.entity.ChallengeRegistrantCriteria;
+import com.techlooper.entity.ChallengeSubmissionEntity;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -30,6 +32,8 @@ public class ChallengeDashBoardInfo {
     private Boolean disqualified;
 
     private Set<ChallengeRegistrantCriteria> criteria;
+
+    private List<ChallengeSubmissionEntity> submissions;
 
     public Long getChallengeId() {
         return challengeId;
@@ -119,6 +123,14 @@ public class ChallengeDashBoardInfo {
         this.criteria = criteria;
     }
 
+    public List<ChallengeSubmissionEntity> getSubmissions() {
+        return submissions;
+    }
+
+    public void setSubmissions(List<ChallengeSubmissionEntity> submissions) {
+        this.submissions = submissions;
+    }
+
     public static class Builder {
 
         private ChallengeDashBoardInfo challengeDashBoardInfo = new ChallengeDashBoardInfo();
@@ -175,6 +187,11 @@ public class ChallengeDashBoardInfo {
 
         public Builder withCriteria(Set<ChallengeRegistrantCriteria> criteria) {
             challengeDashBoardInfo.setCriteria(criteria);
+            return this;
+        }
+
+        public Builder withSubmissions(List<ChallengeSubmissionEntity> submissions) {
+            challengeDashBoardInfo.setSubmissions(submissions);
             return this;
         }
 
