@@ -61,11 +61,13 @@
                 <span class="note">0 day(s) left to submission</span>
               </div>
               <div class="col-sm-2 submission-col">
-                <a ng-click="toggleSubmissions(challenge)" ng-if="challenge.submissions.length">{{challenge.submissions.length}} <i class="fa fa-caret-down"></i></a>
+                <a ng-click="toggleSubmissions(challenge)" ng-if="challenge.submissions.length">{{challenge.submissions.length}}
+                  <i class="fa fa-caret-down" ng-class="{'fa-caret-up': challenge.$toggle.isToggleSubmissions()}"></i></a>
                 <span ng-if="!challenge.submissions.length">-</span>
               </div>
               <div class="col-sm-2 score-col">
-                <a ng-click="toggleCriteria(challenge)" ng-if="challenge.$totalPoints > 0">{{challenge.$totalPoints}} <i class="fa fa-caret-down"></i></a>
+                <a ng-click="toggleCriteria(challenge)" ng-if="challenge.$totalPoints > 0">{{challenge.$totalPoints}}
+                  <i class="fa fa-caret-down" ng-class="{'fa-caret-up': challenge.$toggle.isToggleCriteria()}"></i></a>
                 <span ng-if="challenge.$totalPoints == 0">-</span>
               </div>
               <div class="col-sm-1 prize-col">
