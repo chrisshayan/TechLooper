@@ -18,4 +18,6 @@ public interface SalaryReviewService {
 
     List<TopPaidJob> findTopPaidJob(SalaryReviewDto salaryReviewDto);
 
+    String chooseTheMostRelevantTitle(List<String> normalizedJobTitleCandidates);
+
 }

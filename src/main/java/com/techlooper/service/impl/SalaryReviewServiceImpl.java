@@ -28,9 +28,7 @@ import javax.mail.internet.MimeMessage;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-import static java.util.stream.Collectors.joining;
-import static java.util.stream.Collectors.toList;
-import static java.util.stream.Collectors.toSet;
+import static java.util.stream.Collectors.*;
 import static org.elasticsearch.index.query.FilterBuilders.*;
 import static org.elasticsearch.index.query.QueryBuilders.filteredQuery;
 import static org.elasticsearch.index.query.QueryBuilders.matchQuery;
@@ -43,7 +41,7 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
 
     private static final int TWO_PERCENTILES = 2;
 
-    private static final int LIMIT_NUMBER_OF_JOBS_FOR_SALARY_REVIEW = 1000;
+    private static final int LIMIT_NUMBER_OF_JOBS_FOR_SALARY_REVIEW = 300;
 
     private static final double[] percents = new double[]{10D, 25D, 50D, 75D, 90D};
 
@@ -125,7 +123,7 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
         SalaryReviewCondition salaryReviewCondition = dozerMapper.map(salaryReviewDto, SalaryReviewCondition.class);
 
         List<String> normalizedJobTitleCandidates = suggestionService.searchJobTitles(salaryReviewCondition.getJobTitle());
-        String standardJobTitle = chooseTheBestJobTitle(normalizedJobTitleCandidates);
+        String standardJobTitle = chooseTheMostRelevantTitle(normalizedJobTitleCandidates);
         if (StringUtils.isNotEmpty(standardJobTitle)) {
             salaryReviewCondition.setJobTitle(standardJobTitle);
         }
@@ -147,9 +145,10 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
             jobRepository.addStrategy(searchByTitleStrategy);
         }
 
+        int originalNumberOfJobs = jobRepository.getJobs().size();
         Set<JobEntity> jobForReview = jobRepository.getJobs().stream().limit(LIMIT_NUMBER_OF_JOBS_FOR_SALARY_REVIEW).collect(toSet());
 
-        SalaryReviewResultDto salaryReviewResult = generateSalaryReport(salaryReviewDto, jobForReview);
+        SalaryReviewResultDto salaryReviewResult = generateSalaryReport(salaryReviewDto, jobForReview, originalNumberOfJobs);
         return salaryReviewResult;
     }
 
@@ -184,7 +183,8 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
         return topPaidJobs;
     }
 
-    private String chooseTheBestJobTitle(List<String> normalizedJobTitleCandidates) {
+    @Override
+    public String chooseTheMostRelevantTitle(List<String> normalizedJobTitleCandidates) {
         List<String> result = new ArrayList<>();
         for (String normalizedJobTitleCandidate : normalizedJobTitleCandidates) {
             result.add(StringUtils.trim(normalizedJobTitleCandidate.replaceAll("\\d+.*", " ")));
@@ -197,7 +197,7 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
         return null;
     }
 
-    private SalaryReviewResultDto generateSalaryReport(SalaryReviewDto salaryReviewDto, Set<JobEntity> jobs) {
+    private SalaryReviewResultDto generateSalaryReport(SalaryReviewDto salaryReviewDto, Set<JobEntity> jobs, int originalNumberOfJobs) {
         SalaryReport salaryReport = new SalaryReport();
         salaryReport.setNetSalary(salaryReviewDto.getNetSalary());
 
@@ -222,7 +222,7 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
             percentRank = calculatePercentPosition(salaryReport);
         }
         salaryReport.setPercentRank(Math.floor(percentRank));
-        salaryReport.setNumberOfJobs(jobs.size());
+        salaryReport.setNumberOfJobs(originalNumberOfJobs);
 
         SalaryReviewResultDto salaryReviewResult = dozerMapper.map(salaryReviewDto, SalaryReviewResultDto.class);
         salaryReviewResult.setSalaryReport(salaryReport);

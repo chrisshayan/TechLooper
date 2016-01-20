@@ -17,6 +17,8 @@ public class GetPromotedRequest {
 
     private String campaign;
 
+    private String techlooperJobId;
+
     public String getJobTitle() {
         return jobTitle;
     }
@@ -55,5 +57,13 @@ public class GetPromotedRequest {
 
     public void setCampaign(String campaign) {
         this.campaign = campaign;
+    }
+
+    public String getTechlooperJobId() {
+        return techlooperJobId;
+    }
+
+    public void setTechlooperJobId(String techlooperJobId) {
+        this.techlooperJobId = techlooperJobId;
     }
 }
