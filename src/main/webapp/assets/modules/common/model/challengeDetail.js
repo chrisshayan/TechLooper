@@ -445,7 +445,6 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
       apiService.updateVisibleWinner(challenge)
         .success(function (challenge) {
           challengeDetail.visibleWinners = challenge.visibleWinners;
-          //challengeDetail.reloadWinners();
         })
         .finally(function () {
           challengeDetail.$disableVisibleWinners = false;

@@ -405,6 +405,16 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
      * */
     updateVisibleWinner: function(challenge) {
       return $http.put("challenge/updateVisibleWinner", challenge);
+    },
+
+    /**
+     * @see com.techlooper.controller.UserController.getJobSeekerDashboard
+     * */
+    getJobseekerDashboard: function() {
+      return $http.get("user/jobSeeker/dashboard-info")
+        .success(function(info) {
+          $filter("jobseekerDashboard")(info);
+        });
     }
   };
 
