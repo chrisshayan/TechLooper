@@ -16,7 +16,7 @@ techlooper.filter("jobseekerDashboardChallenge", function ($filter, $translate) 
     };
 
     challenge.recalculateDaysLeft = function() {
-      
+
     };
 
     challenge.recalculateSubmissions = function() {
