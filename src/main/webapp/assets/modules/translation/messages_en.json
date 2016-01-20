@@ -836,6 +836,7 @@
   "submissionToPhase": "Submission to phase:",
   "submissionsReviewTip": "Review",
   "announceWinnerToAllContestants": "Announce winners to all contestants",
+  "announceWinner": "Announce winners",
   "daysLeft": "<strong>{{days}}</strong> day(s) left",
   "qualifyToNextPhaseConfirm": "Select the phase this contestant is qualified to:",
   "cannotQualifyNextPhase": "The <strong>{{nextPhase}}</strong> phase is not open for qualifications till by the end of <strong>{{endDatePhase}}</strong>.",
@@ -900,5 +901,6 @@
   "myCurrentPhase": "My Current Phase",
   "submission": "Submission",
   "challenge": "Challenge",
-  "phase": "Phase"
+  "phase": "Phase",
+  "showWinnerBoard": "Show Winner Board To Tech Talents"
 }
