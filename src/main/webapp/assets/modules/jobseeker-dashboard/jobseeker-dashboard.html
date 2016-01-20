@@ -61,30 +61,16 @@
                 <span class="note">0 day(s) left to submission</span>
               </div>
               <div class="col-sm-2 submission-col">
-<<<<<<< HEAD
-                <span ng-if="!challenge.submissions.length">0</span>
-                <a ng-if="challenge.submissions.length" ng-click="toggleSubmissions(challenge)">{{challenge.submissions.length}} <i class="fa fa-caret-down"></i></a>
-              </div>
-              <div class="col-sm-2 score-col">
-                <span ng-if="!challenge.criteria.length">-</span>
-                <a ng-if="challenge.criteria.length" ng-click="toggleCriteria(challenge)">{{challenge.$totalPoints}} <i class="fa fa-caret-down"></i></a>
-=======
                 <a ng-click="toggleSubmissions(challenge)" ng-if="challenge.submissions.length">{{challenge.submissions.length}} <i class="fa fa-caret-down"></i></a>
                 <span ng-if="!challenge.submissions.length">-</span>
               </div>
               <div class="col-sm-2 score-col">
                 <a ng-click="toggleCriteria(challenge)" ng-if="challenge.$totalPoints > 0">{{challenge.$totalPoints}} <i class="fa fa-caret-down"></i></a>
                 <span ng-if="challenge.$totalPoints == 0">-</span>
->>>>>>> 20bc8f84d8298f2bec07e06a311651ece04fd7ae
               </div>
               <div class="col-sm-1 prize-col">
-<<<<<<< HEAD
-                <span ng-if="!challenge.rank">-</span>
-                <span ng-if="challenge.rank">{{challenge.$awardPrizeTitle}}</span>
-=======
                 {{challenge.$awardPrizeTitle}}
                 <span ng-if="!challenge.rank">-</span>
->>>>>>> 64356b2bb40625baae1a4104e3720f00a8ecc13a
               </div>
               <div class="col-sm-1 prize-col">
                 <span ng-if="challenge.rank" class="winner"></span>
