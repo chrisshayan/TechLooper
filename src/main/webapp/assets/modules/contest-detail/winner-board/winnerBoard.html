@@ -11,6 +11,11 @@
     </tr>
     </thead>
     <tbody>
+      <tr ng-if="!contestDetail.$winners.length">
+        <td colspan="6"  class="text-center">
+          {{'noData' | translate }}
+        </td>
+      </tr>
       <tr ng-repeat="winner in contestDetail.$winners track by $index"
           class="{{winner.$award}}">
         <td data-label="#">{{$index + 1}}</td>
