@@ -61,13 +61,16 @@
                 <span class="note">0 day(s) left to submission</span>
               </div>
               <div class="col-sm-2 submission-col">
-                <a ng-click="toggleSubmissions(challenge)">{{challenge.submissions.length}} <i class="fa fa-caret-down"></i></a>
+                <span ng-if="!challenge.submissions.length">0</span>
+                <a ng-if="challenge.submissions.length" ng-click="toggleSubmissions(challenge)">{{challenge.submissions.length}} <i class="fa fa-caret-down"></i></a>
               </div>
               <div class="col-sm-2 score-col">
-                <a ng-click="toggleCriteria(challenge)">{{challenge.$totalPoints}} <i class="fa fa-caret-down"></i></a>
+                <span ng-if="!challenge.criteria.length">-</span>
+                <a ng-if="challenge.criteria.length" ng-click="toggleCriteria(challenge)">{{challenge.$totalPoints}} <i class="fa fa-caret-down"></i></a>
               </div>
               <div class="col-sm-1 prize-col">
-                {{challenge.$awardPrizeTitle}}
+                <span ng-if="!challenge.rank">-</span>
+                <span ng-if="challenge.rank">{{challenge.$awardPrizeTitle}}</span>
               </div>
               <div ng-if="challenge.rank" class="col-sm-1 prize-col">
                 <span class="winner"></span>
