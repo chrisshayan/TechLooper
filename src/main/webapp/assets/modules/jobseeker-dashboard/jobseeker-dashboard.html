@@ -68,9 +68,10 @@
               </div>
               <div class="col-sm-1 prize-col">
                 {{challenge.$awardPrizeTitle}}
+                <span ng-if="!challenge.rank">-</span>
               </div>
-              <div ng-if="challenge.rank" class="col-sm-1 prize-col">
-                <span class="winner"></span>
+              <div class="col-sm-1 prize-col">
+                <span ng-if="challenge.rank" class="winner"></span>
               </div>
               <div class="challenge-toggle-criteria-{{challenge.challengeId}}"></div>
               <div class="challenge-toggle-submissions-{{challenge.challengeId}}"></div>
