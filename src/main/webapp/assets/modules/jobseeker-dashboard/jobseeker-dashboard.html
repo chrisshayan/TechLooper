@@ -69,11 +69,16 @@
                 <a ng-if="challenge.criteria.length" ng-click="toggleCriteria(challenge)">{{challenge.$totalPoints}} <i class="fa fa-caret-down"></i></a>
               </div>
               <div class="col-sm-1 prize-col">
+<<<<<<< HEAD
                 <span ng-if="!challenge.rank">-</span>
                 <span ng-if="challenge.rank">{{challenge.$awardPrizeTitle}}</span>
+=======
+                {{challenge.$awardPrizeTitle}}
+                <span ng-if="!challenge.rank">-</span>
+>>>>>>> 64356b2bb40625baae1a4104e3720f00a8ecc13a
               </div>
-              <div ng-if="challenge.rank" class="col-sm-1 prize-col">
-                <span class="winner"></span>
+              <div class="col-sm-1 prize-col">
+                <span ng-if="challenge.rank" class="winner"></span>
               </div>
               <div class="challenge-toggle-criteria-{{challenge.challengeId}}"></div>
               <div class="challenge-toggle-submissions-{{challenge.challengeId}}"></div>
