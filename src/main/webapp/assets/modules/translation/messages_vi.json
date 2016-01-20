@@ -898,5 +898,13 @@
   "invalidMinlengthDigits": "Trường này không được nhỏ hơn 4 ký số",
   "emailSentSuccessfully": "Email đã gửi thành công.",
   "passCode": "Mã xác nhận: <strong>*</strong>",
-  "enterYourPassCode": "Nhập mã xác nhận"
+  "enterYourPassCode": "Nhập mã xác nhận",
+  "winnerBoard": "Winner Board",
+  "finalSubmissionDate": "Ngày Gửi Bài Cuối Cùng",
+  "myProfile" :"Hồ sơ của tôi",
+  "myCurrentPhase": "Tiến Độ Cá Nhân",
+  "submission": "Bài Gửi",
+  "challenge": "Tên Thử Thách",
+  "phase": "Giai đoạn",
+  "showWinnerBoard": "Show Winner Board To Tech Talents"
 }
