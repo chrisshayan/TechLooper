@@ -1,12 +1,13 @@
 <div class="score-details-block">
-  <table class="table contests-table">
+  <div ng-if="!$challenge.criteria.length">No Criteria</div>
+  <table ng-if="$challenge.criteria.length" class="table contests-table">
     <thead>
     <tr>
       <th translate="criteriaName"/>
       <th translate="criteriaWeight"/>
-      <th />
+      <th/>
       <th translate="givenPoints"/>
-      <th />
+      <th/>
       <th translate="weightedScoring"/>
       <th translate="comment"/>
     </tr>

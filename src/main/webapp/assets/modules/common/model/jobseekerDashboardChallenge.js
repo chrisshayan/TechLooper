@@ -11,6 +11,14 @@ techlooper.filter("jobseekerDashboardChallenge", function ($filter, $translate) 
 
       challenge.recalculateCriteria();
       challenge.recalculateAward();
+      challenge.recalculateSubmissions();
+    };
+
+    challenge.recalculateSubmissions = function() {
+      _.each(challenge.submissions, function(submission) {
+        submission.$submissionURL = /^https?:\/\//.test(submission.submissionURL) ? submission.submissionURL : "http://" + submission.submissionURL;
+        submission.$phaseTitle = $filter("translate")(submission.submissionPhase.toLowerCase());
+      });
     };
 
     challenge.recalculateAward = function() {
