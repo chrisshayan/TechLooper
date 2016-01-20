@@ -840,6 +840,7 @@
   "submissionToPhase": "Gửi vào giai đoạn:",
   "submissionsReviewTip": "Xem bài",
   "announceWinnerToAllContestants": "Thông báo người chiến thắng",
+  "announceWinner": "Thông Báo",
   "daysLeft": "Còn lại <strong>{{days}}</strong> ngày",
   "qualifyToNextPhaseConfirm": "Bạn có muốn chọn thí sinh này từ vòng <strong>{{currentPhase}}</strong> vào vòng",
   "cannotQualifyNextPhase": "Từ đây đến hết ngày <strong>{{endDatePhase}}</strong>, giai đoạn <strong>{{nextPhase}}</strong> sẽ không được mở cho thí sinh tham gia.",
