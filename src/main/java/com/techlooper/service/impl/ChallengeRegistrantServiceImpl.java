@@ -461,7 +461,7 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
     private ChallengeWinner getChallengeWinner(ChallengeEntity challengeEntity, Long registrantId) {
         Set<ChallengeWinner> winners = challengeEntity.getWinners();
         for (ChallengeWinner winner : winners) {
-            if (winner.getRegistrantId() == registrantId) {
+            if (winner.getRegistrantId().equals(registrantId)) {
                 return winner;
             }
         }
