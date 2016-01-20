@@ -100,7 +100,10 @@
               id="challenge-{{challenge.challengeId}}">
             <td data-label="{{'activeChallengesDashBoard' | translate}}">
               <a href="#/challenge-detail/{{challenge.challengeName | nonAscii}}-{{challenge.challengeId}}-id"
-                 class="name">{{challenge.challengeName}}</a>
+                 class="name">
+                <i title="Public Challenge" ng-if="challenge.challengeType != 'INTERNAL'" class="challenge-public"></i>
+                <i title="Internal Challenge" ng-if="challenge.challengeType == 'INTERNAL'" class="challenge-internal"></i>
+                {{challenge.challengeName}}</a>
             </td>
             <td data-label="{{'currentPhase' | translate}}">
               <span translate="{{challenge | progress:'challenge'}}"/>

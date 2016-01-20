@@ -10,7 +10,10 @@
       <a data-toggle="tab" href=".evaluation-criteria" translate="evaluationCriteria"></a>
     </li>
     <li ng-if="contestDetail.visibleWinners">
-      <a data-toggle="tab" href=".winner-board" translate="winnerBoard" ng-click="contestDetail.reloadWinners()"></a>
+      <a data-toggle="tab" href=".winner-board" ng-click="contestDetail.reloadWinners()">
+        {{'winnerBoard' | translate}}
+        ({{contestDetail.winners.length}})
+      </a>
     </li>
   </ul>
 </div>
