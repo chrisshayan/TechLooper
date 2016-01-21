@@ -16,7 +16,8 @@
         <a href="#/hiring" translate="business" class="homepage-link"></a>
         <p>{{$root.userInfo.name}}</p>
         <div class="user-avatar" ng-show="$root.userInfo">
-          <img ng-src="{{$root.userInfo.profileImageUrl}}" alt="">
+          <img ng-src="{{$root.userInfo.profileImageUrl}}" alt="" ng-show="$root.userInfo.profileImageUrl.length">
+          <img src="images/no-avatar.png" alt="" ng-show="!$root.userInfo.profileImageUrl.length"/>
         </div>
         <a ng-show="!$root.userInfo" href="#/user-type" translate="signIn"></a>
       </div>
