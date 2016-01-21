@@ -50,7 +50,7 @@
           <tr ng-repeat="challenge in dashboardInfo.challenges" class="{{challenge.$awardLowercase}}">
             <td>
               <div class="col-sm-4 challenge-name-col">
-                <a href="" target="_blank">
+                <a href="#/challenge-detail/{{challenge.challengeName | nonAscii}}-{{challenge.challengeId}}-id" target="_blank">
                   <!--<i class="challenge-type" title="Public Challenge"></i>-->
                   {{challenge.challengeName}}
                 </a>
