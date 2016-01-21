@@ -30,8 +30,8 @@ techlooper.filter("jobseekerDashboardChallenge", function ($filter, $translate, 
       }
       else {
         challenge.$currentPhaseSubmissionDate = moment(challenge.currentPhaseSubmissionDate, jsonValue.dateFormat);
-        var submitDaysLeft = utils.toNow(challenge.$currentPhaseSubmissionDate);
-        challenge.$currentPhaseDescTitle = finishDaysLeft <= 0 ? undefined : $filter("translate")("daysLeftToSubmit", {days: submitDaysLeft});
+        var submitDaysLeft = Math.max(utils.toNow(challenge.$currentPhaseSubmissionDate), 0);
+        challenge.$currentPhaseDescTitle = finishDaysLeft <= 0 ?  undefined : $filter("translate")("daysLeftToSubmit", {days: submitDaysLeft});
       }
     };
 
