@@ -3,6 +3,10 @@ techlooper.factory("utils", function (jsonValue, $location, $rootScope, localSto
 
   var instance = {
 
+    toNow: function(mdate) {
+      return mdate.isSame(moment(), "day") ? 1 : mdate.diff(moment(), "days") + 2;
+    },
+
     sortByArrayLength: function (array, numberField, type) {
       return array.sort(function (left, right) {
         if (!left || !right) return 0;

@@ -50,15 +50,15 @@
           <tr ng-repeat="challenge in dashboardInfo.challenges" class="{{challenge.$awardLowercase}}">
             <td>
               <div class="col-sm-4 challenge-name-col">
-                <a href="" target="_blank">
-                  <!--<i class="challenge-type" title="Public Challenge"></i>-->
+                <a href="#/challenge-detail/{{challenge.$asciiChallengeName}}-{{challenge.challengeId}}-id" target="_blank">
                   {{challenge.challengeName}}
                 </a>
-                <span class="note">12 day(s) left</span>
+                <span class="note" translate="{{challenge.$daysLeftTitle}}" />
               </div>
               <div class="col-sm-2 current-phase-col">
-                <span class="challenge-status idea">{{'idea' | translate}}</span>
-                <span class="note">0 day(s) left to submission</span>
+                <span class="challenge-status {{challenge.$currentPhaseLowerCase}}"
+                      translate="{{challenge.$currentPhaseTitle}}" />
+                <span class="note" translate="{{challenge.$currentPhaseDescTitle}}" />
               </div>
               <div class="col-sm-2 submission-col">
                 <a ng-click="toggleSubmissions(challenge)" ng-if="challenge.submissions.length">{{challenge.submissions.length}}
@@ -66,9 +66,9 @@
                 <span ng-if="!challenge.submissions.length">-</span>
               </div>
               <div class="col-sm-2 score-col">
-                <a ng-click="toggleCriteria(challenge)" ng-if="challenge.$totalPoints > 0">{{challenge.$totalPoints}}
+                <a ng-click="toggleCriteria(challenge)" ng-if="challenge.$hasSomeScore">{{challenge.$totalPoints}}
                   <i class="fa fa-caret-down" ng-class="{'fa-caret-up': challenge.$toggle.isToggleCriteria()}"></i></a>
-                <span ng-if="challenge.$totalPoints == 0">-</span>
+                <span ng-if="!challenge.$hasSomeScore">-</span>
               </div>
               <div class="col-sm-1 prize-col">
                 {{challenge.$awardPrizeTitle}}
