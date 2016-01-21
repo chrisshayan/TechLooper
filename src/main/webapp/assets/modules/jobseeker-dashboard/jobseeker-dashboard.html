@@ -47,6 +47,11 @@
           </tr>
           </thead>
           <tbody>
+          <tr ng-if="!dashboardInfo.challenges.length">
+            <td>
+              <p translate="noData"></p>
+            </td>
+          </tr>
           <tr ng-repeat="challenge in dashboardInfo.challenges" class="{{challenge.$awardLowercase}}">
             <td>
               <div class="col-sm-4 challenge-name-col">
