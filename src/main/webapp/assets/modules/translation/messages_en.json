@@ -719,6 +719,7 @@
   "delete": "Delete",
   "registrationDate": "Registration Date",
   "score": "Score",
+  "scoreLabel": "Score",
   "reject": "Reject",
   "pageNotFound": "This page does not exist.",
   "disqualifyConfirmation": "Are you sure to disqualify this contestant?",
@@ -837,7 +838,7 @@
   "submissionsReviewTip": "Review",
   "announceWinnerToAllContestants": "Announce winners to all contestants",
   "announceWinner": "Announce winners",
-  "daysLeft": "<strong>{{days}}</strong> day(s) left",
+  "daysLeft": "<strong>{{days}} day(s)</strong> left",
   "qualifyToNextPhaseConfirm": "Select the phase this contestant is qualified to:",
   "cannotQualifyNextPhase": "The <strong>{{nextPhase}}</strong> phase is not open for qualifications till by the end of <strong>{{endDatePhase}}</strong>.",
   "gotIt": "Got it",
@@ -902,5 +903,8 @@
   "submission": "Submission",
   "challenge": "Challenge",
   "phase": "Phase",
-  "showWinnerBoard": "Show Winner Board"
+  "showWinnerBoard": "Show Winner Board",
+  "finishedOn": "<strong>FINISHED</strong> on {{date}}",
+  "inPhase": "in <strong>{{phase}}</strong>",
+  "daysLeftToSubmit": "<strong>{{days}} day(s)</strong> left to submit"
 }

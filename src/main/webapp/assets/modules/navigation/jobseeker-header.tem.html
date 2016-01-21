@@ -36,9 +36,9 @@
                 <li ng-class="{ here: isActive('/challenges') }" ng-click="hideMenu()">
                     <a href="#/challenges" translate="codingChallenges" class="challenges"></a>
                 </li>
-                <!--<li ng-class="{ here: isActive('/freelancer/projects') }" ng-click="hideMenu()">-->
-                    <!--<a href="#/freelancer/projects" translate="freelancer" class="freelancer"></a>-->
-                <!--</li>-->
+                <li ng-if="!$root.userInfo" ng-class="{ here: isActive('/freelancer/projects') }" ng-click="hideMenu()">
+                    <a href="#/freelancer/projects" translate="freelancer" class="freelancer"></a>
+                </li>
                 <li ng-class="{ here: isActive('/pie-chart') }" ng-click="hideMenu()">
                     <a href="#/pie-chart" translate="subMenuAnalytics" class="analytics"></a>
                 </li>

@@ -167,12 +167,13 @@ public class JobAggregatorServiceImpl implements JobAggregatorService {
         List<ScrapeJobEntity> jobs = scrapeJobRepository.search(searchQueryBuilder.build()).getContent();
         List<JobResponse> result = getJobResponses(jobs);
 
-        if (criteria.getPage() == 1) {
-            searchQueryBuilder = getVietnamworksJobQueryBuilder(criteria);
-            List<ScrapeJobEntity> vietnamworksJobs = scrapeJobRepository.search(searchQueryBuilder.build()).getContent();
-            List<JobResponse> vietnamworksJobResult = getJobResponses(vietnamworksJobs);
-            result.addAll(0, vietnamworksJobResult);
-            totalJob += vietnamworksJobs.size();
+        searchQueryBuilder = getVietnamworksJobQueryBuilder(criteria);
+        FacetedPage<ScrapeJobEntity> vietnamworksJobsSearchResult = scrapeJobRepository.search(searchQueryBuilder.build());
+        totalJob += vietnamworksJobsSearchResult.getTotalElements();
+
+        if (criteria.getPage() == 1 || criteria.isFromJobAlert()) {
+            List<ScrapeJobEntity> vietnamworksJobs = vietnamworksJobsSearchResult.getContent();
+            result.addAll(0, getJobResponses(vietnamworksJobs));
         }
 
         JobSearchResponse jobSearchResponse = new JobSearchResponse.Builder()
@@ -298,7 +299,10 @@ public class JobAggregatorServiceImpl implements JobAggregatorService {
     }
 
     private NativeSearchQueryBuilder getJobListingQueryBuilder(JobSearchCriteria criteria) {
-        final int NUMBER_OF_ITEMS_PER_PAGE = 10;
+        int NUMBER_OF_ITEMS_PER_PAGE = 10;
+        if (criteria.getPage() == 1) {
+            NUMBER_OF_ITEMS_PER_PAGE = 6;
+        }
         NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withTypes("job");
 
         QueryBuilder queryBuilder = null;

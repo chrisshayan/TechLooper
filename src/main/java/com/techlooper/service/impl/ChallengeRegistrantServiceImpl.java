@@ -395,7 +395,7 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
             Long registrantId = registrantEntity.getRegistrantId();
             ChallengeEntity challengeEntity = challengeService.findChallengeById(challengeId);
 
-            if (challengeEntity != null) {
+            if (challengeEntity != null && (challengeEntity.getExpired() == null || challengeEntity.getExpired() == false)) {
                 ChallengeDashBoardInfo.Builder challengeDashBoardInfoBuilder = new ChallengeDashBoardInfo.Builder();
                 challengeDashBoardInfoBuilder.withChallengeId(challengeId);
                 challengeDashBoardInfoBuilder.withChallengeName(challengeEntity.getChallengeName());

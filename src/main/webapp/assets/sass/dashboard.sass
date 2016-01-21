@@ -304,6 +304,9 @@
         background-color: #257abb
       span.challenge-status.closed
         background-color: #555555
+      span.challenge-status.disqualified
+        color: red
+        font-weight: 500
       span.winner
         display: inline-block
         height: 30px
@@ -312,6 +315,12 @@
     td:first-child
       span.note
         text-align: left
+        strong
+          font-weight: 500
+          color: #000
+      .current-phase-col
+        span.note
+          text-align: center
     tr.price-1
       background-color: #fff7e7 !important
       span.winner
@@ -377,8 +386,6 @@
       th
         background-color: #f3f7f9 !important
         text-align: left
-
-      th:nth-child(2),
       th:nth-child(3),
       th:nth-child(4),
       th:nth-child(5),
@@ -387,8 +394,7 @@
       tbody
         td
           text-align: left
-          background-color: #fff !important
-        td:nth-child(2),
+          background-color: #f7f7f7 !important
         td:nth-child(3),
         td:nth-child(4),
         td:nth-child(5),

@@ -68,6 +68,7 @@ public class JobAlertEmailSender {
 
                     if (daysBetween(lastSentDate, currentDate) > 0) {
                         JobSearchCriteria criteria = dozerMapper.map(jobAlertRegistrationEntity, JobSearchCriteria.class);
+                        criteria.setFromJobAlert(true);
                         JobSearchResponse jobSearchResponse = jobAggregatorService.findJob(criteria);
                         if (jobSearchResponse.getTotalJob() > 0) {
                             jobAggregatorService.sendEmail(jobAlertRegistrationEntity, jobSearchResponse);

@@ -719,6 +719,7 @@
   "delete": "Xoá",
   "registrationDate": "Ngày Đăng Ký",
   "score": "Chấm điểm",
+  "scoreLabel": "Điểm",
   "reject": "Từ chối",
   "pageNotFound": "Trang này không tồn tại.",
   "disqualifyConfirmation": "Bạn có muốn loại bỏ thí sinh này?",
@@ -906,5 +907,8 @@
   "submission": "Bài Gửi",
   "challenge": "Tên Thử Thách",
   "phase": "Giai đoạn",
-  "showWinnerBoard": "Hiển Thị Bảng Xếp Hạng"
+  "showWinnerBoard": "Hiển Thị Bảng Xếp Hạng",
+  "finishedOn": "<strong>ĐÃ KẾT THÚC</strong> vào {{date}}",
+  "inPhase": "ở giai đoạn <strong>{{phase}}<strong>",
+  "daysLeftToSubmit": "Còn <strong>{{days}} ngày</strong> để gửi bài "
 }
