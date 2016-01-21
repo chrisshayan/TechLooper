@@ -15,7 +15,7 @@
                 <span translate="fullName"></span>{{$root.userInfo.name}}
               </li>
               <li>
-                <span translate="emailAddress"></span>{{$root.userInfo.email}}
+                <span>{{'emailAddress' | translate}}:</span>{{$root.userInfo.email}}
               </li>
             </ul>
           </div>
@@ -40,13 +40,17 @@
               <div class="col-sm-4 challenge-name-col" translate="challenge"></div>
               <div class="col-sm-2 current-phase-col" translate="myCurrentPhase"></div>
               <div class="col-sm-2 submission-col" translate="submission"></div>
-              <div class="col-sm-2 score-col" translate="score"></div>
-              <div class="col-sm-1 prize-col" translate="prize"></div>
-              <div class="col-sm-1 prize-col"></div>
+              <div class="col-sm-2 score-col" translate="scoreLabel"></div>
+              <div class="col-sm-2 prize-col" translate="prize"></div>
             </th>
           </tr>
           </thead>
           <tbody>
+          <tr ng-if="!dashboardInfo.challenges.length">
+            <td>
+              <p translate="noData"></p>
+            </td>
+          </tr>
           <tr ng-repeat="challenge in dashboardInfo.challenges" class="{{challenge.$awardLowercase}}">
             <td>
               <div class="col-sm-4 challenge-name-col">
