@@ -788,7 +788,6 @@
   "exChooseATemplate": "Choose a template",
   "points": "Points",
   "comment": "Comment",
-  "totalPoints": "Total Points",
   "contestantsReturned": "<strong>{{number}}</strong> contestant(s) returned",
   "evaluationCriteria": "Evaluation Criteria",
   "criteriaName": "Criteria Name",
@@ -837,6 +836,7 @@
   "submissionToPhase": "Submission to phase:",
   "submissionsReviewTip": "Review",
   "announceWinnerToAllContestants": "Announce winners to all contestants",
+  "announceWinner": "Announce winners",
   "daysLeft": "<strong>{{days}}</strong> day(s) left",
   "qualifyToNextPhaseConfirm": "Select the phase this contestant is qualified to:",
   "cannotQualifyNextPhase": "The <strong>{{nextPhase}}</strong> phase is not open for qualifications till by the end of <strong>{{endDatePhase}}</strong>.",
@@ -894,5 +894,13 @@
   "domainLabel": "Domains:",
   "invalidCredential": "Invalid credential",
   "invalidMinlengthDigits": "This field can not less than {{length}} digits",
-  "emailSentSuccessfully": "The email is sent successfully."
+  "emailSentSuccessfully": "The email is sent successfully.",
+  "winnerBoard": "Winner Board",
+  "finalSubmissionDate": "Final Submission Date",
+  "myProfile" :"My Profile",
+  "myCurrentPhase": "My Current Phase",
+  "submission": "Submission",
+  "challenge": "Challenge",
+  "phase": "Phase",
+  "showWinnerBoard": "Show Winner Board"
 }

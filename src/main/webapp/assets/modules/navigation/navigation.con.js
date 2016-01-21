@@ -7,7 +7,7 @@ techlooper.controller("navigationController", function ($scope, securityService,
       case "show-employer-header":
         var isEmployerView = $rootScope.currentUiView && $rootScope.currentUiView.header === "EMPLOYER";
         isEmployer = $rootScope.userInfo && $rootScope.userInfo.roleName === "EMPLOYER";
-        return !currentViewIsLogin && isEmployer;
+        return (!currentViewIsLogin && isEmployer) || isEmployerView;
 
       case "show-job-seeker-header":
         var employerHeaderNotShown = !$scope.state("show-employer-header");

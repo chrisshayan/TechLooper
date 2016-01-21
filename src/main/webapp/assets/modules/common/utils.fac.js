@@ -343,6 +343,9 @@ techlooper.factory("utils", function (jsonValue, $location, $rootScope, localSto
       else if (/\/employer-dashboard/.test(path)) {
         return jsonValue.views.employerDashboard;
       }
+      else if (/\/jobseeker-dashboard/.test(path)) {
+        return jsonValue.views.jobseekerDashboard;
+      }
       else if (/\/user-type/.test(path)) {
         return jsonValue.views.userType;
       }

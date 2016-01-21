@@ -84,7 +84,7 @@
         a
           width: auto
           float: right
-          padding: 7px 12px 0px 12px
+          padding: 7px 12px
       .dashboard-content
         display: inline-block
         clear: both
@@ -224,3 +224,183 @@
         padding: 10px
         button
           padding: 6px 25px
+  .my-profile-info
+    display: inline-block
+    clear: both
+    width: 100%
+    padding: 20px
+    .my-avatar
+      max-width: 65px
+      padding-left: 0
+      padding-right: 10px
+    .my-info ul
+      margin: 0
+      padding: 0
+      text-align: left
+      li
+        clear: both
+        display: block
+        padding: 0 0 5px 0
+        span
+          display: inline-block
+          width: 100px
+          font-weight: 500
+          text-transform: capitalize
+  .my-challenge-list
+    display: inline-block
+    clear: both
+    width: 100%
+    background-color: #fff
+    margin-top: 20px
+    table
+      margin-bottom: 0
+    .challenge-name-col
+      text-align: left
+    .submission-col
+      text-align: center
+    .current-phase-col
+      text-align: center
+    .prize-col
+      text-align: center
+    .score-col
+      text-align: center
+    th
+      font-weight: 400
+      text-transform: capitalize
+    td
+      i.challenge-type
+        width: 20px
+        height: 20px
+        display: inline-block
+        float: left
+        background: url("../images/ic-challenge.png") 0px 2px no-repeat
+        background-size: 15px
+      a
+        font-weight: 400
+      span.note
+        font-weight: 400
+        font-style: italic
+        clear: both
+        display: inline-block
+        width: 100%
+        text-align: center
+        padding-top: 5px
+      span.challenge-status
+        display: inline-block
+        width: auto
+        font-size: 12px
+        border-radius: 4px
+        padding: 0px 4px
+        color: #fff
+      span.challenge-status.registration
+        background-color: #1ea185
+      span.challenge-status.idea
+        background-color: #9bba5c
+      span.challenge-status.uiux
+        background-color: #f29b27
+      span.challenge-status.prototype
+        background-color: #bd392f
+      span.challenge-status.final
+        background-color: #257abb
+      span.challenge-status.closed
+        background-color: #555555
+      span.winner
+        display: inline-block
+        height: 30px
+        width: 20px
+        float: right
+    td:first-child
+      span.note
+        text-align: left
+    tr.price-1
+      background-color: #fff7e7 !important
+      span.winner
+        background: url(../images/medal.png) 0 0px no-repeat
+        background-size: 20px
+    tr.price-2
+      background-color: #eaeaea !important
+      span.winner
+        background: url(../images/medal.png) 0 -40px no-repeat
+        background-size: 20px
+    tr.price-3
+      background-color: #f0ece8 !important
+      span.winner
+        background: url(../images/medal.png) 0 -84px no-repeat
+        background-size: 20px
+  .content-page-detail.dashboard .my-challenge-list tr:nth-child(2n+1)
+    background-color: #fff
+    border-bottom: 1px solid #ddd
+  .score-details-block
+    clear: both
+    width: 100%
+    padding-top: 10px
+    .contests-table
+      th
+        background-color: #f3f7f9 !important
+        text-align: left
+
+      th:nth-child(2),
+      th:nth-child(3),
+      th:nth-child(4),
+      th:nth-child(5),
+      th:nth-child(6)
+        text-align: center
+      th:nth-child(4)
+        width: 10%
+      tbody
+        td
+          text-align: left
+          background-color: #fff !important
+        td:nth-child(2),
+        td:nth-child(3),
+        td:nth-child(4),
+        td:nth-child(5),
+        td:nth-child(6)
+          text-align: center
+        td:nth-child(4)
+          width: 10%
+      tfoot
+        td
+          background-color: #efefef
+          font-weight: 400
+          font-size: 16px
+          text-align: left
+        td:first-child
+          text-align: right
+  .score-details-block.show
+    display: inline-block
+  .submission-listing-block
+    clear: both
+    width: 100%
+    padding-top: 10px
+    .contests-table
+      th
+        background-color: #f3f7f9 !important
+        text-align: left
+
+      th:nth-child(2),
+      th:nth-child(3),
+      th:nth-child(4),
+      th:nth-child(5),
+      th:nth-child(6)
+        text-align: center
+      tbody
+        td
+          text-align: left
+          background-color: #fff !important
+        td:nth-child(2),
+        td:nth-child(3),
+        td:nth-child(4),
+        td:nth-child(5),
+        td:nth-child(6)
+          text-align: center
+      tfoot
+        td
+          background-color: #efefef
+          font-weight: 400
+          font-size: 16px
+          text-align: left
+        td:first-child
+          text-align: right
+  .submission-listing-block.show
+    display: inline-block

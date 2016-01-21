@@ -806,7 +806,6 @@
   "addCriteria": "Thêm Tiêu Chí",
   "makeSure100Percent": "Vui lòng đảm bảo tổng trọng số luôn bằng 100%",
   "givenPoints": "Điểm <br/> 0 - 100",
-  "totalPoints": "Tổng Điểm",
   "automaticallySumCriteria": "Tự động tính tổng từ điểm số chấm cho từng tiêu chí ở trên",
   "emailSettingSuccessfully": "Các thiết lập email mới đã được cập nhật.",
   "errorSystem": "Lỗi hệ thống. Xin vui lòng thử lại sau.",
@@ -841,6 +840,7 @@
   "submissionToPhase": "Gửi vào giai đoạn:",
   "submissionsReviewTip": "Xem bài",
   "announceWinnerToAllContestants": "Thông báo người chiến thắng",
+  "announceWinner": "Thông Báo",
   "daysLeft": "Còn lại <strong>{{days}}</strong> ngày",
   "qualifyToNextPhaseConfirm": "Bạn có muốn chọn thí sinh này từ vòng <strong>{{currentPhase}}</strong> vào vòng",
   "cannotQualifyNextPhase": "Từ đây đến hết ngày <strong>{{endDatePhase}}</strong>, giai đoạn <strong>{{nextPhase}}</strong> sẽ không được mở cho thí sinh tham gia.",
@@ -898,5 +898,13 @@
   "invalidMinlengthDigits": "Trường này không được nhỏ hơn 4 ký số",
   "emailSentSuccessfully": "Email đã gửi thành công.",
   "passCode": "Mã xác nhận: <strong>*</strong>",
-  "enterYourPassCode": "Nhập mã xác nhận"
+  "enterYourPassCode": "Nhập mã xác nhận",
+  "winnerBoard": "Bảng Xếp Hạng",
+  "finalSubmissionDate": "Ngày Gửi Bài Cuối Cùng",
+  "myProfile" :"Hồ sơ của tôi",
+  "myCurrentPhase": "Tiến Độ Cá Nhân",
+  "submission": "Bài Gửi",
+  "challenge": "Tên Thử Thách",
+  "phase": "Giai đoạn",
+  "showWinnerBoard": "Hiển Thị Bảng Xếp Hạng"
 }

@@ -83,7 +83,7 @@ techlooper.factory("securityService", function (apiService, $route, $rootScope, 
           return $location.url("/employer-dashboard");
 
         case "JOB_SEEKER":
-          return $location.url("/home");
+          return $location.url("/jobseeker-dashboard");
       }
     },
 

@@ -49,6 +49,9 @@ public class ChallengeController {
     @Resource
     private Mapper dozerMapper;
 
+    @Resource
+    private UserController userController;
+
     @PreAuthorize("hasAuthority('EMPLOYER')")
     @RequestMapping(value = "/challenge/publish", method = RequestMethod.POST)
     public ChallengeResponse publishChallenge(@RequestBody ChallengeDto challengeDto, HttpServletRequest servletRequest) throws Exception {
@@ -183,5 +186,21 @@ public class ChallengeController {
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
         }
         return winners;
+    }
+
+    @RequestMapping(value = "challenge/{challengeId}/winners", method = RequestMethod.GET)
+    public Set<ChallengeRegistrantDto> getWinners(@PathVariable Long challengeId) {
+        return challengeRegistrantService.getChallengeWinners(challengeId);
+    }
+
+    @PreAuthorize("hasAuthority('EMPLOYER')")
+    @RequestMapping(value = "challenge/updateVisibleWinner", method = RequestMethod.PUT)
+    public ChallengeDetailDto updateVisibleWinner(@RequestBody ChallengeDetailDto challengeDetailDto, HttpServletRequest request, HttpServletResponse response) {
+        UserProfileDto signinUser = userController.getUserProfile(request);
+        challengeDetailDto = challengeService.updateVisibleWinner(challengeDetailDto, signinUser.getEmail());
+        if (challengeDetailDto == null) {
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+        }
+        return challengeDetailDto;
     }
 }

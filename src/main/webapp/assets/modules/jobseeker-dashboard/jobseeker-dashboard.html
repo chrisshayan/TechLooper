@@ -1,0 +1,89 @@
+<div class="content-page-block">
+  <div class="content-page-detail dashboard">
+    <div class="row">
+      <div class="col-md-12 dashboard-box">
+        <div class="sub-header-dashboard">
+          <h3 translate="myProfile"></h3>
+        </div>
+        <div class="row my-profile-info">
+          <div class="col-sm-2 my-avatar">
+            <img src="{{$root.userInfo.profileImageUrl}}" alt=""/>
+          </div>
+          <div class="col-sm-6 my-info">
+            <ul>
+              <li>
+                <span translate="fullName"></span>{{$root.userInfo.name}}
+              </li>
+              <li>
+                <span translate="emailAddress"></span>{{$root.userInfo.email}}
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <!--<div class="active-challenges-list contestant-page">-->
+      <!--<div class="filter-item">-->
+      <!--<span>AAA</span>-->
+      <!--<span>AAA</span>-->
+      <!--<span>AAA</span>-->
+      <!--</div>-->
+      <!--</div>-->
+    </div>
+    <div class="row">
+      <div class="my-challenge-list">
+        <table class="table contests-table">
+          <thead>
+          <tr>
+            <th>
+              <div class="col-sm-4 challenge-name-col" translate="challenge"></div>
+              <div class="col-sm-2 current-phase-col" translate="myCurrentPhase"></div>
+              <div class="col-sm-2 submission-col" translate="submission"></div>
+              <div class="col-sm-2 score-col" translate="score"></div>
+              <div class="col-sm-1 prize-col" translate="prize"></div>
+              <div class="col-sm-1 prize-col"></div>
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr ng-repeat="challenge in dashboardInfo.challenges" class="{{challenge.$awardLowercase}}">
+            <td>
+              <div class="col-sm-4 challenge-name-col">
+                <a href="" target="_blank">
+                  <i class="challenge-type" title="Public Challenge"></i>
+                  {{challenge.challengeName}}
+                </a>
+                <span class="note">12 day(s) left</span>
+              </div>
+              <div class="col-sm-2 current-phase-col">
+                <span class="challenge-status idea">{{'idea' | translate}}</span>
+                <span class="note">0 day(s) left to submission</span>
+              </div>
+              <div class="col-sm-2 submission-col">
+                <a ng-click="toggleSubmissions(challenge)" ng-if="challenge.submissions.length">{{challenge.submissions.length}}
+                  <i class="fa fa-caret-down" ng-class="{'fa-caret-up': challenge.$toggle.isToggleSubmissions()}"></i></a>
+                <span ng-if="!challenge.submissions.length">-</span>
+              </div>
+              <div class="col-sm-2 score-col">
+                <a ng-click="toggleCriteria(challenge)" ng-if="challenge.$totalPoints > 0">{{challenge.$totalPoints}}
+                  <i class="fa fa-caret-down" ng-class="{'fa-caret-up': challenge.$toggle.isToggleCriteria()}"></i></a>
+                <span ng-if="challenge.$totalPoints == 0">-</span>
+              </div>
+              <div class="col-sm-1 prize-col">
+                {{challenge.$awardPrizeTitle}}
+                <span ng-if="!challenge.rank">-</span>
+              </div>
+              <div class="col-sm-1 prize-col">
+                <span ng-if="challenge.rank" class="winner"></span>
+              </div>
+              <div class="challenge-toggle-criteria-{{challenge.challengeId}}"></div>
+              <div class="challenge-toggle-submissions-{{challenge.challengeId}}"></div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

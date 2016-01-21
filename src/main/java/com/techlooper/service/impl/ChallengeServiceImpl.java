@@ -282,6 +282,17 @@ public class ChallengeServiceImpl implements ChallengeService {
         }
     }
 
+    public ChallengeDetailDto updateVisibleWinner(ChallengeDetailDto challengeDetailDto, String ownerEmail) {
+        ChallengeEntity challenge = findChallengeById(challengeDetailDto.getChallengeId(), ownerEmail);
+        if (challenge == null) {
+            return null;
+        }
+        challenge.setVisibleWinners(challengeDetailDto.getVisibleWinners());
+        challenge = challengeRepository.save(challenge);
+        challengeDetailDto = dozerMapper.map(challenge, ChallengeDetailDto.class);
+        return challengeDetailDto;
+    }
+
     private NativeSearchQueryBuilder getChallengeSearchQueryBuilder(ChallengeFilterCondition challengeFilterCondition) {
         NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withTypes("challenge");
 

@@ -3,6 +3,7 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
     if (!input || input.$isRich) return input;
 
     var challengeDetail = input;
+    var challengeDetailKeys = _.keys(input);
 
     challengeDetail.$filter = {
 
@@ -231,6 +232,7 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
           if (item.phase == challengeDetail.nextPhase) {
             item.isNextPhase = true;
           }
+
         });
 
         // make un-selectable phase from current-phase + 2
@@ -259,7 +261,6 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
       challengeDetail.recalculateCurrentUserJoined();
       challengeDetail.recalculatePhaseItems();
       challengeDetail.recalculateRegistrants(registrants);
-
     };
 
     challengeDetail.recalculateCurrentUserJoined = function () {
@@ -373,6 +374,7 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
             challengeDetail.recalculatePhaseItem(challengeDetail.phaseItems[i]);
           }
           challengeDetail.recalculateHadRegistrant();
+          challengeDetail.winnerBoardListing = challengeDetail.phaseItems[challengeDetail.phaseItems.length - 1].participant;
         });
     };
 
@@ -438,6 +440,39 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
           challengeDetail.refreshFunnelItems();
         });
     };
+
+    challengeDetail.updateVisibleWinner = function () {
+      var challenge = _.pick(challengeDetail, challengeDetailKeys);
+      challengeDetail.$disableVisibleWinners = true;
+      apiService.updateVisibleWinner(challenge)
+        .success(function (challenge) {
+          challengeDetail.visibleWinners = challenge.visibleWinners;
+        })
+        .finally(function () {
+          challengeDetail.$disableVisibleWinners = false;
+        });
+    }
+
+    challengeDetail.reloadWinners = function () {
+      if (challengeDetail.visibleWinners) {
+        apiService.getWinners(challengeDetail.challengeId)
+          .success(function (winners) {
+            var maxWinner = _.max(winners, function (winner) { return parseFloat(winner.totalPoint); });
+            $.each(winners, function (i, winner) {
+              winner.recalculate(challengeDetail);
+              winner.$sortWeight = parseFloat(winner.totalPoint) * 100;
+              winner.firstAwarded && (winner.$sortWeight *= 1000);
+              winner.secondAwarded && (winner.$sortWeight *= 100);
+              winner.thirdAwarded && (winner.$sortWeight *= 10);
+            });
+            winners.sort(function (w1, w2) {return w2.$sortWeight - w1.$sortWeight;});
+            challengeDetail.$winners = winners;
+          });
+      }
+      else {
+        challengeDetail.$winners = [];
+      }
+    }
 
     challengeDetail.recalculate();
 

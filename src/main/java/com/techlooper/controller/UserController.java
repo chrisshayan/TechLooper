@@ -356,4 +356,14 @@ public class UserController {
         return qualifiedRegistrants;
     }
 
+    @PreAuthorize("hasAnyAuthority('JOB_SEEKER')")
+    @RequestMapping(value = "/user/jobSeeker/dashboard-info", method = RequestMethod.GET)
+    public JobSeekerDashBoardInfo getJobSeekerDashboard(HttpServletRequest request) {
+        UserProfileDto signinUser = this.getUserProfile(request);
+        JobSeekerDashBoardInfo jobSeekerDashBoardInfo = new JobSeekerDashBoardInfo();
+        jobSeekerDashBoardInfo.setEmail(signinUser.getEmail());
+        jobSeekerDashBoardInfo.setChallenges(challengeRegistrantService.getChallengeDashBoardInfo(signinUser.getEmail()));
+        return jobSeekerDashBoardInfo;
+    }
+
 }
