@@ -8,7 +8,7 @@ techlooper.controller('jobseekerDashboardController', function ($scope, apiServi
 
   $scope.toggleSubmissions = function (challenge) {
     var challengeItem = $('.challenge-' + challenge.challengeId);
-    if(challengeItem.find('.fa-caret-down').hasClass('fa-caret-up')){
+    if(challengeItem.find('.submission-col .fa-caret-down').hasClass('fa-caret-up')){
       challengeItem.find('.challenge-toggle-submissions').html("");
       challengeItem.find('.fa-caret-down').removeClass('fa-caret-up');
     }else{
@@ -19,14 +19,14 @@ techlooper.controller('jobseekerDashboardController', function ($scope, apiServi
       var html = "<jobseeker-submissions></jobseeker-submissions>";
       var compiled = $compile(html)($scope);
       challengeItem.find('.challenge-toggle-submissions').html(compiled);
-      challengeItem.find('.fa-caret-down').addClass('fa-caret-up');
+      challengeItem.find('.submission-col .fa-caret-down').addClass('fa-caret-up');
     }
   };
 
   $scope.toggleCriteria = function (challenge) {
 
     var challengeItem = $('.challenge-' + challenge.challengeId);
-    if(challengeItem.find('.fa-caret-down').hasClass('fa-caret-up')){
+    if(challengeItem.find('.score-col .fa-caret-down').hasClass('fa-caret-up')){
       challengeItem.find('.challenge-toggle-criteria').html("");
       challengeItem.find('.fa-caret-down').removeClass('fa-caret-up');
     }else{
@@ -37,7 +37,7 @@ techlooper.controller('jobseekerDashboardController', function ($scope, apiServi
       var html = "<jobseeker-criteria></jobseeker-criteria>";
       var compiled = $compile(html)($scope);
       challengeItem.find('.challenge-toggle-criteria').html(compiled);
-      challengeItem.find('.fa-caret-down').addClass('fa-caret-up');
+      challengeItem.find('.score-col .fa-caret-down').addClass('fa-caret-up');
     }
   };
 
