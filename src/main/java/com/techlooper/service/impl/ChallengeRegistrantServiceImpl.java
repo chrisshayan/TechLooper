@@ -418,6 +418,7 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
                 challengeDashBoardInfoBuilder.withScore(getRegistrantSubmissionScore(registrantEntity));
                 challengeDashBoardInfoBuilder.withCriteria(registrantEntity.getCriteria());
                 challengeDashBoardInfoBuilder.withSubmissions(challengeSubmissionService.findChallengeSubmissionByRegistrant(registrantId));
+                challengeDashBoardInfoBuilder.withChallengeType(challengeEntity.getChallengeType());
                 challengeDashBoardInfoList.add(challengeDashBoardInfoBuilder.build());
             }
         }
