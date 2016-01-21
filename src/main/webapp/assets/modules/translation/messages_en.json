@@ -905,6 +905,6 @@
   "phase": "Phase",
   "showWinnerBoard": "Show Winner Board",
   "finishedOn": "<strong>FINISHED</strong> on {{date}}",
-  "inPhase": "in {{phase}}",
+  "inPhase": "in <strong>{{phase}}</strong>",
   "daysLeftToSubmit": "<strong>{{days}} day(s)</strong> left to submit"
 }

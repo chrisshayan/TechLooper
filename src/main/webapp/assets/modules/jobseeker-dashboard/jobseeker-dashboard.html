@@ -51,7 +51,7 @@
               <p translate="noData"></p>
             </td>
           </tr>
-          <tr ng-repeat="challenge in dashboardInfo.challenges" class="{{challenge.$awardLowercase}}">
+          <tr ng-repeat="challenge in dashboardInfo.challenges" class="challenge-item {{challenge.$awardLowercase}} challenge-{{challenge.challengeId}}">
             <td>
               <div class="col-sm-4 challenge-name-col">
                 <a href="#/challenge-detail/{{challenge.$asciiChallengeName}}-{{challenge.challengeId}}-id" target="_blank">
@@ -66,12 +66,12 @@
               </div>
               <div class="col-sm-2 submission-col">
                 <a ng-click="toggleSubmissions(challenge)" ng-if="challenge.submissions.length">{{challenge.submissions.length}}
-                  <i class="fa fa-caret-down" ng-class="{'fa-caret-up': challenge.$toggle.isToggleSubmissions()}"></i></a>
+                  <i class="fa fa-caret-down"></i></a>
                 <span ng-if="!challenge.submissions.length">-</span>
               </div>
               <div class="col-sm-2 score-col">
                 <a ng-click="toggleCriteria(challenge)" ng-if="challenge.$hasSomeScore">{{challenge.$totalPoints}}
-                  <i class="fa fa-caret-down" ng-class="{'fa-caret-up': challenge.$toggle.isToggleCriteria()}"></i></a>
+                  <i class="fa fa-caret-down"></i></a>
                 <span ng-if="!challenge.$hasSomeScore">-</span>
               </div>
               <div class="col-sm-1 prize-col">
@@ -81,8 +81,8 @@
               <div class="col-sm-1 prize-col">
                 <span ng-if="challenge.rank" class="winner"></span>
               </div>
-              <div class="challenge-toggle-criteria-{{challenge.challengeId}}"></div>
-              <div class="challenge-toggle-submissions-{{challenge.challengeId}}"></div>
+              <div class="challenge-toggle-criteria"></div>
+              <div class="challenge-toggle-submissions"></div>
             </td>
           </tr>
           </tbody>

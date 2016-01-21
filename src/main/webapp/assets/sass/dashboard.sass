@@ -304,6 +304,9 @@
         background-color: #257abb
       span.challenge-status.closed
         background-color: #555555
+      span.challenge-status.disqualified
+        color: red
+        font-weight: 500
       span.winner
         display: inline-block
         height: 30px
@@ -312,6 +315,12 @@
     td:first-child
       span.note
         text-align: left
+        strong
+          font-weight: 500
+          color: #000
+      .current-phase-col
+        span.note
+          text-align: center
     tr.price-1
       background-color: #fff7e7 !important
       span.winner

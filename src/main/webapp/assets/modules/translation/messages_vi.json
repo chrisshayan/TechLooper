@@ -908,7 +908,7 @@
   "challenge": "Tên Thử Thách",
   "phase": "Giai đoạn",
   "showWinnerBoard": "Hiển Thị Bảng Xếp Hạng",
-  "finishedOn": "<strong>FINISHED</strong> on {{date}}",
-  "inPhase": "in <strong>{{phase}}</strong>",
+  "finishedOn": "<strong>ĐÃ KẾT THÚC</strong> vào {{date}}",
+  "inPhase": "ở giai đoạn <strong>{{phase}}<strong>",
   "daysLeftToSubmit": "<strong>{{days}} day(s)</strong> left to submit"
 }

@@ -7,31 +7,38 @@ techlooper.controller('jobseekerDashboardController', function ($scope, apiServi
     });
 
   $scope.toggleSubmissions = function (challenge) {
-    $("[class^='challenge-toggle-']").html("");
+    var challengeItem = $('.challenge-' + challenge.challengeId);
+    if(challengeItem.find('.fa-caret-down').hasClass('fa-caret-up')){
+      challengeItem.find('.challenge-toggle-submissions').html("");
+      challengeItem.find('.fa-caret-down').removeClass('fa-caret-up');
+    }else{
+      $("[class^='challenge-toggle-']").html("");
+      $('.my-challenge-list').find('.fa-caret-down').removeClass('fa-caret-up');
 
-    if (challenge.$toggle.isToggleSubmissions()) {
-      return challenge.$toggle.reset();
+      $scope.$challenge = challenge;
+      var html = "<jobseeker-submissions></jobseeker-submissions>";
+      var compiled = $compile(html)($scope);
+      challengeItem.find('.challenge-toggle-submissions').html(compiled);
+      challengeItem.find('.fa-caret-down').addClass('fa-caret-up');
     }
-
-    challenge.$toggle.toggleSubmissions();
-    $scope.$challenge = challenge;
-    var html = "<jobseeker-submissions></jobseeker-submissions>";
-    var compiled = $compile(html)($scope);
-    $(".challenge-toggle-submissions-" + challenge.challengeId).html(compiled);
   };
 
   $scope.toggleCriteria = function (challenge) {
-    $("[class^='challenge-toggle-']").html("");
 
-    if (challenge.$toggle.isToggleCriteria()) {
-      return challenge.$toggle.reset();
+    var challengeItem = $('.challenge-' + challenge.challengeId);
+    if(challengeItem.find('.fa-caret-down').hasClass('fa-caret-up')){
+      challengeItem.find('.challenge-toggle-criteria').html("");
+      challengeItem.find('.fa-caret-down').removeClass('fa-caret-up');
+    }else{
+      $("[class^='challenge-toggle-']").html("");
+      $('.my-challenge-list').find('.fa-caret-down').removeClass('fa-caret-up');
+
+      $scope.$challenge = challenge;
+      var html = "<jobseeker-criteria></jobseeker-criteria>";
+      var compiled = $compile(html)($scope);
+      challengeItem.find('.challenge-toggle-criteria').html(compiled);
+      challengeItem.find('.fa-caret-down').addClass('fa-caret-up');
     }
-
-    challenge.$toggle.toggleCriteria();
-    $scope.$challenge = challenge;
-    var html = "<jobseeker-criteria></jobseeker-criteria>";
-    var compiled = $compile(html)($scope);
-    $(".challenge-toggle-criteria-" + challenge.challengeId).html(compiled);
   };
 
   //challengeId: 1449129241321
