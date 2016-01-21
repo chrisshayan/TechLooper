@@ -62,6 +62,7 @@ public class JobAlertController {
 
         //Send list of jobs that matches user's criteria immediately after user submitted registration form
         JobSearchCriteria criteria = dozerMapper.map(jobAlertRegistrationEntity, JobSearchCriteria.class);
+        criteria.setFromJobAlert(true);
         JobSearchResponse jobSearchResponse = jobAggregatorService.findJob(criteria);
         if (jobSearchResponse.getTotalJob() > 0) {
             try {
