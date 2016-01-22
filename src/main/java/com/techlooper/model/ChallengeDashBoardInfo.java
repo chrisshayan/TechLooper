@@ -31,6 +31,8 @@ public class ChallengeDashBoardInfo {
 
     private Boolean disqualified;
 
+    private ChallengeTypeEnum challengeType;
+
     private Set<ChallengeRegistrantCriteria> criteria;
 
     private List<ChallengeSubmissionEntity> submissions;
@@ -131,6 +133,14 @@ public class ChallengeDashBoardInfo {
         this.submissions = submissions;
     }
 
+    public ChallengeTypeEnum getChallengeType() {
+        return challengeType;
+    }
+
+    public void setChallengeType(ChallengeTypeEnum challengeType) {
+        this.challengeType = challengeType;
+    }
+
     public static class Builder {
 
         private ChallengeDashBoardInfo challengeDashBoardInfo = new ChallengeDashBoardInfo();
@@ -192,6 +202,11 @@ public class ChallengeDashBoardInfo {
 
         public Builder withSubmissions(List<ChallengeSubmissionEntity> submissions) {
             challengeDashBoardInfo.setSubmissions(submissions);
+            return this;
+        }
+
+        public Builder withChallengeType(ChallengeTypeEnum challengeType) {
+            challengeDashBoardInfo.setChallengeType(challengeType);
             return this;
         }
 
