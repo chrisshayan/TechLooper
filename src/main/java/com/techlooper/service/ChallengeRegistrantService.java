@@ -27,7 +27,7 @@ public interface ChallengeRegistrantService {
 
     List<ChallengeRegistrantEntity> findRegistrantsByChallengeId(Long challengeId);
 
-    List<ChallengeRegistrantDto> findRegistrantsByOwner(String ownerEmail);
+    List<ChallengeRegistrantEntity> findRegistrantsByOwner(String ownerEmail);
 
     ChallengeRegistrantEntity findRegistrantById(Long registrantId);
 
