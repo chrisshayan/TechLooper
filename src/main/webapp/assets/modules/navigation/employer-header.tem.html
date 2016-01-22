@@ -14,7 +14,7 @@
       <div class="user-info-basic-block">
         <a ng-click="logout()" ng-show="$root.userInfo" translate="signOut"></a>
         <a href="#/home" translate="techTalent" class="homepage-link"></a>
-        <p>{{$root.userInfo.name}}</p>
+        <p>{{($root.userInfo.name | textTruncate: 'display-text') || ($root.userInfo.username | textTruncate: 'email')}}</p>
         <div class="user-avatar" ng-show="$root.userInfo">
           <img ng-src="{{$root.userInfo.profileImageUrl}}" alt="" ng-show="$root.userInfo.profileImageUrl.length">
           <img src="images/no-avatar.png" alt="" ng-show="!$root.userInfo.profileImageUrl.length"/>
