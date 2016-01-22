@@ -14,12 +14,12 @@
       <div class="user-info-basic-block">
         <a ng-click="logout()" ng-show="$root.userInfo" translate="signOut"></a>
         <a href="#/home" translate="techTalent" class="homepage-link"></a>
-        <p>{{($root.userInfo.name) || ($root.userInfo.username | textTruncate: 'email')}}</p>
+        <p>{{$root.userInfo.name}}</p>
         <div class="user-avatar" ng-show="$root.userInfo">
           <img ng-src="{{$root.userInfo.profileImageUrl}}" alt="" ng-show="$root.userInfo.profileImageUrl.length">
           <img src="images/no-avatar.png" alt="" ng-show="!$root.userInfo.profileImageUrl.length"/>
         </div>
-        <a ng-show="!$root.userInfo" href="#/user-type" translate="signIn"/>
+        <a ng-show="!$root.userInfo" href="#/user-type" translate="signIn"></a>
       </div>
     </div>
   </div>

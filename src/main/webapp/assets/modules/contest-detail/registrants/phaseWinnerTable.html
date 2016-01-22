@@ -1,11 +1,18 @@
 <div class="phase-description">
   <p translate="winnerDes"></p>
   <div class="announcement-winner">
-    <button translate="announceWinnerToAllContestants" class="btn btn-primary btn-flat"
+    <label><input ng-model="contestDetail.visibleWinners" ng-change="contestDetail.updateVisibleWinner()"
+                  ng-disabled="contestDetail.$disableVisibleWinners" type="checkbox"><span translate="showWinnerBoard"></span></label>
+
+    <button class="btn btn-primary btn-flat" title="{{'announceWinnerToAllContestants' | translate}}"
             ng-class="{disabled: !contestDetail.winners.length}"
             ng-disabled="!contestDetail.winners.length" ng-click="announcementWinner()"
-            data-toggle="modal" data-target="#emailCompose"></button>
-    <a href="report/challenge/final/{{contestDetail.$browserLang}}/{{contestDetail.challengeId}}" class="export-pdf" title="{{'getFinalReport' | translate}}"></a>
+            data-toggle="modal" data-target="#emailCompose">
+      <i class="fa fa fa-bullhorn"></i><span translate=""></span>
+    </button>
+    <a href="report/challenge/final/{{contestDetail.$browserLang}}/{{contestDetail.challengeId}}" class="btn btn-primary btn-flat" title="{{'getFinalReport' | translate}}">
+      <i class="fa fa-file-pdf-o"></i>
+    </a>
   </div>
 </div>
 <div class="participant-list">

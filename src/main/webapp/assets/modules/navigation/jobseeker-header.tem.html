@@ -14,11 +14,12 @@
             <div class="user-info-basic-block">
                 <a ng-click="logout()" ng-show="$root.userInfo" translate="signOut"></a>
                 <a href="#/hiring" translate="business" class="homepage-link"></a>
-                <p>{{$root.userInfo.name}}</p>
+                <p>{{($root.userInfo.name) || ($root.userInfo.username | textTruncate: 'email')}}</p>
                 <div class="user-avatar" ng-show="$root.userInfo">
-                    <img ng-src="{{$root.userInfo.profileImageUrl}}" alt="">
+                    <img ng-src="{{$root.userInfo.profileImageUrl}}" alt="" ng-show="$root.userInfo.profileImageUrl.length">
+                    <img src="images/no-avatar.png" alt="" ng-show="!$root.userInfo.profileImageUrl.length"/>
                 </div>
-                <a ng-show="!$root.userInfo" href="#/user-type" translate="signIn"></a>
+                <a ng-show="!$root.userInfo" href="#/user-type" translate="signIn"/>
             </div>
         </div>
     </div>
@@ -29,10 +30,13 @@
                     <a class="no-icon" href="#/home" ng-show="$root.userInfo">{{($root.userInfo.name | textTruncate: 'display-text') || ($root.userInfo.username | textTruncate: 'email')}}</a>
                     <a ng-show="!$root.userInfo" data-toggle="modal" data-target="#signIn" translate="signIn" class="jobSeekerSignIn"></a>
                 </li>
+                <li ng-if="$root.userInfo" ng-class="{ here: isActive('/jobseeker-dashboard') }" ng-click="hideMenu()">
+                    <a href="#/jobseeker-dashboard" translate="myDashboard" class="my-dashboard"></a>
+                </li>
                 <li ng-class="{ here: isActive('/challenges') }" ng-click="hideMenu()">
                     <a href="#/challenges" translate="codingChallenges" class="challenges"></a>
                 </li>
-                <li ng-class="{ here: isActive('/freelancer/projects') }" ng-click="hideMenu()">
+                <li ng-if="!$root.userInfo" ng-class="{ here: isActive('/freelancer/projects') }" ng-click="hideMenu()">
                     <a href="#/freelancer/projects" translate="freelancer" class="freelancer"></a>
                 </li>
                 <li ng-class="{ here: isActive('/pie-chart') }" ng-click="hideMenu()">

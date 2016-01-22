@@ -210,6 +210,13 @@ public class ChallengeSubmissionServiceImpl implements ChallengeSubmissionServic
     }
 
     @Override
+    public List<ChallengeSubmissionEntity> findChallengeSubmissionByRegistrant(Long registrantId) {
+        NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withTypes("challengeSubmission");
+        searchQueryBuilder.withQuery(filteredQuery(matchAllQuery(), termFilter("registrantId", registrantId)));
+        return DataUtils.getAllEntities(challengeSubmissionRepository, searchQueryBuilder);
+    }
+
+    @Override
     public List<ChallengeSubmissionEntity> findChallengeSubmissionWithinPeriod(
             Long challengeId, Long currentDateTime, TimePeriodEnum period) {
         NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withTypes("challengeSubmission");

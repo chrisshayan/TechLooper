@@ -14,7 +14,6 @@
           <div class="dashboard-details">
             <div class="active-item">
               <strong>{{dashboardInfo.challenges.length | number}}</strong>
-
               <p translate="challenges"></p>
             </div>
             <div class="total-people">
@@ -101,7 +100,10 @@
               id="challenge-{{challenge.challengeId}}">
             <td data-label="{{'activeChallengesDashBoard' | translate}}">
               <a href="#/challenge-detail/{{challenge.challengeName | nonAscii}}-{{challenge.challengeId}}-id"
-                 class="name">{{challenge.challengeName}}</a>
+                 class="name">
+                <i title="Public Challenge" ng-if="challenge.challengeType != 'INTERNAL'" class="challenge-public"></i>
+                <i title="Internal Challenge" ng-if="challenge.challengeType == 'INTERNAL'" class="challenge-internal"></i>
+                {{challenge.challengeName}}</a>
             </td>
             <td data-label="{{'currentPhase' | translate}}">
               <span translate="{{challenge | progress:'challenge'}}"/>

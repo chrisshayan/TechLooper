@@ -16,7 +16,7 @@
       </div>
       <div class="row" ng-if="contest.technologies.length">
         <div class="col-sm-12">
-          {{'technologiesLabel' | translate}} <span class="tag" ng-repeat="skill in contest.technologies"><i class="fa fa-tag"></i> {{skill}}</span>
+          {{'technologiesLabel' | translate}} <span class="tag" ng-repeat="skill in contest.technologies track by $index"><i class="fa fa-tag"></i> {{skill}}</span>
         </div>
       </div>
     </div>

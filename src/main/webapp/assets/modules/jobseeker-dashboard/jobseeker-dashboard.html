@@ -1,0 +1,94 @@
+<div class="content-page-block">
+  <div class="content-page-detail dashboard">
+    <div class="row">
+      <div class="col-md-12 dashboard-box">
+        <div class="sub-header-dashboard">
+          <h3 translate="myProfile"></h3>
+        </div>
+        <div class="row my-profile-info">
+          <div class="col-sm-2 my-avatar">
+            <img src="{{$root.userInfo.profileImageUrl}}" alt=""/>
+          </div>
+          <div class="col-sm-6 my-info">
+            <ul>
+              <li>
+                <span translate="fullName"></span>{{$root.userInfo.name}}
+              </li>
+              <li>
+                <span>{{'emailAddress' | translate}}:</span>{{$root.userInfo.email}}
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <!--<div class="active-challenges-list contestant-page">-->
+      <!--<div class="filter-item">-->
+      <!--<span>AAA</span>-->
+      <!--<span>AAA</span>-->
+      <!--<span>AAA</span>-->
+      <!--</div>-->
+      <!--</div>-->
+    </div>
+    <div class="row">
+      <div class="my-challenge-list">
+        <table class="table contests-table">
+          <thead>
+          <tr>
+            <th>
+              <div class="col-sm-4 challenge-name-col" translate="challenge"></div>
+              <div class="col-sm-2 current-phase-col" translate="myCurrentPhase"></div>
+              <div class="col-sm-2 submission-col" translate="submission"></div>
+              <div class="col-sm-2 score-col" translate="scoreLabel"></div>
+              <div class="col-sm-2 prize-col" translate="prize"></div>
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr ng-if="!dashboardInfo.challenges.length">
+            <td>
+              <p translate="noData"></p>
+            </td>
+          </tr>
+          <tr ng-repeat="challenge in dashboardInfo.challenges" class="challenge-item {{challenge.$awardLowercase}} challenge-{{challenge.challengeId}}">
+            <td>
+              <div class="col-sm-4 challenge-name-col">
+                <a href="#/challenge-detail/{{challenge.$asciiChallengeName}}-{{challenge.challengeId}}-id" target="_blank">
+                  <i class="challenge-type" ng-class="{'challenge-internal': challenge.challengeType == 'INTERNAL','challenge-public': challenge.challengeType != 'INTERNAL'}"></i>
+                  {{challenge.challengeName}}
+                </a>
+                <span class="note" translate="{{challenge.$daysLeftTitle}}" />
+              </div>
+              <div class="col-sm-2 current-phase-col">
+                <span class="challenge-status {{challenge.$currentPhaseLowerCase}}"
+                      translate="{{challenge.$currentPhaseTitle}}" />
+                <span class="note" translate="{{challenge.$currentPhaseDescTitle}}" />
+              </div>
+              <div class="col-sm-2 submission-col">
+                <a ng-click="toggleSubmissions(challenge)" ng-if="challenge.submissions.length">{{challenge.submissions.length}}
+                  <i class="fa fa-caret-down"></i></a>
+                <span ng-if="!challenge.submissions.length">-</span>
+              </div>
+              <div class="col-sm-2 score-col">
+                <a ng-click="toggleCriteria(challenge)" ng-if="challenge.$hasSomeScore">{{challenge.$totalPoints}}
+                  <i class="fa fa-caret-down"></i></a>
+                <span ng-if="!challenge.$hasSomeScore">-</span>
+              </div>
+              <div class="col-sm-1 prize-col">
+                {{challenge.$awardPrizeTitle}}
+                <span ng-if="!challenge.rank">-</span>
+              </div>
+              <div class="col-sm-1 prize-col">
+                <span ng-if="challenge.rank" class="winner"></span>
+              </div>
+              <div class="challenge-toggle-criteria"></div>
+              <div class="challenge-toggle-submissions"></div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

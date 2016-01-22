@@ -99,7 +99,7 @@
     <p class="title" translate="technologies"></p>
 
     <p class="detail">
-            <span class="tag" ng-repeat="skill in contestDetail.technologies">
+            <span class="tag" ng-repeat="skill in contestDetail.technologies track by $index">
               {{skill}}
             </span>
     </p>

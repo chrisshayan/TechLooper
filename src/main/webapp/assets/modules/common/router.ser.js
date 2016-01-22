@@ -16,7 +16,7 @@ angular.module("Common").factory("routerService", function (jsonValue, utils, $l
     },
 
     serverError: function () {
-      console.log("Unable to connect to server");
+      //console.log("Unable to connect to server");
     },
 
     logoutSuccess: function() {
