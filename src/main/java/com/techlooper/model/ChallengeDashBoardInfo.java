@@ -2,7 +2,6 @@ package com.techlooper.model;
 
 import com.techlooper.entity.ChallengeRegistrantCriteria;
 import com.techlooper.entity.ChallengeSubmissionEntity;
-import com.techlooper.model.challenge.PhaseType;
 
 import java.util.List;
 import java.util.Set;
@@ -18,7 +17,7 @@ public class ChallengeDashBoardInfo {
 
     private String submissionDate;
 
-    private PhaseType currentPhase;
+    private ChallengePhaseEnum currentPhase;
 
     private String currentPhaseSubmissionDate;
 
@@ -62,11 +61,11 @@ public class ChallengeDashBoardInfo {
         this.submissionDate = submissionDate;
     }
 
-    public PhaseType getCurrentPhase() {
+    public ChallengePhaseEnum getCurrentPhase() {
         return currentPhase;
     }
 
-    public void setCurrentPhase(PhaseType currentPhase) {
+    public void setCurrentPhase(ChallengePhaseEnum currentPhase) {
         this.currentPhase = currentPhase;
     }
 
@@ -161,7 +160,7 @@ public class ChallengeDashBoardInfo {
             return this;
         }
 
-        public Builder withCurrentPhase(PhaseType currentPhase) {
+        public Builder withCurrentPhase(ChallengePhaseEnum currentPhase) {
             challengeDashBoardInfo.setCurrentPhase(currentPhase);
             return this;
         }
