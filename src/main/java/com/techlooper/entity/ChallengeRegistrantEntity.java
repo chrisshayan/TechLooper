@@ -2,8 +2,6 @@ package com.techlooper.entity;
 
 import com.techlooper.model.ChallengePhaseEnum;
 import com.techlooper.model.Language;
-import com.techlooper.model.challenge.PhaseType;
-import org.dozer.DozerBeanMapper;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.*;
 
@@ -186,13 +184,5 @@ public class ChallengeRegistrantEntity {
 
     public void setPassCode(Integer passCode) {
         this.passCode = passCode;
-    }
-
-    public ChallengeRegistrantDto toDTO() {
-        DozerBeanMapper dozerBeanMapper = new DozerBeanMapper();
-        ChallengeRegistrantDto registrantDto = dozerBeanMapper.map(this, ChallengeRegistrantDto.class);
-        PhaseType phaseType = PhaseType.newChallengePhase(getActivePhase());
-        registrantDto.setActivePhase(phaseType);
-        return registrantDto;
     }
 }

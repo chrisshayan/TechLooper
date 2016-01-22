@@ -8,7 +8,6 @@ import com.techlooper.entity.ChallengeRegistrantCriteria;
 import com.techlooper.entity.ChallengeRegistrantDto;
 import com.techlooper.entity.ChallengeRegistrantEntity;
 import com.techlooper.model.*;
-import com.techlooper.model.challenge.PhaseType;
 import com.techlooper.repository.elasticsearch.ChallengeRegistrantRepository;
 import com.techlooper.repository.elasticsearch.ChallengeRepository;
 import com.techlooper.repository.elasticsearch.ChallengeSubmissionRepository;
@@ -220,11 +219,10 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
         return DataUtils.getAllEntities(challengeRegistrantRepository, searchQueryBuilder);
     }
 
-    public List<ChallengeRegistrantDto> findRegistrantsByOwner(String ownerEmail) {
+    public List<ChallengeRegistrantEntity> findRegistrantsByOwner(String ownerEmail) {
         NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withTypes("challengeRegistrant");
         searchQueryBuilder.withQuery(filteredQuery(matchAllQuery(), termFilter("registrantEmail", ownerEmail)));
-        return DataUtils.getAllEntities(challengeRegistrantRepository, searchQueryBuilder).stream().map(
-                registrantEntity -> registrantEntity.toDTO()).collect(toList());
+        return DataUtils.getAllEntities(challengeRegistrantRepository, searchQueryBuilder);
     }
 
     @Override
@@ -272,7 +270,7 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
 
         for (Long registrantId : challengeQualificationDto.getRegistrantIds()) {
             ChallengeRegistrantDto registrantDto = acceptRegistrant(registrantId, qualifyingPhase);
-            if (registrantDto.getActivePhase().getPhaseName() == qualifyingPhase) {
+            if (registrantDto.getActivePhase() == qualifyingPhase) {
                 qualifiedRegistrants.add(registrantDto);
             }
         }
@@ -390,9 +388,9 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
 
     public List<ChallengeDashBoardInfo> getChallengeDashBoardInfo(String registrantEmail) {
         List<ChallengeDashBoardInfo> challengeDashBoardInfoList = new ArrayList<>();
-        List<ChallengeRegistrantDto> registrantEntities = findRegistrantsByOwner(registrantEmail);
+        List<ChallengeRegistrantEntity> registrantEntities = findRegistrantsByOwner(registrantEmail);
 
-        for (ChallengeRegistrantDto registrantEntity : registrantEntities) {
+        for (ChallengeRegistrantEntity registrantEntity : registrantEntities) {
             Long challengeId = registrantEntity.getChallengeId();
             Long registrantId = registrantEntity.getRegistrantId();
             ChallengeEntity challengeEntity = challengeService.findChallengeById(challengeId);
@@ -402,9 +400,10 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
                 challengeDashBoardInfoBuilder.withChallengeId(challengeId);
                 challengeDashBoardInfoBuilder.withChallengeName(challengeEntity.getChallengeName());
                 challengeDashBoardInfoBuilder.withSubmissionDate(challengeEntity.getSubmissionDateTime());
-                PhaseType currentPhase = registrantEntity.getActivePhase();
+                ChallengePhaseEnum currentPhase = registrantEntity.getActivePhase() != null ?
+                        registrantEntity.getActivePhase() : REGISTRATION;
                 challengeDashBoardInfoBuilder.withCurrentPhase(currentPhase);
-                challengeDashBoardInfoBuilder.withCurrentPhaseSubmissionDate(currentPhase.getSubmissionDate());
+                challengeDashBoardInfoBuilder.withCurrentPhaseSubmissionDate(getCurrentPhaseSubmissionDate(challengeEntity, currentPhase));
                 challengeDashBoardInfoBuilder.withDisqualified(registrantEntity.getDisqualified());
 
                 Integer numberOfSubmissions = challengeSubmissionService.findChallengeSubmissionByRegistrant(registrantId).size();
@@ -434,8 +433,8 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
         return null;
     }
 
-    private Double getRegistrantSubmissionScore(ChallengeRegistrantDto registrantDto) {
-        Set<ChallengeRegistrantCriteria> criteria = registrantDto.getCriteria();
+    private Double getRegistrantSubmissionScore(ChallengeRegistrantEntity registrantEntity) {
+        Set<ChallengeRegistrantCriteria> criteria = registrantEntity.getCriteria();
 
         Double totalScore = 0D;
         if (criteria != null) {
@@ -469,5 +468,22 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
             }
         }
         return null;
+    }
+
+    private String getCurrentPhaseSubmissionDate(ChallengeEntity challengeEntity, ChallengePhaseEnum currentPhase) {
+        switch (currentPhase) {
+            case REGISTRATION:
+                return challengeEntity.getRegistrationDateTime();
+            case IDEA:
+                return challengeEntity.getIdeaSubmissionDateTime();
+            case UIUX:
+                return challengeEntity.getUxSubmissionDateTime();
+            case PROTOTYPE:
+                return challengeEntity.getPrototypeSubmissionDateTime();
+            case FINAL:
+                return challengeEntity.getSubmissionDateTime();
+            default:
+                return "";
+        }
     }
 }
