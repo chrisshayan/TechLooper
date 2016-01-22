@@ -55,6 +55,7 @@
             <td>
               <div class="col-sm-4 challenge-name-col">
                 <a href="#/challenge-detail/{{challenge.$asciiChallengeName}}-{{challenge.challengeId}}-id" target="_blank">
+                  <i class="challenge-type" ng-class="{'challenge-internal': challenge.challengeType == 'INTERNAL','challenge-public': challenge.challengeType != 'INTERNAL'}"></i>
                   {{challenge.challengeName}}
                 </a>
                 <span class="note" translate="{{challenge.$daysLeftTitle}}" />
