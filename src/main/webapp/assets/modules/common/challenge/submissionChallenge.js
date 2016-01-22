@@ -100,6 +100,7 @@ techlooper.directive("submissionChallenge", function (localStorageService, apiSe
                 })
                 .error(function () {
                   scope.submissionForm.submissionPassCode.$setValidity("credential", false);
+                  delete scope.loadingData;
                 });
             }
             scope.submissionForm && scope.submissionForm.submissionURL.$setValidity("invalidUrl", !inValid);
