@@ -75,7 +75,7 @@
                 ng-click="toggleJoinInternalForm()" ng-disabled="contestDetail.$currentUserJoined"
                 ng-class="{disabled: !contestDetail.$currentState.isJoinable}"
                 ng-if="contestDetail.$isInternal">
-          <i class="fa fa-user-plus"></i> <span translate="joinNow"></span>
+          <i class="fa fa-facebook-square"></i> <span translate="joinNow"></span>
         </button>
 
         <button ng-if="contestDetail.$currentUserJoined"
@@ -83,14 +83,8 @@
                 ng-disabled="contestDetail.$currentState.isClosed"
                 ng-class="{disabled:contestDetail.$currentState.isClosed}"
                 class="btn btn-primary btn-flat">
-          <i class="fa fa-paper-plane-o"></i> <span translate="submitPhase"></span>
+          <i class="fa fa-user-plus"></i> <span translate="submitPhase"></span>
         </button>
-
-        <!--<button ng-if="contestDetail.$isInternal && contestDetail.$currentUserJoined"-->
-                <!--ng-click="signInInternalForm()"-->
-                <!--class="btn btn-primary btn-flat">-->
-          <!--<i class="fa fa-paper-plane-o"></i> <span translate="submitPhase"></span>-->
-        <!--</button>-->
 
         <p class="note align-text-right" ng-if="contestDetail.$isInternal">
           {{'joinInternalChallengeWith' | translate}}<br/>
