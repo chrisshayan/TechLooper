@@ -176,9 +176,6 @@ public class ChallengeEmailServiceImpl implements ChallengeEmailService {
         List<String> subjectVariableValues = Arrays.asList(challengeEntity.getChallengeName());
         String recipientAddresses = challengeRegistrantEntity.getRegistrantEmail();
         String templateName = EmailTemplateNameEnum.CHALLENGE_CONFIRM_USER_ON_JOIN_CHALLENGE.name();
-        if (challengeEntity.getChallengeType() == ChallengeTypeEnum.INTERNAL) {
-            templateName = EmailTemplateNameEnum.CHALLENGE_CONFIRM_ON_JOIN_INTERNAL_CHALLENGE.name();
-        }
 
         EmailRequestModel emailRequestModel = new EmailRequestModel.Builder()
                 .withTemplateName(templateName)
@@ -401,9 +398,10 @@ public class ChallengeEmailServiceImpl implements ChallengeEmailService {
         templateModel.put("thirdPlaceReward", challengeEntity.getThirdPlaceReward() != null ? challengeEntity.getThirdPlaceReward() : 0);
         templateModel.put("challengeId", String.valueOf(challengeEntity.getChallengeId()));
         templateModel.put("challengeNameAlias", challengeEntity.getChallengeName().replaceAll("\\W", "-"));
+        templateModel.put("challengeType", challengeEntity.getChallengeType().getValue());
 
         if (challengeEntity.getChallengeType() == ChallengeTypeEnum.INTERNAL) {
-            templateModel.put("passCode", String.valueOf(challengeRegistrantEntity.getPassCode()));
+            templateModel.put("companyDomains", StringUtils.join(challengeEntity.getCompanyDomains(), "<br/>"));
         }
 
         return templateModel;
