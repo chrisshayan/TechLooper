@@ -34,7 +34,7 @@
     "angular-local-storage": "latest",
     "jquery.easing": "latest",
     "bootstrap-select": "latest",
-    "blueimp-gallery":  "latest",
+    "blueimp-gallery": "latest",
     "blueimp-bootstrap-image-gallery": "latest",
     "sprintf": "latest",
     "allmighty-autocomplete": "latest",
@@ -140,10 +140,10 @@
     "bootstrap-select": {
       "main": "dist/js/bootstrap-select.js"
     },
-    "blueimp-gallery":{
+    "blueimp-gallery": {
       "main": "js/jquery.blueimp-gallery.min.js"
     },
-    "blueimp-bootstrap-image-gallery":{
+    "blueimp-bootstrap-image-gallery": {
       "main": "js/bootstrap-image-gallery.js"
     },
     "bootstrap-datepicker": {
@@ -153,7 +153,7 @@
         "dist/js/bootstrap-datepicker.min.js"
       ]
     },
-    "moment":{
+    "moment": {
       "main": [
         "moment.js",
         "locale/vi.js"
@@ -161,8 +161,8 @@
     },
     "eonasdan-bootstrap-datetimepicker": {
       "main": [
-      "build/css/bootstrap-datetimepicker.min.css",
-      "build/js/bootstrap-datetimepicker.min.js"
+        "build/css/bootstrap-datetimepicker.min.css",
+        "build/js/bootstrap-datetimepicker.min.js"
       ]
     },
     "angular-summernote": {
@@ -170,6 +170,7 @@
     }
   },
   "resolutions": {
-    "angular": ">=1.4.0"
+    "angular": ">=1.4.0",
+    "angular-translate": "2.9.0"
   }
 }
