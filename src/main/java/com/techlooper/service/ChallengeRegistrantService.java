@@ -51,5 +51,5 @@ public interface ChallengeRegistrantService {
 
     Set<ChallengeRegistrantDto> getChallengeWinners(Long challengeId);
 
-    List<ChallengeDashBoardInfo> getChallengeDashBoardInfo(String registrantEmail);
+    List<ChallengeDashBoardInfo> getChallengeDashBoardInfo(JobSeekerDashBoardCriteria criteria);
 }

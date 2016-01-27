@@ -35,6 +35,8 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.techlooper.model.ChallengePhaseEnum.*;
+import static com.techlooper.util.DateTimeUtils.currentDate;
+import static com.techlooper.util.DateTimeUtils.daysBetween;
 import static java.util.stream.Collectors.toList;
 import static org.elasticsearch.index.query.FilterBuilders.*;
 import static org.elasticsearch.index.query.QueryBuilders.*;
@@ -357,7 +359,7 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
 
         Long numberOfFinalists = countNumberOfFinalists(challengeId);
         Long numberOfWinners = Long.valueOf(countNumberOfWinners(challengeId));
-        funnel.add(new ChallengeRegistrantFunnelItem(ChallengePhaseEnum.WINNER, numberOfFinalists, numberOfWinners, 0L));
+        funnel.add(new ChallengeRegistrantFunnelItem(WINNER, numberOfFinalists, numberOfWinners, 0L));
 
         Comparator<ChallengeRegistrantFunnelItem> sortByPhaseComparator = (item1, item2) ->
                 item1.getPhase().getOrder() - item2.getPhase().getOrder();
@@ -386,16 +388,21 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
         return challengeRegistrantRepository.count();
     }
 
-    public List<ChallengeDashBoardInfo> getChallengeDashBoardInfo(String registrantEmail) {
+    @Override
+    public List<ChallengeDashBoardInfo> getChallengeDashBoardInfo(JobSeekerDashBoardCriteria criteria) {
         List<ChallengeDashBoardInfo> challengeDashBoardInfoList = new ArrayList<>();
-        List<ChallengeRegistrantEntity> registrantEntities = findRegistrantsByOwner(registrantEmail);
+        List<ChallengeRegistrantEntity> registrantEntities = findRegistrantsByOwner(criteria.getJobSeekerEmail());
 
         for (ChallengeRegistrantEntity registrantEntity : registrantEntities) {
             Long challengeId = registrantEntity.getChallengeId();
             Long registrantId = registrantEntity.getRegistrantId();
             ChallengeEntity challengeEntity = challengeService.findChallengeById(challengeId);
 
-            if (challengeEntity != null && (challengeEntity.getExpired() == null || challengeEntity.getExpired() == false)) {
+            boolean isChallengeSelected = challengeEntity != null &&
+                    (challengeEntity.getExpired() == null || challengeEntity.getExpired() == false) &&
+                    isPhaseMatching(challengeEntity, registrantEntity, criteria);
+
+            if (isChallengeSelected) {
                 ChallengeDashBoardInfo.Builder challengeDashBoardInfoBuilder = new ChallengeDashBoardInfo.Builder();
                 challengeDashBoardInfoBuilder.withChallengeId(challengeId);
                 challengeDashBoardInfoBuilder.withChallengeName(challengeEntity.getChallengeName());
@@ -423,6 +430,25 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
             }
         }
         return challengeDashBoardInfoList;
+    }
+
+    private boolean isPhaseMatching(ChallengeEntity challengeEntity, ChallengeRegistrantEntity registrantEntity,
+                                    JobSeekerDashBoardCriteria criteria) {
+        ChallengePhaseEnum jobSeekerCurrentPhase = registrantEntity.getActivePhase() == null ? REGISTRATION : registrantEntity.getActivePhase();
+        List<ChallengePhaseEnum> activePhases = Arrays.asList(REGISTRATION, IDEA, UIUX, PROTOTYPE, FINAL);
+        boolean isChallengeClosed = daysBetween(challengeEntity.getSubmissionDateTime(), currentDate()) > 0;
+        switch (criteria.getJobSeekerPhase()) {
+            case ALL:
+                return true;
+            case ACTIVE:
+                return !isChallengeClosed && activePhases.contains(jobSeekerCurrentPhase);
+            case FINISHED:
+                return isChallengeClosed;
+            case DISQUALIFIED:
+                return registrantEntity.getDisqualified() == null ? false : registrantEntity.getDisqualified();
+            default:
+                return true;
+        }
     }
 
     public Set<ChallengeRegistrantDto> getChallengeWinners(Long challengeId) {

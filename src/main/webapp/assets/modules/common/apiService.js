@@ -415,6 +415,14 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
         .success(function(info) {
           $filter("jobseekerDashboard")(info);
         });
+    },
+
+    filterJobseekerDashboard: function(challengeType) {
+      return $http.post("user/jobSeeker/dashboard-info", {
+        jobSeekerPhase : challengeType,
+      }).success(function(info) {
+          $filter("jobseekerDashboard")(info);
+        });
     }
   };
 

@@ -6,6 +6,13 @@ techlooper.controller('jobseekerDashboardController', function ($scope, apiServi
 
     });
 
+  $scope.filterChallenge = function (challengeType) {
+    apiService.filterJobseekerDashboard(challengeType)
+      .success(function (info) {
+        $scope.dashboardInfo = info;
+    });
+  }
+
   $scope.toggleSubmissions = function (challenge) {
     var challengeItem = $('.challenge-' + challenge.challengeId);
     if(challengeItem.find('.submission-col .fa-caret-down').hasClass('fa-caret-up')){
