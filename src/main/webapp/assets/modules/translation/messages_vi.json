@@ -910,5 +910,6 @@
   "showWinnerBoard": "Hiển Thị Bảng Xếp Hạng",
   "finishedOn": "<strong>ĐÃ KẾT THÚC</strong> vào {{date}}",
   "inPhase": "ở giai đoạn <strong>{{phase}}<strong>",
-  "daysLeftToSubmit": "Còn <strong>{{days}} ngày</strong> để gửi bài "
+  "daysLeftToSubmit": "Còn <strong>{{days}} ngày</strong> để gửi bài",
+  "finished": "Đã kết thúc"
 }

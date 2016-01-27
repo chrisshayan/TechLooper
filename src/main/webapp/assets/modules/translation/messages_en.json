@@ -907,5 +907,6 @@
   "finishedOn": "<strong>FINISHED</strong> on {{date}}",
   "inPhase": "in <strong>{{phase}}</strong>",
   "daysLeftToSubmit": "<strong>{{days}} day(s)</strong> left to submit",
-  "verify": "Verify"
+  "verify": "Verify",
+  "finished": "Finished"
 }
