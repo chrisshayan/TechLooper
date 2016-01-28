@@ -24,11 +24,15 @@
     </div>
     <div class="row">
       <div class="active-challenges-list contestant-page">
-        <div class="filter-item" ng-modal="active" data-ng-init="active='all'">
-          <span ng-class="{active: !challengeStatus}">{{'all' | translate}} (<i>{{dashboardInfo.challenges.length}}</i>)</span>
-          <span>{{'active' | translate}} (<i>23</i>)</span>
-          <span>{{'finished' | translate}} (<i>13</i>)</span>
-          <span>{{'disqualified' | translate}} (<i>3</i>)</span>
+        <div class="filter-item" ng-modal="active" data-ng-init="active='ALL'">
+          <span ng-click="filterChallenge('ALL')" ng-class="{'active': active == 'ALL'}">
+            {{'all' | translate}} (<strong>100</strong>)</span>
+          <span ng-click="filterChallenge('ACTIVE')" ng-class="{'active': active == 'ACTIVE'}">
+            {{'active' | translate}}</span>
+          <span ng-click="filterChallenge('FINISHED')" ng-class="{'active': active == 'FINISHED'}">
+            {{'closed' | translate}}</span>
+          <span ng-click="filterChallenge('DISQUALIFIED')" ng-class="{'active': active == 'DISQUALIFIED'}">
+            {{'disqualified' | translate}} (<strong>12</strong>)</span>
         </div>
         <div class="my-challenge-list">
           <table class="table contests-table">

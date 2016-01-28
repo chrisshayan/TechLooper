@@ -3,9 +3,9 @@ package com.techlooper.service;
 import com.techlooper.dto.ChallengeQualificationDto;
 import com.techlooper.dto.ChallengeWinnerDto;
 import com.techlooper.dto.RejectRegistrantDto;
-import com.techlooper.entity.DraftRegistrantEntity;
 import com.techlooper.entity.ChallengeRegistrantDto;
 import com.techlooper.entity.ChallengeRegistrantEntity;
+import com.techlooper.entity.DraftRegistrantEntity;
 import com.techlooper.model.*;
 
 import java.util.List;
@@ -54,7 +54,7 @@ public interface ChallengeRegistrantService {
 
     Set<ChallengeRegistrantDto> getChallengeWinners(Long challengeId);
 
-    List<ChallengeDashBoardInfo> getChallengeDashBoardInfo(String registrantEmail);
+    List<ChallengeDashBoardInfo> getChallengeDashBoardInfo(JobSeekerDashBoardCriteria criteria);
 
     DraftRegistrantEntity saveDraftRegistrant(DraftRegistrantEntity draftRegistrantEntity);
 }

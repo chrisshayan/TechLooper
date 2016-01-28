@@ -3,9 +3,15 @@ techlooper.controller('jobseekerDashboardController', function ($scope, apiServi
   apiService.getJobseekerDashboard()
     .success(function (info) {
       $scope.dashboardInfo = info;
-
     });
 
+  $scope.filterChallenge = function (challengeType) {
+    $scope.active = challengeType;
+    apiService.filterJobseekerDashboard(challengeType)
+      .success(function (info) {
+        $scope.dashboardInfo = info;
+    });
+  };
   $scope.toggleSubmissions = function (challenge) {
     var challengeItem = $('.challenge-' + challenge.challengeId);
     if(challengeItem.find('.submission-col .fa-caret-down').hasClass('fa-caret-up')){

@@ -359,10 +359,26 @@ public class UserController {
     @PreAuthorize("hasAnyAuthority('JOB_SEEKER')")
     @RequestMapping(value = "/user/jobSeeker/dashboard-info", method = RequestMethod.GET)
     public JobSeekerDashBoardInfo getJobSeekerDashboard(HttpServletRequest request) {
-        UserProfileDto signinUser = this.getUserProfile(request);
+        UserProfileDto signOnUser = this.getUserProfile(request);
+        JobSeekerDashBoardCriteria criteria = new JobSeekerDashBoardCriteria();
+        criteria.setJobSeekerEmail(signOnUser.getEmail());
+        criteria.setJobSeekerPhase(JobSeekerPhaseEnum.ALL);
+
         JobSeekerDashBoardInfo jobSeekerDashBoardInfo = new JobSeekerDashBoardInfo();
-        jobSeekerDashBoardInfo.setEmail(signinUser.getEmail());
-        jobSeekerDashBoardInfo.setChallenges(challengeRegistrantService.getChallengeDashBoardInfo(signinUser.getEmail()));
+        jobSeekerDashBoardInfo.setEmail(signOnUser.getEmail());
+        jobSeekerDashBoardInfo.setChallenges(challengeRegistrantService.getChallengeDashBoardInfo(criteria));
+        return jobSeekerDashBoardInfo;
+    }
+
+    @PreAuthorize("hasAnyAuthority('JOB_SEEKER')")
+    @RequestMapping(value = "/user/jobSeeker/dashboard-info", method = RequestMethod.POST)
+    public JobSeekerDashBoardInfo getJobSeekerDashboardByPhase(HttpServletRequest request, @RequestBody JobSeekerDashBoardCriteria criteria) {
+        UserProfileDto signOnUser = this.getUserProfile(request);
+        criteria.setJobSeekerEmail(signOnUser.getEmail());
+
+        JobSeekerDashBoardInfo jobSeekerDashBoardInfo = new JobSeekerDashBoardInfo();
+        jobSeekerDashBoardInfo.setEmail(signOnUser.getEmail());
+        jobSeekerDashBoardInfo.setChallenges(challengeRegistrantService.getChallengeDashBoardInfo(criteria));
         return jobSeekerDashBoardInfo;
     }
 
