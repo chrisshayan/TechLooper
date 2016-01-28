@@ -291,7 +291,7 @@ public class ChallengeEmailServiceImpl implements ChallengeEmailService {
         templateModel.put("registrantLastName", draftRegistrantEntity.getRegistrantLastName());
         templateModel.put("registrantEmail", draftRegistrantEntity.getRegistrantEmail());
         templateModel.put("verificationEmail", draftRegistrantEntity.getRegistrantInternalEmail());
-        templateModel.put("passCode", draftRegistrantEntity.getPasscode());
+        templateModel.put("passCode", String.valueOf(draftRegistrantEntity.getPasscode()));
         return templateModel;
     }
 

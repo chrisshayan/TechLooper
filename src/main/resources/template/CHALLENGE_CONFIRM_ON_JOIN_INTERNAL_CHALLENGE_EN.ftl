@@ -173,7 +173,7 @@
                     <tr>
                       <td align="left" style="margin: 0; padding: 0">
                         <p style="font-size: 14px; line-height: 18px; margin: 0; padding: 0">
-                          Welcome to <a href="${webBaseUrl}#/challenge-detail/${challengeNameAlias}-${challengeId}-id?utm_source=internalverification&utm_medium=clickchallenge&utm_campaign=onlinecontest" style="font-size: 14px; font-weight: 600; color: #277cbd; text-decoration: none" target="_blank">${challenge.challengeName}</a>.
+                          Welcome to <a href="${webBaseUrl}#/challenge-detail/${challengeNameAlias}-${challengeId}-id?utm_source=internalverification&utm_medium=clickchallenge&utm_campaign=onlinecontest" style="font-size: 14px; font-weight: 600; color: #277cbd; text-decoration: none" target="_blank">${challengeName}</a>.
                             Use below verification email and passcode to confirm and activate your enrollment to the challenge:
                         </p>
                       </td>

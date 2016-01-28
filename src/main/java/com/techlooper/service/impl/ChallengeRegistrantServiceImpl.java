@@ -537,7 +537,7 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
         Integer passcode = DataUtils.getRandomNumberInRange(1000, 9999);
         draft.setPasscode(passcode);
         draft = draftRegistrantRepository.save(draft);
-        challengeEmailService.sendEmailToVerifyRegistrantOfInternalChallenge(draftRegistrantEntity);
+        challengeEmailService.sendEmailToVerifyRegistrantOfInternalChallenge(draft);
         return draft;
     }
 
