@@ -42,4 +42,5 @@ public interface ChallengeService {
 
     void calculateChallengePhases(ChallengeDetailDto challengeDetailDto);
 
+    ChallengeDetailDto updateVisibleWinner(ChallengeDetailDto challengeDetailDto, String owner);
 }

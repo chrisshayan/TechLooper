@@ -1,0 +1,33 @@
+<div class="score-details-block">
+  <table class="table contests-table">
+    <thead>
+    <tr>
+      <th translate="criteriaName"/>
+      <th translate="criteriaWeight"/>
+      <th/>
+      <th translate="givenPoints"/>
+      <th/>
+      <th translate="weightedScoring"/>
+      <th translate="comment"/>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="cri in $challenge.criteria">
+      <td>{{cri.name}}</td>
+      <td><strong>{{cri.weight}}</strong></td>
+      <td>x</td>
+      <td><strong>{{cri.$score}}</strong></td>
+      <td>=</td>
+      <td><strong>{{cri.$points}}</strong></td>
+      <td>{{cri.comment}}</td>
+    </tr>
+    </tbody>
+    <tfoot>
+    <tr>
+      <td colspan="7">
+        <span translate="totalPoints"></span>: {{$challenge.$totalPoints}}
+      </td>
+    </tr>
+    </tfoot>
+  </table>
+</div>

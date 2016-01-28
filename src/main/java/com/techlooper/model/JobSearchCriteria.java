@@ -17,6 +17,8 @@ public class JobSearchCriteria {
 
     private String crawlSource;
 
+    private boolean fromJobAlert;
+
     public JobSearchCriteria() {
         this.page = 1;
     }
@@ -71,5 +73,13 @@ public class JobSearchCriteria {
 
     public void setLocationId(Integer locationId) {
         this.locationId = locationId;
+    }
+
+    public boolean isFromJobAlert() {
+        return fromJobAlert;
+    }
+
+    public void setFromJobAlert(boolean fromJobAlert) {
+        this.fromJobAlert = fromJobAlert;
     }
 }

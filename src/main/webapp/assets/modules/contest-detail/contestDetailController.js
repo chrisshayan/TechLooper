@@ -71,6 +71,7 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
     apiService.getContestDetail(contestId)
       .success(function (data) {
         $scope.contestDetail = data;
+          $scope.contestDetail.winnerBoardListing =  $scope.contestDetail.phaseItems[$scope.contestDetail.phaseItems.length - 1].participant;
         $scope.contestDetail.setSelectedPhase($location.search().toPhase);
         $scope.$emit("challenge-detail-ready");
       })

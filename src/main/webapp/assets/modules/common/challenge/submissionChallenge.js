@@ -33,6 +33,7 @@ techlooper.directive("submissionChallenge", function (localStorageService, apiSe
 
       var handleChallengeChanged = function () {
         var challengeId = localStorageService.get("submitNow");
+        if (!scope.challenge) return;
         if (scope.challenge && (challengeId == scope.challenge.challengeId)) {
           localStorageService.remove("submitNow");
           localStorageService.remove("joinNow");
@@ -99,6 +100,7 @@ techlooper.directive("submissionChallenge", function (localStorageService, apiSe
                 })
                 .error(function () {
                   scope.submissionForm.submissionPassCode.$setValidity("credential", false);
+                  delete scope.loadingData;
                 });
             }
             scope.submissionForm && scope.submissionForm.submissionURL.$setValidity("invalidUrl", !inValid);

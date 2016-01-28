@@ -72,6 +72,16 @@ public class ChallengeDetailDto {
 
     private List<String> companyDomains;
 
+    private Boolean visibleWinners;
+
+    public Boolean getVisibleWinners() {
+        return visibleWinners;
+    }
+
+    public void setVisibleWinners(Boolean visibleWinners) {
+        this.visibleWinners = visibleWinners;
+    }
+
     public List<ChallengeRegistrantFunnelItem> getPhaseItems() {
         return phaseItems;
     }

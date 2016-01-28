@@ -206,4 +206,13 @@ techlooper
       link: function (scope, element, attr, ctrl) {
       }
     };
+  })
+  .directive('winnerBoardTab', function () {
+    return {
+      restrict: "E",
+      replace: true,
+      templateUrl: "modules/contest-detail/winner-board/winnerBoard.html",
+      link: function (scope, element, attr, ctrl) {
+      }
+    };
   });

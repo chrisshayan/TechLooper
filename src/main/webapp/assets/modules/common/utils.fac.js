@@ -3,6 +3,10 @@ techlooper.factory("utils", function (jsonValue, $location, $rootScope, localSto
 
   var instance = {
 
+    toNow: function(mdate) {
+      return mdate.isSame(moment(), "day") ? 1 : mdate.diff(moment(), "days") + 2;
+    },
+
     sortByArrayLength: function (array, numberField, type) {
       return array.sort(function (left, right) {
         if (!left || !right) return 0;
@@ -342,6 +346,9 @@ techlooper.factory("utils", function (jsonValue, $location, $rootScope, localSto
       }
       else if (/\/employer-dashboard/.test(path)) {
         return jsonValue.views.employerDashboard;
+      }
+      else if (/\/jobseeker-dashboard/.test(path)) {
+        return jsonValue.views.jobseekerDashboard;
       }
       else if (/\/user-type/.test(path)) {
         return jsonValue.views.userType;

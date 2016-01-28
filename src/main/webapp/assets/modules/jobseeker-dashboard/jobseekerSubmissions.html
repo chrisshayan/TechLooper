@@ -1,0 +1,19 @@
+<div class="submission-listing-block">
+  <table class="table contests-table">
+    <thead>
+    <tr>
+      <th translate="descriptionCol"></th>
+      <th translate="submissionLink"></th>
+      <th translate="phase"></th>
+      <th translate="date"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="submission in $challenge.submissions">
+      <td>{{submission.submissionDescription}}</td>
+      <td><a href="{{submission.$submissionURL}}" target="_blank">{{submission.$submissionURL}}</a></td>
+      <td>{{submission.$phaseTitle}}</td>
+      <td>{{submission.submissionDateTime}}</td>
+    </tr>
+  </table>
+</div>
