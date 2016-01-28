@@ -174,7 +174,7 @@
                       <td align="left" style="margin: 0; padding: 0">
                         <p style="font-size: 14px; line-height: 18px; margin: 0; padding: 0">
                           Welcome to <a href="${webBaseUrl}#/challenge-detail/${challengeNameAlias}-${challengeId}-id?utm_source=internalverification&utm_medium=clickchallenge&utm_campaign=onlinecontest" style="font-size: 14px; font-weight: 600; color: #277cbd; text-decoration: none" target="_blank">${challengeName}</a>.
-                            Use below <span style="color: #337ab7">verification email</span> and <span style="color: #337ab7">passcode</span> to confirm and activate your enrollment to the challenge:
+                            Use below <span style="color: #337ab7; font-weight: 500">verification email</span> and <span style="color: #337ab7; font-weight: 500">passcode</span> to confirm and activate your enrollment to the challenge:
                         </p>
                       </td>
                     </tr>
