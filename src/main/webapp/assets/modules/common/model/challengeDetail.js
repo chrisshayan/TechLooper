@@ -273,6 +273,42 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
       //  });
     };
 
+    //challengeDetail.join = function () {
+    //  if (localStorageService.get("joinNow")) {
+    //    //localStorageService.remove("joinNow");
+    //
+    //    var joinNowInternalChallenge = localStorageService.get("joinNowInternalChallenge");
+    //    var firstName = localStorageService.get("firstName");
+    //    var lastName = localStorageService.get("lastName");
+    //    var email = localStorageService.get("email");//submitNow
+    //    var contestId = localStorageService.get("joiningChallengeId") || localStorageService.get("submitNow");
+    //    if (contestId) {
+    //      console.log(joinNowInternalChallenge);//saveDraftRegistrant
+    //      //email && apiService.joinContest(contestId, firstName, lastName, email, $translate.use())
+    //      //  .success(function (numberOfRegistrants) {
+    //      //    var joinContests = localStorageService.get("joinContests") || "";
+    //      //    joinContests = joinContests.length > 0 ? joinContests.split(",") : [];
+    //      //    if ($.inArray(contestId, joinContests) < 0) {
+    //      //      joinContests.push(contestId);
+    //      //    }
+    //      //
+    //      //    localStorageService.set("joinContests", joinContests.join(","));
+    //      //
+    //      //    if ($scope.contestDetail) {
+    //      //      $scope.contestDetail.numberOfRegistrants = numberOfRegistrants;
+    //      //      $scope.contestDetail.recalculateCurrentUserJoined();
+    //      //    }
+    //      //    else {
+    //      //      $route.reload();
+    //      //    }
+    //      //  });
+    //      //localStorageService.remove("joiningChallengeId");
+    //      //localStorageService.remove("joinNowInternalChallenge");
+    //    }
+    //  }
+    //
+    //};
+
     challengeDetail.recalculateCurrentState = function () {
       challengeDetail.$stateMilestones = [
         {
@@ -472,7 +508,7 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
       else {
         challengeDetail.$winners = [];
       }
-    }
+    };
 
     challengeDetail.recalculate();
 

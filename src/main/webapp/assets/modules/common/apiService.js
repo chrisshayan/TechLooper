@@ -93,14 +93,23 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
     getProjects: function () {
       return $http.get("project/list");
     },
-    joinNowByFB: function () {
+
+    joinNowByFB: function (challenge) {
       $('.loading-data').css("height", $(window).height());
       $('body').addClass('noscroll');
       utils.sendNotification(jsonValue.notifications.loading);
+      challenge && localStorageService.set("joiningChallengeId", challenge.challengeId);
       instance.getSocialLoginUrl("FACEBOOK_REGISTER").success(function (url) {
         localStorageService.set("priorFoot", $location.url());
         localStorageService.set("lastFoot", $location.url());
         localStorageService.set("joinNow", true);
+        localStorageService.set("joinNowInternalChallenge", challenge && challenge.$isInternal);
+        //if (challenge && challenge.$isInternal) {
+        //  localStorageService.set("joinNowInternalChallenge", true);
+        //}
+        //else {
+        //  localStorageService.set("joinNow", true);
+        //}
         window.location = url;
       })
     },
@@ -415,6 +424,21 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
         .success(function(info) {
           $filter("jobseekerDashboard")(info);
         });
+    },
+
+    saveDraftRegistrant: function (contestId, firstName, lastName, registrantEmail, internalEmail, lang) {
+      return $http.post("challenge/saveDraftRegistrant",
+        {
+          challengeId: contestId,
+          registrantFirstName: firstName,
+          registrantLastName: lastName,
+          registrantEmail: registrantEmail,
+          lang: lang
+        });
+    },
+
+    getDraftRegistrant: function(id) {
+      return $http.get("challenge/draftRegistrant/" + id);
     }
   };
 

@@ -8,6 +8,12 @@ techlooper.directive("joinInternalChallenge", function (apiService, $translate, 
     },
     templateUrl: "modules/common/challenge/joinInternalChallenge.html",
     link: function (scope, el, attrs) {
+      var savedDraftRegistrant = localStorageService.get("savedDraftRegistrant");
+      savedDraftRegistrant && apiService.getDraftRegistrant(savedDraftRegistrant)
+        .success(function(draft) {
+          scope.registrant = draft;
+        });
+
       scope.joinInternalForm.email.$validators.domainMatch = function (modelValue, viewValue) {
         if (!modelValue) return true;
         if (modelValue.length == 0) return true;
@@ -20,12 +26,24 @@ techlooper.directive("joinInternalChallenge", function (apiService, $translate, 
         return valid;
       };
 
+      scope.sentVerifyEmail = function() {
+        var firstName = localStorageService.get("firstName");
+        var lastName = localStorageService.get("lastName");
+        var email = localStorageService.get("email");
+        apiService.saveDraftRegistrant(scope.challenge.challengeId, firstName, lastName, email, scope.registrant.registrantInternalEmail, $translate.use())
+          .success(function(draft) {
+            console.log(draft);
+            scope.registrant.$sentVerifyEmail = true;
+            delete scope.registrant.registrantInternalEmail;
+          });
+      }
+
       scope.joinChallenge = function () {
         scope.joinInternalForm.$setSubmitted();
         if (scope.joinInternalForm.$invalid) return;
-        localStorageService.set("lastName", scope.registrant.lastName);
-        localStorageService.set("firstName", scope.registrant.firstName);
-        localStorageService.set("email", scope.registrant.email);
+        //localStorageService.set("lastName", scope.registrant.registrantLastName);
+        //localStorageService.set("firstName", scope.registrant.registrantFirstName);
+        //localStorageService.set("email", scope.registrant.registrantEmail);
         localStorageService.set("joiningChallengeId", scope.challenge.challengeId);
         localStorageService.set("priorFoot", $location.url());
         localStorageService.set("lastFoot", $location.url());

@@ -3,6 +3,7 @@ package com.techlooper.service;
 import com.techlooper.dto.ChallengeQualificationDto;
 import com.techlooper.dto.ChallengeWinnerDto;
 import com.techlooper.dto.RejectRegistrantDto;
+import com.techlooper.entity.DraftRegistrantEntity;
 import com.techlooper.entity.ChallengeRegistrantDto;
 import com.techlooper.entity.ChallengeRegistrantEntity;
 import com.techlooper.model.*;
@@ -45,6 +46,8 @@ public interface ChallengeRegistrantService {
 
     ChallengeRegistrantEntity findRegistrantByChallengeIdAndEmail(Long challengeId, String email);
 
+    DraftRegistrantEntity findDraftRegistrantEntityByChallengeIdAndEmail(Long challengeId, String email, String internalEmail);
+
     List<ChallengeRegistrantFunnelItem> getChallengeRegistrantFunnel(Long challengeId, String ownerEmail);
 
     Long getTotalNumberOfRegistrants();
@@ -52,4 +55,6 @@ public interface ChallengeRegistrantService {
     Set<ChallengeRegistrantDto> getChallengeWinners(Long challengeId);
 
     List<ChallengeDashBoardInfo> getChallengeDashBoardInfo(String registrantEmail);
+
+    DraftRegistrantEntity saveDraftRegistrant(DraftRegistrantEntity draftRegistrantEntity);
 }

@@ -17,6 +17,8 @@ public class ChallengeRegistrantDto {
 
   private String registrantEmail;
 
+  private String registrantInternalEmail;
+
   private String registrantFirstName;
 
   private String registrantLastName;
@@ -40,6 +42,24 @@ public class ChallengeRegistrantDto {
   private Set<ChallengeRegistrantCriteria> criteria;
 
   private RewardEnum reward;
+
+  private Integer passcode;
+
+  public String getRegistrantInternalEmail() {
+    return registrantInternalEmail;
+  }
+
+  public void setRegistrantInternalEmail(String registrantInternalEmail) {
+    this.registrantInternalEmail = registrantInternalEmail;
+  }
+
+  public Integer getPasscode() {
+    return passcode;
+  }
+
+  public void setPasscode(Integer passcode) {
+    this.passcode = passcode;
+  }
 
   public RewardEnum getReward() {
     return reward;

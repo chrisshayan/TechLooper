@@ -65,18 +65,24 @@
          translate-value-register-number="<strong>{{contestDetail.numberOfRegistrants}}</strong>"></p>
       <div class="join-now">
         <button ng-disabled="contestDetail.$currentUserJoined"
-                ng-if="contestDetail.$isPublic"
                 ng-click="joinNowByFB()" class="btn btn-primary btn-flat"
                 ng-class="{disabled: !contestDetail.$currentState.isJoinable}">
           <i class="fa fa-facebook-square"></i> <span translate="joinNow"></span>
         </button>
 
-        <button class="btn btn-primary btn-flat"
-                ng-click="toggleJoinInternalForm()" ng-disabled="contestDetail.$currentUserJoined"
-                ng-class="{disabled: !contestDetail.$currentState.isJoinable}"
-                ng-if="contestDetail.$isInternal">
-          <i class="fa fa-facebook-square"></i> <span translate="joinNow"></span>
-        </button>
+        <!--<button ng-disabled="contestDetail.$currentUserJoined"-->
+                <!--ng-if="contestDetail.$isPublic"-->
+                <!--ng-click="joinNowByFB()" class="btn btn-primary btn-flat"-->
+                <!--ng-class="{disabled: !contestDetail.$currentState.isJoinable}">-->
+          <!--<i class="fa fa-facebook-square"></i> <span translate="joinNow"></span>-->
+        <!--</button>-->
+
+        <!--<button class="btn btn-primary btn-flat"-->
+                <!--ng-click="toggleJoinInternalForm()" ng-disabled="contestDetail.$currentUserJoined"-->
+                <!--ng-class="{disabled: !contestDetail.$currentState.isJoinable}"-->
+                <!--ng-if="contestDetail.$isInternal">-->
+          <!--<i class="fa fa-facebook-square"></i> <span translate="joinNow"></span>-->
+        <!--</button>-->
 
         <button ng-if="contestDetail.$currentUserJoined"
                 ng-click="submissionForm.showSubmitForm()"
