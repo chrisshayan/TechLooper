@@ -334,9 +334,9 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
     public DraftRegistrantEntity findDraftRegistrantEntityByChallengeIdAndEmail(Long challengeId, String email, String internalEmail) {
         NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withTypes("draftRegistrant");
         searchQueryBuilder.withQuery(boolQuery()
-          .must(termQuery("registrantEmail", email))
-          .must(termQuery("registrantInternalEmail", internalEmail))
-          .must(termQuery("challengeId", challengeId)));
+                .must(termQuery("registrantEmail", email))
+                .must(termQuery("registrantInternalEmail", internalEmail))
+                .must(termQuery("challengeId", challengeId)));
 
         List<DraftRegistrantEntity> registrantEntities = DataUtils.getAllEntities(draftRegistrantRepository, searchQueryBuilder);
         if (!registrantEntities.isEmpty()) {
@@ -531,12 +531,13 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
 
     public DraftRegistrantEntity saveDraftRegistrant(DraftRegistrantEntity draftRegistrantEntity) {
         DraftRegistrantEntity draft = findDraftRegistrantEntityByChallengeIdAndEmail(draftRegistrantEntity.getChallengeId(),
-          draftRegistrantEntity.getRegistrantEmail(), draftRegistrantEntity.getRegistrantInternalEmail());
+                draftRegistrantEntity.getRegistrantEmail(), draftRegistrantEntity.getRegistrantInternalEmail());
         draftRegistrantEntity.setRegistrantId(draft == null ? DateTimeUtils.currentDateTime() : draft.getRegistrantId());
         draft = dozerMapper.map(draftRegistrantEntity, DraftRegistrantEntity.class);
         Integer passcode = DataUtils.getRandomNumberInRange(1000, 9999);
         draft.setPasscode(passcode);
         draft = draftRegistrantRepository.save(dozerMapper.map(draftRegistrantEntity, DraftRegistrantEntity.class));
+        challengeEmailService.sendEmailToVerifyRegistrantOfInternalChallenge(draftRegistrantEntity);
         return draft;
     }
 }
