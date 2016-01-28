@@ -174,7 +174,7 @@
                       <td align="left" style="margin: 0; padding: 0">
                         <p style="font-size: 14px; line-height: 18px; margin: 0; padding: 0">
                           Welcome to <a href="${webBaseUrl}#/challenge-detail/${challengeNameAlias}-${challengeId}-id?utm_source=internalverification&utm_medium=clickchallenge&utm_campaign=onlinecontest" style="font-size: 14px; font-weight: 600; color: #277cbd; text-decoration: none" target="_blank">${challengeName}</a>.
-                            Use below verification email and passcode to confirm and activate your enrollment to the challenge:
+                            Use below <span style="color: #337ab7">verification email</span> and <span style="color: #337ab7">passcode</span> to confirm and activate your enrollment to the challenge:
                         </p>
                       </td>
                     </tr>
@@ -223,7 +223,7 @@
                                                 Facebook Email:
                                               </td>
                                               <td width="70%" align="left">
-                                                <strong>${registrantEmail}</strong>
+                                                <strong style="color: #000">${registrantEmail}</strong>
                                               </td>
                                             </tr>
                                             <tr>
@@ -239,7 +239,7 @@
                                                       Verification Email:
                                                   </td>
                                                   <td width="70%" align="left">
-                                                      <strong>${verificationEmail}</strong>
+                                                      <strong style="color: #337ab7">${verificationEmail}</strong>
                                                   </td>
                                               </tr>
                                               <tr>
@@ -256,7 +256,7 @@
                                                     Passcode:
                                                   </td>
                                                   <td width="70%" align="left">
-                                                    <strong>${passCode}</strong>
+                                                    <strong style="color: #337ab7">${passCode}</strong>
                                                   </td>
                                                 </tr>
                                             </#if>
