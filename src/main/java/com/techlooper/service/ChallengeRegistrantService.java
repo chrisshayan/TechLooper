@@ -57,4 +57,6 @@ public interface ChallengeRegistrantService {
     List<ChallengeDashBoardInfo> getChallengeDashBoardInfo(JobSeekerDashBoardCriteria criteria);
 
     DraftRegistrantEntity saveDraftRegistrant(DraftRegistrantEntity draftRegistrantEntity);
+
+    Map<JobSeekerPhaseEnum, Integer> countNumberOfChallengesByJobSeekerPhase(JobSeekerDashBoardCriteria criteria);
 }

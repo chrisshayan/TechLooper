@@ -416,7 +416,7 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
 
             boolean isChallengeSelected = challengeEntity != null &&
                     (challengeEntity.getExpired() == null || challengeEntity.getExpired() == false) &&
-                    isPhaseMatching(challengeEntity, registrantEntity, criteria);
+                    isPhaseMatching(challengeEntity, registrantEntity, criteria.getJobSeekerPhase());
 
             if (isChallengeSelected) {
                 ChallengeDashBoardInfo.Builder challengeDashBoardInfoBuilder = new ChallengeDashBoardInfo.Builder();
@@ -449,11 +449,11 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
     }
 
     private boolean isPhaseMatching(ChallengeEntity challengeEntity, ChallengeRegistrantEntity registrantEntity,
-                                    JobSeekerDashBoardCriteria criteria) {
+                                    JobSeekerPhaseEnum phase) {
         ChallengePhaseEnum jobSeekerCurrentPhase = registrantEntity.getActivePhase() == null ? REGISTRATION : registrantEntity.getActivePhase();
         List<ChallengePhaseEnum> activePhases = Arrays.asList(REGISTRATION, IDEA, UIUX, PROTOTYPE, FINAL);
         boolean isChallengeClosed = daysBetween(challengeEntity.getSubmissionDateTime(), currentDate()) > 0;
-        switch (criteria.getJobSeekerPhase()) {
+        switch (phase) {
             case ALL:
                 return true;
             case ACTIVE:
@@ -539,5 +539,39 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
         draft = draftRegistrantRepository.save(draft);
         challengeEmailService.sendEmailToVerifyRegistrantOfInternalChallenge(draftRegistrantEntity);
         return draft;
+    }
+
+    @Override
+    public Map<JobSeekerPhaseEnum, Integer> countNumberOfChallengesByJobSeekerPhase(JobSeekerDashBoardCriteria criteria) {
+        Map<JobSeekerPhaseEnum, Integer> challengeStats = new HashMap<>();
+        List<ChallengeRegistrantEntity> registrantEntities = findRegistrantsByOwner(criteria.getJobSeekerEmail());
+
+        for (ChallengeRegistrantEntity registrantEntity : registrantEntities) {
+            Long challengeId = registrantEntity.getChallengeId();
+            ChallengeEntity challengeEntity = challengeService.findChallengeById(challengeId);
+
+            boolean isChallengeSelected = challengeEntity != null &&
+                    (challengeEntity.getExpired() == null || challengeEntity.getExpired() == false);
+
+            if (isChallengeSelected) {
+                for (JobSeekerPhaseEnum phase : JobSeekerPhaseEnum.values()) {
+                    putInTheBucket(challengeStats, registrantEntity, challengeEntity, phase);
+                }
+            }
+        }
+        return challengeStats;
+    }
+
+    private void putInTheBucket(Map<JobSeekerPhaseEnum, Integer> challengeStats, ChallengeRegistrantEntity registrantEntity,
+                                ChallengeEntity challengeEntity, JobSeekerPhaseEnum phase) {
+        if (isPhaseMatching(challengeEntity, registrantEntity, phase)) {
+            Integer count = challengeStats.get(phase);
+            if (count != null) {
+                count++;
+            } else {
+                count = 1;
+            }
+            challengeStats.put(phase, count);
+        }
     }
 }

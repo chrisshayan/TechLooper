@@ -367,6 +367,7 @@ public class UserController {
         JobSeekerDashBoardInfo jobSeekerDashBoardInfo = new JobSeekerDashBoardInfo();
         jobSeekerDashBoardInfo.setEmail(signOnUser.getEmail());
         jobSeekerDashBoardInfo.setChallenges(challengeRegistrantService.getChallengeDashBoardInfo(criteria));
+        jobSeekerDashBoardInfo.setChallengeStats(challengeRegistrantService.countNumberOfChallengesByJobSeekerPhase(criteria));
         return jobSeekerDashBoardInfo;
     }
 
@@ -379,6 +380,7 @@ public class UserController {
         JobSeekerDashBoardInfo jobSeekerDashBoardInfo = new JobSeekerDashBoardInfo();
         jobSeekerDashBoardInfo.setEmail(signOnUser.getEmail());
         jobSeekerDashBoardInfo.setChallenges(challengeRegistrantService.getChallengeDashBoardInfo(criteria));
+        jobSeekerDashBoardInfo.setChallengeStats(challengeRegistrantService.countNumberOfChallengesByJobSeekerPhase(criteria));
         return jobSeekerDashBoardInfo;
     }
 
