@@ -42,30 +42,33 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
     if (!$scope.contestDetail.$currentState.isJoinable) {
       return false;
     }
-    apiService.joinNowByFB();
+    apiService.joinNowByFB($scope.contestDetail);
   }
 
-  if (localStorageService.get("joinNow")) {
-    localStorageService.remove("joinNow");
-    var firstName = localStorageService.get("firstName");
-    var lastName = localStorageService.get("lastName");
-    var email = localStorageService.get("email");
-    email && apiService.joinContest(contestId, firstName, lastName, email, $translate.use())
-      .success(function (numberOfRegistrants) {
-        var joinContests = localStorageService.get("joinContests") || "";
-        joinContests = joinContests.length > 0 ? joinContests.split(",") : [];
-        if ($.inArray(contestId, joinContests) < 0) {
-          joinContests.push(contestId);
-        }
+  //if (localStorageService.get("joinNow")) {
+  //  localStorageService.remove("joinNow");
+  //  var firstName = localStorageService.get("firstName");
+  //  var lastName = localStorageService.get("lastName");
+  //  var email = localStorageService.get("email");
+  //  email && apiService.joinContest(contestId, firstName, lastName, email, $translate.use())
+  //    .success(function (numberOfRegistrants) {
+  //      var joinContests = localStorageService.get("joinContests") || "";
+  //      joinContests = joinContests.length > 0 ? joinContests.split(",") : [];
+  //      if ($.inArray(contestId, joinContests) < 0) {
+  //        joinContests.push(contestId);
+  //      }
+  //
+  //      localStorageService.set("joinContests", joinContests.join(","));
+  //      $location.search({});
+  //      $route.reload();
+  //    })
+  //    .error(function () {
+  //      $scope.failJoin = true;
+  //    });
+  //}
 
-        localStorageService.set("joinContests", joinContests.join(","));
-        $location.search({});
-        $route.reload();
-      })
-      .error(function () {
-        $scope.failJoin = true;
-      });
-  }
+  $scope.failJoin = localStorageService.get("failedJoin");
+  localStorageService.remove("failedJoin");
 
   $scope.refreshChallengeDetail = function () {
     apiService.getContestDetail(contestId)

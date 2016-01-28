@@ -4,10 +4,12 @@ import com.techlooper.dto.ChallengeWinnerDto;
 import com.techlooper.entity.ChallengeEntity;
 import com.techlooper.entity.ChallengeRegistrantDto;
 import com.techlooper.entity.ChallengeRegistrantEntity;
+import com.techlooper.entity.DraftRegistrantEntity;
 import com.techlooper.entity.vnw.VnwCompany;
 import com.techlooper.entity.vnw.VnwUser;
 import com.techlooper.model.*;
 import com.techlooper.repository.elasticsearch.ChallengeRegistrantRepository;
+import com.techlooper.repository.elasticsearch.DraftRegistrantRepository;
 import com.techlooper.service.*;
 import com.techlooper.util.EmailValidator;
 import org.dozer.Mapper;
@@ -51,6 +53,9 @@ public class ChallengeController {
 
     @Resource
     private UserController userController;
+
+    @Resource
+    private DraftRegistrantRepository draftRegistrantRepository;
 
     @PreAuthorize("hasAuthority('EMPLOYER')")
     @RequestMapping(value = "/challenge/publish", method = RequestMethod.POST)
@@ -103,7 +108,11 @@ public class ChallengeController {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             return 0L;
         }
-        return challengeService.joinChallenge(challengeRegistrantDto);
+        Long countRegistrants = challengeService.joinChallenge(challengeRegistrantDto);
+        if (countRegistrants == 0L) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        }
+        return countRegistrants;
     }
 
     @RequestMapping(value = "/challenge/list", method = RequestMethod.GET)
@@ -202,5 +211,15 @@ public class ChallengeController {
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
         }
         return challengeDetailDto;
+    }
+
+    @RequestMapping(value = "challenge/saveDraftRegistrant", method = RequestMethod.POST)
+    public DraftRegistrantEntity saveDraftRegistrant(@RequestBody DraftRegistrantEntity draftRegistrantEntity) {
+        return challengeRegistrantService.saveDraftRegistrant(draftRegistrantEntity);
+    }
+
+    @RequestMapping(value = "challenge/draftRegistrant/{id}", method = RequestMethod.GET)
+    public DraftRegistrantEntity getDraftRegistrant(@PathVariable Long id) {
+        return draftRegistrantRepository.findOne(id);
     }
 }

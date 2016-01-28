@@ -93,14 +93,23 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
     getProjects: function () {
       return $http.get("project/list");
     },
-    joinNowByFB: function () {
+
+    joinNowByFB: function (challenge) {
       $('.loading-data').css("height", $(window).height());
       $('body').addClass('noscroll');
       utils.sendNotification(jsonValue.notifications.loading);
+      challenge && localStorageService.set("joiningChallengeId", challenge.challengeId);
       instance.getSocialLoginUrl("FACEBOOK_REGISTER").success(function (url) {
         localStorageService.set("priorFoot", $location.url());
         localStorageService.set("lastFoot", $location.url());
         localStorageService.set("joinNow", true);
+        localStorageService.set("joinNowInternalChallenge", challenge && challenge.$isInternal);
+        //if (challenge && challenge.$isInternal) {
+        //  localStorageService.set("joinNowInternalChallenge", true);
+        //}
+        //else {
+        //  localStorageService.set("joinNow", true);
+        //}
         window.location = url;
       })
     },
@@ -403,26 +412,41 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
     /**
      * @see com.techlooper.controller.ChallengeController.updateVisibleWinner
      * */
-    updateVisibleWinner: function(challenge) {
+    updateVisibleWinner: function (challenge) {
       return $http.put("challenge/updateVisibleWinner", challenge);
     },
 
     /**
      * @see com.techlooper.controller.UserController.getJobSeekerDashboard
      * */
-    getJobseekerDashboard: function() {
+    getJobseekerDashboard: function () {
       return $http.get("user/jobSeeker/dashboard-info")
-        .success(function(info) {
+        .success(function (info) {
           $filter("jobseekerDashboard")(info);
         });
     },
 
-    filterJobseekerDashboard: function(challengeType) {
-      return $http.post("user/jobSeeker/dashboard-info", {
-        jobSeekerPhase : challengeType,
-      }).success(function(info) {
-          $filter("jobseekerDashboard")(info);
+    saveDraftRegistrant: function (contestId, firstName, lastName, registrantEmail, internalEmail, lang) {
+      return $http.post("challenge/saveDraftRegistrant",
+        {
+          challengeId: contestId,
+          registrantFirstName: firstName,
+          registrantLastName: lastName,
+          registrantEmail: registrantEmail,
+          lang: lang
         });
+    },
+
+    getDraftRegistrant: function (id) {
+      return $http.get("challenge/draftRegistrant/" + id)
+    },
+
+    filterJobseekerDashboard: function (challengeType) {
+      return $http.post("user/jobSeeker/dashboard-info", {
+        jobSeekerPhase: challengeType,
+      }).success(function (info) {
+        $filter("jobseekerDashboard")(info);
+      });
     }
   };
 

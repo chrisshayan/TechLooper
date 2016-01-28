@@ -3,19 +3,18 @@ package com.techlooper.service.impl;
 import com.techlooper.dto.ChallengeQualificationDto;
 import com.techlooper.dto.ChallengeWinnerDto;
 import com.techlooper.dto.RejectRegistrantDto;
-import com.techlooper.entity.ChallengeEntity;
-import com.techlooper.entity.ChallengeRegistrantCriteria;
-import com.techlooper.entity.ChallengeRegistrantDto;
-import com.techlooper.entity.ChallengeRegistrantEntity;
+import com.techlooper.entity.*;
 import com.techlooper.model.*;
 import com.techlooper.repository.elasticsearch.ChallengeRegistrantRepository;
 import com.techlooper.repository.elasticsearch.ChallengeRepository;
 import com.techlooper.repository.elasticsearch.ChallengeSubmissionRepository;
+import com.techlooper.repository.elasticsearch.DraftRegistrantRepository;
 import com.techlooper.service.ChallengeEmailService;
 import com.techlooper.service.ChallengeRegistrantService;
 import com.techlooper.service.ChallengeService;
 import com.techlooper.service.ChallengeSubmissionService;
 import com.techlooper.util.DataUtils;
+import com.techlooper.util.DateTimeUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.dozer.Mapper;
 import org.elasticsearch.action.search.SearchResponse;
@@ -70,6 +69,9 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
 
     @Resource
     private ChallengeEmailService challengeEmailService;
+
+    @Resource
+    private DraftRegistrantRepository draftRegistrantRepository;
 
     public Map<ChallengePhaseEnum, ChallengeRegistrantPhaseItem> countNumberOfRegistrantsByPhase(Long challengeId) {
         Map<ChallengePhaseEnum, ChallengeRegistrantPhaseItem> numberOfRegistrantsByPhase = new HashMap<>();
@@ -329,6 +331,20 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
         return null;
     }
 
+    public DraftRegistrantEntity findDraftRegistrantEntityByChallengeIdAndEmail(Long challengeId, String email, String internalEmail) {
+        NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withTypes("draftRegistrant");
+        searchQueryBuilder.withQuery(boolQuery()
+          .must(termQuery("registrantEmail", email))
+          .must(termQuery("registrantInternalEmail", internalEmail))
+          .must(termQuery("challengeId", challengeId)));
+
+        List<DraftRegistrantEntity> registrantEntities = DataUtils.getAllEntities(draftRegistrantRepository, searchQueryBuilder);
+        if (!registrantEntities.isEmpty()) {
+            return registrantEntities.get(0);
+        }
+        return null;
+    }
+
     @Override
     public List<ChallengeRegistrantFunnelItem> getChallengeRegistrantFunnel(Long challengeId, String ownerEmail) {
         List<ChallengeRegistrantFunnelItem> funnel = new ArrayList<>();
@@ -511,5 +527,16 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
             default:
                 return "";
         }
+    }
+
+    public DraftRegistrantEntity saveDraftRegistrant(DraftRegistrantEntity draftRegistrantEntity) {
+        DraftRegistrantEntity draft = findDraftRegistrantEntityByChallengeIdAndEmail(draftRegistrantEntity.getChallengeId(),
+          draftRegistrantEntity.getRegistrantEmail(), draftRegistrantEntity.getRegistrantInternalEmail());
+        draftRegistrantEntity.setRegistrantId(draft == null ? DateTimeUtils.currentDateTime() : draft.getRegistrantId());
+        draft = dozerMapper.map(draftRegistrantEntity, DraftRegistrantEntity.class);
+        Integer passcode = DataUtils.getRandomNumberInRange(1000, 9999);
+        draft.setPasscode(passcode);
+        draft = draftRegistrantRepository.save(dozerMapper.map(draftRegistrantEntity, DraftRegistrantEntity.class));
+        return draft;
     }
 }

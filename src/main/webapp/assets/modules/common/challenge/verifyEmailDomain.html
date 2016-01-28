@@ -1,6 +1,6 @@
 <div class="row verify-email-domain">
   <ng-form name="" autocomplete="off" role="form" class="form-horizontal">
-    <p ng-if="challenge.$isInternal && challenge.companyDomains.length" class="title-head text-center">
+    <p class="title-head text-center">
       {{'useYourEmailDomain' | translate}}
       <span ng-repeat="domain in challenge.companyDomains">
         <strong>{{domain}}</strong>&nbsp;<span ng-if="!$last" translate="or"></span>

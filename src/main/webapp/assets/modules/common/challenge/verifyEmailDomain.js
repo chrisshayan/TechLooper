@@ -2,10 +2,6 @@ techlooper.directive("verifyEmailDomain", function (apiService, $translate, $loc
   return {
     restrict: "E",
     replace: true,
-    scope: {
-      challenge: "=",
-      cancel: "="
-    },
     templateUrl: "modules/common/challenge/verifyEmailDomain.html",
     link: function (scope, el, attrs) {
     }
