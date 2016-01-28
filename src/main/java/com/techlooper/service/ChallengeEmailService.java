@@ -2,6 +2,7 @@ package com.techlooper.service;
 
 import com.techlooper.entity.ChallengeEntity;
 import com.techlooper.entity.ChallengeRegistrantEntity;
+import com.techlooper.entity.DraftRegistrantEntity;
 import com.techlooper.model.ChallengePhaseEnum;
 import com.techlooper.model.EmailContent;
 import com.techlooper.model.EmailSentResultEnum;
@@ -63,4 +64,6 @@ public interface ChallengeEmailService {
     boolean sendEmailToRegistrant(String challengeOwner, Long registrantId, EmailContent emailContent);
 
     void sendEmailNotifyRegistrantWhenQualified(ChallengeRegistrantEntity challengeRegistrantEntity);
+
+    void sendEmailToVerifyRegistrantOfInternalChallenge(DraftRegistrantEntity draftRegistrantEntity);
 }

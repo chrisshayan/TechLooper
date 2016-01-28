@@ -61,6 +61,8 @@ techlooper.run(function (connectionFactory, loadingBoxFactory, cleanupFactory, u
     localStorageService.remove("joiningChallengeId");
     localStorageService.remove("joinNow");
     localStorageService.remove("submitNow");
+    localStorageService.remove("savedDraftRegistrant");
+    localStorageService.remove("joinNowInternalChallenge");
   }
 
   //$rootScope.$watchCollection([

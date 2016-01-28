@@ -884,8 +884,8 @@
   "invalidDomainName": "Invalid domain name format",
   "emailDomainNotMatch": "Email domain is invalid",
   "joinInternalChallengeWith": "Join with your email from:",
-  "useYourEmailDomain": "This is an internal challenge. Use your",
-  "toRegister": "email to join",
+  "useYourEmailDomain": "This is an internal challenge. Use your ",
+  "toRegister": "email to verify registration",
   "enterYourPassword": "Enter your password",
   "enterYourEmail": "Enter your email",
   "signInInternalChallengeTitle": "First, Let Us Know Who You Are",
@@ -906,5 +906,7 @@
   "showWinnerBoard": "Show Winner Board",
   "finishedOn": "<strong>FINISHED</strong> on {{date}}",
   "inPhase": "in <strong>{{phase}}</strong>",
-  "daysLeftToSubmit": "<strong>{{days}} day(s)</strong> left to submit"
+  "daysLeftToSubmit": "<strong>{{days}} day(s)</strong> left to submit",
+  "verify": "Verify",
+  "finished": "Finished"
 }

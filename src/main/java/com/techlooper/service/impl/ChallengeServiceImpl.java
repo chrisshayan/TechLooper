@@ -1,9 +1,6 @@
 package com.techlooper.service.impl;
 
-import com.techlooper.entity.ChallengeEntity;
-import com.techlooper.entity.ChallengeRegistrantCriteria;
-import com.techlooper.entity.ChallengeRegistrantDto;
-import com.techlooper.entity.ChallengeRegistrantEntity;
+import com.techlooper.entity.*;
 import com.techlooper.model.*;
 import com.techlooper.repository.elasticsearch.ChallengeRegistrantRepository;
 import com.techlooper.repository.elasticsearch.ChallengeRepository;
@@ -84,20 +81,20 @@ public class ChallengeServiceImpl implements ChallengeService {
     @Override
     public Long joinChallenge(ChallengeRegistrantDto challengeRegistrantDto) {
         final long INVALID_REGISTRANT = 0L;
-        final int MIN_RANDOM_SEED_NUMBER = 1000;
-        final int MAX_RANDOM_SEED_NUMBER = 9999;
+//        final int MIN_RANDOM_SEED_NUMBER = 1000;
+//        final int MAX_RANDOM_SEED_NUMBER = 9999;
         Long challengeId = challengeRegistrantDto.getChallengeId();
         ChallengeEntity challengeEntity = challengeRepository.findOne(challengeId);
         String registrantEmail = challengeRegistrantDto.getRegistrantEmail();
 
-        boolean isValidEmail = checkValidEmailCompareToChallengeType(challengeEntity, registrantEmail);
+        boolean isValidEmail = checkValidEmailCompareToChallengeType(challengeEntity, challengeRegistrantDto);
         if (!isValidEmail) {
             return INVALID_REGISTRANT;
         }
 
         boolean isExistRegistrant = checkIfRegistrantAlreadyExist(challengeId, registrantEmail);
         if (isExistRegistrant) {
-            return INVALID_REGISTRANT;
+            return challengeRegistrantService.getNumberOfRegistrants(challengeId);
         }
 
         ChallengeRegistrantEntity challengeRegistrantEntity = dozerMapper.map(challengeRegistrantDto, ChallengeRegistrantEntity.class);
@@ -110,12 +107,14 @@ public class ChallengeServiceImpl implements ChallengeService {
 
         challengeRegistrantEntity.setMailSent(Boolean.TRUE);
         if (challengeEntity.getChallengeType() == ChallengeTypeEnum.INTERNAL) {
-            Integer passCode = DataUtils.getRandomNumberInRange(MIN_RANDOM_SEED_NUMBER, MAX_RANDOM_SEED_NUMBER);
-            challengeRegistrantEntity.setPassCode(passCode);
+            DraftRegistrantEntity draft = challengeRegistrantService.findDraftRegistrantEntityByChallengeIdAndEmail(challengeId,
+              registrantEmail, challengeRegistrantDto.getRegistrantInternalEmail());
+            if (!draft.getPasscode().equals(challengeRegistrantDto.getPasscode())) {
+                return INVALID_REGISTRANT;
+            }
         }
         challengeRegistrantEntity = challengeRegistrantRepository.save(challengeRegistrantEntity);
         challengeEmailService.sendApplicationEmailToContestant(challengeEntity, challengeRegistrantEntity);
-
         return challengeRegistrantService.getNumberOfRegistrants(challengeId);
     }
 
@@ -344,19 +343,19 @@ public class ChallengeServiceImpl implements ChallengeService {
         return searchQueryBuilder;
     }
 
-    private boolean checkValidEmailCompareToChallengeType(ChallengeEntity challengeEntity, String email) {
+    private boolean checkValidEmailCompareToChallengeType(ChallengeEntity challengeEntity, ChallengeRegistrantDto challengeRegistrantDto) {
         if (challengeEntity.getChallengeType() == ChallengeTypeEnum.INTERNAL) {
-            if (StringUtils.isEmpty(email)) {
+            if (StringUtils.isEmpty(challengeRegistrantDto.getRegistrantEmail())) {
                 return false;
             }
             for (String domain : challengeEntity.getCompanyDomains()) {
-                if (email.contains(domain)) {
+                if (challengeRegistrantDto.getRegistrantInternalEmail().contains(domain)) {
                     return true;
                 }
             }
             return false;
         }
-        return EmailValidator.validate(email);
+        return EmailValidator.validate(challengeRegistrantDto.getRegistrantEmail()) || EmailValidator.validate(challengeRegistrantDto.getRegistrantEmail());
     }
 
     private boolean checkIfRegistrantAlreadyExist(Long challengeId, String email) {

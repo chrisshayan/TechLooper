@@ -8,28 +8,10 @@
       {{'toRegister' | translate}}
     </p>
     <div class="form-group">
-      <div class="col-sm-6">
-        <label for="ic-firstName"><span translate="firstName"></span>: <strong>*</strong></label>
-        <input type="text" class="form-control" id="ic-firstName" ng-model="registrant.firstName"
-               placeholder="{{'firstNameEx' | translate}}" name="firstName" ng-required="true">
-        <span class="error-messages"
-              ng-show="joinInternalForm.firstName.$error.required && (joinInternalForm.firstName.$dirty || joinInternalForm.$submitted)"
-              translate="requiredThisField"/>
-      </div>
-      <div class="col-sm-6">
-        <label for="ic-lastName"><span translate="lastName"></span>: <strong>*</strong></label>
-        <input type="text" class="form-control" id="ic-lastName" name="lastName"
-               placeholder="{{'lastNameEx' | translate}}" ng-required="true" ng-model="registrant.lastName"/>
-        <span class="error-messages"
-              ng-show="joinInternalForm.lastName.$error.required && (joinInternalForm.lastName.$dirty || joinInternalForm.$submitted)"
-              translate="requiredThisField"/>
-      </div>
-    </div>
-    <div class="form-group">
-      <div class="col-sm-12">
-        <label for="ic-email"><span translate="email"></span>: <strong>*</strong></label>
+      <div ng-class="{'col-sm-12': !registrant.$sentVerifyEmail, 'col-sm-6': registrant.$sentVerifyEmail}">
+        <label for="ic-email"><span translate="emailAddressField"></span> <strong>*</strong></label>
         <input type="email" class="form-control" id="ic-email" placeholder="{{'emailAddressEx' | translate}}"
-               name="email" ng-model="registrant.email" ng-required="true"/>
+               name="email" ng-model="registrant.registrantInternalEmail" ng-required="true" ng-readonly="registrant.$sentVerifyEmail"/>
         <span class="error-messages"
               ng-show="joinInternalForm.email.$error.required && (joinInternalForm.email.$dirty || joinInternalForm.$submitted)"
               translate="requiredThisField"/>
@@ -40,10 +22,67 @@
               ng-show="joinInternalForm.email.$error.domainMatch && (joinInternalForm.email.$dirty || joinInternalForm.$submitted)"
               translate="emailDomainNotMatch"/>
       </div>
+
+      <div class="col-sm-6" ng-if="registrant.$sentVerifyEmail">
+        <label class="col-md-12">
+          <span translate="passCode"></span>
+          <input type="password" class="input-style passcode"
+                 name="passcode" maxlength="4" minlength="4" only-digits=""
+                 ng-model="registrant.passcode"
+                 placeholder="{{'enterYourPassCode' | translate}}"/>
+        </label>
+        <div class="error-messages"
+             ng-show="joinInternalForm.passcode.$error.required && (joinInternalForm.passcode.$dirty || joinInternalForm.$submitted)"
+             translate="requiredThisField"/>
+        <div class="error-messages"
+             ng-show="joinInternalForm.passcode.$error.minlength && (joinInternalForm.passcode.$dirty || joinInternalForm.$submitted)"
+             translate="invalidMinlengthDigits" translate-value-length="4"/>
+        <div class="error-messages"
+             ng-show="joinInternalForm.$error.matchPasscode"
+             translate="invalidCredential" />
+      </div>
     </div>
+
+    <!--<div class="form-group" ng-if="registrant.$sentVerifyEmail">-->
+    <!--<div class="col-md-6">-->
+    <!--<label class="col-md-12" for="txtEmailRegistration"><span translate="emailAddressField"/>: <strong>*</strong></label>-->
+    <!--<div class="col-md-12">-->
+    <!--<input type="email" class="form-control" id="txtEmailRegistration" placeholder="{{'emailAddressEx' | translate}}"-->
+    <!--name="email" ng-model="registrant.registrantInternalEmail" ng-required="true"/>-->
+    <!--</div>-->
+    <!--<span class="error-messages"-->
+    <!--ng-show="joinInternalForm.email.$error.required && (joinInternalForm.email.$dirty || joinInternalForm.$submitted)"-->
+    <!--translate="requiredThisField"/>-->
+    <!--<span class="error-messages"-->
+    <!--ng-show="joinInternalForm.email.$error.email && (joinInternalForm.email.$dirty || joinInternalForm.$submitted)"-->
+    <!--translate="emailInvalid"/>-->
+    <!--<span class="error-messages"-->
+    <!--ng-show="joinInternalForm.email.$error.domainMatch && (joinInternalForm.email.$dirty || joinInternalForm.$submitted)"-->
+    <!--translate="emailDomainNotMatch"/>-->
+    <!--</div>-->
+
+    <!--<div class="col-sm-6">-->
+    <!--<label>-->
+    <!--<span translate="passCode"></span>-->
+    <!--<input type="password" class="input-style passcode"-->
+    <!--name="passcode" maxlength="4" minlength="4" only-digits=""-->
+    <!--ng-model="registrant.passcode"-->
+    <!--placeholder="{{'enterYourPassCode' | translate}}" />-->
+    <!--</label>-->
+    <!--<div class="error-messages"-->
+    <!--ng-show="submissionForm.submissionPassCode.$error.required && (submissionForm.submissionPassCode.$dirty || submissionForm.$submitted)"-->
+    <!--translate="requiredThisField" />-->
+    <!--<div class="error-messages"-->
+    <!--ng-show="submissionForm.submissionPassCode.$error.minlength && (submissionForm.submissionPassCode.$dirty || submissionForm.$submitted)"-->
+    <!--translate="invalidMinlengthDigits" translate-value-length="4" />-->
+    <!--</div>-->
+    <!--</div>-->
     <div class="form-group">
       <div class="col-sm-12 text-center">
-        <button type="submit" class="btn btn-primary btn-flat" translate="join" ng-click="joinChallenge()"></button>
+        <button type="submit" class="btn btn-primary btn-flat" translate="verify" ng-click="sentVerifyEmail()"
+                ng-if="!registrant.$sentVerifyEmail"/>
+        <button type="submit" class="btn btn-primary btn-flat" translate="save" ng-click="joinChallenge()"
+                ng-if="registrant.$sentVerifyEmail"/>
         <button type="cancel" class="btn btn-cancel btn-flat" translate="cancel" ng-click="doCancel()"></button>
       </div>
     </div>

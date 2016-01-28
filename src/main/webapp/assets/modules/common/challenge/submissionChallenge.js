@@ -22,13 +22,14 @@ techlooper.directive("submissionChallenge", function (localStorageService, apiSe
 
       scope.form.showSubmitForm = function () {
         localStorageService.set("submitNow", scope.challenge.challengeId);
-        if (scope.challenge.$isPublic) {
-          apiService.joinNowByFB();
-        }
-        else {
-          handleChallengeChanged();
-        }
-      }
+        //if (scope.challenge.$isPublic) {
+        //  apiService.joinNowByFB(scope.challenge);
+        //}
+        //else {
+        //  handleChallengeChanged();
+        //}
+        apiService.joinNowByFB(scope.challenge);
+      };
 
 
       var handleChallengeChanged = function () {
@@ -36,7 +37,7 @@ techlooper.directive("submissionChallenge", function (localStorageService, apiSe
         if (!scope.challenge) return;
         if (scope.challenge && (challengeId == scope.challenge.challengeId)) {
           localStorageService.remove("submitNow");
-          localStorageService.remove("joinNow");
+          //localStorageService.remove("joinNow");
 
           var firstName = localStorageService.get("firstName");
           var lastName = localStorageService.get("lastName");
@@ -50,35 +51,38 @@ techlooper.directive("submissionChallenge", function (localStorageService, apiSe
           scope.visibleSubmitForm = true;
         }
 
-        if (scope.challenge.$isPublic) {
+        //TODO submit result
+        //if (scope.challenge.$isPublic) {
           scope.submission = {
             name: localStorageService.get("firstName") + " " + localStorageService.get("lastName"),
             registrantEmail: localStorageService.get("email"),
             registrantFirstName: localStorageService.get("firstName"),
             registrantLastName: localStorageService.get("lastName")
           }
-        }
-        else {
-          scope.submission = {};
-        }
+        //}
+        //else {
+        //  scope.submission = {};
+        //}
+        //
+        //if (scope.challenge.$isInternal && scope.submissionForm && scope.submissionForm.internalEmail) {
+        //  scope.submissionForm.internalEmail.$validators.domainMatch = function (modelValue, viewValue) {
+        //    if (!modelValue) return true;
+        //    if (modelValue.length == 0) return true;
+        //    if (scope.submissionForm.internalEmail.$error.email) return true;
+        //
+        //    var valid = false;
+        //    $.each(scope.challenge.companyDomains, function (i, companyDomain) {
+        //      return !(valid = new RegExp("( |^)[^ ]*@[a-zA-Z0-9.]*" + companyDomain + "( |$)").test(modelValue));
+        //    });
+        //    return valid;
+        //  };
+        //}
+      };
+      //scope.$watch("challenge", function () {
+      //  handleChallengeChanged();
+      //});
 
-        if (scope.challenge.$isInternal && scope.submissionForm && scope.submissionForm.internalEmail) {
-          scope.submissionForm.internalEmail.$validators.domainMatch = function (modelValue, viewValue) {
-            if (!modelValue) return true;
-            if (modelValue.length == 0) return true;
-            if (scope.submissionForm.internalEmail.$error.email) return true;
-
-            var valid = false;
-            $.each(scope.challenge.companyDomains, function (i, companyDomain) {
-              return !(valid = new RegExp("( |^)[^ ]*@[a-zA-Z0-9.]*" + companyDomain + "( |$)").test(modelValue));
-            });
-            return valid;
-          };
-        }
-      }
-      scope.$watch("challenge", function () {
-        handleChallengeChanged();
-      });
+      handleChallengeChanged();
 
       scope.pushChallengePhase = function () {
         scope.submissionForm.$setSubmitted();

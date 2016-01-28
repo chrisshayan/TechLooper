@@ -369,11 +369,7 @@
                                     </table>
                                   </td>
                                 </tr>
-                                <tr>
-                                  <td style="text-align: right;">
-                                    <a href="${webBaseUrl}#/job-listing" target="_blank" style=" color: #89288a; text-decoration: none">Chi tiết &raquo;</a>
-                                  </td>
-                                </tr>
+
                               </table>
                             </td>
                           </tr>

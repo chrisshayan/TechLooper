@@ -41,8 +41,6 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
 
     private static final int TWO_PERCENTILES = 2;
 
-    private static final int LIMIT_NUMBER_OF_JOBS_FOR_SALARY_REVIEW = 300;
-
     private static final double[] percents = new double[]{10D, 25D, 50D, 75D, 90D};
 
     @Resource
@@ -71,6 +69,9 @@ public class SalaryReviewServiceImpl implements SalaryReviewService {
 
     @Resource
     private SuggestionService suggestionService;
+
+    @Value("${salaryReview.CalculatedJobLimit}")
+    private int LIMIT_NUMBER_OF_JOBS_FOR_SALARY_REVIEW;
 
     @Override
     public void sendSalaryReviewReportEmail(SalaryReviewEmailRequest salaryReviewEmailRequest) {

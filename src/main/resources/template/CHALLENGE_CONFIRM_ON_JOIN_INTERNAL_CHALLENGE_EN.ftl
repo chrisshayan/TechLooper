@@ -173,8 +173,9 @@
                     <tr>
                       <td align="left" style="margin: 0; padding: 0">
                         <p style="font-size: 14px; line-height: 18px; margin: 0; padding: 0">
-                          Congratulations! You have been enrolled successfully to
-                          <a href="${webBaseUrl}#/challenge-detail/${challengeNameAlias}-${challengeId}-id?utm_source=internalapplication&utm_medium=clickchallenge&utm_campaign=onlinecontest" style="font-size: 14px; font-weight: 600; color: #277cbd; text-decoration: none" target="_blank">${challenge.challengeName}</a>. Here are the details of your account:</p>
+                          Welcome to <a href="${webBaseUrl}#/challenge-detail/${challengeNameAlias}-${challengeId}-id?utm_source=internalverification&utm_medium=clickchallenge&utm_campaign=onlinecontest" style="font-size: 14px; font-weight: 600; color: #277cbd; text-decoration: none" target="_blank">${challengeName}</a>.
+                            Use below <span style="color: #337ab7; font-weight: 500">verification email</span> and <span style="color: #337ab7; font-weight: 500">passcode</span> to confirm and activate your enrollment to the challenge:
+                        </p>
                       </td>
                     </tr>
                     <tr>
@@ -206,7 +207,7 @@
                                                 Full Name:
                                               </td>
                                               <td width="70%" align="left">
-                                                <strong>${challengeRegistrant.registrantFirstName} ${challengeRegistrant.registrantLastName}</strong>
+                                                <strong>${registrantFirstName} ${registrantLastName}</strong>
                                               </td>
                                             </tr>
                                             <tr>
@@ -219,10 +220,10 @@
                                             </tr>
                                             <tr>
                                               <td width="30%" align="left" style="padding-right: 5px">
-                                                Login Email:
+                                                Facebook Email:
                                               </td>
                                               <td width="70%" align="left">
-                                                <strong>${challengeRegistrant.registrantEmail}</strong>
+                                                <strong style="color: #000">${registrantEmail}</strong>
                                               </td>
                                             </tr>
                                             <tr>
@@ -233,13 +234,29 @@
                                                 <img height="10px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
                                               </td>
                                             </tr>
+                                              <tr>
+                                                  <td width="30%" align="left" style="padding-right: 5px">
+                                                      Verification Email:
+                                                  </td>
+                                                  <td width="70%" align="left">
+                                                      <strong style="color: #337ab7">${verificationEmail}</strong>
+                                                  </td>
+                                              </tr>
+                                              <tr>
+                                                  <td>
+                                                      <img height="10px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
+                                                  </td>
+                                                  <td>
+                                                      <img height="10px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
+                                                  </td>
+                                              </tr>
                                             <#if passCode??>
                                                 <tr>
                                                   <td width="30%" align="left" style="padding-right: 5px">
                                                     Passcode:
                                                   </td>
                                                   <td width="70%" align="left">
-                                                    <strong>${passCode}</strong>
+                                                    <strong style="color: #337ab7">${passCode}</strong>
                                                   </td>
                                                 </tr>
                                             </#if>
@@ -265,99 +282,6 @@
                     <tr>
                       <td style="height:30px; line-height: 30px;" width="100%">
                         <img height="30px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                      </td>
-                    </tr>
-                    <tr>
-                      <td align="left" width="100%">
-                        <table cellspacing="0" cellpadding="0" width="100%">
-                          <tr>
-                            <td width="10%"><img height="1px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" /></td>
-                            <td width="80%" align="left">
-                              <table cellspacing="0" cellpadding="0" width="100%" style="background-color:#f6f6f6">
-                                <tr>
-                                  <td><img height="30px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" /></td>
-                                </tr>
-                                <tr>
-                                  <td align="left">
-                                    <table cellspacing="0" cellpadding="0" width="100%">
-                                      <tr>
-                                        <td width="30px">
-                                          <img height="1px" width="30px" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                                        </td>
-                                        <td align="left">
-                                          <table cellspacing="0" cellpadding="0" width="100%">
-                                            <tr>
-                                              <td align="center">
-                                                <strong style="color:#277cbd; font-size: 18px">How-To-Submit Instruction</strong>
-                                              </td>
-                                            </tr>
-                                            <tr>
-                                              <td height="30px" >
-                                                <img height="30px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                                              </td>
-                                            </tr>
-                                            <tr>
-                                              <td align="left">
-                                                <strong>1. Click on Submit button</strong>
-                                              </td>
-                                            </tr>
-                                            <tr>
-                                              <td align="left">
-                                                Click Submit button on the internal challenge you already joined.
-                                              </td>
-                                            </tr>
-                                            <tr>
-                                              <td height="5px" >
-                                                <img height="5px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                                              </td>
-                                            </tr>
-                                            <tr>
-                                              <td>
-                                                <img src="${webBaseUrl}images/join-internal-challenge.png" alt="" style="width:100%">
-                                              </td>
-                                            </tr>
-                                            <tr>
-                                              <td height="10px" >
-                                                <img height="10px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                                              </td>
-                                            </tr>
-                                            <tr>
-                                              <td align="left">
-                                                <strong>2. Submit to challenge</strong>
-                                              </td>
-                                            </tr>
-                                            <tr>
-                                              <td align="left">
-                                                Submit to each challenge phase with your email and password to be qualified to next phase.
-                                              </td>
-                                            </tr>
-                                            <tr>
-                                              <td height="5px" >
-                                                <img height="5px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                                              </td>
-                                            </tr>
-                                            <tr>
-                                              <td>
-                                                <img src="${webBaseUrl}images/submission-internal-form.png" alt="" style="width:100%">
-                                              </td>
-                                            </tr>
-                                          </table>
-                                        </td>
-                                        <td width="30px">
-                                          <img height="1px" width="30px" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" />
-                                        </td>
-                                      </tr>
-                                    </table>
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td> <img height="30px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" /></td>
-                                </tr>
-                              </table>
-                            </td>
-                            <td width="10%"><img height="1px" width="1" src="http://images.vietnamworks.com/x.gif" style="display:block; border: 0px" /></td>
-                          </tr>
-                        </table>
                       </td>
                     </tr>
                     <tr>

@@ -53,8 +53,8 @@
       <!--<i class="fa fa-paper-plane-o"></i>  |  <span translate="submitPhase"></span>-->
       <!--</a>-->
       <a title="{{'join' | translate}}" ng-show="contest.$currentUserJoined == false" ng-click="joinNow(contest)">
-        <i class="fa fa-facebook" ng-if="contest.$isPublic"></i>
-        <i class="fa fa-user-plus" ng-if="contest.$isInternal"></i>
+        <i class="fa fa-facebook"></i>
+        <!--<i class="fa fa-user-plus" ng-if="contest.$isInternal"></i>-->
         | <span translate="join"></span>
       </a>
       <!--<a title="{{'join' | translate}}" ng-show="contest.currentUserJoined == false" ng-click="joinNow(contest)">-->
@@ -64,6 +64,9 @@
       <!--</a>-->
     </div>
   </div>
-  <join-internal-challenge challenge="contest" cancel="toggleJoinInternalForm" ng-show="contest.$internalForm.visible" ng-if="contest.$isInternal"></join-internal-challenge>
+  <div class="internal-form-{{contest.challengeId}}" ng-if="initInternalForm(contest)"></div>
+  <!--<div class="internal-form-{{contest.challengeId}}" ng-if="initInternalForm(contest)"></div>-->
+  <join-internal-challenge challenge="contest" cancel="hideInternalForm"
+                           ng-if="contest.$isInternal && contest.$isJoiningChallenge"></join-internal-challenge>
   <submission-challenge challenge="contest" form="submissionForm"></submission-challenge>
 </div>

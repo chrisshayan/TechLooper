@@ -23,71 +23,74 @@
       </div>
     </div>
     <div class="row">
-      <!--<div class="active-challenges-list contestant-page">-->
-      <!--<div class="filter-item">-->
-      <!--<span>AAA</span>-->
-      <!--<span>AAA</span>-->
-      <!--<span>AAA</span>-->
-      <!--</div>-->
-      <!--</div>-->
-    </div>
-    <div class="row">
-      <div class="my-challenge-list">
-        <table class="table contests-table">
-          <thead>
-          <tr>
-            <th>
-              <div class="col-sm-4 challenge-name-col" translate="challenge"></div>
-              <div class="col-sm-2 current-phase-col" translate="myCurrentPhase"></div>
-              <div class="col-sm-2 submission-col" translate="submission"></div>
-              <div class="col-sm-2 score-col" translate="scoreLabel"></div>
-              <div class="col-sm-2 prize-col" translate="prize"></div>
-            </th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr ng-if="!dashboardInfo.challenges.length">
-            <td>
-              <p translate="noData"></p>
-            </td>
-          </tr>
-          <tr ng-repeat="challenge in dashboardInfo.challenges" class="challenge-item {{challenge.$awardLowercase}} challenge-{{challenge.challengeId}}">
-            <td>
-              <div class="col-sm-4 challenge-name-col">
-                <a href="#/challenge-detail/{{challenge.$asciiChallengeName}}-{{challenge.challengeId}}-id" target="_blank">
-                  <i class="challenge-type" ng-class="{'challenge-internal': challenge.challengeType == 'INTERNAL','challenge-public': challenge.challengeType != 'INTERNAL'}"></i>
-                  {{challenge.challengeName}}
-                </a>
-                <span class="note" translate="{{challenge.$daysLeftTitle}}" />
-              </div>
-              <div class="col-sm-2 current-phase-col">
+      <div class="active-challenges-list contestant-page">
+        <div class="filter-item" ng-modal="active" data-ng-init="active='ALL'">
+          <span ng-click="filterChallenge('ALL')" ng-class="{'active': active == 'ALL'}">
+            {{'all' | translate}} (<strong>{{dashboardInfo.challengeStats.ALL}}</strong>)</span>
+          <span ng-click="filterChallenge('ACTIVE')" ng-class="{'active': active == 'ACTIVE'}">
+            {{'active' | translate}} (<strong>{{dashboardInfo.challengeStats.ACTIVE}}</strong>)</span>
+          <span ng-click="filterChallenge('FINISHED')" ng-class="{'active': active == 'FINISHED'}">
+            {{'closed' | translate}} (<strong>{{dashboardInfo.challengeStats.FINISHED}}</strong>)</span>
+          <span ng-click="filterChallenge('DISQUALIFIED')" ng-class="{'active': active == 'DISQUALIFIED'}">
+            {{'disqualified' | translate}} (<strong>{{dashboardInfo.challengeStats.DISQUALIFIED}}</strong>)</span>
+        </div>
+        <div class="my-challenge-list">
+          <table class="table contests-table">
+            <thead>
+            <tr>
+              <th>
+                <div class="col-sm-4 challenge-name-col" translate="challenge"></div>
+                <div class="col-sm-2 current-phase-col" translate="myCurrentPhase"></div>
+                <div class="col-sm-2 submission-col" translate="submission"></div>
+                <div class="col-sm-2 score-col" translate="scoreLabel"></div>
+                <div class="col-sm-2 prize-col" translate="prize"></div>
+              </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-if="!dashboardInfo.challenges.length">
+              <td>
+                <p translate="noData"></p>
+              </td>
+            </tr>
+            <tr ng-repeat="challenge in dashboardInfo.challenges" class="challenge-item {{challenge.$awardLowercase}} challenge-{{challenge.challengeId}}">
+              <td>
+                <div class="col-sm-4 challenge-name-col">
+                  <a href="#/challenge-detail/{{challenge.$asciiChallengeName}}-{{challenge.challengeId}}-id" target="_blank">
+                    <i class="challenge-type" ng-class="{'challenge-internal': challenge.challengeType == 'INTERNAL','challenge-public': challenge.challengeType != 'INTERNAL'}"></i>
+                    {{challenge.challengeName}}
+                  </a>
+                  <span class="note" translate="{{challenge.$daysLeftTitle}}" />
+                </div>
+                <div class="col-sm-2 current-phase-col">
                 <span class="challenge-status {{challenge.$currentPhaseLowerCase}}"
                       translate="{{challenge.$currentPhaseTitle}}" />
-                <span class="note" translate="{{challenge.$currentPhaseDescTitle}}" />
-              </div>
-              <div class="col-sm-2 submission-col">
-                <a ng-click="toggleSubmissions(challenge)" ng-if="challenge.submissions.length">{{challenge.submissions.length}}
-                  <i class="fa fa-caret-down"></i></a>
-                <span ng-if="!challenge.submissions.length">-</span>
-              </div>
-              <div class="col-sm-2 score-col">
-                <a ng-click="toggleCriteria(challenge)" ng-if="challenge.$hasSomeScore">{{challenge.$totalPoints}}
-                  <i class="fa fa-caret-down"></i></a>
-                <span ng-if="!challenge.$hasSomeScore">-</span>
-              </div>
-              <div class="col-sm-1 prize-col">
-                {{challenge.$awardPrizeTitle}}
-                <span ng-if="!challenge.rank">-</span>
-              </div>
-              <div class="col-sm-1 prize-col">
-                <span ng-if="challenge.rank" class="winner"></span>
-              </div>
-              <div class="challenge-toggle-criteria"></div>
-              <div class="challenge-toggle-submissions"></div>
-            </td>
-          </tr>
-          </tbody>
-        </table>
+                  <span class="note" translate="{{challenge.$currentPhaseDescTitle}}" />
+                </div>
+                <div class="col-sm-2 submission-col">
+                  <a ng-click="toggleSubmissions(challenge)" ng-if="challenge.submissions.length">{{challenge.submissions.length}}
+                    <i class="fa fa-caret-down"></i></a>
+                  <span ng-if="!challenge.submissions.length">-</span>
+                </div>
+                <div class="col-sm-2 score-col">
+                  <a ng-click="toggleCriteria(challenge)" ng-if="challenge.$hasSomeScore">{{challenge.$totalPoints}}
+                    <i class="fa fa-caret-down"></i></a>
+                  <span ng-if="!challenge.$hasSomeScore">-</span>
+                </div>
+                <div class="col-sm-1 prize-col">
+                  {{challenge.$awardPrizeTitle}}
+                  <span ng-if="!challenge.rank">-</span>
+                </div>
+                <div class="col-sm-1 prize-col">
+                  <span ng-if="challenge.rank" class="winner"></span>
+                </div>
+                <div class="challenge-toggle-criteria"></div>
+                <div class="challenge-toggle-submissions"></div>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>

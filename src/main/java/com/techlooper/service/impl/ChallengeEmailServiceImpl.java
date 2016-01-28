@@ -1,10 +1,7 @@
 package com.techlooper.service.impl;
 
 import com.techlooper.dto.EmailSettingDto;
-import com.techlooper.entity.ChallengeEntity;
-import com.techlooper.entity.ChallengeRegistrantDto;
-import com.techlooper.entity.ChallengeRegistrantEntity;
-import com.techlooper.entity.ChallengeSubmissionEntity;
+import com.techlooper.entity.*;
 import com.techlooper.model.*;
 import com.techlooper.repository.elasticsearch.ChallengeRegistrantRepository;
 import com.techlooper.repository.elasticsearch.ChallengeRepository;
@@ -176,9 +173,6 @@ public class ChallengeEmailServiceImpl implements ChallengeEmailService {
         List<String> subjectVariableValues = Arrays.asList(challengeEntity.getChallengeName());
         String recipientAddresses = challengeRegistrantEntity.getRegistrantEmail();
         String templateName = EmailTemplateNameEnum.CHALLENGE_CONFIRM_USER_ON_JOIN_CHALLENGE.name();
-        if (challengeEntity.getChallengeType() == ChallengeTypeEnum.INTERNAL) {
-            templateName = EmailTemplateNameEnum.CHALLENGE_CONFIRM_ON_JOIN_INTERNAL_CHALLENGE.name();
-        }
 
         EmailRequestModel emailRequestModel = new EmailRequestModel.Builder()
                 .withTemplateName(templateName)
@@ -268,6 +262,37 @@ public class ChallengeEmailServiceImpl implements ChallengeEmailService {
                 .withRecipientAddresses(recipientAddress)
                 .withSubjectVariableValues(subjectVariableValues).build();
         emailService.sendMail(emailRequestModel);
+    }
+
+    @Override
+    public void sendEmailToVerifyRegistrantOfInternalChallenge(DraftRegistrantEntity draftRegistrantEntity) {
+        String recipientAddress = draftRegistrantEntity.getRegistrantInternalEmail();
+        ChallengeEntity challengeEntity = challengeService.findChallengeById(draftRegistrantEntity.getChallengeId());
+        List<String> subjectVariableValues = Arrays.asList(challengeEntity.getChallengeName());
+
+        EmailRequestModel emailRequestModel = new EmailRequestModel.Builder()
+                .withTemplateName(EmailTemplateNameEnum.CHALLENGE_CONFIRM_ON_JOIN_INTERNAL_CHALLENGE.name())
+                .withLanguage(draftRegistrantEntity.getLang())
+                .withTemplateModel(buildVerifyRegistrantOfInternalChallengeEmailTemplateModel(challengeEntity, draftRegistrantEntity))
+                .withMailMessage(postChallengeMailMessage)
+                .withRecipientAddresses(recipientAddress)
+                .withSubjectVariableValues(subjectVariableValues).build();
+        emailService.sendMail(emailRequestModel);
+    }
+
+    private Map<String, Object> buildVerifyRegistrantOfInternalChallengeEmailTemplateModel(
+            ChallengeEntity challengeEntity, DraftRegistrantEntity draftRegistrantEntity) {
+        Map<String, Object> templateModel = new HashMap<>();
+        templateModel.put("webBaseUrl", webBaseUrl);
+        templateModel.put("challengeId", String.valueOf(challengeEntity.getChallengeId()));
+        templateModel.put("challengeName", challengeEntity.getChallengeName());
+        templateModel.put("challengeNameAlias", challengeEntity.getChallengeName().replaceAll("\\W", "-"));
+        templateModel.put("registrantFirstName", draftRegistrantEntity.getRegistrantFirstName());
+        templateModel.put("registrantLastName", draftRegistrantEntity.getRegistrantLastName());
+        templateModel.put("registrantEmail", draftRegistrantEntity.getRegistrantEmail());
+        templateModel.put("verificationEmail", draftRegistrantEntity.getRegistrantInternalEmail());
+        templateModel.put("passCode", String.valueOf(draftRegistrantEntity.getPasscode()));
+        return templateModel;
     }
 
     private Map<String, Object> buildNotifyRegistrantWhenQualifiedEmailTemplateModel(ChallengeRegistrantEntity challengeRegistrantEntity) {
@@ -401,9 +426,10 @@ public class ChallengeEmailServiceImpl implements ChallengeEmailService {
         templateModel.put("thirdPlaceReward", challengeEntity.getThirdPlaceReward() != null ? challengeEntity.getThirdPlaceReward() : 0);
         templateModel.put("challengeId", String.valueOf(challengeEntity.getChallengeId()));
         templateModel.put("challengeNameAlias", challengeEntity.getChallengeName().replaceAll("\\W", "-"));
+        templateModel.put("challengeType", challengeEntity.getChallengeType().getValue());
 
         if (challengeEntity.getChallengeType() == ChallengeTypeEnum.INTERNAL) {
-            templateModel.put("passCode", String.valueOf(challengeRegistrantEntity.getPassCode()));
+            templateModel.put("companyDomains", StringUtils.join(challengeEntity.getCompanyDomains(), "<br/>"));
         }
 
         return templateModel;

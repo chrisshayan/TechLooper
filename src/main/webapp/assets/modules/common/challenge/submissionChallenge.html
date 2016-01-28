@@ -4,7 +4,7 @@
          ng-show="submissionForm.submissionPassCode.$error.credential && (submissionForm.submissionPassCode.$dirty || submissionForm.$submitted)"
          translate="invalidCredential" />
 
-    <div class="form-group" ng-if="challenge.$isPublic">
+    <div class="form-group">
       <div class="col-sm-12">
         <label>
         <span translate="fullName"></span>
@@ -12,47 +12,32 @@
           </label>
       </div>
     </div>
-    <div class="form-group" ng-if="challenge.$isPublic">
+    <div class="form-group">
       <div class="col-sm-12">
         <label><span translate="emailAddressField"></span>
         <span class="normal">{{submission.registrantEmail}}</span>
           </label>
       </div>
     </div>
-    <div class="form-group" ng-if="challenge.$isInternal">
-      <div class="col-sm-6">
-        <label>
-          <span>{{'emailAddressField' | translate}} <strong>*</strong></span>
-          <input type="email" class="form-control" id="ic-email" placeholder="{{'emailAddressEx' | translate}}"
-                 name="internalEmail" ng-model="submission.registrantEmail" ng-required="true"/>
-        </label>
-        <span class="error-messages"
-              ng-show="submissionForm.internalEmail.$error.required && (submissionForm.internalEmail.$dirty || submissionForm.$submitted)"
-              translate="requiredThisField"/>
-        <span class="error-messages"
-              ng-show="submissionForm.internalEmail.$error.email && (submissionForm.internalEmail.$dirty || submissionForm.$submitted)"
-              translate="emailInvalid"/>
-        <span class="error-messages"
-              ng-show="submissionForm.internalEmail.$error.domainMatch && (submissionForm.internalEmail.$dirty || submissionForm.$submitted)"
-              translate="emailDomainNotMatch"/>
-      </div>
-      <div class="col-sm-6">
-        <label>
-          <span translate="passCode"></span>
-          <input type="password" name="password_fake" value="" style="display:none;" />
-          <input type="password" class="input-style passcode"
-                 name="submissionPassCode" maxlength="4" minlength="4" only-digits=""
-                 ng-model="submission.passCode" reset-validator-on-blur="credential"
-                 placeholder="{{'enterYourPassCode' | translate}}" ng-required="true"/>
-        </label>
-        <div class="error-messages"
-             ng-show="submissionForm.submissionPassCode.$error.required && (submissionForm.submissionPassCode.$dirty || submissionForm.$submitted)"
-             translate="requiredThisField" />
-        <div class="error-messages"
-             ng-show="submissionForm.submissionPassCode.$error.minlength && (submissionForm.submissionPassCode.$dirty || submissionForm.$submitted)"
-             translate="invalidMinlengthDigits" translate-value-length="4" />
-      </div>
-    </div>
+    <!--<div class="form-group" ng-if="challenge.$isInternal">-->
+      <!--<div class="col-sm-6">-->
+        <!--<label>-->
+          <!--<span>{{'emailAddressField' | translate}} <strong>*</strong></span>-->
+          <!--<span class="normal">{{submission.registrantEmail}}</span>-->
+          <!--&lt;!&ndash;<input type="email" class="form-control" id="ic-email" placeholder="{{'emailAddressEx' | translate}}"&ndash;&gt;-->
+                 <!--&lt;!&ndash;name="internalEmail" ng-model="" ng-required="true"/>&ndash;&gt;-->
+        <!--</label>-->
+        <!--<span class="error-messages"-->
+              <!--ng-show="submissionForm.internalEmail.$error.required && (submissionForm.internalEmail.$dirty || submissionForm.$submitted)"-->
+              <!--translate="requiredThisField"/>-->
+        <!--<span class="error-messages"-->
+              <!--ng-show="submissionForm.internalEmail.$error.email && (submissionForm.internalEmail.$dirty || submissionForm.$submitted)"-->
+              <!--translate="emailInvalid"/>-->
+        <!--<span class="error-messages"-->
+              <!--ng-show="submissionForm.internalEmail.$error.domainMatch && (submissionForm.internalEmail.$dirty || submissionForm.$submitted)"-->
+              <!--translate="emailDomainNotMatch"/>-->
+      <!--</div>-->
+    <!--</div>-->
     <div class="form-group">
       <div class="col-sm-12">
         <label>

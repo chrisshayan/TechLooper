@@ -3,19 +3,18 @@ package com.techlooper.service.impl;
 import com.techlooper.dto.ChallengeQualificationDto;
 import com.techlooper.dto.ChallengeWinnerDto;
 import com.techlooper.dto.RejectRegistrantDto;
-import com.techlooper.entity.ChallengeEntity;
-import com.techlooper.entity.ChallengeRegistrantCriteria;
-import com.techlooper.entity.ChallengeRegistrantDto;
-import com.techlooper.entity.ChallengeRegistrantEntity;
+import com.techlooper.entity.*;
 import com.techlooper.model.*;
 import com.techlooper.repository.elasticsearch.ChallengeRegistrantRepository;
 import com.techlooper.repository.elasticsearch.ChallengeRepository;
 import com.techlooper.repository.elasticsearch.ChallengeSubmissionRepository;
+import com.techlooper.repository.elasticsearch.DraftRegistrantRepository;
 import com.techlooper.service.ChallengeEmailService;
 import com.techlooper.service.ChallengeRegistrantService;
 import com.techlooper.service.ChallengeService;
 import com.techlooper.service.ChallengeSubmissionService;
 import com.techlooper.util.DataUtils;
+import com.techlooper.util.DateTimeUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.dozer.Mapper;
 import org.elasticsearch.action.search.SearchResponse;
@@ -35,6 +34,8 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.techlooper.model.ChallengePhaseEnum.*;
+import static com.techlooper.util.DateTimeUtils.currentDate;
+import static com.techlooper.util.DateTimeUtils.daysBetween;
 import static java.util.stream.Collectors.toList;
 import static org.elasticsearch.index.query.FilterBuilders.*;
 import static org.elasticsearch.index.query.QueryBuilders.*;
@@ -68,6 +69,9 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
 
     @Resource
     private ChallengeEmailService challengeEmailService;
+
+    @Resource
+    private DraftRegistrantRepository draftRegistrantRepository;
 
     public Map<ChallengePhaseEnum, ChallengeRegistrantPhaseItem> countNumberOfRegistrantsByPhase(Long challengeId) {
         Map<ChallengePhaseEnum, ChallengeRegistrantPhaseItem> numberOfRegistrantsByPhase = new HashMap<>();
@@ -327,6 +331,20 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
         return null;
     }
 
+    public DraftRegistrantEntity findDraftRegistrantEntityByChallengeIdAndEmail(Long challengeId, String email, String internalEmail) {
+        NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withTypes("draftRegistrant");
+        searchQueryBuilder.withQuery(boolQuery()
+                .must(termQuery("registrantEmail", email))
+                .must(termQuery("registrantInternalEmail", internalEmail))
+                .must(termQuery("challengeId", challengeId)));
+
+        List<DraftRegistrantEntity> registrantEntities = DataUtils.getAllEntities(draftRegistrantRepository, searchQueryBuilder);
+        if (!registrantEntities.isEmpty()) {
+            return registrantEntities.get(0);
+        }
+        return null;
+    }
+
     @Override
     public List<ChallengeRegistrantFunnelItem> getChallengeRegistrantFunnel(Long challengeId, String ownerEmail) {
         List<ChallengeRegistrantFunnelItem> funnel = new ArrayList<>();
@@ -357,7 +375,7 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
 
         Long numberOfFinalists = countNumberOfFinalists(challengeId);
         Long numberOfWinners = Long.valueOf(countNumberOfWinners(challengeId));
-        funnel.add(new ChallengeRegistrantFunnelItem(ChallengePhaseEnum.WINNER, numberOfFinalists, numberOfWinners, 0L));
+        funnel.add(new ChallengeRegistrantFunnelItem(WINNER, numberOfFinalists, numberOfWinners, 0L));
 
         Comparator<ChallengeRegistrantFunnelItem> sortByPhaseComparator = (item1, item2) ->
                 item1.getPhase().getOrder() - item2.getPhase().getOrder();
@@ -386,16 +404,21 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
         return challengeRegistrantRepository.count();
     }
 
-    public List<ChallengeDashBoardInfo> getChallengeDashBoardInfo(String registrantEmail) {
+    @Override
+    public List<ChallengeDashBoardInfo> getChallengeDashBoardInfo(JobSeekerDashBoardCriteria criteria) {
         List<ChallengeDashBoardInfo> challengeDashBoardInfoList = new ArrayList<>();
-        List<ChallengeRegistrantEntity> registrantEntities = findRegistrantsByOwner(registrantEmail);
+        List<ChallengeRegistrantEntity> registrantEntities = findRegistrantsByOwner(criteria.getJobSeekerEmail());
 
         for (ChallengeRegistrantEntity registrantEntity : registrantEntities) {
             Long challengeId = registrantEntity.getChallengeId();
             Long registrantId = registrantEntity.getRegistrantId();
             ChallengeEntity challengeEntity = challengeService.findChallengeById(challengeId);
 
-            if (challengeEntity != null && (challengeEntity.getExpired() == null || challengeEntity.getExpired() == false)) {
+            boolean isChallengeSelected = challengeEntity != null &&
+                    (challengeEntity.getExpired() == null || challengeEntity.getExpired() == false) &&
+                    isPhaseMatching(challengeEntity, registrantEntity, criteria.getJobSeekerPhase());
+
+            if (isChallengeSelected) {
                 ChallengeDashBoardInfo.Builder challengeDashBoardInfoBuilder = new ChallengeDashBoardInfo.Builder();
                 challengeDashBoardInfoBuilder.withChallengeId(challengeId);
                 challengeDashBoardInfoBuilder.withChallengeName(challengeEntity.getChallengeName());
@@ -423,6 +446,25 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
             }
         }
         return challengeDashBoardInfoList;
+    }
+
+    private boolean isPhaseMatching(ChallengeEntity challengeEntity, ChallengeRegistrantEntity registrantEntity,
+                                    JobSeekerPhaseEnum phase) {
+        ChallengePhaseEnum jobSeekerCurrentPhase = registrantEntity.getActivePhase() == null ? REGISTRATION : registrantEntity.getActivePhase();
+        List<ChallengePhaseEnum> activePhases = Arrays.asList(REGISTRATION, IDEA, UIUX, PROTOTYPE, FINAL);
+        boolean isChallengeClosed = daysBetween(challengeEntity.getSubmissionDateTime(), currentDate()) > 0;
+        switch (phase) {
+            case ALL:
+                return true;
+            case ACTIVE:
+                return !isChallengeClosed && activePhases.contains(jobSeekerCurrentPhase);
+            case FINISHED:
+                return isChallengeClosed;
+            case DISQUALIFIED:
+                return registrantEntity.getDisqualified() == null ? false : registrantEntity.getDisqualified();
+            default:
+                return true;
+        }
     }
 
     public Set<ChallengeRegistrantDto> getChallengeWinners(Long challengeId) {
@@ -484,6 +526,52 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
                 return challengeEntity.getSubmissionDateTime();
             default:
                 return "";
+        }
+    }
+
+    public DraftRegistrantEntity saveDraftRegistrant(DraftRegistrantEntity draftRegistrantEntity) {
+        DraftRegistrantEntity draft = findDraftRegistrantEntityByChallengeIdAndEmail(draftRegistrantEntity.getChallengeId(),
+                draftRegistrantEntity.getRegistrantEmail(), draftRegistrantEntity.getRegistrantInternalEmail());
+        draftRegistrantEntity.setRegistrantId(draft == null ? DateTimeUtils.currentDateTime() : draft.getRegistrantId());
+        draft = dozerMapper.map(draftRegistrantEntity, DraftRegistrantEntity.class);
+        Integer passcode = DataUtils.getRandomNumberInRange(1000, 9999);
+        draft.setPasscode(passcode);
+        draft = draftRegistrantRepository.save(draft);
+        challengeEmailService.sendEmailToVerifyRegistrantOfInternalChallenge(draft);
+        return draft;
+    }
+
+    @Override
+    public Map<JobSeekerPhaseEnum, Integer> countNumberOfChallengesByJobSeekerPhase(JobSeekerDashBoardCriteria criteria) {
+        Map<JobSeekerPhaseEnum, Integer> challengeStats = new HashMap<>();
+        List<ChallengeRegistrantEntity> registrantEntities = findRegistrantsByOwner(criteria.getJobSeekerEmail());
+
+        for (ChallengeRegistrantEntity registrantEntity : registrantEntities) {
+            Long challengeId = registrantEntity.getChallengeId();
+            ChallengeEntity challengeEntity = challengeService.findChallengeById(challengeId);
+
+            boolean isChallengeSelected = challengeEntity != null &&
+                    (challengeEntity.getExpired() == null || challengeEntity.getExpired() == false);
+
+            if (isChallengeSelected) {
+                for (JobSeekerPhaseEnum phase : JobSeekerPhaseEnum.values()) {
+                    putInTheBucket(challengeStats, registrantEntity, challengeEntity, phase);
+                }
+            }
+        }
+        return challengeStats;
+    }
+
+    private void putInTheBucket(Map<JobSeekerPhaseEnum, Integer> challengeStats, ChallengeRegistrantEntity registrantEntity,
+                                ChallengeEntity challengeEntity, JobSeekerPhaseEnum phase) {
+        if (isPhaseMatching(challengeEntity, registrantEntity, phase)) {
+            Integer count = challengeStats.get(phase);
+            if (count != null) {
+                count++;
+            } else {
+                count = 1;
+            }
+            challengeStats.put(phase, count);
         }
     }
 }

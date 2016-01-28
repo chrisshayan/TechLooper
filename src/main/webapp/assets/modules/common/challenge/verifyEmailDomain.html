@@ -1,0 +1,26 @@
+<div class="row verify-email-domain">
+  <ng-form name="" autocomplete="off" role="form" class="form-horizontal">
+    <p class="title-head text-center">
+      {{'useYourEmailDomain' | translate}}
+      <span ng-repeat="domain in challenge.companyDomains">
+        <strong>{{domain}}</strong>&nbsp;<span ng-if="!$last" translate="or"></span>
+      </span>
+      {{'toRegister' | translate}}
+    </p>
+    <div class="form-group">
+      <label class="col-md-4" for="txtEmailDomain" translate="emailAddressField"></label>
+      <div class="col-md-8">
+        <input type="text" class="form-control" id="txtEmailDomain" placeholder="{{'emailAddressEx' | translate}}"/>
+      </div>
+      <div class="col-md-12">
+        <span class="error-messages" translate="requiredThisField"/>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-12 text-center">
+        <button type="submit" class="btn btn-primary btn-flat" translate="verify"></button>
+        <button type="cancel" class="btn btn-cancel btn-flat" translate="cancel"></button>
+      </div>
+    </div>
+  </ng-form>
+</div>
