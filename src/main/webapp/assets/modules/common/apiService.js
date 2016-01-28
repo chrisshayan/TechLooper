@@ -44,14 +44,16 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
         });
     },
 
-    joinContest: function (contestId, firstName, lastName, registrantEmail, lang) {
+    joinContest: function (contestId, firstName, lastName, registrantEmail, lang, internalEmail, passcode) {
       return $http.post("challenge/join",
         {
           challengeId: contestId,
           registrantFirstName: firstName,
           registrantLastName: lastName,
           registrantEmail: registrantEmail,
-          lang: lang
+          lang: lang,
+          registrantInternalEmail: internalEmail,
+          passcode: passcode
         },
         {
           transformResponse: function (d, h) {
@@ -433,6 +435,7 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
           registrantFirstName: firstName,
           registrantLastName: lastName,
           registrantEmail: registrantEmail,
+          registrantInternalEmail: internalEmail,
           lang: lang
         });
     },

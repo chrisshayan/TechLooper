@@ -4,13 +4,13 @@ techlooper.directive('challengeGeneralInfo', function (localStorageService) {
     replace: true,
     templateUrl: "modules/contest-detail/details/challengeGeneralInfo.html",
     link: function (scope, element, attr, ctrl) {
-      var savedDraftRegistrant = localStorageService.get("savedDraftRegistrant");
-      scope.$internalForm = {visible: savedDraftRegistrant};
+      var joinNowInternalChallenge = localStorageService.get("joinNowInternalChallenge");
+      scope.$internalForm = {visible: joinNowInternalChallenge};
       //localStorageService.remove("savedDraftRegistrant");
 
-      //scope.toggleJoinInternalForm = function () {
-      //  scope.$internalForm.visible = !scope.$internalForm.visible;
-      //}
+      scope.toggleJoinInternalForm = function () {
+        scope.$internalForm.visible = !scope.$internalForm.visible;
+      }
 
       //scope.signInInternalForm =function(){
       //  $('.sign-internal').modal('show');

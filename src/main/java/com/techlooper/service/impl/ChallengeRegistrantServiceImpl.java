@@ -536,7 +536,7 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
         draft = dozerMapper.map(draftRegistrantEntity, DraftRegistrantEntity.class);
         Integer passcode = DataUtils.getRandomNumberInRange(1000, 9999);
         draft.setPasscode(passcode);
-        draft = draftRegistrantRepository.save(dozerMapper.map(draftRegistrantEntity, DraftRegistrantEntity.class));
+        draft = draftRegistrantRepository.save(draft);
         return draft;
     }
 }

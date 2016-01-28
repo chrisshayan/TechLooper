@@ -63,8 +63,9 @@ techlooper.controller("loadingBoxController", function (utils, jsonValue, $scope
       //  localStorageService.remove("joinNowInternalChallenge");
       //}
       localStorageService.remove("joinNow");
-      //localStorageService.remove("joiningChallengeId");
-      localStorageService.remove("joinNowInternalChallenge");
+      localStorageService.remove("joiningChallengeId");
+      //localStorageService.remove("joinNowInternalChallenge");
+      $route.reload();
     }
     //}
 

@@ -87,7 +87,7 @@ public class ChallengeServiceImpl implements ChallengeService {
         ChallengeEntity challengeEntity = challengeRepository.findOne(challengeId);
         String registrantEmail = challengeRegistrantDto.getRegistrantEmail();
 
-        boolean isValidEmail = checkValidEmailCompareToChallengeType(challengeEntity, registrantEmail);
+        boolean isValidEmail = checkValidEmailCompareToChallengeType(challengeEntity, challengeRegistrantDto);
         if (!isValidEmail) {
             return INVALID_REGISTRANT;
         }
@@ -343,19 +343,19 @@ public class ChallengeServiceImpl implements ChallengeService {
         return searchQueryBuilder;
     }
 
-    private boolean checkValidEmailCompareToChallengeType(ChallengeEntity challengeEntity, String email) {
+    private boolean checkValidEmailCompareToChallengeType(ChallengeEntity challengeEntity, ChallengeRegistrantDto challengeRegistrantDto) {
         if (challengeEntity.getChallengeType() == ChallengeTypeEnum.INTERNAL) {
-            if (StringUtils.isEmpty(email)) {
+            if (StringUtils.isEmpty(challengeRegistrantDto.getRegistrantEmail())) {
                 return false;
             }
             for (String domain : challengeEntity.getCompanyDomains()) {
-                if (email.contains(domain)) {
+                if (challengeRegistrantDto.getRegistrantInternalEmail().contains(domain)) {
                     return true;
                 }
             }
             return false;
         }
-        return EmailValidator.validate(email);
+        return EmailValidator.validate(challengeRegistrantDto.getRegistrantEmail()) || EmailValidator.validate(challengeRegistrantDto.getRegistrantEmail());
     }
 
     private boolean checkIfRegistrantAlreadyExist(Long challengeId, String email) {
