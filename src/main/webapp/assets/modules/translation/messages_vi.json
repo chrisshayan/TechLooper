@@ -760,6 +760,7 @@
   "challengeUIUXTips":"Đây là ngày kết thúc giai đoạn UI/UX của cuộc thi và thí sinh phải nộp UI/UX mockup và/hay kết quả Kiểm Tra Khả Dụng (Usability Test) nếu được yêu cầu trước ngày này. Nhà Tổ Chức sẽ chịu trách nhiệm đánh giá UI/UX mockup và sẽ lựa chon các thí sinh với UI/UX mockup xuất sắc vào vòng tiếp theo.",
   "challengePrototypeTips":"Đây là ngày kết thúc giai đoạn Prototype của cuộc thi và thí sinh phải nộp Prototype trước ngày này. Nhà Tổ Chức sẽ chịu trách nhiệm đánh giá Prototype và sẽ lựa chon các thí sinh với Prototype xuất sắc vào vòng tiếp theo.",
   "signInTitle": "Đăng nhập bằng chính tài khoản của bạn",
+  "or": "Hay",
   "signInWithFaceBook": "Đăng nhập bằng Facebook",
   "signInWithGooglePlus": "Đăng nhập bằng Google Plus",
   "submissionURL": "URL bài gửi: <strong>*</strong>",
