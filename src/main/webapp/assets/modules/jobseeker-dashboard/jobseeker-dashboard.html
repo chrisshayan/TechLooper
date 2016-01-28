@@ -28,7 +28,7 @@
           <span ng-click="filterChallenge('ALL')" ng-class="{'active': active == 'ALL'}">
             {{'all' | translate}} (<strong>{{dashboardInfo.challengeStats.ALL}}</strong>)</span>
           <span ng-click="filterChallenge('ACTIVE')" ng-class="{'active': active == 'ACTIVE'}">
-            {{'active' | translate}} (<strong>{{dashboardInfo.challengeStats.ALL - dashboardInfo.challengeStats.FINISHED}}</strong>)</span>
+            {{'active' | translate}} (<strong>{{dashboardInfo.challengeStats.ACTIVE}}</strong>)</span>
           <span ng-click="filterChallenge('FINISHED')" ng-class="{'active': active == 'FINISHED'}">
             {{'closed' | translate}} (<strong>{{dashboardInfo.challengeStats.FINISHED}}</strong>)</span>
           <span ng-click="filterChallenge('DISQUALIFIED')" ng-class="{'active': active == 'DISQUALIFIED'}">
