@@ -169,10 +169,6 @@ techlooper.config(["$routeProvider", "$translateProvider", "$authProvider", "loc
       .when("/how-does-it-work", {
         templateUrl: "modules/how-it-works/how-it-works.html"
       })
-      .when("/job-listing/:searchText?/:page?", {
-        templateUrl: "modules/job-listing/job-listing.html",
-        controller: "jobListingController"
-      })
       .when("/post-event", {
         templateUrl: "modules/create-event/create-event.html",
         controller: "createEventController"
