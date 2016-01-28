@@ -94,7 +94,7 @@ public class ChallengeServiceImpl implements ChallengeService {
 
         boolean isExistRegistrant = checkIfRegistrantAlreadyExist(challengeId, registrantEmail);
         if (isExistRegistrant) {
-            return INVALID_REGISTRANT;
+            return challengeRegistrantService.getNumberOfRegistrants(challengeId);
         }
 
         ChallengeRegistrantEntity challengeRegistrantEntity = dozerMapper.map(challengeRegistrantDto, ChallengeRegistrantEntity.class);
