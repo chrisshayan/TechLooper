@@ -9,7 +9,7 @@
     </p>
     <div class="form-group">
       <div ng-class="{'col-sm-12': !registrant.$sentVerifyEmail, 'col-sm-6': registrant.$sentVerifyEmail}">
-        <label for="ic-email"><span translate="email"></span>: <strong>*</strong></label>
+        <label for="ic-email"><span translate="emailAddressField"></span> <strong>*</strong></label>
         <input type="email" class="form-control" id="ic-email" placeholder="{{'emailAddressEx' | translate}}"
                name="email" ng-model="registrant.registrantInternalEmail" ng-required="true" ng-readonly="registrant.$sentVerifyEmail"/>
         <span class="error-messages"
@@ -24,7 +24,7 @@
       </div>
 
       <div class="col-sm-6" ng-if="registrant.$sentVerifyEmail">
-        <label>
+        <label class="col-md-12">
           <span translate="passCode"></span>
           <input type="password" class="input-style passcode"
                  name="passcode" maxlength="4" minlength="4" only-digits=""
