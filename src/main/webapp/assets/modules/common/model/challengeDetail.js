@@ -257,6 +257,10 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
       challengeDetail.$isPublic = jsonValue.challengeType.isPublic(challengeDetail.challengeType);
       challengeDetail.$isInternal = jsonValue.challengeType.isInternal(challengeDetail.challengeType);
 
+      var joiningChallengeId = localStorageService.get("joiningChallengeId");
+      challengeDetail.$isJoiningChallenge = (challengeDetail.challengeId == joiningChallengeId);
+      challengeDetail.$isJoiningChallenge && localStorageService.remove("joiningChallengeId");
+
       challengeDetail.recalculateCurrentState();
       challengeDetail.recalculateCurrentUserJoined();
       challengeDetail.recalculatePhaseItems();

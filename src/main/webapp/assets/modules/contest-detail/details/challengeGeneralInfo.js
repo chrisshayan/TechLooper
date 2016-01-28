@@ -4,8 +4,9 @@ techlooper.directive('challengeGeneralInfo', function (localStorageService) {
     replace: true,
     templateUrl: "modules/contest-detail/details/challengeGeneralInfo.html",
     link: function (scope, element, attr, ctrl) {
-      var joinNowInternalChallenge = localStorageService.get("joinNowInternalChallenge");
-      scope.$internalForm = {visible: joinNowInternalChallenge};
+      //var joiningChallengeId = localStorageService.get("joiningChallengeId");
+      console.log(scope.contestDetail);
+      scope.$internalForm = {visible: scope.contestDetail.$isJoiningChallenge};
       //localStorageService.remove("savedDraftRegistrant");
 
       scope.toggleJoinInternalForm = function () {

@@ -105,7 +105,10 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
         localStorageService.set("priorFoot", $location.url());
         localStorageService.set("lastFoot", $location.url());
         localStorageService.set("joinNow", true);
-        localStorageService.set("joinNowInternalChallenge", challenge && challenge.$isInternal);
+        if (challenge) {
+          localStorageService.set("joiningChallengeId", challenge.challengeId);
+          localStorageService.set("joinNowInternalChallenge", challenge.$isInternal);
+        }
         //if (challenge && challenge.$isInternal) {
         //  localStorageService.set("joinNowInternalChallenge", true);
         //}

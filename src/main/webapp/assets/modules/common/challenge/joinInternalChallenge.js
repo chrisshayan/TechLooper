@@ -70,7 +70,8 @@ techlooper.directive("joinInternalChallenge", function (apiService, $translate, 
       scope.doCancel = function () {
         scope.registrant = {firstName: "", lastName: "", email: ""};
         scope.joinInternalForm.$setPristine();
-        localStorageService.remove("joinNowInternalChallenge");
+        //localStorageService.remove("joinNowInternalChallenge");
+        //localStorageService.remove("joiningChallengeId");
         localStorageService.remove("failedJoin");
         _.isFunction(scope.cancel) && scope.cancel(scope.challenge);
       };
