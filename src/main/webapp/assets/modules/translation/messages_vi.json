@@ -890,7 +890,7 @@
   "emailDomainNotMatch": "Tên miền email không hợp lệ",
   "joinInternalChallengeWith": "Tham gia bằng email với tên miền:",
   "useYourEmailDomain": "Đây là thử thách nội bộ. Sử dụng email",
-  "toRegister": "để đăng ký.",
+  "toRegister": "để xác nhận đăng ký.",
   "enterYourPassword": "Nhập mật khẩu",
   "enterYourEmail": "Nhập email",
   "signInInternalChallengeTitle": "Trước tiên, Giúp Chúng Tôi Biết Bạn Là Ai",
@@ -912,5 +912,6 @@
   "finishedOn": "<strong>ĐÃ KẾT THÚC</strong> vào {{date}}",
   "inPhase": "ở giai đoạn <strong>{{phase}}<strong>",
   "daysLeftToSubmit": "Còn <strong>{{days}} ngày</strong> để gửi bài",
-  "finished": "Đã kết thúc"
+  "finished": "Đã kết thúc",
+  "verify": "Xác nhận"
 }
