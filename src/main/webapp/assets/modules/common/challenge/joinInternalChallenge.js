@@ -19,7 +19,6 @@ techlooper.directive("joinInternalChallenge", function (apiService, $translate, 
         });
         return valid;
       };
-
       scope.sentVerifyEmail = function () {
         scope.joinInternalForm.$setSubmitted();
         if (scope.joinInternalForm.$invalid) return;
@@ -75,6 +74,17 @@ techlooper.directive("joinInternalChallenge", function (apiService, $translate, 
         localStorageService.remove("failedJoin");
         _.isFunction(scope.cancel) && scope.cancel(scope.challenge);
       };
+      $("input.inputText").keypress(function(event) {
+        if (event.which == 13) {
+          event.preventDefault();
+          if(!scope.registrant.$sentVerifyEmail){
+            scope.sentVerifyEmail();
+          }else{
+            scope.joinChallenge();
+          }
+
+        }
+      });
     }
   }
 });
