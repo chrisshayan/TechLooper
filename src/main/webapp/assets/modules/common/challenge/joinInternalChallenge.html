@@ -3,7 +3,7 @@
     <p ng-if="challenge.$isInternal && challenge.companyDomains.length" class="title-head text-center">
       {{'useYourEmailDomain' | translate}}
       <span ng-repeat="domain in challenge.companyDomains">
-        <strong>{{domain}}</strong>&nbsp;<span ng-if="!$last" translate="or"></span>
+        <strong>{{domain}}</strong><span class="ortext" ng-if="!$last" translate="or"></span>
       </span>
       {{'toRegister' | translate}}
     </p>
