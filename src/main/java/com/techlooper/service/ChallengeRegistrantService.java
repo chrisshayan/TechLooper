@@ -58,5 +58,5 @@ public interface ChallengeRegistrantService {
 
     DraftRegistrantEntity saveDraftRegistrant(DraftRegistrantEntity draftRegistrantEntity);
 
-    Map<JobSeekerPhaseEnum, Integer> countNumberOfChallengesByJobSeekerPhase(JobSeekerDashBoardCriteria criteria);
+    List<JobSeekerChallengeStats> countNumberOfChallengesByJobSeekerPhase(JobSeekerDashBoardCriteria criteria);
 }

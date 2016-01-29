@@ -5,15 +5,18 @@ package com.techlooper.model;
  */
 public enum JobSeekerPhaseEnum {
 
-    ALL("ALL"),
-    ACTIVE("ACTIVE"),
-    FINISHED("FINISHED"),
-    DISQUALIFIED("DISQUALIFIED");
+    ALL("ALL", 1),
+    ACTIVE("ACTIVE", 2),
+    FINISHED("FINISHED", 3),
+    DISQUALIFIED("DISQUALIFIED", 4);
 
     private String value;
 
-    JobSeekerPhaseEnum(String value) {
+    private int order;
+
+    JobSeekerPhaseEnum(String value, int order) {
         this.value = value;
+        this.order = order;
     }
 
     public String getValue() {
@@ -24,4 +27,11 @@ public enum JobSeekerPhaseEnum {
         this.value = value;
     }
 
+    public int getOrder() {
+        return order;
+    }
+
+    public void setOrder(int order) {
+        this.order = order;
+    }
 }

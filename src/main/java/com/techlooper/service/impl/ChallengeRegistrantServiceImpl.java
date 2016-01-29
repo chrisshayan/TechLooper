@@ -31,6 +31,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.*;
+import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
 import static com.techlooper.model.ChallengePhaseEnum.*;
@@ -356,7 +357,7 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
         Map<ChallengePhaseEnum, ChallengeSubmissionPhaseItem> numberOfUnreadSubmissionsByPhase =
                 challengeSubmissionService.countNumberOfSubmissionsByPhase(challengeId, Boolean.FALSE);
 
-        for (Map.Entry<ChallengePhaseEnum, ChallengeRegistrantPhaseItem> entry : numberOfRegistrantsByPhase.entrySet()) {
+        for (Entry<ChallengePhaseEnum, ChallengeRegistrantPhaseItem> entry : numberOfRegistrantsByPhase.entrySet()) {
             ChallengePhaseEnum phase = entry.getKey();
             Long participant = entry.getValue().getRegistration();
             Long submission = 0L;
@@ -542,7 +543,8 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
     }
 
     @Override
-    public Map<JobSeekerPhaseEnum, Integer> countNumberOfChallengesByJobSeekerPhase(JobSeekerDashBoardCriteria criteria) {
+    public List<JobSeekerChallengeStats> countNumberOfChallengesByJobSeekerPhase(JobSeekerDashBoardCriteria criteria) {
+        List<JobSeekerChallengeStats> result = new ArrayList<>();
         Map<JobSeekerPhaseEnum, Integer> challengeStats = new HashMap<>();
         List<ChallengeRegistrantEntity> registrantEntities = findRegistrantsByOwner(criteria.getJobSeekerEmail());
 
@@ -559,7 +561,12 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
                 }
             }
         }
-        return challengeStats;
+
+        result.addAll(challengeStats.entrySet().stream().map(
+                entry -> new JobSeekerChallengeStats(entry.getKey(), entry.getValue())).collect(Collectors.toList()));
+        return result.stream()
+                .sorted((challengeA, challengeB) -> challengeA.getPhase().getOrder() - challengeB.getPhase().getOrder())
+                .collect(toList());
     }
 
     private void putInTheBucket(Map<JobSeekerPhaseEnum, Integer> challengeStats, ChallengeRegistrantEntity registrantEntity,
