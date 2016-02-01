@@ -44,7 +44,7 @@ public interface ChallengeRegistrantService {
 
     List<ChallengeRegistrantEntity> findChallengeRegistrantWithinPeriod(Long challengeId, Long currentDateTime, TimePeriodEnum period);
 
-    ChallengeRegistrantEntity findRegistrantByChallengeIdAndEmail(Long challengeId, String email);
+    ChallengeRegistrantEntity findRegistrantByChallengeIdAndEmail(Long challengeId, String email, String internalEmail);
 
     DraftRegistrantEntity findDraftRegistrantEntityByChallengeIdAndEmail(Long challengeId, String email, String internalEmail);
 

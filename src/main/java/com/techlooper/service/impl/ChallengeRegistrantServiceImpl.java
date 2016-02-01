@@ -317,12 +317,15 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
         return DataUtils.getAllEntities(challengeRegistrantRepository, searchQueryBuilder);
     }
 
-    @Override
-    public ChallengeRegistrantEntity findRegistrantByChallengeIdAndEmail(Long challengeId, String email) {
+    public ChallengeRegistrantEntity findRegistrantByChallengeIdAndEmail(Long challengeId, String email, String internalEmail) {
         NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withTypes("challengeRegistrant");
-        searchQueryBuilder.withQuery(boolQuery()
-                .must(termQuery("registrantEmail", email))
-                .must(termQuery("challengeId", challengeId)));
+        BoolQueryBuilder query = boolQuery()
+          .must(termQuery("registrantEmail", email))
+          .must(termQuery("challengeId", challengeId));
+        if (org.springframework.util.StringUtils.hasText(internalEmail)) {
+            query.must(termQuery("registrantInternalEmail", internalEmail));
+        }
+        searchQueryBuilder.withQuery(query);
 
         List<ChallengeRegistrantEntity> registrantEntities = DataUtils.getAllEntities(challengeRegistrantRepository, searchQueryBuilder);
         if (!registrantEntities.isEmpty()) {
@@ -333,10 +336,13 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
 
     public DraftRegistrantEntity findDraftRegistrantEntityByChallengeIdAndEmail(Long challengeId, String email, String internalEmail) {
         NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withTypes("draftRegistrant");
-        searchQueryBuilder.withQuery(boolQuery()
-                .must(termQuery("registrantEmail", email))
-                .must(termQuery("registrantInternalEmail", internalEmail))
-                .must(termQuery("challengeId", challengeId)));
+        BoolQueryBuilder query = boolQuery()
+          .must(termQuery("registrantEmail", email))
+          .must(termQuery("challengeId", challengeId));
+        if (org.springframework.util.StringUtils.hasText(internalEmail)) {
+            query.must(termQuery("registrantInternalEmail", internalEmail));
+        }
+        searchQueryBuilder.withQuery(query);
 
         List<DraftRegistrantEntity> registrantEntities = DataUtils.getAllEntities(draftRegistrantRepository, searchQueryBuilder);
         if (!registrantEntities.isEmpty()) {

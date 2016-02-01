@@ -41,7 +41,7 @@ public class ChallengeSubmissionController {
     @RequestMapping(value = "user/challengeSubmissionPhase/{registrantEmail}/{challengeId}", method = RequestMethod.GET)
     public ChallengePhaseEnum challengeSubmissionPhase(@PathVariable String registrantEmail, @PathVariable Long challengeId) {
         ChallengeRegistrantEntity registrantEntity =
-                challengeRegistrantService.findRegistrantByChallengeIdAndEmail(challengeId, registrantEmail);
+                challengeRegistrantService.findRegistrantByChallengeIdAndEmail(challengeId, registrantEmail, null);
         return (registrantEntity != null && registrantEntity.getActivePhase() != null) ?
                 registrantEntity.getActivePhase() : ChallengePhaseEnum.REGISTRATION;
     }

@@ -1,6 +1,7 @@
 package com.techlooper.controller;
 
 import com.techlooper.dto.ChallengeWinnerDto;
+import com.techlooper.dto.JoiningRegistrantDto;
 import com.techlooper.entity.ChallengeEntity;
 import com.techlooper.entity.ChallengeRegistrantDto;
 import com.techlooper.entity.ChallengeRegistrantEntity;
@@ -103,16 +104,17 @@ public class ChallengeController {
     }
 
     @RequestMapping(value = "/challenge/join", method = RequestMethod.POST)
-    public long joinChallenge(@RequestBody ChallengeRegistrantDto challengeRegistrantDto, HttpServletResponse response) throws Exception {
-        if (!EmailValidator.validate(challengeRegistrantDto.getRegistrantEmail())) {
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            return 0L;
-        }
-        Long countRegistrants = challengeService.joinChallenge(challengeRegistrantDto);
-        if (countRegistrants == 0L) {
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-        }
-        return countRegistrants;
+    public JoiningRegistrantDto joinChallenge(@RequestBody ChallengeRegistrantDto challengeRegistrantDto, HttpServletResponse response) throws Exception {
+//        if (!EmailValidator.validate(challengeRegistrantDto.getRegistrantEmail())) {
+//            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+//            return 0L;
+//        }
+//        Long countRegistrants = challengeService.joinChallenge(challengeRegistrantDto);
+//        if (countRegistrants == 0L) {
+//            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+//        }
+//        return countRegistrants;
+        return challengeService.joinChallenge(challengeRegistrantDto);
     }
 
     @RequestMapping(value = "/challenge/list", method = RequestMethod.GET)
