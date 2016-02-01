@@ -12,7 +12,7 @@ public class JobSeekerDashBoardInfo {
 
     private List<ChallengeDashBoardInfo> challenges;
 
-    private Map<JobSeekerPhaseEnum, Integer> challengeStats;
+    private List<JobSeekerChallengeStats> challengeStats;
 
     public String getEmail() {
         return email;
@@ -30,11 +30,11 @@ public class JobSeekerDashBoardInfo {
         this.challenges = challenges;
     }
 
-    public Map<JobSeekerPhaseEnum, Integer> getChallengeStats() {
+    public List<JobSeekerChallengeStats> getChallengeStats() {
         return challengeStats;
     }
 
-    public void setChallengeStats(Map<JobSeekerPhaseEnum, Integer> challengeStats) {
+    public void setChallengeStats(List<JobSeekerChallengeStats> challengeStats) {
         this.challengeStats = challengeStats;
     }
 }

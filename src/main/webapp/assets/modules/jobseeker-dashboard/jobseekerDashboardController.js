@@ -4,14 +4,16 @@ techlooper.controller('jobseekerDashboardController', function ($scope, apiServi
     .success(function (info) {
       $scope.dashboardInfo = info;
     });
-
-  $scope.filterChallenge = function (challengeType) {
+  $scope.selected = 0;
+  $scope.filterChallenge = function (challengeType, index) {
+    $scope.selected = index;
     $scope.active = challengeType;
     apiService.filterJobseekerDashboard(challengeType)
       .success(function (info) {
         $scope.dashboardInfo = info;
     });
   };
+
   $scope.toggleSubmissions = function (challenge) {
     var challengeItem = $('.challenge-' + challenge.challengeId);
     if(challengeItem.find('.submission-col .fa-caret-down').hasClass('fa-caret-up')){
