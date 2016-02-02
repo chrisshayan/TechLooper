@@ -24,15 +24,12 @@
     </div>
     <div class="row">
       <div class="active-challenges-list contestant-page">
-        <div class="filter-item" ng-modal="active" data-ng-init="active='ALL'">
-          <span ng-click="filterChallenge('ALL')" ng-class="{'active': active == 'ALL'}">
-            {{'all' | translate}} (<strong>{{dashboardInfo.challengeStats.ALL}}</strong>)</span>
-          <span ng-click="filterChallenge('ACTIVE')" ng-class="{'active': active == 'ACTIVE'}">
-            {{'active' | translate}} (<strong>{{dashboardInfo.challengeStats.ACTIVE}}</strong>)</span>
-          <span ng-click="filterChallenge('FINISHED')" ng-class="{'active': active == 'FINISHED'}">
-            {{'closed' | translate}} (<strong>{{dashboardInfo.challengeStats.FINISHED}}</strong>)</span>
-          <span ng-click="filterChallenge('DISQUALIFIED')" ng-class="{'active': active == 'DISQUALIFIED'}">
-            {{'disqualified' | translate}} (<strong>{{dashboardInfo.challengeStats.DISQUALIFIED}}</strong>)</span>
+        <div class="filter-item">
+          <span ng-repeat="filterName in dashboardInfo.challengeStats"
+                ng-show = "filterName.count > 0"
+                ng-click="filterChallenge(filterName.phase, $index)" ng-class="{'active': $index == selected}">
+            {{(filterName.phase | lowercase) | translate}} (<strong>{{filterName.count}}</strong>)
+          </span>
         </div>
         <div class="my-challenge-list">
           <table class="table contests-table">

@@ -67,14 +67,21 @@ techlooper.controller('contestDetailController', function ($scope, apiService, l
   //    });
   //}
 
-  $scope.failJoin = localStorageService.get("failedJoin");
-  localStorageService.remove("failedJoin");
+  //TODO remove this flag
+  //$scope.failJoin = localStorageService.get("failedJoinChallenge");
+  //localStorageService.remove("failedJoinChallenge");
 
   $scope.refreshChallengeDetail = function () {
     apiService.getContestDetail(contestId)
       .success(function (data) {
         $scope.contestDetail = data;
-          $scope.contestDetail.winnerBoardListing =  $scope.contestDetail.phaseItems[$scope.contestDetail.phaseItems.length - 1].participant;
+        //if ($scope.contestDetail.$isPublic) {
+        //  $scope.failJoin = localStorageService.get("failedJoinChallenge");
+        //}
+        $scope.contestDetail.$systemError = localStorageService.get("invalidFBEmail");
+        localStorageService.remove("invalidFBEmail");
+
+        $scope.contestDetail.winnerBoardListing = $scope.contestDetail.phaseItems[$scope.contestDetail.phaseItems.length - 1].participant;
         $scope.contestDetail.setSelectedPhase($location.search().toPhase);
         $scope.$emit("challenge-detail-ready");
       })

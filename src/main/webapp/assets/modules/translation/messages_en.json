@@ -908,5 +908,7 @@
   "inPhase": "in <strong>{{phase}}</strong>",
   "daysLeftToSubmit": "<strong>{{days}} day(s)</strong> left to submit",
   "verify": "Verify",
-  "finished": "Finished"
+  "finished": "Finished",
+  "exampleEmail": "Ex: example@",
+  "emailUsedAlready": "This email has been used already"
 }
