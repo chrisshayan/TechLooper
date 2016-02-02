@@ -4,6 +4,7 @@ import com.techlooper.dto.JoiningRegistrantDto;
 import com.techlooper.entity.*;
 import com.techlooper.mapper.ChallengeRegistrantMapper;
 import com.techlooper.mapper.CriteriaMapper;
+import com.techlooper.mapper.DraftRegistrantMapper;
 import com.techlooper.model.*;
 import com.techlooper.repository.elasticsearch.ChallengeRegistrantRepository;
 import com.techlooper.repository.elasticsearch.ChallengeRepository;

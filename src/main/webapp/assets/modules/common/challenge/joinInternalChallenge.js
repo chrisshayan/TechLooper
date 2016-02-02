@@ -29,12 +29,18 @@ techlooper.directive("joinInternalChallenge", function (apiService, $translate, 
         apiService.saveDraftRegistrant(scope.challenge.challengeId, firstName, lastName, email, scope.registrant.registrantInternalEmail, $translate.use())
           .success(function (draft) {
             scope.registrant.$sentVerifyEmail = true;
+          })
+          .error(function() {
+            scope.joinInternalForm.email.$setValidity("singleAccount", false);
+          })
+          .finally(function() {
+            scope.joinInternalForm.$setPristine();
           });
       }
 
       scope.joinChallenge = function () {
         scope.joinInternalForm.passcode.$setValidity("matchPasscode", true);
-        scope.joinInternalForm.passcode.$setValidity("singleAccount", true);
+        scope.joinInternalForm.email.$setValidity("singleAccount", true);
         scope.joinInternalForm.$setSubmitted();
         if (scope.joinInternalForm.$invalid) return;
 
@@ -50,7 +56,7 @@ techlooper.directive("joinInternalChallenge", function (apiService, $translate, 
           //  scope.challenge.$failedJoin = true;
           //}
           joiningRegistrant.reason == "UNMATCH_PASSCODE" && scope.joinInternalForm.passcode.$setValidity("matchPasscode", false);
-          joiningRegistrant.reason == "SINGLE_ACCOUNT" && scope.joinInternalForm.passcode.$setValidity("singleAccount", false);
+          joiningRegistrant.reason == "SINGLE_ACCOUNT" && scope.joinInternalForm.email.$setValidity("singleAccount", false);
           localStorageService.remove("joiningChallengeId");
         });
 
