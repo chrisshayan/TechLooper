@@ -91,25 +91,34 @@ public class ChallengeServiceImpl implements ChallengeService {
         Long challengeId = challengeRegistrantDto.getChallengeId();
         String registrantEmail = challengeRegistrantDto.getRegistrantEmail();
         String registrantInternalEmail = challengeRegistrantDto.getRegistrantInternalEmail();
+        Long countRegistrants = challengeRegistrantService.getNumberOfRegistrants(challengeId);
+        JoiningRegistrantDto.JoiningRegistrantDtoBuilder joiningRegistrantBuilder = JoiningRegistrantDto.builder()
+          .succeedJoin(false).countRegistrants(countRegistrants);
+
+        if (!EmailValidator.validate(challengeRegistrantDto.getRegistrantEmail())) {
+            return joiningRegistrantBuilder.succeedJoin(false).reason(JoiningRegistrantDto.Reason.INVALID_FBEMAIL).build();
+        }
 
         ChallengeRegistrantEntity existingRegistrant = challengeRegistrantService.findRegistrantByChallengeIdAndEmail(challengeId,
-        registrantEmail, registrantInternalEmail);
-        Long countRegistrants = challengeRegistrantService.getNumberOfRegistrants(challengeId);
-        JoiningRegistrantDto.JoiningRegistrantDtoBuilder joiningRegistrantBuilder = JoiningRegistrantDto.builder().succeedJoin(false).countRegistrants(countRegistrants);
+          registrantEmail, registrantInternalEmail);
         if (existingRegistrant != null) {
             return joiningRegistrantBuilder.succeedJoin(true).build();
         }
 
         ChallengeEntity challengeEntity = challengeRepository.findOne(challengeRegistrantDto.getChallengeId());
         if (!checkValidEmailCompareToChallengeType(challengeEntity, challengeRegistrantDto)) {
-            return joiningRegistrantBuilder.succeedJoin(false).build();
+            return joiningRegistrantBuilder.succeedJoin(false).reason(JoiningRegistrantDto.Reason.INVALID_INTERNAL_EMAIL).build();
         }
 
         if (challengeEntity.getChallengeType() == ChallengeTypeEnum.INTERNAL) {
+            existingRegistrant = challengeRegistrantService.findRegistrantByChallengeIdAndInternalEmail(challengeId, registrantInternalEmail);
+            if (existingRegistrant != null) {
+                return joiningRegistrantBuilder.succeedJoin(false).reason(JoiningRegistrantDto.Reason.SINGLE_ACCOUNT).build();
+            }
             DraftRegistrantEntity draft = challengeRegistrantService.findDraftRegistrantEntityByChallengeIdAndEmail(challengeId,
                 registrantEmail, registrantInternalEmail);
                 if (draft == null || !draft.getPasscode().equals(challengeRegistrantDto.getPasscode())) {
-                  return joiningRegistrantBuilder.succeedJoin(false).build();
+                  return joiningRegistrantBuilder.succeedJoin(false).reason(JoiningRegistrantDto.Reason.UNMATCH_PASSCODE).build();
                 }
         }
 
@@ -122,49 +131,6 @@ public class ChallengeServiceImpl implements ChallengeService {
         challengeEmailService.sendApplicationEmailToContestant(challengeEntity, registrant);
         return joiningRegistrantBuilder.succeedJoin(true).build();
 
-
-//        Long challengeId = challengeRegistrantDto.getChallengeId();
-//        ChallengeEntity challengeEntity = challengeRepository.findOne(challengeId);
-//        String registrantEmail = challengeRegistrantDto.getRegistrantEmail();
-//
-//        JoiningRegistrantDto joiningRegistrantDto = new JoiningRegistrantDto();
-//        joiningRegistrantDto.setCountRegistrants(challengeRegistrantService.getNumberOfRegistrants(challengeId));
-//
-//        boolean isValidEmail = checkValidEmailCompareToChallengeType(challengeEntity, challengeRegistrantDto);
-//        if (!isValidEmail) {
-//            return joiningRegistrantDto;
-//        }
-//
-//        ChallengeRegistrantEntity existingRegistrant = challengeRegistrantService.findRegistrantByChallengeIdAndEmail(challengeId,
-//          challengeRegistrantDto.getRegistrantEmail(), challengeRegistrantDto.getRegistrantInternalEmail());
-//        if (existingRegistrant != null) {
-//            joiningRegistrantDto.setSucceedJoin(true);
-//            return joiningRegistrantDto;
-//        }
-//
-//        ChallengeRegistrantEntity challengeRegistrantEntity = dozerMapper.map(challengeRegistrantDto, ChallengeRegistrantEntity.class);
-//        challengeRegistrantEntity.setRegistrantId(DateTimeUtils.currentDateTime());
-//        if (challengeEntity.getCriteria().size() > 0) {
-//            final Set<ChallengeRegistrantCriteria> criteria = new HashSet<>();
-//            challengeEntity.getCriteria().forEach(cri -> criteria.add(dozerMapper.map(cri, ChallengeRegistrantCriteria.class)));
-//            challengeRegistrantEntity.setCriteria(criteria);
-//        }
-//
-//        challengeRegistrantEntity.setMailSent(Boolean.TRUE);
-//        if (challengeEntity.getChallengeType() == ChallengeTypeEnum.INTERNAL) {
-//            DraftRegistrantEntity draft = challengeRegistrantService.findDraftRegistrantEntityByChallengeIdAndEmail(challengeId,
-//              registrantEmail, challengeRegistrantDto.getRegistrantInternalEmail());
-//            if (!draft.getPasscode().equals(challengeRegistrantDto.getPasscode())) {
-//                joiningRegistrantDto.setSucceedJoin(false);
-//                return joiningRegistrantDto;
-//            }
-//        }
-//        challengeRegistrantEntity = challengeRegistrantRepository.save(challengeRegistrantEntity);
-//        challengeEmailService.sendApplicationEmailToContestant(challengeEntity, challengeRegistrantEntity);
-//
-//        joiningRegistrantDto.setCountRegistrants(challengeRegistrantService.getNumberOfRegistrants(challengeId));
-//        joiningRegistrantDto.setSucceedJoin(true);
-//        return joiningRegistrantDto;
     }
 
     @Override
@@ -394,7 +360,7 @@ public class ChallengeServiceImpl implements ChallengeService {
 
     private boolean checkValidEmailCompareToChallengeType(ChallengeEntity challengeEntity, ChallengeRegistrantDto challengeRegistrantDto) {
         if (challengeEntity.getChallengeType() == ChallengeTypeEnum.INTERNAL) {
-            if (StringUtils.isEmpty(challengeRegistrantDto.getRegistrantEmail())) {
+            if (!org.springframework.util.StringUtils.hasText(challengeRegistrantDto.getRegistrantInternalEmail())) {
                 return false;
             }
             for (String domain : challengeEntity.getCompanyDomains()) {
@@ -404,7 +370,7 @@ public class ChallengeServiceImpl implements ChallengeService {
             }
             return false;
         }
-        return EmailValidator.validate(challengeRegistrantDto.getRegistrantEmail()) || EmailValidator.validate(challengeRegistrantDto.getRegistrantEmail());
+        return EmailValidator.validate(challengeRegistrantDto.getRegistrantEmail());
     }
 
 //    private boolean checkIfRegistrantAlreadyExist(Long challengeId, String email) {

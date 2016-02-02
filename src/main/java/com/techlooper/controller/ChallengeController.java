@@ -114,7 +114,11 @@ public class ChallengeController {
 //            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 //        }
 //        return countRegistrants;
-        return challengeService.joinChallenge(challengeRegistrantDto);
+        JoiningRegistrantDto joiningDto = challengeService.joinChallenge(challengeRegistrantDto);
+        if (!joiningDto.isSucceedJoin()) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        }
+        return joiningDto;
     }
 
     @RequestMapping(value = "/challenge/list", method = RequestMethod.GET)
@@ -223,5 +227,10 @@ public class ChallengeController {
     @RequestMapping(value = "challenge/draftRegistrant/{id}", method = RequestMethod.GET)
     public DraftRegistrantEntity getDraftRegistrant(@PathVariable Long id) {
         return draftRegistrantRepository.findOne(id);
+    }
+
+    @RequestMapping(value = "challenge/joined/{challengeId}/{email}", method = RequestMethod.GET)
+    public boolean joinedChallenge(@PathVariable Long challengeId, @PathVariable String email) {
+        return challengeRegistrantService.findRegistrantByChallengeIdAndEmail(challengeId, email, null) != null;
     }
 }

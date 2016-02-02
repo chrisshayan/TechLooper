@@ -56,7 +56,7 @@
   <div class="alert alert-success" ng-show="contestDetail.$currentUserJoined">
     <p translate="congratulationsForJoinContest"></p>
   </div>
-  <div class="alert alert-danger" ng-show="failJoin == true">
+  <div class="alert alert-danger" ng-show="contestDetail.$systemError">
     <p translate="errorSystem"></p>
   </div>
   <div class="row registration-count">

@@ -335,6 +335,19 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
         return null;
     }
 
+    public ChallengeRegistrantEntity findRegistrantByChallengeIdAndInternalEmail(Long challengeId, String internalEmail) {
+        NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withTypes("challengeRegistrant");
+        BoolQueryBuilder query = boolQuery()
+          .must(matchQuery("registrantInternalEmail", internalEmail).operator(MatchQueryBuilder.Operator.AND))
+          .must(termQuery("challengeId", challengeId));
+        searchQueryBuilder.withQuery(query);
+        List<ChallengeRegistrantEntity> registrantEntities = DataUtils.getAllEntities(challengeRegistrantRepository, searchQueryBuilder);
+        if (!registrantEntities.isEmpty()) {
+            return registrantEntities.get(0);
+        }
+        return null;
+    }
+
     public DraftRegistrantEntity findDraftRegistrantEntityByChallengeIdAndEmail(Long challengeId, String email, String internalEmail) {
         NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withTypes("draftRegistrant");
         BoolQueryBuilder query = boolQuery()

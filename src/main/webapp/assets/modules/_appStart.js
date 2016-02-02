@@ -30,6 +30,7 @@ techlooper.run(function (connectionFactory, loadingBoxFactory, cleanupFactory, u
   if (!$.isEmptyObject(param)) {
     switch (param.action) {
       case "cancel-social-register":
+        localStorageService.set("email", param.email);
       case "registerVnwUser":
         if (/^.+@\w+(\.\w+)+$/.test(param.email)) {
           localStorageService.set("lastName", param.lastName);
@@ -60,9 +61,10 @@ techlooper.run(function (connectionFactory, loadingBoxFactory, cleanupFactory, u
   else {//remove all operation flags
     localStorageService.remove("joiningChallengeId");
     localStorageService.remove("joinNow");
-    localStorageService.remove("submitNow");
-    localStorageService.remove("savedDraftRegistrant");
-    localStorageService.remove("joinNowInternalChallenge");
+    //localStorageService.remove("submitNow");
+    localStorageService.remove("internalEmail");
+    localStorageService.remove("passcode");
+    localStorageService.remove("failedJoinChallenge");
   }
 
   //$rootScope.$watchCollection([

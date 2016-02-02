@@ -48,6 +48,8 @@ public interface ChallengeRegistrantService {
 
     DraftRegistrantEntity findDraftRegistrantEntityByChallengeIdAndEmail(Long challengeId, String email, String internalEmail);
 
+    ChallengeRegistrantEntity findRegistrantByChallengeIdAndInternalEmail(Long challengeId, String internalEmail);
+
     List<ChallengeRegistrantFunnelItem> getChallengeRegistrantFunnel(Long challengeId, String ownerEmail);
 
     Long getTotalNumberOfRegistrants();

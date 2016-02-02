@@ -914,5 +914,6 @@
   "daysLeftToSubmit": "Còn <strong>{{days}} ngày</strong> để gửi bài",
   "finished": "Đã kết thúc",
   "verify": "Xác nhận",
-  "exampleEmail": "Ví dụ: vidu@"
+  "exampleEmail": "Ví dụ: vidu@",
+  "emailUsedAlready": "Email này đã được sử dụng"
 }

@@ -909,5 +909,6 @@
   "daysLeftToSubmit": "<strong>{{days}} day(s)</strong> left to submit",
   "verify": "Verify",
   "finished": "Finished",
-  "exampleEmail": "Ex: example@"
+  "exampleEmail": "Ex: example@",
+  "emailUsedAlready": "This email has been used already"
 }
