@@ -35,10 +35,10 @@
                  placeholder="{{'enterYourPassCode' | translate}}"/>
 
         <div class="error-messages"
-             ng-show="joinInternalForm.passcode.$error.required && (joinInternalForm.passcode.$dirty || joinInternalForm.$submitted)"
+             ng-show="joinInternalForm.passcode.$error.required"
              translate="requiredThisField"/>
         <div class="error-messages"
-             ng-show="joinInternalForm.passcode.$error.minlength && (joinInternalForm.passcode.$dirty || joinInternalForm.$submitted)"
+             ng-show="joinInternalForm.passcode.$error.minlength"
              translate="invalidMinlengthDigits" translate-value-length="4"/>
         <div class="error-messages"
              ng-show="joinInternalForm.passcode.$error.matchPasscode"
