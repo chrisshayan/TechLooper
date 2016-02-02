@@ -1,6 +1,7 @@
 package com.techlooper.controller;
 
 import com.techlooper.dto.ChallengeWinnerDto;
+import com.techlooper.dto.DraftRegistrantDto;
 import com.techlooper.dto.JoiningRegistrantDto;
 import com.techlooper.entity.ChallengeEntity;
 import com.techlooper.entity.ChallengeRegistrantDto;
@@ -220,8 +221,12 @@ public class ChallengeController {
     }
 
     @RequestMapping(value = "challenge/saveDraftRegistrant", method = RequestMethod.POST)
-    public DraftRegistrantEntity saveDraftRegistrant(@RequestBody DraftRegistrantEntity draftRegistrantEntity) {
-        return challengeRegistrantService.saveDraftRegistrant(draftRegistrantEntity);
+    public DraftRegistrantDto saveDraftRegistrant(@RequestBody DraftRegistrantEntity draftRegistrantEntity, HttpServletResponse response) {
+        DraftRegistrantDto draft = challengeRegistrantService.saveDraftRegistrant(draftRegistrantEntity);
+        if (draft == null) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        }
+        return  draft;
     }
 
     @RequestMapping(value = "challenge/draftRegistrant/{id}", method = RequestMethod.GET)

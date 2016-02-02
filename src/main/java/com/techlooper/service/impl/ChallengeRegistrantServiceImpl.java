@@ -2,8 +2,10 @@ package com.techlooper.service.impl;
 
 import com.techlooper.dto.ChallengeQualificationDto;
 import com.techlooper.dto.ChallengeWinnerDto;
+import com.techlooper.dto.DraftRegistrantDto;
 import com.techlooper.dto.RejectRegistrantDto;
 import com.techlooper.entity.*;
+import com.techlooper.mapper.DraftRegistrantMapper;
 import com.techlooper.model.*;
 import com.techlooper.repository.elasticsearch.ChallengeRegistrantRepository;
 import com.techlooper.repository.elasticsearch.ChallengeRepository;
@@ -73,6 +75,9 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
 
     @Resource
     private DraftRegistrantRepository draftRegistrantRepository;
+
+    @Resource
+    private DraftRegistrantMapper draftRegistrantMapper;
 
     public Map<ChallengePhaseEnum, ChallengeRegistrantPhaseItem> countNumberOfRegistrantsByPhase(Long challengeId) {
         Map<ChallengePhaseEnum, ChallengeRegistrantPhaseItem> numberOfRegistrantsByPhase = new HashMap<>();
@@ -349,6 +354,8 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
     }
 
     public DraftRegistrantEntity findDraftRegistrantEntityByChallengeIdAndEmail(Long challengeId, String email, String internalEmail) {
+
+
         NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withTypes("draftRegistrant");
         BoolQueryBuilder query = boolQuery()
           .must(termQuery("registrantEmail", email))
@@ -549,7 +556,12 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
         }
     }
 
-    public DraftRegistrantEntity saveDraftRegistrant(DraftRegistrantEntity draftRegistrantEntity) {
+    public DraftRegistrantDto saveDraftRegistrant(DraftRegistrantEntity draftRegistrantEntity) {
+        ChallengeRegistrantEntity existingRegistrant = this.findRegistrantByChallengeIdAndInternalEmail(draftRegistrantEntity.getChallengeId(), draftRegistrantEntity.getRegistrantInternalEmail());
+        if (existingRegistrant != null) {
+            return null;
+        }
+
         DraftRegistrantEntity draft = findDraftRegistrantEntityByChallengeIdAndEmail(draftRegistrantEntity.getChallengeId(),
                 draftRegistrantEntity.getRegistrantEmail(), draftRegistrantEntity.getRegistrantInternalEmail());
         draftRegistrantEntity.setRegistrantId(draft == null ? DateTimeUtils.currentDateTime() : draft.getRegistrantId());
@@ -558,7 +570,7 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
         draft.setPasscode(passcode);
         draft = draftRegistrantRepository.save(draft);
         challengeEmailService.sendEmailToVerifyRegistrantOfInternalChallenge(draft);
-        return draft;
+        return draftRegistrantMapper.fromEntity(draft);
     }
 
     @Override

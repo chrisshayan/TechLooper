@@ -9,7 +9,7 @@
 
     <p translate="cannotQualifyNextPhase"
        translate-value-next-phase="{{challenge.$afterNextPhaseItem.phaseLowerCase | translate}}"
-       translate-value-end-date-phase="{{challenge.$currentPhaseEndDay}}"
+       translate-value-end-date-phase="{{challenge.$currentState.dateTitle}}"
        ng-show="registrant.remainingPhaseItems.length == 0"></p>
 
     <div class="selection-next-phase" ng-show="registrant.remainingPhaseItems.length > 1">

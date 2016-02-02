@@ -377,6 +377,7 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
       var toNow = challengeDate.isSame(moment(), "day") ? 1 : challengeDate.diff(moment(), "days") + 2;
       challengeDetail.$currentState.timeLeftTitle = $filter("translate")(challengeDetail.$currentState.timeLeftTitleTranslate,
         {dayLeft: challengeDetail.$currentState.dayLeft || toNow});
+      challengeDetail.$currentState.dateTitle = challengeDetail.$currentState.date.format(jsonValue.dateFormat);
     };
 
     challengeDetail.recalculateRegistrants = function (registrants) {
