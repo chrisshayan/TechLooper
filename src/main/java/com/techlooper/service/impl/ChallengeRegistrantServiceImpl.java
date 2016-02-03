@@ -5,7 +5,6 @@ import com.techlooper.dto.ChallengeWinnerDto;
 import com.techlooper.dto.DraftRegistrantDto;
 import com.techlooper.dto.RejectRegistrantDto;
 import com.techlooper.entity.*;
-import com.techlooper.mapper.DraftRegistrantMapper;
 import com.techlooper.model.*;
 import com.techlooper.repository.elasticsearch.ChallengeRegistrantRepository;
 import com.techlooper.repository.elasticsearch.ChallengeRepository;
@@ -75,9 +74,6 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
 
     @Resource
     private DraftRegistrantRepository draftRegistrantRepository;
-
-    @Resource
-    private DraftRegistrantMapper draftRegistrantMapper;
 
     public Map<ChallengePhaseEnum, ChallengeRegistrantPhaseItem> countNumberOfRegistrantsByPhase(Long challengeId) {
         Map<ChallengePhaseEnum, ChallengeRegistrantPhaseItem> numberOfRegistrantsByPhase = new HashMap<>();
@@ -570,7 +566,7 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
         draft.setPasscode(passcode);
         draft = draftRegistrantRepository.save(draft);
         challengeEmailService.sendEmailToVerifyRegistrantOfInternalChallenge(draft);
-        return draftRegistrantMapper.fromEntity(draft);
+        return dozerMapper.map(draft, DraftRegistrantDto.class);
     }
 
     @Override

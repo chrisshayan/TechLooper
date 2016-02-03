@@ -110,7 +110,7 @@ techlooper.directive("submissionChallenge", function (localStorageService, apiSe
             scope.submissionForm && scope.submissionForm.submissionURL.$setValidity("invalidUrl", !inValid);
           })
           .finally(function() {
-            utils.sendNotification(jsonValue.notifications.loaded)
+            delete scope.loadingData;
           });
       }
     }

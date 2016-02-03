@@ -1,14 +1,12 @@
 package com.techlooper.dto;
 
 import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 /**
  * Created by phuonghqh on 1/29/16.
  */
-@Getter
-@Setter
+@Data
 @Builder
 public class JoiningRegistrantDto {
   public enum Reason {UNMATCH_PASSCODE, INVALID_FBEMAIL, INVALID_INTERNAL_EMAIL, SINGLE_ACCOUNT}
