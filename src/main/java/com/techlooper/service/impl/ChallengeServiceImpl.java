@@ -2,9 +2,6 @@ package com.techlooper.service.impl;
 
 import com.techlooper.dto.JoiningRegistrantDto;
 import com.techlooper.entity.*;
-import com.techlooper.mapper.ChallengeRegistrantMapper;
-import com.techlooper.mapper.CriteriaMapper;
-import com.techlooper.mapper.DraftRegistrantMapper;
 import com.techlooper.model.*;
 import com.techlooper.repository.elasticsearch.ChallengeRegistrantRepository;
 import com.techlooper.repository.elasticsearch.ChallengeRepository;
@@ -36,7 +33,6 @@ import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import static com.techlooper.model.ChallengePhaseEnum.*;
 import static com.techlooper.util.DateTimeUtils.currentDate;
@@ -70,12 +66,6 @@ public class ChallengeServiceImpl implements ChallengeService {
 
     @Resource
     private ChallengeEmailService challengeEmailService;
-
-    @Resource
-    private ChallengeRegistrantMapper challengeRegistrantMapper;
-
-    @Resource
-    private CriteriaMapper criteriaMapper;
 
     @Override
     public ChallengeEntity postChallenge(ChallengeDto challengeDto) {
@@ -124,9 +114,14 @@ public class ChallengeServiceImpl implements ChallengeService {
         }
 
         //save new registrant
-        ChallengeRegistrantEntity registrant = challengeRegistrantMapper.fromDto(challengeRegistrantDto);
+        ChallengeRegistrantEntity registrant = dozerMapper.map(challengeRegistrantDto, ChallengeRegistrantEntity.class);;
         registrant.setRegistrantId(DateTimeUtils.currentDateTime());
-        registrant.setCriteria(criteriaMapper.fromChallenge(challengeEntity.getCriteria()));
+
+        HashSet<ChallengeRegistrantCriteria> criteria = new HashSet<>();
+        if (challengeEntity.getCriteria() != null) {
+            challengeEntity.getCriteria().forEach(cri -> criteria.add(dozerMapper.map(cri, ChallengeRegistrantCriteria.class)));
+        }
+        registrant.setCriteria(criteria);
         registrant.setMailSent(Boolean.TRUE);
         registrant = challengeRegistrantRepository.save(registrant);
         challengeEmailService.sendApplicationEmailToContestant(challengeEntity, registrant);

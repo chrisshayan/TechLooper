@@ -5,7 +5,6 @@ import com.techlooper.dto.ChallengeWinnerDto;
 import com.techlooper.dto.DraftRegistrantDto;
 import com.techlooper.dto.RejectRegistrantDto;
 import com.techlooper.entity.*;
-import com.techlooper.mapper.DraftRegistrantMapper;
 import com.techlooper.model.*;
 import com.techlooper.repository.elasticsearch.ChallengeRegistrantRepository;
 import com.techlooper.repository.elasticsearch.ChallengeRepository;
@@ -75,9 +74,6 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
 
     @Resource
     private DraftRegistrantRepository draftRegistrantRepository;
-
-    @Resource
-    private DraftRegistrantMapper draftRegistrantMapper;
 
     public Map<ChallengePhaseEnum, ChallengeRegistrantPhaseItem> countNumberOfRegistrantsByPhase(Long challengeId) {
         Map<ChallengePhaseEnum, ChallengeRegistrantPhaseItem> numberOfRegistrantsByPhase = new HashMap<>();
@@ -469,10 +465,13 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
                 challengeDashBoardInfoBuilder.withCriteria(registrantEntity.getCriteria());
                 challengeDashBoardInfoBuilder.withSubmissions(challengeSubmissionService.findChallengeSubmissionByRegistrant(registrantId));
                 challengeDashBoardInfoBuilder.withChallengeType(challengeEntity.getChallengeType());
+                challengeDashBoardInfoBuilder.withJobSeekerPhase(getJobSeekerPhase(challengeEntity, registrantEntity));
                 challengeDashBoardInfoList.add(challengeDashBoardInfoBuilder.build());
             }
         }
-        return challengeDashBoardInfoList;
+        return challengeDashBoardInfoList.stream()
+                .sorted((source, destination) -> source.getJobSeekerPhase().getOrder() - destination.getJobSeekerPhase().getOrder())
+                .collect(toList());
     }
 
     private boolean isPhaseMatching(ChallengeEntity challengeEntity, ChallengeRegistrantEntity registrantEntity,
@@ -491,6 +490,21 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
                 return registrantEntity.getDisqualified() == null ? false : registrantEntity.getDisqualified();
             default:
                 return true;
+        }
+    }
+
+    private JobSeekerPhaseEnum getJobSeekerPhase(ChallengeEntity challengeEntity, ChallengeRegistrantEntity registrantEntity) {
+        ChallengePhaseEnum jobSeekerCurrentPhase = registrantEntity.getActivePhase() == null ?
+                REGISTRATION : registrantEntity.getActivePhase();
+        List<ChallengePhaseEnum> activePhases = Arrays.asList(REGISTRATION, IDEA, UIUX, PROTOTYPE, FINAL);
+        boolean isChallengeClosed = daysBetween(challengeEntity.getSubmissionDateTime(), currentDate()) > 0;
+
+        if (!isChallengeClosed && activePhases.contains(jobSeekerCurrentPhase)) {
+            return JobSeekerPhaseEnum.ACTIVE;
+        } else if (registrantEntity.getDisqualified() != null && registrantEntity.getDisqualified()) {
+            return JobSeekerPhaseEnum.DISQUALIFIED;
+        } else {
+            return JobSeekerPhaseEnum.FINISHED;
         }
     }
 
@@ -570,7 +584,7 @@ public class ChallengeRegistrantServiceImpl implements ChallengeRegistrantServic
         draft.setPasscode(passcode);
         draft = draftRegistrantRepository.save(draft);
         challengeEmailService.sendEmailToVerifyRegistrantOfInternalChallenge(draft);
-        return draftRegistrantMapper.fromEntity(draft);
+        return dozerMapper.map(draft, DraftRegistrantDto.class);
     }
 
     @Override

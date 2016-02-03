@@ -37,6 +37,8 @@ public class ChallengeDashBoardInfo {
 
     private List<ChallengeSubmissionEntity> submissions;
 
+    private JobSeekerPhaseEnum jobSeekerPhase;
+
     public Long getChallengeId() {
         return challengeId;
     }
@@ -141,6 +143,14 @@ public class ChallengeDashBoardInfo {
         this.challengeType = challengeType;
     }
 
+    public JobSeekerPhaseEnum getJobSeekerPhase() {
+        return jobSeekerPhase;
+    }
+
+    public void setJobSeekerPhase(JobSeekerPhaseEnum jobSeekerPhase) {
+        this.jobSeekerPhase = jobSeekerPhase;
+    }
+
     public static class Builder {
 
         private ChallengeDashBoardInfo challengeDashBoardInfo = new ChallengeDashBoardInfo();
@@ -207,6 +217,11 @@ public class ChallengeDashBoardInfo {
 
         public Builder withChallengeType(ChallengeTypeEnum challengeType) {
             challengeDashBoardInfo.setChallengeType(challengeType);
+            return this;
+        }
+
+        public Builder withJobSeekerPhase(JobSeekerPhaseEnum jobSeekerPhase) {
+            challengeDashBoardInfo.setJobSeekerPhase(jobSeekerPhase);
             return this;
         }
 

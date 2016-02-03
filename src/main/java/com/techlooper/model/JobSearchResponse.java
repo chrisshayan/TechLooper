@@ -80,4 +80,11 @@ public class JobSearchResponse {
     public void setJobs(List<JobResponse> jobs) {
         this.jobs = jobs;
     }
+
+    public void addJobs(List<JobResponse> jobs) {
+        if (this.jobs == null) {
+            this.jobs = new ArrayList<>();
+        }
+        this.jobs.addAll(jobs);
+    }
 }
