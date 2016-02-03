@@ -31,6 +31,12 @@ public class JobAlertEmailSender {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(JobAlertEmailSender.class);
 
+    private static final Integer OTHER_JOB_SOURCE_SIZE = 6;
+
+    private static final Integer VIETNAMWORKS_JOB_SOURCE_SIZE = 4;
+
+    private static final String VIETNAMWORKS_CRAWL_SOURCE = "vietnamworks";
+
     @Value("${jobAlert.enable}")
     private Boolean enableJobAlert;
 
@@ -69,7 +75,13 @@ public class JobAlertEmailSender {
                     if (daysBetween(lastSentDate, currentDate) > 0) {
                         JobSearchCriteria criteria = dozerMapper.map(jobAlertRegistrationEntity, JobSearchCriteria.class);
                         criteria.setFromJobAlert(true);
+                        criteria.setCrawlSource(VIETNAMWORKS_CRAWL_SOURCE);
+                        criteria.setSize(VIETNAMWORKS_JOB_SOURCE_SIZE);
                         JobSearchResponse jobSearchResponse = jobAggregatorService.findJob(criteria);
+
+                        criteria.setSize(OTHER_JOB_SOURCE_SIZE);
+                        jobSearchResponse.addJobs(jobAggregatorService.findJob(criteria).getJobs());
+
                         if (jobSearchResponse.getTotalJob() > 0) {
                             jobAggregatorService.sendEmail(jobAlertRegistrationEntity, jobSearchResponse);
                             jobAggregatorService.updateSendEmailResultCode(jobAlertRegistrationEntity, EMAIL_SENT);
