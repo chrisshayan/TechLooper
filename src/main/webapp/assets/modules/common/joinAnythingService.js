@@ -1,4 +1,4 @@
-techlooper.factory("joinAnythingService", function (apiService, localStorageService, $location, $rootScope, $route, $translate) {
+techlooper.factory("joinAnythingService", function (apiService, localStorageService, $location, $rootScope, $route, $translate, securityService) {
 
   var successfulJoinChallenge = function (joiningRegistrant) {
     var contestId = localStorageService.get("joiningChallengeId");
@@ -26,6 +26,10 @@ techlooper.factory("joinAnythingService", function (apiService, localStorageServ
 
     joinChallenge: function(success, error) {
       var contestId = localStorageService.get("joiningChallengeId");
+      if (!contestId && localStorageService.get("joinNow")) {
+        return securityService.routeByRole();
+      }
+
       if (!contestId) return;
 
       var firstName = localStorageService.get("firstName");
