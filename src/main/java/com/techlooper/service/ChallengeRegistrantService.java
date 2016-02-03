@@ -2,6 +2,7 @@ package com.techlooper.service;
 
 import com.techlooper.dto.ChallengeQualificationDto;
 import com.techlooper.dto.ChallengeWinnerDto;
+import com.techlooper.dto.DraftRegistrantDto;
 import com.techlooper.dto.RejectRegistrantDto;
 import com.techlooper.entity.ChallengeRegistrantDto;
 import com.techlooper.entity.ChallengeRegistrantEntity;
@@ -44,9 +45,11 @@ public interface ChallengeRegistrantService {
 
     List<ChallengeRegistrantEntity> findChallengeRegistrantWithinPeriod(Long challengeId, Long currentDateTime, TimePeriodEnum period);
 
-    ChallengeRegistrantEntity findRegistrantByChallengeIdAndEmail(Long challengeId, String email);
+    ChallengeRegistrantEntity findRegistrantByChallengeIdAndEmail(Long challengeId, String email, String internalEmail);
 
     DraftRegistrantEntity findDraftRegistrantEntityByChallengeIdAndEmail(Long challengeId, String email, String internalEmail);
+
+    ChallengeRegistrantEntity findRegistrantByChallengeIdAndInternalEmail(Long challengeId, String internalEmail);
 
     List<ChallengeRegistrantFunnelItem> getChallengeRegistrantFunnel(Long challengeId, String ownerEmail);
 
@@ -56,7 +59,7 @@ public interface ChallengeRegistrantService {
 
     List<ChallengeDashBoardInfo> getChallengeDashBoardInfo(JobSeekerDashBoardCriteria criteria);
 
-    DraftRegistrantEntity saveDraftRegistrant(DraftRegistrantEntity draftRegistrantEntity);
+    DraftRegistrantDto saveDraftRegistrant(DraftRegistrantEntity draftRegistrantEntity);
 
     List<JobSeekerChallengeStats> countNumberOfChallengesByJobSeekerPhase(JobSeekerDashBoardCriteria criteria);
 }

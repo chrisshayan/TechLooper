@@ -26,6 +26,9 @@ public class ChallengeRegistrantEntity {
     @Field(type = String, index = FieldIndex.not_analyzed)
     private String registrantEmail;
 
+    @Field(type = String, index = FieldIndex.not_analyzed)
+    private String registrantInternalEmail;
+
     @Field(type = Long)
     private Long challengeId;
 
@@ -64,6 +67,14 @@ public class ChallengeRegistrantEntity {
 
     @Field(type = FieldType.Integer)
     private Integer passCode;
+
+    public java.lang.String getRegistrantInternalEmail() {
+        return registrantInternalEmail;
+    }
+
+    public void setRegistrantInternalEmail(java.lang.String registrantInternalEmail) {
+        this.registrantInternalEmail = registrantInternalEmail;
+    }
 
     public Set<ChallengeRegistrantCriteria> getCriteria() {
         if (criteria == null) criteria = new HashSet<>();

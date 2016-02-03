@@ -1,4 +1,4 @@
-techlooper.directive("joinInternalChallenge", function (apiService, $translate, $location, $route, localStorageService) {
+techlooper.directive("joinInternalChallenge", function (apiService, $translate, $location, $route, localStorageService, joinAnythingService) {
   return {
     restrict: "E",
     replace: true,
@@ -29,41 +29,54 @@ techlooper.directive("joinInternalChallenge", function (apiService, $translate, 
         apiService.saveDraftRegistrant(scope.challenge.challengeId, firstName, lastName, email, scope.registrant.registrantInternalEmail, $translate.use())
           .success(function (draft) {
             scope.registrant.$sentVerifyEmail = true;
+          })
+          .error(function() {
+            scope.joinInternalForm.email.$setValidity("singleAccount", false);
+          })
+          .finally(function() {
+            scope.joinInternalForm.$setPristine();
           });
       }
 
       scope.joinChallenge = function () {
-        scope.joinInternalForm.$setValidity("matchPasscode", true);
+        scope.joinInternalForm.passcode.$setValidity("matchPasscode", true);
+        scope.joinInternalForm.email.$setValidity("singleAccount", true);
         scope.joinInternalForm.$setSubmitted();
         if (scope.joinInternalForm.$invalid) return;
-        //localStorageService.set("lastName", scope.registrant.registrantLastName);
-        //localStorageService.set("firstName", scope.registrant.registrantFirstName);
-        //localStorageService.set("email", scope.registrant.registrantEmail);
-        //localStorageService.set("joiningChallengeId", scope.challenge.challengeId);
-        //localStorageService.set("priorFoot", $location.url());
-        //localStorageService.set("lastFoot", $location.url());
-        //localStorageService.set("joinNow", true);
-        //$route.reload();
-        //joinChallenge();
-        apiService.joinContest(scope.challenge.challengeId, localStorageService.get("lastName"),
-          localStorageService.get("firstName"), localStorageService.get("email"), $translate.use(),
-          scope.registrant.registrantInternalEmail, scope.registrant.passcode)
-          .success(function (count) {
-            var joinContests = localStorageService.get("joinContests") || "";
-            joinContests = joinContests.length > 0 ? joinContests.split(",") : [];
-            if ($.inArray(scope.challenge.challengeId, joinContests) < 0) {
-              joinContests.push(scope.challenge.challengeId);
-            }
-            localStorageService.set("joinContests", joinContests.join(","));
-            scope.doCancel();
-            $route.reload();
-          })
-          .error(function() {
-            scope.joinInternalForm.$setValidity("matchPasscode", false);
-          });
-          //.finally(function () {
-          //  $route.reload();
-          //});
+
+        localStorageService.set("joiningChallengeId", scope.challenge.challengeId);
+        localStorageService.set("internalEmail", scope.registrant.registrantInternalEmail);
+        localStorageService.set("passcode", scope.registrant.passcode);
+        joinAnythingService.joinChallenge(function() {
+          localStorageService.remove("joiningChallengeId");
+          $route.reload();
+        }, function(joiningRegistrant) {
+          //scope.challenge.$failJoin = true;
+          //if (joiningRegistrant.reason == "INVALID_FBEMAIL") {
+          //  scope.challenge.$failedJoin = true;
+          //}
+          joiningRegistrant.reason == "UNMATCH_PASSCODE" && scope.joinInternalForm.passcode.$setValidity("matchPasscode", false);
+          joiningRegistrant.reason == "SINGLE_ACCOUNT" && scope.joinInternalForm.email.$setValidity("singleAccount", false);
+          localStorageService.remove("joiningChallengeId");
+        });
+
+
+        //apiService.joinContest(scope.challenge.challengeId, localStorageService.get("lastName"),
+        //  localStorageService.get("firstName"), localStorageService.get("email"), $translate.use(),
+        //  scope.registrant.registrantInternalEmail, scope.registrant.passcode)
+        //  .success(function (joiningRegistrant) {
+        //    var joinContests = localStorageService.get("joinContests") || "";
+        //    joinContests = joinContests.length > 0 ? joinContests.split(",") : [];
+        //    if ($.inArray(scope.challenge.challengeId, joinContests) < 0) {
+        //      joinContests.push(scope.challenge.challengeId);
+        //    }
+        //    localStorageService.set("joinContests", joinContests.join(","));
+        //    scope.doCancel();
+        //    $route.reload();
+        //  })
+        //  .error(function() {
+        //    scope.joinInternalForm.$setValidity("matchPasscode", false);
+        //  });
       };
 
       scope.doCancel = function () {
@@ -71,7 +84,7 @@ techlooper.directive("joinInternalChallenge", function (apiService, $translate, 
         scope.joinInternalForm.$setPristine();
         //localStorageService.remove("joinNowInternalChallenge");
         //localStorageService.remove("joiningChallengeId");
-        localStorageService.remove("failedJoin");
+        //localStorageService.remove("failedJoin");
         _.isFunction(scope.cancel) && scope.cancel(scope.challenge);
       };
       $("input.inputText").keypress(function(event) {

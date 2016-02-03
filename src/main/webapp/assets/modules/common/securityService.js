@@ -135,6 +135,9 @@ techlooper.factory("securityService", function (apiService, $route, $rootScope, 
           return false;
         }
 
+        //remove operation flags
+        //localStorageService.remove("joiningChallengeId");
+
         //$rootScope.currentUiView = utils.getUiView();
         if (roles.length > 0) {//is protected pages
           //localStorageService.set("params", $location.search($location.search()));

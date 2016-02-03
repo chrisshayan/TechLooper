@@ -54,11 +54,6 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
           lang: lang,
           registrantInternalEmail: internalEmail,
           passcode: passcode
-        },
-        {
-          transformResponse: function (d, h) {
-            return d;
-          }
         });
     },
 
@@ -107,7 +102,7 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
         localStorageService.set("joinNow", true);
         if (challenge) {
           localStorageService.set("joiningChallengeId", challenge.challengeId);
-          localStorageService.set("joinNowInternalChallenge", challenge.$isInternal);
+          //localStorageService.set("joinNowInternalChallenge", challenge.$isInternal);
         }
         //if (challenge && challenge.$isInternal) {
         //  localStorageService.set("joinNowInternalChallenge", true);
@@ -453,6 +448,10 @@ techlooper.factory("apiService", function ($rootScope, $location, jsonValue, $ht
       }).success(function (info) {
         $filter("jobseekerDashboard")(info);
       });
+    },
+
+    joinedChallenge: function (email, challengeId) {
+      return $http.get("challenge/joined/" + challengeId + "/" + email, {transformResponse: function (d, h) {return d;}});
     }
   };
 

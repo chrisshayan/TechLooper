@@ -1,5 +1,6 @@
 package com.techlooper.service;
 
+import com.techlooper.dto.JoiningRegistrantDto;
 import com.techlooper.entity.ChallengeEntity;
 import com.techlooper.entity.ChallengeRegistrantDto;
 import com.techlooper.model.ChallengeDetailDto;
@@ -16,7 +17,7 @@ public interface ChallengeService {
 
     ChallengeEntity postChallenge(ChallengeDto challengeDto);
 
-    Long joinChallenge(ChallengeRegistrantDto challengeRegistrantDto);
+    JoiningRegistrantDto joinChallenge(ChallengeRegistrantDto challengeRegistrantDto);
 
     ChallengeDetailDto getChallengeDetail(Long challengeId, String loginEmail);
 

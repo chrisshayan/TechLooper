@@ -4,7 +4,10 @@ techlooper.directive("resetValidatorOnBlur", function(){
     require: 'ngModel',
     link: function(scope, element, attrs, ctrl){
       ctrl.$parsers.unshift(function(value) {
-        ctrl.$setValidity(attrs.resetValidatorOnBlur, true);
+        var validators = attrs.resetValidatorOnBlur.split(",");
+        _.each(validators, function(validator) {
+          ctrl.$setValidity(validator, true);
+        });
         return value;
       });
     }

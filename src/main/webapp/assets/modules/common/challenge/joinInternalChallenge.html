@@ -11,7 +11,8 @@
       <div ng-class="{'col-sm-12': !registrant.$sentVerifyEmail, 'col-sm-6': registrant.$sentVerifyEmail}">
         <label for="ic-email"><span translate="emailAddressField"></span> <strong>*</strong></label>
         <input type="email" class="form-control inputText" id="ic-email" placeholder="{{('exampleEmail') | translate}}{{challenge.companyDomains[0]}}"
-               name="email" ng-model="registrant.registrantInternalEmail" ng-required="true" ng-readonly="registrant.$sentVerifyEmail"/>
+               name="email" ng-model="registrant.registrantInternalEmail" ng-required="true"
+               ng-readonly="registrant.$sentVerifyEmail" reset-validator-on-blur="singleAccount"/>
         <span class="error-messages"
               ng-show="joinInternalForm.email.$error.required && (joinInternalForm.email.$dirty || joinInternalForm.$submitted)"
               translate="requiredThisField"/>
@@ -21,25 +22,26 @@
         <span class="error-messages"
               ng-show="joinInternalForm.email.$error.domainMatch && (joinInternalForm.email.$dirty || joinInternalForm.$submitted)"
               translate="emailDomainNotMatch"/>
+        <span class="error-messages" ng-show="joinInternalForm.email.$error.singleAccount" translate="emailUsedAlready" />
       </div>
 
-      <div class="col-sm-6" ng-show="registrant.$sentVerifyEmail">
+      <div class="col-sm-6" ng-if="registrant.$sentVerifyEmail">
         <label class="col-md-12">
           <span translate="passCode"></span>
         </label>
           <input type="password" class="input-style passcode inputText"
-                 name="passcode" maxlength="4" minlength="4" only-digits=""
-                 ng-model="registrant.passcode"
+                 name="passcode" maxlength="4" minlength="4" only-digits="" ng-required="true"
+                 ng-model="registrant.passcode" reset-validator-on-blur="matchPasscode"
                  placeholder="{{'enterYourPassCode' | translate}}"/>
 
         <div class="error-messages"
-             ng-show="joinInternalForm.passcode.$error.required && (joinInternalForm.passcode.$dirty || joinInternalForm.$submitted)"
+             ng-show="joinInternalForm.passcode.$error.required"
              translate="requiredThisField"/>
         <div class="error-messages"
-             ng-show="joinInternalForm.passcode.$error.minlength && (joinInternalForm.passcode.$dirty || joinInternalForm.$submitted)"
+             ng-show="joinInternalForm.passcode.$error.minlength"
              translate="invalidMinlengthDigits" translate-value-length="4"/>
         <div class="error-messages"
-             ng-show="joinInternalForm.$error.matchPasscode"
+             ng-show="joinInternalForm.passcode.$error.matchPasscode"
              translate="invalidCredential" />
       </div>
     </div>

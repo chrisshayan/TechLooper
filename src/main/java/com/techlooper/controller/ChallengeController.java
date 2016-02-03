@@ -1,6 +1,8 @@
 package com.techlooper.controller;
 
 import com.techlooper.dto.ChallengeWinnerDto;
+import com.techlooper.dto.DraftRegistrantDto;
+import com.techlooper.dto.JoiningRegistrantDto;
 import com.techlooper.entity.ChallengeEntity;
 import com.techlooper.entity.ChallengeRegistrantDto;
 import com.techlooper.entity.ChallengeRegistrantEntity;
@@ -103,16 +105,21 @@ public class ChallengeController {
     }
 
     @RequestMapping(value = "/challenge/join", method = RequestMethod.POST)
-    public long joinChallenge(@RequestBody ChallengeRegistrantDto challengeRegistrantDto, HttpServletResponse response) throws Exception {
-        if (!EmailValidator.validate(challengeRegistrantDto.getRegistrantEmail())) {
+    public JoiningRegistrantDto joinChallenge(@RequestBody ChallengeRegistrantDto challengeRegistrantDto, HttpServletResponse response) throws Exception {
+//        if (!EmailValidator.validate(challengeRegistrantDto.getRegistrantEmail())) {
+//            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+//            return 0L;
+//        }
+//        Long countRegistrants = challengeService.joinChallenge(challengeRegistrantDto);
+//        if (countRegistrants == 0L) {
+//            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+//        }
+//        return countRegistrants;
+        JoiningRegistrantDto joiningDto = challengeService.joinChallenge(challengeRegistrantDto);
+        if (!joiningDto.isSucceedJoin()) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            return 0L;
         }
-        Long countRegistrants = challengeService.joinChallenge(challengeRegistrantDto);
-        if (countRegistrants == 0L) {
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-        }
-        return countRegistrants;
+        return joiningDto;
     }
 
     @RequestMapping(value = "/challenge/list", method = RequestMethod.GET)
@@ -214,12 +221,21 @@ public class ChallengeController {
     }
 
     @RequestMapping(value = "challenge/saveDraftRegistrant", method = RequestMethod.POST)
-    public DraftRegistrantEntity saveDraftRegistrant(@RequestBody DraftRegistrantEntity draftRegistrantEntity) {
-        return challengeRegistrantService.saveDraftRegistrant(draftRegistrantEntity);
+    public DraftRegistrantDto saveDraftRegistrant(@RequestBody DraftRegistrantEntity draftRegistrantEntity, HttpServletResponse response) {
+        DraftRegistrantDto draft = challengeRegistrantService.saveDraftRegistrant(draftRegistrantEntity);
+        if (draft == null) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        }
+        return  draft;
     }
 
     @RequestMapping(value = "challenge/draftRegistrant/{id}", method = RequestMethod.GET)
     public DraftRegistrantEntity getDraftRegistrant(@PathVariable Long id) {
         return draftRegistrantRepository.findOne(id);
+    }
+
+    @RequestMapping(value = "challenge/joined/{challengeId}/{email}", method = RequestMethod.GET)
+    public boolean joinedChallenge(@PathVariable Long challengeId, @PathVariable String email) {
+        return challengeRegistrantService.findRegistrantByChallengeIdAndEmail(challengeId, email, null) != null;
     }
 }

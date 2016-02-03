@@ -257,12 +257,23 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
       challengeDetail.$isPublic = jsonValue.challengeType.isPublic(challengeDetail.challengeType);
       challengeDetail.$isInternal = jsonValue.challengeType.isInternal(challengeDetail.challengeType);
 
+      var joiningChallengeId = localStorageService.get("joiningChallengeId");
+      var invalidInternalEmail = localStorageService.get("invalidInternalEmail");
+      if (invalidInternalEmail) {
+        var joinContests = localStorageService.get("joinContests") || "";
+        joinContests = joinContests.length > 0 ? joinContests.split(",") : [];
+        joinContests = _.reject(joinContests, function (id) {
+          return id == "" + joiningChallengeId;
+        });
+        localStorageService.set("joinContests", joinContests.join(","));
+        localStorageService.remove("invalidInternalEmail");
+      }
+
       challengeDetail.recalculateCurrentState();
       challengeDetail.recalculateCurrentUserJoined();
       challengeDetail.recalculatePhaseItems();
       challengeDetail.recalculateRegistrants(registrants);
 
-      var joiningChallengeId = localStorageService.get("joiningChallengeId");
       if (challengeDetail.challengeId == joiningChallengeId) {
         challengeDetail.$isJoiningChallenge = !challengeDetail.$currentUserJoined;
         localStorageService.remove("joiningChallengeId");
@@ -366,6 +377,7 @@ techlooper.filter("challengeDetail", function (apiService, $rootScope, jsonValue
       var toNow = challengeDate.isSame(moment(), "day") ? 1 : challengeDate.diff(moment(), "days") + 2;
       challengeDetail.$currentState.timeLeftTitle = $filter("translate")(challengeDetail.$currentState.timeLeftTitleTranslate,
         {dayLeft: challengeDetail.$currentState.dayLeft || toNow});
+      challengeDetail.$currentState.dateTitle = challengeDetail.$currentState.date.format(jsonValue.dateFormat);
     };
 
     challengeDetail.recalculateRegistrants = function (registrants) {
