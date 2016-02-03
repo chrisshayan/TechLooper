@@ -1,4 +1,4 @@
-techlooper.directive("submissionChallenge", function (localStorageService, apiService, $timeout, $rootScope, $location) {
+techlooper.directive("submissionChallenge", function (localStorageService, apiService, $timeout, $rootScope, $location, utils, jsonValue) {
   return {
     restrict: "E",
     replace: true,
@@ -108,6 +108,9 @@ techlooper.directive("submissionChallenge", function (localStorageService, apiSe
                 });
             }
             scope.submissionForm && scope.submissionForm.submissionURL.$setValidity("invalidUrl", !inValid);
+          })
+          .finally(function() {
+            utils.sendNotification(jsonValue.notifications.loaded)
           });
       }
     }
