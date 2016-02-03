@@ -19,6 +19,8 @@ public class JobSearchCriteria {
 
     private boolean fromJobAlert;
 
+    private Integer size;
+
     public JobSearchCriteria() {
         this.page = 1;
     }
@@ -81,5 +83,13 @@ public class JobSearchCriteria {
 
     public void setFromJobAlert(boolean fromJobAlert) {
         this.fromJobAlert = fromJobAlert;
+    }
+
+    public Integer getSize() {
+        return size;
+    }
+
+    public void setSize(Integer size) {
+        this.size = size;
     }
 }

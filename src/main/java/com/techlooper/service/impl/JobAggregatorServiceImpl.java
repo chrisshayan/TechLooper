@@ -290,7 +290,7 @@ public class JobAggregatorServiceImpl implements JobAggregatorService {
     }
 
     private NativeSearchQueryBuilder getJobListingQueryBuilder(JobSearchCriteria criteria) {
-        final int NUMBER_OF_ITEMS_PER_PAGE = 10;
+        final int NUMBER_OF_ITEMS_PER_PAGE = criteria.getSize() != null ? criteria.getSize() : 10;
         NativeSearchQueryBuilder searchQueryBuilder = new NativeSearchQueryBuilder().withTypes("job");
 
         QueryBuilder queryBuilder = null;
@@ -310,6 +310,11 @@ public class JobAggregatorServiceImpl implements JobAggregatorService {
         BoolFilterBuilder filterBuilder = new BoolFilterBuilder();
         filterBuilder.mustNot(termFilter("isActive", 0));
         filterBuilder.must(rangeFilter("createdDateTime").from("now-30d/d"));
+
+        if (StringUtils.isNotEmpty(criteria.getCrawlSource())) {
+            filterBuilder.must(termFilter("crawlSource", criteria.getCrawlSource()));
+        }
+
         if (criteria.getTopPriority() != null) {
             if (criteria.getTopPriority()) {
                 filterBuilder.must(termFilter("topPriority", true));
